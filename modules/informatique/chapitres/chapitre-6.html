@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Circuits patient dans le SIH</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 6. -->
+<main class="cours-chapitre" data-chapitre="6">
+<p class="etiquette" data-etiquette></p>
+<h1>Circuits patient dans le SIH</h1>
+
+<section class="partie" id="s-patient-identite">
+<p class="rang-partie">1 / 4</p>
+<h2>Suivre un patient et créer une identité</h2>
+
+<article class="notion" id="n-circuit-patient">
+<h3>Suivre un patient à travers les modules</h3>
+<p class="chapeau">22 h 40 : un homme de 68 ans arrive aux urgences avec une douleur thoracique, sans pièce d'identité, accompagné d'un proche. Quels modules du SIH, quels processus et quels acteurs vont intervenir ?</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre suit le patient. Trois objectifs du cours : le <b>suivre</b> de l'admission à la facturation, à travers les circuits et les modules clés ; <b>détailler pour chaque module</b> les données produites, les acteurs, les points de risque et les indicateurs ; <b>situer l'ingénieur biomédical</b>, ses interfaces et ses zones de responsabilité dans le SIH. On commence par l'identité (création, appariement, identitovigilance), puis le circuit administratif jusqu'à la facture, et les trois circuits médico-techniques : laboratoire (LIS), imagerie (RIS), médicament (PIS).</p>
+
+<h4>Intuition</h4>
+<p>Le cours propose une activité en binômes : compléter, pour chaque étape de la frise, le module, le processus et les acteurs. Le cours laisse la frise à compléter ; la figure en propose une correction cohérente avec le reste du cours.</p>
+<div id="fig-frise"></div>
+
+<h4>Formalisation</h4>
+<p class="complement">Correction proposée (le cours pose la question).</p>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Module</th><th>Processus</th><th>Acteurs</th></tr>
+<tr><td>N1 Accueil urgences</td><td>module urgences / admission</td><td>accueil, motif, triage</td><td>agent d'accueil, IOA</td></tr>
+<tr><td>N2 Guichet d'admission</td><td>admission (GIH)</td><td>création / vérification de l'identité, ouverture du séjour, droits</td><td>agent d'admission, patient, proche</td></tr>
+<tr><td>N3 Consultation des urgences</td><td>DPI (module médecin)</td><td>examen initial, prescriptions</td><td>urgentiste, infirmier</td></tr>
+<tr><td>N4.1 Laboratoire</td><td>LIS</td><td>pré-analytique, analytique, post-analytique</td><td>préleveur, technicien, biologiste</td></tr>
+<tr><td>N4.2 Imagerie</td><td>RIS (et PACS)</td><td>demande, planification, réalisation, compte rendu</td><td>manipulateur, radiologue, secrétaire</td></tr>
+<tr><td>N5 Zone d'observation</td><td>DPI (module infirmier, pancarte, plan de soins)</td><td>surveillance, réévaluation</td><td>infirmier, médecin</td></tr>
+<tr><td>N6 Guichet de sortie</td><td>admission, facturation</td><td>sortie et clôture du séjour, facturation</td><td>agent d'admission / facturation, médecin (compte rendu)</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Le scénario du cours : sans pièce d'identité, le patient pose d'emblée un problème au guichet d'admission. Le risque : créer un doublon, ou pire, l'associer au dossier d'un autre. C'est l'objet des pages suivantes.</p>
+
+<h4>Formules clés</h4>
+<p>Accueil → admission → consultation → laboratoire et imagerie → observation → sortie.</p>
+<p>Pour chaque étape : module, processus, acteurs, risques, indicateurs.</p>
+</article>
+
+<article class="notion" id="n-identite">
+<h3>Création et vérification d'une identité</h3>
+<p class="chapeau">Sans CIN, la recherche affiche trois « Fatima Idrissi ». Laquelle est la patiente devant le guichet ? Se tromper, c'est soigner la mauvaise personne.</p>
+<h4>Intuition</h4>
+<p>Avant de créer un dossier, l'agent d'admission cherche toujours s'il existe déjà. Ensuite tout dépend de ce qu'il trouve : une fiche avec la même CIN, aucune fiche, ou plusieurs fiches sans CIN. Chaque cas a sa règle, et quand le doute reste, on passe la main à l'identitovigilance.</p>
+<div id="fig-bpmn"></div>
+
+<h4>Formalisation</h4>
+<p>Processus de création / vérification d'une identité (cours, en BPMN) : le patient se présente au guichet correspondant à sa catégorie (AC/1) ; l'agent d'admission recherche l'identité du patient (AC/2), puis :</p>
+<ul>
+<li>si la recherche affiche des résultats avec CIN : contrôler la cohérence de l'identité à travers la CIN ; si cohérence, sélectionner l'identité ; si aucune cohérence, créer une nouvelle identité ;</li>
+<li>si la recherche n'affiche aucun résultat : créer une nouvelle identité (enregistrée dans le SI) ;</li>
+<li>si la recherche affiche plusieurs résultats sans CIN : contrôler la cohérence avec la date de naissance ; si cohérence, sélectionner l'identité ; si la date de naissance n'est pas renseignée, identitovigilance ; sinon, créer une nouvelle identité.</li>
+</ul>
+<p>L'<b>identitovigilance</b> est un système de surveillance et de gestion des risques visant à garantir la fiabilité de l'identification des patients et des usagers tout au long de leur parcours de santé. Objectifs principaux : assurer le bon soin au bon patient, au bon moment ; sécuriser les données de santé et les échanges entre professionnels ; éviter les doublons de dossiers et les confusions d'identité.</p>
+<div class="tableau"><table>
+<tr><th>Terme</th><th>Définition du cours</th></tr>
+<tr><td>Doublon</td><td>un même individu possède plusieurs dossiers dans le système</td></tr>
+<tr><td>Collision de DPI</td><td>erreur grave qui consiste à mélanger les données de santé de deux patients différents dans un seul et même dossier numérique</td></tr>
+<tr><td>MPI (Master Patient Index)</td><td>base de données centrale qui attribue un identifiant unique à chaque patient et détecte les doublons</td></tr>
+<tr><td>Appariement (record linkage)</td><td>processus algorithmique qui détermine si deux enregistrements correspondent à la même personne</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois « Fatima Idrissi », pas de CIN, et la patiente confuse ne donne pas sa date de naissance : on ne choisit pas au hasard, on passe à l'identitovigilance. Choisir la mauvaise fiche créerait une collision : ses résultats iraient dans le dossier d'une autre.</p>
+
+<h4>Formules clés</h4>
+<p>Rechercher avant de créer. Avec CIN : contrôle par la CIN. Aucun résultat : création. Plusieurs sans CIN : contrôle par la date de naissance, sinon identitovigilance.</p>
+<p>Doublon = une personne, plusieurs dossiers. Collision = plusieurs personnes, un dossier.</p>
+</article>
+
+<div class="fin-partie" data-section="patient-identite"></div>
+</section>
+
+<section class="partie" id="s-appariement-vigilance">
+<p class="rang-partie">2 / 4</p>
+<h2>Appariement et identitovigilance</h2>
+
+<article class="notion" id="n-appariement">
+<h3>Algorithmes d'appariement et Golden Record</h3>
+<p class="chapeau">« BENJELLOUN » et « BENJELLOUNE », même prénom, même date de naissance, même CIN : une règle stricte dit « deux patients », un score dit « presque sûrement le même ».</p>
+<h4>Intuition</h4>
+<p>Une règle stricte compare des champs identiques : une seule faute de frappe et elle échoue. Une méthode probabiliste note la ressemblance de chaque champ, donne plus de poids aux champs importants, et décide selon le score global : match, revue par un humain, ou pas de match.</p>
+<div id="fig-score"></div>
+
+<h4>Formalisation</h4>
+<p><b>Appariement déterministe</b> (règles strictes). Règle : si (NOM + PRÉNOM + DATE_DE_NAISSANCE) sont identiques → même patient. Exemple du cours : A = BENJELLOUN / AHMED / 15/03/1978 et B identique → MATCH (score = 100 %) ; C = BENJELLOUNE / AHMED / 15/03/1978 → PAS DE MATCH (faute de frappe).</p>
+<p><b>Appariement probabiliste</b> (Fellegi-Sunter...) : calcule un score de similarité pour chaque champ et pondère l'importance de chaque correspondance. Dans l'exemple du cours, le nom vaut 0,85, les autres champs (prénom, date de naissance, sexe, téléphone, CIN) 100 % ; score global pondéré : 0,95. (La diapositive écrit « 0,85 % » et « 0,95 % » : il s'agit de 0,85 et 0,95.)</p>
+<p class="complement">Poids ajoutés pour le calcul.</p>
+<p>Le cours ne donne pas les poids. Avec des poids \(w_i\) et des scores partiels \(s_i\) :</p>
+<p>\[ S = \frac{\sum_i w_i\, s_i}{\sum_i w_i} \]</p>
+<p>Avec les poids de la figure (nom 8, prénom 3, naissance 4, sexe 1, téléphone 2, CIN 6), l'exemple du cours redonne bien \(S = (0{,}85 \times 8 + 16) / 24 = 0{,}95\).</p>
+<div class="tableau"><table>
+<tr><th>Seuils de décision (cours)</th><th>Décision</th></tr>
+<tr><td>score &gt; 0,90</td><td>MATCH automatique</td></tr>
+<tr><td>0,70 &lt; score &lt; 0,90</td><td>REVUE MANUELLE (l'agent d'admission vérifie)</td></tr>
+<tr><td>score &lt; 0,70</td><td>PAS DE MATCH</td></tr>
+</table></div>
+<p>Le <b>Golden Record</b> (ou « fiche pivot ») est la version unique et consolidée des données d'un patient, issue de la fusion des doublons détectés.</p>
+<p><b>Pipeline de qualité des données patient</b> : 1. capture (saisie libre à l'admission) → 2. normalisation (majuscules, suppression des accents, format standard du numéro) → 3. contrôle (date de naissance cohérente ? téléphone valide ? CIN valide (clé) ?) → 4. appariement MPI (comparaison avec la base existante, score probabiliste, décision auto / manuelle). Issues : doublon détecté → fusion (Golden Record) ; nouveau patient → création (Golden Record) ; revue manuelle → l'opérateur décide.</p>
+<div id="fig-pipeline"></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Tout est identique sauf la CIN (score partiel 0) : \(S = 18 / 24 = 0{,}75\), revue manuelle. Le nom est encore plus mal saisi : dès que son score partiel tombe à 0,70, \(S = 0{,}90\) n'est plus strictement au-dessus du seuil, et l'appariement n'est plus automatique.</p>
+
+<h4>Formules clés</h4>
+<p>Déterministe : NOM + PRÉNOM + DATE_DE_NAISSANCE identiques.</p>
+<p>\[ S = \frac{\sum w_i s_i}{\sum w_i} \quad ; \quad S &gt; 0{,}90 \Rightarrow \text{match},\ 0{,}70 &lt; S &lt; 0{,}90 \Rightarrow \text{revue},\ S &lt; 0{,}70 \Rightarrow \text{pas de match} \]</p>
+<p>Capture → normalisation → contrôle → appariement (MPI) → fusion, création ou revue.</p>
+</article>
+
+<article class="notion" id="n-identitovigilance">
+<h3>Organisation de l'identitovigilance</h3>
+<p class="chapeau">Un doublon détecté, une collision à corriger, un bracelet oublié : qui s'en occupe ? L'identitovigilance est l'affaire de tout l'hôpital, à chacun son geste.</p>
+<h4>Intuition</h4>
+<p>En haut, un comité fixe la politique. Au milieu, une cellule corrige les dossiers et suit les indicateurs. Sur le terrain, l'accueil vérifie, les services cliniques contrôlent au lit, et le DIM, la DSI et le biomédical donnent l'appui technique. Deux indicateurs disent si l'ensemble fonctionne.</p>
+<div id="fig-orga"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Acteur</th><th>Composition</th><th>Manipulations nécessaires</th></tr>
+<tr><td>Comité d'identitovigilance (gouvernance et politique)</td><td>direction, représentant médical, qualité, DIM, soins, DSI</td><td>fixer la politique d'identification ; valider procédures et moyens ; examiner le bilan annuel des incidents</td></tr>
+<tr><td>Cellule d'identitovigilance (référent et gestionnaires)</td><td>référent, gestionnaires, médecin, cadre de santé, DSI, risques</td><td>traiter doublons et collisions ; valider les fusions de dossiers ; former, auditer, suivre les indicateurs</td></tr>
+<tr><td>Accueil et admissions (premier point de contact)</td><td></td><td>demander et contrôler une pièce d'identité ; rechercher avant de créer un dossier ; attribuer le statut d'identité</td></tr>
+<tr><td>Services cliniques (soins, laboratoire, imagerie, bloc)</td><td></td><td>faire dire son nom au patient ; bracelet et étiquetage des prélèvements ; signaler toute anomalie d'identité</td></tr>
+<tr><td>DIM, DSI, biomédical (appui technique et données)</td><td></td><td>paramétrer alertes et contrôles de saisie ; extraire les indicateurs de qualité ; associer les DM au bon patient</td></tr>
+</table></div>
+<p>Principaux indicateurs : <b>taux de doublons</b> ; <b>identités provisoires non régularisées à 48 h</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>120 doublons sur 40 000 dossiers : \(120 / 40\,000 = 0{,}003\), soit un taux de doublons de 0,3 %. Côté biomédical, un moniteur de réanimation qui envoie ses constantes au DPI doit être associé au bon patient, sinon ses données nourrissent le mauvais dossier.</p>
+
+<h4>Formules clés</h4>
+<p>Comité (politique) → cellule (corrections, indicateurs) → terrain (accueil, services, appui technique).</p>
+<p>\[ \text{taux de doublons} = \frac{\text{doublons}}{\text{dossiers}} \]</p>
+</article>
+
+<div class="fin-partie" data-section="appariement-vigilance"></div>
+</section>
+
+<section class="partie" id="s-admission-facturation">
+<p class="rang-partie">3 / 4</p>
+<h2>Admission et facturation</h2>
+
+<article class="notion" id="n-admission-facturation">
+<h3>Circuit admission → facturation</h3>
+<p class="chapeau">Le compte rendu de sortie parle d'une échographie qu'aucun acte saisi ne mentionne. La facture partira incomplète, et les statistiques de l'hôpital seront fausses.</p>
+<h4>Intuition</h4>
+<p>Du guichet d'admission à la facture, cinq étapes s'enchaînent, chacune avec ses données et son risque. Et l'erreur d'identité, faite au départ, se paie à toutes les étapes.</p>
+<div id="fig-circuit"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Service</th><th>Étape</th><th>Données et actions</th><th>Risque étape</th></tr>
+<tr><td>Admission</td><td>Ouverture du séjour et mouvements</td><td>unité, lit, transferts, mutations</td><td>lit erroné, mouvement non saisi, statistiques erronées (taux de rotation des lits, durée des séjours...)</td></tr>
+<tr><td>Admission</td><td>Couverture sociale et droits</td><td>vérification de l'AMO ou de la couverture, organisme payeur</td><td>droits erronés, rejet du dossier, statistiques erronées</td></tr>
+<tr><td>Hospitalier</td><td>Production des actes et du séjour</td><td>saisie ou remontée automatique des actes, consommables, DM facturables</td><td>actes oubliés, sous-valorisation, statistiques erronées</td></tr>
+<tr><td>Hospitalier</td><td>Sortie et clôture</td><td>compte rendu (CR) de sortie, date de sortie médicale et administrative</td><td>actes exécutés après la déclaration de la sortie, discordance entre acte et CR</td></tr>
+<tr><td>Facturation</td><td>Facturation et recouvrement</td><td>tarification, tiers payant, suivi des rejets</td><td>rejets, impayés, délais</td></tr>
+</table></div>
+<p><b>Transverse</b> : une erreur d'identité au départ se paie durant toutes les étapes de prise en charge d'un patient. Coût caché d'une erreur d'identité : actes refaits, séjour allongé, litige, facture rejetée (le cours invite à en proposer un ordre de grandeur).</p>
+<p><b>Dilemme de qualité</b> : faut-il sacrifier la rapidité d'admission aux urgences à la fiabilité de l'identité ? Propositions du cours : favoriser la qualité des données à la rapidité lors de l'admission ; en cas d'urgence totale, mettre en place une procédure de gestion de l'identité provisoire.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un polytraumatisé inconscient, sans papiers : identité provisoire, régularisée ensuite (l'indicateur « identités provisoires non régularisées à 48 h » le surveille). Un patient stable venu avec sa CIN : on prend le temps de vérifier.</p>
+
+<h4>Formules clés</h4>
+<p>Ouverture du séjour → droits → actes → sortie et clôture → facturation et recouvrement.</p>
+<p>Qualité d'abord ; identité provisoire en urgence totale.</p>
+</article>
+
+<div class="fin-partie" data-section="admission-facturation"></div>
+</section>
+
+<section class="partie" id="s-lis-ris-pis">
+<p class="rang-partie">4 / 4</p>
+<h2>Les circuits LIS, RIS et PIS</h2>
+
+<article class="notion" id="n-circuit-lis">
+<h3>LIS : circuit d'un examen biologique</h3>
+<p class="chapeau">Une troponine est demandée aux urgences. Entre la prescription et le résultat, où passe le temps, et où naissent les erreurs ?</p>
+<h4>Intuition</h4>
+<p>Un examen de biologie traverse trois phases : avant l'automate (pré-analytique), dans l'automate (analytique), après (post-analytique). La phase avant l'automate prend le plus de temps et produit le plus d'erreurs : c'est là qu'on prélève, étiquette, transporte et prépare le tube.</p>
+<div id="fig-phases"></div>
+<div id="fig-tat"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Part du TAT</th><th>Étapes</th></tr>
+<tr><td>Pré-analytique</td><td>60 %</td><td>prescription médicale ; prélèvement de l'échantillon ; acheminement et tri ; préparation (centrifugation)</td></tr>
+<tr><td>Analytique</td><td>25 %</td><td>chargement des automates ; exécution des analyses ; contrôle qualité (CQI) ; interfaçage bidirectionnel</td></tr>
+<tr><td>Post-analytique</td><td>15 %</td><td>validation technique ; validation biologique ; diffusion des résultats (HL7) ; archivage légal</td></tr>
+</table></div>
+<p>La phase <b>pré-analytique</b> est le principal gisement d'erreurs. Points de risque du module LIS : prélèvement mal identifié ; valeur critique non communiquée ; résultat rendu sur le mauvais dossier ; panne du LIS : mode dégradé papier.</p>
+<p>Cas d'étude du cours, le délai de rendu de la troponine : quelles étapes le font varier ? Qu'apporte la biologie délocalisée ? Quels nouveaux risques de validation et de traçabilité ?</p>
+<p class="complement">Réponse proposée.</p>
+<p>Le délai varie surtout avec le prélèvement, l'acheminement et la validation. La biologie délocalisée (analyse faite près du patient) supprime l'acheminement et raccourcit le pré-analytique ; en contrepartie, la validation du résultat et sa traçabilité (bon patient, remontée dans le LIS et le DPI) deviennent plus difficiles.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Avec un TAT de 90 minutes : \(0{,}60 \times 90 = 54\) min de pré-analytique, \(0{,}25 \times 90 = 22{,}5\) min d'analytique, \(0{,}15 \times 90 = 13{,}5\) min de post-analytique.</p>
+
+<h4>Formules clés</h4>
+<p>TAT = pré-analytique (60 %) + analytique (25 %) + post-analytique (15 %).</p>
+<p>Le pré-analytique est le principal gisement d'erreurs.</p>
+</article>
+
+<article class="notion" id="n-circuit-ris-pis">
+<h3>RIS et PIS : imagerie et médicament</h3>
+<p class="chapeau">Un scanner est demandé ; un antibiotique est prescrit. Deux circuits de cinq étapes, deux modules du SIH, et dans chacun un appareil dont l'ingénieur biomédical a la charge.</p>
+<h4>Intuition</h4>
+<p>Le RIS suit un examen d'imagerie, de la demande à l'archivage des images. Le PIS suit un médicament, de la prescription à la traçabilité de son administration. Chacun a ses acteurs, ses risques et ses indicateurs ; et dans chacun, des dispositifs médicaux alimentent le SIH.</p>
+<div id="fig-ris"></div>
+<div id="fig-pis"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th></th><th>RIS : circuit de l'imagerie</th><th>PIS : circuit du médicament</th></tr>
+<tr><td>Étapes</td><td>1 demande (prescription informatisée) ; 2 planification (créneau et salle) ; 3 accueil et réalisation (vérification d'identité, examen) ; 4 compte rendu (dictée et validation) ; 5 archivage (consultation des images)</td><td>1 prescription (aides : interactions, allergies, doses) ; 2 analyse pharmaceutique (validation par le pharmacien) ; 3 dispensation (stocks et dotations de service) ; 4 administration (geste infirmier au lit du patient) ; 5 traçabilité (dossier patient à jour)</td></tr>
+<tr><td>Acteurs</td><td>urgentiste, radiologue, manipulateur, secrétaire</td><td>médecin, pharmacien, préparateur, infirmier</td></tr>
+<tr><td>Risques</td><td>mauvaise identité sur l'examen, compte rendu tardif, examen non tracé, radiovigilance</td><td>alerte ignorée (fatigue d'alerte), interaction non détectée, erreur de dose (pharmacovigilance)</td></tr>
+<tr><td>Indicateurs</td><td>délai demande – compte rendu, examens non réalisés, suivi de dose</td><td>interventions pharmaceutiques, prescriptions informatisées, administrations tracées</td></tr>
+<tr><td>Côté biomédical</td><td>radio et scanner sont des DM qui alimentent le RIS : qui les paramètre, les maintient, répond à la panne ?</td><td>pompes et armoires sécurisées : les données de l'appareil remontent-elles au dossier patient ?</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un médecin valide sans la lire la trentième alerte d'interaction de la journée : c'est la fatigue d'alerte, un risque du PIS. Une pompe à perfusion dont le débit ne remonte pas au DPI laisse un trou dans la traçabilité : c'est une question pour le biomédical.</p>
+
+<h4>Formules clés</h4>
+<p>RIS : demande → planification → accueil et réalisation → compte rendu → archivage.</p>
+<p>PIS : prescription → analyse pharmaceutique → dispensation → administration → traçabilité.</p>
+</article>
+
+<div class="fin-partie" data-section="lis-ris-pis"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/circuit-patient.js"></script>
+<script src="../figures/identite.js"></script>
+<script src="../figures/appariement.js"></script>
+<script src="../figures/identitovigilance.js"></script>
+<script src="../figures/admission-facturation.js"></script>
+<script src="../figures/circuit-lis.js"></script>
+<script src="../figures/circuit-ris-pis.js"></script>
+</body>
+</html>

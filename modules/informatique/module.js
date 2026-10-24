@@ -5,20 +5,22 @@
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
- * cours : pages de cours, dans l'ordre du menu « Tous les concepts ».
+ * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * chapitres[].ligne : la ligne courte sous le titre, sur la carte.
+ * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("informatique", {
   chapitres: [
-    { id: 1, titre: "Système d'information : les bases", sous: "Informatique médicale, système, donnée, information, connaissance, SI et ses vues", sousModule: "sis" },
-    { id: 2, titre: "Les cinq composants d'un SI", sous: "Organisation, logiciels, données, matériel, personnel", sousModule: "sis" },
-    { id: 3, titre: "Le système d'information hospitalier", sous: "Définition, apports, composants, architecture fonctionnelle, SIH au Maroc", sousModule: "sis" },
-    { id: 4, titre: "Les données de santé", sous: "Information personnelle de santé, parcours, types, supports et qualité", sousModule: "sis" },
-    { id: 5, titre: "Le dossier patient informatisé", sous: "DPI, DPP, DSN, séjours, modules, plan de soins, portail national", sousModule: "sis" },
-    { id: 6, titre: "Circuits patient dans le SIH", sous: "Identité et appariement, admission, facturation, LIS, RIS, PIS", sousModule: "sis" },
-    { id: 7, titre: "L'hôpital face à la menace cyber", sous: "Scénario de rançongiciel, spécificités de l'hôpital, panorama des attaques", sousModule: "securite" },
-    { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", sousModule: "securite" },
-    { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", sousModule: "securite" },
-    { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", sousModule: "securite" }
+    { id: 1, titre: "Système d'information : les bases", sous: "Informatique médicale, système, donnée, information, connaissance, SI et ses vues", ligne: "Système, donnée, information, connaissance", sousModule: "sis" },
+    { id: 2, titre: "Les cinq composants d'un SI", sous: "Organisation, logiciels, données, matériel, personnel", ligne: "Organisation, logiciels, données, matériel", sousModule: "sis" },
+    { id: 3, titre: "Le système d'information hospitalier", sous: "Définition, apports, composants, architecture fonctionnelle, SIH au Maroc", ligne: "Définition, composants, architecture", sousModule: "sis" },
+    { id: 4, titre: "Les données de santé", sous: "Information personnelle de santé, parcours, types, supports et qualité", ligne: "Parcours, types, supports, qualité", sousModule: "sis" },
+    { id: 5, titre: "Le dossier patient informatisé", sous: "DPI, DPP, DSN, séjours, modules, plan de soins, portail national", ligne: "DPI, DPP, DSN, plan de soins", sousModule: "sis" },
+    { id: 6, titre: "Circuits patient dans le SIH", sous: "Identité et appariement, admission, facturation, LIS, RIS, PIS", ligne: "Identité, admission, LIS, RIS, PIS", sousModule: "sis" },
+    { id: 7, titre: "L'hôpital face à la menace cyber", sous: "Scénario de rançongiciel, spécificités de l'hôpital, panorama des attaques", ligne: "Rançongiciel, panorama de la menace", sousModule: "securite" },
+    { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", ligne: "Défense en profondeur, CID, AAA", sousModule: "securite" },
+    { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", ligne: "Loi 05-20, loi 09-08, normes", sousModule: "securite" },
+    { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", ligne: "Menace, vulnérabilité, risque, SPOF", sousModule: "securite" }
   ],
   niveaux: [
     { id: "informatique-medicale", chapitre: 1, titre: "Informatique médicale, matériel et logiciel", cours: true, pret: true },
@@ -95,6 +97,41 @@ PLATEFORME.parcours("informatique", {
     { id: "incident-spof", chapitre: 10, titre: "Incident et point de défaillance unique", cours: true, pret: true },
     { id: "revision-risque", chapitre: 10, titre: "Révision : le risque", revision: true, pret: true },
     { id: "boss-risque", chapitre: 10, titre: "L'analyse de risque du PACS", boss: true, pret: true }
+  ],
+  // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
+  sections: [
+    { id: "informatique-medicale", chapitre: 1, titre: "Informatique médicale et dualité DM / logiciel", notions: ["informatique-medicale"] },
+    { id: "donnee-information", chapitre: 1, titre: "Système, donnée, information, connaissance", notions: ["donnee-information"] },
+    { id: "systeme-information", chapitre: 1, titre: "Le système d'information et ses vues", notions: ["systeme-information"] },
+    { id: "composants", chapitre: 2, titre: "Les cinq composants d'un SI", notions: ["composants-si"] },
+    { id: "processus", chapitre: 2, titre: "Processus, maturité et cartographie", notions: ["processus", "maturite-cartographie"] },
+    { id: "schema-logiciels", chapitre: 2, titre: "Schéma directeur et logiciels", notions: ["schema-directeur", "logiciels"] },
+    { id: "donnees-materiel", chapitre: 2, titre: "Données, SGBD et matériel", notions: ["donnees-sgbd", "materiel-reseau"] },
+    { id: "personnel", chapitre: 2, titre: "Les acteurs d'un SI", notions: ["personnel"] },
+    { id: "sih-composants", chapitre: 3, titre: "Le SIH et ses composants", notions: ["sih", "composants-sih"] },
+    { id: "architecture-sih", chapitre: 3, titre: "Architecture fonctionnelle d'un SIH", notions: ["architecture-sih"] },
+    { id: "sih-maroc", chapitre: 3, titre: "Les SIH au Maroc", notions: ["sih-maroc"] },
+    { id: "donnee-sante", chapitre: 4, titre: "L'information personnelle de santé", notions: ["donnee-sante"] },
+    { id: "parcours-types", chapitre: 4, titre: "Parcours, types et supports", notions: ["parcours-donnee", "types-donnees"] },
+    { id: "qualite-donnees", chapitre: 4, titre: "Qualité des données dans un SIH", notions: ["qualite-donnees"] },
+    { id: "dpi-sejours", chapitre: 5, titre: "DPI, DPP, DSN et séjours", notions: ["dpi", "dpi-sejours"] },
+    { id: "modules-plan", chapitre: 5, titre: "Le DPI dans le SIH et le plan de soins", notions: ["dpi-modules", "plan-soins"] },
+    { id: "portail-urgences", chapitre: 5, titre: "Portail national et urgences", notions: ["dpp-national", "urgences-dpi"] },
+    { id: "patient-identite", chapitre: 6, titre: "Suivre un patient et créer une identité", notions: ["circuit-patient", "identite"] },
+    { id: "appariement-vigilance", chapitre: 6, titre: "Appariement et identitovigilance", notions: ["appariement", "identitovigilance"] },
+    { id: "admission-facturation", chapitre: 6, titre: "Admission et facturation", notions: ["admission-facturation"] },
+    { id: "lis-ris-pis", chapitre: 6, titre: "Les circuits LIS, RIS et PIS", notions: ["circuit-lis", "circuit-ris-pis"] },
+    { id: "scenario-rancon", chapitre: 7, titre: "Scénario d'attaque par rançongiciel", notions: ["scenario-rancon"] },
+    { id: "hopital-different", chapitre: 7, titre: "Ce qui rend un hôpital différent", notions: ["hopital-different"] },
+    { id: "panorama-menace", chapitre: 7, titre: "Panorama de la menace cyber", notions: ["panorama-menace"] },
+    { id: "defense-profondeur", chapitre: 8, titre: "La défense en profondeur", notions: ["defense-profondeur"] },
+    { id: "triade-cid", chapitre: 8, titre: "Le triangle d'or CID", notions: ["triade-cid"] },
+    { id: "regle-aaa", chapitre: 8, titre: "La règle AAA", notions: ["regle-aaa"] },
+    { id: "cadre-maroc", chapitre: 9, titre: "Le cadre réglementaire marocain", notions: ["cadre-maroc"] },
+    { id: "referentiels", chapitre: 9, titre: "Normes et règlements internationaux", notions: ["referentiels"] },
+    { id: "menace-surface", chapitre: 10, titre: "Menace, vulnérabilité et surface d'attaque", notions: ["menace-vulnerabilite", "surface-attaque"] },
+    { id: "kill-chain", chapitre: 10, titre: "Le cycle de vie d'une attaque", notions: ["kill-chain"] },
+    { id: "risque-incident", chapitre: 10, titre: "Risque, incident et SPOF", notions: ["risque", "incident-spof"] }
   ],
   cours: [
     { chapitre: 1, id: "informatique-medicale", titre: "Informatique médicale et dualité DM / logiciel" },

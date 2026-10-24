@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Zones et flux</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 2. -->
+<main class="cours-chapitre" data-chapitre="2">
+<p class="etiquette" data-etiquette></p>
+<h1>Zones et flux</h1>
+
+<section class="partie" id="s-zonage">
+<p class="rang-partie">1 / 3</p>
+<h2>Gradation des zones</h2>
+
+<article class="notion" id="n-zonage">
+<h3>Gradation des zones</h3>
+<p class="chapeau">Entre la rue et la table d'opération, on ne passe pas d'un coup : on traverse des zones de plus en plus propres, de plus en plus contrôlées.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre organise le bloc dans l'espace. D'abord les <b>zones</b>, graduées du public au restreint ; puis les <b>flux</b> qui les traversent (patient, personnel, propre, sale, dispositifs médicaux) ; puis la règle qui les gouverne, la <b>séparation du propre et du sale</b>, appliquée aux déchets et au stockage ; enfin les <b>liens du bloc avec la SSPI, la réanimation et l'imagerie</b>. Zones et flux vont ensemble : un flux maîtrisé passe d'une zone à la suivante sans brûler d'étape et sans croiser ce qu'il ne doit pas croiser.</p>
+
+<h4>Intuition</h4>
+<p>Imagine trois cercles concentriques autour de la table d'opération. Le cercle extérieur est ouvert à tous : accueil, attente, circulation générale. Le cercle du milieu est réservé au personnel en tenue et aux patients pris en charge : circulation du personnel, transfert, préparation, stockage. Le cercle intérieur est réservé à l'intervention : les salles d'opération et ce qui les touche directement. À chaque passage d'un cercle à l'autre, la propreté augmente et l'accès est plus contrôlé.</p>
+
+<div id="fig-zones"></div>
+
+<h4>Formalisation</h4>
+<p>Un principe fondamental est la <strong>gradation des niveaux de propreté et de contrôle des accès</strong>. On peut distinguer :</p>
+<div class="tableau"><table>
+<tr><th>Zone publique</th><th>Zone semi-restreinte</th><th>Zone restreinte</th></tr>
+<tr><td>accueil ; attente ; circulation générale</td><td>circulation du personnel ; transfert des patients ; locaux de préparation ; stockage</td><td>salles d'opération ; certaines zones de préparation stérile ; espaces directement associés à l'intervention</td></tr>
+</table></div>
+<p>Le <b>FGI</b> (Facility Guidelines Institute) classe notamment la salle d'opération comme une zone restreinte <b>accessible depuis une zone semi-restreinte</b>, et exige des surfaces adaptées au nettoyage et à la désinfection.</p>
+
+<h5>Schéma fonctionnel général</h5>
+<p>Les patients passent par la préparation, le personnel par les vestiaires ; les deux rejoignent la zone semi-restreinte puis la zone restreinte, où se trouvent les salles. Après l'intervention : réveil (SSPI), puis hospitalisation ou réanimation. La logistique suit son propre chemin : réception, puis stockage propre.</p>
+
+<div id="fig-schema"></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un brancardier vient chercher un patient au service d'hospitalisation. Il pousse le brancard dans la circulation générale (publique), le confie au transfert des patients (semi-restreinte) ; l'équipe du bloc l'amène en salle (restreinte). Le brancardier en tenue de ville ne franchit pas la porte de la salle : le contrôle des accès augmente avec la propreté.</p>
+
+<h4>Formules clés</h4>
+<p>Publique → semi-restreinte → restreinte : la propreté et le contrôle des accès augmentent.</p>
+<p>Salle d'opération = zone restreinte, accessible depuis une zone semi-restreinte (FGI).</p>
+<p>Patients : préparation ; personnel : vestiaires ; puis zone semi-restreinte → zone restreinte → salles → SSPI → hospitalisation ou réanimation. Logistique : réception → stockage propre.</p>
+</article>
+
+<div class="fin-partie" data-section="zonage"></div>
+</section>
+
+<section class="partie" id="s-flux">
+<p class="rang-partie">2 / 3</p>
+<h2>Maîtrise et séparation des flux</h2>
+
+<article class="notion" id="n-flux">
+<h3>Maîtrise des flux</h3>
+<p class="chapeau">Au bloc, cinq choses se déplacent en permanence : le patient, le personnel, le matériel propre, le sale et les instruments. Chacune a son chemin.</p>
+<h4>Intuition</h4>
+<p>Un flux, c'est un chemin parcouru par une personne ou un objet, toujours dans le même sens. Si on dessine les cinq flux du bloc sur le plan, on voit tout de suite où ils risquent de se croiser. Le travail de l'architecte est de les organiser pour que chaque flux avance d'une étape à la suivante sans détour et sans croisement inutile.</p>
+
+<div id="fig-flux"></div>
+
+<h4>Formalisation</h4>
+<p>Un bloc opératoire doit permettre de maîtriser plusieurs flux :</p>
+<div class="tableau"><table>
+<tr><th>Flux</th><th>Parcours (cours)</th><th>Règle</th></tr>
+<tr><td>Patient</td><td>hospitalisation → préparation → transfert → salle d'opération → SSPI → réanimation / hospitalisation (exemple du cours)</td><td>le transfert est organisé afin de limiter les croisements inutiles</td></tr>
+<tr><td>Personnel</td><td>vestiaires → zone semi-restreinte → zone restreinte</td><td>l'accès doit être contrôlé</td></tr>
+<tr><td>Propre</td><td>réception → stockage propre → préparation → salle d'opération</td><td>il ne passe pas par le sale</td></tr>
+<tr><td>Sale</td><td>salle d'opération → évacuation des déchets / instruments souillés → circuit sale</td><td>le circuit sale ne doit pas traverser inutilement les zones propres</td></tr>
+<tr><td>Dispositifs médicaux</td><td>stérilisation centrale → stockage stérile → bloc → utilisation → instruments souillés → stérilisation</td><td>une attention particulière est accordée aux instruments chirurgicaux</td></tr>
+</table></div>
+<p>Le flux des dispositifs médicaux est le seul qui forme une <b>boucle</b> : les instruments reviennent en stérilisation après usage.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une boîte d'instruments pour une prothèse de genou sort de la stérilisation centrale, attend dans le stockage stérile, monte au bloc, sert pendant l'intervention, repart souillée par le circuit sale et revient à la stérilisation. Si, en remontant, elle croise un chariot de déchets, elle peut être contaminée : tout le travail de la stérilisation est perdu.</p>
+
+<h4>Formules clés</h4>
+<p>Patient : hospitalisation → préparation → transfert → salle → SSPI → réanimation / hospitalisation.</p>
+<p>Personnel : vestiaires → semi-restreinte → restreinte (accès contrôlé).</p>
+<p>Propre : réception → stockage propre → préparation → salle. Sale : salle → évacuation → circuit sale.</p>
+<p>Dispositifs médicaux : stérilisation centrale → stockage stérile → bloc → utilisation → instruments souillés → stérilisation.</p>
+</article>
+
+<article class="notion" id="n-separation-flux">
+<h3>Séparation des flux</h3>
+<p class="chapeau">Le propre et le sale peuvent emprunter le même bâtiment ; ils ne doivent pas emprunter la même circulation sans contrôle.</p>
+<h4>Intuition</h4>
+<p>Tout ce qui entre propre au bloc finit par en ressortir sale. Le bon schéma va dans un seul sens : le propre descend vers la salle, sert, puis repart par un autre chemin vers la décontamination et la stérilisation. Le danger, c'est le point où un flux sale rencontre un flux propre ou un patient.</p>
+
+<div id="fig-separation"></div>
+
+<h4>Formalisation</h4>
+<p>Le schéma idéal est :</p>
+\[ \underbrace{\text{réception} \to \text{stockage} \to \text{préparation} \to \text{salle opératoire}}_{\text{flux propre}} \to \text{utilisation} \to \underbrace{\text{décontamination} \to \text{stérilisation}}_{\text{flux sale}} \]
+<p>Il faut éviter que le <b>propre</b>, le <b>patient</b> et le <b>sale</b> empruntent la <b>même circulation sans contrôle</b>.</p>
+<p>La séparation peut être :</p>
+<ul>
+<li><strong>physique</strong> : des circulations distinctes ;</li>
+<li><strong>temporelle</strong> : les flux passent au même endroit à des moments différents ;</li>
+<li><strong>organisationnelle</strong> : des règles et du matériel (contenants fermés, circuits définis) dans une même circulation.</li>
+</ul>
+<p>La séparation physique est généralement préférable <b>lorsque les contraintes du projet le permettent</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un bloc ancien n'a qu'un couloir. Solution du cours : à défaut de séparation physique, on combine une séparation temporelle (le sale sort après le programme opératoire) et organisationnelle (bacs fermés, chariots dédiés, règles écrites). Lors d'une rénovation, si la place le permet, on crée un second couloir : la séparation devient physique.</p>
+
+<h4>Formules clés</h4>
+<p>Propre : réception → stockage → préparation → salle ; utilisation ; sale : décontamination → stérilisation.</p>
+<p>À éviter : propre + patient + sale sur la même circulation sans contrôle.</p>
+<p>Séparation physique, temporelle ou organisationnelle ; la physique d'abord, quand le projet le permet.</p>
+</article>
+
+<div class="fin-partie" data-section="flux"></div>
+</section>
+
+<section class="partie" id="s-dechets-services">
+<p class="rang-partie">3 / 3</p>
+<h2>Déchets, SSPI, réanimation et imagerie</h2>
+
+<article class="notion" id="n-dechets-stockage">
+<h3>Gestion des déchets et local de stockage</h3>
+<p class="chapeau">Un bloc consomme beaucoup et produit beaucoup de déchets, dont certains contaminés. Il faut les trier là où ils naissent, les sortir sans croiser le propre, et stocker sans encombrer.</p>
+<h4>Intuition</h4>
+<p>Le tri se fait à la source : au moment où la compresse, l'aiguille ou l'emballage devient un déchet, il va dans le bon contenant. Un déchet mal trié coûte cher à rattraper et peut blesser ou contaminer. Ensuite, chaque filière suit un circuit qui ne croise pas les flux propres. En face, le stockage fait le chemin inverse : il doit tenir assez de matériel pour ne jamais manquer, sans déborder dans les couloirs.</p>
+
+<div id="fig-dechets"></div>
+
+<h4>Formalisation</h4>
+<p>Les déchets doivent être <strong>triés à la source</strong> :</p>
+<div class="tableau"><table>
+<tr><th>Filière</th><th>Exemple (ajouté)</th></tr>
+<tr><td>DASRI (déchets d'activités de soins à risques infectieux)</td><td>compresse imbibée de sang</td></tr>
+<tr><td>Déchets assimilables aux déchets ménagers</td><td>emballage papier non souillé</td></tr>
+<tr><td>Objets piquants / coupants</td><td>aiguille, lame de bistouri</td></tr>
+<tr><td>Déchets anatomiques, selon la réglementation</td><td>pièce opératoire d'amputation</td></tr>
+<tr><td>Déchets chimiques éventuels</td><td>reste de produit chimique, comme un fixateur</td></tr>
+</table></div>
+<p>Le circuit doit être organisé afin d'éviter que les déchets contaminés ne croisent les flux propres.</p>
+
+<h5>Local de stockage</h5>
+<p>Le bloc doit disposer de capacités suffisantes pour : dispositifs médicaux stériles ; consommables ; champs opératoires ; médicaments ; produits d'anesthésie ; équipements de secours. Le stockage doit être organisé pour éviter : <b>surcharge</b> ; <b>obstruction des circulations</b> ; <b>contamination</b> ; <b>rupture de stock</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un local de stockage trop petit : les cartons s'accumulent dans le couloir de transfert (obstruction des circulations), certains sont posés ouverts sur les étagères stériles (contamination), et faute de place on commande moins, jusqu'au jour où les champs manquent (rupture de stock). Un seul défaut de surface crée trois problèmes.</p>
+
+<h4>Formules clés</h4>
+<p>Tri à la source : DASRI, assimilables aux déchets ménagers, piquants / coupants, anatomiques (selon réglementation), chimiques éventuels.</p>
+<p>Circuit des déchets : les déchets contaminés ne croisent pas les flux propres.</p>
+<p>Stockage suffisant pour DM stériles, consommables, champs, médicaments, produits d'anesthésie, équipements de secours ; éviter surcharge, obstruction, contamination, rupture de stock.</p>
+</article>
+
+<article class="notion" id="n-bloc-et-services">
+<h3>SSPI, réanimation et imagerie</h3>
+<p class="chapeau">L'intervention ne s'arrête pas à la porte de la salle : le patient se réveille, part parfois en réanimation, passe parfois par l'imagerie. Ces services doivent être placés pour que les transferts soient courts et sûrs.</p>
+<h4>Intuition</h4>
+<p>Un patient qui sort d'anesthésie peut mal respirer, faire chuter sa tension, être confus, avoir mal. Il doit être surveillé tout de suite, près du bloc, par une équipe équipée : c'est la SSPI. S'il est instable, il part en réanimation ; et parfois, c'est la réanimation qui renvoie un patient au bloc en urgence. Chaque transfert est un moment de fragilité : plus il est long, plus il passe par des ascenseurs ou par le public, plus il est risqué.</p>
+
+<div id="fig-services"></div>
+
+<h4>Formalisation</h4>
+<h5>SSPI</h5>
+<p>La <strong>salle de surveillance post-interventionnelle (SSPI)</strong> est une composante essentielle du bloc. Elle permet : surveillance respiratoire ; surveillance cardiovasculaire ; surveillance neurologique ; gestion de la douleur ; surveillance après anesthésie. Elle doit être située <b>à proximité immédiate du bloc</b> et disposer des équipements nécessaires à la surveillance et à la prise en charge des patients.</p>
+<h5>Relation bloc – réanimation</h5>
+<p>L'architecture doit faciliter le transfert <b>bloc → SSPI → réanimation</b>, et inversement <b>réanimation → bloc</b>. Il faut limiter : la distance ; les obstacles ; les ascenseurs multiples ; les croisements avec les flux publics.</p>
+<h5>Relation bloc – imagerie</h5>
+<p>Elle est particulièrement importante pour : la traumatologie ; la neurochirurgie ; la chirurgie vasculaire ; la chirurgie hybride ; les interventions guidées par l'image. Le cours montre un enchaînement possible : bloc opératoire → imagerie → réanimation → SSPI.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un polytraumatisé arrive aux urgences : scanner, puis bloc, puis réanimation. Si l'imagerie est à l'autre bout de l'hôpital, chaque étape ajoute un transfert long, un ascenseur, des croisements. Placer imagerie, bloc, SSPI et réanimation les uns près des autres raccourcit chaque étape du parcours.</p>
+
+<h4>Formules clés</h4>
+<p>SSPI : surveillance respiratoire, cardiovasculaire, neurologique, gestion de la douleur, surveillance après anesthésie ; à proximité immédiate du bloc.</p>
+<p>Bloc → SSPI → réanimation et réanimation → bloc : limiter distance, obstacles, ascenseurs multiples, croisements avec les flux publics.</p>
+<p>Bloc – imagerie : traumatologie, neurochirurgie, chirurgie vasculaire, chirurgie hybride, interventions guidées par l'image.</p>
+</article>
+
+<div class="fin-partie" data-section="dechets-services"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/zonage.js"></script>
+<script src="../figures/flux.js"></script>
+<script src="../figures/separation-flux.js"></script>
+<script src="../figures/dechets-stockage.js"></script>
+<script src="../figures/bloc-et-services.js"></script>
+</body>
+</html>

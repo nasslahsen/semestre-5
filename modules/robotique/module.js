@@ -3,25 +3,21 @@
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
- * cours : pages de cours, dans l'ordre du menu « Tous les concepts ».
- *
- * Structure par chapitres (aperçu, sous-module « bio ») : plan des chapitres, puis pour chaque chapitre
- * le Cours en sections et S'entraîner. Pages dans modules/robotique/<dossierChapitres>/.
- * chapitres[].avant : chapitres sur lesquels il s'appuie (flèches du plan) ; chapitres[].ligne : la ligne sous le titre.
- * sections : le cours d'un chapitre en 3 à 5 sections ; chaque section réunit des pages de cours (notions), dans l'ordre.
+ * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * chapitres[].ligne : la ligne courte sous le titre, sur la carte.
+ * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("robotique", {
-  dossierChapitres: "apercu",
   chapitres: [
-    { id: 0, titre: "Les bases", sous: "Angles, trigonométrie, vecteurs : tout ce qu'il faut avant le robot", sousModule: "bio", avant: [], ligne: "Angles, trigonométrie, vecteurs, matrices" },
-    { id: 1, titre: "Le robot et sa description", sous: "Anatomie, liaisons, architectures, performances", sousModule: "bio", avant: [0], ligne: "Anatomie, liaisons, architectures, performances" },
-    { id: 2, titre: "Repères et vecteurs dans l'espace", sous: "Coordonnées, produits, position d'un solide", sousModule: "bio", avant: [0], ligne: "Coordonnées, produits, position d'un solide" },
-    { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", sousModule: "bio", avant: [2], ligne: "Matrices de rotation, angles d'Euler" },
-    { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio", avant: [1, 3], ligne: "Changement de repère, matrices homogènes, bras 2R" },
-    { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", sousModule: "meca" },
-    { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
-    { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge", sousModule: "meca" },
-    { id: 8, titre: "Transmissions de puissance", sous: "Arbres, engrenages, module, rapports et trains", sousModule: "meca" }
+    { id: 0, titre: "Les bases", sous: "Angles, trigonométrie, vecteurs : tout ce qu'il faut avant le robot", ligne: "Angles, trigonométrie, vecteurs, matrices", sousModule: "bio" },
+    { id: 1, titre: "Le robot et sa description", sous: "Anatomie, liaisons, architectures, performances", ligne: "Anatomie, liaisons, architectures, performances", sousModule: "bio" },
+    { id: 2, titre: "Repères et vecteurs dans l'espace", sous: "Coordonnées, produits, position d'un solide", ligne: "Coordonnées, produits, position d'un solide", sousModule: "bio" },
+    { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", ligne: "Matrices de rotation, angles d'Euler", sousModule: "bio" },
+    { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", ligne: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio" },
+    { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
+    { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
+    { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge", ligne: "Roulements, durée de vie, montage, précharge", sousModule: "meca" },
+    { id: 8, titre: "Transmissions de puissance", sous: "Arbres, engrenages, module, rapports et trains", ligne: "Arbres, engrenages, rapports et trains", sousModule: "meca" }
   ],
   niveaux: [
     { id: "angles", chapitre: 0, titre: "Degrés et radians", cours: true, pret: true },
@@ -103,6 +99,7 @@ PLATEFORME.parcours("robotique", {
     { id: "revision-transmissions", chapitre: 8, titre: "Révision : les transmissions", revision: true, pret: true },
     { id: "boss-transmissions", chapitre: 8, titre: "Le réducteur de l'articulation", boss: true, pret: true }
   ],
+  // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
     { id: "angles-cercle", chapitre: 0, titre: "Angles et cercle trigonométrique", notions: ["angles", "cercle"] },
     { id: "triangle-signes", chapitre: 0, titre: "Triangle rectangle, signes et angles remarquables", notions: ["triangle", "signes"] },
@@ -120,7 +117,22 @@ PLATEFORME.parcours("robotique", {
     { id: "angles-euler", chapitre: 3, titre: "Angles d'Euler", notions: ["angles-euler"] },
     { id: "changement-repere", chapitre: 4, titre: "Changement de repère", notions: ["changement-repere"] },
     { id: "homogene-composition", chapitre: 4, titre: "Matrice homogène et composition", notions: ["matrice-homogene", "composition"] },
-    { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", notions: ["bras-2r"] }
+    { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", notions: ["bras-2r"] },
+    { id: "chaine-nomenclature", chapitre: 5, titre: "La chaîne fonctionnelle et ses symboles", notions: ["chaine-fonctionnelle", "nomenclature"] },
+    { id: "vitesse-couple", chapitre: 5, titre: "Vitesse, couple et puissance", notions: ["vitesse-couple-puissance"] },
+    { id: "rigidite-jeu", chapitre: 5, titre: "Rigidité torsionnelle et jeu angulaire", notions: ["rigidite-jeu"] },
+    { id: "contraintes-biomedicales", chapitre: 5, titre: "Contraintes du contexte biomédical", notions: ["contraintes-biomedicales"] },
+    { id: "fonctions-liaison", chapitre: 6, titre: "Fonctions d'une liaison", notions: ["fonctions-liaison"] },
+    { id: "assemblage-visse", chapitre: 6, titre: "Assemblage vissé et précharge", notions: ["assemblage-visse"] },
+    { id: "clavettes-goupilles", chapitre: 6, titre: "Clavettes, anneaux et goupilles", notions: ["clavette", "anneaux-goupilles"] },
+    { id: "ressorts", chapitre: 6, titre: "Ressorts", notions: ["ressorts"] },
+    { id: "criteres-guidage", chapitre: 7, titre: "Critères d'un guidage et raideur", notions: ["criteres-guidage"] },
+    { id: "roulements", chapitre: 7, titre: "Le roulement et ses familles", notions: ["roulements", "radiaux-butees"] },
+    { id: "choix-duree", chapitre: 7, titre: "Choisir un roulement et sa durée de vie", notions: ["types-roulements", "duree-l10"] },
+    { id: "montage-precharge", chapitre: 7, titre: "Montage fixe-libre et précharge", notions: ["fixe-libre", "precharge-roulements"] },
+    { id: "arbres", chapitre: 8, titre: "Arbres : couple et torsion", notions: ["arbre-couple", "arbre-torsion"] },
+    { id: "engrenages-denture", chapitre: 8, titre: "Engrenages et denture", notions: ["engrenages", "denture"] },
+    { id: "rapports-trains", chapitre: 8, titre: "Rapports, entraxe et trains", notions: ["rapport-engrenage", "trains-engrenages"] }
   ],
   cours: [
     { chapitre: 0, id: "angles", titre: "Degrés et radians" },

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La salle d'opération</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 3. -->
+<main class="cours-chapitre" data-chapitre="3">
+<p class="etiquette" data-etiquette></p>
+<h1>La salle d'opération</h1>
+
+<section class="partie" id="s-dimensions-surfaces">
+<p class="rang-partie">1 / 3</p>
+<h2>Dimensions et surfaces de la salle</h2>
+
+<article class="notion" id="n-salle-dimensions">
+<h3>Salle d'opération : surface, dimensions, volume</h3>
+<p class="chapeau">Une salle calculée autour de la seule table est trop petite dès que l'équipe, les appareils et le technicien arrivent. Et une salle bien calculée au sol peut manquer de place au-dessus du plafond.</p>
+<h4>Le chapitre en bref</h4>
+<p>On entre maintenant dans la salle d'opération elle-même. Sa <b>surface</b> et son <b>volume</b> d'abord, qui dépendent de ce qu'on y fait ; puis ses <b>parois</b> (sols, murs, plafond, portes), qui doivent se nettoyer et tenir ; le <b>bloc hybride</b>, cas extrême où l'imagerie entre en salle avec sa protection radiologique ; enfin l'<b>ergonomie</b> et l'<b>acoustique</b>, qui font qu'une équipe y travaille bien pendant des heures. Le fil rouge : la salle se dimensionne pour ce qui s'y passe vraiment, pas pour la table.</p>
+
+<h4>Intuition</h4>
+<p>Autour du patient, il faut une équipe qui circule, des appareils posés ou suspendus, un accès libre aux équipements de secours, de la place pour le technicien et pour le nettoyage. La table ne représente qu'une petite partie de la surface nécessaire. Et au-dessus du plafond, il faut loger les gaines de ventilation, les câbles, les réseaux médicaux, les supports des bras : c'est le volume caché de la salle.</p>
+
+<div id="fig-surface"></div>
+
+<h4>Formalisation</h4>
+<p>Une salle d'opération doit permettre : l'installation de la table opératoire ; la circulation de l'équipe ; l'installation des équipements ; l'accès du patient ; l'accès aux équipements de secours ; l'utilisation des bras plafonniers ; la maintenance des équipements ; le nettoyage et la désinfection. La surface ne doit donc pas être déterminée uniquement par la taille de la table. Elle doit prendre en compte :</p>
+<p style="font-size:20px;font-weight:600">patient + équipe + équipements + circulation + maintenance + sécurité.</p>
+<h5>Dimensions et surfaces</h5>
+<p>Il n'existe pas une valeur universelle applicable à tous les blocs. La surface dépend notamment : du type de chirurgie ; du nombre d'opérateurs ; du nombre d'équipements ; de la présence d'imagerie ; de l'utilisation d'un microscope ; de la chirurgie robotique ; du type d'anesthésie ; des besoins de transfert.</p>
+<p>Pour une <b>salle hybride</b>, le FGI 2022 indique notamment une <b>surface libre minimale de 55,74 m²</b>, avec une <b>dimension libre minimale de 6,10 m</b>, dans les conditions prévues par son référentiel. Une salle hybride ne doit donc pas être dimensionnée comme une salle opératoire conventionnelle. (55,74 m² et 6,10 m correspondent à 600 pieds carrés et 20 pieds.)</p>
+<h5>Hauteur et volume</h5>
+<p>Le volume disponible est important pour : la ventilation ; les plafonds techniques ; les bras plafonniers ; les scialytiques ; les réseaux médicaux ; les chemins de câbles ; les équipements d'imagerie. Il faut prévoir suffisamment d'espace technique <b>au-dessus du plafond</b>. Erreur fréquente : dimensionner uniquement la salle visible, sans dimensionner le volume technique nécessaire à son fonctionnement.</p>
+
+<div id="fig-volume"></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une salle hybride de 9,20 m × 6,10 m a une surface libre \(S = 9{,}20 \times 6{,}10 = 56{,}12\) m². Elle dépasse 55,74 m² et sa plus petite dimension vaut 6,10 m : elle respecte les deux conditions. Une salle de 5,50 m × 11,00 m fait 60,50 m², mais sa largeur de 5,50 m est sous 6,10 m : elle ne convient pas.</p>
+
+<h4>Formules clés</h4>
+\[ S = L \times \ell \qquad \text{salle hybride (FGI 2022) : } S \ge 55{,}74\ \text{m}^2 \ \text{et} \ \min(L, \ell) \ge 6{,}10\ \text{m} \]
+<p>Surface = patient + équipe + équipements + circulation + maintenance + sécurité ; pas de valeur universelle.</p>
+<p>Volume : salle visible + espace technique au-dessus du plafond.</p>
+</article>
+
+<article class="notion" id="n-surfaces">
+<h3>Sols, murs, plafond et portes</h3>
+<p class="chapeau">Au bloc, chaque surface se lave plusieurs fois par jour avec des produits agressifs. Un joint ouvert, un angle vif ou un plafond qui laisse tomber la poussière suffisent à garder les germes.</p>
+<h4>Intuition</h4>
+<p>Une surface est saine si rien ne peut s'y cacher et si elle supporte le nettoyage. Tout ce qui crée un recoin (joint, fissure, angle, moulure, porosité) retient les contaminants. Le sol a en plus des exigences mécaniques (chocs, roulettes, glissade) ; le plafond porte les équipements et ne doit rien laisser tomber ; la porte doit laisser passer le lit et maintenir la pression.</p>
+
+<div id="fig-surfaces"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Surface</th><th>Exigences du cours</th></tr>
+<tr><td>Sol</td><td>résistant ; antidérapant ; imperméable ; facilement nettoyable ; compatible avec les produits désinfectants ; résistant aux chocs ; adapté au déplacement des équipements. Les assemblages doivent limiter les fissures et les zones susceptibles de retenir les contaminants. Le FGI recommande des revêtements résistants et nettoyables et des plinthes intégrées dans les zones opératoires.</td></tr>
+<tr><td>Murs</td><td>lisses ; lavables ; résistants aux désinfectants ; non poreux ; sans fissures ; faciles à entretenir. Il faut limiter les joints ouverts, les angles difficiles à nettoyer, les surfaces poreuses et les éléments décoratifs inutiles.</td></tr>
+<tr><td>Plafond</td><td>particulièrement important : étanche ; nettoyable ; résistant aux produits de désinfection ; conçu pour éviter l'accumulation de poussières ; compatible avec les équipements plafonniers. Les ouvertures techniques doivent être correctement intégrées et étanchées. Le FGI précise les exigences relatives aux plafonds monolithiques et aux ouvertures d'accès dans les salles d'opération.</td></tr>
+<tr><td>Portes</td><td>permettre le passage du patient sur brancard et des équipements ; ouverture suffisamment large ; nettoyage facile. Dans les blocs modernes, on privilégie souvent les portes automatiques, coulissantes, à commande sans contact. Les recommandations récentes de la Healthcare Infection Society insistent sur les portes à fermeture automatique entre les zones, afin de préserver la cascade de pression.</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Comparaison de trois sols : un carrelage à joints ouverts (les joints retiennent les contaminants), un parquet (poreux, sensible à l'eau et aux désinfectants) et un revêtement continu soudé avec plinthe intégrée en gorge (aucun joint, aucun angle vif au pied du mur). Seul le troisième répond à toutes les exigences du cours.</p>
+
+<h4>Formules clés</h4>
+<p>Sol : résistant, antidérapant, imperméable, nettoyable, compatible désinfectants, résistant aux chocs, adapté aux équipements ; plinthes intégrées.</p>
+<p>Murs : lisses, lavables, non poreux, sans fissures ; limiter joints ouverts, angles, porosité, décoration.</p>
+<p>Plafond : étanche, nettoyable, sans poussière, compatible plafonniers ; ouvertures intégrées et étanchées.</p>
+<p>Portes : brancard et équipements, larges, nettoyables ; automatiques, coulissantes, sans contact, à fermeture automatique (cascade de pression).</p>
+</article>
+
+<div class="fin-partie" data-section="dimensions-surfaces"></div>
+</section>
+
+<section class="partie" id="s-bloc-hybride">
+<p class="rang-partie">2 / 3</p>
+<h2>Bloc hybride et protection radiologique</h2>
+
+<article class="notion" id="n-bloc-hybride">
+<h3>Bloc hybride et protection radiologique</h3>
+<p class="chapeau">Quand l'angiographe entre au bloc, la salle doit accueillir à la fois une chirurgie ouverte et une imagerie interventionnelle, avec ses rayons X.</p>
+<h4>Intuition</h4>
+<p>Un bloc hybride, c'est une salle d'opération dans laquelle on a installé une imagerie interventionnelle. On peut ainsi poser une endoprothèse sous angiographie et, si besoin, ouvrir aussitôt. Mais l'arceau tourne autour du patient, le système d'angiographie occupe de la place, l'anesthésie et les équipements chirurgicaux restent là : il faut une salle plus grande. Et les rayons X traversent ce qu'on ne protège pas : murs, portes, vitres, parfois le plafond et le plancher.</p>
+
+<div id="fig-hybride"></div>
+
+<h4>Formalisation</h4>
+<p>Le <strong>bloc hybride</strong> combine : <b>chirurgie + imagerie interventionnelle</b>. Exemples : angiographie, chirurgie vasculaire, chirurgie cardiaque, interventions complexes.</p>
+<p>Il nécessite davantage d'espace pour : l'arceau ; le système d'angiographie ; la table ; l'anesthésie ; les équipements chirurgicaux ; la protection radiologique. Le FGI prévoit pour les salles hybrides des exigences spécifiques d'espace, notamment les dégagements autour de la table et les besoins d'installation et de maintenance (surface libre minimale de 55,74 m² et dimension libre minimale de 6,10 m, page précédente).</p>
+<h5>Protection radiologique</h5>
+<p>Lorsqu'un appareil RX ou un système d'angiographie est installé dans le bloc, il faut étudier : le blindage des parois ; les portes ; les vitrages ; le plafond / plancher si nécessaire ; le positionnement de la source ; les zones adjacentes ; la signalisation ; le contrôle réglementaire.</p>
+<p>La protection doit être <b>calculée par une étude radiophysique / radioprotection</b>, et non par une épaisseur standard appliquée systématiquement.</p>
+
+<div id="fig-radio"></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux salles hybrides identiques : l'une a pour voisin un local technique rarement occupé, l'autre un bureau occupé toute la journée. L'étude de radioprotection ne donnera pas la même protection pour la paroi commune : c'est pour cela que le cours refuse une épaisseur standard.</p>
+
+<h4>Formules clés</h4>
+<p>Bloc hybride = chirurgie + imagerie interventionnelle ; plus d'espace (arceau, angiographie, table, anesthésie, équipements chirurgicaux, protection radiologique).</p>
+<p>Radioprotection : parois, portes, vitrages, plafond / plancher, source, zones adjacentes, signalisation, contrôle réglementaire ; protection calculée par une étude, pas une épaisseur standard.</p>
+</article>
+
+<div class="fin-partie" data-section="bloc-hybride"></div>
+</section>
+
+<section class="partie" id="s-ergonomie-acoustique">
+<p class="rang-partie">3 / 3</p>
+<h2>Ergonomie et acoustique</h2>
+
+<article class="notion" id="n-ergonomie-acoustique">
+<h3>Ergonomie et acoustique</h3>
+<p class="chapeau">Une équipe passe des heures dans la salle. Si elle trébuche sur des câbles, se retourne pour voir l'écran et travaille dans le bruit, la fatigue monte et les erreurs aussi.</p>
+<h4>Intuition</h4>
+<p>L'architecture doit suivre les mouvements réels de l'équipe : le chirurgien face au patient, l'anesthésiste à la tête avec son respirateur, l'instrumentiste à côté avec ses instruments. Chaque équipement se place à côté de celui qui l'utilise, sans que les câbles ou les chariots coupent les trajets. Le bruit, lui, vient de partout : ventilation, alarmes, appareils, portes, chariots, conversations ; il fatigue sans qu'on s'en rende compte.</p>
+
+<div id="fig-ergonomie"></div>
+
+<h4>Formalisation</h4>
+<h5>Ergonomie</h5>
+<p>L'architecture doit prendre en compte les mouvements réels de l'équipe : chirurgien → patient ; patient → anesthésie → respirateur ; patient → table ; patient → instrumentiste → instruments. L'objectif est d'éviter : les croisements inutiles ; les câbles au sol ; les obstacles ; les déplacements excessifs ; la mauvaise visibilité.</p>
+<h5>Acoustique</h5>
+<p>Le bruit peut provenir : de la ventilation ; des alarmes ; des équipements ; des portes ; des chariots ; des conversations. <b>Une mauvaise acoustique augmente la fatigue du personnel.</b> Il faut donc prévoir : une isolation acoustique ; la limitation des vibrations ; des équipements CVC correctement dimensionnés ; des portes adaptées.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un bras plafonnier qui porte les prises, les fluides et les écrans supprime d'un coup les câbles au sol, libère le passage autour de la table et met l'image dans l'axe du regard du chirurgien. C'est une décision d'architecture (charge du plafond, réseaux au-dessus) au service de l'ergonomie.</p>
+
+<h4>Formules clés</h4>
+<p>Ergonomie : éviter croisements inutiles, câbles au sol, obstacles, déplacements excessifs, mauvaise visibilité. Synthèse : circulation adaptée, sinon fatigue / accidents.</p>
+<p>Acoustique : sources (ventilation, alarmes, équipements, portes, chariots, conversations) ; réponses (isolation, limitation des vibrations, CVC bien dimensionnés, portes adaptées).</p>
+</article>
+
+<div class="fin-partie" data-section="ergonomie-acoustique"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/salle-dimensions.js"></script>
+<script src="../figures/surfaces.js"></script>
+<script src="../figures/bloc-hybride.js"></script>
+<script src="../figures/ergonomie-acoustique.js"></script>
+</body>
+</html>

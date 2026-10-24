@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'air du bloc</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 4. -->
+<main class="cours-chapitre" data-chapitre="4">
+<p class="etiquette" data-etiquette></p>
+<h1>L'air du bloc</h1>
+
+<section class="partie" id="s-ventilation-objectifs">
+<p class="rang-partie">1 / 3</p>
+<h2>Objectifs, température et humidité</h2>
+
+<article class="notion" id="n-ventilation-objectifs">
+<h3>Objectifs de la ventilation, température et humidité</h3>
+<p class="chapeau">La ventilation du bloc n'est pas de la climatisation : elle décide de la propreté de l'air au-dessus de la plaie, du sens dans lequel l'air passe les portes et de ce que respire l'équipe.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre suit l'air de la salle. On commence par ce que la ventilation doit obtenir (ses <b>objectifs</b>, dont la température et l'humidité) ; puis le <b>sens de l'air</b> entre les locaux (pression positive, cascade) ; puis la <b>quantité</b> d'air et sa <b>distribution</b> (renouvellements par heure, soufflage au plafond, extraction basse) ; enfin la <b>qualité</b> de l'air soufflé (filtration, flux unidirectionnel). Un message traverse tout le chapitre : on ne retient jamais un chiffre sans son référentiel.</p>
+
+<h4>Intuition</h4>
+<p>L'air d'une salle d'opération transporte des particules et des germes, émis surtout par les personnes présentes ; il reçoit les gaz anesthésiques qui s'échappent ; il peut être trop chaud, trop froid, trop humide ou trop sec ; il passe d'une pièce à l'autre dès qu'une porte s'ouvre. La ventilation agit sur tout cela à la fois. C'est pourquoi le cours la classe parmi les contraintes les plus importantes du bloc.</p>
+
+<div id="fig-objectifs"></div>
+
+<h4>Formalisation</h4>
+<p>Les objectifs de la ventilation du bloc sont : contrôler la contamination particulaire ; évacuer les gaz anesthésiques ; maintenir la température ; contrôler l'humidité ; maintenir les gradients de pression ; assurer le confort du personnel ; contribuer à la prévention des infections. L'OMS indique que la ventilation du bloc contribue notamment au maintien de la qualité de l'air et au contrôle des exigences de pression.</p>
+<h5>Température et humidité</h5>
+<p>La température doit être : contrôlable ; adaptée au type d'intervention ; compatible avec le confort du patient ; compatible avec les équipements.</p>
+<p>L'humidité doit être contrôlée pour éviter : la condensation ; le développement microbiologique ; la dégradation des équipements ; l'inconfort. Le CDC souligne l'importance du contrôle de l'humidité et de la température dans les salles d'opération. Les plages exactes sont fixées par le référentiel utilisé.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le TD 1 décrit une salle dont la température et l'humidité fluctuent pendant plusieurs jours, alors que le service technique affirme que « la climatisation fonctionne ». Ce constat ne suffit pas : il faut des relevés (température, humidité, pression différentielle, débits), l'historique des alarmes et de maintenance, l'état des filtres, et les comparer au référentiel. C'est l'erreur n° 10 du cours : traiter la ventilation comme un simple problème de climatisation.</p>
+
+<h4>Formules clés</h4>
+<p>Objectifs : contamination particulaire, gaz anesthésiques, température, humidité, gradients de pression, confort du personnel, prévention des infections.</p>
+<p>Température : contrôlable, adaptée à l'intervention, au patient, aux équipements. Humidité : éviter condensation, développement microbiologique, dégradation des équipements, inconfort.</p>
+</article>
+
+<div class="fin-partie" data-section="ventilation-objectifs"></div>
+</section>
+
+<section class="partie" id="s-pression-renouvellement">
+<p class="rang-partie">2 / 3</p>
+<h2>Pression et renouvellement de l'air</h2>
+
+<article class="notion" id="n-pression-cascade">
+<h3>Pression positive et cascade de pression</h3>
+<p class="chapeau">Une porte s'ouvre plusieurs dizaines de fois pendant une intervention. À chaque ouverture, l'air passe d'une pièce à l'autre : il faut décider dans quel sens.</p>
+<h4>Intuition</h4>
+<p>L'air va toujours de la zone où la pression est la plus haute vers celle où elle est la plus basse. Si la salle est en légère surpression par rapport au couloir, l'air sort de la salle à chaque ouverture de porte, et l'air moins propre du couloir n'entre pas. En enchaînant plusieurs paliers (salle, puis zone intermédiaire, puis circulation), on obtient une cascade : l'air descend toujours du plus propre vers le moins propre.</p>
+
+<div id="fig-cascade"></div>
+
+<h4>Formalisation</h4>
+<p>Une salle opératoire conventionnelle doit généralement être maintenue en <strong>pression positive par rapport aux espaces adjacents</strong>. Principe : zone plus propre → salle opératoire → zone moins propre. Ainsi, lorsque la porte s'ouvre, l'air tend à sortir de la salle plutôt qu'à y entrer. Le CDC indique que les salles d'opération doivent être maintenues en pression positive par rapport aux couloirs et espaces adjacents.</p>
+<p><strong>Cascade de pression</strong>, exemple conceptuel du cours : salle opératoire (pression la plus forte) → préparation / zone intermédiaire → circulation (0). <b>La cascade exacte doit être définie par le référentiel et le programme de ventilation du projet.</b></p>
+<p>Les portes à fermeture automatique entre les zones servent à préserver la cascade (recommandations de la Healthcare Infection Society).</p>
+<p>Rappel : dans un modèle simple, un local est en surpression quand on y souffle plus d'air qu'on n'en extrait ; l'excédent s'échappe par les portes et les fuites.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Si, dans un bloc, la zone de préparation est réglée à une pression plus forte que la salle, la cascade est cassée : à l'ouverture de la porte, l'air de la préparation entre dans la salle. La pression positive de la salle doit être vérifiée par rapport à <b>tous</b> ses espaces adjacents, et pas seulement par rapport au couloir.</p>
+
+<h4>Formules clés</h4>
+<p>L'air va de la pression la plus haute vers la plus basse.</p>
+<p>Salle en pression positive par rapport aux espaces adjacents ; cascade : salle → zone intermédiaire → circulation ; valeurs exactes fixées par le référentiel et le programme de ventilation.</p>
+</article>
+
+<article class="notion" id="n-renouvellement-air">
+<h3>Renouvellement et distribution de l'air</h3>
+<p class="chapeau">Combien d'air faut-il souffler dans une salle, et par où ? Le cours donne des ordres de grandeur, mais insiste : un chiffre n'a de sens qu'avec son référentiel.</p>
+<h4>Intuition</h4>
+<p>Renouveler l'air, c'est remplacer l'air de la salle par de l'air traité. Si on souffle en une heure un volume d'air égal à quinze fois le volume de la salle, on dit qu'on a quinze renouvellements par heure. Plus on renouvelle, plus on dilue et on emporte les particules. Mais la façon dont l'air circule compte autant : un air propre qui descend du plafond sur la table et repart en bas pousse les particules loin de la plaie.</p>
+
+<div id="fig-ach"></div>
+
+<h4>Formalisation</h4>
+<p>Il faut distinguer : <b>air neuf</b> (pris à l'extérieur) ; <b>air recyclé</b> (repris dans les locaux et renvoyé dans le circuit) ; <b>air filtré</b> (passé par les filtres) ; <b>air extrait</b> (aspiré hors du local). Les définitions entre parenthèses sont ajoutées.</p>
+<p>Le taux de renouvellement s'exprime en ACH (renouvellements d'air par heure), comme le rappelle le TD 1 :</p>
+\[ \text{ACH} = \frac{\text{débit volumique d'air (m}^3/\text{h)}}{\text{volume du local (m}^3)} \]
+<p>Valeurs citées au cours : certaines références historiques indiquent environ <b>15 renouvellements d'air par heure minimum</b> pour les salles opératoires conventionnelles, tandis que d'autres référentiels de conception utilisent des valeurs supérieures. Le CDC mentionne environ <b>15 ACH</b> pour les systèmes conventionnels ; les recommandations 2026 de la Healthcare Infection Society demandent de concevoir les systèmes afin de permettre <b>plus de 22 ACH</b>, pour tenir compte de la dégradation des performances dans le temps.</p>
+<p><b>Conclusion pédagogique du cours : il ne faut pas retenir un chiffre isolé sans préciser le référentiel utilisé.</b></p>
+<h5>Distribution de l'air</h5>
+<p>Un principe classique consiste à <b>introduire l'air filtré par le plafond et extraire l'air à proximité du sol</b>. Le CDC décrit notamment cette configuration pour les salles opératoires conventionnelles.</p>
+
+<div id="fig-distribution"></div>
+
+<h4>Exemple</h4>
+<p>Exercice du TD 1 (partie IV) : une salle de 180 m³, avec 20 renouvellements par heure retenus par le programme de l'exercice (donnée de l'exercice, pas une prescription universelle).</p>
+\[ Q = 20 \times 180 = 3\,600\ \text{m}^3/\text{h} \qquad \text{ACH}_{\text{mesuré}} = \frac{3\,060}{180} = 17 \]
+<p>Le débit mesuré donne 17 ACH, sous les 20 retenus : il faut vérifier l'installation (filtres encrassés, réglages, mesures). Limites de ce calcul : il ne dit rien de la répartition de l'air dans la salle, de la filtration, des pressions, de la part d'air neuf et d'air recyclé, de la qualité des mesures, ni du référentiel applicable.</p>
+
+<h4>Formules clés</h4>
+\[ V = L \times \ell \times h \qquad \text{ACH} = \frac{Q}{V} \qquad Q = \text{ACH} \times V \]
+<p>Environ 15 ACH (CDC, systèmes conventionnels) ; plus de 22 ACH en conception (HIS 2026) ; toujours citer le référentiel.</p>
+<p>Distribution classique : air filtré soufflé au plafond, extraction près du sol.</p>
+</article>
+
+<div class="fin-partie" data-section="pression-renouvellement"></div>
+</section>
+
+<section class="partie" id="s-filtration-ucv">
+<p class="rang-partie">3 / 3</p>
+<h2>Filtration et flux unidirectionnel</h2>
+
+<article class="notion" id="n-filtration-ucv">
+<h3>Filtration de l'air et flux unidirectionnel</h3>
+<p class="chapeau">Faut-il un filtre HEPA dans chaque salle ? Un flux laminaire au-dessus de chaque table ? Le cours répond : selon le risque, l'intervention et le référentiel.</p>
+<h4>Intuition</h4>
+<p>L'air soufflé traverse des filtres de plus en plus fins : un préfiltre arrête les grosses particules et protège les suivants, une filtration fine arrête les plus petites, et dans certains cas un filtre à très haute efficacité (HEPA) termine le travail. Plus le risque de l'intervention est élevé, plus on va loin, jusqu'au flux unidirectionnel : un bloc d'air très propre qui descend en continu sur la zone opératoire.</p>
+
+<div id="fig-filtration"></div>
+
+<h4>Formalisation</h4>
+<p>La filtration dépend : du système CVC ; du niveau de risque ; du référentiel ; du type de chirurgie. Il faut prévoir : une <b>préfiltration</b> ; une <b>filtration fine</b> ; <b>éventuellement une filtration HEPA</b> selon l'application.</p>
+<p>Erreur pédagogique fréquente : « Toute salle opératoire doit obligatoirement avoir un HEPA. » Ce n'est pas universellement exact. Les recommandations 2026 de la Healthcare Infection Society indiquent notamment que les filtres HEPA ne sont pas indispensables pour les salles conventionnelles lorsque la qualité d'air requise est obtenue avec une filtration appropriée.</p>
+<h5>Flux unidirectionnel / UCV</h5>
+<p>Pour certaines interventions à haut risque, notamment certaines chirurgies orthopédiques avec implants, des systèmes d'<b>ultraclean ventilation (UCV)</b> peuvent être utilisés : de l'air très propre descend sur la zone du patient et de la chirurgie, avec une extraction basse.</p>
+<p>Il ne faut toutefois pas présenter le flux laminaire comme une solution universelle de prévention des infections du site opératoire : les recommandations internationales ont souligné que les preuves et indications varient selon les types d'interventions.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Dans un même hôpital, une salle de chirurgie viscérale conventionnelle peut obtenir la qualité d'air requise avec préfiltration et filtration fine, tandis qu'une salle dédiée aux prothèses articulaires peut être équipée d'un système UCV. Le choix découle du niveau de risque, du type de chirurgie et du référentiel, pas d'une règle unique.</p>
+
+<h4>Formules clés</h4>
+<p>Préfiltration → filtration fine → éventuellement HEPA, selon le système CVC, le risque, le référentiel et la chirurgie.</p>
+<p>HEPA pas obligatoire partout (HIS 2026, salles conventionnelles avec filtration appropriée). UCV pour certaines interventions à haut risque ; pas une solution universelle.</p>
+</article>
+
+<div class="fin-partie" data-section="filtration-ucv"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/ventilation-objectifs.js"></script>
+<script src="../figures/pression-cascade.js"></script>
+<script src="../figures/renouvellement-air.js"></script>
+<script src="../figures/filtration-ucv.js"></script>
+</body>
+</html>

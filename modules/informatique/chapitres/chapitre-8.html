@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les principes de la sécurité</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 8. -->
+<main class="cours-chapitre" data-chapitre="8">
+<p class="etiquette" data-etiquette></p>
+<h1>Les principes de la sécurité</h1>
+
+<section class="partie" id="s-defense-profondeur">
+<p class="rang-partie">1 / 3</p>
+<h2>La défense en profondeur</h2>
+
+<article class="notion" id="n-defense-profondeur">
+<h3>Contexte et enjeux : la défense en profondeur</h3>
+<p class="chapeau">« Notre DPI a un mot de passe et un pare-feu : il est sûr. » C'est le mythe de la sécurité. Une seule faille suffit à un attaquant, et aucune protection n'en est exempte.</p>
+<h4>Le chapitre en bref</h4>
+<p>Trois idées fondent la sécurité du cours. D'abord, <b>rien n'est sécurisé à 100 %</b> : on empile donc des couches de défense. Ensuite, ce qu'on protège tient en trois critères, le <b>triangle CID</b> (confidentialité, intégrité, disponibilité) : à l'hôpital, protéger les données des patients, c'est protéger les patients. Enfin, la <b>règle AAA</b> (authentification, autorisation, traçabilité) contrôle qui accède à quoi et garde la trace de ce qui a été fait.</p>
+
+<h4>Intuition</h4>
+<p>Chaque protection a sa faille. Si les données ne sont protégées que par une couche, une faille suffit. Avec plusieurs couches, chacune avec sa faille à un endroit différent, l'attaquant doit toutes les trouver : cela lui prend du temps, et laisse au défenseur le temps de le voir.</p>
+<div id="fig-couches-def"></div>
+
+<h4>Formalisation</h4>
+<p>Contexte et enjeux : le mythe de la sécurité ; rien n'est sécurisé à 100 % ; <b>défense en profondeur</b> :</p>
+<ul>
+<li><b>sécurité en couches</b> ;</li>
+<li><b>durcissement</b> ;</li>
+<li><b>veille et sensibilisation</b>.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour des pompes à perfusion connectées : un pare-feu entre Internet et l'hôpital, un réseau séparé réservé aux DM, un contrôle d'accès à leur console (couches) ; le compte « admin / admin » d'usine retiré et les ports inutiles fermés (durcissement) ; les infirmiers formés à repérer un courriel piégé et les alertes du maCERT suivies (veille et sensibilisation).</p>
+
+<h4>Formules clés</h4>
+<p>Rien n'est sécurisé à 100 %. Défense en profondeur = couches + durcissement + veille et sensibilisation.</p>
+</article>
+
+<div class="fin-partie" data-section="defense-profondeur"></div>
+</section>
+
+<section class="partie" id="s-triade-cid">
+<p class="rang-partie">2 / 3</p>
+<h2>Le triangle d'or CID</h2>
+
+<article class="notion" id="n-triade-cid">
+<h3>Le triangle d'or CID</h3>
+<p class="chapeau">Un résultat de labo modifié, le PACS en panne, une analyse génétique divulguée : trois incidents, trois critères atteints, trois façons de mettre un patient en danger.</p>
+<h4>Intuition</h4>
+<p>On protège trois choses : que seules les bonnes personnes voient l'information (confidentialité), qu'elle soit juste (intégrité), qu'elle soit là quand on en a besoin (disponibilité). À l'hôpital, chaque atteinte a une conséquence directe pour le patient. D'où la phrase du cours : les données des patients, c'est la sécurité du patient.</p>
+<div id="fig-cid"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Exemples de données (cours)</th><th>Conséquence d'une atteinte</th></tr>
+<tr><td>Confidentialité</td><td>DPI, imagerie, génétique...</td><td>atteinte à la vie privée</td></tr>
+<tr><td>Intégrité</td><td>posologie, résultats de labos...</td><td>erreur de soins (souvent non détectable)</td></tr>
+<tr><td>Disponibilité</td><td>monitorage, PACS...</td><td>retard de prise en charge</td></tr>
+</table></div>
+<p>En anglais : CIA (confidentiality, integrity, availability) ; en français : CID. <b>Données des patients = sécurité du patient.</b> À l'hôpital, la disponibilité et l'intégrité priment souvent sur la confidentialité (chapitre 7).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un pirate modifie à distance le débit d'un pousse-seringue connecté, sans déclencher d'alarme : atteinte à l'intégrité, la pire, parce que rien ne la signale et que le soin continue sur une valeur fausse.</p>
+
+<h4>Formules clés</h4>
+<p>Confidentialité → vie privée. Intégrité → erreur de soins. Disponibilité → retard de prise en charge.</p>
+</article>
+
+<div class="fin-partie" data-section="triade-cid"></div>
+</section>
+
+<section class="partie" id="s-regle-aaa">
+<p class="rang-partie">3 / 3</p>
+<h2>La règle AAA</h2>
+
+<article class="notion" id="n-regle-aaa">
+<h3>La règle AAA</h3>
+<p class="chapeau">Une infirmière ouvre le DPI à 7 h. Le système doit savoir qui elle est, ce qu'elle a le droit de voir, et garder la trace de ce qu'elle a consulté.</p>
+<h4>Intuition</h4>
+<p>Trois questions, dans l'ordre : qui es-tu ? (authentification) ; qu'as-tu le droit de faire ? (autorisation) ; qu'as-tu fait ? (traçabilité). Sans la troisième, un abus reste invisible ; sans les deux premières, n'importe qui fait n'importe quoi.</p>
+<div id="fig-aaa"></div>
+
+<h4>Formalisation</h4>
+<p><b>AAA</b> :</p>
+<ul>
+<li><b>authentification</b> (authentication) ;</li>
+<li><b>autorisation</b> (authorization) ;</li>
+<li><b>traçabilité</b> (accounting).</li>
+</ul>
+<p>Il faut savoir :</p>
+<ul>
+<li><b>agir comme un hacker</b> (sécurité offensive) ;</li>
+<li><b>mettre en place des mesures défensives</b> (dilemme de la défensive) : impossible de faire 100 % de sécurité, et une seule faille suffit à un attaquant ; arbitrage difficile entre sécurité rigide et ouverture du SI (risque de failles).</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un ancien interne se connecte encore avec son compte six mois après son départ : l'authentification n'a pas été mise à jour. Une secrétaire peut modifier une prescription : l'autorisation est trop large. Un agent consulte le dossier de son voisin sans que personne ne le sache jamais : il manque la traçabilité.</p>
+
+<h4>Formules clés</h4>
+<p>Authentification (qui ?) → autorisation (quoi ?) → traçabilité (qu'a-t-il fait ?).</p>
+<p>Sécurité offensive ; dilemme de la défensive : une seule faille suffit, sécurité rigide ou ouverture du SI.</p>
+</article>
+
+<div class="fin-partie" data-section="regle-aaa"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/defense-profondeur.js"></script>
+<script src="../figures/triade-cid.js"></script>
+<script src="../figures/regle-aaa.js"></script>
+</body>
+</html>

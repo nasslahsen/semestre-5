@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Assemblages et fixations</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 6. -->
+<main class="cours-chapitre" data-chapitre="6">
+<p class="etiquette" data-etiquette></p>
+<h1>Assemblages et fixations</h1>
+
+<section class="partie" id="s-fonctions-liaison">
+<p class="rang-partie">1 / 4</p>
+<h2>Fonctions d'une liaison</h2>
+
+<article class="notion" id="n-fonctions-liaison">
+<h3>Fonctions d'une liaison et exemples complets</h3>
+<p class="chapeau">Une roue dentée doit tenir sur l'arbre d'une articulation : ne pas tourner sur l'arbre, ne pas glisser le long de l'arbre, revenir au même endroit après un démontage, et ne pas se desserrer avec les vibrations. Une seule pièce ne peut pas tout faire.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre parle de tout ce qui tient les pièces d'un axe robotique ensemble : vis, clavettes, anneaux élastiques, goupilles, ressorts. Dans un robot médical, une roue qui patine, un capot qui se desserre ou une pièce mal repositionnée après nettoyage, c'est une erreur de position en bout d'instrument. Le fil conducteur : une fonction, un élément.</p>
+<ul>
+<li>Fonctions d'une liaison : serrer, positionner, transmettre, maintenir axialement, prévenir le desserrage.</li>
+<li>Assemblage vissé : la vis serre grâce à la précharge, réglée par le couple de serrage.</li>
+<li>Clavettes : elles transmettent le couple ; on vérifie leur cisaillement.</li>
+<li>Anneaux élastiques et goupilles : maintenir axialement, immobiliser, positionner.</li>
+<li>Ressorts : rappeler, maintenir un contact, appliquer un effort, avec \(F = kx\).</li>
+</ul>
+
+<h4>Intuition</h4>
+<p>Quand tu fixes une pièce, tu demandes en fait plusieurs choses différentes : qu'elle soit plaquée, qu'elle soit au bon endroit, qu'elle transmette l'effort, qu'elle ne parte pas le long de l'axe, et que tout cela tienne dans le temps. Si tu confies tout à une vis, elle serre bien, mais elle passe avec du jeu dans son trou : la pièce se décale un peu à chaque remontage, et le couple passe seulement par frottement.</p>
+<p>Une bonne liaison sépare ces fonctions : un élément par fonction. C'est ce que montrent les montages ci-dessous, tirés du cours.</p>
+
+<div id="fig-liaisons"></div>
+
+<h4>Formalisation</h4>
+<p>Une liaison mécanique doit séparer clairement les fonctions suivantes :</p>
+<ul>
+<li><strong>SERRER</strong> : créer une précharge et maintenir les surfaces en contact ;</li>
+<li><strong>POSITIONNER</strong> : définir de façon répétable la géométrie relative ;</li>
+<li><strong>TRANSMETTRE</strong> : faire passer un effort ou un couple ;</li>
+<li><strong>MAINTENIR AXIALEMENT</strong> : empêcher le déplacement selon l'axe ;</li>
+<li><strong>PRÉVENIR LE DESSERRAGE</strong> : conserver la fonction sous vibration et cycles.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Fonction</th><th>Éléments à utiliser</th></tr>
+<tr><td>Serrer</td><td>les vis</td></tr>
+<tr><td>Positionner de façon répétable</td><td>des goupilles, des épaulements ou des centrages</td></tr>
+<tr><td>Transmettre un couple</td><td>une clavette, des cannelures ou un moyeu de serrage adapté</td></tr>
+<tr><td>Maintenir axialement</td><td>par exemple un écrou, un anneau élastique (page « Anneaux élastiques et goupilles »)</td></tr>
+<tr><td>Prévenir le desserrage</td><td>par exemple une rondelle frein</td></tr>
+</table></div>
+
+<h4>Exemple du cours : trois liaisons complètes</h4>
+<h5>Écrou à encoches et rondelle frein</h5>
+<p>Un écrou à encoches est un dispositif de serrage utilisé pour fixer des roulements ou d'autres composants de machine sur un arbre. Le montage est démontable. Une rainure de clavette est usinée sur la tête de l'arbre filetée. Pour sécuriser le montage et éviter tout desserrage accidentel, une rondelle frein à languette est interposée entre l'écrou et l'organe à serrer. Le serrage et le desserrage de l'écrou se font avec une clé à ergots. À l'aide d'outils de frappe et d'un marteau, une languette extérieure de la rondelle est déformée pour s'engager dans l'encoche de l'écrou.</p>
+<h5>Vis sur méplat</h5>
+<p>L'arbre comporte un méplat sur lequel vient s'appuyer une vis, vissée dans le moyeu de la roue. Lors du serrage, la vis exerce un effort sur le méplat et plaque l'arbre contre la paroi opposée de l'alésage. Ce serrage immobilise la roue sur l'arbre et permet de transmettre un couple. Le méplat offre une surface d'appui à la vis et limite le risque de glissement en rotation.</p>
+<p>Remarque : la vis contribue aussi au maintien axial de la roue par frottement, mais ce montage ne garantit pas un positionnement axial précis.</p>
+<h5>Goupille transversale</h5>
+<p>Liaison arbre-roue dentée par goupille transversale : l'arbre est introduit dans l'alésage du moyeu, puis une goupille cylindrique est insérée dans les trous alignés des deux pièces. La goupille immobilise la roue en rotation par rapport à l'arbre et transmet le couple par cisaillement. Elle contribue aussi au maintien axial de la roue, tandis que les surfaces cylindriques de l'arbre et de l'alésage assurent son centrage.</p>
+
+<h4>Pour aller plus loin</h4>
+<p>Vidéos citées dans le cours : <a href="https://www.youtube.com/watch?v=7N5EY81DMsw">écrou à encoches et rondelle frein</a>, <a href="https://www.youtube.com/watch?v=q8_9XqbtrvE">vis sur méplat</a>, <a href="https://www.youtube.com/watch?v=zeG5XA8JdTM">goupille transversale</a>.</p>
+
+<h4>Formules clés</h4>
+<p>Pas de formule ici : une règle. Une fonction, un élément.</p>
+<p>Serrer : vis. Positionner : goupilles, épaulements, centrages. Transmettre un couple : clavette, cannelures, moyeu de serrage. Maintenir axialement, prévenir le desserrage : des éléments dédiés.</p>
+</article>
+
+<div class="fin-partie" data-section="fonctions-liaison"></div>
+</section>
+
+<section class="partie" id="s-assemblage-visse">
+<p class="rang-partie">2 / 4</p>
+<h2>Assemblage vissé et précharge</h2>
+
+<article class="notion" id="n-assemblage-visse">
+<h3>Assemblage vissé et précharge</h3>
+<p class="chapeau">Le support d'un instrument est vissé sur le bras du robot. Combien faut-il serrer la vis, et pourquoi le même couple ne donne-t-il pas toujours le même serrage ?</p>
+
+<h4>Intuition</h4>
+<p>Quand tu serres un écrou, il se rapproche de la tête de vis : la vis s'allonge un tout petit peu, comme un ressort très raide qu'on tire. En retour, elle pince les pièces entre sa tête et l'écrou. Cette force de serrage, présente avant toute charge extérieure, c'est la précharge.</p>
+<p>Tant que la précharge est suffisante, les pièces restent collées l'une à l'autre et le frottement entre elles reprend une partie des efforts qui voudraient les faire glisser. Pour obtenir cette précharge, on règle le couple de serrage à la clé. Mais une partie du couple part en frottement dans le filet et sous la tête : si l'état de surface change, la même clé ne donne plus la même précharge.</p>
+
+<div id="fig-precharge"></div>
+
+<h4>Formalisation</h4>
+<p>Les <strong>éléments d'assemblage vissé</strong> sont des composants filetés, comme les vis, boulons et écrous, utilisés pour assembler et maintenir plusieurs pièces par serrage, tout en permettant généralement leur démontage. Le cours en montre quatre : la vis d'assemblage, la vis de pression, le boulon à tête hexagonale (vis et écrou, épaisseur à serrer) et le goujon (bloqué à fond de filet dans l'implantation, longueur libre côté écrou).</p>
+
+<div id="fig-types"></div>
+
+<p>Dans un assemblage vissé préchargé, la vis travaille en traction et les pièces serrées en compression. Si la précharge est suffisante, les surfaces restent en contact et le frottement reprend une partie des efforts transversaux.</p>
+<p>Le couple de serrage peut être estimé par :</p>
+\[ T \simeq K F_0 d \qquad (2.1) \]
+<p>avec \(T\) le couple de serrage estimé (N·m), \(F_0\) la précharge axiale initiale de la vis (N), \(d\) le diamètre nominal (m) et \(K\) un coefficient empirique, sans dimension, qui dépend du frottement, du revêtement et de la lubrification. \(K\) n'est pas une constante universelle.</p>
+<h5>Limite de l'équation de serrage</h5>
+<p>La relation de précharge est une approximation. Un même couple peut donner des précharges différentes si l'état de surface change. Pour une liaison critique, utiliser une méthode de serrage validée et les valeurs de la documentation technique.</p>
+<h5>Interfaces filetées et matériaux tendres</h5>
+<p>La résistance d'un assemblage fileté dépend aussi de la pièce taraudée. Dans un carter en aluminium, en polymère ou imprimé en 3D, le taraudage peut être le point faible. En cas de démontages fréquents, un insert fileté métallique améliore la tenue et la répétabilité du montage.</p>
+
+<h4>Exemple du cours : estimation de précharge</h4>
+<p>Pour une vis M6 (\(d = 6\) mm) avec \(F_0 = 4\) kN et l'hypothèse \(K = 0{,}20\) :</p>
+\[ T \simeq 0{,}20 \times 4000 \times 0{,}006 = 4{,}8 \text{ N}\cdot\text{m} \]
+<p>La valeur n'est exploitable que si l'hypothèse sur \(K\) correspond aux conditions de montage. <span class="complement">Exemple ajouté : avec le même couple de 4,8 N·m sur une vis lubrifiée où \(K = 0{,}15\), \(F_0 \simeq 4{,}8 / (0{,}15 \times 0{,}006) \approx 5{,}33\) kN, un tiers de plus.</span></p>
+
+<h4>Formules clés</h4>
+\[ T \simeq K F_0 d \qquad F_0 \simeq \frac{T}{K d} \]
+<p>Vis en traction, pièces en compression. \(K\) dépend du frottement, du revêtement et de la lubrification.</p>
+</article>
+
+<div class="fin-partie" data-section="assemblage-visse"></div>
+</section>
+
+<section class="partie" id="s-clavettes-goupilles">
+<p class="rang-partie">3 / 4</p>
+<h2>Clavettes, anneaux et goupilles</h2>
+
+<article class="notion" id="n-clavette">
+<h3>Clavettes</h3>
+<p class="chapeau">Le moteur d'une articulation fait tourner son arbre ; la poulie ou la roue montée dessus doit tourner avec lui. Une petite pièce d'acier, logée entre les deux, fait passer tout le couple : la clavette. Est-elle assez solide ?</p>
+
+<h4>Intuition</h4>
+<p>Un moyeu simplement enfilé sur un arbre lisse pourrait patiner. On creuse une rainure dans l'arbre, une autre dans le moyeu, et on place une clavette à cheval dans les deux. Quand l'arbre tourne, il pousse la clavette, qui pousse le moyeu.</p>
+<p>Si le couple est trop grand, la clavette se coupe au niveau où l'arbre et le moyeu glissent l'un sur l'autre : le plan de joint. Plus l'arbre est gros, plus la force sur la clavette est faible pour un même couple (le bras de levier est plus long). Plus la clavette est longue et large, plus cette force se répartit sur une grande surface.</p>
+
+<div id="fig-clavette"></div>
+
+<h4>Formalisation</h4>
+<p>Les <strong>clavettes</strong> ont pour rôle de transmettre un couple entre deux pièces mises en position par une liaison cylindre-cylindre. Le cours montre des clavettes parallèles à bouts ronds et une clavette disque. La clavette se loge dans une rainure de l'arbre et dans une rainure débouchante du moyeu.</p>
+
+<div id="fig-montage"></div>
+
+<p>Pour un arbre de diamètre \(d\) transmettant un couple \(C\), la force tangentielle équivalente au rayon \(d/2\) vaut :</p>
+\[ F_t = \frac{2C}{d} \qquad (2.2) \]
+<p>Une estimation simple de la contrainte moyenne de cisaillement d'une clavette de largeur \(b\) et de longueur utile \(L\) est :</p>
+\[ \tau \simeq \frac{F_t}{bL} \qquad (2.3) \]
+<p>avec \(\tau\) la contrainte moyenne de cisaillement (Pa ou MPa) et \(F_t\) la force tangentielle (N). Le calcul complet doit aussi vérifier le matage, les dimensions normalisées, les concentrations de contraintes et le cycle de charge.</p>
+<p>Bouts d'arbres cylindriques (série longue, usuelle, ou série courte), liaison en rotation par clavette parallèle ou par manchon de blocage : tolérance j6 pour \(d \le 30\) mm, k6 pour \(d \ge 32\) mm.</p>
+
+<h4>Rappel : contrainte et unités</h4>
+<p>Une contrainte est une force divisée par la surface qui la supporte. Avec une force en newtons et une surface en mm², on obtient des N/mm², et 1 N/mm² = 1 MPa. C'est pour cela qu'on garde \(b\) et \(L\) en millimètres dans \(\tau \simeq F_t / (bL)\). Dans \(F_t = 2C/d\), en revanche, \(C\) est en N·m et \(d\) doit être en mètres pour obtenir des newtons.</p>
+
+<h4>Exemple du cours : ordre de grandeur</h4>
+<p>Avec \(C = 8\) N·m, \(d = 12\) mm, \(b = 4\) mm et \(L = 20\) mm :</p>
+\[ F_t = \frac{2 \times 8}{0{,}012} = 1{,}33 \text{ kN} \qquad \tau \simeq \frac{1333}{4 \times 20} = 16{,}7 \text{ MPa} \]
+<p>Pour un acier de type C45, très utilisé pour la fabrication des clavettes, la limite élastique en cisaillement est d'environ 200 MPa.</p>
+
+<h4>Formules clés</h4>
+\[ F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL} \]
+<p>Cisaillement dans le plan de joint arbre / moyeu. À compléter par le matage, les dimensions normalisées, les concentrations de contraintes et le cycle de charge.</p>
+</article>
+
+<article class="notion" id="n-anneaux-goupilles">
+<h3>Anneaux élastiques et goupilles</h3>
+<p class="chapeau">Un roulement est poussé le long de son arbre par un effort axial ; une roue doit rester exactement à sa place sur son arbre. Deux petites pièces, faciles à monter et à démonter, règlent ces problèmes : l'anneau élastique et la goupille.</p>
+
+<h4>Intuition</h4>
+<p>Pour empêcher une pièce de glisser le long d'un arbre, il suffit de lui mettre un obstacle. On creuse une gorge dans l'arbre et on y loge un anneau en acier élastique : il dépasse de l'arbre, la pièce vient buter contre lui. On l'ouvre avec une pince pour le retirer. Si la pièce est dans un trou (un alésage), on fait la même chose de l'autre côté : gorge dans l'alésage, anneau qui s'écarte dedans.</p>
+<p>Une goupille, c'est une petite tige qui traverse deux pièces dans des trous alignés. Elle les empêche de bouger l'une par rapport à l'autre. Ajustée avec précision, elle sert aussi de repère : on retrouve la même position à chaque remontage.</p>
+
+<div id="fig-anneaux"></div>
+
+<h4>Formalisation</h4>
+<p>Un <strong>anneau élastique</strong> (circlip) est un élément de retenue monté dans une gorge sur un arbre ou dans un alésage. Il sert principalement à empêcher le déplacement axial d'une pièce, tout en restant facilement démontable.</p>
+<div class="tableau"><table>
+<tr><th>Anneau</th><th>Gorge</th><th>Norme citée dans le cours</th></tr>
+<tr><td>Extérieur</td><td>sur l'arbre</td><td>NF E 22-163</td></tr>
+<tr><td>Intérieur</td><td>dans l'alésage</td><td>NF E 22-165</td></tr>
+<tr><td>En E (montage radial)</td><td>sur l'arbre</td><td>NF L 23-203</td></tr>
+</table></div>
+<p>Une <strong>goupille</strong> est une pièce métallique, généralement cylindrique ou conique, utilisée pour immobiliser deux pièces ou assurer leur positionnement relatif avec précision.</p>
+
+<div id="fig-goupilles"></div>
+
+<p>Deux usages montrés dans le cours : la goupille d'arrêt, qui traverse l'arbre et le moyeu pour immobiliser les pièces, avec \(d \approx D/3\) et un ajustement H7/m6 ; les goupilles de positionnement, associées à une vis de fixation : la vis serre, les goupilles positionnent.</p>
+
+<h4>Exemple</h4>
+<p><span class="complement">Exemple ajouté</span> Un arbre de \(D = 24\) mm porte une roue immobilisée par une goupille d'arrêt : \(d \approx 24/3 = 8\) mm. Le roulement voisin, poussé par un effort axial, est retenu par un anneau élastique extérieur logé dans une gorge de l'arbre. Si le même roulement était monté dans un logement, la gorge serait dans l'alésage et on prendrait un anneau intérieur.</p>
+
+<h4>Formules clés</h4>
+\[ d \approx \frac{D}{3} \quad \text{(goupille d'arrêt, ajustement H7/m6)} \]
+<p>Anneau élastique : maintenir axialement, démontable. Goupille : immobiliser ou positionner avec précision.</p>
+</article>
+
+<div class="fin-partie" data-section="clavettes-goupilles"></div>
+</section>
+
+<section class="partie" id="s-ressorts">
+<p class="rang-partie">4 / 4</p>
+<h2>Ressorts</h2>
+
+<article class="notion" id="n-ressorts">
+<h3>Ressorts</h3>
+<p class="chapeau">Une pince de prélèvement se rouvre seule quand on la lâche, un vérin revient en arrière quand on coupe l'air : dans les deux cas, un ressort a stocké de l'énergie et la rend.</p>
+
+<h4>Intuition</h4>
+<p>Comprime un ressort : plus tu appuies loin, plus il pousse fort. Pour un ressort usuel, tant qu'on ne le déforme pas trop, c'est même proportionnel : deux fois plus de compression, deux fois plus d'effort. Le nombre qui relie les deux, c'est la raideur. Un ressort raide demande beaucoup d'effort pour un petit déplacement.</p>
+<p>On choisit donc un ressort par sa raideur, pour obtenir l'effort voulu sur la course voulue.</p>
+
+<div id="fig-raideur"></div>
+
+<h4>Formalisation</h4>
+<p>Un <strong>ressort</strong> est un élément mécanique déformable qui emmagasine de l'énergie lorsqu'il est sollicité et restitue un effort lorsqu'il reprend sa forme initiale. Il est utilisé notamment pour assurer un rappel, maintenir un contact, appliquer un effort ou absorber des chocs.</p>
+<p>Dans son domaine linéaire, un ressort obéit à :</p>
+\[ F = kx \qquad (2.4) \]
+<p>avec \(F\) la force du ressort (N), \(k\) la raideur (N/m ou N/mm) et \(x\) l'allongement ou la compression. C'est la même idée que la raideur d'un guidage, \(k = F/\delta\), au chapitre suivant.</p>
+<p>Le cours montre des ressorts cylindriques de compression (bases dressées) et de traction (crochets), décrits par le pas \(P\), le diamètre du fil \(d\), le diamètre \(D\) et la longueur \(L\), et deux applications : un vérin dont le piston est ramené par un ressort comprimé, et un ressort de soupape avec son jeu de soupape.</p>
+
+<div id="fig-applications"></div>
+
+<h4>Exemple du cours</h4>
+<p>Pour une variation de force \(\Delta F = 12\) N sur \(\Delta x = 12\) mm, la raideur requise est :</p>
+\[ k = \frac{\Delta F}{\Delta x} = \frac{12}{12} = 1 \text{ N/mm} \]
+
+<h4>Formules clés</h4>
+\[ F = kx \qquad k = \frac{\Delta F}{\Delta x} \]
+<p>Rappel, contact, effort, chocs : les quatre usages d'un ressort.</p>
+</article>
+
+<div class="fin-partie" data-section="ressorts"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../meca/dessin.js"></script>
+<script src="../figures/fonctions-liaison.js"></script>
+<script src="../figures/assemblage-visse.js"></script>
+<script src="../figures/clavette.js"></script>
+<script src="../figures/anneaux-goupilles.js"></script>
+<script src="../figures/ressorts.js"></script>
+</body>
+</html>

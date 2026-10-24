@@ -1,5 +1,5 @@
 /*
- * Un chapitre sur une seule grande page qui défile (modules/<id>/<dossierChapitres>/cours/chapitre-<n>.html,
+ * Un chapitre sur une seule grande page qui défile (modules/<id>/chapitres/chapitre-<n>.html,
  * générée par outils/regrouper.js). Pas de bouton entre les sections : on lit d'un trait.
  * Après chaque notion, ses exercices en option (« Jouer ») : ils s'ouvrent par-dessus la page, qui reste à sa place ;
  * sinon on continue de défiler. En fin de chapitre : la révision et le défi final, en option, puis « Chapitre suivant ».
@@ -60,7 +60,7 @@
       rang.textContent = (k + 1) + " / " + parties.length;
       clearTimeout(attente);
       attente = setTimeout(function () {
-        P.noterPlan(MID, ch.sm, ch.titre + " · " + s.titre, P.urlSection(MID, s.id).replace(P.racine, ""));
+        P.noterPlan(MID, ch.sm, s.titre === ch.titre ? ch.titre : ch.titre + " · " + s.titre, P.urlSection(MID, s.id).replace(P.racine, ""));
       }, 800);
     }
     addEventListener("scroll", suivre, { passive: true });
@@ -88,9 +88,16 @@
       ou.insertBefore(b, avant || null);
       return b;
     }
+    var notions = [];
     [].forEach.call(main.querySelectorAll("article.notion"), function (art) {
-      var n = parId[art.id.replace(/^n-/, "")];
+      var nid = art.id.replace(/^n-/, ""), n = parId[nid];
+      notions.push(nid);
       if (n) bloc(n, art.parentNode, art.nextSibling);
+    });
+    // exercices sans page de cours (TD) : à la fin du cours, avant la révision
+    var finCours = parties.length ? parties[parties.length - 1].querySelector(".fin-partie") : null;
+    ch.niveaux.forEach(function (n) {
+      if (!n.revision && !n.boss && notions.indexOf(n.id) < 0 && finCours) bloc(n, finCours.parentNode, finCours);
     });
     var fin = document.createElement("section");
     fin.className = "fin-chapitre";

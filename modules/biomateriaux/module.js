@@ -3,18 +3,20 @@
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
- * cours : pages de cours, dans l'ordre du menu « Tous les concepts ».
+ * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * chapitres[].ligne : la ligne courte sous le titre, sur la carte.
+ * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("biomateriaux", {
   chapitres: [
-    { id: 0, titre: "Les bases", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut avant les matériaux", sousModule: "biomateriaux" },
-    { id: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", sousModule: "biomateriaux" },
-    { id: 2, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", sousModule: "biomateriaux" },
-    { id: 3, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", sousModule: "biomateriaux" },
-    { id: 4, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", sousModule: "biomateriaux" },
-    { id: 5, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", sousModule: "biomateriaux" },
-    { id: 6, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", sousModule: "biomateriaux" },
-    { id: 7, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", sousModule: "biomateriaux" }
+    { id: 0, titre: "Les bases", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut avant les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
+    { id: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
+    { id: 2, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", ligne: "Liaisons, métaux, céramiques, polymères", sousModule: "biomateriaux" },
+    { id: 3, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", ligne: "Masse moléculaire, Tg, cristallinité", sousModule: "biomateriaux" },
+    { id: 4, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
+    { id: 5, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
+    { id: 6, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
+    { id: 7, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" }
   ],
   niveaux: [
     { id: "contrainte-deformation", chapitre: 0, titre: "Contrainte et déformation", cours: true, pret: true },
@@ -82,6 +84,35 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "choisir-procede", chapitre: 7, titre: "Choisir le procédé", cours: true, pret: true },
     { id: "revision-procedes", chapitre: 7, titre: "Révision : les procédés", revision: true, pret: true },
     { id: "boss-procedes", chapitre: 7, titre: "L'atelier du dispositif médical", boss: true, pret: true }
+  ],
+  // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
+  sections: [
+    { id: "traction", chapitre: 0, titre: "Contrainte, déformation et courbe de traction", notions: ["contrainte-deformation", "courbe-traction"] },
+    { id: "echelle-log", chapitre: 0, titre: "Modules et échelle logarithmique", notions: ["echelle-log"] },
+    { id: "masse-volumique", chapitre: 0, titre: "Masse volumique et mélanges", notions: ["masse-volumique"] },
+    { id: "definitions-generations", chapitre: 1, titre: "Définitions et générations", notions: ["definitions-biomateriau", "generations"] },
+    { id: "dispositif-classes", chapitre: 1, titre: "Le dispositif médical et ses classes", notions: ["dispositif-medical", "classes-risque"] },
+    { id: "vocabulaire", chapitre: 1, titre: "Implant, prothèse, organe artificiel, greffe", notions: ["vocabulaire"] },
+    { id: "regeneratif-nano", chapitre: 1, titre: "Ingénierie tissulaire et nanomédecine", notions: ["ingenierie-tissulaire", "nanomedecine"] },
+    { id: "marche", chapitre: 1, titre: "Le marché des biomatériaux", notions: ["marche"] },
+    { id: "liaisons", chapitre: 2, titre: "Organisation de la matière et liaisons", notions: ["liaisons"] },
+    { id: "metaux-ceramiques", chapitre: 2, titre: "Métaux et céramiques", notions: ["metaux", "ceramiques"] },
+    { id: "polymeres-familles", chapitre: 2, titre: "Polymères et familles comparées", notions: ["polymeres-organiques", "comparer-familles"] },
+    { id: "macromolecules", chapitre: 3, titre: "Macromolécules et masse moléculaire", notions: ["macromolecules", "masse-moleculaire"] },
+    { id: "amorphe-cristallin", chapitre: 3, titre: "États amorphe et semi-cristallin", notions: ["etats-amorphe", "semi-cristallins"] },
+    { id: "cristallinite-histoire", chapitre: 3, titre: "Cristallinité et histoire des polymères", notions: ["taux-cristallinite", "historique-polymeres"] },
+    { id: "elastomeres", chapitre: 4, titre: "Élastomères et caoutchouc naturel", notions: ["elastomeres"] },
+    { id: "elasticite", chapitre: 4, titre: "Élastomère, plastomère et élasticité caoutchoutique", notions: ["elastomere-plastomere"] },
+    { id: "vulcanisation-formulation", chapitre: 4, titre: "Vulcanisation et formulation", notions: ["vulcanisation", "formulation"] },
+    { id: "adjuvants-plastifiants", chapitre: 5, titre: "Adjuvants et plastifiants", notions: ["adjuvants", "plastifiants"] },
+    { id: "charges-renforts", chapitre: 5, titre: "Charges et renforts", notions: ["charges-renforts"] },
+    { id: "fibres", chapitre: 5, titre: "Verre, carbone, aramide et autres renforts", notions: ["fibres-renfort"] },
+    { id: "renfort-matrice", chapitre: 6, titre: "Renfort, matrice et anisotropie", notions: ["composites", "isotrope-orthotrope"] },
+    { id: "melanges-transversal", chapitre: 6, titre: "Loi des mélanges et module transversal", notions: ["loi-melanges", "module-transversal"] },
+    { id: "orientation", chapitre: 6, titre: "Orientation des fibres", notions: ["orientation-fibres"] },
+    { id: "extrusion-injection", chapitre: 7, titre: "Extrusion et injection", notions: ["extrusion", "injection"] },
+    { id: "soufflage-moulage", chapitre: 7, titre: "Soufflage, rotomoulage et thermoformage", notions: ["soufflage", "rotomoulage-thermoformage"] },
+    { id: "compression-choix", chapitre: 7, titre: "Compression et choix du procédé", notions: ["compression", "choisir-procede"] }
   ],
   cours: [
     { chapitre: 0, id: "contrainte-deformation", titre: "Contrainte, déformation et module" },

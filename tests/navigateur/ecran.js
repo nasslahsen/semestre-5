@@ -3,7 +3,7 @@
 // et les étiquettes du dessin ne se chevauchent pas. Une capture d'écran par figure en défaut.
 // Lancer : node tests/navigateur/ecran.js <module> [page ...]     (W et H pour la taille d'écran ; aperçu : RACINE, BASE)
 "use strict";
-const { BASE, lancer, dossier, pagesCours, W, H } = require("./commun");
+const { BASE, lancer, dossier, pagesCours, cheminPage, W, H } = require("./commun");
 const mid = process.argv[2];
 if (!mid) { console.error("usage : node tests/navigateur/ecran.js <module> [page ...]"); process.exit(2); }
 
@@ -11,11 +11,11 @@ if (!mid) { console.error("usage : node tests/navigateur/ecran.js <module> [page
   const b = await lancer();
   const pg = await (await b.newContext({ viewport: { width: W, height: H }, hasTouch: true })).newPage();
   const out = dossier(mid, "ecran-" + W + "x" + H);
-  const pages = process.argv.slice(3).length ? process.argv.slice(3) : pagesCours(mid);
+  const pages = process.argv.slice(3).length ? process.argv.slice(3).map(cheminPage) : pagesCours(mid);
   let ko = 0, n = 0;
   for (const p of pages) {
     const errs = []; const h = e => errs.push(String(e)); pg.on("pageerror", h);
-    await pg.goto(`${BASE}modules/${mid}/cours/${p}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+    await pg.goto(`${BASE}modules/${mid}/${p}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
     const nb = await pg.$$eval(".fig", f => f.length);
     for (let i = 0; i < nb; i++) {
       n++;

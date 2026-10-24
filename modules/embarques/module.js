@@ -4,17 +4,18 @@
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
- * cours : pages de cours, dans l'ordre du menu « Tous les concepts ».
+ * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * chapitres[].ligne : la ligne courte sous le titre, sur la carte.
+ * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("embarques", {
-  dossierChapitres: "apercu",
   chapitres: [
-    { id: 0, titre: "Les bases du numérique", sous: "Bits, binaire, hexadécimal, registres et signaux logiques : ce que le cours suppose", sousModule: "embarques", avant: [], ligne: "Bits, hexadécimal, signaux logiques" },
-    { id: 1, titre: "Le système embarqué", sous: "Définitions, exigences de conception, organisation en couches, deux dispositifs médicaux", sousModule: "embarques", avant: [0], ligne: "Définitions, exigences, organisation" },
-    { id: 2, titre: "Architectures matérielles", sous: "Contrôleur embarqué, Von Neumann et Harvard, CISC et RISC, AVR, ARM", sousModule: "embarques", avant: [1], ligne: "Contrôleur, Harvard, RISC, AVR, ARM" },
-    { id: 3, titre: "Bus de communication", sous: "Pourquoi des bus, UART, SPI, I2C", sousModule: "embarques", avant: [2], ligne: "UART, SPI, I2C" },
-    { id: 4, titre: "L'ESP32 : la carte et la puce", sous: "Caractéristiques, nomenclature, carte DEV KIT V1, cœurs, mémoire, alimentation", sousModule: "embarques", avant: [2], ligne: "Carte, cœurs, mémoire, alimentation" },
-    { id: 5, titre: "Programmer les périphériques de l'ESP32", sous: "GPIO, interruptions, ADC, DAC, timers, watchdog, PWM, I2C et SPI", sousModule: "embarques", avant: [3, 4], ligne: "GPIO, ADC, DAC, timers, PWM" }
+    { id: 0, titre: "Les bases du numérique", sous: "Bits, binaire, hexadécimal, registres et signaux logiques : ce que le cours suppose", ligne: "Bits, hexadécimal, signaux logiques", sousModule: "embarques" },
+    { id: 1, titre: "Le système embarqué", sous: "Définitions, exigences de conception, organisation en couches, deux dispositifs médicaux", ligne: "Définitions, exigences, organisation", sousModule: "embarques" },
+    { id: 2, titre: "Architectures matérielles", sous: "Contrôleur embarqué, Von Neumann et Harvard, CISC et RISC, AVR, ARM", ligne: "Contrôleur, Harvard, RISC, AVR, ARM", sousModule: "embarques" },
+    { id: 3, titre: "Bus de communication", sous: "Pourquoi des bus, UART, SPI, I2C", ligne: "UART, SPI, I2C", sousModule: "embarques" },
+    { id: 4, titre: "L'ESP32 : la carte et la puce", sous: "Caractéristiques, nomenclature, carte DEV KIT V1, cœurs, mémoire, alimentation", ligne: "Carte, cœurs, mémoire, alimentation", sousModule: "embarques" },
+    { id: 5, titre: "Programmer les périphériques de l'ESP32", sous: "GPIO, interruptions, ADC, DAC, timers, watchdog, PWM, I2C et SPI", ligne: "GPIO, ADC, DAC, timers, PWM", sousModule: "embarques" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -71,7 +72,7 @@ PLATEFORME.parcours("embarques", {
     { id: "revision-peripheriques", chapitre: 5, titre: "Révision : les périphériques", revision: true, pret: true },
     { id: "boss-peripheriques", chapitre: 5, titre: "Le moniteur de perfusion", boss: true, pret: true }
   ],
-  // Structure par chapitres (aperçu) : le cours de chaque chapitre en sections, sur une seule page qui défile.
+  // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", notions: ["binaire"] },
     { id: "hexadecimal", chapitre: 0, titre: "Hexadécimal et registres", notions: ["hexadecimal"] },

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'hôpital et son bloc</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 1. -->
+<main class="cours-chapitre" data-chapitre="1">
+<p class="etiquette" data-etiquette></p>
+<h1>L'hôpital et son bloc</h1>
+
+<section class="partie" id="s-architecture-hospitaliere">
+<p class="rang-partie">1 / 3</p>
+<h2>Ce que l'architecture hospitalière organise</h2>
+
+<article class="notion" id="n-architecture-hospitaliere">
+<h3>Ce que l'architecture hospitalière organise</h3>
+<p class="chapeau">Un hôpital n'est pas un immeuble de bureaux avec des lits. Avant de dessiner un mur, il faut savoir qui y passe, ce qui y circule, ce qui doit être alimenté et ce qui ne doit jamais se croiser.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce premier chapitre pose le cadre de tout le cours. D'abord ce que l'architecture hospitalière doit organiser et son objectif général ; ensuite les huit familles de contraintes qui pèsent sur un établissement ; enfin le bloc opératoire, l'unité la plus exigeante de l'hôpital, qui sera l'objet de tous les chapitres suivants. Retiens l'idée qui relie les trois pages : on conçoit à partir des besoins et des contraintes, pas à partir d'un dessin.</p>
+
+<h4>Intuition</h4>
+<p>Pense à tout ce qui doit fonctionner en même temps dans un hôpital : des patients et des soignants qui se déplacent, du matériel propre qui arrive et du sale qui repart, de l'oxygène, de l'électricité qui ne doit pas s'arrêter, de l'air qui doit rester sain, des déchets, des livraisons, des pompiers qui doivent pouvoir entrer, des techniciens qui doivent pouvoir réparer. Chacune de ces couches a besoin de place, de chemins et de réseaux. L'architecte les organise <b>simultanément</b> : en oublier une, c'est la découvrir plus tard, quand les murs sont construits.</p>
+
+<div id="fig-couches"></div>
+
+<h4>Formalisation</h4>
+<p>L'architecture hospitalière ne consiste pas uniquement à construire des locaux destinés aux soins. Elle doit organiser simultanément :</p>
+<div class="tableau"><table>
+<tr><th>Les personnes</th><th>Ce qui circule</th><th>Ce qui alimente</th><th>Ce qui protège et fait durer</th></tr>
+<tr><td>les patients ; les professionnels de santé</td><td>les flux propres et sales ; les déchets ; la logistique</td><td>les équipements médicaux ; les fluides médicaux ; l'électricité et les systèmes de secours ; la ventilation et la qualité de l'air</td><td>la sécurité incendie ; la maintenance ; l'hygiène et la prévention des infections</td></tr>
+</table></div>
+<p>Le regroupement en quatre colonnes est ajouté pour mémoriser ; les douze éléments sont ceux du cours.</p>
+<p><strong>Objectif général</strong> : créer un environnement permettant</p>
+<p style="font-size:20px;font-weight:600">le bon soin + au bon endroit + dans des conditions sûres + avec des flux maîtrisés + une continuité de fonctionnement.</p>
+<p>L'OMS souligne que la conception des établissements de santé doit associer <b>architectes</b>, <b>ingénieurs</b>, <b>exploitants</b> et <b>professionnels de la prévention des infections</b>.</p>
+
+<h5>Fonctionnalité</h5>
+<p>Chaque local doit répondre à une fonction précise : consultation, diagnostic, traitement, chirurgie, hospitalisation, stérilisation, stockage, maintenance, administration. Il faut éviter les locaux <b>sous-dimensionnés</b> ou <b>mal positionnés</b> par rapport aux autres fonctions.</p>
+
+<div id="fig-place"></div>
+
+<h4>Exemple</h4>
+<p>L'exemple du cours : un bloc opératoire doit être facilement accessible depuis les urgences, la réanimation et l'imagerie (urgences → bloc, réanimation → bloc, imagerie → bloc), mais suffisamment séparé des circulations générales de l'hôpital. Sur la figure, l'emplacement A remplit les deux conditions ; B est accessible mais traversé par le public ; C est séparé mais trop loin.</p>
+
+<h4>Formules clés</h4>
+<p>Objectif général : le bon soin + au bon endroit + dans des conditions sûres + avec des flux maîtrisés + une continuité de fonctionnement.</p>
+<p>Conception : architectes + ingénieurs + exploitants + prévention des infections (OMS).</p>
+<p>Fonctionnalité : une fonction précise par local, une surface suffisante, une position cohérente avec les autres fonctions.</p>
+</article>
+
+<div class="fin-partie" data-section="architecture-hospitaliere"></div>
+</section>
+
+<section class="partie" id="s-familles-contraintes">
+<p class="rang-partie">2 / 3</p>
+<h2>Les huit familles de contraintes</h2>
+
+<article class="notion" id="n-familles-contraintes">
+<h3>Les huit familles de contraintes et la synthèse</h3>
+<p class="chapeau">Un même mur doit laisser passer un brancard, se laver, tenir au feu et cacher des gaines. Pour ne rien oublier, le cours range les contraintes en huit familles.</p>
+<h4>Intuition</h4>
+<p>Chaque métier voit le bâtiment par sa fenêtre : l'hygiéniste regarde ce qui se croise, l'électricien ce qui s'alimente, le logisticien ce qui arrive et repart. Ranger les contraintes par famille, c'est s'assurer qu'aucune fenêtre n'a été oubliée. Et pour chaque domaine, on peut se demander : quelle est l'exigence principale, et que se passe-t-il si on la rate ?</p>
+
+<div id="fig-familles"></div>
+
+<h4>Formalisation</h4>
+<p>On peut classer les contraintes d'un établissement hospitalier en <b>huit grandes familles</b> :</p>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Principales contraintes</th></tr>
+<tr><td>Fonctionnel</td><td>Organisation des activités</td></tr>
+<tr><td>Architectural</td><td>Surfaces, volumes, circulations</td></tr>
+<tr><td>Hygiène</td><td>Séparation propre / sale</td></tr>
+<tr><td>Technique</td><td>Électricité, CVC, fluides médicaux</td></tr>
+<tr><td>Biomédical</td><td>Installation et maintenance des équipements</td></tr>
+<tr><td>Sécurité</td><td>Incendie, évacuation, risques techniques</td></tr>
+<tr><td>Logistique</td><td>Approvisionnement, déchets, linge</td></tr>
+<tr><td>Réglementaire</td><td>Normes et prescriptions applicables</td></tr>
+</table></div>
+<p>CVC : chauffage, ventilation, climatisation.</p>
+
+<h5>Tableau de synthèse des contraintes</h5>
+<p>En fin de cours, le professeur résume chaque domaine par son exigence principale et le risque d'une mauvaise conception :</p>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Exigence principale</th><th>Risque si mauvaise conception</th></tr>
+<tr><td>Architecture</td><td>Organisation fonctionnelle</td><td>Dysfonctionnement</td></tr>
+<tr><td>Flux</td><td>Séparation propre / sale</td><td>Contamination</td></tr>
+<tr><td>Ventilation</td><td>Filtration + pression + renouvellement</td><td>Infection</td></tr>
+<tr><td>Électricité</td><td>Continuité + sécurité</td><td>Arrêt équipement</td></tr>
+<tr><td>Gaz médicaux</td><td>Disponibilité + sécurité</td><td>Risque patient</td></tr>
+<tr><td>Eau</td><td>Qualité + continuité</td><td>Risque sanitaire</td></tr>
+<tr><td>Éclairage</td><td>Visibilité adaptée</td><td>Erreur opératoire</td></tr>
+<tr><td>Sols / murs</td><td>Surfaces lavables</td><td>Contamination</td></tr>
+<tr><td>Déchets</td><td>Circuit maîtrisé</td><td>Exposition</td></tr>
+<tr><td>Incendie</td><td>Compartimentage + évacuation</td><td>Catastrophe</td></tr>
+<tr><td>Biomédical</td><td>Implantation adaptée</td><td>Panne / maintenance difficile</td></tr>
+<tr><td>Informatique</td><td>Disponibilité + sécurité</td><td>Perte de données</td></tr>
+<tr><td>Maintenance</td><td>Accessibilité technique</td><td>Indisponibilité</td></tr>
+<tr><td>Ergonomie</td><td>Circulation adaptée</td><td>Fatigue / accidents</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une porte de salle d'opération touche quatre familles : architectural (passage du brancard et des équipements), hygiène (surface facile à nettoyer), technique (elle participe à la cascade de pression de la ventilation), sécurité (évacuation). La choisir avec un seul métier, c'est rater les trois autres.</p>
+
+<h4>Formules clés</h4>
+<p>Huit familles : fonctionnel, architectural, hygiène, technique, biomédical, sécurité, logistique, réglementaire.</p>
+<p>Pour chaque domaine : exigence principale → risque si elle est mal conçue (tableau de synthèse).</p>
+</article>
+
+<div class="fin-partie" data-section="familles-contraintes"></div>
+</section>
+
+<section class="partie" id="s-bloc-definition">
+<p class="rang-partie">3 / 3</p>
+<h2>Le bloc opératoire</h2>
+
+<article class="notion" id="n-bloc-definition">
+<h3>Le bloc opératoire : définition</h3>
+<p class="chapeau">Patients fragiles, gestes invasifs, gaz, électricité, rayons X, germes : le bloc concentre au même endroit presque tous les risques de l'hôpital. C'est pour cela qu'on ne le conçoit pas comme une autre pièce.</p>
+<h4>Intuition</h4>
+<p>Une chambre d'hospitalisation accueille un patient, un lit, quelques prises. Une salle d'opération accueille un patient anesthésié et ouvert, une équipe nombreuse, des appareils complexes branchés au secteur, des gaz dont l'oxygène, de l'air traité, du matériel stérile. Plus il y a d'éléments concentrés, plus il y a d'interactions, et plus il y a de risques : infectieux, électriques, incendie.</p>
+
+<div id="fig-concentre"></div>
+
+<h4>Formalisation</h4>
+<p>Le <strong>bloc opératoire</strong> est une unité fonctionnelle hautement spécialisée destinée à réaliser des interventions chirurgicales dans un environnement maîtrisé.</p>
+<p>Il constitue une zone particulièrement exigeante parce qu'il concentre : patients à risque ; actes invasifs ; personnel nombreux ; équipements biomédicaux complexes ; médicaments et produits stériles ; gaz médicaux ; dispositifs électriques ; systèmes de ventilation ; risques infectieux ; risques électriques ; risques incendie.</p>
+<p>Conséquence : la conception doit être réalisée à partir d'un <b>programme fonctionnel et technique</b>, et non simplement à partir d'un plan architectural.</p>
+
+<h5>Schéma global à retenir</h5>
+<p>Trois piliers convergent vers le bloc : <b>fonctionnel</b> (flux, zonage), <b>technique</b> (CVC, électricité, gaz médicaux, informatique), <b>sécurité</b> (incendie, évacuation, radioprotection). Dans la salle opératoire se rencontrent le patient, le personnel et le matériel, sous les exigences d'hygiène, de sécurité et de biomédical. Le but : la <b>qualité et la continuité des soins</b>.</p>
+
+<div id="fig-global"></div>
+
+<h4>Exemple</h4>
+<p>L'idée centrale du cours, à savoir redire : « Un bloc opératoire performant n'est pas seulement une salle équipée : c'est un système intégré associant architecture, flux, ventilation, électricité, fluides médicaux, équipements biomédicaux, hygiène, sécurité et maintenance. »</p>
+<p class="complement">Exemple ajouté.</p>
+<p>Un robot chirurgical de dernière génération installé dans une salle sans alimentation secourue, sans accès de maintenance et avec un sol qui ne supporte pas son poids n'en fait pas un bon bloc : l'équipement ne vaut que par le système qui l'entoure.</p>
+
+<h4>Formules clés</h4>
+<p>Bloc opératoire = unité fonctionnelle hautement spécialisée + interventions chirurgicales + environnement maîtrisé.</p>
+<p>Conception = programme fonctionnel et technique, puis plan architectural.</p>
+<p>Fonctionnel + technique + sécurité → bloc → salle (patient, personnel, matériel) → qualité et continuité des soins.</p>
+</article>
+
+<div class="fin-partie" data-section="bloc-definition"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/architecture-hospitaliere.js"></script>
+<script src="../figures/familles-contraintes.js"></script>
+<script src="../figures/bloc-definition.js"></script>
+</body>
+</html>

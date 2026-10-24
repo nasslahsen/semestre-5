@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Énergie, lumière, fluides et réseaux</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 5. -->
+<main class="cours-chapitre" data-chapitre="5">
+<p class="etiquette" data-etiquette></p>
+<h1>Énergie, lumière, fluides et réseaux</h1>
+
+<section class="partie" id="s-electricite">
+<p class="rang-partie">1 / 3</p>
+<h2>Électricité et sécurité électrique</h2>
+
+<article class="notion" id="n-electricite">
+<h3>Électricité et sécurité électrique</h3>
+<p class="chapeau">Au bloc, une coupure de courant n'est pas un désagrément : c'est un respirateur, un moniteur et une lumière qui s'arrêtent sur un patient anesthésié.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre traite des réseaux qui alimentent le bloc. L'<b>électricité</b> d'abord, avec ses trois alimentations et ses protections ; la <b>lumière</b> (éclairage général et scialytique) ; les <b>fluides médicaux</b>, le vide et l'évacuation des gaz anesthésiques ; enfin les <b>réseaux informatiques</b> et le <b>plafond technique</b> où tout se rejoint. Ces réseaux ont la même logique : être disponibles sans interruption, sûrs, et accessibles pour la maintenance.</p>
+
+<h4>Intuition</h4>
+<p>Le réseau public peut tomber. Un groupe électrogène prend alors le relais, mais il lui faut un moment pour démarrer. Pendant ce moment, un onduleur (UPS) alimente sans coupure les équipements qui ne peuvent pas s'arrêter. Il faut donc savoir à l'avance quels équipements sont critiques. Et parce que ces appareils touchent un patient endormi qui ne peut ni sentir ni réagir, l'installation doit le protéger contre tout courant de défaut.</p>
+
+<div id="fig-alim"></div>
+
+<h4>Formalisation</h4>
+<p>Le bloc est une zone particulièrement exigeante du point de vue électrique. Il faut prévoir :</p>
+<ul>
+<li>une <b>alimentation normale</b>, à partir du réseau électrique principal ;</li>
+<li>une <b>alimentation de sécurité</b>, à partir de groupes électrogènes ;</li>
+<li>une <b>alimentation de secours</b>, par onduleur UPS.</li>
+</ul>
+<p>Le schéma du cours raccorde au tableau du bloc : moniteur multiparamétrique, respirateur (ventilateur mécanique), lit médicalisé, table opératoire et éclairage opératoire, équipements d'anesthésie, systèmes informatiques (dossiers médicaux partagés), équipements d'imagerie médicale. <b>Les équipements critiques doivent être identifiés.</b></p>
+<h5>Sécurité électrique</h5>
+<p>Le risque est particulièrement important lorsque des équipements électriques sont utilisés sur un patient anesthésié. Il faut donc intégrer : la protection contre les contacts directs / indirects ; l'équipotentialité ; la mise à la terre ; des dispositifs différentiels adaptés ; la surveillance des installations selon le schéma électrique retenu ; des contrôles périodiques. Les prescriptions exactes doivent être définies selon les <b>normes électriques applicables au pays et au type de local médical</b> (par exemple l'IEC 60364-7-710, chapitre 6).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Coupure du réseau à t = 0 : l'onduleur alimente aussitôt respirateur, moniteur, anesthésie et éclairage opératoire ; le groupe électrogène démarre puis fournit l'alimentation de sécurité. Si l'éclairage opératoire n'avait pas été identifié comme critique et raccordé au secours sans coupure, le chirurgien se retrouverait dans le noir pendant le démarrage du groupe.</p>
+
+<h4>Formules clés</h4>
+<p>Réseau principal → alimentation normale ; groupes électrogènes → alimentation de sécurité ; onduleur UPS → alimentation de secours.</p>
+<p>Identifier les équipements critiques. Sécurité : contacts directs / indirects, équipotentialité, terre, différentiels, surveillance, contrôles périodiques ; normes du pays et du type de local.</p>
+</article>
+
+<div class="fin-partie" data-section="electricite"></div>
+</section>
+
+<section class="partie" id="s-eclairage-fluides">
+<p class="rang-partie">2 / 3</p>
+<h2>Éclairage et fluides médicaux</h2>
+
+<article class="notion" id="n-eclairage">
+<h3>Éclairage et scialytique</h3>
+<p class="chapeau">Le chirurgien doit voir le fond de la plaie, sans ombre, avec les vraies couleurs des tissus, alors que sa tête et ses mains sont entre la lampe et le champ.</p>
+<h4>Intuition</h4>
+<p>Une seule source de lumière au-dessus de la table, c'est une ombre dès qu'une tête se penche. Un scialytique a plusieurs foyers écartés : quand l'un est masqué, les autres éclairent encore la plaie sous d'autres angles. À côté, l'éclairage général de la salle sert à tout le reste : circuler, préparer, nettoyer.</p>
+
+<div id="fig-scialytique"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Catégorie 1 : éclairage général</th><th>Catégorie 2 : éclairage opératoire</th></tr>
+<tr><td>pour la circulation ; pour la préparation ; pour le nettoyage</td><td>pour l'éclairage du champ opératoire ; sans ombres gênantes ; rendu correct des couleurs (hématologie)</td></tr>
+</table></div>
+<p>Le <strong>scialytique</strong> doit permettre : un éclairage intense ; une faible production d'ombre ; le réglage de position ; la stabilité ; un nettoyage facile. Son installation doit être étudiée en coordination avec : le plafond ; la ventilation ; les bras plafonniers ; l'alimentation électrique ; les réseaux médicaux.</p>
+<p>Norme d'éclairage citée au cours : EN 12464-1, éclairage des lieux de travail intérieurs, avec exigences applicables selon les espaces.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté, modèle simplifié.</p>
+<p>Sur la figure, avec un seul foyer au-dessus de la plaie, la tête de l'équipe la plonge dans l'ombre (0 % de lumière). Avec trois foyers écartés, chaque point de la plaie reste éclairé par au moins deux foyers sur trois.</p>
+
+<h4>Formules clés</h4>
+<p>Éclairage général : circulation, préparation, nettoyage. Éclairage opératoire : champ opératoire, sans ombres gênantes, rendu correct des couleurs.</p>
+<p>Scialytique : intense, peu d'ombre, réglable, stable, nettoyable ; coordonné avec plafond, ventilation, bras plafonniers, électricité, réseaux médicaux.</p>
+</article>
+
+<article class="notion" id="n-fluides-medicaux">
+<h3>Fluides médicaux, vide et évacuation des gaz</h3>
+<p class="chapeau">L'oxygène, l'air, le vide : ils arrivent par des réseaux et sortent par des prises. Une prise au mauvais endroit, c'est un tuyau au sol ; un réseau sans secours, c'est une aspiration qui s'arrête pendant un saignement.</p>
+<h4>Intuition</h4>
+<p>Chaque appareil du bloc a besoin de certains fluides : la machine d'anesthésie d'oxygène, d'air et de vide, le chirurgien d'une aspiration, certains instruments d'air comprimé. Ces fluides doivent arriver près de celui qui les utilise, sans traverser la salle, et ne jamais manquer. Et ce que la machine d'anesthésie laisse échapper doit être évacué pour ne pas être respiré par l'équipe.</p>
+
+<div id="fig-fluides"></div>
+
+<h4>Formalisation</h4>
+<p>Un bloc opératoire nécessite généralement : <b>O₂</b> ; <b>air médical</b> ; <b>vide médical</b> ; parfois <b>N₂O</b> selon la politique d'anesthésie ; l'<b>évacuation des gaz anesthésiques</b> ; éventuellement de l'<b>air instrumental</b>. Les prises doivent être positionnées selon : la table opératoire ; la machine d'anesthésie ; le bras plafonnier ; les équipements spécialisés.</p>
+<h5>Vide médical</h5>
+<p>Utilisations : aspiration chirurgicale ; aspiration anesthésique ; certains dispositifs de drainage. À prévoir : réseau ; vannes ; alarmes ; source de secours ; maintenance.</p>
+<h5>Évacuation des gaz anesthésiques</h5>
+<p>L'évacuation des gaz anesthésiques permet de <b>limiter l'exposition professionnelle aux agents anesthésiques</b>. Elle doit être étudiée dès la conception avec : système d'évacuation ; raccordements ; débit ; alarmes ; maintenance.</p>
+<p>Norme citée au cours : ISO 7396-1, systèmes de distribution de gaz médicaux et de vide.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Si les prises d'oxygène, d'air et de vide de la machine d'anesthésie sont placées sur un mur éloigné, les tuyaux traversent la salle au sol : obstacle, risque de chute, risque de débranchement. Placées sur le bras plafonnier à côté de la machine, elles suppriment ces risques. Le cours cite d'ailleurs la « mauvaise connexion des gaz médicaux » parmi les risques pour le patient.</p>
+
+<h4>Formules clés</h4>
+<p>Fluides : O₂, air médical, vide médical, parfois N₂O, évacuation des gaz anesthésiques, éventuellement air instrumental ; prises selon table, machine d'anesthésie, bras plafonnier, équipements spécialisés.</p>
+<p>Vide : aspiration chirurgicale et anesthésique, drainage ; réseau, vannes, alarmes, source de secours, maintenance.</p>
+<p>Évacuation des gaz : limiter l'exposition professionnelle ; système, raccordements, débit, alarmes, maintenance.</p>
+</article>
+
+<div class="fin-partie" data-section="eclairage-fluides"></div>
+</section>
+
+<section class="partie" id="s-reseaux-plafond">
+<p class="rang-partie">3 / 3</p>
+<h2>Réseaux et plafond technique</h2>
+
+<article class="notion" id="n-reseaux-plafond">
+<h3>Réseaux informatiques et plafond technique</h3>
+<p class="chapeau">Le bloc moderne est connecté : dossier patient, images, traçabilité, vidéo. Et tous ses réseaux, avec l'air, l'électricité et les gaz, se croisent dans le même espace au-dessus de la salle.</p>
+<h4>Intuition</h4>
+<p>Pendant une intervention, l'équipe consulte le dossier du patient, affiche des images d'imagerie, trace les dispositifs utilisés, enregistre la vidéo de l'endoscopie. Tout cela passe par des réseaux qui doivent être disponibles, protégés et maintenus. Physiquement, ces câbles rejoignent les gaines d'air, les câbles électriques, les tuyaux de gaz et les supports des bras dans le plafond technique : sans coordination, ils se disputent la place.</p>
+
+<div id="fig-plafond"></div>
+
+<h4>Formalisation</h4>
+<h5>Réseaux informatiques</h5>
+<p>Le bloc opératoire moderne nécessite également : un réseau informatique ; le dossier patient informatisé ; le <b>PACS</b> ; le <b>RIS</b> ; un système de traçabilité ; la vidéo ; la téléconsultation ; l'intégration des équipements biomédicaux. Il faut prévoir : <b>données + cybersécurité + disponibilité + maintenance</b>.</p>
+<p>PACS : système d'archivage et de transmission des images médicales ; RIS : système d'information de radiologie (définitions ajoutées).</p>
+<h5>Plafond technique</h5>
+<p>Le plafond technique doit intégrer : ventilation ; gaines ; réseaux électriques ; réseaux informatiques ; gaz médicaux ; évacuation ; éclairage ; supports des équipements. Il faut réaliser une coordination : <b>architecture + CVC + électricité + fluides médicaux + biomédical</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le TD 1 (cas 3) décrit un projet de salle hybride où le plan initial ne prévoit pas la validation de la charge du plafond. Or le plafond doit porter les bras plafonniers et parfois une partie du système d'imagerie : sans coordination entre architecture, structure, CVC, électricité, fluides et biomédical, un bras peut ne pas pouvoir être posé, ou entrer en collision avec l'arceau.</p>
+
+<h4>Formules clés</h4>
+<p>Réseaux : dossier patient, PACS, RIS, traçabilité, vidéo, téléconsultation, intégration biomédicale ; données + cybersécurité + disponibilité + maintenance.</p>
+<p>Plafond technique : ventilation, gaines, réseaux électriques et informatiques, gaz médicaux, évacuation, éclairage, supports ; coordination architecture + CVC + électricité + fluides médicaux + biomédical.</p>
+</article>
+
+<div class="fin-partie" data-section="reseaux-plafond"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/electricite.js"></script>
+<script src="../figures/eclairage.js"></script>
+<script src="../figures/fluides-medicaux.js"></script>
+<script src="../figures/reseaux-plafond.js"></script>
+</body>
+</html>

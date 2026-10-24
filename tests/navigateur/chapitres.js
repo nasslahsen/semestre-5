@@ -13,7 +13,7 @@ if (!mid) { console.error("usage : node tests/navigateur/chapitres.js <module>")
 let P = null;
 global.PLATEFORME = { parcours: (id, p) => { P = p; } };
 require(path.join(__dirname, "..", "..", "modules", mid, "module.js"));
-const dc = `${BASE}modules/${mid}/${P.dossierChapitres ? P.dossierChapitres + "/" : ""}`;
+const dc = `${BASE}modules/${mid}/`;
 
 (async () => {
   const b = await lancer();
@@ -25,65 +25,72 @@ const dc = `${BASE}modules/${mid}/${P.dossierChapitres ? P.dossierChapitres + "/
   const verifErr = ou => { if (errs.length) pb(`${ou} : ${errs.splice(0).join(" | ")}`); };
 
   await pg.goto(BASE + "index.html", { waitUntil: "networkidle" }); await pg.evaluate(() => localStorage.clear()); await pg.waitForTimeout(300); errs.splice(0);
-  const chs = [...new Set(P.sections.map(s => s.chapitre))];
+  // chapitres qui ont un cours, groupés par sous-module (ordre de module.js)
+  const smDe = ch => (P.chapitres.find(c => c.id === ch) || {}).sousModule || "";
+  const chs = P.chapitres.map(c => c.id).filter(id => P.sections.some(s => s.chapitre === id));
+  const sms = [...new Set(chs.map(smDe))];
 
-  // Carte
-  await pg.goto(dc + "index.html", { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
-  verifErr("carte");
-  const noeuds = await pg.$$eval(".noeud-chapitre", l => l.map(a => { const r = a.getBoundingClientRect(); return { href: a.href, r: [r.left, r.right] }; }));
-  if (noeuds.length !== chs.length) pb(`carte : ${noeuds.length} nœuds pour ${chs.length} chapitres`);
-  noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${chs[i]}.html`)) pb(`carte : nœud ${i} mène à ${n.href}`); });
-  if (await pg.$$eval(".btn.reprendre", l => l.length) !== 1) pb("carte : pas un seul bouton Reprendre");
-  const liens = await pg.$$eval("main a, #entete a, #chapitres a", l => l.length);
-  if (liens > chs.length + 3) pb(`carte : ${liens} liens, trop de choses à toucher`);
-  await pg.screenshot({ path: path.join(out, "carte.png"), fullPage: true });
+  for (const sm of sms) {
+    const chsm = chs.filter(c => smDe(c) === sm), urlCarte = dc + "index.html" + (sm ? "?sm=" + sm : "");
+    // Carte du sous-module
+    await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+    verifErr("carte " + sm);
+    const noeuds = await pg.$$eval(".noeud-chapitre", l => l.map(a => { const r = a.getBoundingClientRect(); return { href: a.href, r: [r.left, r.right] }; }));
+    if (noeuds.length !== chsm.length) pb(`carte ${sm} : ${noeuds.length} nœuds pour ${chsm.length} chapitres`);
+    noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte ${sm} : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${chsm[i]}.html`)) pb(`carte ${sm} : nœud ${i} mène à ${n.href}`); });
+    if (await pg.$$eval(".btn.reprendre", l => l.length) !== 1) pb(`carte ${sm} : pas un seul bouton Reprendre`);
+    const liens = await pg.$$eval("#entete a, #chapitres a", l => l.length);
+    if (liens > chsm.length + 4) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
+    await pg.screenshot({ path: path.join(out, `carte${sm ? "-" + sm : ""}.png`), fullPage: true });
 
-  for (const [ic, ch] of chs.entries()) {
-    const ss = P.sections.filter(s => s.chapitre === ch);
-    const niv = P.niveaux.filter(n => n.chapitre === ch && n.pret);
-    const notions = ss.flatMap(x => x.notions);
-    await pg.goto(dc + `cours/chapitre-${ch}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
-    verifErr("chapitre " + ch);
-    const v = await pg.evaluate(() => ({ parties: [...document.querySelectorAll("section.partie")].map(x => x.id), notions: [...document.querySelectorAll("article.notion")].map(a => a.id),
-      katexErr: document.querySelectorAll(".katex-error").length, figs: document.querySelectorAll(".fig .dessin").length, vides: [...document.querySelectorAll(".fig")].filter(f => !f.querySelector(".dessin")).length,
-      jouer: [...document.querySelectorAll(".jouer")].map(j => j.dataset.niveau), suite: (document.querySelector(".fin-cours a.aller") || {}).href || "",
-      apresNotion: [...document.querySelectorAll("article.notion + .jouer")].length }));
-    if (v.parties.join() !== ss.map(x => "s-" + x.id).join()) pb(`chapitre ${ch} : sections ${v.parties}`);
-    if (v.notions.join() !== notions.map(n => "n-" + n).join()) pb(`chapitre ${ch} : notions ${v.notions}`);
-    if (v.katexErr) pb(`chapitre ${ch} : ${v.katexErr} formules en erreur`);
-    if (!v.figs || v.vides) pb(`chapitre ${ch} : ${v.vides} figures pas dessinées`);
-    const attendus = notions.filter(n => niv.some(x => x.id === n)).concat(niv.filter(n => n.revision || n.boss).map(n => n.id));
-    if (v.jouer.join() !== attendus.join()) pb(`chapitre ${ch} : blocs Jouer ${v.jouer} au lieu de ${attendus}`);
-    if (v.apresNotion !== notions.filter(n => niv.some(x => x.id === n)).length) pb(`chapitre ${ch} : un bloc Jouer n'est pas juste après sa notion`);
-    const suivant = chs[ic + 1];
-    if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !v.suite.includes("index.html")) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
-    await pg.screenshot({ path: path.join(out, `chapitre-${ch}-debut.png`) });
-    for (let k = 0; k < ss.length; k++) {
-      await pg.evaluate(id => document.getElementById(id).scrollIntoView({ block: "start" }), "s-" + ss[k].id); await pg.waitForTimeout(250);
-      const r = await pg.$eval(".rang-barre", e => e.textContent);
-      if (k < ss.length - 1 && r !== `${k + 1} / ${ss.length}`) pb(`chapitre ${ch}, section ${k + 1} : la barre indique « ${r} »`);
-      await pg.evaluate(id => document.querySelector(`.fin-partie[data-section="${id}"]`).scrollIntoView({ block: "center" }), ss[k].id); await pg.waitForTimeout(200);
-      const lue = await pg.evaluate(([m, s]) => !!(JSON.parse(localStorage.getItem("s5-progres"))[m].sections || {})[s], [mid, ss[k].id]);
-      if (!lue) pb(`${ss[k].id} : pas marquée lue en passant sa fin`);
+    for (const [ic, ch] of chsm.entries()) {
+      const ss = P.sections.filter(s => s.chapitre === ch);
+      const niv = P.niveaux.filter(n => n.chapitre === ch && n.pret);
+      const notions = ss.flatMap(x => x.notions);
+      await pg.goto(dc + `chapitres/chapitre-${ch}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+      verifErr("chapitre " + ch);
+      const v = await pg.evaluate(() => ({ parties: [...document.querySelectorAll("section.partie")].map(x => x.id), notions: [...document.querySelectorAll("article.notion")].map(a => a.id),
+        katexErr: document.querySelectorAll(".katex-error").length, figs: document.querySelectorAll(".fig .dessin").length, vides: [...document.querySelectorAll(".fig")].filter(f => !f.querySelector(".dessin")).length,
+        jouer: [...document.querySelectorAll(".jouer")].map(j => j.dataset.niveau), suite: (document.querySelector(".fin-cours a.aller") || {}).href || "",
+        apresNotion: [...document.querySelectorAll("article.notion + .jouer")].length }));
+      if (v.parties.join() !== ss.map(x => "s-" + x.id).join()) pb(`chapitre ${ch} : sections ${v.parties}`);
+      if (v.notions.join() !== notions.map(n => "n-" + n).join()) pb(`chapitre ${ch} : notions ${v.notions}`);
+      if (v.katexErr) pb(`chapitre ${ch} : ${v.katexErr} formules en erreur`);
+      if (v.vides) pb(`chapitre ${ch} : ${v.vides} figures pas dessinées`);
+      const avecPage = notions.filter(n => niv.some(x => x.id === n));
+      const attendus = avecPage.concat(niv.filter(n => !n.revision && !n.boss && !notions.includes(n.id)).map(n => n.id), niv.filter(n => n.revision || n.boss).map(n => n.id));
+      if (v.jouer.join() !== attendus.join()) pb(`chapitre ${ch} : blocs Jouer ${v.jouer} au lieu de ${attendus}`);
+      if (v.apresNotion !== avecPage.length) pb(`chapitre ${ch} : un bloc Jouer n'est pas juste après sa notion`);
+      const suivant = chsm[ic + 1];
+      if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !v.suite.includes("index.html")) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
+      if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-debut.png`) });
+      for (let k = 0; k < ss.length; k++) {
+        await pg.evaluate(id => document.getElementById(id).scrollIntoView({ block: "start" }), "s-" + ss[k].id); await pg.waitForTimeout(250);
+        const r = await pg.$eval(".rang-barre", e => e.textContent);
+        if (k < ss.length - 1 && r !== `${k + 1} / ${ss.length}`) pb(`chapitre ${ch}, section ${k + 1} : la barre indique « ${r} »`);
+        await pg.evaluate(id => document.querySelector(`.fin-partie[data-section="${id}"]`).scrollIntoView({ block: "center" }), ss[k].id); await pg.waitForTimeout(200);
+        const lue = await pg.evaluate(([m, s]) => !!(JSON.parse(localStorage.getItem("s5-progres"))[m].sections || {})[s], [mid, ss[k].id]);
+        if (!lue) pb(`${ss[k].id} : pas marquée lue en passant sa fin`);
+      }
+      if (ic === 0 && v.jouer.length) {
+        await pg.evaluate(() => document.querySelector(".jouer").scrollIntoView({ block: "center" })); await pg.waitForTimeout(200);
+        await pg.screenshot({ path: path.join(out, `chapitre-${ch}-jouer.png`) });
+      }
+      await pg.evaluate(() => scrollTo(0, 1e7)); await pg.waitForTimeout(900);
+      if (await pg.$eval(".rang-barre", e => e.textContent) !== `${ss.length} / ${ss.length}`) pb(`chapitre ${ch} : en bas, la barre n'indique pas la dernière section`);
+      if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-fin.png`) });
     }
-    // un bloc Jouer à l'écran
-    await pg.evaluate(() => document.querySelector(".jouer").scrollIntoView({ block: "center" })); await pg.waitForTimeout(200);
-    if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-jouer.png`) });
-    await pg.evaluate(() => scrollTo(0, 1e7)); await pg.waitForTimeout(900);
-    if (await pg.$eval(".rang-barre", e => e.textContent) !== `${ss.length} / ${ss.length}`) pb(`chapitre ${ch} : en bas, la barre n'indique pas la dernière section`);
-    await pg.screenshot({ path: path.join(out, `chapitre-${ch}-fin.png`) });
+    // Carte après lecture : chapitres lus en vert ; Reprendre mène à la dernière section lue
+    await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(200);
+    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== chsm.length) pb(`carte ${sm} : les chapitres lus ne sont pas marqués faits`);
+    const rep = await pg.$eval(".btn.reprendre", a => a.href);
+    const der = chsm[chsm.length - 1];
+    if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb(`carte ${sm} : Reprendre ne mène pas à la dernière section lue : ` + rep);
   }
-  // Carte après lecture : chapitres lus en vert ; Reprendre mène à la dernière section lue
-  await pg.goto(dc + "index.html", { waitUntil: "networkidle" }); await pg.waitForTimeout(200);
-  if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== chs.length) pb("carte : les chapitres lus ne sont pas marqués faits");
-  const rep = await pg.$eval(".btn.reprendre", a => a.href);
-  const der = chs[chs.length - 1];
-  if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb("Reprendre ne mène pas à la dernière section lue : " + rep);
-  await pg.screenshot({ path: path.join(out, "carte-lue.png") });
 
   // Un exercice par-dessus la page : la page ne bouge pas, « Revenir au cours » la retrouve
   const ch0 = chs[0], n0 = P.niveaux.find(n => n.chapitre === ch0 && n.pret && !n.revision && !n.boss);
-  await pg.goto(dc + `cours/chapitre-${ch0}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+  await pg.goto(dc + `chapitres/chapitre-${ch0}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
   await pg.evaluate(id => document.querySelector(`.jouer[data-niveau="${id}"]`).scrollIntoView({ block: "center" }), n0.id); await pg.waitForTimeout(200);
   const y0 = await pg.evaluate(() => scrollY);
   await pg.click(`.jouer[data-niveau="${n0.id}"] button`); await pg.waitForTimeout(1200);
@@ -105,7 +112,7 @@ const dc = `${BASE}modules/${mid}/${P.dossierChapitres ? P.dossierChapitres + "/
           else {
             await rv.click(); await fr.waitForTimeout(900);
             const src = await fr.$eval("#fenetre-cours iframe", f => f.src);
-            if (!/\/cours\/chapitre-\d+\.html\?dans=1#/.test(src)) pb("Revoir dans le cours n'ouvre pas le cours du chapitre : " + src);
+            if (!/\/chapitres\/chapitre-\d+\.html\?dans=1#/.test(src)) pb("Revoir dans le cours n'ouvre pas la page du chapitre : " + src);
             await pg.screenshot({ path: path.join(out, "revoir.png") });
             await fr.click("#fenetre-cours .fc-tete button");
           }

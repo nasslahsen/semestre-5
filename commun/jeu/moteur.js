@@ -2,7 +2,7 @@
  * Moteur des niveaux : étapes, retours, étoiles, sauvegarde, écran de fin.
  * Un niveau appelle NIVEAU({ id, init(fig), etapes: [{ nom, jouer(j) }] }).
  * Fin du niveau : le bouton principal mène à l'étape suivante de la carte (PLATEFORME.apres).
- * Ouvert par-dessus la page d'un chapitre (structure par chapitres, jouer.html?plan=<dossier>#<niveau>, dans un cadre) :
+ * Ouvert par-dessus la page d'un chapitre (jouer.html?cadre=1#<niveau>, dans un cadre) :
  * « Revenir au cours » ferme l'exercice (message au cours, qui reste à la même place) ; « Revoir dans le cours »
  * ouvre le cours du chapitre au passage visé.
  */
@@ -10,7 +10,7 @@
   "use strict";
   // Le module courant (<html data-module>) donne la liste des niveaux ; la progression passe par PLATEFORME.
   var P = window.PLATEFORME, MID = P.courant, MOD = P.module(MID);
-  var PLAN = new URLSearchParams(location.search).has("plan") && !!MOD.sections;
+  var PLAN = new URLSearchParams(location.search).has("cadre") && !!MOD.sections;
   var COCHE = '<svg class="coche" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15"/><path d="M8.5 15.5l4.3 4.2 8.7-9"/></svg>';
   var ETOILE = '<svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.3l-5.8 3.1 1.2-6.5L2.6 9.4l6.5-.8z" stroke-width="1.4" stroke-linejoin="round"/></svg>';
 

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Système d'information : les bases</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 1. -->
+<main class="cours-chapitre" data-chapitre="1">
+<p class="etiquette" data-etiquette></p>
+<h1>Système d'information : les bases</h1>
+
+<section class="partie" id="s-informatique-medicale">
+<p class="rang-partie">1 / 3</p>
+<h2>Informatique médicale et dualité DM / logiciel</h2>
+
+<article class="notion" id="n-informatique-medicale">
+<h3>Informatique médicale et dualité DM / logiciel</h3>
+<p class="chapeau">Un électrocardiographe sans logiciel ne fait que capter un courant ; un logiciel sans capteur n'a rien à analyser. L'informatique médicale naît de leur rencontre.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce premier chapitre pose le vocabulaire du cours. D'abord ce qu'est l'informatique médicale et la place de l'ingénieur biomédical entre le matériel et le logiciel. Ensuite la chaîne donnée, information, connaissance. Enfin ce qu'est un système d'information et comment on le décrit en vues. Tout le reste du module (SIH, DPI, circuits, sécurité) s'appuie sur ces mots.</p>
+
+<h4>Intuition</h4>
+<p>Pense à un électrocardiographe. Ses électrodes et son capteur mesurent un signal : c'est la partie physique, le corps du système. Le logiciel filtre ce signal, calcule le rythme, signale une anomalie : c'est son intelligence. Le cours appelle cela la <b>dualité DM / software</b>. L'ingénieur biomédical est le pont entre les deux.</p>
+<div id="fig-dualite"></div>
+<p>Pour concevoir ce genre d'outil et l'utiliser à l'hôpital, trois disciplines doivent travailler ensemble : la médecine, l'informatique, et les mathématiques pour savoir si un résultat est fiable.</p>
+<div id="fig-venn"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th></th><th>Le DM (matériel)</th><th>Le software</th></tr>
+<tr><td>Rôle</td><td>le corps du système</td><td>l'intelligence du système</td></tr>
+<tr><td>Ce qu'il fait</td><td>la physique : capteurs piézoélectriques... ; acquisition de la donnée brute</td><td>le traitement du signal ; l'aide à la décision médicale</td></tr>
+</table></div>
+<p>L'<b>informatique médicale</b> est à l'intersection de trois disciplines : la médecine / biologie, l'informatique, les mathématiques / statistiques. Le cours résume son effet : <b>l'informatique transforme la médecine d'une science réactive à une science prédictive</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un oxymètre de pouls : la pince avec sa LED et son photodétecteur est le DM ; le calcul de la saturation et l'alarme sous le seuil sont le logiciel. Si l'on exploite des années de mesures pour repérer les patients qui vont se dégrader, on passe du réactif au prédictif, et il faut des statistiques pour être sûr que le signal n'est pas dû au hasard.</p>
+
+<h4>Formules clés</h4>
+<p>DM = corps du système (physique, acquisition de la donnée brute). Software = intelligence (traitement du signal, aide à la décision).</p>
+<p>Informatique médicale = médecine / biologie ∩ informatique ∩ mathématiques / statistiques.</p>
+<p>Réactive → prédictive.</p>
+</article>
+
+<div class="fin-partie" data-section="informatique-medicale"></div>
+</section>
+
+<section class="partie" id="s-donnee-information">
+<p class="rang-partie">2 / 3</p>
+<h2>Système, donnée, information, connaissance</h2>
+
+<article class="notion" id="n-donnee-information">
+<h3>Système, donnée, information, connaissance</h3>
+<p class="chapeau">122 : seul, ce nombre ne dit rien. « Tension systolique de M. Alaoui ce matin : 122 mmHg » : c'est une information. Savoir qu'elle est normale, c'est de la connaissance.</p>
+<h4>Intuition</h4>
+<p>Un <b>système</b>, c'est un ensemble d'éléments qui travaillent ensemble vers un but : une équipe de garde, un circuit du médicament, un réseau de laboratoires. Sans organisation ni but, ce n'est plus un système mais du désordre.</p>
+<p>Ce que ces systèmes font circuler monte par étages. En bas, des faits bruts. Au milieu, ces faits organisés, qui prennent un sens. En haut, ce sens interprété pour décider. C'est la pyramide du cours.</p>
+<div id="fig-pyramide"></div>
+
+<h4>Formalisation</h4>
+<p>Un <b>système</b> peut être défini comme un « ensemble d'éléments en interaction dynamique, organisé en fonction d'un but ». Contraire : désordre, confusion.</p>
+<p>Le mot <b>information</b> a deux sens : sens 1, un renseignement, un descriptif, une explication, une documentation sur quelque chose ou quelqu'un (exemple : un bulletin d'informations) ; sens 2, l'actualité, les nouvelles diffusées par les médias (familier : les infos).</p>
+<div class="tableau"><table>
+<tr><th>Étage</th><th>Définition du cours</th></tr>
+<tr><td>Données</td><td>éléments factuels neutres et objectifs, explicites et stockés</td></tr>
+<tr><td>Informations</td><td>données organisées auxquelles on donne un sens</td></tr>
+<tr><td>Connaissance</td><td>informations mémorisées et interprétées ; une étape de la transformation de l'information par l'intelligence</td></tr>
+</table></div>
+<p>C'est le <b>modèle DIKW</b> : Data / Information / Knowledge / Wisdom. La pyramide du cours s'arrête à la connaissance ; la sagesse (wisdom) est l'étage au-dessus.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>« 1,85 » est une donnée. « Glycémie à jeun de Mme Bennani : 1,85 g/L » est une information. « Une glycémie à jeun élevée et répétée fait suspecter un diabète » est de la connaissance : elle sert à décider d'un examen ou d'un traitement.</p>
+
+<h4>Formules clés</h4>
+<p>Système = éléments en interaction dynamique + organisation + but.</p>
+<p>Données → informations (sens) → connaissance (interprétation). Modèle DIKW.</p>
+</article>
+
+<div class="fin-partie" data-section="donnee-information"></div>
+</section>
+
+<section class="partie" id="s-systeme-information">
+<p class="rang-partie">3 / 3</p>
+<h2>Le système d'information et ses vues</h2>
+
+<article class="notion" id="n-systeme-information">
+<h3>Le système d'information et ses vues</h3>
+<p class="chapeau">Le serveur tombe en panne : les infirmières notent les constantes sur papier et le cadre les transmet par téléphone. Le système d'information de l'hôpital continue de tourner, sans ordinateur.</p>
+<h4>Intuition</h4>
+<p>Un système d'information, ce n'est pas un logiciel. C'est tout ce qui produit, garde, transforme et fait circuler l'information dans une organisation : des personnes, du matériel, des logiciels et une façon d'organiser le travail. Le système informatique n'en est qu'une partie, celle des machines.</p>
+<p>Pour décrire un SI sans s'y perdre, on le regarde en couches, de la stratégie de l'établissement jusqu'aux serveurs.</p>
+<div id="fig-vues"></div>
+
+<h4>Formalisation</h4>
+<p>Le <b>système d'information</b> présente l'ensemble des éléments (personnel, matériel, logiciel et organisation) participant à la production, la gestion, au traitement, au stockage, au transport et à la diffusion de l'information au sein d'une organisation, d'un établissement ou d'un groupe.</p>
+<p>Types de SI : <b>automatisé</b>, <b>informatisé</b> (certaines tâches restent manuelles). Le cours pose la question de la différence entre système d'information et système informatique : le second (matériel, logiciels, réseaux) est la partie technique du premier, qui comprend aussi les personnes et l'organisation.</p>
+<p>Exemples de SI : SIH (hospitalier), SIG (géographique), SIR (radiologie), SIL (laboratoires), WMS (logistique).</p>
+<div class="tableau"><table>
+<tr><th>Vue</th><th>Ce qu'elle décrit</th></tr>
+<tr><td>Vue métier</td><td>les processus</td></tr>
+<tr><td>Vue fonctionnelle</td><td>l'organisation</td></tr>
+<tr><td>Vue application</td><td>les composants</td></tr>
+<tr><td>Vue technique</td><td>l'infrastructure</td></tr>
+<tr><td>Vue information</td><td>les données, à travers toutes les couches</td></tr>
+</table></div>
+<p>Les vues application et technique forment la <b>vue système informatique</b>. La stratégie pilote le haut du schéma, la technologie porte le bas ; les <b>référentiels</b> (standards et normes, charte d'urbanisme) encadrent l'ensemble.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le SIR d'un service de radiologie : vue métier, le parcours « demande d'examen, réalisation, compte rendu » ; vue fonctionnelle, le manipulateur planifie et le radiologue valide ; vue application, le logiciel de dictée ; vue technique, le serveur d'images et son réseau.</p>
+
+<h4>Formules clés</h4>
+<p>SI = personnel + matériel + logiciel + organisation, pour produire, gérer, traiter, stocker, transporter, diffuser l'information.</p>
+<p>Système informatique ⊂ système d'information.</p>
+<p>Vues : métier (processus), fonctionnelle (organisation), application (composants), technique (infrastructure), information (données).</p>
+</article>
+
+<div class="fin-partie" data-section="systeme-information"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/informatique-medicale.js"></script>
+<script src="../figures/donnee-information.js"></script>
+<script src="../figures/systeme-information.js"></script>
+</body>
+</html>
