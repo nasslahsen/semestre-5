@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Conservation et transport des échantillons · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Conservation et transport des échantillons</h1>
+<p class="chapeau">Entre le prélèvement et l'analyse, l'échantillon continue de vivre : des cellules consomment le glucose, des enzymes se dégradent, des bactéries poussent ou meurent. La bonne température et le bon délai figent l'échantillon dans l'état où il a été prélevé.</p>
+
+<h2>Intuition</h2>
+<p>Plus il fait chaud, plus la chimie et la biologie vont vite. Refroidir ralentit tout : c'est le principe du réfrigérateur de cuisine. Mais chaque échantillon a ses exceptions : une hémoculture veut des bactéries vivantes, donc de la chaleur, jamais du froid ; un gaz du sang change en quelques minutes, donc on l'analyse tout de suite, dans la glace. On choisit une température selon la durée de conservation et selon ce qu'on veut mesurer.</p>
+
+<div id="fig-conservation"></div>
+
+<h2>Formalisation</h2>
+<h3>A. Températures de conservation</h3>
+<div class="tableau"><table>
+<tr><th>Température</th><th>Usage</th><th>Exemples</th></tr>
+<tr><td>Ambiante (15 à 25 °C)</td><td>Transport court, certains examens</td><td>Hématologie, cytologie</td></tr>
+<tr><td>+2 à +8 °C</td><td>Conservation de courte durée</td><td>Biochimie, sérologie, ECBU</td></tr>
+<tr><td>−20 °C</td><td>Conservation de moyenne durée</td><td>Aliquotes de sérum ou de plasma</td></tr>
+<tr><td>−70 °C ou −80 °C</td><td>Conservation de longue durée</td><td>Biologie moléculaire, virologie</td></tr>
+<tr><td>Azote liquide (−196 °C)</td><td>Conservation de cellules et de tissus</td><td>Cryopréservation, PMA</td></tr>
+</table></div>
+<h3>B. Règles générales de transport</h3>
+<ul>
+<li><b>Délai</b> : le plus rapide possible (généralement moins de 2 heures pour les examens urgents).</li>
+<li><b>Température contrôlée</b> : glacières avec pain de glace (2 à 8 °C) ou conteneurs adaptés.</li>
+<li><b>Traçabilité</b> : heure de départ, heure d'arrivée, conditions de transport.</li>
+<li><b>Sécurité</b> : <strong>triple emballage</strong> (tube primaire → emballage secondaire → emballage extérieur rigide), selon les règles de transport des matières biologiques (ADR, UN 3373).</li>
+<li><b>Documents</b> : bordereau de transport qui accompagne les échantillons, séparé physiquement des tubes.</li>
+</ul>
+<h3>C. Transports spécifiques</h3>
+<div class="tableau"><table>
+<tr><th>Échantillon</th><th>Conditions</th></tr>
+<tr><td>Gaz du sang</td><td>Transport immédiat, dans la glace, analyse en moins de 30 minutes</td></tr>
+<tr><td>Hémocultures</td><td>Incubation à 35 à 37 °C dès que possible, ne jamais réfrigérer</td></tr>
+<tr><td>Coagulation</td><td>Température ambiante, analyse en moins de 4 heures</td></tr>
+<tr><td>Ammoniémie</td><td>Dans la glace, analyse immédiate</td></tr>
+<tr><td>Cytologie urinaire</td><td>Transport rapide, éviter la réfrigération prolongée</td></tr>
+</table></div>
+<h3>D. Conservation au laboratoire</h3>
+<ul>
+<li><b>Sérum ou plasma</b> : aliquotage dès réception, +4 °C pour une analyse dans les 24 à 48 heures, sinon congélation.</li>
+<li><b>Urines</b> : analyse dans les 2 heures, sinon +4 °C (au maximum 24 heures).</li>
+<li><b>LCR</b> : analyse immédiate ; conservation à 37 °C pour certains examens.</li>
+<li><b>Biopsies</b> : fixation immédiate dans du formol tamponné à 10 %, ou congélation selon l'indication.</li>
+<li>Éviter les <b>cycles de congélation et décongélation</b> : chaque cycle dégrade les analytes.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un sérum arrive le vendredi soir pour un dosage prévu le mardi suivant. Au-delà de 48 heures, le +4 °C ne suffit plus : on l'aliquote dès réception et on congèle les aliquotes à −20 °C. Le mardi, on décongèle une seule aliquote, celle qu'on analyse ; les autres restent congelées, sans cycle inutile.</p>
+
+<h2>Formules clés</h2>
+<p>Ambiante 15 à 25 °C (transport court) ; +2 à +8 °C (courte durée) ; −20 °C (moyenne durée) ; −70 à −80 °C (longue durée) ; −196 °C, azote liquide (cellules, tissus).</p>
+<p>Transport : délai court (souvent moins de 2 h pour l'urgent), 2 à 8 °C en glacière, traçabilité, triple emballage (UN 3373), bordereau séparé.</p>
+<p>Gaz du sang : glace, moins de 30 min. Hémoculture : 35 à 37 °C, jamais au froid. Coagulation : ambiante, moins de 4 h. Ammoniémie : glace, immédiat.</p>
+<p>Urines : 2 h, sinon +4 °C au plus 24 h. Éviter les cycles de congélation et décongélation.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/conservation.js"></script>
+</body>
+</html>

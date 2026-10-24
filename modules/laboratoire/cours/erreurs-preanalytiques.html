@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Sources d'erreurs pré-analytiques · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Sources d'erreurs pré-analytiques</h1>
+<p class="chapeau">La phase pré-analytique représente 60 à 70 % des erreurs totales en biologie médicale. La plupart ne viennent pas d'un appareil défaillant, mais d'un geste, d'un délai ou d'une étiquette.</p>
+
+<h2>Intuition</h2>
+<p>Chaque étape vue jusqu'ici a ses règles : identifier, prélever dans l'ordre, transporter vite et à la bonne température, centrifuger correctement. Une erreur pré-analytique, c'est une de ces règles qui n'a pas été tenue. Les ranger par étape permet de savoir où chercher quand un résultat paraît étrange, et où agir pour qu'il ne se reproduise pas.</p>
+
+<div id="fig-erreurs"></div>
+
+<h2>Formalisation</h2>
+<p>La phase pré-analytique est la phase la plus critique et la plus difficile à maîtriser : <strong>60 à 70 % des erreurs totales</strong>.</p>
+<div class="tableau"><table>
+<tr><th>Origine</th><th>Erreurs</th></tr>
+<tr><td>A. Identification</td><td>Erreur d'identité du patient (confusion entre deux patients, étiquette pré-imprimée erronée) ; étiquetage incorrect (tube non étiqueté, étiquette illisible, informations manquantes) ; étiquetage différé, hors présence du patient ; absence de traçabilité.</td></tr>
+<tr><td>B. Prélèvement</td><td>Ordre de remplissage incorrect (EDTA entraîné dans un tube citrate : coagulation faussée) ; tube citrate sous-rempli (rapport sang / anticoagulant incorrect : TP et TCA faussés) ; tube EDTA sur-rempli (hémolyse) ; hémolyse (garrot trop serré, aiguille trop fine, aspiration vigoureuse, secousses) ; stase veineuse (garrot de plus d'une minute : protéines, potassium et lactate augmentés) ; ponction près d'une perfusion ; contamination microbienne.</td></tr>
+<tr><td>C. Transport et conservation</td><td>Délai excessif (potassium, glucose, lactate, gaz du sang dégradés) ; trop chaud (hémolyse, dégradation enzymatique) ; trop froid (précipitation des protéines, agrégation plaquettaire) ; congélation accidentelle (éclatement des tubes, hémolyse) ; lumière (bilirubine, vitamines, porphyrines dégradées) ; cycles de congélation et décongélation ; transport non sécurisé.</td></tr>
+<tr><td>D. Centrifugation et préparation</td><td>Vitesse, temps ou température incorrects ; délai avant centrifugation (glucose diminué par les cellules) ; séparation incomplète ; aliquotage incorrect ; contamination croisée.</td></tr>
+<tr><td>E. Environnement</td><td>Température ambiante excessive ; humidité ; éclairage (photodégradation) ; vibrations.</td></tr>
+</table></div>
+<h3>F. Coût des erreurs</h3>
+<p>Coût direct : nouveau prélèvement, nouvelle analyse, consommables, temps de travail. Coût indirect : retard de diagnostic et de traitement, hospitalisation prolongée, perte de confiance. Le coût de la non-qualité pré-analytique représente environ <b>25 %</b> du budget annuel des consommables de prélèvement. Cause principale : une formation insuffisante du personnel, même expérimenté, sur les exigences pré-analytiques.</p>
+<h3>G. Moyens de prévention</h3>
+<ol>
+<li>Formation continue du personnel préleveur et des laboratoires.</li>
+<li>Procédures documentées et accessibles (modes opératoires).</li>
+<li>Contrôle qualité pré-analytique : audit des pratiques, indicateurs de non-conformité.</li>
+<li>Système d'information : traçabilité informatisée, alertes automatiques.</li>
+<li>Matériel adapté : tubes validés, étiquettes résistantes, glacières performantes.</li>
+<li>Communication entre préleveurs, transporteurs et laboratoire.</li>
+<li>Indicateurs : taux de rejets, taux de nouveaux prélèvements, délais de transport.</li>
+</ol>
+<p>Message clé du cours : un résultat fiable commence par un échantillon de qualité. La qualité pré-analytique n'est pas une option : c'est une obligation réglementaire et une responsabilité partagée entre tous les acteurs de la chaîne.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un tube sec reste quatre heures sur un chariot avant d'être centrifugé : les cellules continuent de consommer le glucose, qui sort faussement bas (erreur D, délai avant centrifugation), et le potassium peut sortir des cellules (erreur C, délai excessif). Le même jour, un tube de bilirubine attend sur la paillasse au soleil : photodégradation (erreur C ou E).</p>
+
+<h2>Formules clés</h2>
+<p>Pré-analytique : 60 à 70 % des erreurs ; non-qualité ≈ 25 % du budget des consommables de prélèvement ; cause principale : formation insuffisante.</p>
+<p>Origines : identification, prélèvement, transport et conservation, centrifugation et préparation, environnement.</p>
+<p>Citrate sous-rempli : TP et TCA faussés. Garrot de plus d'une minute : protéines, potassium, lactate augmentés. Lumière : bilirubine, vitamines, porphyrines dégradées.</p>
+<p>Prévention : formation, procédures, contrôle qualité pré-analytique, système d'information, matériel adapté, communication, indicateurs.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/erreurs-preanalytiques.js"></script>
+</body>
+</html>

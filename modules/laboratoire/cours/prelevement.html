@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Principes généraux de prélèvement · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Principes généraux de prélèvement</h1>
+<p class="chapeau">Un prélèvement se prépare avant de piquer, se fait dans un ordre précis, et se termine au chevet du patient. Chaque règle a une raison : un tube rempli dans le mauvais ordre peut fausser le tube suivant.</p>
+
+<h2>Intuition</h2>
+<p>Quand l'aiguille passe d'un tube à l'autre, une infime quantité du contenu du tube précédent peut être entraînée dans le suivant. Si le tube précédent contient un anticoagulant, il contamine le suivant. D'où un ordre fixe de remplissage : les tubes les plus sensibles à une contamination passent d'abord. Le reste suit la même logique : préparer pour ne rien oublier, prélever sans abîmer les cellules, étiqueter tout de suite pour ne jamais confondre deux patients.</p>
+
+<div id="fig-prelevement"></div>
+
+<h2>Formalisation</h2>
+<h3>A. Avant le prélèvement</h3>
+<ol>
+<li><b>Vérification de la prescription</b> : identité du patient, nature de l'examen, renseignements cliniques.</li>
+<li><b>Identification du patient</b> : nom de naissance, prénom, date de naissance, sexe, numéro d'identification unique.</li>
+<li><b>Préparation du patient</b> : respect du jeûne (généralement 8 à 12 heures pour un bilan lipidique et glycémique) ; éviter l'effort physique, le tabac, l'alcool avant certains dosages ; recueil des traitements en cours (médicaments pouvant interférer).</li>
+<li><b>Préparation du matériel</b> : dispositifs stériles à usage unique ; vérification des dates de péremption ; choix des tubes adaptés (la couleur du bouchon indique le type d'additif).</li>
+</ol>
+<h3>B. Pendant le prélèvement</h3>
+<p><strong>Ordre de remplissage des tubes</strong> (recommandations CLSI) :</p>
+<div class="tableau"><table>
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+<tr><td>Hémoculture</td><td>Tube sec (sérum)</td><td>Citrate (coagulation)</td><td>Héparine</td><td>EDTA</td><td>Fluorure / oxalate (glycémie)</td><td>Autres additifs</td></tr>
+</table></div>
+<p>Technique : asepsie du site de ponction ; garrot posé <b>moins d'une minute</b> (éviter hémolyse et stase) ; remplissage correct des tubes (respect du trait de jauge pour les tubes à citrate) ; homogénéisation immédiate par <b>retournements doux, 8 à 10 fois</b>, pour les tubes avec additif ; ne jamais secouer vigoureusement (risque d'hémolyse).</p>
+<h3>C. Après le prélèvement</h3>
+<ul>
+<li><b>Étiquetage au chevet du patient</b> : immédiat, manuscrit ou par code-barres.</li>
+<li><b>Élimination des déchets</b> : aiguilles et lames dans le collecteur DASRI (jaune).</li>
+<li><b>Transport rapide</b> vers le laboratoire.</li>
+<li><b>Enregistrement</b> : date et heure du prélèvement, heure de réception.</li>
+</ul>
+<p>Erreur majeure à éviter : <strong>ne jamais étiqueter les tubes à l'avance, ni hors de la présence du patient</strong>.</p>
+<p class="complement">Les couleurs de bouchons de la figure sont celles des tubes sous vide les plus répandus ; elles peuvent varier selon le fabricant.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un médecin demande une hémoculture, un bilan de coagulation, une numération et une glycémie. L'ordre est : hémoculture, citrate, EDTA, fluorure. S'il n'y a pas de tube sec ni d'héparine, on saute simplement ces rangs : l'ordre relatif des tubes prélevés ne change pas.</p>
+
+<h2>Formules clés</h2>
+<p>Ordre CLSI : hémoculture → sec → citrate → héparine → EDTA → fluorure / oxalate → autres additifs.</p>
+<p>Garrot moins d'une minute ; trait de jauge des tubes à citrate ; 8 à 10 retournements doux, jamais secouer.</p>
+<p>Jeûne généralement 8 à 12 h (bilan lipidique et glycémique).</p>
+<p>Étiqueter au chevet, immédiatement ; jamais à l'avance ni hors de la présence du patient ; aiguilles au collecteur DASRI jaune.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/prelevement.js"></script>
+</body>
+</html>

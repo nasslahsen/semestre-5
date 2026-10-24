@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La centrifugeuse : principe, rotors et maintenance · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La centrifugeuse : principe, rotors et maintenance</h1>
+<p class="chapeau">Une centrifugeuse tourne à plusieurs milliers de tours par minute avec des tubes de sang à bord. Bien choisie, bien chargée et bien entretenue, elle est l'un des appareils les plus sûrs du laboratoire ; négligée, elle devient l'un des plus dangereux.</p>
+
+<h2>Intuition</h2>
+<p>Une goutte de sang au repos sédimente lentement : les globules rouges finissent par tomber, mais il faut des heures. En faisant tourner le tube, on remplace la pesanteur par une force des milliers de fois plus grande, et la même séparation prend quelques minutes. Le rotor fixe la géométrie du trajet : tube incliné, tube qui bascule à l'horizontale, ou tube vertical. Et un rotor qui tourne si vite ne pardonne ni le déséquilibre, ni la corrosion, ni un couvercle ouvert en marche.</p>
+
+<div id="fig-centrifugeuse"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et principe</h3>
+<p>Une <strong>centrifugeuse</strong> est un appareil qui imprime une accélération, par un mouvement de rotation, à un mélange non homogène pour en séparer les différentes phases, selon leur différence de densité. Au laboratoire, elle sépare par sédimentation les éléments solides des liquides biologiques, en particulier les éléments figurés du sang (globules rouges, globules blancs, plaquettes). On trouve des centrifugeuses de paillasse, des ultracentrifugeuses, des centrifugeuses à hématocrite et des centrifugeuses sur pied.</p>
+<p>Elle applique la loi de Newton : un corps de masse \(M\) qui tourne à la vitesse angulaire \(\omega\) à la distance \(R\) de l'axe subit une force centrifuge dirigée vers l'extérieur :</p>
+\[ F = M\,\omega^2 R \]
+<p>Les particules les plus denses se déposent au fond du tube en peu de temps ; les plus légères mettent plus longtemps et se déposent au-dessus. En réalité, un composé à la distance \(r\) de l'axe subit plusieurs forces : la pesanteur \(F_p\) (descendante), la poussée d'Archimède \(F_a\) (ascendante), une force de friction \(F_v\), la force centripète \(F'_c\) et la force centrifuge \(F_c\). La séparation s'opère par l'action de la force centrifuge \(F_c\). Pour un même volume, la pesanteur dépend de la densité mais pas la poussée d'Archimède : la particule flotte si \(F_a &gt; F_p\) et coule si \(F_a &lt; F_p\).</p>
+
+<h3>Éléments</h3>
+<p>Panneau de contrôle (interrupteur marche-arrêt, minuteur, réglage de la vitesse, de la température sur les modèles réfrigérés, contrôle des vibrations, système de freinage) ; système de réfrigération (modèles réfrigérés) ; base, couvercle, boîtier, moteur électrique ; rotor. Les modèles récents ont des microprocesseurs, des programmes en mémoire et des moteurs à induction (sans charbons).</p>
+
+<h3>Types de rotors</h3>
+<div class="tableau"><table>
+<tr><th>Rotor</th><th>Caractéristiques</th></tr>
+<tr><td>À angle fixe (angulaire)</td><td>D'usage courant. Tubes maintenus à un angle fixe, entre 20 et 45 degrés selon le modèle. Pour sédimenter des particules infracellulaires ; l'angle raccourcit la trajectoire et le temps de sédimentation par rapport aux godets oscillants.</td></tr>
+<tr><td>À godets oscillants (libres)</td><td>Pour des études isopycniques (séparation par densité) et de séparation zonale (par taille), quand une résolution maximale des zones est requise.</td></tr>
+<tr><td>À tubes verticaux</td><td>Tubes parallèles à l'axe de rotation : les bandes se forment parallèlement à l'axe des tubes. Études isopycniques et parfois zonales, quand un temps de centrifugation court est important. Tubes spécialement conçus.</td></tr>
+<tr><td>À tubes quasi verticaux</td><td>Pour la centrifugation en gradient de densité quand certains éléments de l'échantillon ne participent pas au gradient ; faible inclinaison.</td></tr>
+</table></div>
+<p>Le fabricant spécifie pour chaque rotor : son type, sa capacité nominale (en litres ou sous-multiples), sa vitesse maximale (tr/min) et sa force centrifuge relative maximale.</p>
+
+<h3>Installation</h3>
+<p>Alimentation électrique de capacité adaptée ; environnement propre, sans poussière, plancher ferme et horizontal ; espace libre du côté du condenseur pour les modèles réfrigérés ; armoire de rangement pour les accessoires et les rotors.</p>
+
+<h3>Entretien et maintenance</h3>
+<ul>
+<li>Toujours <b>désinfecter</b> la cuve, la tête, les godets et les joints avant toute intervention sur une centrifugeuse utilisée pour des échantillons biologiques ou infectieux. Ne jamais intervenir sur une centrifugeuse non décontaminée.</li>
+<li><b>Rotors</b> : enregistrer la date d'achat, le modèle et le numéro de série ; ne les utiliser qu'avec la centrifugeuse prévue ; respecter vitesse maximale et densité des échantillons ; pas de détergents alcalins ; brosses en plastique, jamais métalliques ; laver immédiatement après une projection corrosive, sécher à l'air ; stocker au sec, pas dans la centrifugeuse ; charger et décharger dans une enceinte de sécurité biologique pour le groupe de risque 2 ou plus.</li>
+<li>Ne jamais ouvrir le couvercle d'une centrifugeuse en marche, ni freiner le rotor à la main.</li>
+<li><b>Tubes</b> : lavage à la main, avec des gants, dans une solution de détergent doux à 1/10 ; verre stérilisé à la vapeur à 121 °C pendant 30 minutes ; stockage au frais, au sec, à l'abri de la lumière ; vérifier le niveau de remplissage et la fermeture des tubes en verre mince.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Maintenance préventive</th><th>Opérations</th></tr>
+<tr><td>Une fois par mois</td><td>Éléments externes sans poussière, compartiment du rotor nettoyé ; connexions et ajustements du rotor en bon état, lubrifiés ; verrouillage et sécurité du couvercle ; joints d'étanchéité.</td></tr>
+<tr><td>Une fois par an</td><td>Cartes électroniques propres et connectées ; test des commandes (vitesse, durée, température, alarmes) ; température vérifiée au thermomètre électronique (modèles réfrigérés) ; minuteur contrôlé : le temps mesuré ne doit pas s'écarter de plus de ± 10 % du temps programmé ; système de freinage.</td></tr>
+</table></div>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Contrôle annuel du minuteur : on programme 5 minutes et on chronomètre 5 min 24 s, soit 324 s au lieu de 300 s. L'écart vaut \(\frac{324 - 300}{300} = 8\,\%\) : c'est dans la tolérance de ± 10 %. À 5 min 36 s, l'écart serait de 12 % : il faudrait intervenir.</p>
+
+<h2>Formules clés</h2>
+\[ F = M\,\omega^2 R \qquad \text{écart du minuteur} = \frac{t_{\text{mesuré}} - t_{\text{programmé}}}{t_{\text{programmé}}} \le \pm 10\,\% \]
+<p>Rotors : angle fixe (20 à 45°, usage courant), godets oscillants (résolution maximale), verticaux (temps court), quasi verticaux (gradients).</p>
+<p>Désinfecter avant toute intervention ; jamais ouvrir en marche ni freiner à la main. Préventif : chaque mois (propreté, couvercle, joints), chaque année (commandes, température, minuteur à ± 10 %, frein).</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/centrifugeuse.js"></script>
+</body>
+</html>

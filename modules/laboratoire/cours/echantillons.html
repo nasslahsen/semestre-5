@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Principaux types d'échantillons biologiques · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Principaux types d'échantillons biologiques</h1>
+<p class="chapeau">Sang total, plasma ou sérum ? Urine du matin ou de milieu de jet ? Le médecin ne demande pas « un tube de sang » : il demande un échantillon précis, et toute la suite du travail en dépend.</p>
+
+<h2>Intuition</h2>
+<p>Le même sang peut donner trois échantillons différents. Laissé tel quel avec un produit qui l'empêche de coaguler : c'est du sang total, cellules comprises. Centrifugé : les cellules tombent au fond, il reste un liquide jaune, le plasma. Laissé coaguler avant de le centrifuger : le caillot emporte les protéines de la coagulation, et le liquide qui reste est le sérum. Les échantillons sont la matière première de toute analyse : leur nature conditionne toutes les étapes pré-analytiques.</p>
+
+<div id="fig-echantillons"></div>
+
+<h2>Formalisation</h2>
+<h3>A. Échantillons sanguins</h3>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Description</th><th>Obtention</th></tr>
+<tr><td>Sang total</td><td>Sang complet, avec cellules et plasma</td><td>Tube avec anticoagulant (EDTA, citrate, héparine)</td></tr>
+<tr><td>Plasma</td><td>Fraction liquide après centrifugation du sang anticoagulé</td><td>Tube EDTA, citrate ou héparine, puis centrifugation</td></tr>
+<tr><td>Sérum</td><td>Fraction liquide après coagulation complète</td><td>Tube sec ou avec gel séparateur, puis centrifugation</td></tr>
+</table></div>
+<h3>B. Échantillons urinaires</h3>
+<ul>
+<li><b>Urines de premier jet</b> : recueil du matin, premier jet, pour la cytologie urinaire.</li>
+<li><b>Urines de milieu de jet</b> : après nettoyage périnéal, pour l'ECBU (examen cytobactériologique des urines).</li>
+<li><b>Urines stériles</b> : par cathétérisme ou ponction sus-pubienne.</li>
+<li><b>Recueil des 24 heures</b> : pour un bilan métabolique, avec une conservation adaptée.</li>
+</ul>
+<h3>C. Autres échantillons</h3>
+<ul>
+<li><b>Selles</b> : coproculture, parasitologie, recherche de sang occulte.</li>
+<li><b>Crachats</b> : expectoration profonde, après rinçage buccal.</li>
+<li><b>LCR</b> (liquide céphalo-rachidien) : ponction lombaire, manipulation stérile immédiate.</li>
+<li><b>Liquides de ponction</b> : pleural, péritonéal, synovial.</li>
+<li><b>Moelle osseuse</b> : myélogramme, frottis et/ou biopsie.</li>
+<li><b>Prélèvements tissulaires</b> : biopsies, pièces opératoires (anatomopathologie).</li>
+<li><b>Écouvillonnages</b> : gorge, nez, vagin, rectum, plaies.</li>
+</ul>
+<p>La réglementation française citée au cours (article D. 6211-2 du Code de la santé publique) impose que le contenant soit adapté à la nature du prélèvement, et que la nature et la concentration de l'additif (anticoagulant, conservateur) soient clairement identifiées.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour un bilan de coagulation, on veut garder intactes les protéines de la coagulation : on travaille sur plasma (tube citrate), pas sur sérum, puisque le sérum est justement ce qui reste après que la coagulation a consommé ces protéines. Pour une numération des cellules, on garde le sang total : centrifuger séparerait les cellules qu'on veut compter.</p>
+
+<h2>Formules clés</h2>
+<p>Sang total : cellules et plasma, tube anticoagulé. Plasma : sang anticoagulé centrifugé. Sérum : après coagulation complète, tube sec ou à gel, centrifugé.</p>
+<p>Urines : premier jet (cytologie), milieu de jet (ECBU), stériles (cathétérisme, ponction), 24 heures (bilan métabolique).</p>
+<p>Contenant adapté à la nature du prélèvement ; nature et concentration de l'additif identifiées.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/echantillons.js"></script>
+</body>
+</html>

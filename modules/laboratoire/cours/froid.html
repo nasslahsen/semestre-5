@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Réfrigérateurs et congélateurs · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Réfrigérateurs et congélateurs</h1>
+<p class="chapeau">Sang, réactifs, aliquotes, souches : une bonne partie du laboratoire dort au froid. Un réfrigérateur qui dérive de quelques degrés pendant la nuit peut rendre inutilisable tout ce qu'il contient. L'ingénieur doit savoir comment le froid est produit, et comment on prouve qu'il a été tenu.</p>
+
+<h2>Intuition</h2>
+<p>Un réfrigérateur ne « fabrique » pas du froid : il déplace de la chaleur, de l'intérieur vers l'extérieur. Un fluide frigorigène fait le travail en changeant d'état. En s'évaporant à l'intérieur, il absorbe de la chaleur, comme l'alcool qui rafraîchit la peau en séchant. Compressé à l'extérieur, il se condense et rend cette chaleur à la pièce : c'est pourquoi l'arrière d'un réfrigérateur est chaud. Une isolation épaisse empêche la chaleur de la pièce de revenir aussi vite qu'on l'a sortie.</p>
+
+<div id="fig-froid"></div>
+
+<h2>Formalisation</h2>
+<h3>Rôle et classes de température</h3>
+<p>Réfrigérateurs et congélateurs assurent un environnement de température contrôlée (enceinte réfrigérée) pour conserver le sang et ses dérivés, les liquides et tissus biologiques, les réactifs et les produits chimiques. À basse température, l'activité chimique et biologique est réduite. Selon l'intervalle de température, on distingue :</p>
+<div class="tableau"><table>
+<tr><th>Appareil</th><th>Températures</th></tr>
+<tr><td>Réfrigérateurs conservateurs</td><td>2 à 8 °C</td></tr>
+<tr><td>Congélateurs basse température</td><td>−15 à −35 °C</td></tr>
+<tr><td>Congélateurs ultra-basse température</td><td>−60 à −86 °C</td></tr>
+</table></div>
+<p>On choisit l'appareil selon l'activité : du sang total se conserve dans un réfrigérateur pour banque de sang (2 à 8 °C) ; des souches virales ou microbiennes, dans un congélateur ultra-basse température.</p>
+
+<h3>Principe : le cycle de compression</h3>
+<p>Réfrigérateurs et congélateurs fonctionnent selon les lois du transfert d'énergie entre températures différentes (deuxième principe de la thermodynamique), principalement par un <strong>cycle de compression</strong> d'un gaz réfrigérant. Le circuit frigorifique a quatre éléments principaux :</p>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Ce qui s'y passe</th></tr>
+<tr><td>Évaporateur</td><td>Réseau de tuyaux dans l'enceinte. Le réfrigérant y entre liquide, absorbe la chaleur à pression constante et se transforme progressivement en vapeur.</td></tr>
+<tr><td>Compresseur</td><td>Actionné par un moteur électrique, il aspire à basse pression (BP) la vapeur saturée et la comprime de façon adiabatique (sans transfert de chaleur) jusqu'à la haute pression (HP).</td></tr>
+<tr><td>Condenseur</td><td>Réseau de tuyaux à ailettes ; le réfrigérant, plus chaud que la pièce, lui cède sa chaleur à pression constante et redevient liquide saturé.</td></tr>
+<tr><td>Détendeur</td><td>Oppose une résistance au passage du réfrigérant : la pression chute très fortement. Certains fabricants le remplacent par un tube capillaire.</td></tr>
+</table></div>
+<p>Autres éléments : un <b>filtre</b> (retient l'humidité et les impuretés), un <b>collecteur de liquide</b> (seule la vapeur doit entrer dans le compresseur), l'<b>isolation thermique</b> (mousse de polyuréthane, laine de verre ; parois internes en plastique ABS), des <b>robinets de service</b> (réservés au fabricant et aux techniciens spécialisés), une <b>protection thermique</b> (coupe le compresseur en cas de surcharge). Les <b>fluides frigorigènes</b> sont des fréons (HCFC, CFC), certains hydrocarbures, ou des composés inorganiques comme l'ammoniac.</p>
+
+<h3>Installation et circuit de contrôle</h3>
+<p>Raccordement électrique avec prise de terre, adapté au voltage et à la fréquence (en général 220 à 240 V, 50 Hz) ; brancher directement sur la prise, jamais sur une prise multiple ; surface plane et horizontale, espace libre autour ; à l'écart du soleil direct et des sources de chaleur. Le circuit de contrôle comprend l'interrupteur principal, l'interrupteur de porte, le compresseur, les ventilateurs de l'évaporateur, le sous-système de dégivrage et le thermostat.</p>
+<p>Utilisation : attendre que l'appareil atteigne sa température (les fabricants règlent les réfrigérateurs sur environ 4 °C) ; régler l'alarme ; charger selon la capacité et répartir la charge (l'air doit circuler) ; ne pas laisser la porte ouverte (givre, montée en température).</p>
+
+<h3>Entretien de routine</h3>
+<div class="tableau"><table>
+<tr><th>Opération</th><th>Fréquence</th><th>Points clés</th></tr>
+<tr><td>Nettoyage de l'intérieur</td><td>Une fois par trimestre</td><td>Détergent doux, étagères et tiroirs sortis</td></tr>
+<tr><td>Nettoyage du condenseur</td><td>Tous les six mois</td><td>Appareil débranché ; un condenseur sale gêne le transfert de chaleur</td></tr>
+<tr><td>Joint de porte</td><td>Une fois par trimestre</td><td>Bande de papier de 5 cm : elle doit résister quand on la tire ; tous les 10 cm, sur tout le joint</td></tr>
+<tr><td>Dégivrage</td><td>Tous les six mois</td><td>Jamais d'instrument pointu sur l'évaporateur</td></tr>
+</table></div>
+<p>Un joint en mauvais état laisse entrer l'humidité (givre sur l'évaporateur), allonge le travail du compresseur, modifie la température et augmente le coût de fonctionnement.</p>
+
+<h3>Congélateurs ultra-basse température et azote liquide</h3>
+<p>Le congélateur ressemble au réfrigérateur, avec une puissance supérieure et une isolation renforcée (−20, −45, −80 °C au laboratoire). Certains congélateurs ultra-basse température demandent environ 12 kW : prise reliée à la terre, réservée à l'appareil. Les limites d'alarme ne s'écartent en général pas de plus de 10 % de la température de fonctionnement. D'autres alarmes signalent un défaut d'alimentation, une baisse de tension, une température ambiante excessive, un dépassement de la limite inférieure.</p>
+<p>L'<b>azote liquide</b> est le diazote refroidi sous son point d'ébullition, −195,79 °C ; on le stocke dans des bonbonnes isothermes, les vases de Dewar ; il sert à conserver tissus, ovules, sperme ou moelle osseuse.</p>
+<p>La <strong>traçabilité de la température</strong>, c'est avoir des preuves chiffrées que les consignes de température ont été respectées.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un congélateur fonctionne à −80 °C. Avec des limites à 10 %, l'alarme se déclenche au-dessus de −72 °C (trop chaud) et en dessous de −88 °C (trop froid) : 10 % de 80, c'est 8 degrés de chaque côté.</p>
+
+<h2>Formules clés</h2>
+<p>Conservateurs 2 à 8 °C ; basse température −15 à −35 °C ; ultra-basse température −60 à −86 °C ; azote liquide −195,79 °C.</p>
+<p>Cycle : évaporateur (absorbe la chaleur, vaporise) → compresseur (BP → HP) → condenseur (cède la chaleur, liquéfie) → détendeur (HP → BP).</p>
+<p>Entretien : intérieur et joint chaque trimestre ; condenseur et dégivrage tous les six mois. Alarmes à ± 10 % de la température de fonctionnement.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/froid.js"></script>
+</body>
+</html>

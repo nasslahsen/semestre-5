@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Identification et traçabilité des échantillons · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Identification et traçabilité des échantillons</h1>
+<p class="chapeau">Un résultat parfaitement mesuré ne sert à rien, et devient même dangereux, s'il est attribué au mauvais patient. Chaque tube doit pouvoir dire, sans ambiguïté, à qui il appartient, qui l'a prélevé, quand et où.</p>
+
+<h2>Intuition</h2>
+<p>Pense à un colis sans adresse : impossible de le livrer, et l'ouvrir pour deviner ne suffit pas. Un tube sans identification fiable est pareil, en pire : deviner son propriétaire pourrait faire soigner quelqu'un pour la maladie d'un autre. C'est pourquoi la règle est absolue : mal identifié, il n'est pas analysé. Et pour qu'on puisse toujours remonter le fil, chaque étape de sa vie est enregistrée, jusqu'aux produits qu'on en tire.</p>
+
+<div id="fig-identification"></div>
+
+<h2>Formalisation</h2>
+<h3>A. Mentions obligatoires sur l'échantillon</h3>
+<p>Selon la réglementation française citée au cours (Code de la santé publique, article D. 6211-2) :</p>
+<div class="tableau"><table>
+<tr><th>Identification du patient</th><th>Identification du préleveur</th><th>Identification de l'échantillon</th></tr>
+<tr><td>Nom de naissance (nom patronymique) ; nom d'usage le cas échéant ; prénom(s) ; date de naissance ; sexe ; numéro d'identification unique (NIP ou identifiant de santé)</td><td>Nom et prénom ; qualité ou profession ; numéro d'identification professionnelle (RPPS ou ADELI)</td><td>Nature de l'examen ; date et heure du prélèvement ; conditions particulières (jeûne, traitement…)</td></tr>
+</table></div>
+<h3>B. Traçabilité</h3>
+<ul>
+<li><b>Principe</b> : tout échantillon doit pouvoir être relié de manière univoque à un patient, à un préleveur, à un moment et à un lieu.</li>
+<li><b>Support</b> : étiquette avec code-barres (1D ou 2D), système d'information du laboratoire (LIS).</li>
+<li><b>Chaîne de traçabilité</b> : prélèvement → transport → réception → enregistrement → analyse → résultat → archivage.</li>
+<li><b>Dérivés biologiques</b> : ADN, ARN, extraits protéiques, aliquotes congelées doivent rester traçables au tube d'origine.</li>
+<li><b>Conservation des données</b> : durée minimale de 5 ans pour les données de biologie médicale (variable selon les examens).</li>
+</ul>
+<h3>C. Norme ISO 15189</h3>
+<p>L'ISO 15189 (laboratoires de biologie médicale) exige : une procédure documentée d'identification des patients et des échantillons ; la vérification de l'identité avant tout prélèvement ; un système d'identification unique et non ambigu ; la gestion des non-conformités (échantillon non identifié = rejet et nouveau prélèvement).</p>
+<p><strong>Règle absolue</strong> : un échantillon non identifié ou mal identifié ne peut en aucun cas être analysé. Il doit être détruit selon la procédure en vigueur, et un nouveau prélèvement doit être demandé.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux patients du même service s'appellent Benali, nés la même année. Le nom et l'année ne suffisent pas : la date de naissance complète, le sexe et surtout le numéro d'identification unique les distinguent sans ambiguïté. Six mois plus tard, on extrait de l'ADN d'une aliquote congelée : cet ADN doit encore pouvoir être rattaché au tube de départ, donc au patient.</p>
+
+<h2>Formules clés</h2>
+<p>Mentions : patient (nom de naissance, nom d'usage, prénoms, date de naissance, sexe, numéro unique), préleveur (nom, qualité, RPPS ou ADELI), échantillon (examen, date et heure, conditions particulières).</p>
+<p>Chaîne : prélèvement → transport → réception → enregistrement → analyse → résultat → archivage. Données : au moins 5 ans.</p>
+<p>Non identifié ou mal identifié : jamais analysé ; destruction et nouveau prélèvement.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/identification.js"></script>
+</body>
+</html>
