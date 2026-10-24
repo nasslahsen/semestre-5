@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le circuit de l'échantillon biologique · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le circuit de l'échantillon biologique</h1>
+<p class="chapeau">Entre l'ordonnance et le résultat, un échantillon passe de main en main et de lieu en lieu. Si une seule étape est mal faite, le résultat le plus précis ne vaut plus rien.</p>
+
+<h2>Intuition</h2>
+<p>Suis un colis : on le commande, on l'emballe, on l'expédie, on le reçoit, on l'ouvre, on s'en sert, on confirme que tout va bien. Le circuit de l'échantillon est le même genre de chaîne : chaque maillon dépend du précédent, et on ne peut pas sauter d'étape.</p>
+
+<div id="fig-circuit"></div>
+
+<h2>Formalisation</h2>
+<p>Le circuit de l'échantillon est un <strong>processus linéaire</strong> qui va du patient au résultat, en sept étapes.</p>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
+<tr><td>1. Prescription</td><td>Un professionnel de santé prescrit l'examen.</td></tr>
+<tr><td>2. Prélèvement</td><td>Réalisé sur le patient (au laboratoire, à domicile, à l'hôpital). L'échantillon est identifié et étiqueté.</td></tr>
+<tr><td>3. Transport</td><td>L'échantillon est acheminé vers le laboratoire (transport humain, pneumatique ou véhicule spécialisé). Les conditions de température et de délai doivent être respectées.</td></tr>
+<tr><td>4. Réception et tri</td><td>Vérification de la conformité, enregistrement, orientation vers le secteur approprié.</td></tr>
+<tr><td>5. Préparation</td><td>Centrifugation, aliquotage, décomplémentation si nécessaire.</td></tr>
+<tr><td>6. Analyse</td><td>Passage sur l'automate ou méthode manuelle.</td></tr>
+<tr><td>7. Validation et rendu</td><td>Validation biologique, interprétation, communication au prescripteur.</td></tr>
+</table></div>
+
+<h3>Le transfert vers la salle d'analyse</h3>
+<p>Le cours décrit trois types de transport : le <b>transport pédestre</b> (manuel), assuré par le préleveur ou un agent de liaison, tubes debout dans des portoirs, paniers ou sachets sécurisés avec les bons d'analyse ; le <b>transport pneumatique</b>, cartouche envoyée par un réseau de tuyaux étanches à air comprimé jusqu'au plateau technique ; le <b>tapis roulant ou guichet de tri automatisé</b>, qui relie directement la zone de prélèvement aux automates.</p>
+<p>Trois règles d'or du transfert :</p>
+<ul>
+<li>la <b>position verticale</b> des tubes, pour éviter le contact du sérum ou du plasma avec le bouchon et la formation de microcaillots ;</li>
+<li>le <b>respect des délais</b>, le plus court possible, souvent moins de 2 heures pour la plupart des examens standards ;</li>
+<li>l'<b>intégrité de la chaîne</b> : triple emballage ou sachet étanche individuel par patient, et traçabilité par codes-barres ou étiquettes.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>À 8 h, un médecin prescrit un bilan rénal (1). L'infirmière prélève et étiquette le tube au lit du patient (2). Elle le glisse debout dans une cartouche pneumatique (3). Au laboratoire, le technicien vérifie que le tube correspond à la demande et l'enregistre (4), le centrifuge (5), le place sur l'automate (6). À 9 h 10, le biologiste valide le résultat et il apparaît dans le dossier du patient (7).</p>
+
+<h2>Formules clés</h2>
+<p>Prescription → prélèvement → transport → réception et tri → préparation → analyse → validation et rendu.</p>
+<p>Transport : pédestre, pneumatique, tapis roulant ou guichet de tri automatisé.</p>
+<p>Règles d'or : tubes verticaux ; délai court (souvent moins de 2 h) ; intégrité de la chaîne (triple emballage, codes-barres).</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/circuit.js"></script>
+</body>
+</html>
