@@ -7,5 +7,6 @@
 .carte-chapitres #chapitres { max-width: 1180px; margin: 0 auto; padding: 22px 40px 40px; }
 .carte-chapitres .unites { row-gap: 70px; padding-top: 30px; }
 .noeud-chapitre .forme { width: 92px; height: 92px; font-size: 34px; }
+.noeud-chapitre .forme.texte { font-size: 24px; white-space: nowrap; }
 .carte-chapitres .unite .nomn { font: 800 21px/1.2 "Bricolage Grotesque", Inter, sans-serif; max-width: 270px; }
 .carte-chapitres .unite .nomn small { display: block; margin-top: 6px; font: 400 15px/1.4 Inter, sans-serif; color: var(--doux); }

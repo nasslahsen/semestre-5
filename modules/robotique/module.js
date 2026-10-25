@@ -12,7 +12,12 @@ PLATEFORME.parcours("robotique", {
   documents: {
     recus: [
       { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "4 chapitres" },
-      { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" }
+      { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" },
+      { sousModule: "bio", titre: "TD série 1 « Introduction générale, domaines d'applications de la robotique et modélisation des robots industriels » (Pr. El Hansali Hasnaa)", couvre: "chapitre TD 1 : partie 1, exercice 1 et exercice 2 questions 1 à 5" }
+    ],
+    manque: [
+      "Robotique biomédicale : la partie du cours sur la convention de Denavit–Hartenberg, le modèle cinématique (jacobienne), le modèle cinématique inverse, le modèle géométrique inverse et les singularités. Le TD 1 s'en sert.",
+      "TD 1 : le modèle cinématique direct, le modèle cinématique inverse et l'exercice 3 attendent cette partie du cours."
     ]
   },
   chapitres: [
@@ -21,6 +26,7 @@ PLATEFORME.parcours("robotique", {
     { id: 2, titre: "Repères et vecteurs dans l'espace", sous: "Coordonnées, produits, position d'un solide", ligne: "Coordonnées, produits, position d'un solide", sousModule: "bio" },
     { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", ligne: "Matrices de rotation, angles d'Euler", sousModule: "bio" },
     { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", ligne: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio" },
+    { id: 9, numero: "TD 1", titre: "TD 1 : introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
     { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
     { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
     { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge", ligne: "Roulements, durée de vie, montage, précharge", sousModule: "meca" },
@@ -70,6 +76,14 @@ PLATEFORME.parcours("robotique", {
     { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", cours: true, pret: true },
     { id: "revision-transformations", chapitre: 4, titre: "Révision : les transformations", revision: true, pret: true },
     { id: "boss-transformations", chapitre: 4, titre: "Le bras 2R atteint la cible", boss: true, pret: true },
+
+    { id: "td1", chapitre: 9, titre: "TD 1 : les réponses dans le cours", cours: true, pret: true },
+    { id: "td1-classer", chapitre: 9, titre: "Partie 1, exercice 1 : classer trois robots", pret: true },
+    { id: "td1-questions", chapitre: 9, titre: "Partie 1, exercices 2 à 4", pret: true },
+    { id: "td1-dh", chapitre: 9, titre: "Exercice 1 : le robot plan 3R", pret: true },
+    { id: "td1-echo", chapitre: 9, titre: "Exercice 2 : où est la sonde ?", pret: true },
+    { id: "revision-td1", chapitre: 9, titre: "Révision : le TD 1 en situations nouvelles", revision: true, pret: true },
+    { id: "boss-td1", chapitre: 9, titre: "La sonde doit rejoindre la cible", boss: true, pret: true },
 
     { id: "chaine-fonctionnelle", chapitre: 5, titre: "La chaîne fonctionnelle", cours: true, pret: true },
     { id: "nomenclature", chapitre: 5, titre: "Symboles et unités", cours: true, pret: true },
@@ -125,6 +139,7 @@ PLATEFORME.parcours("robotique", {
     { id: "changement-repere", chapitre: 4, titre: "Changement de repère", notions: ["changement-repere"] },
     { id: "homogene-composition", chapitre: 4, titre: "Matrice homogène et composition", notions: ["matrice-homogene", "composition"] },
     { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", notions: ["bras-2r"] },
+    { id: "td1", chapitre: 9, titre: "TD 1 : introduction et modélisation", notions: ["td1"] },
     { id: "chaine-nomenclature", chapitre: 5, titre: "La chaîne fonctionnelle et ses symboles", notions: ["chaine-fonctionnelle", "nomenclature"] },
     { id: "vitesse-couple", chapitre: 5, titre: "Vitesse, couple et puissance", notions: ["vitesse-couple-puissance"] },
     { id: "rigidite-jeu", chapitre: 5, titre: "Rigidité torsionnelle et jeu angulaire", notions: ["rigidite-jeu"] },
@@ -171,6 +186,7 @@ PLATEFORME.parcours("robotique", {
     { chapitre: 4, id: "matrice-homogene", titre: "Matrice homogène" },
     { chapitre: 4, id: "composition", titre: "Composition des transformations" },
     { chapitre: 4, id: "bras-2r", titre: "Modèle géométrique direct du bras 2R" },
+    { chapitre: 9, id: "td1", titre: "TD 1 : les réponses dans le cours" },
     { chapitre: 5, id: "chaine-fonctionnelle", titre: "Chaîne fonctionnelle d'un axe" },
     { chapitre: 5, id: "nomenclature", titre: "Nomenclature : symboles, unités, indices" },
     { chapitre: 5, id: "vitesse-couple-puissance", titre: "Vitesse de rotation, couple et puissance" },
