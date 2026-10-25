@@ -221,7 +221,7 @@ html.jeu-ouvert, html.jeu-ouvert body { overflow: hidden; }
 
 /* ---------- Mise en page : une seule colonne ----------
    Titres, texte, formules, tableaux, figures, traits de section et blocs « Jouer » ont les mêmes bords gauche et droit. */
-main .notion > p, main .notion > ul, main .notion > ol, main .partie > p { max-width: 880px; }
+main > p, main > ul, main > ol, main .chapeau, main .notion > p, main .notion > ul, main .notion > ol, main .partie > p { max-width: none; }
 main .fig { width: auto; margin: 28px 0 36px; }
 main .jouer { max-width: none; }
 /* Une fraction dans une ligne de texte : assez d'interligne pour qu'elle ne touche pas la ligne voisine */
