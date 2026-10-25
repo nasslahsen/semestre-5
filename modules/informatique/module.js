@@ -10,6 +10,13 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("informatique", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "6 chapitres" },
+      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" }
+    ]
+  },
   chapitres: [
     { id: 1, titre: "Système d'information : les bases", sous: "Informatique médicale, système, donnée, information, connaissance, SI et ses vues", ligne: "Système, donnée, information, connaissance", sousModule: "sis" },
     { id: 2, titre: "Les cinq composants d'un SI", sous: "Organisation, logiciels, données, matériel, personnel", ligne: "Organisation, logiciels, données, matériel", sousModule: "sis" },

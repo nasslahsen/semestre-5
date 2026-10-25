@@ -9,7 +9,7 @@ if (!mid) { console.error("usage : node tests/navigateur/pages.js <module>"); pr
 (async () => {
   const b = await lancer();
   const pg = await (await b.newContext({ viewport: { width: W, height: H } })).newPage();
-  const urls = ["index.html", `modules/${mid}/index.html`].concat(pagesCours(mid).map(p => `modules/${mid}/${p}.html`));
+  const urls = ["index.html", "suivi.html", `modules/${mid}/index.html`].concat(pagesCours(mid).map(p => `modules/${mid}/${p}.html`));
   let ko = 0;
   for (const u of urls) {
     const errs = [], h = e => errs.push(String(e)), r = rep => { if (rep.status() >= 400) errs.push(rep.status() + " " + rep.url()); };

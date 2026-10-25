@@ -9,6 +9,12 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("embarques", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { sousModule: "embarques", titre: "Diapositives du cours « Systèmes embarqués »", couvre: "chapitres 1 à 5" }
+    ]
+  },
   chapitres: [
     { id: 0, titre: "Les bases du numérique", sous: "Bits, binaire, hexadécimal, registres et signaux logiques : ce que le cours suppose", ligne: "Bits, hexadécimal, signaux logiques", sousModule: "embarques" },
     { id: 1, titre: "Le système embarqué", sous: "Définitions, exigences de conception, organisation en couches, deux dispositifs médicaux", ligne: "Définitions, exigences, organisation", sousModule: "embarques" },

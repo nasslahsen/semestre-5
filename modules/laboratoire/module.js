@@ -12,6 +12,17 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("laboratoire", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { titre: "Support du cours « Technologies de laboratoire d'analyses médicales » (Pr. EL BERGUI), en carte mentale", couvre: "chapitres 1 à 5, 7 et 8" }
+    ],
+    manque: [
+      "Chapitre VI, microbiologie et biologie moléculaire : seulement le titre dans le support.",
+      "Chapitre V, immunoanalyse : seulement le titre.",
+      "Chapitre VIII : seulement le sommaire ; construit avec la présentation « Le laboratoire médical vu par l'ingénieur biomédical »."
+    ]
+  },
   chapitres: [
     { id: 1, titre: "Le laboratoire médical", sous: "Missions, types, secteurs, circuit de l'échantillon, trois phases, biosécurité", ligne: "Missions, secteurs, circuit, phases, biosécurité" },
     { id: 2, titre: "Échantillons et phase pré-analytique", sous: "Types d'échantillons, prélèvement, identification, conservation, centrifugation, erreurs", ligne: "Prélever, identifier, conserver, centrifuger" },

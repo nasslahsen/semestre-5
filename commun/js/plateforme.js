@@ -5,7 +5,9 @@
  * Chaque module actif s'enregistre ensuite avec PLATEFORME.parcours(id, {...}) (fichier module.js).
  *
  * Progression (localStorage, clé "s5-progres", la même que le site publié : les étoiles sont partagées) :
- * { <module>: { niveaux: { <id>: { etoiles } }, lus: { <page de cours>: 1 }, dernier: { chemin, titre, quand } } }
+ * { <module>: { niveaux: { <id>: { etoiles } }, lus: { <page de cours>: 1 }, dernier: { chemin, titre, quand },
+ *   essais: { <niveau>: { quand, revoir: [{ k, nom, cause, erreurs }] } } } }
+ * essais : le dernier passage de chaque niveau, avec les étapes à revoir (erreurs, réponse vue, passée) ; page « Mon suivi ».
  *
  * Carte d'un sous-module : chapitres dans l'ordre ; dans chaque chapitre, pour chaque notion,
  * l'étape « cours » (page cours/<id>.html) puis l'étape « exos » (niveau du même id) ;
@@ -26,7 +28,7 @@
 
   function lireTout() { try { return JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { return {}; } }
   function ecrireTout(p) { try { localStorage.setItem(CLE, JSON.stringify(p)); } catch (e) { /* stockage indisponible */ } }
-  function etat(mid) { var p = lireTout(), e = p[mid] || {}; e.niveaux = e.niveaux || {}; e.lus = e.lus || {}; e.sections = e.sections || {}; e.plan = e.plan || {}; return e; }
+  function etat(mid) { var p = lireTout(), e = p[mid] || {}; e.niveaux = e.niveaux || {}; e.lus = e.lus || {}; e.sections = e.sections || {}; e.plan = e.plan || {}; e.essais = e.essais || {}; return e; }
   function poser(mid, e) { var p = lireTout(); p[mid] = e; ecrireTout(p); }
 
   // Reprise des étoiles de l'ancien site (avant la plateforme), une seule fois.
@@ -85,7 +87,10 @@
     // Pages de cours lues jusqu'en bas.
     lu: function (mid, id) { return !!etat(mid).lus[id]; },
     marquerLu: function (mid, id) { var e = etat(mid); if (e.lus[id]) return; e.lus[id] = 1; poser(mid, e); },
-    effacer: function (mid) { var e = etat(mid); e.niveaux = {}; e.lus = {}; e.sections = {}; e.plan = {}; delete e.dernier; poser(mid, e); },
+    effacer: function (mid) { var e = etat(mid); e.niveaux = {}; e.lus = {}; e.sections = {}; e.plan = {}; e.essais = {}; delete e.dernier; poser(mid, e); },
+    // Dernier passage d'un niveau : les étapes à revoir ({ k, nom, cause : "erreur" | "revelee" | "passee", erreurs }).
+    noterEssai: function (mid, id, revoir) { var e = etat(mid); e.essais[id] = { quand: Date.now(), revoir: revoir || [] }; poser(mid, e); },
+    essais: function (mid) { return etat(mid).essais; },
     // Dernière page ouverte dans un module (niveau ou page de cours), chemin relatif à la racine.
     noterDernier: function (mid, titre, chemin) {
       var e = etat(mid); e.dernier = { chemin: chemin || location.href.replace(racine, ""), titre: titre, quand: Date.now() }; poser(mid, e);
@@ -289,6 +294,13 @@
   P.chapitresDe = function (mid, sm) {
     return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm; })
       .map(function (c) { return P.chapitre(mid, c.id); }).filter(function (c) { return c.sections.length; });
+  };
+  // Numéro affiché d'un chapitre : sa place dans son sous-module (un sous-module est un cours à part entière,
+  // avec son professeur : ses chapitres repartent de 1, ou de 0 s'il commence par « Les bases »).
+  P.numero = function (mid, chid) {
+    var chs = P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === P.smDe(mid, chid); });
+    // décalage seulement : un trou dans la numérotation du cours (laboratoire, sans chapitre 6) reste visible
+    return chs.length ? chid - chs[0].id + (chs[0].id === 0 ? 0 : 1) : chid;
   };
   // Dernière section lue d'un chapitre, par sous-module (pour Reprendre).
   P.noterPlan = function (mid, sm, titre, chemin) {

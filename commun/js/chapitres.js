@@ -44,9 +44,9 @@
   P.chapitresDe(MID, sm.id).forEach(function (c) {
     if (!c.sections.length) return;
     var u = el("div", "unite", "", grille);
-    var a = el("a", "noeud-exos noeud-chapitre" + (c.etat === "fait" ? " fait" : r && r.chapitre === c.id ? " suivant" : ""), '<span class="forme">' + c.id + "</span>", u);
+    var a = el("a", "noeud-exos noeud-chapitre" + (c.etat === "fait" ? " fait" : r && r.chapitre === c.id ? " suivant" : ""), '<span class="forme">' + P.numero(MID, c.id) + "</span>", u);
     a.href = P.urlChapitre(MID, c.id);
-    a.setAttribute("aria-label", "Chapitre " + c.id + " : " + c.titre + (c.etat === "fait" ? " (fait)" : ""));
+    a.setAttribute("aria-label", "Chapitre " + P.numero(MID, c.id) + " : " + c.titre + (c.etat === "fait" ? " (fait)" : ""));
     el("div", "nomn", esc(c.titre) + "<small>" + esc(c.ligne) + "</small>", u);
   });
 

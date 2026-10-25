@@ -8,6 +8,13 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("biomateriaux", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1 à 7" },
+      { sousModule: "biomateriaux", titre: "TD 1, exercices 1.1 à 1.6", couvre: "repris dans les exercices des chapitres" }
+    ]
+  },
   chapitres: [
     { id: 0, titre: "Les bases", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut avant les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
     { id: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
