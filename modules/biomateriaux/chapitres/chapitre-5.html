@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Additifs, charges et renforts</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 5. -->
+<main class="cours-chapitre" data-chapitre="5">
+<p class="etiquette" data-etiquette></p>
+<h1>Additifs, charges et renforts</h1>
+
+<section class="partie" id="s-adjuvants-plastifiants">
+<p class="rang-partie">1 / 3</p>
+<h2>Adjuvants et plastifiants</h2>
+
+<article class="notion" id="n-adjuvants">
+<h3>Les adjuvants</h3>
+<p class="chapeau">Une tubulure de perfusion doit rester souple, un boîtier ne doit pas attirer la poussière, une gaine ne doit pas s'enflammer facilement. Le polymère seul ne sait pas tout faire : on lui ajoute des adjuvants.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre décrit tout ce qu'on mélange à un polymère pour l'adapter à son usage. Pourquoi c'est utile : la plupart des plastiques des dispositifs médicaux sont formulés, jamais purs. Les notions s'enchaînent ainsi :</p>
+<ul>
+<li><strong>Les adjuvants</strong> (cette page) : stabilisants, colorants et pigments, anti-chocs, antistatiques, ignifugeants, lubrifiants, anti-retrait, agents de germination et de réticulation.</li>
+<li><strong>Les plastifiants</strong> : rendre souple un polymère rigide, en abaissant sa \(T_v\).</li>
+<li><strong>Charges et renforts</strong> : particules non miscibles, classées par leur rapport de forme, qui rigidifient et augmentent la tenue en température.</li>
+<li><strong>Verre, carbone, aramide et autres renforts</strong> : les principaux renforts, leurs formes et leurs propriétés, avant les composites du chapitre suivant.</li>
+</ul>
+<div id="fig-chapitre"></div>
+
+<h4>Intuition</h4>
+<p>Chaque adjuvant corrige un défaut précis, souvent à très petite dose. Un dixième de pourcent de lubrifiant suffit pour que le polymère ne colle plus au métal de la machine ; moins de 1 % d'anti-oxygène protège le PE pendant sa transformation ; un ignifugeant, lui, peut dépasser 10 %.</p>
+<div id="fig-doses"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Adjuvant</th><th>Rôle (cours)</th><th>Dose, exemples</th></tr>
+<tr><td>Stabilisants</td><td>retarder, ralentir ou inhiber les processus responsables de l'altération de la structure pendant la mise en œuvre ; souvent en mélange (systèmes de stabilisation)</td><td>anti-oxygènes : dans la plupart des polymères hydrocarbonés (PE, PP, caoutchoucs), en général moins de 1 % (sauf noir de carbone), sans modifier sensiblement la couleur ni les propriétés physiques ; ils retardent l'oxydation thermique au cours de la transformation</td></tr>
+<tr><td>Colorants</td><td>solubles dans la matrice polymère : formules colorées transparentes</td><td>tenue à long terme pas toujours bonne pour les colorants organiques</td></tr>
+<tr><td>Pigments</td><td>insolubles, mis en œuvre sous forme de dispersion : opaques</td><td>bonne tenue à long terme</td></tr>
+<tr><td>Anti-chocs</td><td>polymères, surtout copolymères de type ABS ou MBS (méthacrylate-butadiène-styrène), qui améliorent la résistance au choc</td><td>quelques %, en particulier dans le PVC</td></tr>
+<tr><td>Antistatiques</td><td>limiter l'accumulation de charges électriques en surface : éviter la fixation de poussières ou la production d'étincelles</td><td>film d'additif en surface (projection d'aérosol ou exsudation de l'additif mélangé au polymère), ou additif qui augmente la conductivité et facilite l'écoulement des charges</td></tr>
+<tr><td>Ignifugeants</td><td>agir sur l'amorçage ou la propagation de la combustion (feu, fumée, toxicité), qu'ils rendent plus difficile ; exemples d'effets : processus qui absorbent la chaleur (« effet refroidisseur »), échange gazeux polymère-atmosphère défavorisé ; on cherche plusieurs effets avec un seul ignifugeant</td><td>peut atteindre et dépasser 10 %</td></tr>
+<tr><td>Lubrifiants</td><td>internes : réduire les frottements du polymère sur lui-même ; externes : diminuer le frottement polymère-métal (insolubles, ils exsudent rapidement pour former une couche en surface)</td><td>faible, environ 0,1 % en masse</td></tr>
+<tr><td>Anti-retrait</td><td>compenser le retrait des compositions à base de polyester insaturé (BMC, SMC)</td><td>principal : PVAC (polyacétate de vinyle)</td></tr>
+<tr><td>Agents de germination</td><td>faciliter et accélérer la cristallisation des semi-cristallins ; diminuer la température de cristallisation pour augmenter la cadence ; obtenir des cristaux plus petits (meilleures propriétés mécaniques et optiques)</td><td></td></tr>
+<tr><td>Agents de réticulation</td><td>favoriser une structure tridimensionnelle ; durcir les résines « liquides »</td><td>polyester insaturé (UP)</td></tr>
+</table></div>
+<p>Deux autres familles d'adjuvants ont leur propre page : les plastifiants et les charges et renforts.</p>
+<div id="fig-germes"></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. Une poche colorée dont on doit lire la graduation à travers : on choisit un colorant soluble, qui garde la transparence, et non un pigment, qui rendrait la poche opaque. Si la poche est extrudée et colle à la filière en acier, on ajoute un lubrifiant externe, vers 0,1 % : pour 200 kg de mélange, \(200\,000 \times 0{,}001 = 200\) g.</p>
+
+<h4>Formules clés</h4>
+<p>Stabilisant : contre l'altération pendant la mise en œuvre (anti-oxygène < 1 %). Colorant soluble : transparent ; pigment insoluble : opaque. Anti-choc ABS ou MBS : quelques %, surtout PVC. Antistatique : pas de poussières ni d'étincelles. Ignifugeant : effet refroidisseur, ≥ 10 %. Lubrifiant interne ou externe : ≈ 0,1 %. Anti-retrait : PVAC pour BMC et SMC. Germination : cristallisation plus rapide, cristaux plus petits. Réticulation : structure 3D, durcir l'UP.</p>
+</article>
+
+<article class="notion" id="n-plastifiants">
+<h3>Les plastifiants</h3>
+<p class="chapeau">Le PVC est rigide à l'ambiante : sa \(T_v\) est de 90 °C. Pourtant les tubulures et les poches de perfusion en PVC se plient sans effort. On a glissé quelque chose entre ses chaînes.</p>
+
+<h4>Intuition</h4>
+<p>La cohésion d'un polymère rigide vient des interactions entre ses chaînes. Un plastifiant est fait de petites molécules qui se glissent entre les chaînes, les écartent et coupent une partie de ces interactions. Les chaînes bougent plus facilement : le polymère devient souple, et il le devient à plus basse température.</p>
+<div id="fig-plastifiant"></div>
+
+<h4>Formalisation</h4>
+<p>Un <strong>plastifiant</strong> est un solvant lourd qui, incorporé aux polymères, détruit partiellement les interactions entre chaînes responsables de la cohésion mécanique et transforme un matériau initialement rigide en matériau souple, flexible.</p>
+<p>La rigidité diminue avec la concentration en plastifiant, de même que la température de transition vitreuse et la limite conventionnelle de flexibilité. Ce dernier critère est caractéristique de l'effet plastifiant.</p>
+<div class="tableau"><table>
+<tr><th>Exemple : le PVC</th><th>Température de fragilité</th></tr>
+<tr><td>PVC rigide non plastifié</td><td>0 °C</td></tr>
+<tr><td>PVC plastifié</td><td>−5 à −60 °C selon la nature et la concentration du plastifiant</td></tr>
+</table></div>
+<div id="fig-fragilite"></div>
+
+<h4>Exemple</h4>
+<p>TD 1.5 c : le PVC a une \(T_g\) de 90 °C ; pour diminuer sa \(T_g\), on ajoute un matériau plastifiant. Le plastifiant peut abaisser la température de fragilité du PVC de 0 °C jusqu'à −60 °C, soit 60 °C de moins au plus. Une poche qui doit passer à −18 °C (exemple ajouté) demande un PVC plastifié dont la température de fragilité est sous −18 °C : tous les PVC plastifiés ne conviennent pas, puisque la plage commence à −5 °C.</p>
+
+<h4>Formules clés</h4>
+<p>Plastifiant = solvant lourd qui détruit partiellement les interactions entre chaînes : rigide → souple.</p>
+<p>Concentration en plastifiant ↑ : rigidité ↓, \(T_v\) ↓, limite conventionnelle de flexibilité ↓ (critère caractéristique).</p>
+<p>PVC : fragilité à 0 °C (rigide), −5 à −60 °C (plastifié).</p>
+</article>
+
+<div class="fin-partie" data-section="adjuvants-plastifiants"></div>
+</section>
+
+<section class="partie" id="s-charges-renforts">
+<p class="rang-partie">2 / 3</p>
+<h2>Charges et renforts</h2>
+
+<article class="notion" id="n-charges-renforts">
+<h3>Charges et renforts</h3>
+<p class="chapeau">Une pièce en polypropylène se déforme dans un stérilisateur chaud. Ajouter 30 % de fibres de verre lui fait gagner plus de 80 °C de tenue. Mais toutes les particules ne renforcent pas autant : leur forme compte.</p>
+
+<h4>Intuition</h4>
+<p>Une particule dure noyée dans un polymère reprend une partie de la charge. Une bille ronde en reprend peu : le polymère la contourne. Une plaquette ou une aiguille, longue et fine, s'oppose davantage à la déformation. Une fibre longue fait encore mieux. On mesure cela par le rapport de forme : la plus grande dimension divisée par la plus petite.</p>
+<div id="fig-forme"></div>
+
+<h4>Formalisation</h4>
+<p>On désigne par <strong>renfort</strong> tout produit ni soluble ni miscible qui, mélangé à un polymère, permet d'améliorer une ou plusieurs propriétés ou caractéristiques (propriétés électriques, mécaniques, chimiques, coûts de production) du mélange final. Les renforts sont classés suivant leur nature chimique (organique, minérale) et leur géométrie, au travers de leur <strong>rapport de forme</strong> : quotient de la plus grande et de la plus petite dimension d'une particule. On les classe en quatre groupes.</p>
+<div class="tableau"><table>
+<tr><th>Nature</th><th>Rapport de forme</th><th>Exemples</th></tr>
+<tr><td>granulaire ou sphérique (\(D_2/D_1\))</td><td>1</td><td>billes de verre, CaCO₃, noir de carbone</td></tr>
+<tr><td>lamellaire (\(D/e\))</td><td>10 ; 30 à 40</td><td>talc ; mica</td></tr>
+<tr><td>aciculaire, en aiguilles (\(L/D\))</td><td>10 à 20 ; 10 à 100</td><td>wollastonite ; fibres courtes (L < 2 mm)</td></tr>
+<tr><td>fibrillaire (\(L/D\))</td><td>100 à l'infini</td><td>fibres longues (L ≥ 2 mm) : verre, carbone</td></tr>
+</table></div>
+<p>Le <strong>carbonate de calcium</strong> est la charge la plus utilisée : particules de forme irrégulière (rapport de forme près de 1), utilisé surtout dans les thermodurcissables ; il augmente la rigidité à basse température, a peu d'influence sur la rigidité à haute température et diminue la résistance au choc.</p>
+
+<h4>Effet sur le module et l'HDT</h4>
+<p>L'<strong>HDT</strong> est la température de fléchissement sous charge : une poutre posée sur deux appuis distants de 10 cm, chargée par un poids, est plongée dans un bain (une huile minérale) qu'on chauffe ; un comparateur mesure sa flèche.</p>
+<div class="tableau"><table>
+<tr><th></th><th>E (GPa)</th><th>HDT (°C)</th></tr>
+<tr><td>Polypropylène</td><td>1,7</td><td>65</td></tr>
+<tr><td>PP + 40 % CaCO₃</td><td>2,8</td><td>75</td></tr>
+<tr><td>PP + 40 % talc</td><td>4,2</td><td>97</td></tr>
+<tr><td>PP + 30 % FV</td><td>6,5</td><td>148</td></tr>
+</table></div>
+<div id="fig-pp"></div>
+<p>Environ 35 % des plastiques sont « chargés » ou « renforcés ». Pour le polypropylène, presque la moitié des grades sont modifiés par des fibres de verre, du talc, du mica, des billes de verre, des fibres de carbone. Pour le nylon, environ 75 % des grades commerciaux sont chargés ou renforcés. L'incorporation de charges et de renforts est un processus coûteux ; elle améliore les propriétés mécaniques et élargit la gamme d'utilisation d'un polymère : un polypropylène renforcé peut remplacer un nylon ou un polyester.</p>
+
+<h4>Exemple</h4>
+<p>Avec 30 % de fibres de verre, le module du polypropylène passe de 1,7 à 6,5 GPa : \(6{,}5 / 1{,}7 \approx 3{,}82\) fois plus rigide, et son HDT gagne \(148 - 65 = 83\) °C. TD 1.5 b : pour augmenter de façon substantielle la rigidité du PVC, on le renforce en ajoutant des fibres ou d'autres charges. TD 1.5 a : pour passer sa densité de 1,45 à 0,3 g/cm³, la masse ne pouvant pas changer, on augmente le volume : on le gonfle (\(1{,}45 / 0{,}3 \approx 4{,}83\) fois le volume).</p>
+
+<h4>Formules clés</h4>
+<p>\[\text{rapport de forme} = \frac{\text{plus grande dimension}}{\text{plus petite dimension}}\]</p>
+<p>Granulaire 1, lamellaire 10 ; 30 à 40, aciculaire 10 à 20 ; 10 à 100, fibrillaire 100 à l'infini. Plus le rapport de forme est grand, plus E et HDT montent (CaCO₃ < talc < fibres de verre pour le PP).</p>
+<p>CaCO₃ : charge la plus utilisée, rigidité à basse température, résistance au choc diminuée.</p>
+</article>
+
+<div class="fin-partie" data-section="charges-renforts"></div>
+</section>
+
+<section class="partie" id="s-fibres">
+<p class="rang-partie">3 / 3</p>
+<h2>Verre, carbone, aramide et autres renforts</h2>
+
+<article class="notion" id="n-fibres-renfort">
+<h3>Verre, carbone, aramide et autres renforts</h3>
+<p class="chapeau">La main prothétique en carbone, la lame de course, le gilet en Kevlar : derrière chacun, une fibre choisie pour sa résistance, sa légèreté ou sa tenue. Voici les principaux renforts du cours et la façon de les lire.</p>
+
+<h4>Intuition</h4>
+<p>Chaque renfort a sa spécialité. Le verre est bon marché et isolant : c'est le renfort de tous les jours. Le carbone est aussi rigide que l'acier pour quatre fois moins lourd, mais il coûte cher. L'aramide résiste remarquablement en traction et pèse peu, mais tient mal en compression. Les minéraux (mica, wollastonite) et le PTFE apportent des qualités plus ciblées.</p>
+<div id="fig-renforts"></div>
+
+<h4>Formalisation</h4>
+<h5>Le verre</h5>
+<p>Sous forme filée, le verre présente une excellente résistance mécanique ainsi qu'une remarquable inertie chimique, une bonne tenue thermique et une bonne isolation électrique. Les fils de verre sont désignés ainsi :</p>
+<ul>
+<li>une lettre pour le type de verre : <strong>E</strong> usage général, bonnes propriétés électriques (90 % des applications) ; <strong>D</strong> hautes propriétés diélectriques ; <strong>C</strong> bonne résistance chimique ; <strong>S</strong> ou <strong>R</strong> bonne résistance mécanique ;</li>
+<li>une lettre pour les fils utilisés : <strong>C</strong> continu, <strong>D</strong> discontinu (verranne) ;</li>
+<li>un nombre de 1 à 2 chiffres : le diamètre de référence en micromètres ;</li>
+<li>un nombre : la masse linéique en tex \((10^{-6}\ \text{kg/m})\).</li>
+</ul>
+<div id="fig-fil"></div>
+<div class="tableau"><table>
+<tr><th>Forme du verre</th><th>Description et usage (cours)</th></tr>
+<tr><td>billes</td><td>améliorent la coulabilité des résines et la résistance en compression</td></tr>
+<tr><td>fibres broyées</td><td>nodules ou poudres fines (longueur < 300 µm), pour renforcer les polymères injectables et les résines de coulée</td></tr>
+<tr><td>fibres coupées</td><td>3 à 30 mm de long, pour renforcer les thermoplastiques (3 mm)</td></tr>
+<tr><td>stratifils (roving)</td><td>ensemble de fils de base ou de filaments parallèles, assemblés sous torsion intentionnelle, pour fabriquer des tissus</td></tr>
+<tr><td>mat</td><td>filaments, fibres discontinues ou fils de base maintenus en nappe ; épaisseur toujours faible (quelques dixièmes de millimètre)</td></tr>
+<tr><td>tissus</td><td>étoffe formée par l'entrecroisement de deux ensembles de fils, par tissage sur métier à tisser</td></tr>
+</table></div>
+<p>Applications du verre : bateaux, planches à voile, cannes à pêche, pales d'hélicoptère.</p>
+
+<h4>Le carbone</h4>
+<p>Le carbone est utilisé dans les polymères sous trois formes très différentes :</p>
+<ul>
+<li><strong>les fibres de carbone</strong> : pièces hautement sollicitées ; densité de 1,75 à 1,95 ; module d'élasticité et résistance en traction proches de ceux de l'acier pour une densité 4 fois inférieure ; fluage réduit, excellentes propriétés en fatigue ; fibres conductrices, bonne conductibilité thermique. Elles s'utilisent broyées (30 µm à 3 mm), courtes (5 mm), longues (5 à 20 mm), en tissus pour le moulage ou en tissage tridimensionnel. Leur prix, bien qu'en baisse, limite leurs applications aux techniques de pointe (sévères conditions d'efforts, de température, d'ambiance), avec des matrices polymères d'excellente tenue ;</li>
+<li><strong>le noir de carbone</strong> (« carbon black ») : historiquement utilisé dans les caoutchoucs naturels pour apporter une résistance au vieillissement ultraviolet, c'est aujourd'hui un stabilisant d'usage courant ; il sert aussi de colorant et de charge conductrice dans les plastiques conducteurs ;</li>
+<li><strong>le graphite</strong> : pour les applications qui réclament un bon frottement et une usure limitée (palier, coussinet), on l'ajoute à des polymères qui ont déjà de bonnes propriétés : on réalise ainsi des pièces autolubrifiantes.</li>
+</ul>
+<div id="fig-acier"></div>
+
+<h4>Aramide et autres renforts</h4>
+<div class="tableau"><table>
+<tr><th>Renfort</th><th>Ce qu'en dit le cours</th></tr>
+<tr><td>Polyamide aromatique (Kevlar, Dupont de Nemours)</td><td>utilisable à 180 °C, excellente résistance en traction, densité 1,49 (gain de poids) ; inconvénients : allongement sous contrainte élevée, tenue en compression limitée ; renfort des polyesters, époxy, polyamides, phénoliques ; bonnes propriétés en fatigue ; renfort des caoutchoucs (pneus, courroies) et des plastiques (garnitures de freins, embrayage, coques de bateaux), utilisé seul en tissus et cordages</td></tr>
+<tr><td>Mica</td><td>agent de renfort très économique : structure lamellaire (renforcement bidirectionnel), inertie chimique, excellente isolation thermique, grande rigidité mécanique, propriétés anti-UV</td></tr>
+<tr><td>Wollastonite</td><td>minéral de forme aciculaire, de plus en plus utilisé dans les polymères techniques ; accroît la résistance thermique</td></tr>
+<tr><td>PTFE (Téflon)</td><td>utilisé pour sa tenue en température et ses qualités de frottement, sous forme de poudre</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Un fil « E C 9 68 » est en verre E (usage général), continu, de diamètre 9 µm, de masse linéique 68 tex : 1 km de ce fil pèse \(68 \times 10^{-6} \times 1000 = 0{,}068\) kg, soit 68 g. À même volume, une tige en fibre de carbone pèse environ 4 fois moins qu'une tige d'acier : 100 g au lieu de 400 g pour une rigidité voisine (exemple ajouté).</p>
+
+<h4>Formules clés</h4>
+<p>Fil de verre : type (E, D, C, S/R) + fil (C continu, D discontinu) + diamètre en µm + masse linéique en tex, \(1\ \text{tex} = 10^{-6}\ \text{kg/m} = 1\ \text{g/km}\).</p>
+<p>Carbone : fibres (rigides comme l'acier, densité 1,75 à 1,95), noir de carbone (stabilisant UV, colorant, conducteur), graphite (autolubrifiant).</p>
+<p>Kevlar : traction, 180 °C, densité 1,49 ; faible en compression. Mica : lamellaire, économique. Wollastonite : aciculaire. PTFE : frottement, température.</p>
+</article>
+
+<div class="fin-partie" data-section="fibres"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/adjuvants.js"></script>
+<script src="../figures/plastifiants.js"></script>
+<script src="../figures/charges-renforts.js"></script>
+<script src="../figures/fibres-renfort.js"></script>
+</body>
+</html>

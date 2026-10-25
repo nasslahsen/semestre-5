@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les cinq composants d'un SI</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 2. -->
+<main class="cours-chapitre" data-chapitre="2">
+<p class="etiquette" data-etiquette></p>
+<h1>Les cinq composants d'un SI</h1>
+
+<section class="partie" id="s-composants">
+<p class="rang-partie">1 / 5</p>
+<h2>Les cinq composants d'un SI</h2>
+
+<article class="notion" id="n-composants-si">
+<h3>Les cinq composants d'un SI</h3>
+<p class="chapeau">Une clinique achète le meilleur logiciel du marché et des serveurs neufs. Six mois plus tard, personne ne s'en sert : il manquait la formation et l'organisation. Un SI tient sur cinq pieds.</p>
+<h4>Le chapitre en bref</h4>
+<p>Le chapitre 1 a défini le SI. Ce chapitre l'ouvre : il en prend les cinq composants un par un. L'<b>organisation</b> (processus, procédures, workflow, maturité, cartographie, schéma directeur), les <b>logiciels</b> (système, métier, progiciel ou spécifique, qualité), les <b>données</b> (base de données, SGBD), le <b>matériel</b> (équipements, réseau) et le <b>personnel</b> (acteurs internes et externes, métiers). Chaque composant a ses choix et ses risques ; un SI ne marche que si les cinq tiennent ensemble.</p>
+
+<h4>Intuition</h4>
+<p>Tout ce qui fait vivre l'information d'un hôpital tombe dans l'une de cinq familles : des personnes, des règles de travail, des programmes, des machines, et l'information elle-même. Oublier une famille, c'est faire boiter tout le système.</p>
+<div id="fig-composants"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Composant</th><th>Ce que le cours y range</th></tr>
+<tr><td>Organisation</td><td>processus, procédures, maturité des processus, workflow, cartographie, schéma directeur</td></tr>
+<tr><td>Logiciels</td><td>logiciels système, applications métiers (ERP, CRM, développement spécifique), qualité logicielle</td></tr>
+<tr><td>Données</td><td>base de données, SGBD, méthodes de modélisation (UML, Merise)</td></tr>
+<tr><td>Matériel</td><td>équipements informatiques (serveurs, ordinateurs, imprimantes...), réseau</td></tr>
+<tr><td>Personnels</td><td>acteurs internes et externes, catégories de métiers du SI</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Service de pédiatrie : l'infirmière et le pédiatre (personnels), le circuit de la prescription (organisation), le DPI et Windows (logiciels), les postes et l'imprimante (matériel), les courbes de poids des enfants (données).</p>
+
+<h4>Formules clés</h4>
+<p>SI = organisation + logiciels + données + matériel + personnels.</p>
+</article>
+
+<div class="fin-partie" data-section="composants"></div>
+</section>
+
+<section class="partie" id="s-processus">
+<p class="rang-partie">2 / 5</p>
+<h2>Processus, maturité et cartographie</h2>
+
+<article class="notion" id="n-processus">
+<h3>Processus, procédure et workflow</h3>
+<p class="chapeau">Une demande de bilan sanguin passe par le médecin, l'infirmier, le laboratoire, puis revient au médecin. Pour l'informatiser, il faut d'abord savoir décrire ce chemin.</p>
+<h4>Intuition</h4>
+<p>Un <b>processus</b> prend quelque chose en entrée et rend autre chose en sortie, avec une valeur ajoutée : la consultation reçoit un patient qui tousse et rend une ordonnance et un compte rendu. Une <b>procédure</b> dit précisément comment faire une activité. Un <b>workflow</b> dessine qui fait quoi, et quand, entre plusieurs acteurs.</p>
+<div id="fig-workflow"></div>
+
+<h4>Formalisation</h4>
+<p><b>Processus</b> : « un ensemble d'activités corrélées ou interactives qui transforme des éléments d'entrée en éléments de sortie » (ISO 9000:2000). Entre l'entrée et la sortie : la valeur ajoutée.</p>
+<p><b>Procédure</b> : une manière spécifiée d'effectuer une activité ou un processus.</p>
+<p>Un <b>workflow</b> modélise les interactions entre les processus métier, les acteurs et les flux d'échanges à mettre en œuvre. Le workflow a un <b>déclencheur</b>. Il identifie <b>qui fait quoi et quand</b>.</p>
+<div class="tableau"><table>
+<tr><th></th><th>Répond à</th><th>Exemple hospitalier (ajouté)</th></tr>
+<tr><td>Processus</td><td>quoi transformer en quoi ?</td><td>l'admission d'un patient, le circuit du médicament</td></tr>
+<tr><td>Procédure</td><td>comment faire cette activité ?</td><td>la fiche « vérifier l'identité en 4 points »</td></tr>
+<tr><td>Workflow</td><td>qui fait quoi, et quand ?</td><td>prescrire, prélever, analyser, publier, lire</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le bilan sanguin de la figure : le déclencheur est la prescription du médecin. Le workflow répartit la suite entre trois acteurs (médecin, infirmier, laboratoire) et fixe l'ordre. La façon de prélever le tube, elle, relève d'une procédure.</p>
+
+<h4>Formules clés</h4>
+<p>Processus : entrées → activités → sorties, avec valeur ajoutée (ISO 9000:2000).</p>
+<p>Procédure = manière spécifiée. Workflow = qui fait quoi et quand, avec un déclencheur.</p>
+</article>
+
+<article class="notion" id="n-maturite-cartographie">
+<h3>Maturité et cartographie des processus</h3>
+<p class="chapeau">Au laboratoire, chacun étalonne l'automate à sa façon, quand il y pense. Le processus existe, mais il n'est pas mûr. Et ce n'est qu'un processus parmi des dizaines.</p>
+<h4>Intuition</h4>
+<p>Un même processus peut être fait au hasard, ou planifié, ou écrit pour tout le monde, ou mesuré, ou amélioré en continu. Ce sont les marches de la <b>maturité</b>. Et pour voir l'ensemble de l'hôpital, on range tous ses processus sur une carte en trois bandes : ceux qui pilotent, ceux qui soignent, ceux qui soutiennent.</p>
+<div id="fig-maturite"></div>
+<div id="fig-cartographie"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Nom</th><th>Processus</th></tr>
+<tr><td>1</td><td>Initial</td><td>aléatoire</td></tr>
+<tr><td>2</td><td>Géré</td><td>planifié, exécuté et évalué</td></tr>
+<tr><td>3</td><td>Défini</td><td>organisé et maîtrisé</td></tr>
+<tr><td>4</td><td>Quantifié</td><td>mesuré et contrôlé</td></tr>
+<tr><td>5</td><td>Optimisé</td><td>stable et flexible</td></tr>
+</table></div>
+<p>La <b>cartographie des processus</b> d'une entreprise est une représentation graphique de tous les processus liés entre eux par des liens logiques d'informations, de matière ou de production. Elle donne une vue d'ensemble de l'activité et permet d'appréhender de façon objective l'organisation du travail. Elle se compose souvent de trois macroprocessus : <b>management / pilotage</b>, <b>opérationnel / métier</b>, <b>support</b>.</p>
+<p>Exemple hospitalier du cours : management stratégique (politiques de recherche, d'enseignement, médicale, sociale, qualité et sécurité) ; opérationnels en lien direct avec le patient (accueil, démarche diagnostique, décision thérapeutique, mise en œuvre du traitement, surveillance) ; supports (diagnostic de biologie, diagnostic et support d'imagerie, gestion des médicaments, radiophysique, gestion des RH, maintenance, hôtellerie, facturation, gestion de la qualité, gestion de la sécurité).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Au bloc, la check-list est appliquée par tous selon une procédure écrite commune, mais personne ne mesure combien de fois elle est vraiment remplie : niveau 3, défini. Le jour où l'on suit chaque mois le taux de remplissage et où l'on réagit aux écarts, on passe au niveau 4.</p>
+
+<h4>Formules clés</h4>
+<p>Maturité : 1 initial, 2 géré, 3 défini, 4 quantifié, 5 optimisé.</p>
+<p>Cartographie : management / pilotage, opérationnel / métier, support.</p>
+</article>
+
+<div class="fin-partie" data-section="processus"></div>
+</section>
+
+<section class="partie" id="s-schema-logiciels">
+<p class="rang-partie">3 / 5</p>
+<h2>Schéma directeur et logiciels</h2>
+
+<article class="notion" id="n-schema-directeur">
+<h3>Le schéma directeur du SI</h3>
+<p class="chapeau">Un hôpital veut un SI qui tienne cinq ans. Avant d'acheter quoi que ce soit, il faut savoir d'où l'on part, où l'on veut aller, et par quels projets.</p>
+<h4>Intuition</h4>
+<p>Le schéma directeur est la feuille de route du SI. La DSI le rédige, la direction et les métiers le valident. Il se construit en quatre phases : cadrer le projet, regarder honnêtement l'existant, choisir les axes stratégiques, puis écrire le plan.</p>
+<div id="fig-phases"></div>
+
+<h4>Formalisation</h4>
+<p>Un <b>schéma directeur</b> du SI (SDSI) est une étape majeure pour la définition, la formalisation, la mise en place ou l'actualisation d'un système d'information. C'est un document de synthèse établi par la direction SI (<b>DSI</b>) et validé par la direction générale et métier de l'organisation. Il englobe l'ensemble des éléments du SI : processus, architecture applicative, fonctionnelle et technique. Un schéma directeur informatique est valable pour une période de <b>3 à 5 ans</b>.</p>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Contenu</th></tr>
+<tr><td>1. Initialisation et cadrage</td><td>démarrer et cadrer le projet ; définir le pilotage du projet</td></tr>
+<tr><td>2. Analyse critique du SI existant</td><td>obtenir une vue fidèle de l'existant ; analyser les risques et les faiblesses</td></tr>
+<tr><td>3. Définition des axes stratégiques SI</td><td>établir les besoins futurs ; étudier l'opportunité et l'impact ; définir les axes stratégiques ; définir une cible</td></tr>
+<tr><td>4. Élaboration du schéma directeur</td><td>organiser la gestion de portefeuille projets ; finaliser le schéma directeur</td></tr>
+</table></div>
+<p>Le schéma directeur se décline en trois branches : <b>informatique → technologie</b> (infrastructures, applications), <b>système d'information → information</b> (applications, informations, processus), <b>stratégie SI → métier</b> (processus, stratégie, mission).</p>
+<div id="fig-branches"></div>
+<p>Pour modéliser un processus, le cours cite draw.io, BIZAGI, ProcessMaker, Lucidchart, SmartDraw...</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Clinique Al Amal : nommer un comité de pilotage (phase 1) ; interroger chaque service sur ses logiciels (phase 2) ; décider de partager le DPI avec les médecins de ville (phase 3) ; planifier les projets des quatre années à venir (phase 4).</p>
+
+<h4>Formules clés</h4>
+<p>SDSI : établi par la DSI, validé par la direction générale et métier, valable 3 à 5 ans.</p>
+<p>Phases : cadrage → analyse de l'existant → axes stratégiques → élaboration.</p>
+</article>
+
+<article class="notion" id="n-logiciels">
+<h3>Logiciels système, métiers, progiciel ou spécifique</h3>
+<p class="chapeau">Faut-il acheter un logiciel du marché ou le faire développer ? La paie et l'outil propre à la stratégie de l'hôpital n'appellent pas la même réponse.</p>
+<h4>Intuition</h4>
+<p>Certains logiciels font tourner les machines (systèmes d'exploitation, hyperviseurs), d'autres servent un métier (ERP, CRM, DPI). Pour un logiciel métier, la vraie question est : acheter un <b>progiciel</b> ou faire un <b>développement spécifique</b> ? Cela dépend de deux choses : l'enjeu du sujet (stratégique, normé, autre) et sa taille (en budget de la DSI).</p>
+<div id="fig-matrice"></div>
+
+<h4>Formalisation</h4>
+<p><b>Logiciels système</b> : systèmes d'exploitation (Linux, Windows...), hyperviseurs (VMware, XEN...), systèmes de fichiers (NTFS, EXT3)...</p>
+<p><b>Logiciels d'applications métiers</b> : <b>ERP</b> (Enterprise Resource Planning), progiciel de gestion intégré (PGI) comme SAP ou odoo ; <b>CRM</b> (Customer Relation Management), gestion de la relation client (zoho, salesforce...) ; <b>développement spécifique</b> (Java, C#, PHP, .NET...).</p>
+<div class="tableau"><table>
+<tr><th></th><th>Sujet énorme (plusieurs années de budget DSI)</th><th>Gros sujet (un an de budget DSI)</th><th>Petit sujet (moins de 20 % du budget annuel DSI)</th></tr>
+<tr><td>Stratégique</td><td>investissement stratégique ou partenariat avec un éditeur de progiciel</td><td>développement spécifique</td><td>développement spécifique</td></tr>
+<tr><td>Normé</td><td>progiciel</td><td>progiciel</td><td>progiciel économique ou développement spécifique</td></tr>
+<tr><td>Autre</td><td>progiciel</td><td>progiciel économique ou développement spécifique</td><td>progiciel économique ou développement spécifique</td></tr>
+</table></div>
+<p>Les principaux <b>critères de qualité d'un logiciel en développement</b> : la conformité aux besoins, l'ergonomie (dont la facilité d'emploi), la flexibilité, la maintenabilité, la sécurité d'usage (intégrité, confidentialité, disponibilité). Le cycle qualité : le développement alimente les tests, les tests rapportent à l'assurance qualité, l'assurance qualité améliore le développement.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>La paie suit des règles légales identiques partout (normé) et coûte environ un an de budget DSI : progiciel. Un outil d'orientation des patients propre à la stratégie de l'hôpital, à 10 % du budget annuel : développement spécifique.</p>
+
+<h4>Formules clés</h4>
+<p>Choix = f(enjeu : stratégique, normé, autre ; taille : énorme, gros, petit).</p>
+<p>Qualité : conformité, ergonomie, flexibilité, maintenabilité, sécurité d'usage.</p>
+</article>
+
+<div class="fin-partie" data-section="schema-logiciels"></div>
+</section>
+
+<section class="partie" id="s-donnees-materiel">
+<p class="rang-partie">4 / 5</p>
+<h2>Données, SGBD et matériel</h2>
+
+<article class="notion" id="n-donnees-sgbd">
+<h3>Base de données et SGBD</h3>
+<p class="chapeau">Chaque service gardait son fichier Excel des patients : quatre adresses différentes pour la même personne. Une base de données règle ce désordre, à condition d'être bien gérée.</p>
+<h4>Intuition</h4>
+<p>Une base de données rassemble les données en un seul endroit structuré, que plusieurs personnes utilisent en même temps. Le SGBD est le logiciel qui la crée et la fait vivre : il définit sa structure, laisse manipuler les données, contrôle qui y accède, garde les données justes et disponibles.</p>
+<div id="fig-sgbd"></div>
+
+<h4>Formalisation</h4>
+<p><b>Base de données</b> : collection de données structurées, enregistrée sur la mémoire de stockage, accessible simultanément par plusieurs utilisateurs. Avantages : indépendance de logiciels d'applications particulières ; cohérence ; redondance minimale ; accessibilité simultanée par plusieurs utilisateurs. Méthodes de modélisation : UML, Merise.</p>
+<p><b>Système de gestion de base de données</b> (SGBD) : logiciel (ou ensemble de logiciels) capable d'assurer la création et l'utilisation des bases de données. Exemples : Oracle, SQL Server, MySQL, PostgreSQL, DB2...</p>
+<div class="tableau"><table>
+<tr><th>Un SGBD doit assurer</th><th>Exemples</th></tr>
+<tr><td>la définition des bases et des objets contenus (LDD)</td><td>CREATE, ALTER...</td></tr>
+<tr><td>la manipulation des données (LMD)</td><td>INSERT, UPDATE...</td></tr>
+<tr><td>le contrôle d'accès aux données (LCD)</td><td>GRANT, DENY...</td></tr>
+<tr><td>l'intégrité</td><td>contraintes, verrous</td></tr>
+<tr><td>la disponibilité</td><td>réplication, backup</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux infirmières modifient la même prescription au même instant : un verrou garde la donnée cohérente (intégrité). Le disque du serveur lâche : la copie répliquée prend le relais (disponibilité). Un stagiaire termine son stage : DENY lui retire l'accès (LCD).</p>
+
+<h4>Formules clés</h4>
+<p>Base de données : indépendance, cohérence, redondance minimale, accès simultané.</p>
+<p>SGBD : LDD (CREATE, ALTER), LMD (INSERT, UPDATE), LCD (GRANT, DENY), intégrité, disponibilité.</p>
+</article>
+
+<article class="notion" id="n-materiel-reseau">
+<h3>Matériel informatique et réseau</h3>
+<p class="chapeau">Les images d'un scanner pèsent lourd, une tablette suit l'infirmière au lit, un moniteur roule avec le brancard. Le choix du matériel et du réseau décide de ce que le SI peut faire.</p>
+<h4>Intuition</h4>
+<p>Le matériel, ce sont les machines qui calculent, gardent et affichent l'information. Le réseau les relie. Choisir un serveur, une tablette ou une liaison sans fil, c'est choisir la capacité, la facilité d'usage, le débit et la fiabilité de tout le SI.</p>
+<div id="fig-reseau"></div>
+
+<h4>Formalisation</h4>
+<p><b>Équipements informatiques</b> : serveurs (locaux, cloud : SaaS, PaaS, IaaS), ordinateurs, imprimantes, équipements spécifiques pour le traitement de l'information (texte, image, voix). Impact du choix du matériel : capacité de traitement et stockage ; aisance de manipulation ; automatisation des processus.</p>
+<p><b>Réseau informatique</b> : il se compose des équipements réseau <b>actifs</b> et <b>passifs</b>. Types de liaisons : <b>filaire</b> (Ethernet, fibre optique...), <b>sans fil</b> (Bluetooth, wifi...). Le cours insiste : architecture réseau sécurisée. Impact du choix du réseau : débit de communication ; fiabilité des liens.</p>
+<div class="tableau"><table>
+<tr><th>Offre cloud (définitions usuelles, ajoutées)</th><th>Ce que l'hôpital gère</th><th>Exemple</th></tr>
+<tr><td>SaaS : le logiciel comme service</td><td>seulement son usage</td><td>un DPI loué, ouvert dans le navigateur</td></tr>
+<tr><td>PaaS : la plateforme comme service</td><td>son application</td><td>déposer son application sur une plateforme qui gère système et base</td></tr>
+<tr><td>IaaS : l'infrastructure comme service</td><td>système, base, applications</td><td>louer des machines virtuelles et y installer son SGBD</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un moniteur de transport qui suit le patient du service à l'imagerie ne peut pas être filaire : il passe en wifi, et il faut surveiller la fiabilité du lien pendant le trajet.</p>
+
+<h4>Formules clés</h4>
+<p>Matériel : capacité, aisance, automatisation. Réseau : débit, fiabilité.</p>
+<p>Actif (alimenté, traite le signal : switch, routeur, borne wifi) / passif (transporte : câbles, fibre, prises).</p>
+</article>
+
+<div class="fin-partie" data-section="donnees-materiel"></div>
+</section>
+
+<section class="partie" id="s-personnel">
+<p class="rang-partie">5 / 5</p>
+<h2>Les acteurs d'un SI</h2>
+
+<article class="notion" id="n-personnel">
+<h3>Les acteurs d'un SI</h3>
+<p class="chapeau">Un courriel suspect demande à une infirmière son mot de passe du DPI. Elle doit savoir à qui s'adresser. Le SI, ce sont aussi des personnes, dedans et dehors.</p>
+<h4>Intuition</h4>
+<p>Autour du SI, il y a ceux qui le dirigent, ceux qui s'en servent, ceux qui le construisent et le font tourner, à l'intérieur de l'hôpital. Et il y a ceux de l'extérieur : partenaires, clients, fournisseurs, régulateurs.</p>
+<div id="fig-acteurs"></div>
+
+<h4>Formalisation</h4>
+<p><b>Acteurs internes</b> d'un SI : personnel de la direction de gestion (management) ; personnel de la direction métier (corps métiers, utilisateurs) ; personnel de la direction SI (DSI, RSSI, administrateur réseau / système, directeur / chef de projet, développeurs, data analyst...).</p>
+<p><b>Acteurs externes</b> : partenaires, clients, fournisseurs, régulateurs.</p>
+<div class="tableau"><table>
+<tr><th>Catégorie</th><th>Métiers cités</th></tr>
+<tr><td>Projet</td><td>directeur de projet, chef de projet, Scrum master, PMO</td></tr>
+<tr><td>Technique</td><td>chef du département informatique, technicien, administrateur réseau / système, RSSI, développeur / testeur, DBA, data scientist / analyste / engineer</td></tr>
+<tr><td>Conception, organisation et évolution des SI</td><td>urbaniste, architecte SI, consultant SI</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le courriel suspect va au RSSI, responsable de la sécurité des SI. L'éditeur du DPI est un fournisseur externe ; la CNSS, organisme payeur, un partenaire externe ; le ministère de la Santé, un régulateur.</p>
+
+<h4>Formules clés</h4>
+<p>Internes : direction de gestion, direction métier, direction SI. Externes : partenaires, clients, fournisseurs, régulateurs.</p>
+<p>Catégories : projet, technique, conception / organisation / évolution.</p>
+</article>
+
+<div class="fin-partie" data-section="personnel"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/composants-si.js"></script>
+<script src="../figures/processus.js"></script>
+<script src="../figures/maturite-cartographie.js"></script>
+<script src="../figures/schema-directeur.js"></script>
+<script src="../figures/logiciels.js"></script>
+<script src="../figures/donnees-sgbd.js"></script>
+<script src="../figures/materiel-reseau.js"></script>
+<script src="../figures/personnel.js"></script>
+</body>
+</html>

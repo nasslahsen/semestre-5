@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Guidages rotatifs et linéaires</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 7. -->
+<main class="cours-chapitre" data-chapitre="7">
+<p class="etiquette" data-etiquette></p>
+<h1>Guidages rotatifs et linéaires</h1>
+
+<section class="partie" id="s-criteres-guidage">
+<p class="rang-partie">1 / 4</p>
+<h2>Critères d'un guidage et raideur</h2>
+
+<article class="notion" id="n-criteres-guidage">
+<h3>Critères fonctionnels d'un guidage et raideur</h3>
+<p class="chapeau">La table d'un scanner avance d'un millimètre à la fois sous le patient, et l'axe du poignet d'un robot tourne sans que l'instrument ne flotte. Dans les deux cas, une pièce doit bouger dans une direction et pas dans les autres : c'est le travail d'un guidage.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre traite de ce qui guide le mouvement d'un axe : en rotation (roulements) ou en translation (rails). Un mauvais guidage, c'est du jeu, de la souplesse et de l'usure, donc un instrument moins précis et un appareil qui s'arrête pour maintenance. Les pages s'enchaînent ainsi :</p>
+<ul>
+<li>critères et raideur (cette page) : ce qu'on demande à un guidage, et comment mesurer sa raideur ;</li>
+<li>le roulement : pourquoi rouler plutôt que glisser, et de quoi il est fait ;</li>
+<li>radiaux et butées : la direction de la charge décide du groupe ;</li>
+<li>les types de roulements : choisir selon les charges, la vitesse, le désalignement, la place ;</li>
+<li>la durée L₁₀ : combien de temps tient le roulement choisi ;</li>
+<li>le montage fixe-libre : placer deux roulements sans bloquer la dilatation ;</li>
+<li>jeu, précharge et frottement : supprimer le jeu, au prix d'un peu de frottement.</li>
+</ul>
+
+<h4>Intuition</h4>
+<p>Un tiroir doit sortir et rentrer, mais ni monter, ni partir sur le côté, ni basculer. Ses glissières laissent un seul mouvement utile et bloquent les cinq autres. Un guidage en rotation fait pareil : l'arbre tourne autour de son axe, et rien d'autre.</p>
+<p>Bloquer, c'est résister à un effort. Aucune pièce n'est infiniment rigide : sous la charge, le chariot s'enfonce un peu. Plus il s'enfonce peu pour un même effort, plus le guidage est raide.</p>
+
+<div id="fig-ddl"></div>
+
+<h4>Formalisation</h4>
+<p>Un <strong>guidage</strong> doit autoriser les degrés de liberté utiles et contraindre les autres. Les paramètres principaux sont :</p>
+<div class="tableau"><table>
+<tr><th>Ce qu'il supporte</th><th>Comment il se comporte</th><th>Ce qui l'entoure</th></tr>
+<tr><td>charge radiale et axiale, moment</td><td>rigidité, jeu, frottement, vitesse, précision géométrique</td><td>durée de vie, lubrification, contamination, encombrement</td></tr>
+</table></div>
+<p>Une modélisation linéaire locale utilise la <strong>raideur</strong> :</p>
+\[ k = \frac{F}{\delta} \qquad (3.1) \]
+<p>avec \(k\) la raideur (N/m ou N/mm), \(F\) l'effort appliqué (N) et \(\delta\) le déplacement ou la déformation. Sur un graphe effort-déplacement, \(k\) est la pente de la droite.</p>
+<p>Pour les guidages en rotation, on parle de raideur angulaire, exprimée en N·m/rad : le couple nécessaire pour faire pivoter le guidage d'un certain angle hors de son axe théorique. C'est la même idée que la rigidité torsionnelle \(k_\theta = C/\theta\) du chapitre 5, et que la raideur d'un ressort \(F = kx\) du chapitre 6.</p>
+
+<div id="fig-raideur"></div>
+
+<h4>Exemple ajouté</h4>
+<p>Sous une charge de 200 N, le chariot d'un guidage linéaire s'enfonce de 0,05 mm :</p>
+\[ k = \frac{200}{0{,}05} = 4000 \ \text{N/mm} \]
+<p>Si la déformation ne doit pas dépasser 0,03 mm, la charge maximale vaut \(F = k\,\delta = 4000 \times 0{,}03 = 120\) N. Un second guidage qui ne s'enfonce que de 0,01 mm sous les mêmes 200 N a une raideur de 20 000 N/mm : cinq fois plus raide.</p>
+
+<h4>Formules clés</h4>
+\[ k = \frac{F}{\delta} \ \ (\text{N/mm}) \qquad k_\theta = \frac{C}{\theta} \ \ (\text{N}\cdot\text{m/rad}) \]
+</article>
+
+<div class="fin-partie" data-section="criteres-guidage"></div>
+</section>
+
+<section class="partie" id="s-roulements">
+<p class="rang-partie">2 / 4</p>
+<h2>Le roulement et ses familles</h2>
+
+<article class="notion" id="n-roulements">
+<h3>Roulements : principe, éléments roulants, constitution</h3>
+<p class="chapeau">L'arbre d'un axe de robot tourne des millions de fois. S'il frottait directement dans son logement, il chaufferait, s'userait et perdrait sa précision. Entre les deux, on place des billes ou des rouleaux : un roulement.</p>
+
+<h4>Intuition</h4>
+<p>Pousser une caisse sur le sol demande un gros effort : elle glisse. Posée sur des rouleaux, elle part avec un petit effort : elle roule. Un roulement applique cette idée en rond : des éléments roulants entre deux bagues, l'une liée à l'arbre, l'autre au logement.</p>
+
+<div id="fig-frottement"></div>
+
+<h4>Formalisation</h4>
+<p>Les <strong>roulements</strong> soutiennent et guident, avec un frottement minimal, des éléments de machine en rotation ou oscillants, et transfèrent les charges entre les composants de la machine. Ils permettent une précision élevée et un faible frottement pour atteindre des vitesses de rotation élevées, tout en réduisant le bruit, les échauffements, la consommation d'énergie et l'usure. Sauf produits spécifiques, leurs caractéristiques répondent à des normes nationales ou internationales, ce qui permet de les produire en série.</p>
+<h5>Constitution</h5>
+<p>Un roulement à billes se compose de : 1 bague extérieure, 2 chemin de roulement, 3 bille, 4 cage, 5 chemin de roulement, 6 bague intérieure. Les chemins de roulement sont les pistes creusées dans les bagues ; la cage maintient les billes à distance régulière.</p>
+
+<div id="fig-constitution"></div>
+
+<h5>Deux éléments roulants de base</h5>
+<p>Deux types d'éléments roulants distinguent deux familles de roulements de base :</p>
+<ul>
+<li>la <strong>bille</strong> : roulement à billes, contact elliptique ;</li>
+<li>le <strong>rouleau</strong> : roulement à rouleaux, contact rectangulaire.</li>
+</ul>
+
+<div id="fig-contact"></div>
+
+<h5>Les familles</h5>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Point fort</th></tr>
+<tr><td>Rigides à billes</td><td>conviennent à de nombreuses applications</td></tr>
+<tr><td>À contact oblique</td><td>reprennent bien les efforts axiaux, se prêtent aux montages préchargés</td></tr>
+<tr><td>À rouleaux cylindriques</td><td>supportent de fortes charges radiales</td></tr>
+<tr><td>À aiguilles</td><td>réduisent l'encombrement radial</td></tr>
+<tr><td>Butées</td><td>reprennent les efforts axiaux</td></tr>
+</table></div>
+<p>Méthode : choisir d'abord la famille de roulement, puis la référence.</p>
+
+<h4>Exemple</h4>
+<p>L'axe du poignet d'un robot chirurgical doit tourner sans jeu, avec peu de frottement, en reprenant le poids de l'instrument (radial) et les poussées du chirurgien (axial). On cherche d'abord une famille qui reprend les deux (rigide à billes, ou contact oblique si l'on veut précharger), puis on choisit la référence dans le catalogue selon les dimensions et la capacité. Le choix fin des types est détaillé dans la page « Les types de roulements et leur choix ».</p>
+
+<p class="note-cours">Pour aller plus loin : bases sur les roulements, SKF, <a href="https://www.skf.com/fr/products/rolling-bearings/principles-of-rolling-bearing-selection/general-bearing-knowledge/bearing-basics">skf.com</a>.</p>
+
+<h4>Formules clés</h4>
+<p>bille → contact elliptique ; rouleau → contact rectangulaire.</p>
+<p>Ordre de choix : famille, puis référence.</p>
+</article>
+
+<article class="notion" id="n-radiaux-butees">
+<h3>Roulements radiaux et butées</h3>
+<p class="chapeau">L'arbre d'un axe porte le poids du bras, qui appuie en travers, et parfois une poussée le long de l'axe. Avant de choisir un roulement, il faut savoir dans quelle direction il sera chargé.</p>
+
+<h4>Intuition</h4>
+<p>Une charge radiale appuie perpendiculairement à l'arbre, comme un poids sur une barre horizontale. Une charge axiale pousse le long de l'arbre, comme quand on enfonce une vis. La bille transmet l'effort d'une bague à l'autre le long d'une ligne de contact. Si cette ligne est presque perpendiculaire à l'axe, le roulement est fait pour le radial ; si elle est presque parallèle à l'axe, il est fait pour l'axial.</p>
+
+<div id="fig-angle"></div>
+
+<h4>Formalisation</h4>
+<p>Les roulements sont choisis en fonction de la nature des charges (forces) à supporter.</p>
+<ul>
+<li>Les roulements à rouleaux cylindriques supportent des charges purement radiales.</li>
+<li>Les roulements rigides à billes peuvent supporter des charges combinées (radiale et axiale).</li>
+<li>Les <strong>butées</strong> supportent des charges agissant principalement dans l'axe de l'arbre. Selon leur conception, elles supportent des charges purement axiales, et certaines peuvent aussi supporter des charges radiales (charges combinées). Les butées n'acceptent pas des vitesses aussi élevées que les roulements radiaux de mêmes dimensions.</li>
+</ul>
+<p>L'<strong>angle de contact</strong> \(\alpha\) détermine le groupe auquel appartient le roulement : les roulements avec un angle de contact \(\alpha \le 45°\) sont des roulements radiaux, les autres sont des butées.</p>
+
+<div id="fig-montage"></div>
+
+<div id="fig-butees"></div>
+
+<h4>Exemple du cours</h4>
+<p>Un arbre porte une charge radiale et une charge axiale. Il est monté sur deux roulements radiaux : à gauche, un roulement à rouleaux cylindriques, qui supporte uniquement la charge radiale ; à droite, un roulement rigide à billes, qui supporte la charge radiale et la charge axiale. C'est la situation de la deuxième figure : toute la charge axiale passe par le roulement à billes.</p>
+
+<p class="note-cours">Pour aller plus loin : bases sur les roulements, SKF, <a href="https://www.skf.com/fr/products/rolling-bearings/principles-of-rolling-bearing-selection/general-bearing-knowledge/bearing-basics">skf.com</a>.</p>
+
+<h4>Formules clés</h4>
+\[ \alpha \le 45° \ \Rightarrow \ \text{roulement radial} \qquad \alpha > 45° \ \Rightarrow \ \text{butée} \]
+<p>Rouleaux cylindriques : radial seul. Rigide à billes : radial et axial. Butée : axial (parfois combiné), vitesses plus faibles.</p>
+</article>
+
+<div class="fin-partie" data-section="roulements"></div>
+</section>
+
+<section class="partie" id="s-choix-duree">
+<p class="rang-partie">3 / 4</p>
+<h2>Choisir un roulement et sa durée de vie</h2>
+
+<article class="notion" id="n-types-roulements">
+<h3>Les types de roulements et leur choix</h3>
+<p class="chapeau">Tu connais la direction des charges de ton axe. Il reste à trouver, parmi une dizaine de types, celui qui accepte aussi ta vitesse, ton défaut d'alignement et la place dont tu disposes.</p>
+
+<h4>Intuition</h4>
+<p>Chaque type de roulement est un compromis. Des rouleaux portent plus que des billes, mais les rouleaux cylindriques ne tiennent rien dans l'axe. Une rotule accepte un arbre qui fléchit, mais porte moins. Des aiguilles prennent très peu de place, mais exigent des portées parfaites. On part du besoin, et on élimine.</p>
+<p>Quatre questions suffisent souvent : y a-t-il une charge axiale (et dans un ou deux sens) ? La vitesse est-elle grande ? Les paliers sont-ils bien alignés ? Reste-t-il de la place autour de l'arbre ?</p>
+
+<div id="fig-types"></div>
+
+<h4>Formalisation</h4>
+<p>Le <strong>déversement admissible</strong> (ou rotulage) est le désalignement angulaire que le roulement accepte entre l'arbre et le logement. Il se donne en minutes d'angle (') ou en degrés (°), avec \(1' = \tfrac{1}{60}°\).</p>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Charges</th><th>Vitesse</th><th>Alignement</th><th>Déversement</th><th>À retenir</th></tr>
+<tr><td>Une rangée de billes, contact radial</td><td>radiales et axiales relativement importantes</td><td></td><td>bonne coaxialité</td><td>2' à 10'</td><td>très employé ; variantes à rainure et segment d'arrêt, à flasques, à joints (lubrification à vie)</td></tr>
+<tr><td>Une rangée de billes, contact oblique</td><td>axiales élevées dans un seul sens, ou combinées</td><td>grandes fréquences</td><td>bonne coaxialité</td><td>≈ 0</td><td>en général non démontables</td></tr>
+<tr><td>Deux rangées de billes, contact oblique</td><td>radiales assez importantes, axiales alternées</td><td>plus faibles qu'à une rangée</td><td>très bonne coaxialité</td><td>≈ 0</td><td></td></tr>
+<tr><td>Deux rangées de billes, à rotule dans la bague extérieure</td><td>radiales moyennes, axiales faibles</td><td>grandes fréquences</td><td>alignement précis difficile</td><td>1,5° à 3°</td><td></td></tr>
+<tr><td>Rouleaux cylindriques</td><td>radiales élevées, aucune axiale</td><td>grandes fréquences</td><td>très bonne coaxialité</td><td>2'</td><td>bague séparable</td></tr>
+<tr><td>Deux rangées de rouleaux, à rotule dans la bague extérieure</td><td>radiales très importantes, radiales et axiales combinées</td><td>moyennes</td><td>alignement difficile</td><td>1° à 2,5°</td><td></td></tr>
+<tr><td>Rouleaux coniques</td><td>radiales et axiales relativement importantes</td><td>pas pour les grandes fréquences</td><td>très bonne coaxialité</td><td>2'</td><td>cuvette (bague extérieure) séparable ; cônes de même sommet S sur l'axe ; montés par paire en opposition ; réglage du jeu de fonctionnement ; paliers de grandes et moyennes dimensions, mécanismes précis fortement sollicités</td></tr>
+<tr><td>Aiguilles</td><td>radiales importantes sous encombrement réduit ; aucune axiale</td><td>grandes fréquences</td><td>très bonne coaxialité</td><td>≈ 0 ; 3° max. en auto-alignement</td><td>résistent aux chocs ; léger déplacement axial ; bague intérieure séparable ; douilles et cages à aiguilles ; surfaces de roulement HRC min. 57, Ra max. 0,2 ; avec étanchéité, lubrifiés à la graisse au lithium ; paliers de petites et moyennes dimensions</td></tr>
+<tr><td>Butées à billes</td><td>axiales relativement importantes : un sens (simple effet) ou alternées (double effet)</td><td>moins élevées que les radiaux</td><td></td><td></td><td>bagues séparables</td></tr>
+<tr><td>Combinés aiguilles et billes (NX, NKX, NKIA, NKIB)</td><td>radiales par les aiguilles, axiales par les billes</td><td></td><td></td><td></td><td>paliers fixes ; encombrement très réduit</td></tr>
+</table></div>
+<p>Les cases vides correspondent à ce que la fiche du cours ne précise pas. Selon le besoin, on utilise soit une représentation simplifiée générale (un carré avec une croix), valable pour tous les types, soit une représentation simplifiée spécifique à chaque type.</p>
+
+<h4>Exemple</h4>
+<p>Quatre besoins, quatre choix (situations du niveau) :</p>
+<ul>
+<li>arbre long, paliers désalignés de 2°, charge radiale moyenne, grande vitesse : deux rangées de billes à rotule (1,5° à 3°) ;</li>
+<li>charge radiale élevée, aucune axiale, grande vitesse, bague à séparer au montage : rouleaux cylindriques ;</li>
+<li>charge radiale importante, chocs, presque pas de place : roulement à aiguilles ;</li>
+<li>charges radiales et axiales importantes dans les deux sens, vitesse modérée, jeu à régler : deux roulements à rouleaux coniques en opposition.</li>
+</ul>
+
+<h4>Formules clés</h4>
+\[ 1' = \frac{1}{60}° \qquad 2' \approx 0{,}033° \qquad 10' \approx 0{,}17° \]
+<p>Méthode : charges (direction, sens), puis vitesse, alignement, encombrement ; la famille d'abord, la référence ensuite.</p>
+</article>
+
+<article class="notion" id="n-duree-l10">
+<h3>Durée nominale de base L10</h3>
+<p class="chapeau">Un roulement finit par s'user, même parfaitement monté. Pour planifier la maintenance d'un appareil, il faut savoir combien de tours, puis combien d'heures, il tiendra sous sa charge.</p>
+
+<h4>Intuition</h4>
+<p>Chaque tour fait passer les billes sur les chemins de roulement, qui se fatiguent un peu. Plus la charge est forte par rapport à ce que le roulement est capable de porter, plus la fatigue arrive vite, et elle arrive très vite : la durée ne baisse pas comme la charge, elle baisse comme son cube.</p>
+
+<div id="fig-l10"></div>
+
+<h4>Formalisation</h4>
+<p>Pour un roulement soumis à une charge dynamique équivalente \(P\), la <strong>durée nominale de base</strong> en millions de tours s'écrit :</p>
+\[ L_{10} = \left(\frac{C}{P}\right)^p \qquad (3.2) \]
+<p>avec \(L_{10}\) la durée nominale de base (millions de tours), \(C\) la capacité dynamique de base (N), \(P\) la charge dynamique équivalente (N) et \(p\) l'exposant de durée : \(p = 3\) pour les roulements à billes et \(p = 10/3\) pour les roulements à rouleaux. En heures :</p>
+\[ L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \qquad (3.3) \]
+<p>avec \(L_{10h}\) la durée nominale (heures) et \(n\) la vitesse de rotation (tr/min) ; \(10^6\) convertit les millions de tours en tours, 60 convertit les minutes en heures.</p>
+<p>\(L_{10}\) correspond à une base statistique de 90 % de fiabilité pour les hypothèses du modèle de base, fonctionnant dans des conditions de laboratoire parfaites. Les modèles industriels avancés réalistes introduisent en particulier l'effet de la lubrification et de la contamination, en appliquant des facteurs de modification.</p>
+<p>Attention aux symboles : ici \(C\) est une capacité (en N), pas un couple, et \(P\) une charge (en N), pas une puissance. Les unités permettent de les distinguer.</p>
+<p>Dans l'autre sens, pour pré-sélectionner un roulement : on calcule le nombre de tours requis sur la durée de fonctionnement \(t\), puis la capacité dynamique minimale requise \(C_{req}\), et on choisit sur catalogue un roulement de capacité au moins égale.</p>
+
+<h4>Exemple du cours</h4>
+<p>Roulement à billes, \(C = 3{,}2\) kN, \(P = 0{,}8\) kN, \(n = 300\) tr/min :</p>
+\[ L_{10} = \left(\frac{3{,}2}{0{,}8}\right)^3 = 64 \ \text{millions de tours} \qquad L_{10h} = \frac{64 \times 10^6}{60 \times 300} \simeq 3556 \ \text{h} \]
+
+<h4>Exemple ajouté</h4>
+<p>Même roulement, charge doublée (\(P = 1{,}6\) kN) : \(L_{10} = 2^3 = 8\) millions de tours, huit fois moins. Avec des rouleaux et le même rapport \(C/P = 4\) : \(L_{10} = 4^{10/3} \approx 101{,}6\) millions de tours.</p>
+<p>Capacité requise pour 10 000 h à 300 tr/min sous 0,8 kN, à billes :</p>
+\[ L_{10} = \frac{60 \times 300 \times 10\,000}{10^6} = 180 \ \text{millions de tours} \qquad C_{req} = P\,L_{10}^{1/3} = 0{,}8 \times 180^{1/3} \approx 4{,}52 \ \text{kN} \]
+
+<h4>Formules clés</h4>
+\[ L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \qquad p = 3 \ \text{(billes)}, \ p = \frac{10}{3} \ \text{(rouleaux)} \]
+\[ C_{req} = P \left(\frac{60\,n\,t}{10^6}\right)^{1/p} \]
+</article>
+
+<div class="fin-partie" data-section="choix-duree"></div>
+</section>
+
+<section class="partie" id="s-montage-precharge">
+<p class="rang-partie">4 / 4</p>
+<h2>Montage fixe-libre et précharge</h2>
+
+<article class="notion" id="n-fixe-libre">
+<h3>Montage fixe-libre et dilatation</h3>
+<p class="chapeau">Le moteur d'un axe chauffe, l'arbre aussi, et un arbre chaud s'allonge. S'il est bloqué aux deux bouts, il pousse sur ses roulements à chaque cycle de chauffe. Le montage doit le tenir sans l'emprisonner.</p>
+
+<h4>Intuition</h4>
+<p>Pour tenir un arbre dans l'axe, un seul arrêt suffit, à un seul endroit. Si on l'arrête à ses deux extrémités, on l'empêche aussi de s'allonger : le montage est sur-contraint. La solution : un roulement qui tient l'arbre (le palier fixe) et un roulement qui accompagne la dilatation (le palier libre), dont une bague peut coulisser.</p>
+
+<div id="fig-dilatation"></div>
+
+<h4>Formalisation</h4>
+<p>Un <strong>montage fixe-libre</strong> permet de définir axialement l'arbre sans le sur-contraindre lors des variations thermiques. Le <strong>palier fixe</strong> assure le positionnement axial ; le <strong>palier libre</strong> permet le déplacement axial relatif nécessaire à la dilatation.</p>
+<div class="tableau"><table>
+<tr><th>Cas</th><th>Bagues maintenues</th><th>Bague coulissante</th><th>Détails du montage</th></tr>
+<tr><td>Arbre tournant, charge de direction fixe</td><td>les deux bagues intérieures, maintenues latéralement</td><td>la bague extérieure d'un des roulements, pour qu'il prenne librement sa place</td><td>jeu ≈ 0,1 ; rondelle de réglage</td></tr>
+<tr><td>Logement tournant, charge de direction fixe</td><td>les deux bagues extérieures, maintenues axialement</td><td>la bague intérieure d'un des roulements</td><td>maintien axial de la bague intérieure du roulement fixe par écrou à encoches et rondelle frein, pour une excellente sécurité ; joint à lèvres ; bague en deux parties</td></tr>
+<tr><td>Logement tournant, arbre fixe, rouleaux coniques</td><td colspan="2">les deux roulements en opposition, avec un jeu de fonctionnement réglé</td><td>réglage simple et précis du jeu par écrou à encoches et rondelle frein ; rondelle plate entre rondelle frein et bague intérieure, pour une pression de contact uniforme, immobilisée en rotation par une languette dans une rainure de l'arbre ; encoches pour extraction</td></tr>
+</table></div>
+<p>Dans les deux premiers cas, ce sont les bagues qui tournent (avec l'arbre ou avec le logement) qui restent maintenues ; c'est une bague de l'autre côté qui coulisse.</p>
+
+<div id="fig-coniques"></div>
+
+<h4>Exemple</h4>
+<p>Un arbre tourne dans un carter fixe, entraîné par un moteur qui chauffe. Les deux bagues intérieures sont arrêtées sur l'arbre. Le roulement de gauche a aussi sa bague extérieure arrêtée dans le carter : c'est le palier fixe, il positionne l'arbre. Le roulement de droite a sa bague extérieure libre dans son logement, avec un jeu axial d'environ 0,1 : quand l'arbre s'allonge, ce roulement glisse avec lui. Avec deux paliers fixes, l'allongement serait empêché et chargerait les roulements ; avec deux paliers libres, plus rien ne tiendrait l'arbre dans l'axe.</p>
+
+<h4>Formules clés</h4>
+<p>Palier fixe : positionnement axial. Palier libre : dilatation.</p>
+<p>Arbre tournant : bagues intérieures tenues, une bague extérieure coulissante.</p>
+<p>Logement tournant : bagues extérieures tenues, une bague intérieure coulissante.</p>
+</article>
+
+<article class="notion" id="n-precharge-roulements">
+<h3>Jeu, précharge et frottement</h3>
+<p class="chapeau">Un roulement neuf a un petit jeu interne : quelques micromètres où l'arbre peut bouger sans résistance. Pour une broche ou un axe de robot chirurgical, c'est déjà trop. On serre donc les roulements l'un contre l'autre dès le montage.</p>
+
+<h4>Intuition</h4>
+<p>Deux roulements à contact oblique montés face à face, avec un petit décalage entre leurs bagues intérieures. Tant que l'écrou n'a pas rattrapé ce décalage, il reste du jeu. Une fois rattrapé, chaque tour d'écrou supplémentaire écrase un peu plus les billes contre leurs chemins : l'axe devient plus raide, mais il frotte et chauffe davantage. Comme pour un serrage de vis, il y a une bonne valeur, ni trop faible ni trop forte.</p>
+
+<div id="fig-precharge"></div>
+
+<h4>Formalisation</h4>
+<p>Des applications telles que les broches de machines-outils, les moteurs électriques et les différentiels automobiles nécessitent un mouvement de rotation précis, avec une rigidité et une précision de positionnement accrues. Pour y parvenir, une charge constante est appliquée aux roulements lors du montage afin d'éliminer tout jeu excessif : c'est la <strong>précharge</strong> du roulement.</p>
+<div class="tableau"><table>
+<tr><th>Quand la précharge augmente</th><th>Effet</th></tr>
+<tr><td>jeu</td><td>diminue</td></tr>
+<tr><td>rigidité</td><td>augmente</td></tr>
+<tr><td>efforts internes, frottement, échauffement</td><td>augmentent</td></tr>
+<tr><td>durée de vie</td><td>réduite si la précharge est trop forte</td></tr>
+</table></div>
+<p>Il faut appliquer les recommandations de montage du fabricant, surtout avec des ajustements serrés ou des variations de température, qui modifient la précharge réelle. Les roulements à contact oblique se prêtent bien aux montages préchargés.</p>
+
+<h4>Exemple</h4>
+<p>L'axe du poignet d'un robot chirurgical : l'instrument ne doit pas bouger quand le chirurgien appuie dessus. On monte deux roulements à contact oblique en opposition et on serre l'écrou jusqu'à supprimer le jeu, puis jusqu'à la précharge indiquée par le fabricant. Serrer « au maximum pour être sûr » serait une erreur : l'axe chaufferait et les roulements s'useraient plus vite. Sur la figure, le décalage de 15 µm et les courbes sont une illustration, pas des valeurs de catalogue.</p>
+
+<p class="note-cours">Pour aller plus loin : <a href="https://fhdbearings.com/fr/blog/bearing-preloading/">Gain d'efficacité : optimisez les performances avec le préchargement, FHD</a> ; <a href="https://insights.globalspec.com/article/12036/bearing-preload-what-is-it-and-why-is-it-important">Bearing preload: what is it and why is it important?, GlobalSpec</a>.</p>
+
+<h4>Formules clés</h4>
+<p>Précharge : moins de jeu, plus de rigidité ; plus d'efforts internes, de frottement et d'échauffement.</p>
+<p>Trop forte : durée de vie réduite. Valeur : celle du fabricant.</p>
+</article>
+
+<div class="fin-partie" data-section="montage-precharge"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../meca/dessin.js"></script>
+<script src="../figures/criteres-guidage.js"></script>
+<script src="../figures/roulements.js"></script>
+<script src="../figures/radiaux-butees.js"></script>
+<script src="../figures/types-roulements.js"></script>
+<script src="../figures/duree-l10.js"></script>
+<script src="../figures/fixe-libre.js"></script>
+<script src="../figures/precharge-roulements.js"></script>
+</body>
+</html>

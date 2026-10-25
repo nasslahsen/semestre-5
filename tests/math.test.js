@@ -722,6 +722,47 @@ test("informatique médicale : réponses attendues dans les niveaux", () => {
   assert.deepStrictEqual(SIS.EDITEURS.map((e, k) => SIS.REGIONS.filter(r => r.e === k).length), [5, 4, 2, 1]);
 });
 
+// Module Laboratoire d'analyses médicales : les réponses des niveaux, recalculées avec labo.js.
+test("laboratoire : centrifugation, minuteur, alarmes", () => {
+  const L = require("../modules/laboratoire/labo.js").calc;
+  proche(L.rcf(12, 3500), 1643.4, 0.1); proche(L.rcf(10, 4000), 1788.8, 0.1);
+  const n16 = [L.rpmPour(2000, 16), L.rpmPour(2500, 16)]; assert.ok(n16[0] < 3550 && 3550 < n16[1]);
+  proche(L.rpmPour(2200, 18), 3306.4, 0.05);
+  proche(L.ecartPct(654, 600), 9, 1e-9); proche(L.ecartPct(801, 900), -11, 1e-9);
+  procheVec(L.alarmes(-80), [-88, -72], 1e-9);
+});
+test("laboratoire : lumière, Beer-Lambert, étalon", () => {
+  const L = require("../modules/laboratoire/labo.js").calc;
+  proche(L.lambdaNm(6e14), 500, 1e-6);
+  proche(L.transmittance(800, 200), 0.25); proche(L.absorbance(0.01), 2, 1e-12);
+  proche(L.parEtalon(0.30, 0.40, 5), 3.75, 1e-12); proche(L.parEtalon(0.40, 0.25, 8), 12.8, 1e-12);
+  proche(L.concentration(0.45, 9000, 1) * 1e6, 50, 1e-9);
+  proche(L.transDepuisA(0.5) * 100, 31.6, 0.05);
+  proche(3e8 / 1.5 / 1e8, 2, 1e-12);
+});
+test("laboratoire : Nernst, eau, calibration", () => {
+  const L = require("../modules/laboratoire/labo.js").calc;
+  proche(L.penteNernst(310.15, 1), 61.54, 0.01); proche(L.penteNernst(298.15, 2), 29.58, 0.01);
+  proche(L.deltaE(100, 298.15, 1), 118.3, 0.05);
+  proche(L.resistivite(0.1), 10, 1e-12); proche(L.conductivite(18.2), 0.055, 0.0005);
+  proche(230 * 0.95, 218.5, 1e-9); proche(0.35 / 0.05, 7, 1e-12);
+});
+test("laboratoire : hémogramme, impédance, hémostase", () => {
+  const L = require("../modules/laboratoire/labo.js").calc;
+  proche(L.hematocrite(4.2, 95), 39.9, 1e-9); proche(L.tcmh(12.6, 4.2), 30, 1e-9); proche(L.ccmh(13.5, 40.5), 33.33, 0.005);
+  proche(L.hematocrite(5.1, 82), 41.82, 1e-9); proche(L.tcmh(11.8, 5.1), 23.14, 0.005);
+  proche(L.coincidence(50000, 2e-6), 55258.5, 0.1);
+  assert.deepStrictEqual([8, 28, 92, 17, 240, 22, 27].map(L.classeVolume), ["PLT", "bruit", "GR", "PLT", "GR", "bruit", "bruit"]);
+  proche(L.inr(30, 12, 1), 2.5, 1e-12); proche(L.inr(24, 12, 1.2), 2.30, 0.005); proche(L.inr(28, 14, 1.4), 2.64, 0.005);
+});
+test("laboratoire : microscope, transport, contrôle de qualité", () => {
+  const L = require("../modules/laboratoire/labo.js").calc;
+  assert.strictEqual(L.grossissement(40, 10), 400); assert.strictEqual(L.grossissement(100, 10), 1000);
+  proche(440 / 5.5, 80, 1e-12);
+  proche(L.z(4.5, 4.0, 0.2), 2.5, 1e-9); proche(L.z(147, 140, 2), 3.5, 1e-12);
+  proche(L.z(5.6, 6.2, 0.3), -2, 1e-9); proche(L.z(7.25, 6.2, 0.3), 3.5, 1e-9);
+});
+
 // Module Biomatériaux : un fichier de tests par chapitre (tests/biomateriaux/), mêmes outils.
 const dossierBio = require("path").join(__dirname, "biomateriaux");
 if (require("fs").existsSync(dossierBio)) for (const f of require("fs").readdirSync(dossierBio).filter(f => f.endsWith(".test.js")).sort()) require("./biomateriaux/" + f)({ test, proche, assert });

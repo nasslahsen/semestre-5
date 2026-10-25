@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les purificateurs d'eau · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les purificateurs d'eau</h1>
+<p class="chapeau">Aucune technique ne retire seule toutes les impuretés de l'eau. Un purificateur enchaîne plusieurs technologies, chacune forte contre certains contaminants et aveugle à d'autres. Pour comprendre un système, il faut savoir ce que fait chaque étage, et ce qu'il laisse passer.</p>
+
+<h2>Intuition</h2>
+<p>Un filtre arrête ce qui est plus gros que ses pores, mais pas un ion dissous. Une résine capture les ions, mais pas une bactérie. Le charbon retient le chlore et les matières organiques. On les met donc en série, dans un ordre qui protège les étages fragiles : la purification est un processus pas à pas.</p>
+
+<div id="fig-purificateurs"></div>
+
+<h2>Formalisation</h2>
+<h3>Les technologies</h3>
+<div class="tableau"><table>
+<tr><th>Technologie</th><th>Principe et avantages</th><th>Limites</th></tr>
+<tr><td>Filtration</td><td>Filtres en profondeur (prétraitement, particules de plus de 1 µm) ; filtres à membrane, dits absolus, porosité inférieure à 0,45 µm (souvent 0,2 µm). Fonctionnement efficace, maintenance limitée aux remplacements.</td><td>Colmatage ; n'élimine pas les matières organiques, les nucléases, les pyrogènes, les gaz dissous ni les matières inorganiques dissoutes.</td></tr>
+<tr><td>Ultrafiltration</td><td>Placée en sortie de système ; élimine les pyrogènes (endotoxines bactériennes), les nucléases, les micro-organismes et les particules plus grands que la porosité : essentiel pour la culture cellulaire et tissulaire. Durable.</td><td>N'élimine pas les matières inorganiques, les gaz dissous ni les matières organiques.</td></tr>
+<tr><td>Osmose inverse</td><td>Loi d'osmose inversée, à travers une membrane semi-perméable ; la méthode la plus économique, jusqu'à 99 % des contaminants : bactéries, pyrogènes, 90 à 95 % des ions inorganiques.</td><td>Faible débit (stockage intermédiaire) ; n'élimine pas les gaz dissous ; prétraitement requis contre l'oxydation (chlore), l'entartrage (CaCO₃), le colmatage (organiques, colloïdes), le perçage (particules dures).</td></tr>
+<tr><td>Déionisation</td><td>Échange d'ions : résines cationiques et anioniques, souvent mélangées (lits mélangés, plus efficaces que les lits séparés). Seule technologie capable de la résistivité de l'eau de qualité réactif (type 1) : plus de 18 MΩ·cm.</td><td>Capacité limitée (cartouche à remplacer quand les sites sont occupés) ; n'élimine ni les organiques, ni les particules, ni les pyrogènes, ni les bactéries.</td></tr>
+<tr><td>Électrodéionisation (EDI)</td><td>Un courant électrique régénère les résines en continu ; membranes sélectives entre une anode et une cathode ; les anions migrent vers l'anode, les cations vers la cathode.</td><td>Eau d'alimentation de très bonne qualité exigée ; n'élimine ni les organiques, ni les particules, ni les pyrogènes, ni les bactéries.</td></tr>
+<tr><td>Adsorption</td><td>Charbon actif à grande surface : retient les matières organiques et le chlore ; première ou deuxième étape de la plupart des systèmes, ou dernière, avec les résines, pour un COT très faible. Durable.</td><td>N'élimine ni les ions ni les particules.</td></tr>
+<tr><td>Oxydation aux UV</td><td>Élimine les traces de matières organiques (COT faible) et inactive les micro-organismes : prévient la contamination bactérienne.</td><td>N'élimine ni les ions, ni les colloïdes, ni les particules.</td></tr>
+</table></div>
+<h3>Quelques notions de base</h3>
+<ul>
+<li><strong>Résistivité</strong> : tendance d'une eau sans ions à ne pas conduire l'électricité ; en MΩ·cm ; qualifie l'eau ultrapure ; maximum théorique 18,2 MΩ·cm à 25 °C ; plus il y a d'ions, plus elle est faible ; mesurée par un résistivimètre en ligne.</li>
+<li><strong>Conductivité</strong> : tendance d'une eau chargée en ions à conduire l'électricité ; en µS/cm ; pour l'eau d'alimentation ou une eau de mauvaise qualité ; mesurée par un conductimètre.</li>
+<li><strong>Carbone organique total</strong> (COT) : contaminants organiques, en ppm ou ppb ; eau d'alimentation 2 à 5 ppm, eau ultrapure 1 à 5 ppb ; mesuré par un analyseur en ligne.</li>
+</ul>
+\[ \rho\,(\text{M}\Omega\cdot\text{cm}) = \frac{1}{\sigma\,(\mu\text{S/cm})} \]
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une eau de conductivité 0,25 µS/cm a une résistivité de \(1/0{,}25 = 4\) MΩ·cm : bien purifiée, mais loin des 18,2 MΩ·cm de l'eau ultrapure. Pour gagner les derniers ions, il faut un étage de déionisation.</p>
+
+<h2>Formules clés</h2>
+\[ \rho = \frac{1}{\sigma} \qquad \rho_{\max} = 18{,}2\ \text{M}\Omega\cdot\text{cm à } 25\ {}^\circ\text{C} \]
+<p>Filtration : particules. Ultrafiltration : pyrogènes, nucléases. Osmose inverse : jusqu'à 99 %, pas les gaz. Déionisation et EDI : ions. Adsorption : organiques et chlore. UV : traces organiques, micro-organismes.</p>
+<p>COT : alimentation 2 à 5 ppm, ultrapure 1 à 5 ppb.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/purificateurs.js"></script>
+</body>
+</html>

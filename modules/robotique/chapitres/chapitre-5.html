@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architecture mécanique d'un axe</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 5. -->
+<main class="cours-chapitre" data-chapitre="5">
+<p class="etiquette" data-etiquette></p>
+<h1>Architecture mécanique d'un axe</h1>
+
+<section class="partie" id="s-chaine-nomenclature">
+<p class="rang-partie">1 / 4</p>
+<h2>La chaîne fonctionnelle et ses symboles</h2>
+
+<article class="notion" id="n-chaine-fonctionnelle">
+<h3>Chaîne fonctionnelle d'un axe</h3>
+<p class="chapeau">Le moteur de l'épaule est positionné au millième de tour, et pourtant la pince arrive à un millimètre de la cible. Pour comprendre d'où vient l'écart, il faut suivre le mouvement du moteur jusqu'à l'outil.</p>
+
+<h4>Ce que couvre ce sous-module</h4>
+<p>Un robot est une suite d'axes. Chaque axe produit un mouvement, le transmet et le guide jusqu'au segment suivant. Ce sous-module étudie les éléments mécaniques de cet axe, dans l'ordre du support :</p>
+<ul>
+<li>chapitre 5, l'axe dans son ensemble : sa chaîne fonctionnelle et ses grandeurs (vitesse, couple, puissance, rigidité, jeu) ;</li>
+<li>chapitre 6, ce qui tient les pièces ensemble : vis, clavettes, goupilles, anneaux élastiques, ressorts ;</li>
+<li>chapitre 7, ce qui guide la rotation : roulements, durée de vie, montages, précharge ;</li>
+<li>chapitre 8, ce qui transmet la puissance : arbres et engrenages.</li>
+</ul>
+<p>Le fil rouge : la précision de l'outil dépend de chaque maillon de la chaîne.</p>
+<p>Le chapitre 5 pose le décor, en cinq pages :</p>
+<ul>
+<li>la chaîne fonctionnelle (cette page) : de quoi un axe est fait ;</li>
+<li>la nomenclature : lire les symboles et leurs unités sans se tromper de sens ;</li>
+<li>vitesse, couple, puissance : ce que le moteur fournit et ce que la réduction en fait ;</li>
+<li>rigidité et jeu : comment un tout petit angle à l'axe devient un écart au bout de l'outil ;</li>
+<li>les contraintes biomédicales : ce qu'on exige d'un axe en milieu de soin.</li>
+</ul>
+
+<h4>Intuition</h4>
+<p>Regarde un bras de laboratoire à cinq axes : il est fait de modules d'articulation empilés, reliés par des pièces rigides. Chaque module est un axe complet, avec son moteur. Quand l'épaule tourne, tout ce qui est au-dessus tourne avec elle.</p>
+
+<div id="fig-robot-axes"></div>
+
+<p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la réduction l'adapte (moins vite, plus de couple), la transmission l'amène, le guidage le tient, le bras le porte jusqu'à l'outil. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
+
+<div id="fig-chaine"></div>
+
+<h4>Formalisation</h4>
+<p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre actionneurs et mouvements utiles à la tâche.</p>
+<p>Un axe robotique associe une source d'énergie, un actionneur, une transmission, un guidage et une structure. Sa chaîne fonctionnelle simplifiée s'écrit :</p>
+\[ \boxed{\text{Moteur}} \rightarrow \boxed{\text{Réduction}} \rightarrow \boxed{\text{Transmission}} \rightarrow \boxed{\text{Guidage}} \rightarrow \boxed{\text{Bras / effecteur}} \]
+<p>Les performances d'un robot dépendent de toute la chaîne mécanique : jeu, rigidité, frottement, rendement, déformations, défauts d'alignement et tolérances de montage.</p>
+<div class="tableau"><table>
+<tr><th>Constituant</th><th>Rôle</th><th>Ce qu'il peut dégrader</th></tr>
+<tr><td>Source d'énergie et actionneur (moteur)</td><td>Créer le mouvement</td><td>Vitesse et couple disponibles</td></tr>
+<tr><td>Réduction</td><td>Adapter vitesse et couple</td><td>Jeu, rendement, frottement</td></tr>
+<tr><td>Transmission</td><td>Amener le mouvement jusqu'à l'organe</td><td>Rigidité, jeu</td></tr>
+<tr><td>Guidage</td><td>Autoriser le mouvement utile, bloquer le reste</td><td>Jeu, frottement, alignement</td></tr>
+<tr><td>Structure (bras, effecteur)</td><td>Porter la charge et l'outil</td><td>Déformations, rigidité</td></tr>
+</table></div>
+<p class="complement">La dernière colonne est une lecture de la liste du cours, maillon par maillon ; les tolérances de montage concernent tous les maillons.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un bras à six axes contient six chaînes complètes : six moteurs, six réductions, six guidages, chacun avec sa structure. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
+
+<h4>Formules clés</h4>
+\[ \text{Moteur} \rightarrow \text{Réduction} \rightarrow \text{Transmission} \rightarrow \text{Guidage} \rightarrow \text{Bras / effecteur} \]
+<p>Un axe : source d'énergie, actionneur, transmission, guidage, structure. Précision de l'outil : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage de toute la chaîne.</p>
+</article>
+
+<article class="notion" id="n-nomenclature">
+<h3>Nomenclature : symboles, unités, indices</h3>
+<p class="chapeau">Sur la fiche d'un roulement, tu lis P = 0,8 kN. Ce n'est pas une puissance : c'est une force. Avant de calculer quoi que ce soit sur un axe de robot, il faut savoir lire ses symboles.</p>
+
+<h4>Intuition</h4>
+<p>Le cours d'éléments mécaniques réunit des domaines qui ont chacun leurs habitudes : moteurs, assemblages, roulements, engrenages, courroies. Résultat : une même lettre sert plusieurs fois. P est une puissance pour un moteur et une charge pour un roulement ; C est un couple pour un arbre et une capacité pour un roulement ; p est un exposant, un pas ou une avance.</p>
+<p>Ce qui lève le doute, c'est l'unité. Une puissance est en watts, une force en newtons, un couple en newtons-mètres. D'où la règle : toujours écrire l'unité à côté d'un nombre.</p>
+
+<div id="fig-lexique"></div>
+
+<p>Les indices disent où vit la grandeur dans l'axe : au moteur, à l'entrée ou à la sortie d'un réducteur, dans un étage, au bras.</p>
+
+<div id="fig-axe-symboles"></div>
+
+<h4>Formalisation</h4>
+<p>Les équations utilisent les unités du Système international (SI), sauf indication contraire. La nomenclature précise le sens des symboles. Certains symboles ont plusieurs sens : <strong>P</strong> désigne une puissance (en W) ou la charge dynamique équivalente d'un roulement (en N) ; <strong>C</strong> un couple (en N·m) ou la capacité dynamique d'un roulement (en N) ; <strong>p</strong> l'exposant de durée d'un roulement, le pas d'une courroie ou l'avance d'une vis ; <strong>m</strong> le module d'un engrenage ou une masse. Les unités permettent d'identifier le sens utilisé.</p>
+
+<h5>Rotation, puissance et axe</h5>
+<div class="tableau"><table>
+<tr><th>Symbole</th><th>Définition</th><th>Unité</th><th>Contexte, remarque</th></tr>
+<tr><td>\(g\)</td><td>Accélération de la pesanteur. Dans les exemples : \(g \approx 9{,}81\) m/s².</td><td>m/s²</td><td>Couple gravitaire.</td></tr>
+<tr><td>\(n ;\ n_m ;\ n_s\)</td><td>Vitesse de rotation ; indices m = moteur, s = sortie.</td><td>tr/min</td><td>Cinématique de rotation.</td></tr>
+<tr><td>\(\omega ;\ \omega_e ;\ \omega_s ;\ \omega_1 ;\ \omega_2\)</td><td>Vitesse angulaire ; e = entrée, s = sortie, 1 et 2 = organes considérés.</td><td>rad/s</td><td>Rotation, rapports de transmission.</td></tr>
+<tr><td>\(P\) (puissance)</td><td>Puissance mécanique transmise.</td><td>W</td><td>\(P = C\omega\) ; calcul du couple moteur.</td></tr>
+<tr><td>\(C ;\ C_e ;\ C_s ;\ C_m\)</td><td>Couple mécanique ; e = entrée, s = sortie, m = moteur.</td><td>N·m</td><td>Transmissions et moteurs.</td></tr>
+<tr><td>\(C_g ;\ C_d ;\ C_f ;\ C_{ext}\)</td><td>Couples gravitaire, de dimensionnement, de frottement et externe.</td><td>N·m</td><td>Étude intégrée de l'axe robotique.</td></tr>
+<tr><td>\(i ;\ i_k ;\ i_{tot}\)</td><td>Rapport de transmission ; \(i_k\) = rapport d'un étage, \(i_{tot}\) = rapport total.</td><td>sans dimension</td><td>Réducteurs, engrenages, courroies.</td></tr>
+<tr><td>\(\eta ;\ \eta_k ;\ \eta_{tot}\)</td><td>Rendement énergétique ; \(\eta_k\) = rendement d'un étage, \(\eta_{tot}\) = rendement global.</td><td>sans dimension (0 à 1)</td><td>Transmissions et vis-écrou.</td></tr>
+<tr><td>\(k_\theta\)</td><td>Rigidité torsionnelle, rapport couple / déformation angulaire.</td><td>N·m/rad</td><td>Compliance d'un axe.</td></tr>
+<tr><td>\(\theta ;\ \Delta\theta ;\ \Delta\theta_s\)</td><td>Angle ; variation ou jeu angulaire ; résolution angulaire théorique en sortie.</td><td>rad (ou ° si indiqué)</td><td>Jeu, déformation, résolution.</td></tr>
+<tr><td>\(\Delta x ;\ x ;\ \delta\)</td><td>Déplacement linéaire ; \(x\) = position ou déplacement, \(\delta\) = déformation élastique.</td><td>m ou mm</td><td>Erreur en bout de bras, ressorts, guidages, vis-écrou.</td></tr>
+<tr><td>\(L\) (bras)</td><td>Longueur caractéristique entre l'axe et le point fonctionnel.</td><td>m</td><td>Conversion jeu angulaire → déplacement ; couple gravitaire.</td></tr>
+<tr><td>\(m\) (masse)</td><td>Masse portée.</td><td>kg</td><td>Couple gravitaire \(C_g = mgL\).</td></tr>
+<tr><td>\(J_L\)</td><td>Moment d'inertie de la charge côté sortie.</td><td>kg·m²</td><td>Inertie réfléchie.</td></tr>
+<tr><td>\(J_{L,m}\)</td><td>Moment d'inertie de charge ramené côté moteur.</td><td>kg·m²</td><td>\(J_{L,m} = J_L / i^2\).</td></tr>
+<tr><td>\(J_{eq}\)</td><td>Moment d'inertie équivalent de l'axe ramené au côté considéré.</td><td>kg·m²</td><td>Équation dynamique de l'axe.</td></tr>
+<tr><td>\(\alpha\)</td><td>Accélération angulaire.</td><td>rad/s²</td><td>Équation dynamique de l'axe.</td></tr>
+<tr><td>\(N_e\)</td><td>Nombre d'incréments du codeur par tour moteur.</td><td>incr./tour</td><td>Résolution théorique.</td></tr>
+<tr><td>\(S\)</td><td>Coefficient global de pré-dimensionnement choisi pour couvrir certaines incertitudes et effets non modélisés.</td><td>sans dimension</td><td>Étude intégrée. Ce n'est pas une constante universelle.</td></tr>
+</table></div>
+
+<h5>Assemblages et ressorts</h5>
+<div class="tableau"><table>
+<tr><th>Symbole</th><th>Définition</th><th>Unité</th><th>Contexte, remarque</th></tr>
+<tr><td>\(T\) (serrage, vis)</td><td>Couple de serrage d'une vis ou couple requis pour entraîner une vis-écrou, selon le contexte.</td><td>N·m</td><td>Assemblages vissés ; transformation vis-écrou.</td></tr>
+<tr><td>\(K\)</td><td>Coefficient empirique couple-précharge d'un assemblage vissé.</td><td>sans dimension</td><td>Couple de serrage \(\approx K F_0 d\). Ce n'est pas une constante universelle.</td></tr>
+<tr><td>\(F_0\)</td><td>Précharge axiale initiale d'une vis.</td><td>N</td><td>Assemblages vissés.</td></tr>
+<tr><td>\(F ;\ F_t\)</td><td>Force ; \(F_t\) = composante tangentielle transmise.</td><td>N</td><td>Ressorts, guidages, clavettes, vis-écrou.</td></tr>
+<tr><td>\(d\) (arbre, vis)</td><td>Diamètre de l'arbre ou diamètre nominal de la vis, selon le contexte.</td><td>m ou mm</td><td>Clavettes, assemblages vissés.</td></tr>
+<tr><td>\(b\)</td><td>Largeur utile d'une clavette.</td><td>mm</td><td>Contrainte moyenne de cisaillement d'une clavette.</td></tr>
+<tr><td>\(L\) (clavette)</td><td>Longueur utile de la clavette.</td><td>mm</td><td>Contrainte de cisaillement d'une clavette.</td></tr>
+<tr><td>\(\tau\)</td><td>Contrainte moyenne de cisaillement.</td><td>Pa ou MPa</td><td>Clavettes.</td></tr>
+<tr><td>\(k\) (linéaire)</td><td>Raideur linéaire d'un ressort ou d'un guidage.</td><td>N/m ou N/mm</td><td>\(F = kx\) ; \(k = F/\delta\).</td></tr>
+</table></div>
+
+<h5>Roulements</h5>
+<div class="tableau"><table>
+<tr><th>Symbole</th><th>Définition</th><th>Unité</th><th>Contexte, remarque</th></tr>
+<tr><td>\(C\) (roulement)</td><td>Capacité dynamique de base du roulement. À ne pas confondre avec le couple mécanique \(C\).</td><td>N</td><td>Durée nominale ISO 281.</td></tr>
+<tr><td>\(C_0\)</td><td>Capacité statique de base d'un roulement.</td><td>N</td><td>Sélection sur catalogue.</td></tr>
+<tr><td>\(P\) (roulement)</td><td>Charge dynamique équivalente appliquée au roulement. À ne pas confondre avec la puissance \(P\).</td><td>N</td><td>Durée nominale ISO 281.</td></tr>
+<tr><td>\(L_{10}\)</td><td>Durée nominale de base correspondant à 90 % de fiabilité pour le modèle de base.</td><td>millions de tours</td><td>Roulements.</td></tr>
+<tr><td>\(L_{10h}\)</td><td>Durée nominale de base exprimée en heures.</td><td>h</td><td>Roulements.</td></tr>
+<tr><td>\(p\) (roulement)</td><td>Exposant de durée : \(p = 3\) pour roulements à billes ; \(p = 10/3\) pour roulements à rouleaux.</td><td>sans dimension</td><td>\(L_{10} = (C/P)^p\).</td></tr>
+<tr><td>\(M\)</td><td>Moment mécanique appliqué à une paire d'appuis.</td><td>N·m</td><td>Influence de l'entraxe des roulements.</td></tr>
+<tr><td>\(e\)</td><td>Entraxe ou distance entre les appuis considérés.</td><td>m ou mm</td><td>Approximation \(F \simeq M/e\).</td></tr>
+<tr><td>\(t\)</td><td>Durée de fonctionnement.</td><td>h ou s selon contexte</td><td>Calcul du nombre de tours requis pour un roulement.</td></tr>
+<tr><td>\(C_{req}\)</td><td>Capacité dynamique minimale requise du roulement.</td><td>N</td><td>Pré-sélection de roulement.</td></tr>
+</table></div>
+
+<h5>Engrenages et courroies</h5>
+<div class="tableau"><table>
+<tr><th>Symbole</th><th>Définition</th><th>Unité</th><th>Contexte, remarque</th></tr>
+<tr><td>\(m\) (engrenage)</td><td>Module métrique de la denture. À ne pas confondre avec la masse \(m\).</td><td>mm</td><td>\(d = mZ\).</td></tr>
+<tr><td>\(Z ;\ Z_1 ;\ Z_2\)</td><td>Nombre de dents d'un engrenage ou d'une poulie synchrone.</td><td>sans dimension</td><td>Engrenages et courroies.</td></tr>
+<tr><td>\(d ;\ d_1 ;\ d_2\)</td><td>Diamètre primitif d'un engrenage.</td><td>mm</td><td>Géométrie des engrenages.</td></tr>
+<tr><td>\(a\)</td><td>Entraxe entre deux axes, poulies ou engrenages.</td><td>mm</td><td>Engrenages et courroies.</td></tr>
+<tr><td>\(N\) (étages)</td><td>Nombre total d'étages dans un produit de rapports ou de rendements.</td><td>entier</td><td>\(i_{tot} = \prod i_k\) ; \(\eta_{tot} = \prod \eta_k\).</td></tr>
+<tr><td>\(p\) (courroie)</td><td>Pas de la courroie synchrone, distance primitive entre dents successives.</td><td>mm</td><td>\(d_p = Zp/\pi\). À ne pas confondre avec l'exposant \(p\) des roulements.</td></tr>
+<tr><td>\(d_p\)</td><td>Diamètre primitif d'une poulie synchrone.</td><td>mm</td><td>Courroies synchrones.</td></tr>
+<tr><td>\(D ;\ d\) (courroie)</td><td>Grands et petits diamètres primitifs des deux poulies.</td><td>mm</td><td>Longueur primitive d'une courroie ouverte.</td></tr>
+<tr><td>\(L\) (courroie)</td><td>Longueur primitive de la courroie.</td><td>mm</td><td>Approximation géométrique de longueur.</td></tr>
+</table></div>
+
+<h5>Vis-écrou, pignon-crémaillère, bielle-manivelle, cotes</h5>
+<div class="tableau"><table>
+<tr><th>Symbole</th><th>Définition</th><th>Unité</th><th>Contexte, remarque</th></tr>
+<tr><td>\(N\) (vis)</td><td>Nombre de tours effectués par la vis.</td><td>tour</td><td>\(x = Np\).</td></tr>
+<tr><td>\(p\) (vis)</td><td>Avance par tour de la vis (lead).</td><td>mm/tr ou m/tr</td><td>Vis-écrou. À ne pas confondre avec le pas de courroie ou l'exposant des roulements.</td></tr>
+<tr><td>\(v\)</td><td>Vitesse linéaire.</td><td>m/s, mm/s ou mm/min</td><td>Vis-écrou, pignon-crémaillère.</td></tr>
+<tr><td>\(r\)</td><td>Rayon primitif du pignon.</td><td>m ou mm</td><td>\(v = r\omega\).</td></tr>
+<tr><td>\(R\)</td><td>Rayon de manivelle.</td><td>m ou mm</td><td>Course approximative d'une bielle-manivelle \(\simeq 2R\).</td></tr>
+<tr><td>\(A ;\ B ;\ C\) (cotes)</td><td>Dimensions fonctionnelles intervenant dans une chaîne de cotes.</td><td>mm</td><td>Exemple \(C = A - B\). À ne pas confondre avec le couple ou la capacité de roulement.</td></tr>
+<tr><td>\(T_A ;\ T_B ;\ T_C\)</td><td>Tolérances bilatérales (demi-largeur ou valeur ± selon la convention retenue) associées aux cotes A, B, C.</td><td>mm</td><td>Empilement au pire des cas.</td></tr>
+</table></div>
+<p>Les grandeurs des courroies, de la vis-écrou, du pignon-crémaillère, de la bielle-manivelle, des chaînes de cotes, de l'inertie et du codeur figurent dans la nomenclature, mais ne sont pas encore développées dans les chapitres 1 à 4 du support. Elles sont données ici telles quelles.</p>
+
+<h5>Convention des indices</h5>
+<div class="tableau"><table>
+<tr><th>Indice</th><th>Signification</th><th>Indice</th><th>Signification</th></tr>
+<tr><td>e</td><td>entrée</td><td>ext</td><td>externe</td></tr>
+<tr><td>s</td><td>sortie</td><td>eq</td><td>équivalent</td></tr>
+<tr><td>m</td><td>moteur (ou masse, module selon le symbole, voir le contexte)</td><td>req</td><td>requis</td></tr>
+<tr><td>g</td><td>gravitaire</td><td>tot</td><td>total</td></tr>
+<tr><td>d</td><td>dimensionnement</td><td>0</td><td>initial ou statique selon le symbole</td></tr>
+<tr><td>f</td><td>frottement</td><td>1, 2, …</td><td>organe, étage ou composant numéroté</td></tr>
+</table></div>
+<p>La lettre \(\alpha\) sert aussi deux fois de plus dans le support : l'angle de contact d'un roulement (chapitre 3) et l'angle de pression d'une denture (chapitre 4). Là encore, le contexte et l'unité tranchent : rad/s² pour une accélération, degrés pour un angle.</p>
+
+<h4>Exemple du cours</h4>
+<p>Dans l'exemple de durée d'un roulement à billes, les données sont \(C = 3{,}2\) kN, \(P = 0{,}8\) kN et \(n = 300\) tr/min. Les unités disent tout : \(C\) et \(P\) sont en kN, ce sont des forces, donc la capacité dynamique de base et la charge dynamique équivalente du roulement, pas un couple ni une puissance. \(n\) en tr/min est la vitesse de rotation. Le calcul \(L_{10} = (C/P)^p\) compare deux forces : le rapport est sans dimension, comme il se doit pour une puissance \(p = 3\).</p>
+
+<h4>Formules clés</h4>
+<p>Relations données dans la nomenclature, avec leur unité :</p>
+\[ P = C\,\omega \qquad F = kx \qquad k = \frac{F}{\delta} \qquad T \approx K F_0 d \qquad L_{10} = \left(\frac{C}{P}\right)^p \qquad d = mZ \]
+\[ i_{tot} = \prod i_k \qquad \eta_{tot} = \prod \eta_k \qquad d_p = \frac{Zp}{\pi} \qquad x = Np \qquad v = r\,\omega \qquad J_{L,m} = \frac{J_L}{i^2} \qquad C_g = mgL \qquad F \simeq \frac{M}{e} \]
+</article>
+
+<div class="fin-partie" data-section="chaine-nomenclature"></div>
+</section>
+
+<section class="partie" id="s-vitesse-couple">
+<p class="rang-partie">2 / 4</p>
+<h2>Vitesse, couple et puissance</h2>
+
+<article class="notion" id="n-vitesse-couple-puissance">
+<h3>Vitesse de rotation, couple et puissance</h3>
+<p class="chapeau">Le moteur d'un axe tourne à 3000 tr/min avec un petit couple ; l'épaule du bras doit tourner lentement avec un gros couple. Trois grandeurs décrivent cet échange : la vitesse, le couple et la puissance.</p>
+
+<h4>Intuition</h4>
+<p>Un axe rotatif se décrit par trois grandeurs : sa vitesse de rotation \(\omega\), son couple \(C\) et sa puissance \(P\). La vitesse dit à quelle allure il tourne, le couple avec quelle force il fait tourner, la puissance combine les deux : c'est le travail fourni chaque seconde.</p>
+<p>Un constructeur donne la vitesse en tours par minute, les calculs la veulent en radians par seconde. La conversion se voit sur un disque : à 60 tr/min, il fait un tour par seconde, soit \(2\pi\) rad.</p>
+
+<div id="fig-vitesse"></div>
+
+<p>Un réducteur échange de la vitesse contre du couple. Il ne fabrique pas de puissance : il en perd un peu, à cause des frottements.</p>
+
+<div id="fig-reducteur"></div>
+
+<h4>Formalisation</h4>
+<p>Principales caractéristiques d'un axe rotatif : \(\omega\), vitesse de rotation (rad/s) ; \(C\), couple (N·m) ; \(P\), puissance (W).</p>
+<p>Pour une <strong>vitesse de rotation</strong> \(n\) exprimée en tours par minute :</p>
+\[ \omega = \frac{2\pi n}{60} \qquad (1.1) \]
+<p>avec \(\omega\) la vitesse angulaire (rad/s), \(n\) la vitesse de rotation (tr/min), \(\pi \approx 3{,}1416\).</p>
+<p>La <strong>puissance mécanique de rotation</strong> vaut :</p>
+\[ P = C\,\omega \qquad (1.2) \]
+<p>avec \(P\) la puissance mécanique (W), \(C\) le couple (N·m), \(\omega\) la vitesse angulaire (rad/s).</p>
+<p>Pour une transmission de <strong>rapport</strong> \(i = \omega_e / \omega_s\) et de rendement \(\eta\) :</p>
+\[ C_s \simeq \eta\, i\, C_e \qquad (1.3) \]
+<p>avec \(C_s\) le couple de sortie (N·m), \(C_e\) le couple d'entrée (N·m), \(i\) le rapport de réduction, \(\eta\) le rendement global. Avec cette convention, un réducteur a \(i > 1\) : la sortie tourne \(i\) fois moins vite et donne environ \(\eta\, i\) fois plus de couple. La puissance de sortie vaut alors \(P_s = C_s\,\omega_s \simeq \eta\, P_e\).</p>
+<p class="complement">Attention : au chapitre 8, le rapport d'un engrenage est écrit \(i_{12} = \omega_2 / \omega_1\), sortie sur entrée. Vérifie toujours quelle convention est utilisée.</p>
+
+<h4>Rappel : couple et bras de levier</h4>
+<p>Un couple naît d'une force qui agit à distance d'un axe. Une force \(F\) appliquée perpendiculairement à une distance \(r\) de l'axe donne un couple \(C = F\,r\), en N·m. C'est pour cela qu'une clé longue serre plus facilement. On retrouvera cette relation pour la clavette (\(F_t = 2C/d\), la force au rayon \(d/2\)) et pour le couple gravitaire \(C_g = mgL\).</p>
+
+<div id="fig-couple"></div>
+
+<h4>Exemple ajouté</h4>
+<p>Un moteur tourne à \(n = 3000\) tr/min et fournit \(C = 0{,}32\) N·m. Il entraîne un réducteur de rapport \(i = 50\) et de rendement \(\eta = 0{,}8\).</p>
+\[ \omega_e = \frac{2\pi \times 3000}{60} \approx 314{,}16 \ \text{rad/s} \qquad P_e = 0{,}32 \times 314{,}16 \approx 100{,}5 \ \text{W} \]
+\[ \omega_s = \frac{314{,}16}{50} \approx 6{,}28 \ \text{rad/s} \qquad C_s \simeq 0{,}8 \times 50 \times 0{,}32 = 12{,}8 \ \text{N}\cdot\text{m} \qquad P_s \approx 80{,}4 \ \text{W} \]
+<p>La sortie tourne à un tour par seconde, avec 40 fois le couple du moteur ; 20 % de la puissance part en pertes.</p>
+
+<h4>Formules clés</h4>
+\[ \omega = \frac{2\pi n}{60} \qquad P = C\,\omega \qquad i = \frac{\omega_e}{\omega_s} \qquad C_s \simeq \eta\, i\, C_e \qquad C = F\,r \]
+</article>
+
+<div class="fin-partie" data-section="vitesse-couple"></div>
+</section>
+
+<section class="partie" id="s-rigidite-jeu">
+<p class="rang-partie">3 / 4</p>
+<h2>Rigidité torsionnelle et jeu angulaire</h2>
+
+<article class="notion" id="n-rigidite-jeu">
+<h3>Rigidité torsionnelle et jeu angulaire</h3>
+<p class="chapeau">Un réducteur a 0,20° de jeu : presque rien. Mais au bout d'un bras de 40 cm, l'outil peut bouger de 1,4 mm, de quoi rater une suture. Deux défauts de l'axe se traduisent ainsi en écart au bout de l'outil : sa souplesse en torsion et son jeu.</p>
+
+<h4>Intuition</h4>
+<p>Un arbre n'est jamais parfaitement rigide : sous un couple, il se tord un peu, comme une serviette qu'on essore. Plus il est rigide, moins il tourne pour le même couple. C'est la rigidité torsionnelle.</p>
+
+<div id="fig-torsion"></div>
+
+<p>Le jeu, lui, est un petit angle libre dans la transmission : l'arbre de sortie peut tourner un peu sans que le moteur bouge. Qu'il vienne du jeu ou de la torsion, ce petit angle se transforme au bout du bras en déplacement, d'autant plus grand que le bras est long : c'est un arc de cercle.</p>
+
+<div id="fig-jeu"></div>
+
+<h4>Formalisation</h4>
+<p>Dans un axe asservi, la <strong>rigidité torsionnelle</strong> est aussi importante :</p>
+\[ k_\theta = \frac{C}{\theta} \qquad (1.4) \]
+<p>avec \(k_\theta\) la rigidité torsionnelle (N·m/rad), \(C\) le couple appliqué (N·m), \(\theta\) l'angle de torsion (rad).</p>
+<p>La <strong>déformation de bout de bras</strong> associée à un petit jeu angulaire \(\Delta\theta\) vaut :</p>
+\[ \Delta x \simeq L\,\Delta\theta, \qquad \Delta\theta \text{ en radians} \qquad (1.5) \]
+<p>avec \(\Delta x\) le déplacement linéaire en bout de bras, \(L\) la longueur du bras, \(\Delta\theta\) le petit angle de jeu ou de torsion (rad). C'est la longueur d'un arc de rayon \(L\) ; pour un petit angle, l'arc et la corde se confondent, d'où le signe \(\simeq\).</p>
+<p>Sur un bras à plusieurs articulations (figure 3 du cours), chaque articulation a son jeu \(\Delta\theta_1\), \(\Delta\theta_2\), et chacun agit avec la distance entre son axe et le point fonctionnel.</p>
+
+<div id="fig-deux-jeux"></div>
+
+<p class="complement">Additionner \(\Delta x_1\) et \(\Delta x_2\) donne le cas le plus défavorable, quand les deux écarts vont dans le même sens.</p>
+
+<h4>Rappel : degrés et radians</h4>
+<p>La formule \(\Delta x \simeq L\,\Delta\theta\) ne marche qu'en radians. Un tour vaut 360° ou \(2\pi\) rad, donc \(\theta_{rad} = \theta_{°} \times \pi / 180\). Oublier la conversion multiplie le résultat par environ 57.</p>
+
+<h4>Exemple du cours</h4>
+<p>Ordre de grandeur, effet d'un jeu angulaire : pour un bras de longueur \(L = 0{,}40\) m et un jeu total \(\Delta\theta = 0{,}20°\),</p>
+\[ \Delta\theta = 0{,}20\,\frac{\pi}{180} = 3{,}49 \times 10^{-3}\ \text{rad}, \qquad \Delta x \simeq 0{,}40 \times 3{,}49 \times 10^{-3} = 1{,}40\ \text{mm} \]
+<p>Même un faible jeu angulaire crée un déplacement mesurable en bout de bras.</p>
+<p>Exemple ajouté, pour la torsion : un axe de rigidité \(k_\theta = 2000\) N·m/rad porte le même bras de 0,40 m et subit un couple de 10 N·m. Il se tord de \(\theta = 10 / 2000 = 5 \times 10^{-3}\) rad, et le bout du bras se déplace de \(\Delta x \simeq 0{,}40 \times 5 \times 10^{-3} = 2\) mm.</p>
+
+<h4>Formules clés</h4>
+\[ k_\theta = \frac{C}{\theta} \qquad \Delta x \simeq L\,\Delta\theta \ (\Delta\theta \text{ en rad}) \qquad \theta_{rad} = \theta_{°}\,\frac{\pi}{180} \]
+</article>
+
+<div class="fin-partie" data-section="rigidite-jeu"></div>
+</section>
+
+<section class="partie" id="s-contraintes-biomedicales">
+<p class="rang-partie">4 / 4</p>
+<h2>Contraintes du contexte biomédical</h2>
+
+<article class="notion" id="n-contraintes-biomedicales">
+<h3>Contraintes biomédicales</h3>
+<p class="chapeau">Un bras de rééducation tient le bras d'un patient, un bras chirurgical travaille au-dessus d'un champ opératoire. Un axe robotique y doit tenir les critères de toute machine, et d'autres encore, propres au soin.</p>
+
+<h4>Intuition</h4>
+<p>Pour une machine d'atelier, on regarde ce qu'elle porte, sa raideur, sa durée de vie et son prix. Près d'un patient, d'autres questions arrivent : que se passe-t-il si un doigt se glisse entre deux pièces ? si de la graisse s'échappe sur le champ opératoire ? si le bras est lourd et bruyant ? Chaque contrainte vise un endroit précis de la machine.</p>
+
+<div id="fig-biomedical"></div>
+
+<h4>Formalisation</h4>
+
+<p>Un système biomédical doit respecter les critères classiques de charge, rigidité, durée de vie et coût. Il doit aussi limiter la masse mobile, le bruit, les vibrations et les points de pincement. Il doit être facile à nettoyer et à maintenir, et les lubrifiants doivent rester confinés. Le choix final dépend de l'importance de chaque critère.</p>
+
+
+<div class="tableau"><table>
+<tr><th>Critères classiques</th><th>Critères liés au contexte biomédical</th></tr>
+<tr><td>Charge<br>Rigidité<br>Durée de vie<br>Coût</td><td>Masse mobile limitée<br>Bruit et vibrations limités<br>Pas de points de pincement<br>Facile à nettoyer et à maintenir<br>Lubrifiants confinés</td></tr>
+</table></div>
+
+
+<p>Partout où deux pièces se rapprochent pendant le mouvement, un doigt ou un tissu peut être coincé : c'est un point de pincement, à supprimer dès la conception. Un lubrifiant qui s'échappe salit et contamine la zone de soin : d'où des carters étanches, des joints, et des surfaces faciles à nettoyer.</p>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté : on motorise le coude d'un bras de rééducation. Solution A, le moteur est au coude : la chaîne est courte, mais le moteur fait partie de la masse mobile. Solution B, le moteur reste sur la base et le mouvement monte par une transmission : moins de masse mobile, mais un maillon de plus, avec son jeu et sa souplesse. Aucune n'est meilleure en soi : le choix final dépend de l'importance donnée à chaque critère pour cette application.</p>
+
+<h4>Formules clés</h4>
+<p>Critères classiques : charge, rigidité, durée de vie, coût. Critères liés au contexte biomédical : masse mobile limitée, bruit et vibrations limités, pas de points de pincement, facile à nettoyer et à maintenir, lubrifiants confinés. Le choix final pèse l'importance de chaque critère.</p>
+</article>
+
+<div class="fin-partie" data-section="contraintes-biomedicales"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../meca/dessin.js"></script>
+<script src="../figures/chaine-fonctionnelle.js"></script>
+<script src="../figures/nomenclature.js"></script>
+<script src="../figures/vitesse-couple-puissance.js"></script>
+<script src="../figures/rigidite-jeu.js"></script>
+<script src="../figures/contraintes-biomedicales.js"></script>
+</body>
+</html>

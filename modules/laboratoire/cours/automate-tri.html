@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'automate de tri pré-analytique · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'automate de tri pré-analytique</h1>
+<p class="chapeau">Les tubes arrivent en vrac : EDTA pour l'hématologie, tubes secs pour la biochimie, citrates pour la coagulation, urgents mélangés à la routine. Avant toute analyse, il faut les identifier, vérifier qu'ils sont conformes, centrifuger ceux qui doivent l'être, les ouvrir, parfois les répartir, et les envoyer au bon automate.</p>
+
+<h2>Intuition</h2>
+<p>Le trieur est un robot qui regarde, juge et range. Il regarde le code-barres et le bouchon ; il juge le volume, le gel, la couleur du sérum ; il ouvre et range le tube vers sa destination. La phase pré-analytique étant celle des erreurs humaines, confier ces gestes à une machine les rend traçables et répétables.</p>
+
+<div id="fig-automate-tri"></div>
+
+<h2>Formalisation</h2>
+<h3>Rôle</h3>
+<p>Un <strong>système de tri pré-analytique</strong> automatise la gestion, l'identification et la répartition des tubes de prélèvement avant les automates d'analyse. Il lit les codes-barres, vérifie la conformité des tubes et sépare ceux qui doivent être centrifugés de ceux qui n'en ont pas besoin (comme les tubes de NFS) ; les premiers partent vers la centrifugeuse, intégrée à la chaîne ou séparée. Dans les laboratoires moins automatisés, le tri initial est manuel : on centrifuge d'abord en vrac, puis on répartit.</p>
+<p>Avantages : moins d'erreurs (traçabilité fiabilisée), gain de temps (plus de tri ni de débouchage manuel), sécurité biologique (décapsulage en circuit fermé, moins d'aérosols).</p>
+<h3>Fonctions</h3>
+<ul>
+<li>Chargement en vrac ou sur portoir.</li>
+<li>Lecture et identification du code-barres, associé au dossier dans le LIS.</li>
+<li>Contrôle de qualité : volume de liquide, gel séparateur (Gel-Check), tubes mal centrifugés.</li>
+<li>Ouverture et fermeture : débouchage avant l'analyse, rebouchage pour l'archivage.</li>
+<li>Tri et distribution vers les automates de destination (biochimie, hématologie, immunologie), ou aliquotage.</li>
+</ul>
+<h3>Composants</h3>
+<ol>
+<li><b>Zone de chargement</b> : chargeur en vrac (trémie, disques ou tapis qui alignent les tubes) ; tiroirs de portoirs pour les urgences (STAT).</li>
+<li><b>Vision et identification</b> : lecteur de code-barres multi-axes à 360° ; caméra 3D qui reconnaît le type de tube à ses dimensions et à la couleur du bouchon (EDTA, citrate, héparine).</li>
+<li><b>Contrôle qualité</b> : détection de niveau (optique ou ultrasons) ; Gel-Check, qui vérifie la barrière de gel et l'indice de sérum (hémolyse, ictère, lipémie).</li>
+<li><b>Robotique</b> : pince sur 3 axes (X, Y, Z) ; déboucheur qui tourne ou tire le bouchon sans projection d'aérosols ; aliquoteur à pipette de précision (optionnel).</li>
+<li><b>Sortie</b> : convoyeurs ou navettes magnétiques (pucks) vers la chaîne ; ou portoirs par destination si l'automate est autonome.</li>
+</ol>
+<h3>Technologies</h3>
+<ul>
+<li><b>Vision</b> : scanners et caméras à 360°, imagerie 3D (bouchon violet pour l'EDTA), infrarouge et spectrophotométrie pour la hauteur de plasma, le gel et les indices de sérum.</li>
+<li><b>Robotique</b> : cadences pouvant dépasser 1 000 tubes par heure ; robots cartésiens ou SCARA ; cobots qui s'arrêtent au contact d'un technicien ; décapsulage à retour d'effort.</li>
+<li><b>Convoyage</b> : pistes magnétiques et moteurs linéaires, sans secousse (le sang centrifugé ne se remélange pas) ; capteurs de proximité contre les collisions.</li>
+<li><b>Logiciel</b> : interfaçage LIS (HL7, ASTM) ; moteurs de règles qui réécrivent le parcours d'un tube (par exemple coagulation avant biochimie) ; RFID sous les portoirs.</li>
+<li><b>Manipulation des liquides</b> : pompes et seringues de précision (microlitres) ; capteurs de pression qui détectent un caillot pendant l'aspiration, stoppent et alertent.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois tubes arrivent du même patient : un EDTA (bouchon violet), un tube sec et un citrate. La caméra reconnaît les bouchons, le code-barres appelle la prescription : l'EDTA part directement en hématologie, sans centrifugation ; le tube sec et le citrate vont à la centrifugeuse ; après le Gel-Check, le tube sec, s'il n'est pas hémolysé, est débouché et envoyé en biochimie.</p>
+
+<h2>Formules clés</h2>
+<p>Charger, identifier, contrôler (volume, gel, indices de sérum), déboucher, trier, aliquoter.</p>
+<p>NFS (EDTA) : pas de centrifugation. Plus de 1 000 tubes par heure. Pistes magnétiques sans secousse. HL7, ASTM.</p>
+<p>Caillot pendant l'aspiration : le capteur de pression arrête et alerte.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/automate-tri.js"></script>
+</body>
+</html>

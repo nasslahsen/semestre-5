@@ -1,6 +1,6 @@
 /*
  * Tableau de bord : une carte par module du registre, avec ses sous-modules, sa couleur, sa progression
- * et un bouton « Continuer » qui mène à la prochaine étape pas faite de la carte (cours ou exercices).
+ * (sections de cours lues) et un bouton « Continuer » qui rouvre le cours là où l'on s'est arrêté.
  * Les modules actifs chargent leur module.js pour compter leurs étapes.
  */
 (function () {
@@ -27,7 +27,7 @@
       faits += c.faits; total += c.total;
       if (d && (!recent || (d.quand || 0) > (recent.d.quand || 0))) recent = { m: m, d: d };
     });
-    document.getElementById("total-global").innerHTML = "<b>" + faits + " / " + total + "</b> étapes faites";
+    document.getElementById("total-global").innerHTML = "<b>" + faits + " / " + total + "</b> sections lues";
 
     // Bandeau « Reprendre » : le module ouvert en dernier
     var zr = document.getElementById("reprendre-module");
@@ -69,6 +69,6 @@
 
   function barre(c) {
     var pc = c.total ? Math.round(100 * c.faits / c.total) : 0;
-    return '<div class="progres"><div class="piste"><i style="width:' + pc + '%"></i></div><span><b>' + c.faits + " / " + c.total + "</b> étapes</span></div>";
+    return '<div class="progres"><div class="piste"><i style="width:' + pc + '%"></i></div><span><b>' + c.faits + " / " + c.total + "</b> sections</span></div>";
   }
 })();

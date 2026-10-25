@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Criticité et continuité · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Criticité et continuité</h1>
+<p class="chapeau">Un analyseur de gaz du sang tombe en panne un dimanche soir, alors que la réanimation attend. Tous les équipements ne se valent pas : certains peuvent attendre lundi, d'autres non. Il faut le savoir avant la panne, et avoir prévu un plan B.</p>
+
+<h2>Intuition</h2>
+<p>Pour chaque équipement, on se pose trois questions : si il tombe, qui en souffre et à quel point ? combien de temps faut-il pour le réparer ? que fait-on en attendant ? Les réponses disent où mettre les pièces de rechange, les contrats, les appareils de secours. Le laboratoire doit continuer à rendre des résultats malgré une défaillance.</p>
+
+<div id="fig-criticite"></div>
+
+<h2>Formalisation</h2>
+<h3>Un laboratoire distribué</h3>
+<p>Le laboratoire devient distribué : l'<strong>ISO 22870</strong> encadre les examens de biologie médicale délocalisée (POCT), au plus près du patient. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
+<h3>Évaluer chaque équipement critique</h3>
+<ul>
+<li><b>Impact clinique</b> : conséquence d'une panne sur la prise en charge (urgences, réanimation, bloc opératoire, services).</li>
+<li><b>Délai de réparation</b> : temps de remise en service estimé.</li>
+<li><b>Plan de continuité</b> (« plan B »).</li>
+<li><b>Secours ou sous-traitance</b> : solution de remplacement disponible.</li>
+<li><b>Traçabilité</b> : enregistrement de l'incident et des actions.</li>
+</ul>
+<p>Cette évaluation concerne l'analyseur, mais aussi l'électricité, le LIS, les réactifs, le traitement de l'air (HVAC).</p>
+<h3>Six domaines pour un résultat fiable</h3>
+<ol>
+<li><b>Clinique</b> : pertinence du processus.</li>
+<li><b>Analytique</b> : performance des méthodes.</li>
+<li><b>Technique</b> : équipements et métrologie.</li>
+<li><b>Infrastructure</b> : énergie, HVAC, eau, gaz.</li>
+<li><b>Qualité et sécurité</b> : ISO 15189 et exigences applicables.</li>
+<li><b>Continuité</b> : fonctionner malgré une défaillance.</li>
+</ol>
+<p>Le patient ne voit jamais l'analyseur : il voit le résultat. Chacun de ces domaines conditionne sa fiabilité.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux appareils tombent en panne le même jour : l'analyseur de gaz du sang qui sert la réanimation, et un agitateur chauffant de préparation. Le premier a un fort impact clinique et ne peut pas attendre : on passe sur l'appareil de secours ou on sous-traite, et on enregistre l'incident. Le second peut attendre la réparation sans conséquence pour les patients.</p>
+
+<h2>Formules clés</h2>
+<p>Pour chaque équipement critique : impact clinique, délai de réparation, plan B, secours ou sous-traitance, traçabilité.</p>
+<p>ISO 22870 : POCT. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
+<p>Clinique, analytique, technique, infrastructure, qualité et sécurité, continuité.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/criticite.js"></script>
+</body>
+</html>

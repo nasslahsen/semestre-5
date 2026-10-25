@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Automatisation et informatisation du laboratoire</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 7. -->
+<main class="cours-chapitre" data-chapitre="7">
+<p class="etiquette" data-etiquette></p>
+<h1>Automatisation et informatisation du laboratoire</h1>
+
+<section class="partie" id="s-automatiser">
+<p class="rang-partie">1 / 4</p>
+<h2>Automatiser et informatiser</h2>
+
+<article class="notion" id="n-automatisation">
+<h3>L'automatisation du laboratoire</h3>
+<p class="chapeau">Un laboratoire hospitalier reçoit des milliers de tubes par jour. Embaucher en proportion n'est pas possible : il faut que les machines fassent davantage avec moins d'interventions humaines. L'automatisation a commencé par un appareil isolé ; elle relie aujourd'hui tout le circuit, de la réception du tube à son stockage.</p>
+
+<h4>Intuition</h4>
+<p>D'abord une machine qui répète un seul geste ; puis une machine qu'on programme pour plusieurs tâches ; puis une machine qui se surveille elle-même. Et à côté de la machine isolée, l'idée de relier toutes les machines par des convoyeurs et un logiciel : on ne parle plus d'un automate, mais d'un laboratoire automatisé.</p>
+
+<div id="fig-automatisation"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition</h5>
+<p>En biochimie, l'<strong>automatisation</strong> désigne le processus par lequel un appareil d'analyse réalise de nombreux examens avec une intervention minimale d'un opérateur. Les automates traitent des volumes de travail nettement plus importants sans accroître proportionnellement les effectifs.</p>
+<h5>Trois âges</h5>
+<p>Comme dans l'industrie, on est passé d'une <b>automatisation fixe</b> (un instrument exécute seul une tâche répétitive) à une <b>automatisation programmable</b> (une variété de tâches différentes), puis à une <b>automatisation intelligente</b>, intégrée à certains systèmes, qui s'auto-surveillent et réagissent à l'évolution des conditions.</p>
+<h5>Automate ou laboratoire automatisé</h5>
+<p>Un <b>automate de laboratoire</b> est un équipement isolé qui exécute une ou plusieurs étapes d'analyse. Un <b>laboratoire automatisé</b> (doté d'une chaîne robotisée) intègre l'ensemble, de la réception de l'échantillon à la validation du résultat, en connectant les machines par des convoyeurs et des logiciels de gestion. Exemple cité : la solution cobas 8100 (tri intelligent, priorisation des urgences, transport bidirectionnel et multiniveaux, détection précoce des erreurs, point d'entrée réservé aux urgences) ; des modules de connexion relient le pré-analytique à l'analytique et au post-analytique.</p>
+<h5>Avantages</h5>
+<p>Moins de variabilité et d'erreurs, en supprimant les tâches répétitives et monotones ; meilleure reproductibilité, donc meilleure qualité des analyses.</p>
+<h5>Ce que l'automatisation englobe</h5>
+<ol>
+<li>Le traitement et le transport des échantillons.</li>
+<li>Leur chargement dans les automates d'analyse.</li>
+<li>L'évaluation des résultats.</li>
+<li>Le stockage des échantillons.</li>
+</ol>
+<h5>Équipements du pré-analytique</h5>
+<ul>
+<li>Prélèvement et identification : automates d'étiquetage des tubes, fauteuils de prélèvement.</li>
+<li>Transport : réseau pneumatique, enceintes et glacières connectées, robots, traçabilité du transport.</li>
+<li>Réception, tri et préparation : centrifugeuses, automates de tri, de débouchage et rebouchage, d'aliquotage.</li>
+<li>Conservation temporaire : réfrigérateurs et congélateurs biomédicaux, traçabilité et contrôle du froid.</li>
+</ul>
+<p>Les grandes chaînes d'automatisation totale (TLA) citées au cours : Abbott (GLP systems), Beckman Coulter (Power Express), Roche (CCM), Siemens Healthineers (Aptio), Thermo Fisher (TCAutomation) ; toutes couvrent le pré-analytique (réception, tri, centrifugation, débouchage), le transport et le post-analytique (rebouchage, stockage, élimination).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un analyseur d'hématologie posé seul sur une paillasse est un automate : le technicien lui apporte les tubes. Si ce même analyseur est branché sur une chaîne où les tubes arrivent seuls, après tri et débouchage, et repartent vers le stockage réfrigéré, il fait partie d'un laboratoire automatisé.</p>
+
+<h4>Formules clés</h4>
+<p>Automatisation : beaucoup d'examens, intervention minimale. Fixe, puis programmable, puis intelligente.</p>
+<p>Automate : machine isolée. Laboratoire automatisé : tout le circuit, relié par convoyeurs et logiciels.</p>
+<p>Elle englobe : transport, chargement, évaluation des résultats, stockage.</p>
+</article>
+
+<article class="notion" id="n-lis-sih">
+<h3>Le LIS et le SIH</h3>
+<p class="chapeau">Un médecin prescrit dans le dossier du patient ; quelques heures plus tard, le résultat y apparaît, validé. Entre les deux, aucune feuille de papier : deux systèmes d'information, celui de l'hôpital et celui du laboratoire, se parlent en continu.</p>
+
+<h4>Intuition</h4>
+<p>L'hôpital a son grand système, qui connaît le patient, ses admissions, ses prescriptions. Le laboratoire a le sien, qui connaît les tubes, les automates, les résultats. La demande descend du premier vers le second ; le résultat validé remonte du second vers le premier. Tout le reste est affaire de traçabilité.</p>
+
+<div id="fig-lis-sih"></div>
+
+<h4>Formalisation</h4>
+<h5>Le LIS</h5>
+<p>Le <strong>système d'information du laboratoire</strong> (SIL, ou LIS / LIMS en anglais, <i>Laboratory Information Management System</i>) est un progiciel de gestion intégré qui pilote les activités, les flux de travail et les données du laboratoire. Ses fonctions :</p>
+<ul>
+<li><b>Gestion des échantillons</b> : enregistrement, étiquetage (code-barres), traçabilité de la réception à l'élimination ou l'archivage.</li>
+<li><b>Phase analytique et automates</b> : connexion directe aux automates pour remonter les résultats bruts et valider les analyses.</li>
+<li><b>Gestion des patients ou des lots</b> : suivi des dossiers pour les analyses.</li>
+<li><b>Contrôle qualité et conformité</b> : normes (ISO 15189, bonnes pratiques GxP), traçabilité complète : qui a fait quoi, quand, avec quel instrument.</li>
+<li><b>Édition et diffusion des rapports</b> : validation biologique ou technique, envoi automatisé des comptes rendus aux prescripteurs ou aux patients.</li>
+</ul>
+<h5>Le SIH</h5>
+<p>Le <strong>système d'information hospitalier</strong> (SIH) est l'ensemble des logiciels, réseaux, données et processus qui permettent à un établissement de centraliser, traiter, stocker et partager les informations médicales, administratives et financières. Trois couches : <b>clinique</b> (dossier médical, prescriptions, résultats de laboratoire et d'imagerie), <b>administrative et financière</b> (admissions, sorties, facturation, assurance maladie), <b>technique et logistique</b> (réseaux, serveurs, sécurité des données, matériel).</p>
+<h5>Intégration et interopérabilité</h5>
+<p>L'intégration entre le système hospitalier central et le LIS garantit un flux fluide, sécurisé et instantané :</p>
+<ol>
+<li><b>Prescription</b> (SIH vers LIS) : le médecin saisit la demande dans le dossier patient ; elle est transmise automatiquement au LIS.</li>
+<li><b>Prélèvement et analyse</b> (LIS) : le laboratoire reçoit la demande, édite les étiquettes, réalise le prélèvement et les examens sur ses automates.</li>
+<li><b>Validation et restitution</b> (LIS vers SIH) : les résultats validés par le biologiste sont renvoyés en temps réel dans le dossier clinique.</li>
+</ol>
+<p>Les automates communiquent avec le LIS par des protocoles standardisés comme HL7 ou ASTM, souvent par l'intermédiaire d'un middleware.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>À 9 h, un interne prescrit un ionogramme dans le dossier du patient (couche clinique du SIH). La demande arrive dans le LIS, qui édite l'étiquette à code-barres. À 10 h 30, l'automate envoie son résultat au LIS ; le biologiste le valide ; il apparaît aussitôt dans le dossier, et la facturation (couche administrative) est déclenchée.</p>
+
+<h4>Formules clés</h4>
+<p>LIS : échantillons, automates, patients, qualité et conformité, rapports.</p>
+<p>SIH : couches clinique, administrative et financière, technique et logistique.</p>
+<p>Prescription : SIH vers LIS. Résultat validé : LIS vers SIH. Protocoles : HL7, ASTM, middleware.</p>
+</article>
+
+<div class="fin-partie" data-section="automatiser"></div>
+</section>
+
+<section class="partie" id="s-etiqueter">
+<p class="rang-partie">2 / 4</p>
+<h2>Identifier les tubes</h2>
+
+<article class="notion" id="n-etiqueteuse">
+<h3>L'automate d'étiquetage des tubes</h3>
+<p class="chapeau">Une étiquette collée de travers, un code-barres flou, et c'est l'automate d'analyse qui ne lit plus le tube, ou pire, un tube attribué au mauvais patient. L'automate d'étiquetage colle chaque étiquette au bon endroit, sur le bon tube, avec un code-barres qui restera lisible après la centrifugation et le congélateur.</p>
+
+<h4>Intuition</h4>
+<p>La machine fait ce que ferait une infirmière très régulière : elle lit la prescription, prend le bon tube, imprime l'étiquette, la pose bien droite à la bonne hauteur, et rend le tube. La difficulté est dans les détails : trouver l'orientation du tube, imprimer une encre qui ne s'efface pas, enrouler l'étiquette sans pli ni bulle.</p>
+
+<div id="fig-etiqueteuse"></div>
+
+<h4>Formalisation</h4>
+<h5>Rôle</h5>
+<p>L'<strong>automate d'étiquetage</strong> colle automatiquement et avec précision une étiquette d'identification (code-barres et informations du patient) sur les tubes de prélèvement. Avantages : <b>sécurité et traçabilité</b> (plus d'erreurs de collage ou de mélange, lien fiable avec le LIS) ; <b>gain de temps</b> (beaucoup de tubes par heure) ; <b>précision</b> (étiquette droite, sans pli ni bulle, à la hauteur exigée par les lecteurs et les bras robotisés) ; <b>moins d'accidents et de contamination</b> (moins de manipulations).</p>
+<h5>Fonctionnement, étape par étape</h5>
+<ol>
+<li><b>Réception des ordres</b> : connexion au LIS ou au SIH pour recevoir les prescriptions ; génération d'un identifiant unique (numéro d'accession) et des informations codées (code-barres 1D ou 2D, nom, type de tube).</li>
+<li><b>Sélection du tube</b> : tubes de différentes tailles (par exemple 13 × 75 mm ou 13 × 100 mm) stockés dans des carrousels, tiroirs ou trémies ; le bon type (EDTA, sérum, citrate) est choisi et acheminé par gravité ou par convoyeur.</li>
+<li><b>Détection de position</b> : la position de départ du tube est aléatoire ; un capteur photoélectrique repère les marques d'usine (graduation, bord de l'étiquette d'origine) et le moteur ajuste l'angle de rotation (\(R = R_B + R_P\)) pour aligner la nouvelle étiquette, de façon à laisser voir le volume et l'aspect du sang.</li>
+<li><b>Impression et application</b> : impression thermique à la demande, puis collage par roulement : le bord avant est posé sur le tube, qui fait un tour complet sur lui-même.</li>
+<li><b>Éjection et traçabilité</b> : le tube étiqueté est délivré (mode normal ou urgence STAT) et son statut est validé dans la base de données.</li>
+</ol>
+<h5>Impression thermique</h5>
+<p>Le <strong>papier thermique</strong> porte une couche active : un colorant leucobase (incolore), un développeur acide (autrefois le bisphénol A, aujourd'hui souvent BPS ou Pergafast) et un sensibilisateur (une cire qui fond entre 60 et 100 °C). La tête chauffe des points précis ; la cire fond, l'acide donne un proton au colorant, qui devient noir ; en refroidissant, l'image se fige.</p>
+<ul>
+<li><b>Thermique directe</b> : la tête chauffe directement le papier thermique ; ni ruban ni cartouche, mais l'impression s'altère avec le temps, la lumière, la chaleur, l'humidité, les frottements (tickets de caisse, étiquettes courtes).</li>
+<li><b>Transfert thermique</b> : la tête chauffe un ruban encreur (cire, résine ou mélange) dont l'encre fond et se fixe sur le support ; excellente tenue aux frottements et aux solvants.</li>
+</ul>
+<p>Au laboratoire, on utilise le <b>transfert thermique avec ruban en résine pure</b> : lisible après cryogénisation (azote liquide, −80 °C) et centrifugation, insensible aux solvants (alcool isopropylique, xylène) et au sang, contraste et netteté maximaux (300 ou 600 dpi) pour la lecture à haute vitesse.</p>
+<h5>Maintenance</h5>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Chaque jour</td><td>Désinfecter les surfaces (chiffon non pelucheux, éthanol à 70 % ou lingettes de grade médical) ; nettoyer la tête d'impression au coton-tige imbibé d'alcool isopropylique ; retirer colle et étiquettes coincées sur les rouleaux (alcool à 70°, jamais d'objet métallique).</td></tr>
+<tr><td>Chaque semaine</td><td>Nettoyer les capteurs photoélectriques (chiffon sec ou soufflette) ; vérifier l'alignement et la tension de la bande ; contrôler le massicot et les rouleaux de rechange.</td></tr>
+<tr><td>Chaque mois à chaque trimestre</td><td>Lubrifier axes et engrenages si le fabricant le recommande (jamais la tête ni les rouleaux en caoutchouc) ; vérifier les fixations ; calibrer les capteurs et faire des tests de dépose.</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un laboratoire étiquette ses aliquotes avec une imprimante thermique directe. Après quelques semaines à −80 °C et une décongélation, certains codes-barres ont grisé et l'automate ne les lit plus. Avec un transfert thermique sur ruban résine, l'encre fondue sur un support synthétique aurait résisté au froid et aux manipulations.</p>
+
+<h4>Formules clés</h4>
+<p>Ordres du LIS, choix du tube, détection de position (\(R = R_B + R_P\)), impression, collage par roulement, éjection et traçabilité.</p>
+<p>Thermique directe : sans ruban, s'altère. Transfert thermique sur résine : résiste au froid, aux solvants, au sang ; 300 à 600 dpi.</p>
+<p>Chaque jour : surfaces, tête, rouleaux. Chaque semaine : capteurs, bande. Mois à trimestre : lubrification, fixations, calibration.</p>
+</article>
+
+<div class="fin-partie" data-section="etiqueter"></div>
+</section>
+
+<section class="partie" id="s-transporter">
+<p class="rang-partie">3 / 4</p>
+<h2>Transporter les échantillons</h2>
+
+<article class="notion" id="n-pneumatique">
+<h3>Le transport pneumatique</h3>
+<p class="chapeau">Un gaz du sang prélevé en réanimation doit être analysé vite. Plutôt que de l'apporter à pied, l'infirmière le glisse dans une cartouche, tape une destination, et la cartouche file dans un réseau de tubes jusqu'au laboratoire. Rapide, mais il faut freiner à l'arrivée sans casser ni hémolyser le prélèvement.</p>
+
+<h4>Intuition</h4>
+<p>Une cartouche dans un tube, et de l'air qui la pousse ou l'aspire, comme une sarbacane. Des aiguillages choisissent la bonne ligne, un logiciel gère qui passe en premier. À l'arrivée, l'air piégé devant la cartouche sert de frein, comme quand on bouche une seringue et qu'on pousse le piston.</p>
+
+<div id="fig-pneumatique"></div>
+
+<h4>Formalisation</h4>
+<h5>Rôle et composants</h5>
+<p>Un <strong>système pneumatique</strong> est un réseau de transport par tube, à air comprimé ou par aspiration, qui achemine rapidement et en sécurité les échantillons biologiques (sang, urine, tissus) et les médicaments entre les unités de soins et le laboratoire central. Composants : stations d'envoi et de réception ; réseau de tuyauterie ; unités de soufflerie et d'aspiration (APU, turbines) ; diviseurs et aiguillages ; capsules de transport ; centre de contrôle logiciel.</p>
+<h5>À la station</h5>
+<ul>
+<li><b>Envoi</b> : l'objet est placé dans une cartouche hermétique (souvent avec puce RFID) ; on choisit la destination (clavier, badge, code à quatre chiffres) ; la cartouche entre dans le sas, le système se verrouille et elle part.</li>
+<li><b>Transit</b> : l'automate positionne les aiguillages et démarre la turbine.</li>
+<li><b>Réception</b> : un amortissement ralentit la cartouche, qui tombe doucement dans le bac ; un voyant ou un son prévient le personnel, qui valide la réception ; la cartouche vide peut repartir automatiquement.</li>
+</ul>
+<p>Le laboratoire et la pharmacie ont souvent des stations séparées pour l'envoi et pour la réception. Électronique de la station : écran tactile, lecture RFID ou code-barres, communication avec l'ordinateur central, capteurs optiques qui vérifient que la cartouche est en place et la trappe fermée avant de lancer l'air. Partie pneumatique : vannes et distributeurs, sas étanche (vérins) qui isole la station du réseau.</p>
+<h5>Le freinage</h5>
+<p><b>Coussin d'air</b> : la cartouche pousse l'air devant elle ; juste avant l'arrivée (capteur optique ou magnétique), une vanne d'échappement sous la station se ferme ; l'air piégé, qui ne s'échappe que très lentement, se comprime et freine progressivement la cartouche (effet piston). Puis l'<b>amortissement physique</b> absorbe le reste : butées et toboggans en élastomère, ou amortisseur à gaz ou à ressort. Les capteurs valident l'arrêt, la turbine est coupée, un clapet laisse glisser la cartouche dans le bac.</p>
+<h5>Le réseau</h5>
+<ul>
+<li>Tubes en PVC spécial, en général de 110 ou 160 mm de diamètre, avec des coudes à grand rayon (par exemple 48 pouces).</li>
+<li>Zones (urgences, soins intensifs, hospitalisation, pharmacie, laboratoire), en général de 8 à 11 stations par ligne ; lignes prioritaires directes vers le laboratoire pour les services à fort volume.</li>
+<li>Unité de transfert centrale : souffleries, filtres HEPA (jusqu'à 99,95 % des particules), aiguillages entre bâtiments. Les APU créent une pression (envoi en montée) ou une dépression (aspiration en descente).</li>
+<li>Capsules étanches avec bagues d'amortissement, verrouillage, RFID ; couleurs : rouge pour les urgences vitales (STAT), bleu ou vert pour la routine, jaune pour le risque biologique.</li>
+<li>Logiciel : suivi en temps réel, priorité absolue aux urgences (gaz du sang, troponines), vitesse réglée autour de 5,5 m/s avec ralentissement à l'approche des stations pour éviter l'hémolyse.</li>
+</ul>
+<h5>Maintenance</h5>
+<p><b>Préventive</b> (planifiée, souvent annuelle) : nettoyage et désinfection des stations ; étanchéité des tuyaux, joints et aiguillages ; filtres, huile, courroies, pressions et débits des turbines ; mises à jour logicielles et calibrage des capteurs ; envois tests entre services. <b>Corrective</b> (quotidienne ou sur incident) : purge de l'humidité et des condensats ; extraction des cartouches coincées et des débris ; réparation des portes, verrous et cellules optiques ; dépannage des turbines et électrovannes.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>À 5,5 m/s, une cartouche parcourt 330 m en une minute : un trajet qui prendrait plusieurs minutes à pied. Si un tube arrive hémolysé de façon répétée depuis une même station, on soupçonne un freinage insuffisant à l'arrivée ou une vitesse trop élevée sur cette ligne.</p>
+
+<h4>Formules clés</h4>
+<p>Stations, tuyauterie (110 ou 160 mm), turbines (APU), aiguillages, capsules, logiciel.</p>
+<p>Freinage : coussin d'air (vanne fermée, air comprimé), puis amortisseurs. Vitesse autour de 5,5 m/s.</p>
+<p>Rouge : urgence (STAT). Bleu ou vert : routine. Jaune : risque biologique. 8 à 11 stations par ligne.</p>
+</article>
+
+<article class="notion" id="n-transport-robot">
+<h3>Robots coursiers et caissons de transport</h3>
+<p class="chapeau">Tous les services ne sont pas reliés au pneumatique, et certains échantillons ne doivent pas y passer. Il reste à les porter : par un robot qui roule seul dans les couloirs, ou dans un caisson qui prouve, à l'arrivée, que la température et les délais ont été respectés.</p>
+
+<h4>Intuition</h4>
+<p>Un robot coursier doit savoir où il est, voir ce qui l'entoure et ouvrir ses casiers à la bonne personne. Un caisson de transport doit protéger les tubes, garder le froid, et garder la preuve de tout cela. Dans les deux cas, la question est la même : l'échantillon est-il arrivé intact, à temps, et peut-on le prouver ?</p>
+
+<div id="fig-transport-robot"></div>
+
+<h4>Formalisation</h4>
+<h5>Le robot coursier</h5>
+<p>Les <strong>robots mobiles autonomes</strong> (robots coursiers) roulent seuls dans les couloirs (vitesse moyenne 9 km/h). Les tubes sont dans une enceinte fermée : pas de chute, de renversement ni d'exposition aux liquides biologiques. Ils déchargent le personnel des allers-retours entre les unités de soins et le plateau technique.</p>
+<ul>
+<li><b>Navigation</b> : cartographie numérique des couloirs à l'installation (cartographie 3D, SLAM) ; radars, caméras et scrutateurs laser ; algorithmes de déplacement qui contournent les obstacles ou arrêtent le robot en cas de danger ; ascenseurs par Wi-Fi, portes automatiques par un badge simulé.</li>
+<li><b>Chargement</b> : casiers ou enceinte verrouillés (parfois réfrigérés), ouverts par code ou badge pour les seules personnes autorisées.</li>
+<li><b>Missions</b> : appel depuis une tablette ou un poste ; tournées planifiées ou courses urgentes ; tableau de bord de supervision (position, batterie).</li>
+<li><b>Composants</b> : châssis résistant aux désinfectants (aluminium anodisé, acier passivé), coques lisses ; moteurs électriques (souvent brushless) ; batteries lithium avec système de gestion (BMS) et recharge automatique ; perception (LiDAR à 360°, caméras 3D, ultrasons, centrale inertielle) ; ordinateur embarqué ; armoire sécurisée (badge RFID, tiroirs réfrigérés ou étanches).</li>
+</ul>
+<h5>Le caisson de transport</h5>
+<p>Il repose sur le <b>triple emballage</b> et les normes de sécurité biologique (ONU 3373, ADR) : récipient primaire étanche entouré d'un absorbant ; récipient secondaire rigide ou étanche, résistant à la pression ; emballage extérieur rigide, souvent isotherme, contre les chocs, les vibrations et la température.</p>
+<p>La <b>traçabilité</b> intégrée répond à l'ISO 15189 : chaîne du froid, sécurité des données, preuve des délais.</p>
+<ul>
+<li><b>Thermique</b> : enregistreurs miniatures de type « bouton » glissés près des tubes (historique déchargé à l'arrivée) ; capteurs connectés (Bluetooth, 4G) qui alertent en temps réel d'une rupture de seuil (par exemple +2 / +8 °C) ; écrans affichant la température sur le couvercle.</li>
+<li><b>Logistique</b> : puces RFID (heure de départ, identité du coursier, heure de dépôt) ; codes-barres et QR codes scannés à chaque étape ; géolocalisation GPS pour les malles interhospitalières.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un caisson de prélèvements de biochimie arrive d'un centre de prélèvement. Le capteur connecté a déjà signalé, pendant le trajet, une montée à +11 °C pendant vingt minutes : le laboratoire sait, avant même l'ouverture, quels tubes devront être examinés de près ou refusés.</p>
+
+<h4>Formules clés</h4>
+<p>Robot coursier : environ 9 km/h ; SLAM, LiDAR, caméras ; casiers verrouillés par code ou badge ; BMS et recharge automatique.</p>
+<p>Caisson : triple emballage (ONU 3373, ADR) ; traçabilité thermique (boutons, capteurs connectés) et logistique (RFID, codes, GPS) ; ISO 15189.</p>
+</article>
+
+<div class="fin-partie" data-section="transporter"></div>
+</section>
+
+<section class="partie" id="s-trier">
+<p class="rang-partie">4 / 4</p>
+<h2>Trier et préparer</h2>
+
+<article class="notion" id="n-automate-tri">
+<h3>L'automate de tri pré-analytique</h3>
+<p class="chapeau">Les tubes arrivent en vrac : EDTA pour l'hématologie, tubes secs pour la biochimie, citrates pour la coagulation, urgents mélangés à la routine. Avant toute analyse, il faut les identifier, vérifier qu'ils sont conformes, centrifuger ceux qui doivent l'être, les ouvrir, parfois les répartir, et les envoyer au bon automate.</p>
+
+<h4>Intuition</h4>
+<p>Le trieur est un robot qui regarde, juge et range. Il regarde le code-barres et le bouchon ; il juge le volume, le gel, la couleur du sérum ; il ouvre et range le tube vers sa destination. La phase pré-analytique étant celle des erreurs humaines, confier ces gestes à une machine les rend traçables et répétables.</p>
+
+<div id="fig-automate-tri"></div>
+
+<h4>Formalisation</h4>
+<h5>Rôle</h5>
+<p>Un <strong>système de tri pré-analytique</strong> automatise la gestion, l'identification et la répartition des tubes de prélèvement avant les automates d'analyse. Il lit les codes-barres, vérifie la conformité des tubes et sépare ceux qui doivent être centrifugés de ceux qui n'en ont pas besoin (comme les tubes de NFS) ; les premiers partent vers la centrifugeuse, intégrée à la chaîne ou séparée. Dans les laboratoires moins automatisés, le tri initial est manuel : on centrifuge d'abord en vrac, puis on répartit.</p>
+<p>Avantages : moins d'erreurs (traçabilité fiabilisée), gain de temps (plus de tri ni de débouchage manuel), sécurité biologique (décapsulage en circuit fermé, moins d'aérosols).</p>
+<h5>Fonctions</h5>
+<ul>
+<li>Chargement en vrac ou sur portoir.</li>
+<li>Lecture et identification du code-barres, associé au dossier dans le LIS.</li>
+<li>Contrôle de qualité : volume de liquide, gel séparateur (Gel-Check), tubes mal centrifugés.</li>
+<li>Ouverture et fermeture : débouchage avant l'analyse, rebouchage pour l'archivage.</li>
+<li>Tri et distribution vers les automates de destination (biochimie, hématologie, immunologie), ou aliquotage.</li>
+</ul>
+<h5>Composants</h5>
+<ol>
+<li><b>Zone de chargement</b> : chargeur en vrac (trémie, disques ou tapis qui alignent les tubes) ; tiroirs de portoirs pour les urgences (STAT).</li>
+<li><b>Vision et identification</b> : lecteur de code-barres multi-axes à 360° ; caméra 3D qui reconnaît le type de tube à ses dimensions et à la couleur du bouchon (EDTA, citrate, héparine).</li>
+<li><b>Contrôle qualité</b> : détection de niveau (optique ou ultrasons) ; Gel-Check, qui vérifie la barrière de gel et l'indice de sérum (hémolyse, ictère, lipémie).</li>
+<li><b>Robotique</b> : pince sur 3 axes (X, Y, Z) ; déboucheur qui tourne ou tire le bouchon sans projection d'aérosols ; aliquoteur à pipette de précision (optionnel).</li>
+<li><b>Sortie</b> : convoyeurs ou navettes magnétiques (pucks) vers la chaîne ; ou portoirs par destination si l'automate est autonome.</li>
+</ol>
+<h5>Technologies</h5>
+<ul>
+<li><b>Vision</b> : scanners et caméras à 360°, imagerie 3D (bouchon violet pour l'EDTA), infrarouge et spectrophotométrie pour la hauteur de plasma, le gel et les indices de sérum.</li>
+<li><b>Robotique</b> : cadences pouvant dépasser 1 000 tubes par heure ; robots cartésiens ou SCARA ; cobots qui s'arrêtent au contact d'un technicien ; décapsulage à retour d'effort.</li>
+<li><b>Convoyage</b> : pistes magnétiques et moteurs linéaires, sans secousse (le sang centrifugé ne se remélange pas) ; capteurs de proximité contre les collisions.</li>
+<li><b>Logiciel</b> : interfaçage LIS (HL7, ASTM) ; moteurs de règles qui réécrivent le parcours d'un tube (par exemple coagulation avant biochimie) ; RFID sous les portoirs.</li>
+<li><b>Manipulation des liquides</b> : pompes et seringues de précision (microlitres) ; capteurs de pression qui détectent un caillot pendant l'aspiration, stoppent et alertent.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois tubes arrivent du même patient : un EDTA (bouchon violet), un tube sec et un citrate. La caméra reconnaît les bouchons, le code-barres appelle la prescription : l'EDTA part directement en hématologie, sans centrifugation ; le tube sec et le citrate vont à la centrifugeuse ; après le Gel-Check, le tube sec, s'il n'est pas hémolysé, est débouché et envoyé en biochimie.</p>
+
+<h4>Formules clés</h4>
+<p>Charger, identifier, contrôler (volume, gel, indices de sérum), déboucher, trier, aliquoter.</p>
+<p>NFS (EDTA) : pas de centrifugation. Plus de 1 000 tubes par heure. Pistes magnétiques sans secousse. HL7, ASTM.</p>
+<p>Caillot pendant l'aspiration : le capteur de pression arrête et alerte.</p>
+</article>
+
+<div class="fin-partie" data-section="trier"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/automatisation.js"></script>
+<script src="../figures/lis-sih.js"></script>
+<script src="../figures/etiqueteuse.js"></script>
+<script src="../figures/pneumatique.js"></script>
+<script src="../figures/transport-robot.js"></script>
+<script src="../figures/automate-tri.js"></script>
+</body>
+</html>

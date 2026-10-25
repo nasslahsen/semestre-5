@@ -68,6 +68,13 @@
     }
     if (d) s("path", { d: d, fill: "none", stroke: "#d9dde6", "stroke-width": 7, "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-dasharray": "1 15" }, trace);
   }
+  var effacer = document.getElementById("effacer");
+  if (effacer) effacer.addEventListener("click", function () {
+    if (!confirm("Effacer toutes tes étoiles et ta progression dans ce module ?")) return;
+    P.effacer(MID);
+    location.reload();
+  });
+
   requestAnimationFrame(relier);
   addEventListener("resize", relier);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relier);

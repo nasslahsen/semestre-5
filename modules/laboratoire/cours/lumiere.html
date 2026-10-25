@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La lumière et la matière · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La lumière et la matière</h1>
+<p class="chapeau">La biochimie clinique repose sur des méthodes physico-chimiques, des méthodes optiques classiques aux automates modernes. Presque toutes commencent de la même façon : on envoie de la lumière dans un échantillon et on regarde ce qui en ressort. Avant de mesurer, il faut savoir ce qu'est cette lumière et ce qu'une molécule lui fait.</p>
+
+<h2>Intuition</h2>
+<p>Une solution de sang dilué paraît rouge parce qu'elle absorbe d'autres couleurs et laisse passer le rouge. Chaque molécule « mange » certaines longueurs d'onde et pas d'autres : c'est une signature. En choisissant la bonne longueur d'onde, on voit la molécule qu'on cherche ; en mesurant combien de lumière elle absorbe, on saura bientôt combien il y en a.</p>
+
+<div id="fig-lumiere"></div>
+
+<h2>Formalisation</h2>
+<h3>La lumière, une onde</h3>
+<p>La <strong>lumière</strong> est un rayonnement électromagnétique qui peut produire une sensation visuelle. Une onde est caractérisée par sa longueur d'onde \(\lambda\) (en nm), sa fréquence \(\nu\) (en s⁻¹ ou Hz) et sa période \(T\) (en s), l'équivalent temporel de la longueur d'onde :</p>
+\[ \nu = \frac{1}{T} = \frac{C}{\lambda} \qquad \lambda = \frac{C}{\nu} \]
+<p>avec \(C \approx 3 \times 10^{8}\) m/s, la vitesse de la lumière dans le vide. Le visible va d'environ 400 nm (violet) à 700 nm (rouge) ; en dessous, l'ultraviolet (UV), au-dessus, l'infrarouge (IR). Dans un milieu transparent, la lumière va un peu moins vite :</p>
+\[ V_0 = \frac{C}{N} \]
+<p>où \(N\) est l'indice de réfraction du milieu, en général entre 1,0 et 2,5.</p>
+<h3>Interaction rayonnement matière</h3>
+<p>Quand un rayonnement traverse de la matière (solide, liquide ou gaz), certaines longueurs d'onde sont absorbées de manière sélective. Une entité chimique qui absorbe un photon voit son énergie augmenter : elle passe à un état excité. Le retour à l'état fondamental se fait par émission de chaleur ou de lumière (fluorescence).</p>
+<p>Le rayonnement incident \(I_0\) peut être réfléchi (\(I_r\)), transmis (\(I_t\)), diffusé (\(I_d\)), absorbé, ou absorbé puis réémis en fluorescence (\(I_f\)).</p>
+<h3>Niveaux d'énergie d'une molécule</h3>
+\[ E = E_r + E_v + E_e \qquad E_e \gg E_v \gg E_r \]
+<p>avec l'énergie de rotation \(E_r\), de vibration \(E_v\) et électronique \(E_e\). Les transitions électroniques correspondent à l'UV et au visible, les transitions vibrationnelles à l'infrarouge, les transitions rotationnelles aux hyperfréquences.</p>
+<h3>Spectre d'absorption</h3>
+<p>Le <strong>spectre</strong> UV-visible est le tracé de l'absorbance en fonction de la longueur d'onde (en nm). Pour l'obtenir, il faut un spectrophotomètre.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une radiation de fréquence \(\nu = 5 \times 10^{14}\) Hz a pour longueur d'onde \(\lambda = \dfrac{3 \times 10^{8}}{5 \times 10^{14}} = 6 \times 10^{-7}\) m, soit 600 nm : dans le visible, vers l'orange. Dans un verre d'indice 1,6, cette lumière va à \(\dfrac{3 \times 10^{8}}{1{,}6} \approx 1{,}9 \times 10^{8}\) m/s.</p>
+
+<h2>Formules clés</h2>
+\[ \nu = \frac{1}{T} = \frac{C}{\lambda} \qquad V_0 = \frac{C}{N} \qquad E = E_r + E_v + E_e,\ E_e \gg E_v \gg E_r \]
+<p>Visible : 400 à 700 nm ; UV en dessous, IR au-dessus.</p>
+<p>Lumière incidente : réfléchie, transmise, diffusée, absorbée, réémise en fluorescence.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/lumiere.js"></script>
+</body>
+</html>

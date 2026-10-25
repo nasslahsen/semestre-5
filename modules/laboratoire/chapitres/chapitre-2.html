@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Échantillons et phase pré-analytique</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 2. -->
+<main class="cours-chapitre" data-chapitre="2">
+<p class="etiquette" data-etiquette></p>
+<h1>Échantillons et phase pré-analytique</h1>
+
+<section class="partie" id="s-echantillons-prelevement">
+<p class="rang-partie">1 / 5</p>
+<h2>Échantillons et prélèvement</h2>
+
+<article class="notion" id="n-echantillons">
+<h3>Principaux types d'échantillons biologiques</h3>
+<p class="chapeau">Sang total, plasma ou sérum ? Urine du matin ou de milieu de jet ? Le médecin ne demande pas « un tube de sang » : il demande un échantillon précis, et toute la suite du travail en dépend.</p>
+
+<h4>Intuition</h4>
+<p>Le même sang peut donner trois échantillons différents. Laissé tel quel avec un produit qui l'empêche de coaguler : c'est du sang total, cellules comprises. Centrifugé : les cellules tombent au fond, il reste un liquide jaune, le plasma. Laissé coaguler avant de le centrifuger : le caillot emporte les protéines de la coagulation, et le liquide qui reste est le sérum. Les échantillons sont la matière première de toute analyse : leur nature conditionne toutes les étapes pré-analytiques.</p>
+
+<div id="fig-echantillons"></div>
+
+<h4>Formalisation</h4>
+<h5>A. Échantillons sanguins</h5>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Description</th><th>Obtention</th></tr>
+<tr><td>Sang total</td><td>Sang complet, avec cellules et plasma</td><td>Tube avec anticoagulant (EDTA, citrate, héparine)</td></tr>
+<tr><td>Plasma</td><td>Fraction liquide après centrifugation du sang anticoagulé</td><td>Tube EDTA, citrate ou héparine, puis centrifugation</td></tr>
+<tr><td>Sérum</td><td>Fraction liquide après coagulation complète</td><td>Tube sec ou avec gel séparateur, puis centrifugation</td></tr>
+</table></div>
+<h5>B. Échantillons urinaires</h5>
+<ul>
+<li><b>Urines de premier jet</b> : recueil du matin, premier jet, pour la cytologie urinaire.</li>
+<li><b>Urines de milieu de jet</b> : après nettoyage périnéal, pour l'ECBU (examen cytobactériologique des urines).</li>
+<li><b>Urines stériles</b> : par cathétérisme ou ponction sus-pubienne.</li>
+<li><b>Recueil des 24 heures</b> : pour un bilan métabolique, avec une conservation adaptée.</li>
+</ul>
+<h5>C. Autres échantillons</h5>
+<ul>
+<li><b>Selles</b> : coproculture, parasitologie, recherche de sang occulte.</li>
+<li><b>Crachats</b> : expectoration profonde, après rinçage buccal.</li>
+<li><b>LCR</b> (liquide céphalo-rachidien) : ponction lombaire, manipulation stérile immédiate.</li>
+<li><b>Liquides de ponction</b> : pleural, péritonéal, synovial.</li>
+<li><b>Moelle osseuse</b> : myélogramme, frottis et/ou biopsie.</li>
+<li><b>Prélèvements tissulaires</b> : biopsies, pièces opératoires (anatomopathologie).</li>
+<li><b>Écouvillonnages</b> : gorge, nez, vagin, rectum, plaies.</li>
+</ul>
+<p>La réglementation française citée au cours (article D. 6211-2 du Code de la santé publique) impose que le contenant soit adapté à la nature du prélèvement, et que la nature et la concentration de l'additif (anticoagulant, conservateur) soient clairement identifiées.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour un bilan de coagulation, on veut garder intactes les protéines de la coagulation : on travaille sur plasma (tube citrate), pas sur sérum, puisque le sérum est justement ce qui reste après que la coagulation a consommé ces protéines. Pour une numération des cellules, on garde le sang total : centrifuger séparerait les cellules qu'on veut compter.</p>
+
+<h4>Formules clés</h4>
+<p>Sang total : cellules et plasma, tube anticoagulé. Plasma : sang anticoagulé centrifugé. Sérum : après coagulation complète, tube sec ou à gel, centrifugé.</p>
+<p>Urines : premier jet (cytologie), milieu de jet (ECBU), stériles (cathétérisme, ponction), 24 heures (bilan métabolique).</p>
+<p>Contenant adapté à la nature du prélèvement ; nature et concentration de l'additif identifiées.</p>
+</article>
+
+<article class="notion" id="n-prelevement">
+<h3>Principes généraux de prélèvement</h3>
+<p class="chapeau">Un prélèvement se prépare avant de piquer, se fait dans un ordre précis, et se termine au chevet du patient. Chaque règle a une raison : un tube rempli dans le mauvais ordre peut fausser le tube suivant.</p>
+
+<h4>Intuition</h4>
+<p>Quand l'aiguille passe d'un tube à l'autre, une infime quantité du contenu du tube précédent peut être entraînée dans le suivant. Si le tube précédent contient un anticoagulant, il contamine le suivant. D'où un ordre fixe de remplissage : les tubes les plus sensibles à une contamination passent d'abord. Le reste suit la même logique : préparer pour ne rien oublier, prélever sans abîmer les cellules, étiqueter tout de suite pour ne jamais confondre deux patients.</p>
+
+<div id="fig-prelevement"></div>
+
+<h4>Formalisation</h4>
+<h5>A. Avant le prélèvement</h5>
+<ol>
+<li><b>Vérification de la prescription</b> : identité du patient, nature de l'examen, renseignements cliniques.</li>
+<li><b>Identification du patient</b> : nom de naissance, prénom, date de naissance, sexe, numéro d'identification unique.</li>
+<li><b>Préparation du patient</b> : respect du jeûne (généralement 8 à 12 heures pour un bilan lipidique et glycémique) ; éviter l'effort physique, le tabac, l'alcool avant certains dosages ; recueil des traitements en cours (médicaments pouvant interférer).</li>
+<li><b>Préparation du matériel</b> : dispositifs stériles à usage unique ; vérification des dates de péremption ; choix des tubes adaptés (la couleur du bouchon indique le type d'additif).</li>
+</ol>
+<h5>B. Pendant le prélèvement</h5>
+<p><strong>Ordre de remplissage des tubes</strong> (recommandations CLSI) :</p>
+<div class="tableau"><table>
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+<tr><td>Hémoculture</td><td>Tube sec (sérum)</td><td>Citrate (coagulation)</td><td>Héparine</td><td>EDTA</td><td>Fluorure / oxalate (glycémie)</td><td>Autres additifs</td></tr>
+</table></div>
+<p>Technique : asepsie du site de ponction ; garrot posé <b>moins d'une minute</b> (éviter hémolyse et stase) ; remplissage correct des tubes (respect du trait de jauge pour les tubes à citrate) ; homogénéisation immédiate par <b>retournements doux, 8 à 10 fois</b>, pour les tubes avec additif ; ne jamais secouer vigoureusement (risque d'hémolyse).</p>
+<h5>C. Après le prélèvement</h5>
+<ul>
+<li><b>Étiquetage au chevet du patient</b> : immédiat, manuscrit ou par code-barres.</li>
+<li><b>Élimination des déchets</b> : aiguilles et lames dans le collecteur DASRI (jaune).</li>
+<li><b>Transport rapide</b> vers le laboratoire.</li>
+<li><b>Enregistrement</b> : date et heure du prélèvement, heure de réception.</li>
+</ul>
+<p>Erreur majeure à éviter : <strong>ne jamais étiqueter les tubes à l'avance, ni hors de la présence du patient</strong>.</p>
+<p class="complement">Les couleurs de bouchons de la figure sont celles des tubes sous vide les plus répandus ; elles peuvent varier selon le fabricant.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un médecin demande une hémoculture, un bilan de coagulation, une numération et une glycémie. L'ordre est : hémoculture, citrate, EDTA, fluorure. S'il n'y a pas de tube sec ni d'héparine, on saute simplement ces rangs : l'ordre relatif des tubes prélevés ne change pas.</p>
+
+<h4>Formules clés</h4>
+<p>Ordre CLSI : hémoculture → sec → citrate → héparine → EDTA → fluorure / oxalate → autres additifs.</p>
+<p>Garrot moins d'une minute ; trait de jauge des tubes à citrate ; 8 à 10 retournements doux, jamais secouer.</p>
+<p>Jeûne généralement 8 à 12 h (bilan lipidique et glycémique).</p>
+<p>Étiqueter au chevet, immédiatement ; jamais à l'avance ni hors de la présence du patient ; aiguilles au collecteur DASRI jaune.</p>
+</article>
+
+<div class="fin-partie" data-section="echantillons-prelevement"></div>
+</section>
+
+<section class="partie" id="s-identification">
+<p class="rang-partie">2 / 5</p>
+<h2>Identifier et tracer</h2>
+
+<article class="notion" id="n-identification">
+<h3>Identification et traçabilité des échantillons</h3>
+<p class="chapeau">Un résultat parfaitement mesuré ne sert à rien, et devient même dangereux, s'il est attribué au mauvais patient. Chaque tube doit pouvoir dire, sans ambiguïté, à qui il appartient, qui l'a prélevé, quand et où.</p>
+
+<h4>Intuition</h4>
+<p>Pense à un colis sans adresse : impossible de le livrer, et l'ouvrir pour deviner ne suffit pas. Un tube sans identification fiable est pareil, en pire : deviner son propriétaire pourrait faire soigner quelqu'un pour la maladie d'un autre. C'est pourquoi la règle est absolue : mal identifié, il n'est pas analysé. Et pour qu'on puisse toujours remonter le fil, chaque étape de sa vie est enregistrée, jusqu'aux produits qu'on en tire.</p>
+
+<div id="fig-identification"></div>
+
+<h4>Formalisation</h4>
+<h5>A. Mentions obligatoires sur l'échantillon</h5>
+<p>Selon la réglementation française citée au cours (Code de la santé publique, article D. 6211-2) :</p>
+<div class="tableau"><table>
+<tr><th>Identification du patient</th><th>Identification du préleveur</th><th>Identification de l'échantillon</th></tr>
+<tr><td>Nom de naissance (nom patronymique) ; nom d'usage le cas échéant ; prénom(s) ; date de naissance ; sexe ; numéro d'identification unique (NIP ou identifiant de santé)</td><td>Nom et prénom ; qualité ou profession ; numéro d'identification professionnelle (RPPS ou ADELI)</td><td>Nature de l'examen ; date et heure du prélèvement ; conditions particulières (jeûne, traitement…)</td></tr>
+</table></div>
+<h5>B. Traçabilité</h5>
+<ul>
+<li><b>Principe</b> : tout échantillon doit pouvoir être relié de manière univoque à un patient, à un préleveur, à un moment et à un lieu.</li>
+<li><b>Support</b> : étiquette avec code-barres (1D ou 2D), système d'information du laboratoire (LIS).</li>
+<li><b>Chaîne de traçabilité</b> : prélèvement → transport → réception → enregistrement → analyse → résultat → archivage.</li>
+<li><b>Dérivés biologiques</b> : ADN, ARN, extraits protéiques, aliquotes congelées doivent rester traçables au tube d'origine.</li>
+<li><b>Conservation des données</b> : durée minimale de 5 ans pour les données de biologie médicale (variable selon les examens).</li>
+</ul>
+<h5>C. Norme ISO 15189</h5>
+<p>L'ISO 15189 (laboratoires de biologie médicale) exige : une procédure documentée d'identification des patients et des échantillons ; la vérification de l'identité avant tout prélèvement ; un système d'identification unique et non ambigu ; la gestion des non-conformités (échantillon non identifié = rejet et nouveau prélèvement).</p>
+<p><strong>Règle absolue</strong> : un échantillon non identifié ou mal identifié ne peut en aucun cas être analysé. Il doit être détruit selon la procédure en vigueur, et un nouveau prélèvement doit être demandé.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux patients du même service s'appellent Benali, nés la même année. Le nom et l'année ne suffisent pas : la date de naissance complète, le sexe et surtout le numéro d'identification unique les distinguent sans ambiguïté. Six mois plus tard, on extrait de l'ADN d'une aliquote congelée : cet ADN doit encore pouvoir être rattaché au tube de départ, donc au patient.</p>
+
+<h4>Formules clés</h4>
+<p>Mentions : patient (nom de naissance, nom d'usage, prénoms, date de naissance, sexe, numéro unique), préleveur (nom, qualité, RPPS ou ADELI), échantillon (examen, date et heure, conditions particulières).</p>
+<p>Chaîne : prélèvement → transport → réception → enregistrement → analyse → résultat → archivage. Données : au moins 5 ans.</p>
+<p>Non identifié ou mal identifié : jamais analysé ; destruction et nouveau prélèvement.</p>
+</article>
+
+<div class="fin-partie" data-section="identification"></div>
+</section>
+
+<section class="partie" id="s-conserver">
+<p class="rang-partie">3 / 5</p>
+<h2>Conserver et transporter</h2>
+
+<article class="notion" id="n-conservation">
+<h3>Conservation et transport des échantillons</h3>
+<p class="chapeau">Entre le prélèvement et l'analyse, l'échantillon continue de vivre : des cellules consomment le glucose, des enzymes se dégradent, des bactéries poussent ou meurent. La bonne température et le bon délai figent l'échantillon dans l'état où il a été prélevé.</p>
+
+<h4>Intuition</h4>
+<p>Plus il fait chaud, plus la chimie et la biologie vont vite. Refroidir ralentit tout : c'est le principe du réfrigérateur de cuisine. Mais chaque échantillon a ses exceptions : une hémoculture veut des bactéries vivantes, donc de la chaleur, jamais du froid ; un gaz du sang change en quelques minutes, donc on l'analyse tout de suite, dans la glace. On choisit une température selon la durée de conservation et selon ce qu'on veut mesurer.</p>
+
+<div id="fig-conservation"></div>
+
+<h4>Formalisation</h4>
+<h5>A. Températures de conservation</h5>
+<div class="tableau"><table>
+<tr><th>Température</th><th>Usage</th><th>Exemples</th></tr>
+<tr><td>Ambiante (15 à 25 °C)</td><td>Transport court, certains examens</td><td>Hématologie, cytologie</td></tr>
+<tr><td>+2 à +8 °C</td><td>Conservation de courte durée</td><td>Biochimie, sérologie, ECBU</td></tr>
+<tr><td>−20 °C</td><td>Conservation de moyenne durée</td><td>Aliquotes de sérum ou de plasma</td></tr>
+<tr><td>−70 °C ou −80 °C</td><td>Conservation de longue durée</td><td>Biologie moléculaire, virologie</td></tr>
+<tr><td>Azote liquide (−196 °C)</td><td>Conservation de cellules et de tissus</td><td>Cryopréservation, PMA</td></tr>
+</table></div>
+<h5>B. Règles générales de transport</h5>
+<ul>
+<li><b>Délai</b> : le plus rapide possible (généralement moins de 2 heures pour les examens urgents).</li>
+<li><b>Température contrôlée</b> : glacières avec pain de glace (2 à 8 °C) ou conteneurs adaptés.</li>
+<li><b>Traçabilité</b> : heure de départ, heure d'arrivée, conditions de transport.</li>
+<li><b>Sécurité</b> : <strong>triple emballage</strong> (tube primaire → emballage secondaire → emballage extérieur rigide), selon les règles de transport des matières biologiques (ADR, UN 3373).</li>
+<li><b>Documents</b> : bordereau de transport qui accompagne les échantillons, séparé physiquement des tubes.</li>
+</ul>
+<h5>C. Transports spécifiques</h5>
+<div class="tableau"><table>
+<tr><th>Échantillon</th><th>Conditions</th></tr>
+<tr><td>Gaz du sang</td><td>Transport immédiat, dans la glace, analyse en moins de 30 minutes</td></tr>
+<tr><td>Hémocultures</td><td>Incubation à 35 à 37 °C dès que possible, ne jamais réfrigérer</td></tr>
+<tr><td>Coagulation</td><td>Température ambiante, analyse en moins de 4 heures</td></tr>
+<tr><td>Ammoniémie</td><td>Dans la glace, analyse immédiate</td></tr>
+<tr><td>Cytologie urinaire</td><td>Transport rapide, éviter la réfrigération prolongée</td></tr>
+</table></div>
+<h5>D. Conservation au laboratoire</h5>
+<ul>
+<li><b>Sérum ou plasma</b> : aliquotage dès réception, +4 °C pour une analyse dans les 24 à 48 heures, sinon congélation.</li>
+<li><b>Urines</b> : analyse dans les 2 heures, sinon +4 °C (au maximum 24 heures).</li>
+<li><b>LCR</b> : analyse immédiate ; conservation à 37 °C pour certains examens.</li>
+<li><b>Biopsies</b> : fixation immédiate dans du formol tamponné à 10 %, ou congélation selon l'indication.</li>
+<li>Éviter les <b>cycles de congélation et décongélation</b> : chaque cycle dégrade les analytes.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un sérum arrive le vendredi soir pour un dosage prévu le mardi suivant. Au-delà de 48 heures, le +4 °C ne suffit plus : on l'aliquote dès réception et on congèle les aliquotes à −20 °C. Le mardi, on décongèle une seule aliquote, celle qu'on analyse ; les autres restent congelées, sans cycle inutile.</p>
+
+<h4>Formules clés</h4>
+<p>Ambiante 15 à 25 °C (transport court) ; +2 à +8 °C (courte durée) ; −20 °C (moyenne durée) ; −70 à −80 °C (longue durée) ; −196 °C, azote liquide (cellules, tissus).</p>
+<p>Transport : délai court (souvent moins de 2 h pour l'urgent), 2 à 8 °C en glacière, traçabilité, triple emballage (UN 3373), bordereau séparé.</p>
+<p>Gaz du sang : glace, moins de 30 min. Hémoculture : 35 à 37 °C, jamais au froid. Coagulation : ambiante, moins de 4 h. Ammoniémie : glace, immédiat.</p>
+<p>Urines : 2 h, sinon +4 °C au plus 24 h. Éviter les cycles de congélation et décongélation.</p>
+</article>
+
+<article class="notion" id="n-froid">
+<h3>Réfrigérateurs et congélateurs</h3>
+<p class="chapeau">Sang, réactifs, aliquotes, souches : une bonne partie du laboratoire dort au froid. Un réfrigérateur qui dérive de quelques degrés pendant la nuit peut rendre inutilisable tout ce qu'il contient. L'ingénieur doit savoir comment le froid est produit, et comment on prouve qu'il a été tenu.</p>
+
+<h4>Intuition</h4>
+<p>Un réfrigérateur ne « fabrique » pas du froid : il déplace de la chaleur, de l'intérieur vers l'extérieur. Un fluide frigorigène fait le travail en changeant d'état. En s'évaporant à l'intérieur, il absorbe de la chaleur, comme l'alcool qui rafraîchit la peau en séchant. Compressé à l'extérieur, il se condense et rend cette chaleur à la pièce : c'est pourquoi l'arrière d'un réfrigérateur est chaud. Une isolation épaisse empêche la chaleur de la pièce de revenir aussi vite qu'on l'a sortie.</p>
+
+<div id="fig-froid"></div>
+
+<h4>Formalisation</h4>
+<h5>Rôle et classes de température</h5>
+<p>Réfrigérateurs et congélateurs assurent un environnement de température contrôlée (enceinte réfrigérée) pour conserver le sang et ses dérivés, les liquides et tissus biologiques, les réactifs et les produits chimiques. À basse température, l'activité chimique et biologique est réduite. Selon l'intervalle de température, on distingue :</p>
+<div class="tableau"><table>
+<tr><th>Appareil</th><th>Températures</th></tr>
+<tr><td>Réfrigérateurs conservateurs</td><td>2 à 8 °C</td></tr>
+<tr><td>Congélateurs basse température</td><td>−15 à −35 °C</td></tr>
+<tr><td>Congélateurs ultra-basse température</td><td>−60 à −86 °C</td></tr>
+</table></div>
+<p>On choisit l'appareil selon l'activité : du sang total se conserve dans un réfrigérateur pour banque de sang (2 à 8 °C) ; des souches virales ou microbiennes, dans un congélateur ultra-basse température.</p>
+
+<h5>Principe : le cycle de compression</h5>
+<p>Réfrigérateurs et congélateurs fonctionnent selon les lois du transfert d'énergie entre températures différentes (deuxième principe de la thermodynamique), principalement par un <strong>cycle de compression</strong> d'un gaz réfrigérant. Le circuit frigorifique a quatre éléments principaux :</p>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Ce qui s'y passe</th></tr>
+<tr><td>Évaporateur</td><td>Réseau de tuyaux dans l'enceinte. Le réfrigérant y entre liquide, absorbe la chaleur à pression constante et se transforme progressivement en vapeur.</td></tr>
+<tr><td>Compresseur</td><td>Actionné par un moteur électrique, il aspire à basse pression (BP) la vapeur saturée et la comprime de façon adiabatique (sans transfert de chaleur) jusqu'à la haute pression (HP).</td></tr>
+<tr><td>Condenseur</td><td>Réseau de tuyaux à ailettes ; le réfrigérant, plus chaud que la pièce, lui cède sa chaleur à pression constante et redevient liquide saturé.</td></tr>
+<tr><td>Détendeur</td><td>Oppose une résistance au passage du réfrigérant : la pression chute très fortement. Certains fabricants le remplacent par un tube capillaire.</td></tr>
+</table></div>
+<p>Autres éléments : un <b>filtre</b> (retient l'humidité et les impuretés), un <b>collecteur de liquide</b> (seule la vapeur doit entrer dans le compresseur), l'<b>isolation thermique</b> (mousse de polyuréthane, laine de verre ; parois internes en plastique ABS), des <b>robinets de service</b> (réservés au fabricant et aux techniciens spécialisés), une <b>protection thermique</b> (coupe le compresseur en cas de surcharge). Les <b>fluides frigorigènes</b> sont des fréons (HCFC, CFC), certains hydrocarbures, ou des composés inorganiques comme l'ammoniac.</p>
+
+<h5>Installation et circuit de contrôle</h5>
+<p>Raccordement électrique avec prise de terre, adapté au voltage et à la fréquence (en général 220 à 240 V, 50 Hz) ; brancher directement sur la prise, jamais sur une prise multiple ; surface plane et horizontale, espace libre autour ; à l'écart du soleil direct et des sources de chaleur. Le circuit de contrôle comprend l'interrupteur principal, l'interrupteur de porte, le compresseur, les ventilateurs de l'évaporateur, le sous-système de dégivrage et le thermostat.</p>
+<p>Utilisation : attendre que l'appareil atteigne sa température (les fabricants règlent les réfrigérateurs sur environ 4 °C) ; régler l'alarme ; charger selon la capacité et répartir la charge (l'air doit circuler) ; ne pas laisser la porte ouverte (givre, montée en température).</p>
+
+<h5>Entretien de routine</h5>
+<div class="tableau"><table>
+<tr><th>Opération</th><th>Fréquence</th><th>Points clés</th></tr>
+<tr><td>Nettoyage de l'intérieur</td><td>Une fois par trimestre</td><td>Détergent doux, étagères et tiroirs sortis</td></tr>
+<tr><td>Nettoyage du condenseur</td><td>Tous les six mois</td><td>Appareil débranché ; un condenseur sale gêne le transfert de chaleur</td></tr>
+<tr><td>Joint de porte</td><td>Une fois par trimestre</td><td>Bande de papier de 5 cm : elle doit résister quand on la tire ; tous les 10 cm, sur tout le joint</td></tr>
+<tr><td>Dégivrage</td><td>Tous les six mois</td><td>Jamais d'instrument pointu sur l'évaporateur</td></tr>
+</table></div>
+<p>Un joint en mauvais état laisse entrer l'humidité (givre sur l'évaporateur), allonge le travail du compresseur, modifie la température et augmente le coût de fonctionnement.</p>
+
+<h5>Congélateurs ultra-basse température et azote liquide</h5>
+<p>Le congélateur ressemble au réfrigérateur, avec une puissance supérieure et une isolation renforcée (−20, −45, −80 °C au laboratoire). Certains congélateurs ultra-basse température demandent environ 12 kW : prise reliée à la terre, réservée à l'appareil. Les limites d'alarme ne s'écartent en général pas de plus de 10 % de la température de fonctionnement. D'autres alarmes signalent un défaut d'alimentation, une baisse de tension, une température ambiante excessive, un dépassement de la limite inférieure.</p>
+<p>L'<b>azote liquide</b> est le diazote refroidi sous son point d'ébullition, −195,79 °C ; on le stocke dans des bonbonnes isothermes, les vases de Dewar ; il sert à conserver tissus, ovules, sperme ou moelle osseuse.</p>
+<p>La <strong>traçabilité de la température</strong>, c'est avoir des preuves chiffrées que les consignes de température ont été respectées.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un congélateur fonctionne à −80 °C. Avec des limites à 10 %, l'alarme se déclenche au-dessus de −72 °C (trop chaud) et en dessous de −88 °C (trop froid) : 10 % de 80, c'est 8 degrés de chaque côté.</p>
+
+<h4>Formules clés</h4>
+<p>Conservateurs 2 à 8 °C ; basse température −15 à −35 °C ; ultra-basse température −60 à −86 °C ; azote liquide −195,79 °C.</p>
+<p>Cycle : évaporateur (absorbe la chaleur, vaporise) → compresseur (BP → HP) → condenseur (cède la chaleur, liquéfie) → détendeur (HP → BP).</p>
+<p>Entretien : intérieur et joint chaque trimestre ; condenseur et dégivrage tous les six mois. Alarmes à ± 10 % de la température de fonctionnement.</p>
+</article>
+
+<div class="fin-partie" data-section="conserver"></div>
+</section>
+
+<section class="partie" id="s-centrifuger">
+<p class="rang-partie">4 / 5</p>
+<h2>Centrifuger</h2>
+
+<article class="notion" id="n-centrifugation">
+<h3>Centrifugation et préparation des échantillons</h3>
+<p class="chapeau">Pour obtenir un sérum, on fait tourner le tube très vite : les cellules, plus denses, filent au fond. Mais « très vite » ne veut rien dire tant qu'on ne précise pas la force réellement appliquée, qui dépend aussi de la taille du rotor.</p>
+
+<h4>Intuition</h4>
+<p>Dans un manège, tu es plaqué contre la paroi, et d'autant plus fort que le manège tourne vite et que tu es loin du centre. Dans une centrifugeuse, c'est pareil pour les particules d'un échantillon : la force dépend de la vitesse de rotation au carré et de la distance à l'axe. Deux centrifugeuses à la même vitesse, mais avec des rotors de rayons différents, n'appliquent pas la même force. C'est pourquoi on exprime la centrifugation en « × g », la force rapportée à la pesanteur, et pas seulement en tours par minute.</p>
+
+<div id="fig-centrifugation"></div>
+
+<h4>Formalisation</h4>
+<h5>A. Principes</h5>
+<p>La centrifugation sépare les composants d'un mélange selon leur <strong>densité</strong> et leur <strong>taille</strong>, sous l'effet de la force centrifuge. Paramètres clés : la vitesse, en tours par minute (RPM) ou en force centrifuge relative (× g) ; le temps ; la température (certaines centrifugations à 4 °C) ; le rayon du rotor, qui influence la force appliquée.</p>
+\[ \text{RCF} = 1{,}118 \times 10^{-5} \times r \times N^2 \]
+<p>avec RCF la force centrifuge relative (en × g), \(r\) le rayon du rotor en centimètres et \(N\) la vitesse en tours par minute. Le support du cours écrit aussi cette formule avec le coefficient \(1{,}119 \times 10^{-5}\) ; l'écart est négligeable.</p>
+<h5>B. Types de centrifugation</h5>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Principe</th><th>Applications</th></tr>
+<tr><td>Différentielle</td><td>Séparation par taille et densité, vitesse croissante</td><td>Fractionnement cellulaire (noyaux, mitochondries, microsomes)</td></tr>
+<tr><td>En gradient de densité</td><td>Séparation par densité de flottaison</td><td>Séparation des PBMC (Ficoll-Paque), purification virale</td></tr>
+<tr><td>Ultracentrifugation</td><td>60 000 à 150 000 RPM</td><td>Séparation des virus, ribosomes, macromolécules</td></tr>
+<tr><td>En gradient de sucrose</td><td>Gradient continu ou discontinu</td><td>Purification des organites</td></tr>
+</table></div>
+<h5>C. Applications pratiques</h5>
+<ul>
+<li><b>Sérum ou plasma</b> : sang total centrifugé à 2 000 à 2 500 × g pendant 10 à 15 minutes, à température ambiante. Pour le plasma : tube avec anticoagulant, centrifugation immédiate. Pour le sérum : attendre la coagulation complète (30 à 60 minutes, à 37 °C ou à température ambiante), puis centrifuger.</li>
+<li><b>PBMC</b> (cellules mononucléées du sang périphérique) : diluer le sang total avec du PBS ; le déposer délicatement sur du Ficoll-Paque (densité 1,077 g/mL) ; centrifuger à 400 à 450 × g pendant 30 minutes à température ambiante, <b>frein désactivé</b> (pour ne pas perturber le gradient) ; récupérer l'anneau à l'interface ; laver plusieurs fois.</li>
+<li><b>Aliquotes</b> : petits volumes (200 à 500 µL) pour éviter les cycles de congélation et décongélation ; identification précise (nature, date, patient, numéro d'aliquote) ; congélation rapide (azote liquide ou −80 °C).</li>
+</ul>
+<h5>D. Précautions</h5>
+<p><b>Équilibrage</b> : toujours équilibrer la centrifugeuse, masses égales face à face. <b>Hémolyse</b> : éviter les vitesses excessives et les accélérations brutales. <b>Température</b> : respecter celle recommandée pour chaque analyse. <b>Stérilité</b> : pour les échantillons destinés à la culture cellulaire. <b>Matériel</b> : des tubes adaptés, qui résistent à la centrifugation.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une centrifugeuse a un rotor de rayon 15 cm. Pour viser 2 000 × g, on cherche N tel que \(1{,}118 \times 10^{-5} \times 15 \times N^2 = 2\,000\), soit \(N^2 \approx 11\,926\,000\) et \(N \approx 3\,450\) tr/min. Sur un rotor de 10 cm, la même vitesse ne donnerait que \(1{,}118 \times 10^{-5} \times 10 \times 3\,450^2 \approx 1\,330\) × g : trop peu.</p>
+
+<h4>Formules clés</h4>
+\[ \text{RCF} = 1{,}118 \times 10^{-5} \times r\,(\text{cm}) \times N^2\,(\text{tr/min}) \qquad N = \sqrt{\frac{\text{RCF}}{1{,}118 \times 10^{-5} \times r}} \]
+<p>Sérum ou plasma : 2 000 à 2 500 × g, 10 à 15 min ; sérum après 30 à 60 min de coagulation.</p>
+<p>PBMC : Ficoll 1,077 g/mL, 400 à 450 × g, 30 min, frein désactivé. Aliquotes de 200 à 500 µL.</p>
+<p>Toujours équilibrer : masses égales face à face.</p>
+</article>
+
+<article class="notion" id="n-centrifugeuse">
+<h3>La centrifugeuse : principe, rotors et maintenance</h3>
+<p class="chapeau">Une centrifugeuse tourne à plusieurs milliers de tours par minute avec des tubes de sang à bord. Bien choisie, bien chargée et bien entretenue, elle est l'un des appareils les plus sûrs du laboratoire ; négligée, elle devient l'un des plus dangereux.</p>
+
+<h4>Intuition</h4>
+<p>Une goutte de sang au repos sédimente lentement : les globules rouges finissent par tomber, mais il faut des heures. En faisant tourner le tube, on remplace la pesanteur par une force des milliers de fois plus grande, et la même séparation prend quelques minutes. Le rotor fixe la géométrie du trajet : tube incliné, tube qui bascule à l'horizontale, ou tube vertical. Et un rotor qui tourne si vite ne pardonne ni le déséquilibre, ni la corrosion, ni un couvercle ouvert en marche.</p>
+
+<div id="fig-centrifugeuse"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition et principe</h5>
+<p>Une <strong>centrifugeuse</strong> est un appareil qui imprime une accélération, par un mouvement de rotation, à un mélange non homogène pour en séparer les différentes phases, selon leur différence de densité. Au laboratoire, elle sépare par sédimentation les éléments solides des liquides biologiques, en particulier les éléments figurés du sang (globules rouges, globules blancs, plaquettes). On trouve des centrifugeuses de paillasse, des ultracentrifugeuses, des centrifugeuses à hématocrite et des centrifugeuses sur pied.</p>
+<p>Elle applique la loi de Newton : un corps de masse \(M\) qui tourne à la vitesse angulaire \(\omega\) à la distance \(R\) de l'axe subit une force centrifuge dirigée vers l'extérieur :</p>
+\[ F = M\,\omega^2 R \]
+<p>Les particules les plus denses se déposent au fond du tube en peu de temps ; les plus légères mettent plus longtemps et se déposent au-dessus. En réalité, un composé à la distance \(r\) de l'axe subit plusieurs forces : la pesanteur \(F_p\) (descendante), la poussée d'Archimède \(F_a\) (ascendante), une force de friction \(F_v\), la force centripète \(F'_c\) et la force centrifuge \(F_c\). La séparation s'opère par l'action de la force centrifuge \(F_c\). Pour un même volume, la pesanteur dépend de la densité mais pas la poussée d'Archimède : la particule flotte si \(F_a &gt; F_p\) et coule si \(F_a &lt; F_p\).</p>
+
+<h5>Éléments</h5>
+<p>Panneau de contrôle (interrupteur marche-arrêt, minuteur, réglage de la vitesse, de la température sur les modèles réfrigérés, contrôle des vibrations, système de freinage) ; système de réfrigération (modèles réfrigérés) ; base, couvercle, boîtier, moteur électrique ; rotor. Les modèles récents ont des microprocesseurs, des programmes en mémoire et des moteurs à induction (sans charbons).</p>
+
+<h5>Types de rotors</h5>
+<div class="tableau"><table>
+<tr><th>Rotor</th><th>Caractéristiques</th></tr>
+<tr><td>À angle fixe (angulaire)</td><td>D'usage courant. Tubes maintenus à un angle fixe, entre 20 et 45 degrés selon le modèle. Pour sédimenter des particules infracellulaires ; l'angle raccourcit la trajectoire et le temps de sédimentation par rapport aux godets oscillants.</td></tr>
+<tr><td>À godets oscillants (libres)</td><td>Pour des études isopycniques (séparation par densité) et de séparation zonale (par taille), quand une résolution maximale des zones est requise.</td></tr>
+<tr><td>À tubes verticaux</td><td>Tubes parallèles à l'axe de rotation : les bandes se forment parallèlement à l'axe des tubes. Études isopycniques et parfois zonales, quand un temps de centrifugation court est important. Tubes spécialement conçus.</td></tr>
+<tr><td>À tubes quasi verticaux</td><td>Pour la centrifugation en gradient de densité quand certains éléments de l'échantillon ne participent pas au gradient ; faible inclinaison.</td></tr>
+</table></div>
+<p>Le fabricant spécifie pour chaque rotor : son type, sa capacité nominale (en litres ou sous-multiples), sa vitesse maximale (tr/min) et sa force centrifuge relative maximale.</p>
+
+<h5>Installation</h5>
+<p>Alimentation électrique de capacité adaptée ; environnement propre, sans poussière, plancher ferme et horizontal ; espace libre du côté du condenseur pour les modèles réfrigérés ; armoire de rangement pour les accessoires et les rotors.</p>
+
+<h5>Entretien et maintenance</h5>
+<ul>
+<li>Toujours <b>désinfecter</b> la cuve, la tête, les godets et les joints avant toute intervention sur une centrifugeuse utilisée pour des échantillons biologiques ou infectieux. Ne jamais intervenir sur une centrifugeuse non décontaminée.</li>
+<li><b>Rotors</b> : enregistrer la date d'achat, le modèle et le numéro de série ; ne les utiliser qu'avec la centrifugeuse prévue ; respecter vitesse maximale et densité des échantillons ; pas de détergents alcalins ; brosses en plastique, jamais métalliques ; laver immédiatement après une projection corrosive, sécher à l'air ; stocker au sec, pas dans la centrifugeuse ; charger et décharger dans une enceinte de sécurité biologique pour le groupe de risque 2 ou plus.</li>
+<li>Ne jamais ouvrir le couvercle d'une centrifugeuse en marche, ni freiner le rotor à la main.</li>
+<li><b>Tubes</b> : lavage à la main, avec des gants, dans une solution de détergent doux à 1/10 ; verre stérilisé à la vapeur à 121 °C pendant 30 minutes ; stockage au frais, au sec, à l'abri de la lumière ; vérifier le niveau de remplissage et la fermeture des tubes en verre mince.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Maintenance préventive</th><th>Opérations</th></tr>
+<tr><td>Une fois par mois</td><td>Éléments externes sans poussière, compartiment du rotor nettoyé ; connexions et ajustements du rotor en bon état, lubrifiés ; verrouillage et sécurité du couvercle ; joints d'étanchéité.</td></tr>
+<tr><td>Une fois par an</td><td>Cartes électroniques propres et connectées ; test des commandes (vitesse, durée, température, alarmes) ; température vérifiée au thermomètre électronique (modèles réfrigérés) ; minuteur contrôlé : le temps mesuré ne doit pas s'écarter de plus de ± 10 % du temps programmé ; système de freinage.</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Contrôle annuel du minuteur : on programme 5 minutes et on chronomètre 5 min 24 s, soit 324 s au lieu de 300 s. L'écart vaut \(\frac{324 - 300}{300} = 8\,\%\) : c'est dans la tolérance de ± 10 %. À 5 min 36 s, l'écart serait de 12 % : il faudrait intervenir.</p>
+
+<h4>Formules clés</h4>
+\[ F = M\,\omega^2 R \qquad \text{écart du minuteur} = \frac{t_{\text{mesuré}} - t_{\text{programmé}}}{t_{\text{programmé}}} \le \pm 10\,\% \]
+<p>Rotors : angle fixe (20 à 45°, usage courant), godets oscillants (résolution maximale), verticaux (temps court), quasi verticaux (gradients).</p>
+<p>Désinfecter avant toute intervention ; jamais ouvrir en marche ni freiner à la main. Préventif : chaque mois (propreté, couvercle, joints), chaque année (commandes, température, minuteur à ± 10 %, frein).</p>
+</article>
+
+<div class="fin-partie" data-section="centrifuger"></div>
+</section>
+
+<section class="partie" id="s-erreurs">
+<p class="rang-partie">5 / 5</p>
+<h2>Les erreurs pré-analytiques</h2>
+
+<article class="notion" id="n-erreurs-preanalytiques">
+<h3>Sources d'erreurs pré-analytiques</h3>
+<p class="chapeau">La phase pré-analytique représente 60 à 70 % des erreurs totales en biologie médicale. La plupart ne viennent pas d'un appareil défaillant, mais d'un geste, d'un délai ou d'une étiquette.</p>
+
+<h4>Intuition</h4>
+<p>Chaque étape vue jusqu'ici a ses règles : identifier, prélever dans l'ordre, transporter vite et à la bonne température, centrifuger correctement. Une erreur pré-analytique, c'est une de ces règles qui n'a pas été tenue. Les ranger par étape permet de savoir où chercher quand un résultat paraît étrange, et où agir pour qu'il ne se reproduise pas.</p>
+
+<div id="fig-erreurs"></div>
+
+<h4>Formalisation</h4>
+<p>La phase pré-analytique est la phase la plus critique et la plus difficile à maîtriser : <strong>60 à 70 % des erreurs totales</strong>.</p>
+<div class="tableau"><table>
+<tr><th>Origine</th><th>Erreurs</th></tr>
+<tr><td>A. Identification</td><td>Erreur d'identité du patient (confusion entre deux patients, étiquette pré-imprimée erronée) ; étiquetage incorrect (tube non étiqueté, étiquette illisible, informations manquantes) ; étiquetage différé, hors présence du patient ; absence de traçabilité.</td></tr>
+<tr><td>B. Prélèvement</td><td>Ordre de remplissage incorrect (EDTA entraîné dans un tube citrate : coagulation faussée) ; tube citrate sous-rempli (rapport sang / anticoagulant incorrect : TP et TCA faussés) ; tube EDTA sur-rempli (hémolyse) ; hémolyse (garrot trop serré, aiguille trop fine, aspiration vigoureuse, secousses) ; stase veineuse (garrot de plus d'une minute : protéines, potassium et lactate augmentés) ; ponction près d'une perfusion ; contamination microbienne.</td></tr>
+<tr><td>C. Transport et conservation</td><td>Délai excessif (potassium, glucose, lactate, gaz du sang dégradés) ; trop chaud (hémolyse, dégradation enzymatique) ; trop froid (précipitation des protéines, agrégation plaquettaire) ; congélation accidentelle (éclatement des tubes, hémolyse) ; lumière (bilirubine, vitamines, porphyrines dégradées) ; cycles de congélation et décongélation ; transport non sécurisé.</td></tr>
+<tr><td>D. Centrifugation et préparation</td><td>Vitesse, temps ou température incorrects ; délai avant centrifugation (glucose diminué par les cellules) ; séparation incomplète ; aliquotage incorrect ; contamination croisée.</td></tr>
+<tr><td>E. Environnement</td><td>Température ambiante excessive ; humidité ; éclairage (photodégradation) ; vibrations.</td></tr>
+</table></div>
+<h5>F. Coût des erreurs</h5>
+<p>Coût direct : nouveau prélèvement, nouvelle analyse, consommables, temps de travail. Coût indirect : retard de diagnostic et de traitement, hospitalisation prolongée, perte de confiance. Le coût de la non-qualité pré-analytique représente environ <b>25 %</b> du budget annuel des consommables de prélèvement. Cause principale : une formation insuffisante du personnel, même expérimenté, sur les exigences pré-analytiques.</p>
+<h5>G. Moyens de prévention</h5>
+<ol>
+<li>Formation continue du personnel préleveur et des laboratoires.</li>
+<li>Procédures documentées et accessibles (modes opératoires).</li>
+<li>Contrôle qualité pré-analytique : audit des pratiques, indicateurs de non-conformité.</li>
+<li>Système d'information : traçabilité informatisée, alertes automatiques.</li>
+<li>Matériel adapté : tubes validés, étiquettes résistantes, glacières performantes.</li>
+<li>Communication entre préleveurs, transporteurs et laboratoire.</li>
+<li>Indicateurs : taux de rejets, taux de nouveaux prélèvements, délais de transport.</li>
+</ol>
+<p>Message clé du cours : un résultat fiable commence par un échantillon de qualité. La qualité pré-analytique n'est pas une option : c'est une obligation réglementaire et une responsabilité partagée entre tous les acteurs de la chaîne.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un tube sec reste quatre heures sur un chariot avant d'être centrifugé : les cellules continuent de consommer le glucose, qui sort faussement bas (erreur D, délai avant centrifugation), et le potassium peut sortir des cellules (erreur C, délai excessif). Le même jour, un tube de bilirubine attend sur la paillasse au soleil : photodégradation (erreur C ou E).</p>
+
+<h4>Formules clés</h4>
+<p>Pré-analytique : 60 à 70 % des erreurs ; non-qualité ≈ 25 % du budget des consommables de prélèvement ; cause principale : formation insuffisante.</p>
+<p>Origines : identification, prélèvement, transport et conservation, centrifugation et préparation, environnement.</p>
+<p>Citrate sous-rempli : TP et TCA faussés. Garrot de plus d'une minute : protéines, potassium, lactate augmentés. Lumière : bilirubine, vitamines, porphyrines dégradées.</p>
+<p>Prévention : formation, procédures, contrôle qualité pré-analytique, système d'information, matériel adapté, communication, indicateurs.</p>
+</article>
+
+<div class="fin-partie" data-section="erreurs"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/echantillons.js"></script>
+<script src="../figures/prelevement.js"></script>
+<script src="../figures/identification.js"></script>
+<script src="../figures/conservation.js"></script>
+<script src="../figures/froid.js"></script>
+<script src="../figures/centrifugation.js"></script>
+<script src="../figures/centrifugeuse.js"></script>
+<script src="../figures/erreurs-preanalytiques.js"></script>
+</body>
+</html>

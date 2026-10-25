@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Technologies d'hématologie et d'hémostase</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 4. -->
+<main class="cours-chapitre" data-chapitre="4">
+<p class="etiquette" data-etiquette></p>
+<h1>Technologies d'hématologie et d'hémostase</h1>
+
+<section class="partie" id="s-hemogramme">
+<p class="rang-partie">1 / 4</p>
+<h2>L'hémogramme</h2>
+
+<article class="notion" id="n-hemogramme">
+<h3>L'hémogramme</h3>
+<p class="chapeau">L'hémogramme, ou numération formule sanguine (NFS), est l'examen biologique le plus prescrit. Depuis les premiers compteurs cellulaires des années 1950 (Coulter), les automates le rendent en quelques minutes. Sur la feuille, une partie des chiffres est mesurée, l'autre est calculée : savoir lesquels permet de repérer un résultat incohérent.</p>
+
+<h4>Intuition</h4>
+<p>Un automate compte des cellules et mesure leur volume, et un photomètre dose l'hémoglobine. Avec trois mesures, le nombre de globules rouges, leur volume moyen et l'hémoglobine, on déduit le reste par de simples règles de trois : quelle part du sang occupent les globules rouges, combien d'hémoglobine porte chacun, à quelle concentration.</p>
+
+<div id="fig-hemogramme"></div>
+
+<h4>Formalisation</h4>
+<h5>Objectifs de l'automatisation</h5>
+<p>Quantifier les populations cellulaires (GR, GB, plaquettes) ; caractériser leurs propriétés physiques (taille, granulosité, contenu en hémoglobine) ; différencier les sous-populations leucocytaires (formule) ; détecter les anomalies (alarmes, drapeaux) ; standardiser les résultats (calibration, contrôle qualité).</p>
+<h5>Hémogramme standard</h5>
+<div class="tableau"><table>
+<tr><th>Paramètre</th><th>Unité</th><th>Signification</th><th>Obtenu</th></tr>
+<tr><td>GB (WBC)</td><td>× 10⁹/L</td><td>Numération des globules blancs</td><td>mesuré</td></tr>
+<tr><td>GR (RBC)</td><td>× 10¹²/L</td><td>Numération des globules rouges</td><td>mesuré</td></tr>
+<tr><td>Hb (HGB)</td><td>g/dL</td><td>Hémoglobine</td><td>mesuré</td></tr>
+<tr><td>PLT</td><td>× 10⁹/L</td><td>Numération plaquettaire</td><td>mesuré</td></tr>
+<tr><td>VGM (MCV)</td><td>fL</td><td>Volume globulaire moyen</td><td>mesuré</td></tr>
+<tr><td>Ht (HCT)</td><td>%</td><td>Hématocrite</td><td>calculé</td></tr>
+<tr><td>TCMH (MCH)</td><td>pg</td><td>Teneur corpusculaire moyenne en Hb</td><td>calculé</td></tr>
+<tr><td>CCMH (MCHC)</td><td>g/dL</td><td>Concentration corpusculaire moyenne en Hb</td><td>calculé</td></tr>
+<tr><td>IDR (RDW)</td><td>%</td><td>Indice de distribution des GR</td><td>calculé</td></tr>
+</table></div>
+<h5>Indices dérivés</h5>
+\[ \text{Ht}\,(\%) = \frac{\text{GR}\,(10^{12}/\text{L}) \times \text{VGM}\,(\text{fL})}{10} \qquad \text{TCMH}\,(\text{pg}) = \frac{\text{Hb}\,(\text{g/dL}) \times 10}{\text{GR}\,(10^{12}/\text{L})} \]
+\[ \text{CCMH}\,(\text{g/dL}) = \frac{\text{Hb}\,(\text{g/dL}) \times 100}{\text{Ht}\,(\%)} \qquad \text{IDR}\,(\%) = \frac{\text{écart-type du VGM}}{\text{VGM}} \times 100 \]
+<h5>Histogrammes</h5>
+<p>L'analyseur trace des histogrammes de distribution : pour les globules rouges, une courbe en cloche centrée sur le VGM (environ 90 fL). Plus elle est large, plus les globules rouges sont de tailles variées, plus l'IDR est grand.</p>
+<h5>Paramètres complémentaires</h5>
+<p>VPM (volume plaquettaire moyen), IDP (indice de distribution plaquettaire), réticulocytes (GR immatures, activité médullaire), IG (granulocytes immatures, précurseurs des polynucléaires), NRBC (érythroblastes nucléés), formule leucocytaire en % (neutrophiles, lymphocytes, monocytes, éosinophiles, basophiles).</p>
+
+<h4>Exemple</h4>
+<p>L'hémogramme donné en exemple dans le cours (Beckman Coulter LH780, sang total EDTA) : hématies 4,64 millions/mm³, hémoglobine 14,6 g/dL, VGM 87,8 fL, hématocrite 40,7 %, TCMH 31,4 pg. On vérifie : \(4{,}64 \times 87{,}8 / 10 \approx 40{,}7\) % et \(14{,}6 \times 10 / 4{,}64 \approx 31{,}5\) pg. Les leucocytes sont à 4,4 mille/mm³, les plaquettes à 196 mille/mm³. (4,64 millions/mm³ correspondent à 4,64 × 10¹²/L.)</p>
+
+<h4>Formules clés</h4>
+\[ \text{Ht} = \frac{\text{GR} \times \text{VGM}}{10} \qquad \text{TCMH} = \frac{\text{Hb} \times 10}{\text{GR}} \qquad \text{CCMH} = \frac{\text{Hb} \times 100}{\text{Ht}} \qquad \text{IDR} = \frac{\sigma_{\text{VGM}}}{\text{VGM}} \times 100 \]
+<p>Mesurés : GR, GB, PLT, Hb, VGM. Calculés : Ht, TCMH, CCMH, IDR.</p>
+<p>Histogramme des GR : courbe en cloche centrée sur le VGM (environ 90 fL).</p>
+</article>
+
+<div class="fin-partie" data-section="hemogramme"></div>
+</section>
+
+<section class="partie" id="s-compter">
+<p class="rang-partie">2 / 4</p>
+<h2>Compter et différencier les cellules</h2>
+
+<article class="notion" id="n-impedance">
+<h3>Le comptage par impédance</h3>
+<p class="chapeau">Compter des millions de cellules et mesurer le volume de chacune, en quelques secondes et sans colorant : c'est ce que fait le principe de Coulter, du nom de son inventeur. C'est la méthode de référence pour les globules rouges et les plaquettes.</p>
+
+<h4>Intuition</h4>
+<p>Le sang dilué dans un liquide conducteur passe par un trou minuscule où circule un courant. Une cellule conduit mal l'électricité : quand elle traverse le trou, elle bouche un peu le passage du courant, et la résistance grimpe un instant. Un pic par cellule : on compte les pics. Plus la cellule est grosse, plus elle bouche, plus le pic est haut : on mesure son volume.</p>
+
+<div id="fig-impedance"></div>
+
+<h4>Formalisation</h4>
+<h5>Principe de Coulter</h5>
+<p>Le principe repose sur la <strong>variation d'impédance</strong> électrique lors du passage d'une cellule à travers un micro-orifice, entre deux électrodes, dans un diluant conducteur. La variation d'impédance est proportionnelle au volume cellulaire :</p>
+\[ \Delta Z = \frac{\rho \cdot V_{cell}}{A^{2}} \cdot k \]
+<p>avec \(\rho\) la résistivité du diluant, \(V_{cell}\) le volume cellulaire, \(A\) la section de l'orifice et \(k\) un facteur géométrique. Le nombre de cellules correspond au nombre d'impulsions enregistrées.</p>
+<h5>Impulsions et seuils</h5>
+<p>Chaque cellule qui traverse l'orifice génère une impulsion électrique dont l'amplitude est proportionnelle à son volume. Un seuil sépare les événements valides du bruit de fond, et des discriminateurs séparent les populations :</p>
+<div class="tableau"><table>
+<tr><th>Seuil</th><th>Volume</th><th>Population</th></tr>
+<tr><td>Bas</td><td>2 à 20 fL</td><td>Plaquettes</td></tr>
+<tr><td>Intermédiaire</td><td>20 à 35 fL</td><td>Bruit, débris</td></tr>
+<tr><td>Haut</td><td>35 à 360 fL</td><td>Globules rouges</td></tr>
+</table></div>
+<h5>Correction de coïncidence</h5>
+<p>Deux cellules qui traversent l'orifice en même temps sont comptées comme une seule. Une correction statistique est appliquée :</p>
+\[ N_{\text{corrigé}} = N_{\text{mesuré}} \cdot e^{N_{\text{mesuré}} \cdot \tau} \]
+<p>où \(\tau\) est le temps mort de l'orifice.</p>
+<h5>Avantages et limites</h5>
+<p>Avantages : rapide, robuste, peu coûteux ; bonne précision sur les GR et les plaquettes ; indépendant de la coloration. Limites : ne différencie pas finement les GB ; sensible aux agrégats plaquettaires ; interférences par les microcytes et les fragments.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois impulsions correspondent à 12 fL, 30 fL et 85 fL : une plaquette, un débris (ignoré), un globule rouge. Si l'on mesure 40 000 impulsions par seconde avec un temps mort de 2,5 µs, \(N_{\text{corrigé}} = 40\,000 \times e^{40\,000 \times 2{,}5 \times 10^{-6}} = 40\,000 \times e^{0{,}1} \approx 44\,207\) : environ 10 % des cellules passaient en même temps qu'une autre.</p>
+
+<h4>Formules clés</h4>
+\[ \Delta Z = \frac{\rho \cdot V_{cell}}{A^{2}} \cdot k \qquad N_{\text{corrigé}} = N_{\text{mesuré}} \cdot e^{N_{\text{mesuré}} \cdot \tau} \]
+<p>Une impulsion par cellule ; amplitude proportionnelle au volume.</p>
+<p>Plaquettes 2 à 20 fL ; bruit 20 à 35 fL ; globules rouges 35 à 360 fL.</p>
+</article>
+
+<article class="notion" id="n-cytometrie">
+<h3>Méthodes optiques et cytométrie en flux</h3>
+<p class="chapeau">L'impédance compte et mesure le volume, mais elle distingue mal les globules blancs entre eux. Pour faire la formule leucocytaire, il faut regarder les cellules autrement : avec un laser, une par une.</p>
+
+<h4>Intuition</h4>
+<p>Éclaire une cellule avec un laser. Vers l'avant, presque dans l'axe, la lumière déviée dit sa taille ; sur le côté, à angle droit, elle dit ce qu'il y a dedans : des granulations, un noyau compliqué. Si la cellule a été marquée par un colorant fluorescent, elle renvoie en plus une couleur. Un point par cellule sur un graphique, et les populations se rangent en nuages séparés.</p>
+
+<div id="fig-cytometrie"></div>
+
+<h4>Formalisation</h4>
+<h5>Principe</h5>
+<p>La <strong>cytométrie en flux</strong> combine une hydrodynamique focalisée et une analyse optique cellule par cellule. La source peut être un laser (488 nm) ou une lampe au tungstène. Lors de leur passage dans le faisceau, les cellules émettent des signaux (diffraction liée à la taille, fluorescence) analysés par l'ordinateur.</p>
+<h5>Focalisation hydrodynamique</h5>
+<p>Le liquide de gaine (sheath fluid) comprime l'échantillon en un filet central où les cellules défilent une par une, en file indienne.</p>
+<h5>Paramètres optiques mesurés</h5>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Mesure</th><th>Information</th></tr>
+<tr><td>FSC (forward scatter)</td><td>Diffusion à faible angle (0 à 10°)</td><td>Taille cellulaire</td></tr>
+<tr><td>SSC (side scatter)</td><td>Diffusion à 90°</td><td>Granulosité, complexité interne</td></tr>
+<tr><td>FL1 (530 nm)</td><td>Fluorescence verte</td><td>Acides nucléiques (colorants type thiazole orange)</td></tr>
+<tr><td>FL2 (585 nm)</td><td>Fluorescence orange</td><td>ARN, granulations</td></tr>
+<tr><td>FL3 (670 nm)</td><td>Fluorescence rouge</td><td>ADN (iodure de propidium)</td></tr>
+<tr><td>FL4 (800 nm)</td><td>Fluorescence infrarouge</td><td>Marquages spécifiques</td></tr>
+</table></div>
+<h5>Diagrammes de dispersion</h5>
+<p>Les analyseurs construisent des nuages de points (scattergrammes) en 2D ou 3D. En FSC / SSC, trois grandes populations se séparent : lymphocytes (petits, peu granuleux), monocytes, granulocytes (neutrophiles, éosinophiles : très granuleux). En combinant FSC, SSC et fluorescence, on obtient une formule à 5 populations : lymphocytes, monocytes, neutrophiles, éosinophiles, basophiles (exemples cités : Siemens ADVIA, Abbott CELL-DYN Sapphire).</p>
+<h5>Méthodes optiques complémentaires</h5>
+<ul>
+<li>Diffusion laser : taille et granulosité sans coloration.</li>
+<li>Imagerie cellulaire : photographie numérique de chaque cellule (exemple : CellaVision).</li>
+<li>Spectrophotométrie : dosage de l'hémoglobine, après lyse des hématies, entre 525 et 550 nm (méthode cyanméthémoglobine ou SLS).</li>
+<li>Fluorescence : marquage des réticulocytes (thiazole orange, auramine O).</li>
+</ul>
+<h5>Avantages et limites</h5>
+<p>Avantages : différenciation fine des GB, détection des cellules anormales, comptage des réticulocytes, analyse multiparamétrique. Limites : coût plus élevé, maintenance plus complexe, sensibilité aux interférences fluorescentes, réactifs spécifiques nécessaires.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un point en bas à gauche du scattergramme FSC / SSC (petite taille, peu de granulations) est un lymphocyte ; un point haut placé en SSC, avec une taille moyenne à grande, est un granulocyte. Pour séparer ensuite neutrophiles, éosinophiles et basophiles, on ajoute la fluorescence.</p>
+
+<h4>Formules clés</h4>
+<p>Gaine liquide : cellules une par une. Laser 488 nm.</p>
+<p>FSC (0 à 10°) : taille. SSC (90°) : granulosité. FL1 à FL4 : fluorescences (530, 585, 670, 800 nm).</p>
+<p>FSC / SSC : 3 populations. Avec la fluorescence : 5 populations.</p>
+<p>Hémoglobine : spectrophotométrie à 525 à 550 nm après lyse.</p>
+</article>
+
+<div class="fin-partie" data-section="compter"></div>
+</section>
+
+<section class="partie" id="s-automate-hemato">
+<p class="rang-partie">3 / 4</p>
+<h2>L'automate et ses pièges</h2>
+
+<article class="notion" id="n-automate-hemato">
+<h3>L'automate d'hématologie</h3>
+<p class="chapeau">Impédance, cytométrie, spectrophotométrie : un compteur d'hématologie réunit ces mesures dans un seul appareil, qui aspire le tube, prépare les dilutions, mesure, calcule et transmet. Le connaître module par module, c'est savoir où chercher quand il se plaint.</p>
+
+<h4>Intuition</h4>
+<p>Le sang suit un trajet, du tube jusqu'au système informatique : on le prélève, on le dilue, on le mesure, on transforme le signal en chiffres, on vérifie, on transmet. Chaque étape a son module, ses pièces et son entretien. Et l'appareil n'est fiable que si l'échantillon l'est : le bon tube, analysé à temps.</p>
+
+<div id="fig-automate-hemato"></div>
+
+<h4>Formalisation</h4>
+<h5>Modules constitutifs</h5>
+<div class="tableau"><table>
+<tr><th>Module</th><th>Fonction</th><th>Composants</th></tr>
+<tr><td>Aspiration</td><td>Prélèvement du sang</td><td>Aiguille, sonde capacitive, détection de niveau</td></tr>
+<tr><td>Dilution</td><td>Préparation des échantillons</td><td>Pompes péristaltiques, vannes, seringues</td></tr>
+<tr><td>Mesure</td><td>Analyse des cellules</td><td>Chambre de Coulter, laser, photomultiplicateurs</td></tr>
+<tr><td>Acquisition</td><td>Traitement du signal</td><td>Amplificateurs, convertisseur analogique-numérique, microprocesseur</td></tr>
+<tr><td>Gestion des données</td><td>Calcul et stockage</td><td>Logiciel, base de données, alarmes</td></tr>
+<tr><td>Contrôle qualité</td><td>Vérification</td><td>Contrôles internes, calibration</td></tr>
+<tr><td>Interface LIS</td><td>Communication</td><td>HL7, ASTM, middleware</td></tr>
+</table></div>
+<p>S'y ajoutent la gestion des réactifs et celle des déchets.</p>
+<h5>Types d'automates</h5>
+<ol>
+<li>À impédance (Coulter) : Sysmex KX-21, ABX Micros 60.</li>
+<li>Optiques (cytométrie) : Abbott CELL-DYN, Siemens ADVIA.</li>
+<li>Mixtes (impédance et optique) : Sysmex XN, Beckman DxH, Mindray BC. La technologie mixte (impédance, optique, marquage) équipe la majorité des automates modernes.</li>
+<li>De paillasse (bench-top) : faible débit, moins de 60 tests par heure.</li>
+<li>De grande série (high-throughput) : plus de 100 tests par heure, chaînes modulaires.</li>
+</ol>
+<h5>Chaînes automatisées</h5>
+<p>Entrée des tubes, centrifugeuse, débouchage, hématologie, biochimie, puis stockage et tri. Avantages : moins d'erreurs d'identification (code-barres), temps de rendu (TAT) réduit, ressources humaines optimisées, traçabilité complète.</p>
+<h5>Bonnes pratiques</h5>
+<ul>
+<li>Prélèvement veineux sur EDTA (tube K2 ou K3) ; analyse dans les 4 heures ; homogénéisation douce par retournements ; conservation à température ambiante (20 à 25 °C) ; pas d'agitation violente (hémolyse) ; vérifier la concordance des résultats.</li>
+<li>Toujours un onduleur avec prise de terre ; 50 cm entre l'appareil et le mur pour la circulation d'air ; allumer et attendre environ 10 minutes avant l'emploi ; pas de bulles d'air dans les tuyaux de réactifs ; surveiller les fuites de réactifs, d'air ou de vide ; éviter les allumages et extinctions intempestifs et la poussière dans les réactifs ; bien mélanger les échantillons ; passer les contrôles ; suivre les procédures de démarrage et d'arrêt.</li>
+</ul>
+<h5>Maintenance</h5>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Quotidienne</td><td>Nettoyage, contrôle de qualité, vérification des réactifs ; nettoyer l'appareil avant et après l'analyse (eau distillée, solution de nettoyage préconisée), essuyer toute trace de sang.</td></tr>
+<tr><td>Hebdomadaire</td><td>Nettoyage des sondes, vérification des pompes ; rinçage avec une solution détergente ou fongicide ; nettoyage et rinçage des bacs de mesure.</td></tr>
+<tr><td>Mensuelle</td><td>Remplacement des filtres, calibration.</td></tr>
+<tr><td>Semestrielle</td><td>Remplacement des cordons des pompes.</td></tr>
+<tr><td>Annuelle</td><td>Maintenance constructeur, vérification métrologique ; remplacement des tuyauteries hydrauliques, des cordons des pompes, des joints des seringues.</td></tr>
+</table></div>
+<p><b>Maintenance curative</b> : détection des pannes (codes d'erreur, alarmes), diagnostic (journaux), intervention (pièces, recalibration), puis contrôle qualité après réparation.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un tube EDTA prélevé à 8 h arrive à 14 h : il a dépassé les 4 heures recommandées, le résultat doit être interprété avec prudence ou le prélèvement refait. Le même matin, l'appareil signale des bulles dans le circuit du diluant : on vérifie les tuyaux de réactifs et les fuites d'air avant de relancer la série.</p>
+
+<h4>Formules clés</h4>
+<p>Aspiration, dilution, mesure, acquisition, gestion des données, contrôle qualité, interface LIS.</p>
+<p>Paillasse : moins de 60 tests/h. Grande série : plus de 100 tests/h.</p>
+<p>EDTA K2/K3, analyse en moins de 4 h, 20 à 25 °C. Onduleur, 50 cm du mur, 10 minutes de chauffe.</p>
+</article>
+
+<article class="notion" id="n-interferences">
+<h3>Contrôle de qualité et interférences</h3>
+<p class="chapeau">Un automate rend toujours un chiffre, même quand l'échantillon le trompe. Des plaquettes collées deviennent des globules blancs, un plasma laiteux devient de l'hémoglobine. Le contrôle de qualité surveille l'appareil ; la connaissance des interférences et des règles de validation protège le patient.</p>
+
+<h4>Intuition</h4>
+<p>Chaque principe de mesure a ses pièges. L'impédance range les objets selon leur volume : tout ce qui a la taille d'une plaquette est compté comme plaquette, même un fragment de globule rouge. Le dosage de l'hémoglobine mesure une absorbance : tout ce qui trouble le tube l'augmente. Connaître le principe, c'est prévoir l'erreur.</p>
+
+<div id="fig-interferences"></div>
+
+<h4>Formalisation</h4>
+<h5>Contrôle de qualité interne</h5>
+<ul>
+<li>Contrôles sanguins : au minimum 2 niveaux (normal, pathologique).</li>
+<li>Contrôles électroniques : vérification des canaux.</li>
+<li>Règles de Westgard : détection des dérives.</li>
+<li>Levey-Jennings : suivi graphique des moyennes.</li>
+</ul>
+<h5>Principales interférences</h5>
+<div class="tableau"><table>
+<tr><th>Interférence</th><th>Effet</th><th>Mécanisme</th></tr>
+<tr><td>Agrégats plaquettaires</td><td>PLT ↓, GB ↑</td><td>Plaquettes comptées comme GB</td></tr>
+<tr><td>Cryoglobulines</td><td>GB ↑, Hb ↑</td><td>Précipitation faussant les mesures</td></tr>
+<tr><td>Hyperlipémie</td><td>Hb ↑</td><td>Turbidité augmentant l'absorbance</td></tr>
+<tr><td>Hyperbilirubinémie</td><td>Hb ↑</td><td>Interférence spectrophotométrique</td></tr>
+<tr><td>Globules rouges résistants</td><td>GR ↓</td><td>Hémolyse incomplète</td></tr>
+<tr><td>Fragments érythrocytaires</td><td>PLT ↑</td><td>Schizocytes comptés comme plaquettes</td></tr>
+<tr><td>Caillots</td><td>GR ↓, PLT ↓</td><td>Échantillon non homogène</td></tr>
+<tr><td>Dilution (voie veineuse)</td><td>Tous ↓</td><td>Prélèvement non conforme</td></tr>
+</table></div>
+<h5>Règles de validation (exemple : règles de l'ISLH)</h5>
+<ol>
+<li>GB &lt; 2,0 × 10⁹/L : vérification manuelle.</li>
+<li>PLT &lt; 50 × 10⁹/L : contrôle sur lame.</li>
+<li>Hb &lt; 7 g/dL : vérification.</li>
+<li>Écart Hb / Ht incohérent : alerte.</li>
+<li>Absence de séparation des populations : revue du scattergramme.</li>
+</ol>
+<h5>Le biologiste reste le garant</h5>
+<p>La qualité repose sur un triptyque : contrôle interne, évaluation externe, validation biologique. L'automatisation apporte fiabilité, rapidité, débit, sécurité et standardisation ; mais l'automate mesure, le biologiste interprète ; il détecte, le biologiste valide ; il alerte, le biologiste décide. « L'automate est un outil au service du diagnostic ; le biologiste en reste le garant. »</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un hémogramme montre des plaquettes à 45 × 10⁹/L et des globules blancs un peu élevés, chez un patient sans saignement. La règle 2 impose un contrôle sur lame : on y voit des amas de plaquettes. C'était une interférence (agrégats plaquettaires) : les plaquettes réelles sont normales, et une partie des « globules blancs » étaient des amas.</p>
+
+<h4>Formules clés</h4>
+<p>CQ interne : au moins 2 niveaux, contrôles électroniques, Westgard, Levey-Jennings.</p>
+<p>Agrégats : PLT ↓ GB ↑. Lipémie, bilirubine : Hb ↑. Schizocytes : PLT ↑. Caillots : GR ↓ PLT ↓. Dilution : tous ↓.</p>
+<p>GB &lt; 2,0 ; PLT &lt; 50 ; Hb &lt; 7 : vérifier. L'automate mesure, le biologiste interprète.</p>
+</article>
+
+<div class="fin-partie" data-section="automate-hemato"></div>
+</section>
+
+<section class="partie" id="s-hemostase">
+<p class="rang-partie">4 / 4</p>
+<h2>L'hémostase et ses analyseurs</h2>
+
+<article class="notion" id="n-hemostase">
+<h3>L'hémostase</h3>
+<p class="chapeau">Si le sang ne coagulait pas, une simple piqûre suffirait à vider le corps de son sang. S'il coagulait au mauvais endroit, il boucherait un vaisseau : c'est la thrombose. Les analyseurs de coagulation mesurent cet équilibre ; pour comprendre ce qu'ils mesurent, il faut d'abord comprendre l'hémostase.</p>
+
+<h4>Intuition</h4>
+<p>Une fuite sur un tuyau : on pince d'abord le tuyau, on bouche le trou avec ce qu'on a sous la main, puis on pose une rustine solide ; une fois réparé, on retire la rustine. L'hémostase fait pareil : le vaisseau se contracte, les plaquettes forment un bouchon, la fibrine le consolide, puis la fibrinolyse dissout le caillot.</p>
+
+<div id="fig-hemostase"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition</h5>
+<p>L'<strong>hémostase</strong> est l'ensemble des processus complexes et interdépendants qui contribuent à l'homéostasie de l'organisme : colmater les fuites du circuit vasculaire et rétablir le flux sanguin en cas de thrombose. Acteurs : la paroi vasculaire (cellules endothéliales, fibroblastes), les cellules sanguines (plaquettes, monocytes) et les protéines plasmatiques. Trois étapes :</p>
+<ol>
+<li><b>Hémostase primaire</b> (3 à 5 minutes) : agrégation des plaquettes, formation du clou plaquettaire.</li>
+<li><b>Hémostase secondaire</b> ou coagulation (5 à 10 minutes) : formation de fibrine, caillot.</li>
+<li><b>Fibrinolyse</b> (48 à 72 heures) : dissolution du caillot, retour à une circulation normale.</li>
+</ol>
+<h5>Hémostase primaire</h5>
+<p>Acteurs : vaisseaux (cellules endothéliales), facteur de von Willebrand (FW), plaquettes, fibrinogène.</p>
+<ul>
+<li><b>Temps vasculaire</b> : vasoconstriction réflexe ; l'écoulement ralentit, plaquettes et protéines coagulantes se regroupent sur la lésion.</li>
+<li><b>Adhésion</b> : la lésion met à nu le sous-endothélium et le collagène ; le FW sert de pont entre le collagène et les plaquettes (glycoprotéine Ib).</li>
+<li><b>Activation</b> : changement de forme (pseudopodes), libération du contenu des granules (denses : Ca²⁺, ATP, ADP, adrénaline, sérotonine ; alpha : fibrinogène, FW, PDGF ; et thromboxane A2), remaniements membranaires (flip-flop) qui exposent les récepteurs GPIIbIIIa.</li>
+<li><b>Agrégation</b> : des ponts de fibrinogène relient les plaquettes activées ; avec les globules rouges piégés, ils forment le clou plaquettaire. Il est insuffisant pour arrêter l'hémorragie dans les gros vaisseaux.</li>
+</ul>
+<h5>Hémostase secondaire : la coagulation</h5>
+<p>Elle renforce le clou plaquettaire par la production de fibrine et aboutit à un caillot insoluble. Deux voies : <b>exogène</b> (facteur tissulaire des cellules endothéliales lésées) et <b>endogène</b> (plasma seul, activée au contact du verre ou du sous-endothélium ; moins importante). Elles convergent vers le facteur X ; le Xa transforme la prothrombine (II) en thrombine (IIa), qui transforme le fibrinogène (I) en fibrine.</p>
+<p>Les facteurs sont des protéines plasmatiques d'origine hépatique (sauf le facteur tissulaire), numérotées de I à XIII (plus PK et KHPM) : I fibrinogène, II prothrombine, IV Ca²⁺, V proaccélérine, VII proconvertine, VIII antihémophilique A, IX antihémophilique B, X Stuart, XI Rosenthal, XII Hageman, XIII stabilisant de la fibrine.</p>
+<ul>
+<li>Le <b>complexe prothrombinase</b> (Xa, Va, phospholipides des plaquettes activées, Ca²⁺) est 100 000 fois plus actif que le Xa seul.</li>
+<li>Le <b>Ca²⁺</b> intervient à plusieurs niveaux ; au laboratoire, un chélateur du Ca²⁺ (EDTA ou citrate) empêche le sang de coaguler.</li>
+<li>La <b>vitamine K</b> est indispensable à l'activation des facteurs II, VII, IX et X ; les antivitamines K traitent le risque de thrombose.</li>
+<li>La <b>thrombine</b> transforme le fibrinogène en fibrine, active les plaquettes, entretient sa propre formation (V, VIII, IX, XI) et freine la coagulation (protéine C).</li>
+</ul>
+<p>Inhibiteurs : antithrombine (inactive la thrombine et le Xa ; activité multipliée par 2 000 à 3 000 par l'héparine), protéines C et S (inhibent l'activation du V et du VIII), TFPI (inhibe l'activation du X par le complexe VII-facteur tissulaire).</p>
+<h5>Fibrinolyse</h5>
+<p>La <b>plasmine</b>, formée à partir du plasminogène par le tPA (activateur tissulaire) ou l'urokinase, dégrade la fibrine en produits de dégradation (PDF). Le PAI (inhibiteur de l'activateur du plasminogène) la freine.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un patient traité par antivitamine K produit des facteurs II, VII, IX et X peu actifs : sa voie exogène, qui dépend du VII, est ralentie, et son temps de coagulation s'allonge. C'est ce que les analyseurs surveillent avec le temps de prothrombine.</p>
+
+<h4>Formules clés</h4>
+<p>Primaire 3 à 5 min (vasoconstriction, adhésion par le FW, activation, agrégation par le fibrinogène). Coagulation 5 à 10 min (fibrine). Fibrinolyse 48 à 72 h (plasmine).</p>
+<p>Prothrombinase : Xa + Va + phospholipides + Ca²⁺, 100 000 fois plus actif.</p>
+<p>Vitamine K : II, VII, IX, X. EDTA ou citrate : chélation du Ca²⁺, pas de coagulation.</p>
+</article>
+
+<article class="notion" id="n-coagulometres">
+<h3>Les analyseurs de la coagulation</h3>
+<p class="chapeau">Un patient sous antivitamine K vient chaque mois contrôler son traitement. Son temps de coagulation, en secondes, change avec le réactif utilisé : d'un laboratoire à l'autre, le même sang ne donne pas le même chiffre. Les analyseurs de coagulation mesurent ce temps, puis le convertissent en unités qu'on peut comparer.</p>
+
+<h4>Intuition</h4>
+<p>On déclenche la coagulation d'un plasma et on chronomètre l'apparition du caillot : on peut le sentir (une bille qui cesse de bouger), ou le voir (la lumière change). Le temps brut dépend du réactif ; on le rapporte donc à un témoin et on corrige par la sensibilité du réactif. Pour le fibrinogène, plus il y en a, plus le caillot se forme vite.</p>
+
+<div id="fig-coagulometres"></div>
+
+<h4>Formalisation</h4>
+<h5>Les analyses</h5>
+<p>Analyseurs semi-automatiques ou automatiques pour : TP (temps et taux de prothrombine), TCA (temps de céphaline activé), fibrinogène (dosage quantitatif), facteurs de la coagulation (II, V, VII, X, VIII, IX, XI, XII), inhibiteurs (antithrombine, protéine C, protéine S). Les réactions se font dans des <strong>cupules à usage unique</strong>, jetées après chaque test, pour éviter toute contamination croisée (résidus de réactifs, fibrine). La lecture finale se fait par spectrophotométrie à plusieurs longueurs d'onde.</p>
+<h5>Principes de détection</h5>
+<div class="tableau"><table>
+<tr><th>Méthode</th><th>Principe</th><th>Applications</th></tr>
+<tr><td>Viscosimétrie (mécanique)</td><td>Arrêt ou modification du mouvement d'une bille magnétique dans un champ électromagnétique quand le caillot se forme</td><td>TP, TCA, temps de thrombine ; insensible à l'ictère et à l'hémolyse</td></tr>
+<tr><td>Chromogénique (optique)</td><td>L'enzyme cible coupe un substrat synthétique lié à un groupement coloré (p-nitroaniline, pNA), qui libère la couleur</td><td>Antithrombine, plasminogène, facteur Xa</td></tr>
+<tr><td>Immunologique (optique)</td><td>Agglutination de microparticules de latex recouvertes d'anticorps : turbidité</td><td>D-dimères, monomères de fibrine, facteur von Willebrand</td></tr>
+</table></div>
+<h5>Exploiter le temps mesuré</h5>
+<p><b>INR</b> (International Normalized Ratio) : pour le suivi des patients sous antivitamine K, le temps en secondes n'est pas comparable d'un laboratoire à l'autre. L'ISI (International Sensitivity Index) est l'indice de sensibilité de la thromboplastine utilisée, propre à chaque lot de réactif et fourni par le fabricant. La formule n'apparaît pas dans le texte du support ; c'est la définition standard de l'INR :</p>
+\[ \text{INR} = \left( \frac{\text{TP du patient}}{\text{TP du témoin}} \right)^{\text{ISI}} \]
+<p><b>Taux de TP</b> (%) : le temps en secondes est transposé en pourcentage d'activité grâce à une courbe de calibration établie avec des dilutions d'un plasma de référence.</p>
+<p><b>Fibrinogène, méthode de Clauss</b> : après ajout d'une forte dose de thrombine, le temps de coagulation est inversement lié à la concentration en fibrinogène. L'automate projette le temps mesuré \(t\) sur la droite d'étalonnage, en coordonnées log-log :</p>
+\[ \log(\text{concentration de fibrinogène}) = \alpha \times \log(t) + b \]
+<p><b>Méthodes chromogéniques</b> : l'automate suit l'apparition de la couleur jaune (p-nitroaniline) ; l'absorbance suit \(A = \varepsilon \times C \times L\), et la pente cinétique \(\Delta A / \text{min}\) donne la vitesse initiale, proportionnelle à l'activité du facteur ciblé.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un patient a un TP de 27 s pour un témoin à 12 s, avec un réactif d'ISI 1,0 : \(\text{INR} = (27/12)^{1{,}0} = 2{,}25\). Avec un autre lot d'ISI 1,3 et les mêmes temps, on aurait \((27/12)^{1{,}3} \approx 2{,}87\) : c'est pour cela que l'ISI accompagne chaque lot.</p>
+
+<h4>Formules clés</h4>
+\[ \text{INR} = \left( \frac{\text{TP}_{\text{patient}}}{\text{TP}_{\text{témoin}}} \right)^{\text{ISI}} \qquad \log C_{\text{fibrinogène}} = \alpha \log t + b \qquad A = \varepsilon \, C \, L \]
+<p>Viscosimétrie : bille magnétique, insensible à l'ictère et à l'hémolyse. Chromogénique : pNA. Immunologique : latex, turbidité (D-dimères).</p>
+<p>Cupules à usage unique : pas de contamination croisée.</p>
+</article>
+
+<div class="fin-partie" data-section="hemostase"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/hemogramme.js"></script>
+<script src="../figures/impedance.js"></script>
+<script src="../figures/cytometrie.js"></script>
+<script src="../figures/automate-hemato.js"></script>
+<script src="../figures/interferences.js"></script>
+<script src="../figures/hemostase.js"></script>
+<script src="../figures/coagulometres.js"></script>
+</body>
+</html>

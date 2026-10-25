@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le vocabulaire du risque</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 10. -->
+<main class="cours-chapitre" data-chapitre="10">
+<p class="etiquette" data-etiquette></p>
+<h1>Le vocabulaire du risque</h1>
+
+<section class="partie" id="s-menace-surface">
+<p class="rang-partie">1 / 3</p>
+<h2>Menace, vulnérabilité et surface d'attaque</h2>
+
+<article class="notion" id="n-menace-vulnerabilite">
+<h3>Menace, vulnérabilité, attaque</h3>
+<p class="chapeau">Un groupe de rançongiciel vise les hôpitaux ; le serveur du PACS tourne sous un Windows non corrigé. Le premier est une menace, le second une vulnérabilité. Quand ils se rencontrent, c'est une attaque.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre donne le vocabulaire qui permet de parler de sécurité avec précision : <b>menace</b>, <b>vulnérabilité</b>, <b>attaque</b> ; la <b>surface d'attaque</b> (physique, numérique, humaine) ; le <b>cycle de vie d'une attaque</b> (cyber kill chain) ; le <b>risque</b>, qui combine probabilité et impact ; l'<b>incident</b> de sécurité et ses conséquences ; le <b>SPOF</b>, maillon unique dont la panne arrête tout. Ce sont les mots d'une analyse de risque.</p>
+
+<h4>Intuition</h4>
+<p>La menace vient de l'extérieur du bien : quelqu'un ou quelque chose qui pourrait causer un dommage. La vulnérabilité est dans le bien : une faiblesse. L'attaque, c'est la menace qui passe par la faiblesse. Sur la figure, elle traverse chaque anneau par une de ses ouvertures.</p>
+<div id="fig-attaque"></div>
+
+<h4>Formalisation</h4>
+<p><b>Menace</b> : cause potentielle d'un incident ou origine d'un événement qui pourrait entraîner des dommages sur un bien ou un actif informationnel, si cette menace se concrétisait. Elle peut être <b>délibérée</b> (personnes extérieures malveillantes, stagiaire malintentionné) ou <b>accidentelle</b> (perte de service). Exemples du cours : menace de ransomware ; menace de divulgation non autorisée des informations suite à l'accès à un site web ; sabotage, incendie volontaire, vol des biens supports.</p>
+<p><b>Vulnérabilité</b> : faiblesse au niveau d'un bien (relative à la conception, à la réalisation, à l'installation, à la configuration ou à l'utilisation du bien). Exemples : OS non patché, mot de passe faible.</p>
+<p><b>Attaque</b> : action malveillante destinée à porter atteinte à la sécurité d'un bien. Une attaque représente la concrétisation d'une menace, et nécessite l'exploitation d'une vulnérabilité.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le micrologiciel d'un échographe n'est pas à jour depuis 2019 : vulnérabilité. Un groupe criminel cherche des appareils de ce modèle sur Internet : menace délibérée. S'il exploite la faille pour entrer : attaque. Sans faille exploitable, la menace reste une menace.</p>
+
+<h4>Formules clés</h4>
+<p>Attaque = menace qui se concrétise + exploitation d'une vulnérabilité.</p>
+<p>Menace : délibérée ou accidentelle. Vulnérabilité : conception, réalisation, installation, configuration, utilisation.</p>
+</article>
+
+<article class="notion" id="n-surface-attaque">
+<h3>La surface d'attaque</h3>
+<p class="chapeau">Un local technique laissé ouvert, un portail patient sur Internet, un faux technicien au téléphone : trois portes d'entrée très différentes dans le même hôpital.</p>
+<h4>Intuition</h4>
+<p>La surface d'attaque, c'est l'ensemble des portes qu'un attaquant peut essayer. Certaines sont physiques (les locaux), d'autres numériques (tout ce qui est connecté), d'autres humaines (les personnes qu'on peut tromper ou faire chanter). Plus on ajoute de tiers connectés et de services ouverts, plus elle grandit.</p>
+<div id="fig-surface"></div>
+
+<h4>Formalisation</h4>
+<p><b>Surface d'attaque</b> : ensemble des points d'entrée (matériels, logiciels, humains) vulnérables qu'un attaquant peut exploiter pour s'introduire dans un système ou voler des données.</p>
+<div class="tableau"><table>
+<tr><th>Surface</th><th>Contenu (cours)</th></tr>
+<tr><td>Physique</td><td>locaux, intrusions sur site...</td></tr>
+<tr><td>Numérique</td><td>tout ce qui peut être ciblé par une cyberattaque</td></tr>
+<tr><td>Humaine</td><td>attaques par ingénierie sociale, chantage, etc.</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un agent trouve une clé USB sur le parking et la branche par curiosité : la surface humaine a été exploitée. Connecter dix nouveaux prestataires en télémaintenance agrandit la surface numérique ; désactiver les services inutiles des serveurs et former le personnel la réduisent.</p>
+
+<h4>Formules clés</h4>
+<p>Surface d'attaque = points d'entrée physiques + numériques + humains.</p>
+</article>
+
+<div class="fin-partie" data-section="menace-surface"></div>
+</section>
+
+<section class="partie" id="s-kill-chain">
+<p class="rang-partie">2 / 3</p>
+<h2>Le cycle de vie d'une attaque</h2>
+
+<article class="notion" id="n-kill-chain">
+<h3>Le cycle de vie d'une attaque</h3>
+<p class="chapeau">L'équipe sécurité repère un scan du réseau. Ce n'est pas encore une attaque réussie, c'est son tout premier pas. Savoir où en est l'attaquant, c'est savoir quoi couper.</p>
+<h4>Intuition</h4>
+<p>Une attaque se déroule en phases. L'attaquant étudie sa cible, entre, exploite ses failles, gagne des droits, se déplace d'une machine à l'autre, efface ses traces, puis frappe : il rend des services indisponibles ou emporte les données. Chaque phase laisse un signal ; plus on le voit tôt, moins il y a de dégâts.</p>
+<div id="fig-killchain"></div>
+
+<h4>Formalisation</h4>
+<p>Le cours présente la <b>cyber kill chain</b> (schéma Varonis), en huit phases, chacune avec un signal de détection :</p>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Ce que fait l'attaquant</th><th>Signal</th></tr>
+<tr><td>Reconnaissance</td><td>des outils de reconnaissance scannent le réseau et cherchent des vulnérabilités</td><td>reconnaissance tools detected</td></tr>
+<tr><td>Intrusion</td><td>un rançongiciel, un malware ou un cryptolocker est présent ; le système est attaqué</td><td>crypto intrusion activity</td></tr>
+<tr><td>Exploitation</td><td>des outils d'exploitation abusent des vulnérabilités du système</td><td>exploitation tools detected</td></tr>
+<tr><td>Privilege escalation</td><td>tentatives d'extraire des identifiants et d'élever les permissions</td><td>permission changes on OU</td></tr>
+<tr><td>Lateral movement</td><td>des identifiants compromis servent à passer d'un système à l'autre</td><td>unusual lockout behaviors</td></tr>
+<tr><td>Obfuscation (anti-forensics)</td><td>l'attaquant cache sa présence et masque son activité</td><td>masking activity detected</td></tr>
+<tr><td>Denial of service</td><td>le réseau et l'infrastructure sont ciblés ; les ressources deviennent indisponibles pour les utilisateurs légitimes</td><td>GPO deleted</td></tr>
+<tr><td>Exfiltration</td><td>tentatives non autorisées d'accéder aux données, qui signalent une exfiltration en cours</td><td>suspicious mailbox activity</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Avec les identifiants volés d'un administrateur, l'attaquant passe du serveur du laboratoire au PACS, puis au DPI : c'est le déplacement latéral. Le cloisonnement du réseau (des couches) le freine, et des verrouillages de comptes inhabituels le trahissent.</p>
+
+<h4>Formules clés</h4>
+<p>Reconnaissance → intrusion → exploitation → élévation de privilèges → déplacement latéral → obfuscation → déni de service → exfiltration.</p>
+</article>
+
+<div class="fin-partie" data-section="kill-chain"></div>
+</section>
+
+<section class="partie" id="s-risque-incident">
+<p class="rang-partie">3 / 3</p>
+<h2>Risque, incident et SPOF</h2>
+
+<article class="notion" id="n-risque">
+<h3>Le risque</h3>
+<p class="chapeau">Deux risques pour un seul budget : la climatisation du local serveur, qui lâche souvent sans gravité, et un rançongiciel sur le PACS, moins fréquent mais majeur. Lequel traiter d'abord ?</p>
+<h4>Intuition</h4>
+<p>Un risque se juge sur deux axes : est-ce que ça risque d'arriver (probabilité), et à quel point ce serait grave (impact). On les combine dans une matrice : en haut à droite, le très probable et grave, à traiter d'abord. On peut faire baisser un risque en jouant sur l'un ou l'autre axe.</p>
+<div id="fig-matrice-risque"></div>
+
+<h4>Formalisation</h4>
+<p><b>Risque</b> : la probabilité qu'une menace exploite une vulnérabilité d'un système d'information, entraînant des conséquences négatives.</p>
+<p>\[ \text{Risque} = \text{Probabilité (ou Menace)} \times \text{Impact (ou Vulnérabilité / Gravité)} \]</p>
+<p>Échelles de la matrice du cours : probabilité très improbable (exceptionnel), improbable (rare), probable (fréquent), très probable (très fréquent) ; impact mineur (faible, peu grave), modéré (moyennement grave), important (grave), majeur (très grave, critique, vital).</p>
+<p>Analogie du cours : <b>vulnérabilité</b> = clés sous le tapis ; elle donne un risque d'exploitation à la <b>menace</b> = intrusion ; qui conduit à l'<b>incident</b> = vol des objets de valeur.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté : notes de 1 à 4 sur chaque axe.</p>
+<p>Rançongiciel sur le PACS : probable (3) × majeur (4) = 12. Climatisation : très probable (4) × modéré (2) = 8. On traite d'abord le rançongiciel. Avec des sauvegardes hors ligne testées, l'impact devient modéré : \(3 \times 2 = 6\).</p>
+
+<h4>Formules clés</h4>
+<p>\[ R = P \times I \]</p>
+<p>Vulnérabilité (clés sous le tapis) → menace (intrusion) → incident (vol).</p>
+</article>
+
+<article class="notion" id="n-incident-spof">
+<h3>Incident de sécurité et SPOF</h3>
+<p class="chapeau">Un antivirus bloque une pièce jointe piégée : un événement, rien de plus. Le PACS chiffré par un rançongiciel : un incident. Et si le seul switch du réseau tombe, tout s'arrête.</p>
+<h4>Intuition</h4>
+<p>Tous les événements de sécurité ne sont pas des incidents : il y a incident quand la confidentialité, l'intégrité ou la disponibilité sont compromises et que le fonctionnement normal est perturbé. Et certains éléments sont si centraux que leur seule panne arrête tout : ce sont les points de défaillance unique.</p>
+<div id="fig-spof"></div>
+
+<h4>Formalisation</h4>
+<p><b>Incident de sécurité</b> : événement malveillant ou accidentel ; compromet la CID des données et des SI ; perturbe le fonctionnement normal ; entraîne des risques financiers, juridiques, de réputation. Les incidents de cybersécurité sont une partie des événements de cybersécurité.</p>
+<p><b>SPOF</b> (single point of failure), ou <b>point de défaillance unique</b> : maillon faible dans un système d'information qui, en cas de défaillance, peut entraîner une interruption majeure. Ces points critiques peuvent être présents à plusieurs niveaux : <b>hardware</b>, <b>logiciel</b>, <b>humain</b>.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Dans le SI de la figure : le switch central unique (hardware), la base de données sans réplication (logiciel), et Karim, seul à connaître le mot de passe administrateur (humain). Les deux serveurs DPI et les deux onduleurs, redondants, ne sont pas des SPOF. On supprime un SPOF par la redondance.</p>
+
+<h4>Formules clés</h4>
+<p>Incident = CID compromise + fonctionnement perturbé → risques financiers, juridiques, de réputation.</p>
+<p>SPOF : hardware, logiciel, humain. Remède : la redondance.</p>
+</article>
+
+<div class="fin-partie" data-section="risque-incident"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/menace-vulnerabilite.js"></script>
+<script src="../figures/surface-attaque.js"></script>
+<script src="../figures/kill-chain.js"></script>
+<script src="../figures/risque.js"></script>
+<script src="../figures/incident-spof.js"></script>
+</body>
+</html>

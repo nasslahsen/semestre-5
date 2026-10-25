@@ -23,7 +23,21 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
-  robotique: { "boss-transformations": { 3: ["bras-2r", "calcul~11", "Calcul"], 4: ["bras-2r", "calcul~11", "Calcul"] } } // espace de travail du bras 2R
+  robotique: { "boss-transformations": { 3: ["bras-2r", "calcul~11", "Calcul"], 4: ["bras-2r", "calcul~11", "Calcul"] } }, // espace de travail du bras 2R
+  laboratoire: {
+    hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
+    interferences: { 4: ["interferences", "principales-interferences", "Principales interférences"] },
+    "revision-hemato": { 4: ["interferences", "principales-interferences", "Principales interférences"] },
+    "erreurs-preanalytiques": { 2: ["erreurs-preanalytiques", "formalisation", "Formalisation"] },
+    impedance: { 4: ["impedance", "principe-de-coulter", "Principe de Coulter"] },
+    "boss-automatisation": { 2: ["pneumatique", "le-reseau", "Le réseau"] },
+    "boss-microscopes": { 4: ["agitateur", "utilisation-et-precautions", "Utilisation et précautions"] },
+    "boss-biochimie": { 4: ["purificateurs", "les-technologies", "Les technologies"] },
+    distillateur: { 3: ["distillateur", "definition", "Définition"] },
+    "revision-automatisation": { 4: ["automate-tri", "technologies", "Technologies"] },
+    "automate-tri": { 4: ["automate-tri", "technologies", "Technologies"] },
+    coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] }
+  }
 };
 const VIDES = new Set(("les des une un le la de du et en est sur pour par que qui dans au aux ce cette ces son sa ses il elle on se ne pas plus "
   + "avec sans mais ou donc car tout tous toute toutes leur leurs lui sont etre fait faire peut comme quand quel quelle quels quelles ici "

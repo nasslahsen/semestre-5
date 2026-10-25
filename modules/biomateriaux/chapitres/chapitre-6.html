@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les matériaux composites</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 6. -->
+<main class="cours-chapitre" data-chapitre="6">
+<p class="etiquette" data-etiquette></p>
+<h1>Les matériaux composites</h1>
+
+<section class="partie" id="s-renfort-matrice">
+<p class="rang-partie">1 / 3</p>
+<h2>Renfort, matrice et anisotropie</h2>
+
+<article class="notion" id="n-composites">
+<h3>Renfort et matrice</h3>
+<p class="chapeau">Une main prothétique doit être rigide comme du métal mais légère, et un composite dentaire doit ressembler à la dent. Aucun matériau seul ne le fait : on en associe deux, des fibres qui portent l'effort et une matrice qui les tient ensemble.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre explique ce qu'est un composite et comment calculer sa rigidité à partir de celles de ses constituants. Pourquoi c'est utile : les composites carbone-époxy remplacent le métal dans les prothèses de membre, les composites dentaires remplacent l'amalgame, et les mêmes calculs servent pour toute pièce renforcée. Les pages s'enchaînent ainsi :</p>
+<ul>
+<li><strong>Renfort et matrice</strong> (cette page) : définition, familles de matrices et de renforts, formes des fibres, composites de grande diffusion et à hautes performances.</li>
+<li><strong>Isotrope ou orthotrope</strong> : un pli de fibres alignées n'a pas la même rigidité dans toutes les directions ; il faut plus de constantes élastiques qu'un métal.</li>
+<li><strong>Loi des mélanges</strong> : tiré dans le sens des fibres, le composite se comporte comme deux ressorts côte à côte : \(E_{CL} = E_f \phi_f + E_m \phi_m\).</li>
+<li><strong>Module transversal</strong> : tiré en travers, comme deux ressorts en série : \(1/E_{CT} = \phi_f/E_f + \phi_m/E_m\).</li>
+<li><strong>Orientation des fibres</strong> : si les fibres ne sont pas toutes alignées, on corrige avec le coefficient \(K_o\).</li>
+</ul>
+<p>Les fibres elles-mêmes (verre, carbone, aramide) sont décrites au chapitre 5, page « Verre, carbone, aramide et autres renforts ».</p>
+
+<h4>Intuition</h4>
+<p>Une résine seule est souple et cassante ; des fibres seules sont très raides mais ne tiennent pas en forme et ne transmettent pas les efforts entre elles. Noyées dans la résine, les fibres portent la charge et la résine les maintient, les protège et répartit l'effort. Le cours le résume : fibre + matrice = composite. Le pneu (fils d'acier dans le caoutchouc), le béton armé (acier dans le béton) et le plastique renforcé de fibres de verre en sont des exemples familiers.</p>
+
+<div id="fig-familles"></div>
+
+<h4>Formalisation</h4>
+<p>De façon générale, un <strong>composite</strong> est la combinaison macroscopique de deux ou plusieurs matériaux ; on utilise ce terme pour les matériaux contenant un <strong>renfort</strong> de fibres lié par un matériau de support, la <strong>matrice</strong>. Le chapitre d'introduction le dit aussi : assemblage d'au moins deux matériaux qui ne se mélangent pas. Définition de la norme ASTM D3878, citée par le cours : « composite material : a substance consisting of two or more materials, insoluble in one another, which are combined to form a useful engineering material possessing certain properties not possessed by the constituents ». Soit : une substance faite de deux matériaux ou plus, insolubles l'un dans l'autre, combinés pour former un matériau d'ingénierie utile qui possède des propriétés que les constituants n'ont pas.</p>
+<div class="tableau"><table>
+<tr><th>Familles de matrices</th><th>Familles de renforts</th></tr>
+<tr><td>organiques : thermodurcissables, thermoplastiques, élastomères</td><td>organiques : polyesters, aramides</td></tr>
+<tr><td>minérales : céramiques (borures, carbures, nitrures), métalliques</td><td>inorganiques, minéraux : céramiques (verre, carbone, bore), métalliques</td></tr>
+<tr><td></td><td>inorganiques, végétaux : bois, coton, papier, jute</td></tr>
+</table></div>
+<p>Deux types de composites :</p>
+<div class="tableau"><table>
+<tr><th></th><th>Grande diffusion (GD)</th><th>Hautes performances (HP)</th></tr>
+<tr><td>Part</td><td>95 % des composites utilisés</td><td>le reste</td></tr>
+<tr><td>Constituants</td><td>surtout le couple résine polyester / fibre de verre</td><td>résine / fibre de verre, de carbone ou d'aramide</td></tr>
+<tr><td>Propriétés</td><td>plus faibles</td><td>propriétés mécaniques spécifiques élevées</td></tr>
+<tr><td>Coût</td><td>compatible avec une production en grande série</td><td>coût unitaire important</td></tr>
+<tr><td>Usage</td><td>bateau, planche à voile, cannes à pêche (verre)</td><td>aéronautique et spatial</td></tr>
+</table></div>
+
+<h4>Formes du renfort</h4>
+<p>Les fibres de verre (ou de carbone) se présentent sous différentes formes :</p>
+<ul>
+<li><strong>roving</strong> : assemblage de plusieurs fibres ; les rovings peuvent être tissés ;</li>
+<li><strong>fibres coupées</strong> : entre 3 et 12 mm, incorporées aux résines thermodurcissables ;</li>
+<li><strong>fibres broyées</strong> : moins de 1 mm, incorporées aux résines thermoplastiques ; les mêmes procédés de mise en forme peuvent être utilisés ;</li>
+<li><strong>mat à fibres coupées</strong> et <strong>mat à fibres continues</strong> : feuilles de fibres retenues ensemble par un liant ;</li>
+<li><strong>tissu</strong> : entrecroisement des fils de chaîne et des fils de trame ; armures satin, sergé, taffetas. Les tissus d'aramide servent aussi aux gilets pare-balles et aux casques.</li>
+</ul>
+
+<div id="fig-tissu"></div>
+
+<h4>Pourquoi des composites : rigidité et masse</h4>
+<p>Le tableau du cours compare densité, module et résistance en traction. Divise le module par la masse volumique : c'est le <strong>module spécifique</strong> \(E/\rho\), la rigidité par unité de masse.</p>
+<div class="tableau"><table>
+<tr><th>Matériau (tableau du cours)</th><th>ρ (g/cm³)</th><th>E (GPa)</th><th>Résistance (MPa)</th><th>E/ρ</th></tr>
+<tr><td>acier SAE 1010 écroui</td><td>7,87</td><td>207</td><td>365</td><td>26,3</td></tr>
+<tr><td>acier AISI 4340 trempé revenu</td><td>7,87</td><td>207</td><td>1 722</td><td>26,3</td></tr>
+<tr><td>alliage d'aluminium 6061-T6</td><td>2,70</td><td>68,9</td><td>310</td><td>25,5</td></tr>
+<tr><td>alliage d'aluminium 7178-T6</td><td>2,70</td><td>68,9</td><td>606</td><td>25,5</td></tr>
+<tr><td>alliage de titane Ti-6Al-4V</td><td>4,43</td><td>110</td><td>1 171</td><td>24,8</td></tr>
+<tr><td>inox 17-7 PH</td><td>7,87</td><td>196</td><td>1 619</td><td>24,9</td></tr>
+<tr><td>alliage de nickel INCO 718</td><td>8,2</td><td>207</td><td>1 399</td><td>25,2</td></tr>
+<tr><td>carbone haute résistance-époxy, unidirectionnel</td><td>1,55</td><td>137,8</td><td>1 550</td><td>88,9</td></tr>
+<tr><td>carbone haut module-époxy, unidirectionnel</td><td>1,63</td><td>215</td><td>1 240</td><td>131,9</td></tr>
+<tr><td>verre E-époxy, unidirectionnel</td><td>1,85</td><td>39,3</td><td>965</td><td>21,2</td></tr>
+<tr><td>Kevlar 49-époxy, unidirectionnel</td><td>1,38</td><td>75,8</td><td>1 378</td><td>54,9</td></tr>
+<tr><td>bore-alliage d'aluminium 6061 (recuit)</td><td>2,35</td><td>220</td><td>1 109</td><td>93,6</td></tr>
+<tr><td>carbone-époxy quasi isotrope</td><td>1,55</td><td>45,5</td><td>579</td><td>29,4</td></tr>
+<tr><td>SMC (sheet-molding compound), isotrope</td><td>1,87</td><td>15,8</td><td>164</td><td>8,4</td></tr>
+</table></div>
+
+<div id="fig-specifique"></div>
+
+<p>Tous les métaux ont un module spécifique voisin de 25 ; le carbone-époxy unidirectionnel monte à 89 ou 132. D'où l'usage croissant des composites en aéronautique : quelques % de la masse de structure des avions de 1970, 50 % pour le Boeing 787 (composites 50 %, aluminium 20 %, titane 15 %, acier 10 %, autres 5 %), environ 60 % pour l'A350. Le cours montre aussi des usages médicaux : bloc opératoire, prothèse dentaire, composite dentaire à la place de l'amalgame, main prothétique en carbone, IRM. Le carbone-époxy quasi isotrope (29,4) perd beaucoup par rapport à l'unidirectionnel : c'est l'effet de l'orientation des fibres, vu à la dernière page du chapitre.</p>
+
+<h4>Exemple</h4>
+<p>Comparer une main prothétique en Ti-6Al-4V et en carbone haute résistance-époxy, à rigidité égale (exemple ajouté, valeurs du tableau du cours). Le rapport des modules spécifiques vaut \(88{,}9 / 24{,}8 \approx 3{,}6\) : pour la même rigidité dans le sens des fibres, la pièce en composite peut être environ 3,6 fois plus légère. Attention : ce gain ne vaut que dans le sens des fibres ; en travers, le pli unidirectionnel est bien moins rigide (page suivante).</p>
+
+<h4>Formules clés</h4>
+<p>Composite = renfort (fibres) + matrice ; constituants insolubles l'un dans l'autre, propriétés que chacun n'a pas seul (ASTM D3878).</p>
+<p>GD : 95 %, polyester-verre, grande série. HP : verre, carbone ou aramide, propriétés spécifiques élevées, aéronautique et spatial.</p>
+<p>\[\text{module spécifique} = \frac{E}{\rho}\]</p>
+<p>Fibres coupées (3 à 12 mm) : thermodurcissables ; fibres broyées (&lt; 1 mm) : thermoplastiques ; roving, mat, tissu (chaîne et trame).</p>
+</article>
+
+<article class="notion" id="n-isotrope-orthotrope">
+<h3>Matériau isotrope, monocouche orthotrope</h3>
+<p class="chapeau">Une tige de titane se déforme pareil dans tous les sens. Une lame de prothèse en carbone, non : très raide dans le sens des fibres, souple en travers. Pour la calculer, il faut décrire cette différence avec plus de constantes élastiques.</p>
+
+<h4>Intuition</h4>
+<p>Dans un pli de fibres toutes parallèles, tirer le long des fibres revient à tirer sur les fibres, très raides. Tirer en travers revient à tirer surtout sur la résine, souple. Entre les deux, la rigidité passe progressivement de l'une à l'autre. Un métal, lui, a la même rigidité dans toutes les directions : il est isotrope.</p>
+
+<div id="fig-pli"></div>
+
+<h4>Formalisation</h4>
+<p>Dans le domaine des matériaux composites, la <strong>monocouche unidirectionnelle</strong> est le <strong>pli</strong> de base à partir duquel sont construits les composites stratifiés, qui ont de très bonnes propriétés mécaniques comparativement aux matériaux isotropes. Les propriétés des stratifiés se calculent donc à partir de celles de la monocouche unidirectionnelle. On repère le pli par trois directions : <strong>longitudinale</strong> L ou 1 (le long des fibres), <strong>transverse</strong> T ou 2 (perpendiculaire aux fibres, dans le plan), et 3 (l'épaisseur). Un stratifié empile des plis orientés, par exemple à 90°, −θ, 0°, +θ.</p>
+<p>Du point de vue mécanique, un matériau <strong>orthotrope</strong> se comporte très différemment d'un matériau <strong>isotrope</strong> :</p>
+<ul>
+<li>isotrope (alliages métalliques, céramiques, polymères) : deux constantes élastiques indépendantes suffisent parmi le module d'Young \(E\), le coefficient de Poisson \(\nu\) et le module de cisaillement \(G\), avec \(G = \dfrac{E}{2(1+\nu)}\) ;</li>
+<li>monocouche orthotrope dans ses axes (1, 2, 3) : neuf constantes élastiques indépendantes ;</li>
+<li>stratifié mince : l'épaisseur est très faible devant les autres dimensions, le calcul se ramène à deux dimensions (1, 2) et il faut encore quatre constantes indépendantes.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Constante (plaque mince)</th><th>Notation</th></tr>
+<tr><td>module longitudinal, parallèle aux fibres (direction L ou 1)</td><td>\(E_L\) ou \(E_{11}\)</td></tr>
+<tr><td>module transversal, perpendiculaire aux fibres (direction T ou 2)</td><td>\(E_T\) ou \(E_{22}\)</td></tr>
+<tr><td>module de cisaillement dans le plan L-T (ou 1-2)</td><td>\(G_{LT}\) ou \(G_{12}\)</td></tr>
+<tr><td>coefficient de Poisson majeur</td><td>\(\nu_{LT}\) ou \(\nu_{12}\)</td></tr>
+</table></div>
+<p>La diapo écrit « direction L ou 1 » sur la ligne du module transversal : c'est une coquille recopiée de la ligne du dessus ; le module transversal se mesure dans la direction T ou 2.</p>
+
+<div id="fig-stratifie"></div>
+
+<h4>Hypothèses de la micromécanique</h4>
+<p>Pour calculer les modules de la monocouche à partir de ceux des fibres et de la matrice (pages suivantes), le cours pose :</p>
+<ul>
+<li>distribution uniforme des fibres à travers la matrice ;</li>
+<li>collage parfait entre les fibres et la matrice ;</li>
+<li>charge appliquée parallèle ou normale à la direction des fibres ;</li>
+<li>absence de contraintes résiduelles ;</li>
+<li>fibres et matrice ont chacune un comportement élastique.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p>Isotrope : un alliage avec \(E = 200\) GPa et \(G = 80\) GPa a \(1 + \nu = E/(2G) = 1{,}25\), donc \(\nu = 0{,}25\) ; pas besoin de le mesurer. Orthotrope (exemple ajouté) : un pli carbone-époxy a typiquement \(E_L = 140\) GPa, \(E_T = 10\) GPa, \(G_{LT} = 5\) GPa, \(\nu_{LT} = 0{,}3\). Ces quatre valeurs sont indépendantes : connaître \(E_L\) et \(\nu_{LT}\) ne donne ni \(E_T\) ni \(G_{LT}\). Dans la figure du haut, la rigidité dans une direction θ se déduit de ces quatre constantes : 140 GPa à 0°, environ 13 GPa à 45°, 10 GPa à 90°.</p>
+
+<h4>Formules clés</h4>
+<p>Directions : L ou 1 (fibres), T ou 2 (en travers, dans le plan), 3 (épaisseur).</p>
+<p>\[\text{isotrope : } G = \frac{E}{2(1+\nu)} \quad (2\ \text{constantes})\]</p>
+<p>Monocouche orthotrope (1, 2, 3) : 9 constantes ; plaque mince (1, 2) : 4 constantes \(E_L, E_T, G_{LT}, \nu_{LT}\).</p>
+</article>
+
+<div class="fin-partie" data-section="renfort-matrice"></div>
+</section>
+
+<section class="partie" id="s-melanges-transversal">
+<p class="rang-partie">2 / 3</p>
+<h2>Loi des mélanges et module transversal</h2>
+
+<article class="notion" id="n-loi-melanges">
+<h3>Loi des mélanges et module longitudinal</h3>
+<p class="chapeau">On sait le module de la fibre de verre (70 GPa) et celui de la résine (3 GPa). Quelle rigidité aura une plaque qui contient 40 % de fibres, tirée dans le sens des fibres ? Pas la moyenne simple : il faut savoir comment fibres et matrice se partagent la charge.</p>
+
+<h4>Intuition</h4>
+<p>Tirée dans le sens des fibres, la plaque s'allonge d'un bloc : fibres et matrice, collées l'une à l'autre, ont le même allongement. C'est comme deux ressorts côte à côte entre deux plaques : ils s'allongent pareil et leurs forces s'ajoutent. Le ressort raide (la fibre) porte presque toute la force.</p>
+
+<div id="fig-parallele"></div>
+
+<h4>Formalisation</h4>
+<p>Monocouche unidirectionnelle chargée parallèlement aux fibres (direction L). Matrice : \(E_m, \sigma_m, \varepsilon_m\) ; fibre : \(E_f, \sigma_f, \varepsilon_f\). Sections : \(A_c = A_f + A_m\). Fractions volumiques : \(\phi_f = A_f/A_c\) et \(\phi_m = A_m/A_c = 1 - \phi_f\).</p>
+<ul>
+<li>Même déformation : \(\varepsilon_{CL} = \varepsilon_f = \varepsilon_m\).</li>
+<li>Les forces s'ajoutent : \(F_{CL} = F_f + F_m = \sigma_f A_f + \sigma_m A_m = \sigma_{CL} A_c\).</li>
+<li>On divise par \(A_c\) : \(\sigma_{CL} = \sigma_f \dfrac{A_f}{A_c} + \sigma_m \dfrac{A_m}{A_c} = \sigma_f \phi_f + \sigma_m \phi_m\) : <strong>loi des mélanges</strong>.</li>
+<li>Avec \(\sigma = E\,\varepsilon\) et la même déformation : \(E_{CL}\,\varepsilon_{CL} = E_f\,\varepsilon_f\,\phi_f + E_m\,\varepsilon_m\,\phi_m\), donc \(E_{CL} = E_f \phi_f + E_m \phi_m\).</li>
+</ul>
+<p>Le module longitudinal varie en ligne droite de \(E_m\) (sans fibres) à \(E_f\) (que des fibres) : il est influencé par les fibres.</p>
+
+<h4>Résistance longitudinale</h4>
+<p>Fibre, matrice et composite suivent chacun leur courbe contrainte-déformation, avec la même déformation. La fibre, raide et peu déformable, atteint sa déformation de rupture \(\varepsilon_{fu}\) avant la matrice (\(\varepsilon_{mu}\)) : sa contrainte vaut alors \(\sigma_{fu}\) et le composite atteint sa résistance longitudinale \(\sigma_{Ltu}\). La matrice seule casserait à \(\sigma_{mu}\), bien plus bas. En pratique, il est difficile de prévoir le mode de rupture (le cours montre des éprouvettes rompues en balai de fibres) : les équations de rupture servent d'approximation.</p>
+
+<div id="fig-rupture"></div>
+
+<h4>Exemple</h4>
+<p>Exemple du cours : \(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\), \(\varepsilon = 0{,}01\).</p>
+<ul>
+<li>\(\sigma_f = 70\,000 \times 0{,}01 = 700\) MPa et \(\sigma_m = 3\,000 \times 0{,}01 = 30\) MPa.</li>
+<li>\(\sigma_c = 700 \times 0{,}4 + 30 \times 0{,}6 = 280 + 18 = 298\) MPa : les fibres en portent 280 (94 %), la matrice 18 (6 %). La diapo écrit « 8 » sous le second terme : c'est \(30 \times 0{,}6 = 18\).</li>
+<li>\(E_{CL} = 70 \times 0{,}4 + 3 \times 0{,}6 = 29{,}8\) GPa \(\approx E_f\,\phi_f = 28\) GPa : la contribution de la matrice est presque négligeable.</li>
+</ul>
+
+<h4>Formules clés</h4>
+<p>\[\varepsilon_{CL} = \varepsilon_f = \varepsilon_m \qquad \phi_m = 1 - \phi_f\]</p>
+<p>\[\sigma_{CL} = \sigma_f\,\phi_f + \sigma_m\,\phi_m \qquad E_{CL} = E_f\,\phi_f + E_m\,\phi_m\]</p>
+<p>La fibre rompt la première (\(\varepsilon_{fu} < \varepsilon_{mu}\)) ; le mode de rupture reste difficile à prévoir.</p>
+</article>
+
+<article class="notion" id="n-module-transversal">
+<h3>Module transversal et taux de fibres</h3>
+<p class="chapeau">La même plaque à 40 % de fibres de verre fait 29,8 GPa dans le sens des fibres. Et si on la tire en travers ? Les fibres ne sont plus côte à côte avec la résine mais l'une derrière l'autre, et presque tout le travail retombe sur la résine.</p>
+
+<h4>Intuition</h4>
+<p>Chargées perpendiculairement, fibres et matrice sont traversées par la même force, comme deux ressorts en série. Le ressort raide (la fibre) s'allonge à peine ; le souple (la matrice) fait presque tout l'allongement. La rigidité de l'ensemble est donc commandée par le maillon souple : ajouter des fibres n'aide presque pas, sauf quand il n'y a presque plus de matrice.</p>
+
+<div id="fig-serie"></div>
+
+<h4>Formalisation</h4>
+<p>Monocouche unidirectionnelle chargée perpendiculairement aux fibres (direction T). La diapo garde le titre « Module longitudinal » : il s'agit bien du module transversal.</p>
+<ul>
+<li>Même contrainte : \(\sigma_{CT} = \sigma_f = \sigma_m\) : la même force traverse fibre et matrice (la diapo note \(\sigma_{CL}\) à cette ligne et pose aussi \(A_c = A_f = A_m\), la même section pour les deux).</li>
+<li>Les allongements s'ajoutent : \(\varepsilon_{CT} = \varepsilon_f \phi_f + \varepsilon_m \phi_m\).</li>
+<li>On divise par \(\sigma_{CT}\) : \(\dfrac{\varepsilon_{CT}}{\sigma_{CT}} = \dfrac{\varepsilon_f \phi_f}{\sigma_{CT}} + \dfrac{\varepsilon_m \phi_m}{\sigma_{CT}}\), soit \(\dfrac{1}{E_{CT}} = \dfrac{\phi_f}{E_f} + \dfrac{\phi_m}{E_m}\).</li>
+<li>Forme pratique : \(E_{CT} = \dfrac{E_f E_m}{\phi_f E_m + \phi_m E_f}\).</li>
+</ul>
+
+<h4>Influence du taux de fibre</h4>
+<p>Sur la courbe du cours, \(E_{CL}\) monte en ligne droite de \(E_m\) à \(E_f\), alors que \(E_{CT}\) reste près de \(E_m\) puis ne rejoint \(E_f\) qu'à \(\phi_f \to 1\). Trois conclusions :</p>
+<ul>
+<li>le module longitudinal est influencé par les fibres ;</li>
+<li>le module transversal est influencé par la matrice ;</li>
+<li>le module longitudinal est toujours plus grand que le module transversal.</li>
+</ul>
+
+<div id="fig-courbes"></div>
+
+<h4>Exemple</h4>
+<p>Exemple du cours : \(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\).</p>
+<p>\[E_{CT} = \frac{70 \times 3}{0{,}4 \times 3 + 0{,}6 \times 70} = \frac{210}{43{,}2} = 4{,}86\ \text{GPa}\]</p>
+<p>C'est à peine plus que \(E_m / \phi_m = 3 / 0{,}6 = 5\) GPa : la contribution des fibres est presque négligeable. Avec les mêmes données, \(E_{CL} = 29{,}8\) GPa, six fois plus. Pour une prothèse, cela veut dire qu'un pli unidirectionnel est fragile dès qu'il est sollicité en travers : on empile des plis orientés (page suivante).</p>
+
+<h4>Formules clés</h4>
+<p>\[\sigma_{CT} = \sigma_f = \sigma_m \qquad \varepsilon_{CT} = \varepsilon_f\,\phi_f + \varepsilon_m\,\phi_m\]</p>
+<p>\[\frac{1}{E_{CT}} = \frac{\phi_f}{E_f} + \frac{\phi_m}{E_m} \qquad E_{CT} \approx \frac{E_m}{\phi_m}\ \text{si}\ E_f \gg E_m\]</p>
+<p>\(E_{CL}\) : fibres ; \(E_{CT}\) : matrice ; toujours \(E_{CL} > E_{CT}\).</p>
+</article>
+
+<div class="fin-partie" data-section="melanges-transversal"></div>
+</section>
+
+<section class="partie" id="s-orientation">
+<p class="rang-partie">3 / 3</p>
+<h2>Orientation des fibres</h2>
+
+<article class="notion" id="n-orientation-fibres">
+<h3>Orientation des fibres</h3>
+<p class="chapeau">Dans un tissu ou un mat, toutes les fibres ne sont pas alignées avec la charge. Une fibre à 90° ne porte presque rien, une fibre à 45° en porte un peu. La loi des mélanges doit en tenir compte.</p>
+
+<h4>Intuition</h4>
+<p>Une fibre inclinée d'un angle θ par rapport à la charge travaille moins qu'une fibre alignée : elle est à la fois moins étirée et moins efficace pour reprendre l'effort, et les deux effets se multiplient. Le cours compte la contribution de chaque famille de fibres par \(\cos^4\theta\) : 1 à 0°, 0,25 à 45°, 0 à 90°. On fait la moyenne sur toutes les fibres, et on obtient le coefficient d'orientation \(K_o\), entre 0 et 1.</p>
+
+<div id="fig-ko"></div>
+
+<h4>Formalisation</h4>
+<p>Quand les fibres ne sont pas toutes alignées dans la même direction, on utilise une équation modifiée pour estimer \(E_{CL}\) :</p>
+<p>\[E_{CL} = K_o\,E_f\,\phi_f + E_m\,\phi_m \qquad K_o = \sum a_n\,(\cos\theta_n)^4\]</p>
+<p>où \(K_o\) est le <strong>coefficient d'orientation</strong>, \(a_n\) la part des fibres orientées à l'angle \(\theta_n\) de la charge (\(\sum a_n = 1\)). Valeurs données par le cours :</p>
+<div class="tableau"><table>
+<tr><th>Orientation des fibres</th><th>\(K_o\)</th><th>Calcul</th></tr>
+<tr><td>toutes dans la direction de la charge</td><td>1</td><td>\(1 \times \cos^4 0° = 1\)</td></tr>
+<tr><td>toutes perpendiculaires à la charge</td><td>0</td><td>\(\cos^4 90° = 0\)</td></tr>
+<tr><td>moitié à 0°, moitié à 90°</td><td>0,5</td><td>\(0{,}5 \times 1 + 0{,}5 \times 0\)</td></tr>
+<tr><td>moitié à +45°, moitié à −45°</td><td>0,25</td><td>\(\cos^4 45° = (0{,}5)^2\)</td></tr>
+<tr><td>un quart à 0°, 90°, +45°, −45°</td><td>0,375</td><td>\(0{,}25\,(1 + 0 + 0{,}25 + 0{,}25)\)</td></tr>
+<tr><td>orientation aléatoire dans le plan de la feuille</td><td>0,375</td><td>valeur de la diapo, la même que pour le stratifié à quatre directions</td></tr>
+</table></div>
+<p>Le cas aléatoire est celui d'un mat ; le croisé 0/90 est celui d'un tissu équilibré.</p>
+
+<div id="fig-stratifie-ko"></div>
+
+<h4>Exemple</h4>
+<p>Avec le verre et la résine de l'exemple du cours (\(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\)) :</p>
+<ul>
+<li>fibres alignées, \(K_o = 1\) : \(E_{CL} = 28 + 1{,}8 = 29{,}8\) GPa ;</li>
+<li>tissu 0/90, \(K_o = 0{,}5\) : \(E_{CL} = 14 + 1{,}8 = 15{,}8\) GPa ;</li>
+<li>mat aléatoire, \(K_o = 0{,}375\) : \(E_{CL} = 10{,}5 + 1{,}8 = 12{,}3\) GPa.</li>
+</ul>
+<p>Exemple ajouté : une lame de prothèse de course en carbone-époxy (\(E_f = 230\) GPa, \(E_m = 3{,}5\) GPa, \(\phi_f = 0{,}6\)) avec 70 % de plis à 0°, 10 % à +45°, 10 % à −45° et 10 % à 90° a \(K_o = 0{,}7 + 0{,}1 \times 0{,}25 \times 2 = 0{,}75\) et \(E_{CL} = 0{,}75 \times 230 \times 0{,}6 + 3{,}5 \times 0{,}4 = 104{,}9\) GPa dans sa longueur, presque le module du titane pour une masse volumique trois fois plus faible.</p>
+
+<h4>Formules clés</h4>
+<p>\[E_{CL} = K_o\,E_f\,\phi_f + E_m\,\phi_m \qquad K_o = \sum a_n\,(\cos\theta_n)^4\]</p>
+<p>\(K_o\) : 1 (alignées), 0 (perpendiculaires), 0,5 (0/90), 0,25 (±45), 0,375 (0/90/±45 et aléatoire dans le plan).</p>
+</article>
+
+<div class="fin-partie" data-section="orientation"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/composites.js"></script>
+<script src="../figures/isotrope-orthotrope.js"></script>
+<script src="../figures/loi-melanges.js"></script>
+<script src="../figures/module-transversal.js"></script>
+<script src="../figures/orientation-fibres.js"></script>
+</body>
+</html>

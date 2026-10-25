@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Biosécurité et risques liés aux équipements · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Biosécurité et risques liés aux équipements</h1>
+<p class="chapeau">Chaque tube peut contenir un virus ou une bactérie, chaque flacon peut être corrosif, chaque appareil a ses pièces mobiles et ses températures extrêmes. Travailler au laboratoire, c'est d'abord ne pas se blesser ni contaminer les autres.</p>
+
+<h2>Intuition</h2>
+<p>On ne protège pas de la même façon contre une bactérie banale et contre le virus Ebola. Plus l'agent manipulé est dangereux, plus le laboratoire est fermé et contrôlé : c'est l'idée des niveaux de biosécurité. Et les appareils eux-mêmes ont leurs dangers : une centrifugeuse qui casse un tube projette des aérosols, un réservoir d'azote liquide peut exploser.</p>
+
+<div id="fig-biosecurite"></div>
+
+<h2>Formalisation</h2>
+<p>La <strong>biosécurité</strong> vise à assurer une information correcte sur les dangers, principalement biologiques, présents dans les laboratoires, à évaluer les risques et à mettre en œuvre leur gestion. Elle informe sur les pratiques que le technologue doit mettre en place pour sa propre sécurité, celle de son entourage personnel et professionnel, et celle de l'environnement.</p>
+<div class="tableau"><table>
+<tr><th>Type de risque</th><th>Exemples</th><th>Moyens de prévention</th></tr>
+<tr><td>Biologique</td><td>Bactéries, virus, parasites</td><td>EPI, formation, vaccination</td></tr>
+<tr><td>Chimique</td><td>Produits corrosifs, toxiques, inflammables</td><td>Signalisation, fiches de sécurité, ventilation, stockage adéquat</td></tr>
+<tr><td>Physique</td><td>Bruit, chaleur, froid, rayonnements</td><td>Équipements de protection, signalisation</td></tr>
+</table></div>
+
+<h3>Niveaux de biosécurité (BSL)</h3>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Agents manipulés</th></tr>
+<tr><td>BSL-1</td><td>Micro-organismes non pathogènes (enseignement de base)</td></tr>
+<tr><td>BSL-2</td><td>Pathogènes du groupe 2 (la plupart des laboratoires cliniques)</td></tr>
+<tr><td>BSL-3</td><td>Pathogènes pouvant causer des maladies graves par inhalation (ex. Mycobacterium tuberculosis)</td></tr>
+<tr><td>BSL-4</td><td>Pathogènes hautement dangereux (ex. virus Ebola)</td></tr>
+</table></div>
+
+<h3>Risques liés aux équipements</h3>
+<ul>
+<li><b>Automates</b> : pièces mobiles, aiguilles, risque de coupure et de contamination.</li>
+<li><b>Centrifugeuses</b> : risque d'aérosolisation si les tubes se brisent.</li>
+<li><b>Congélateurs</b> : risque d'explosion (azote liquide), brûlures par le froid.</li>
+<li><b>Hottes et PSM</b> (postes de sécurité microbiologique) : perte d'efficacité si elles sont mal entretenues ou si les filtres sont saturés.</li>
+</ul>
+<p>L'évaluation des risques doit être <b>systématique et documentée</b>. La formation continue du personnel est un facteur déterminant de la performance en biosécurité.</p>
+
+<h3>Les équipements de protection individuelle (EPI)</h3>
+<p>Le cours présente les EPI par partie du corps : protection des voies respiratoires (poussières, vapeurs), de la tête (impacts), auditive (bruit excessif), oculaire et faciale (projections de poussière, de particules, de fluides), des mains (coupures, produits chimiques, chaleur, froid, électricité, risques biologiques), blouse de laboratoire, protection des pieds (objets qui tombent ou qui roulent, perforations). Vu par l'ingénieur biomédical, l'EPI est une <b>barrière finale</b> : la sécurité doit être conçue dans le système, pas ajoutée après coup.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un technicien entend un claquement dans la centrifugeuse en fin de cycle. Il n'ouvre pas le couvercle tout de suite : un tube a pu se briser et les aérosols doivent retomber. Le risque est biologique (le sang du tube), mais il est créé par un équipement : c'est pour cela que le cours range la centrifugeuse dans les risques liés aux équipements.</p>
+
+<h2>Formules clés</h2>
+<p>Risques : biologique (EPI, formation, vaccination), chimique (signalisation, fiches de sécurité, ventilation, stockage), physique (protection, signalisation).</p>
+<p>BSL-1 non pathogènes ; BSL-2 groupe 2, la plupart des laboratoires cliniques ; BSL-3 maladies graves par inhalation ; BSL-4 hautement dangereux.</p>
+<p>Équipements : automates (pièces mobiles, aiguilles), centrifugeuses (aérosols), congélateurs (explosion, froid), hottes et PSM (filtres saturés).</p>
+<p>L'EPI est une barrière finale ; l'évaluation des risques est systématique et documentée.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/biosecurite.js"></script>
+</body>
+</html>

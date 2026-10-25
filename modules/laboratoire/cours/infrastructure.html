@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Infrastructure et sécurité technique · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Infrastructure et sécurité technique</h1>
+<p class="chapeau">Un analyseur parfaitement entretenu ne sert à rien si le courant saute, si le congélateur dérive dans la nuit, si l'eau pure ne l'est plus ou si la salle surchauffe. Le laboratoire repose sur une infrastructure que le patient ne voit jamais, et sur une sécurité qui doit être pensée dès la conception.</p>
+
+<h2>Intuition</h2>
+<p>Derrière chaque paillasse, il y a des réseaux : électricité, froid, air, eau, gaz, informatique, déchets. Chacun peut tomber en panne et fausser des résultats ou mettre des personnes en danger. Et pour la sécurité, l'équipement de protection individuelle n'est que la dernière barrière : la vraie sécurité est dans la conception du système.</p>
+
+<div id="fig-infrastructure"></div>
+
+<h2>Formalisation</h2>
+<h3>L'infrastructure technique</h3>
+<div class="tableau"><table>
+<tr><th>Réseau</th><th>Ce qu'il faut maîtriser</th></tr>
+<tr><td>Électricité</td><td>Réseau, terre, protections, onduleur (UPS), groupe électrogène</td></tr>
+<tr><td>Réfrigération</td><td>2 à 8 °C, congélation, alarmes de dérive</td></tr>
+<tr><td>HVAC (traitement de l'air)</td><td>Température, humidité, renouvellement et pression</td></tr>
+<tr><td>Eau</td><td>Qualité, traitement, surveillance continue selon l'activité</td></tr>
+<tr><td>Gaz et sécurité incendie</td><td>Réseau de gaz, détection et protection incendie</td></tr>
+<tr><td>Réseau et déchets</td><td>Réseau informatique, gestion des déchets</td></tr>
+</table></div>
+<h3>Biosécurité et sécurité technique</h3>
+<p>Risques à maîtriser : biologique, chimique, électrique, incendie, radiologique, informatique. Référentiels de sécurité : <b>ISO 15190:2020</b> (sécurité des laboratoires médicaux), <b>ISO 35001</b> (management du biorisque), <b>IEC 61010</b> (sécurité des équipements de laboratoire).</p>
+<p>Principe : l'<strong>EPI</strong> (équipement de protection individuelle) est une barrière finale ; la sécurité doit être conçue dans le système, pas ajoutée après coup.</p>
+<h3>Référentiels à connaître</h3>
+<ul>
+<li>ISO 15189:2022 : qualité et compétence des laboratoires médicaux.</li>
+<li>ISO 15190:2020 : sécurité des laboratoires médicaux.</li>
+<li>ISO 22870 : examens de biologie médicale délocalisée (POCT).</li>
+<li>ISO 35001 : management du biorisque.</li>
+<li>IEC 61010 : sécurité des équipements de laboratoire.</li>
+<li>ISO 17025 : compétence des laboratoires d'essais et d'étalonnage.</li>
+<li>GBEA : bonnes pratiques d'exécution des analyses.</li>
+<li>Réglementation marocaine : exigences nationales applicables.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une coupure de courant de deux minutes : sans onduleur, l'analyseur s'éteint en pleine série et les tubes en cours sont perdus ; le congélateur, lui, tient grâce au groupe électrogène, et son alarme de dérive aurait prévenu si la température était remontée. La gestion du risque électrique a été pensée dans le système, pas laissée au technicien de garde.</p>
+
+<h2>Formules clés</h2>
+<p>Électricité (terre, UPS, groupe), froid (2 à 8 °C, alarmes), HVAC, eau, gaz et incendie, réseau et déchets.</p>
+<p>ISO 15190 : sécurité. ISO 35001 : biorisque. IEC 61010 : équipements. ISO 22870 : POCT. ISO 17025 : essais et étalonnage.</p>
+<p>L'EPI est la barrière finale : la sécurité se conçoit dans le système.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/infrastructure.js"></script>
+</body>
+</html>

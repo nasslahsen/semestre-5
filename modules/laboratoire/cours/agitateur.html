@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'agitateur chauffant · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'agitateur chauffant</h1>
+<p class="chapeau">Dissoudre un réactif, préparer un milieu, garder une solution homogène à température : sur presque chaque paillasse, une plaque chauffe et fait tourner un barreau aimanté au fond d'un bécher. Un appareil simple, mais qui reste brûlant longtemps après qu'on l'a éteint.</p>
+
+<h2>Intuition</h2>
+<p>Deux fonctions sur une même plaque : une résistance chauffe la surface, un moteur fait tourner un aimant sous la plaque, qui entraîne le barreau dans le récipient. On règle l'une, l'autre, ou les deux. Les risques viennent de la chaleur : ce qui fond, ce qui brûle, ce qui reste chaud.</p>
+
+<div id="fig-agitateur"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et principe</h3>
+<p>L'<strong>agitateur chauffant</strong> (plaque chauffante avec agitateur) chauffe et mélange des liquides dans des récipients de laboratoire : fioles Erlenmeyer, tubes à essais, béchers. Sa surface plane est faite d'un matériau bon conducteur de la chaleur (aluminium ou céramique) ; certaines plaques chauffent uniquement par rayonnement infrarouge. Il possède un élément chauffant (résistance électrique) et un système de contrôle (interrupteur, commande et moteur de l'agitateur).</p>
+<ul>
+<li>Température : de l'ambiante à environ 500 °C.</li>
+<li>Vitesse de rotation : de 60 à environ 1 200 tours par minute.</li>
+</ul>
+<p>Le panneau de contrôle règle la température et la vitesse, séparément ou ensemble.</p>
+<h3>Installation</h3>
+<p>Prise en bon état reliée à la terre ; en général 230 V, 50/60 Hz ; surface horizontale assez robuste pour l'appareil, les récipients et leur contenu ; un espace libre autour (certains fabricants recommandent environ 15 cm).</p>
+<h3>Utilisation et précautions</h3>
+<ul>
+<li>Débrancher avant tout entretien.</li>
+<li>Pas de matériaux combustibles ou inflammables, ni de vapeurs corrosives ; avec des liquides inflammables, gants et lunettes de protection.</li>
+<li>La surface peut rester chaude longtemps après l'arrêt ou le débranchement.</li>
+<li>Ne pas poser sur la plaque : laminés métalliques, matériaux isolants, verrerie à bas point de fusion.</li>
+<li>Ne pas dépasser le poids de récipient indiqué par le fabricant.</li>
+</ul>
+<h3>Entretien de routine</h3>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opération</th></tr>
+<tr><td>Une fois par mois</td><td>Nettoyage : appareil en position verticale (pour que le produit n'atteigne pas l'intérieur), détergent doux sur chiffon fin, appareil bien sec avant de le rebrancher.</td></tr>
+<tr><td>Si nécessaire</td><td>Remplacement de la surface en céramique : débranchée et refroidie, prudence avec les bords coupants, remettre les éléments chauffants, isolants et de sécurité dans leur position d'origine.</td></tr>
+<tr><td>Si nécessaire</td><td>Remplacement d'un fusible, quand la plaque ne chauffe pas alors qu'elle est branchée et allumée : interrupteur sur OFF, débrancher, ouvrir la boîte à fusibles, fusible de mêmes caractéristiques.</td></tr>
+</table></div>
+<p>Bien installé et bien utilisé, il peut fonctionner plusieurs années sans problème.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un technicien éteint la plaque après une dissolution à 150 °C et veut poser aussitôt une boîte en plastique sur la surface : elle peut encore être brûlante et faire fondre la boîte. On attend qu'elle refroidisse, et on ne pose jamais de matériau isolant ni de verrerie à bas point de fusion sur une plaque chaude.</p>
+
+<h2>Formules clés</h2>
+<p>De l'ambiante à environ 500 °C ; de 60 à environ 1 200 tr/min.</p>
+<p>Prise à la terre, 230 V ; surface horizontale robuste ; environ 15 cm d'espace libre.</p>
+<p>Chaque mois : nettoyage, appareil vertical. Si nécessaire : céramique, fusible.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/agitateur.js"></script>
+</body>
+</html>

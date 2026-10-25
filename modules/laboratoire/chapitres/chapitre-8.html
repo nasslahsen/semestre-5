@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Maintenance et gestion des équipements</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 8. -->
+<main class="cours-chapitre" data-chapitre="8">
+<p class="etiquette" data-etiquette></p>
+<h1>Maintenance et gestion des équipements</h1>
+
+<section class="partie" id="s-cycle">
+<p class="rang-partie">1 / 4</p>
+<h2>La vie d'un équipement</h2>
+
+<article class="notion" id="n-cycle-vie">
+<h3>Le cycle de vie d'un équipement</h3>
+<p class="chapeau">Pour l'ingénieur biomédical, le laboratoire est une infrastructure technique critique : équipements, énergie, eau, réseau, qualité, sécurité. Chaque résultat de patient doit reposer sur un système fiable, maîtrisé et documenté, et pas seulement sur un appareil qui fonctionne. Cela commence bien avant l'achat d'un analyseur et finit après son retrait.</p>
+
+<h4>Intuition</h4>
+<p>Un analyseur n'apparaît pas par magie sur la paillasse. On exprime un besoin, on choisit, on installe, on vérifie qu'il est bien installé et qu'il mesure juste, on le met en service, on l'entretient pendant des années, et un jour on le retire. À chaque étape, un document garde la trace de ce qui a été fait.</p>
+
+<div id="fig-cycle-vie"></div>
+
+<h4>Formalisation</h4>
+<h5>Du besoin au décommissionnement</h5>
+<ol>
+<li><b>Besoin</b> : cahier des charges utilisateur (URS).</li>
+<li><b>Sélection</b>.</li>
+<li><b>Installation</b>.</li>
+<li><b>Qualification</b>.</li>
+<li><b>Vérification des performances</b>.</li>
+<li><b>Mise en service</b>.</li>
+<li><b>Maintenance et métrologie</b>.</li>
+<li><b>Décommissionnement</b>.</li>
+</ol>
+<p>Principe directeur : un équipement <b>adapté</b>, puis <b>correctement installé</b>, puis <b>fonctionnel</b>, puis <b>performant</b>, puis <b>maintenu</b>, avec la traçabilité tout du long. Documentation associée : manuel, procédures (SOP), qualification, calibration, contrôle de qualité, maintenance, pannes.</p>
+<h5>Ce que l'ingénieur biomédical apporte à l'ISO 15189</h5>
+<p>L'<strong>ISO 15189:2022</strong> est le référentiel central : qualité et compétence des laboratoires médicaux, du personnel aux processus pré- et post-analytiques. Côté biomédical, elle demande : installation et qualification des équipements ; maintenance préventive et corrective ; suivi des performances analytiques ; métrologie et étalonnage ; historique complet des interventions. Ses autres volets : le personnel (compétence, qualification, formation continue), les locaux (environnement maîtrisé), les réactifs et processus (chaîne pré- et post-analytique documentée), la traçabilité et les risques (non-conformités, amélioration continue).</p>
+<h5>Norme, bonnes pratiques, réglementation</h5>
+<p>Trois textes encadrent le laboratoire : l'ISO 15189 (qualité, compétence et processus), le GBEA (bonnes pratiques d'exécution des analyses) et la réglementation marocaine (exigences légales et réglementaires applicables). Point clé : une norme ISO, un référentiel de bonnes pratiques et une obligation réglementaire ne sont pas juridiquement équivalents.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un laboratoire remplace son automate de coagulation. Il rédige d'abord ses besoins (URS : débit, tests, connexion au LIS), compare les offres et choisit. Après l'installation, la qualification vérifie que l'appareil est installé conformément ; la vérification des performances montre qu'il mesure juste sur des échantillons connus ; alors seulement il est mis en service. L'ancien automate est décommissionné, et son dossier (manuel, interventions, pannes) est archivé.</p>
+
+<h4>Formules clés</h4>
+<p>Besoin (URS), sélection, installation, qualification, vérification des performances, mise en service, maintenance et métrologie, décommissionnement.</p>
+<p>Adapté, installé, fonctionnel, performant, maintenu ; traçabilité.</p>
+<p>ISO 15189, GBEA, réglementation marocaine : pas juridiquement équivalents.</p>
+</article>
+
+<article class="notion" id="n-maintenance">
+<h3>Maintenance préventive et corrective</h3>
+<p class="chapeau">Chaque appareil vu dans ce cours a son calendrier : la centrifugeuse chaque mois et chaque année, le microscope chaque jour, l'automate d'hématologie chaque semaine. Derrière ces listes, il y a deux logiques : intervenir avant la panne, ou réparer après. Et une règle : rien n'est fini tant que le contrôle de qualité n'a pas confirmé que l'appareil mesure juste.</p>
+
+<h4>Intuition</h4>
+<p>La maintenance préventive, c'est la révision de la voiture : planifiée, avant qu'il y ait un problème. La maintenance corrective, c'est le dépannage : on détecte, on cherche la cause, on répare. Dans un laboratoire, la réparation ne suffit pas : il faut prouver que l'appareil mesure de nouveau juste, et garder la trace de tout.</p>
+
+<div id="fig-maintenance"></div>
+
+<h4>Formalisation</h4>
+<h5>Deux types de maintenance</h5>
+<ul>
+<li>La <strong>maintenance préventive</strong> est programmée en amont pour garantir la fiabilité à long terme, la propreté et la conformité : nettoyages, contrôles, remplacements de pièces d'usure, mises à jour, calibrages, tests de performance.</li>
+<li>La <strong>maintenance corrective</strong> (ou curative) corrige un dysfonctionnement, au jour le jour ou sur incident, pour éviter le blocage du service.</li>
+</ul>
+<h5>Les étapes d'une intervention corrective</h5>
+<p>D'après le cours d'hématologie :</p>
+<ol>
+<li><b>Détection</b> de la panne : codes d'erreur, alarmes.</li>
+<li><b>Diagnostic</b> : analyse des journaux (logs).</li>
+<li><b>Intervention</b> : remplacement de pièces, recalibration.</li>
+<li><b>Vérification</b> : contrôle de qualité après la réparation.</li>
+</ol>
+<h5>Des exemples du cours</h5>
+<div class="tableau"><table>
+<tr><th>Appareil</th><th>Préventif</th><th>Correctif</th></tr>
+<tr><td>Réseau pneumatique</td><td>Planifié, souvent annuel : stations, étanchéité, turbines (filtres, courroies, pressions), logiciel et capteurs, envois tests</td><td>Purges des condensats, cartouches coincées, portes et cellules optiques, turbines et électrovannes</td></tr>
+<tr><td>Automate d'hématologie</td><td>Quotidien, hebdomadaire, mensuel, semestriel, annuel</td><td>Détection, diagnostic, intervention, contrôle qualité</td></tr>
+<tr><td>Centrifugeuse</td><td>Chaque mois (mécanique, couvercle, joints), chaque année (électronique, commandes, minuteur, freinage)</td><td>Le cours ne le détaille pas.</td></tr>
+</table></div>
+<h5>Tracer</h5>
+<p>Chaque intervention est enregistrée : l'ISO 15189 demande l'historique complet des interventions, et la documentation d'un équipement réunit manuel, procédures, qualification, calibration, contrôle de qualité, maintenance et pannes.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un automate d'hématologie affiche un code d'erreur sur le canal des globules rouges (détection). Le journal montre des bulles dans le circuit du diluant (diagnostic). Le technicien remplace un joint de seringue et relance une calibration (intervention). Il passe les deux niveaux de contrôle : ils sont dans les limites (vérification). L'intervention est consignée dans l'historique de l'appareil.</p>
+
+<h4>Formules clés</h4>
+<p>Préventive : planifiée, avant la panne. Corrective : sur incident.</p>
+<p>Détection, diagnostic, intervention, vérification par le contrôle de qualité.</p>
+<p>Tout se trace : historique complet des interventions.</p>
+</article>
+
+<div class="fin-partie" data-section="cycle"></div>
+</section>
+
+<section class="partie" id="s-mesurer-juste">
+<p class="rang-partie">2 / 4</p>
+<h2>Mesurer juste</h2>
+
+<article class="notion" id="n-metrologie-cqi">
+<h3>Métrologie et contrôle de qualité</h3>
+<p class="chapeau">Un appareil qui s'allume et qui répond n'est pas nécessairement un appareil qui mesure juste. Entre les deux, il y a la métrologie : étalonner les grandeurs qui comptent, vérifier, tracer, et surveiller chaque jour que les résultats ne dérivent pas.</p>
+
+<h4>Intuition</h4>
+<p>Un thermomètre de congélateur peut afficher −80 °C sans que l'enceinte y soit ; un minuteur de centrifugeuse peut compter dix minutes qui en durent onze. Chaque grandeur dont dépend un résultat doit être comparée à une référence. Et pour l'analyseur lui-même, on lui fait mesurer chaque jour des contrôles de valeur connue : s'il s'en écarte, on le voit avant les patients.</p>
+
+<div id="fig-metrologie-cqi"></div>
+
+<h4>Formalisation</h4>
+<h5>Grandeurs critiques</h5>
+<p>Température, temps, volume, vitesse, pression, masse, pH, conductivité, longueur d'onde. Pour chacune : <b>étalonnage</b>, <b>vérification</b>, <b>traçabilité</b>, <b>enregistrement</b>.</p>
+<h5>CQI et EEQ</h5>
+<ul>
+<li>Le <strong>contrôle de qualité interne</strong> (CQI) est une surveillance interne et continue des performances de l'analyseur ; en hématologie, au moins 2 niveaux de contrôles (normal, pathologique), avec les règles de Westgard pour détecter les dérives et le graphique de Levey-Jennings pour suivre les moyennes.</li>
+<li>L'<strong>évaluation externe de la qualité</strong> (EEQ, EQA) compare les laboratoires entre eux pour valider la justesse des résultats.</li>
+</ul>
+<p>Fonctionnement n'est pas performance métrologique.</p>
+<h5>Rappel : lire un graphique de Levey-Jennings</h5>
+<p>Les règles détaillées ne sont pas dans le support ; ce sont les règles usuelles. Chaque jour, on porte la valeur du contrôle sur un graphique centré sur sa moyenne \(m\), avec des lignes à \(\pm 2s\) et \(\pm 3s\) (\(s\) : écart-type). On calcule l'écart en nombre d'écarts-types :</p>
+\[ z = \frac{x - m}{s} \]
+<p>Une valeur au-delà de \(\pm 2s\) est un avertissement ; au-delà de \(\pm 3s\), la série est rejetée ; une suite de valeurs toutes du même côté de la moyenne signale une dérive.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un contrôle de glucose a pour moyenne 5,5 mmol/L et pour écart-type 0,2 mmol/L. Le matin, il donne 6,0 : \(z = (6{,}0 - 5{,}5)/0{,}2 = 2{,}5\). C'est au-delà de \(2s\) mais en deçà de \(3s\) : un avertissement, qui pousse à regarder les jours précédents et à repasser le contrôle.</p>
+
+<h4>Formules clés</h4>
+\[ z = \frac{x - m}{s} \]
+<p>Grandeurs critiques : température, temps, volume, vitesse, pression, masse, pH, conductivité, longueur d'onde ; étalonner, vérifier, tracer, enregistrer.</p>
+<p>CQI : interne, continu. EEQ : entre laboratoires, justesse. Fonctionnement n'est pas performance.</p>
+</article>
+
+<div class="fin-partie" data-section="mesurer-juste"></div>
+</section>
+
+<section class="partie" id="s-infrastructure">
+<p class="rang-partie">3 / 4</p>
+<h2>L'environnement technique</h2>
+
+<article class="notion" id="n-infrastructure">
+<h3>Infrastructure et sécurité technique</h3>
+<p class="chapeau">Un analyseur parfaitement entretenu ne sert à rien si le courant saute, si le congélateur dérive dans la nuit, si l'eau pure ne l'est plus ou si la salle surchauffe. Le laboratoire repose sur une infrastructure que le patient ne voit jamais, et sur une sécurité qui doit être pensée dès la conception.</p>
+
+<h4>Intuition</h4>
+<p>Derrière chaque paillasse, il y a des réseaux : électricité, froid, air, eau, gaz, informatique, déchets. Chacun peut tomber en panne et fausser des résultats ou mettre des personnes en danger. Et pour la sécurité, l'équipement de protection individuelle n'est que la dernière barrière : la vraie sécurité est dans la conception du système.</p>
+
+<div id="fig-infrastructure"></div>
+
+<h4>Formalisation</h4>
+<h5>L'infrastructure technique</h5>
+<div class="tableau"><table>
+<tr><th>Réseau</th><th>Ce qu'il faut maîtriser</th></tr>
+<tr><td>Électricité</td><td>Réseau, terre, protections, onduleur (UPS), groupe électrogène</td></tr>
+<tr><td>Réfrigération</td><td>2 à 8 °C, congélation, alarmes de dérive</td></tr>
+<tr><td>HVAC (traitement de l'air)</td><td>Température, humidité, renouvellement et pression</td></tr>
+<tr><td>Eau</td><td>Qualité, traitement, surveillance continue selon l'activité</td></tr>
+<tr><td>Gaz et sécurité incendie</td><td>Réseau de gaz, détection et protection incendie</td></tr>
+<tr><td>Réseau et déchets</td><td>Réseau informatique, gestion des déchets</td></tr>
+</table></div>
+<h5>Biosécurité et sécurité technique</h5>
+<p>Risques à maîtriser : biologique, chimique, électrique, incendie, radiologique, informatique. Référentiels de sécurité : <b>ISO 15190:2020</b> (sécurité des laboratoires médicaux), <b>ISO 35001</b> (management du biorisque), <b>IEC 61010</b> (sécurité des équipements de laboratoire).</p>
+<p>Principe : l'<strong>EPI</strong> (équipement de protection individuelle) est une barrière finale ; la sécurité doit être conçue dans le système, pas ajoutée après coup.</p>
+<h5>Référentiels à connaître</h5>
+<ul>
+<li>ISO 15189:2022 : qualité et compétence des laboratoires médicaux.</li>
+<li>ISO 15190:2020 : sécurité des laboratoires médicaux.</li>
+<li>ISO 22870 : examens de biologie médicale délocalisée (POCT).</li>
+<li>ISO 35001 : management du biorisque.</li>
+<li>IEC 61010 : sécurité des équipements de laboratoire.</li>
+<li>ISO 17025 : compétence des laboratoires d'essais et d'étalonnage.</li>
+<li>GBEA : bonnes pratiques d'exécution des analyses.</li>
+<li>Réglementation marocaine : exigences nationales applicables.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une coupure de courant de deux minutes : sans onduleur, l'analyseur s'éteint en pleine série et les tubes en cours sont perdus ; le congélateur, lui, tient grâce au groupe électrogène, et son alarme de dérive aurait prévenu si la température était remontée. La gestion du risque électrique a été pensée dans le système, pas laissée au technicien de garde.</p>
+
+<h4>Formules clés</h4>
+<p>Électricité (terre, UPS, groupe), froid (2 à 8 °C, alarmes), HVAC, eau, gaz et incendie, réseau et déchets.</p>
+<p>ISO 15190 : sécurité. ISO 35001 : biorisque. IEC 61010 : équipements. ISO 22870 : POCT. ISO 17025 : essais et étalonnage.</p>
+<p>L'EPI est la barrière finale : la sécurité se conçoit dans le système.</p>
+</article>
+
+<div class="fin-partie" data-section="infrastructure"></div>
+</section>
+
+<section class="partie" id="s-continuite">
+<p class="rang-partie">4 / 4</p>
+<h2>Criticité et continuité</h2>
+
+<article class="notion" id="n-criticite">
+<h3>Criticité et continuité</h3>
+<p class="chapeau">Un analyseur de gaz du sang tombe en panne un dimanche soir, alors que la réanimation attend. Tous les équipements ne se valent pas : certains peuvent attendre lundi, d'autres non. Il faut le savoir avant la panne, et avoir prévu un plan B.</p>
+
+<h4>Intuition</h4>
+<p>Pour chaque équipement, on se pose trois questions : si il tombe, qui en souffre et à quel point ? combien de temps faut-il pour le réparer ? que fait-on en attendant ? Les réponses disent où mettre les pièces de rechange, les contrats, les appareils de secours. Le laboratoire doit continuer à rendre des résultats malgré une défaillance.</p>
+
+<div id="fig-criticite"></div>
+
+<h4>Formalisation</h4>
+<h5>Un laboratoire distribué</h5>
+<p>Le laboratoire devient distribué : l'<strong>ISO 22870</strong> encadre les examens de biologie médicale délocalisée (POCT), au plus près du patient. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
+<h5>Évaluer chaque équipement critique</h5>
+<ul>
+<li><b>Impact clinique</b> : conséquence d'une panne sur la prise en charge (urgences, réanimation, bloc opératoire, services).</li>
+<li><b>Délai de réparation</b> : temps de remise en service estimé.</li>
+<li><b>Plan de continuité</b> (« plan B »).</li>
+<li><b>Secours ou sous-traitance</b> : solution de remplacement disponible.</li>
+<li><b>Traçabilité</b> : enregistrement de l'incident et des actions.</li>
+</ul>
+<p>Cette évaluation concerne l'analyseur, mais aussi l'électricité, le LIS, les réactifs, le traitement de l'air (HVAC).</p>
+<h5>Six domaines pour un résultat fiable</h5>
+<ol>
+<li><b>Clinique</b> : pertinence du processus.</li>
+<li><b>Analytique</b> : performance des méthodes.</li>
+<li><b>Technique</b> : équipements et métrologie.</li>
+<li><b>Infrastructure</b> : énergie, HVAC, eau, gaz.</li>
+<li><b>Qualité et sécurité</b> : ISO 15189 et exigences applicables.</li>
+<li><b>Continuité</b> : fonctionner malgré une défaillance.</li>
+</ol>
+<p>Le patient ne voit jamais l'analyseur : il voit le résultat. Chacun de ces domaines conditionne sa fiabilité.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux appareils tombent en panne le même jour : l'analyseur de gaz du sang qui sert la réanimation, et un agitateur chauffant de préparation. Le premier a un fort impact clinique et ne peut pas attendre : on passe sur l'appareil de secours ou on sous-traite, et on enregistre l'incident. Le second peut attendre la réparation sans conséquence pour les patients.</p>
+
+<h4>Formules clés</h4>
+<p>Pour chaque équipement critique : impact clinique, délai de réparation, plan B, secours ou sous-traitance, traçabilité.</p>
+<p>ISO 22870 : POCT. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
+<p>Clinique, analytique, technique, infrastructure, qualité et sécurité, continuité.</p>
+</article>
+
+<div class="fin-partie" data-section="continuite"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/cycle-vie.js"></script>
+<script src="../figures/maintenance.js"></script>
+<script src="../figures/metrologie-cqi.js"></script>
+<script src="../figures/infrastructure.js"></script>
+<script src="../figures/criticite.js"></script>
+</body>
+</html>

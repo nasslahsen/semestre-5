@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'hémogramme · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'hémogramme</h1>
+<p class="chapeau">L'hémogramme, ou numération formule sanguine (NFS), est l'examen biologique le plus prescrit. Depuis les premiers compteurs cellulaires des années 1950 (Coulter), les automates le rendent en quelques minutes. Sur la feuille, une partie des chiffres est mesurée, l'autre est calculée : savoir lesquels permet de repérer un résultat incohérent.</p>
+
+<h2>Intuition</h2>
+<p>Un automate compte des cellules et mesure leur volume, et un photomètre dose l'hémoglobine. Avec trois mesures, le nombre de globules rouges, leur volume moyen et l'hémoglobine, on déduit le reste par de simples règles de trois : quelle part du sang occupent les globules rouges, combien d'hémoglobine porte chacun, à quelle concentration.</p>
+
+<div id="fig-hemogramme"></div>
+
+<h2>Formalisation</h2>
+<h3>Objectifs de l'automatisation</h3>
+<p>Quantifier les populations cellulaires (GR, GB, plaquettes) ; caractériser leurs propriétés physiques (taille, granulosité, contenu en hémoglobine) ; différencier les sous-populations leucocytaires (formule) ; détecter les anomalies (alarmes, drapeaux) ; standardiser les résultats (calibration, contrôle qualité).</p>
+<h3>Hémogramme standard</h3>
+<div class="tableau"><table>
+<tr><th>Paramètre</th><th>Unité</th><th>Signification</th><th>Obtenu</th></tr>
+<tr><td>GB (WBC)</td><td>× 10⁹/L</td><td>Numération des globules blancs</td><td>mesuré</td></tr>
+<tr><td>GR (RBC)</td><td>× 10¹²/L</td><td>Numération des globules rouges</td><td>mesuré</td></tr>
+<tr><td>Hb (HGB)</td><td>g/dL</td><td>Hémoglobine</td><td>mesuré</td></tr>
+<tr><td>PLT</td><td>× 10⁹/L</td><td>Numération plaquettaire</td><td>mesuré</td></tr>
+<tr><td>VGM (MCV)</td><td>fL</td><td>Volume globulaire moyen</td><td>mesuré</td></tr>
+<tr><td>Ht (HCT)</td><td>%</td><td>Hématocrite</td><td>calculé</td></tr>
+<tr><td>TCMH (MCH)</td><td>pg</td><td>Teneur corpusculaire moyenne en Hb</td><td>calculé</td></tr>
+<tr><td>CCMH (MCHC)</td><td>g/dL</td><td>Concentration corpusculaire moyenne en Hb</td><td>calculé</td></tr>
+<tr><td>IDR (RDW)</td><td>%</td><td>Indice de distribution des GR</td><td>calculé</td></tr>
+</table></div>
+<h3>Indices dérivés</h3>
+\[ \text{Ht}\,(\%) = \frac{\text{GR}\,(10^{12}/\text{L}) \times \text{VGM}\,(\text{fL})}{10} \qquad \text{TCMH}\,(\text{pg}) = \frac{\text{Hb}\,(\text{g/dL}) \times 10}{\text{GR}\,(10^{12}/\text{L})} \]
+\[ \text{CCMH}\,(\text{g/dL}) = \frac{\text{Hb}\,(\text{g/dL}) \times 100}{\text{Ht}\,(\%)} \qquad \text{IDR}\,(\%) = \frac{\text{écart-type du VGM}}{\text{VGM}} \times 100 \]
+<h3>Histogrammes</h3>
+<p>L'analyseur trace des histogrammes de distribution : pour les globules rouges, une courbe en cloche centrée sur le VGM (environ 90 fL). Plus elle est large, plus les globules rouges sont de tailles variées, plus l'IDR est grand.</p>
+<h3>Paramètres complémentaires</h3>
+<p>VPM (volume plaquettaire moyen), IDP (indice de distribution plaquettaire), réticulocytes (GR immatures, activité médullaire), IG (granulocytes immatures, précurseurs des polynucléaires), NRBC (érythroblastes nucléés), formule leucocytaire en % (neutrophiles, lymphocytes, monocytes, éosinophiles, basophiles).</p>
+
+<h2>Exemple</h2>
+<p>L'hémogramme donné en exemple dans le cours (Beckman Coulter LH780, sang total EDTA) : hématies 4,64 millions/mm³, hémoglobine 14,6 g/dL, VGM 87,8 fL, hématocrite 40,7 %, TCMH 31,4 pg. On vérifie : \(4{,}64 \times 87{,}8 / 10 \approx 40{,}7\) % et \(14{,}6 \times 10 / 4{,}64 \approx 31{,}5\) pg. Les leucocytes sont à 4,4 mille/mm³, les plaquettes à 196 mille/mm³. (4,64 millions/mm³ correspondent à 4,64 × 10¹²/L.)</p>
+
+<h2>Formules clés</h2>
+\[ \text{Ht} = \frac{\text{GR} \times \text{VGM}}{10} \qquad \text{TCMH} = \frac{\text{Hb} \times 10}{\text{GR}} \qquad \text{CCMH} = \frac{\text{Hb} \times 100}{\text{Ht}} \qquad \text{IDR} = \frac{\sigma_{\text{VGM}}}{\text{VGM}} \times 100 \]
+<p>Mesurés : GR, GB, PLT, Hb, VGM. Calculés : Ht, TCMH, CCMH, IDR.</p>
+<p>Histogramme des GR : courbe en cloche centrée sur le VGM (environ 90 fL).</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/hemogramme.js"></script>
+</body>
+</html>

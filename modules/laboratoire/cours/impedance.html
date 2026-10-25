@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le comptage par impédance · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le comptage par impédance</h1>
+<p class="chapeau">Compter des millions de cellules et mesurer le volume de chacune, en quelques secondes et sans colorant : c'est ce que fait le principe de Coulter, du nom de son inventeur. C'est la méthode de référence pour les globules rouges et les plaquettes.</p>
+
+<h2>Intuition</h2>
+<p>Le sang dilué dans un liquide conducteur passe par un trou minuscule où circule un courant. Une cellule conduit mal l'électricité : quand elle traverse le trou, elle bouche un peu le passage du courant, et la résistance grimpe un instant. Un pic par cellule : on compte les pics. Plus la cellule est grosse, plus elle bouche, plus le pic est haut : on mesure son volume.</p>
+
+<div id="fig-impedance"></div>
+
+<h2>Formalisation</h2>
+<h3>Principe de Coulter</h3>
+<p>Le principe repose sur la <strong>variation d'impédance</strong> électrique lors du passage d'une cellule à travers un micro-orifice, entre deux électrodes, dans un diluant conducteur. La variation d'impédance est proportionnelle au volume cellulaire :</p>
+\[ \Delta Z = \frac{\rho \cdot V_{cell}}{A^{2}} \cdot k \]
+<p>avec \(\rho\) la résistivité du diluant, \(V_{cell}\) le volume cellulaire, \(A\) la section de l'orifice et \(k\) un facteur géométrique. Le nombre de cellules correspond au nombre d'impulsions enregistrées.</p>
+<h3>Impulsions et seuils</h3>
+<p>Chaque cellule qui traverse l'orifice génère une impulsion électrique dont l'amplitude est proportionnelle à son volume. Un seuil sépare les événements valides du bruit de fond, et des discriminateurs séparent les populations :</p>
+<div class="tableau"><table>
+<tr><th>Seuil</th><th>Volume</th><th>Population</th></tr>
+<tr><td>Bas</td><td>2 à 20 fL</td><td>Plaquettes</td></tr>
+<tr><td>Intermédiaire</td><td>20 à 35 fL</td><td>Bruit, débris</td></tr>
+<tr><td>Haut</td><td>35 à 360 fL</td><td>Globules rouges</td></tr>
+</table></div>
+<h3>Correction de coïncidence</h3>
+<p>Deux cellules qui traversent l'orifice en même temps sont comptées comme une seule. Une correction statistique est appliquée :</p>
+\[ N_{\text{corrigé}} = N_{\text{mesuré}} \cdot e^{N_{\text{mesuré}} \cdot \tau} \]
+<p>où \(\tau\) est le temps mort de l'orifice.</p>
+<h3>Avantages et limites</h3>
+<p>Avantages : rapide, robuste, peu coûteux ; bonne précision sur les GR et les plaquettes ; indépendant de la coloration. Limites : ne différencie pas finement les GB ; sensible aux agrégats plaquettaires ; interférences par les microcytes et les fragments.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois impulsions correspondent à 12 fL, 30 fL et 85 fL : une plaquette, un débris (ignoré), un globule rouge. Si l'on mesure 40 000 impulsions par seconde avec un temps mort de 2,5 µs, \(N_{\text{corrigé}} = 40\,000 \times e^{40\,000 \times 2{,}5 \times 10^{-6}} = 40\,000 \times e^{0{,}1} \approx 44\,207\) : environ 10 % des cellules passaient en même temps qu'une autre.</p>
+
+<h2>Formules clés</h2>
+\[ \Delta Z = \frac{\rho \cdot V_{cell}}{A^{2}} \cdot k \qquad N_{\text{corrigé}} = N_{\text{mesuré}} \cdot e^{N_{\text{mesuré}} \cdot \tau} \]
+<p>Une impulsion par cellule ; amplitude proportionnelle au volume.</p>
+<p>Plaquettes 2 à 20 fL ; bruit 20 à 35 fL ; globules rouges 35 à 360 fL.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/impedance.js"></script>
+</body>
+</html>

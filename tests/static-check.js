@@ -4,7 +4,7 @@
 "use strict";
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const katex = require("../commun/vendor/katex/katex.min.js");
-// racine vérifiée : le dépôt, ou un dossier passé en argument (aperçu : node tests/static-check.js apercu)
+// racine vérifiée : le dépôt, ou un dossier passé en argument
 const racine = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, "..");
 const APERCU = !!process.argv[2];
 let erreurs = 0, nbMaths = 0, nbPages = 0, nbNiveaux = 0;
@@ -118,17 +118,21 @@ for (const id of modules) {
       }
     }
   }
-  // Structure par chapitres : plan, chapitres, sections (chaque page de cours d'un chapitre dans une seule section,
-  // cours de chaque chapitre à jour avec les pages de cours qu'il réunit : node outils/regrouper.js <id>)
+  // Structure par chapitres : sections (3 à 5 par chapitre, moins seulement si le chapitre a moins de pages ;
+  // chaque page de cours dans une seule section), une ligne courte par chapitre, la page de chaque chapitre
+  // à jour avec les pages de cours qu'elle réunit (node outils/regrouper.js <id>)
+  if (!P.sections && id !== "_modele") err(`${d}/module.js : pas de sections (structure par chapitres)`);
   if (P.sections) {
-    const dc = d + "/" + (P.dossierChapitres ? P.dossierChapitres + "/" : "");
+    const dc = d + "/chapitres/";
     const { pageChapitre, chapitresAvecSections } = require("../outils/regrouper.js");
     const vues = {};
-    for (const ch of P.chapitres) for (const a of ch.avant || []) if (!P.chapitres.some(c => c.id === a)) err(`${d} : chapitre ${ch.id}, prérequis inconnu ${a}`);
     for (const ch of P.chapitres) {
-      const ss = P.sections.filter(s => s.chapitre === ch.id);
+      const ss = P.sections.filter(s => s.chapitre === ch.id), nbPages = (P.cours || []).filter(c => c.chapitre === ch.id).length;
+      if (nbPages && !ss.length) err(`${d} : chapitre ${ch.id} sans sections`);
       if (!ss.length) continue;
-      if (ss.length < 3 || ss.length > 5) err(`${d} : chapitre ${ch.id}, ${ss.length} sections (3 à 5 attendues)`);
+      if (!ch.ligne) err(`${d} : chapitre ${ch.id} sans ligne courte (carte)`);
+      else if (ch.ligne.length > 60) err(`${d} : chapitre ${ch.id}, ligne trop longue pour la carte (${ch.ligne.length} caractères, 60 au plus)`);
+      if (ss.length < Math.min(3, nbPages) || ss.length > 5) err(`${d} : chapitre ${ch.id}, ${ss.length} sections (3 à 5 attendues)`);
       for (const c of (P.cours || []).filter(c => c.chapitre === ch.id)) {
         const n = ss.filter(s => s.notions.includes(c.id)).length;
         if (n !== 1) err(`${d} : page de cours ${c.id} dans ${n} sections (une attendue)`);
@@ -138,13 +142,14 @@ for (const id of modules) {
       if (vues[s.id]) err(`${d} : section ${s.id} en double`); vues[s.id] = 1;
       for (const n of s.notions) if (!(P.cours || []).some(c => c.id === n && c.chapitre === s.chapitre)) err(`${d} : section ${s.id}, page de cours inconnue ${n}`);
     }
-    const pagesCh = chapitresAvecSections(P).map(ch => ({ ch, f: `${dc}cours/chapitre-${ch.id}.html` }));
+    const pagesCh = chapitresAvecSections(P).map(ch => ({ ch, f: `${dc}chapitre-${ch.id}.html` }));
     for (const { ch, f } of pagesCh) {
       if (!existe(f)) { err(`cours du chapitre manquant ${f}`); continue; }
       if (lire(f) !== pageChapitre(id, path.join(racine, d), P, ch)) err(`${f} pas à jour : node outils/regrouper.js ${id}`);
     }
-    for (const f of liste(dc + "cours", /\.html$/)) if (!pagesCh.some(x => x.f === f)) err(`${f} : page en trop (cours/chapitre-<n>.html seulement)`);
-    for (const f of [dc + "index.html"].concat(pagesCh.map(x => x.f))) {
+    for (const f of liste(d + "/chapitres", /\.html$/)) if (!pagesCh.some(x => x.f === f)) err(`${f} : page en trop (chapitre-<n>.html seulement)`);
+    if (!/commun\/js\/chapitres\.js/.test(lire(d + "/index.html"))) err(`${d}/index.html : la carte des chapitres (commun/js/chapitres.js) n'est pas chargée`);
+    for (const f of pagesCh.map(x => x.f)) {
       if (!existe(f)) { err(`${f} manquant`); continue; }
       const html = lire(f); nbPages++;
       verifierLiens(f, html); verifierMaths(f, html, false); verifierEcriture(f, html);

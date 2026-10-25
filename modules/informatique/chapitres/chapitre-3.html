@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le système d'information hospitalier</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 3. -->
+<main class="cours-chapitre" data-chapitre="3">
+<p class="etiquette" data-etiquette></p>
+<h1>Le système d'information hospitalier</h1>
+
+<section class="partie" id="s-sih-composants">
+<p class="rang-partie">1 / 3</p>
+<h2>Le SIH et ses composants</h2>
+
+<article class="notion" id="n-sih">
+<h3>Le SIH : définition et apports</h3>
+<p class="chapeau">Dans un hôpital, la pharmacie, le laboratoire, l'imagerie et l'admission ont chacun leur logiciel. Tant qu'ils ne se parlent pas, ce ne sont que des îles. Le SIH les relie.</p>
+<h4>Le chapitre en bref</h4>
+<p>On applique maintenant les notions générales à l'hôpital. Le <b>système d'information hospitalier</b> (SIH) est un SI particulier : on voit sa définition et ce qu'il apporte, puis ses grands composants et leurs rôles, son architecture fonctionnelle en couches avec l'exemple du SIH déployé dans les centres hospitaliers publics, et enfin qui équipe les régions du Maroc. Le DPI, au centre du SIH, aura son propre chapitre.</p>
+
+<h4>Intuition</h4>
+<p>Un SIH, ce n'est pas un gros logiciel, c'est un ensemble de modules (admission et facturation, DPI, imagerie, laboratoires, pharmacie, bloc opératoire...) qui échangent. L'interaction est le cœur de la définition : sans échange, l'information ne peut pas être rassemblée.</p>
+<div id="fig-modules"></div>
+
+<h4>Formalisation</h4>
+<p>Un <b>système d'information hospitalier</b> est un système d'information destiné à faciliter la gestion de l'ensemble des informations médicales et administratives d'un hôpital. Son architecture logicielle se compose d'un <b>ensemble de modules et solutions en interaction</b> ayant pour objectif de <b>rassembler</b>, <b>traiter</b> et <b>fournir</b> les informations nécessaires à son activité.</p>
+<div class="tableau"><table>
+<tr><th>Apports de la mise en œuvre d'un SIH</th></tr>
+<tr><td>1. Pilotage des indicateurs de l'hôpital</td></tr>
+<tr><td>2. Satisfaction des patients</td></tr>
+<tr><td>3. Amélioration de la qualité des soins ; respect de la sécurité des soins ; respect des réglementations</td></tr>
+<tr><td>4. Optimisation des coûts ; maîtrise des dépenses</td></tr>
+<tr><td>5. Satisfaction des professionnels ; satisfaction des partenaires et réseaux de soins</td></tr>
+<tr><td>6. Échange informatisé des données entre services ; partage de l'information</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un an après la mise en place : le directeur suit chaque matin le taux d'occupation des lits (pilotage) ; une alerte d'allergie bloque une prescription dangereuse (sécurité des soins) ; moins d'examens sont refaits en double (coûts) ; le labo envoie ses résultats directement au service (échange entre services).</p>
+
+<h4>Formules clés</h4>
+<p>SIH = SI des informations médicales et administratives de l'hôpital = modules en interaction pour rassembler, traiter, fournir.</p>
+</article>
+
+<article class="notion" id="n-composants-sih">
+<h3>Les grands composants d'un SIH</h3>
+<p class="chapeau">Le laboratoire a validé une troponine, mais le résultat n'arrive pas dans le DPI. Pour savoir où chercher, il faut connaître les composants du SIH et le rôle de chacun.</p>
+<h4>Intuition</h4>
+<p>Au-dessus, les modules où les soignants et les agents travaillent : le DPI, la gestion médico-administrative, les plateaux médico-techniques. Au milieu, la plateforme d'intégration qui fait circuler les messages entre eux. En dessous, les bases qui stockent, l'entrepôt qui consolide pour analyser, et le portail qui affiche les indicateurs.</p>
+<div id="fig-composants-sih"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Composant</th><th>Rôle</th></tr>
+<tr><td>DPI (dossier patient) : dossier médical, dossier infirmier, prescriptions, questionnaires, comptes rendus, ordonnances, plan de soins...</td><td>saisie des données hospitalières du patient : CIM-10, diagnostics, paramètres médicaux, évolution de la PEC, pièces jointes</td></tr>
+<tr><td>Modules de gestion médico-administrative</td><td>RDV, admission, mouvements de séjour, cotation des actes et facturation (NGAP, NABM, TNR)</td></tr>
+<tr><td>Modules des plateaux médico-techniques : biologie, radiologie, pharmacie, transfusion sanguine...</td><td>gestion des processus de réalisation des prescriptions multimodales</td></tr>
+<tr><td>Plateforme d'intégration</td><td>transport des messages entre applications (HL7)</td></tr>
+<tr><td>Bases de données, SGBD</td><td>stockage des données</td></tr>
+<tr><td>Entrepôt de données (DataWareHouse)</td><td>consolidation des données pour l'analyse et le pilotage</td></tr>
+<tr><td>Portail / BI</td><td>tableaux de bord et indicateurs</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>La troponine validée dans le LIS (plateau médico-technique) doit passer par la plateforme d'intégration, en message HL7, pour atteindre le DPI. Si elle n'arrive pas, c'est la plateforme qu'on vérifie en premier. Pour analyser cinq ans de séjours sans ralentir le DPI, on travaille dans l'entrepôt, et le directeur lit le résultat sur le portail BI.</p>
+
+<h4>Formules clés</h4>
+<p>Saisir (DPI), organiser et facturer (médico-administratif), réaliser (médico-technique), transporter (plateforme, HL7), stocker (SGBD), consolider (entrepôt), afficher (BI).</p>
+</article>
+
+<div class="fin-partie" data-section="sih-composants"></div>
+</section>
+
+<section class="partie" id="s-architecture-sih">
+<p class="rang-partie">2 / 3</p>
+<h2>Architecture fonctionnelle d'un SIH</h2>
+
+<article class="notion" id="n-architecture-sih">
+<h3>Architecture fonctionnelle d'un SIH</h3>
+<p class="chapeau">Un module RDV, un moteur d'aide à la prescription, des images, des messages HL7 vers le DPI national : tout cela fait partie du SIH, mais pas au même étage.</p>
+<h4>Intuition</h4>
+<p>On lit un SIH moderne en couches. Devant, ce que l'utilisateur voit. Derrière, la logique médicale qui calcule et alerte. Plus bas, les données. Et sur le côté, ce qui permet de parler aux autres modules de l'hôpital et au monde extérieur.</p>
+<div id="fig-couches"></div>
+<p>Le cours donne un exemple concret : le SIH déployé au niveau des centres hospitaliers de santé publics, construit autour d'un dossier patient partagé.</p>
+<div id="fig-sih-public"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Contenu</th></tr>
+<tr><td>Présentation</td><td>module RDV, module consultation, module biologie...</td></tr>
+<tr><td>Métiers</td><td>logique médicale (pharmacovigilance, hémovigilance...), moteur d'aide à la prescription, gestion des protocoles et gestes de soins...</td></tr>
+<tr><td>Données</td><td>données structurées, documents, images, référentiels</td></tr>
+<tr><td>Interopérabilité interne</td><td>intra-modules hospitaliers (HL7 V2, MWL...)</td></tr>
+<tr><td>Interopérabilité externe</td><td>DPI national, télémédecine, identité, partenaires...</td></tr>
+</table></div>
+<p>Dans le SIH des centres hospitaliers publics, les modules (admission / GIH / RDV, module médecin, module infirmier, facturation / recouvrement / caisse, LIS, RIS, pharmacie, bloc...) échangent avec le <b>DPP</b> au centre. À l'extérieur : identification et vérification d'éligibilité auprès de la CNSS, identification et authentification du patient à l'admission, recouvrement digital des factures avec la CNSS.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le RIS envoie la liste de travail au scanner (MWL) : interopérabilité interne. Le compte rendu part vers le DPI national : interopérabilité externe. Le moteur d'aide à la prescription qui bloque une interaction médicamenteuse : couche métiers.</p>
+
+<h4>Formules clés</h4>
+<p>Présentation, métiers, données, interopérabilité interne (HL7 V2, MWL), interopérabilité externe (DPI national, télémédecine, identité, partenaires).</p>
+</article>
+
+<div class="fin-partie" data-section="architecture-sih"></div>
+</section>
+
+<section class="partie" id="s-sih-maroc">
+<p class="rang-partie">3 / 3</p>
+<h2>Les SIH au Maroc</h2>
+
+<article class="notion" id="n-sih-maroc">
+<h3>Panorama des SIH au Maroc</h3>
+<p class="chapeau">Un patient soigné à Fès est transféré à Rabat. Les deux hôpitaux publics n'utilisent pas le même éditeur de SIH. Le dossier suivra-t-il ?</p>
+<h4>Intuition</h4>
+<p>Au Maroc, les hôpitaux publics de chaque région sont équipés par un éditeur de SIH. Le cours en montre quatre sur la carte des douze régions. Dès qu'un patient passe d'une région à une autre, deux logiciels différents doivent échanger : c'est tout l'enjeu de l'interopérabilité.</p>
+<div id="fig-carte"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Éditeur</th><th>Régions (carte du cours)</th></tr>
+<tr><td>Enova</td><td>Tanger-Tétouan-Al Hoceima, Béni Mellal-Khénifra, Souss-Massa, Laâyoune-Sakia El Hamra, Dakhla-Oued Eddahab</td></tr>
+<tr><td>Sivsa</td><td>Fès-Meknès, Oriental, Casablanca-Settat, Marrakech-Safi</td></tr>
+<tr><td>Belmed</td><td>Drâa-Tafilalet, Guelmim-Oued Noun</td></tr>
+<tr><td>Dedalus</td><td>Rabat-Salé-Kénitra</td></tr>
+</table></div>
+<p>La figure est une carte schématique : une tuile par région, placée du nord au sud, sans les vraies frontières.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Fès-Meknès (Sivsa) vers Rabat-Salé-Kénitra (Dedalus) : sans standards d'échange communs et sans dossier partagé, le dossier devrait être ressaisi. C'est le rôle de la plateforme d'échange et du DPP national (chapitre 5).</p>
+
+<h4>Formules clés</h4>
+<p>Quatre éditeurs pour douze régions : Enova (5), Sivsa (4), Belmed (2), Dedalus (1).</p>
+</article>
+
+<div class="fin-partie" data-section="sih-maroc"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/sih.js"></script>
+<script src="../figures/composants-sih.js"></script>
+<script src="../figures/architecture-sih.js"></script>
+<script src="../figures/sih-maroc.js"></script>
+</body>
+</html>

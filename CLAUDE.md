@@ -13,51 +13,68 @@ Utilisation : uniquement sur iPad, en paysage, au doigt et parfois à l'Apple Pe
 index.html                 tableau de bord : une carte par module, bandeau « Reprendre »
 registre.js                registre central : modules, sous-modules, couleurs, statut
 commun/                    système de design partagé (ne pas copier dans les modules)
-  css/jeu.css              carte des sous-modules et écran de niveau
-  css/cours.css            pages de cours
+  css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
+  css/chapitres.css        carte des chapitres d'un module
+  css/cours.css            pages de cours et pages de chapitre (sections, blocs « Jouer », fenêtre d'exercice)
   css/barre.css            barre du site (retour au semestre, nom du module vers sa carte, action à droite)
   css/tableau.css          tableau de bord
-  js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), étapes de la carte
-  js/nav.js                pages de cours : « Passer aux exercices », ancres des sections, page lue, « Tous les cours »
+  js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
+  js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »
+  js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, blocs « Jouer », fin de chapitre
+  js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
   js/lib.js                figures des pages de cours (RM) : calculs, SVG 2D/3D, curseurs, étapes, mise en page sur un écran
   js/tableau.js            tableau de bord
-  jeu/moteur.js            moteur des niveaux : étapes, retours, étoiles, « Revoir dans le cours », écran de fin
-  jeu/moteur-carte.js      carte d'un sous-module : cours et exercices alternés, chapitre par chapitre
+  jeu/moteur.js            moteur des niveaux : étapes, retours, étoiles, « Revoir dans le cours », écran de fin ;
+                           mode « cadre » quand l'exercice s'ouvre par-dessus une page de chapitre
   jeu/dessin.js, outils.js dessins des niveaux (D) et outils (E)
   vendor/katex/            KaTeX 0.16.11, servi localement
 modules/<id>/              un dossier par module actif
-  module.js                ordre des notions : chapitres, niveaux, pages de cours
-  index.html               carte d'un sous-module (index.html?sm=<sous-module>)
-  jouer.html               écran de niveau (jouer.html#<niveau>)
+  module.js                chapitres (avec `ligne`), niveaux, sections, pages de cours
+  index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>)
+  chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
+  jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
   niveaux/<niveau>.js      un fichier par niveau
-  cours/index.html         « Tous les cours » : liste simple des pages d'un sous-module
-  cours/<page>.html        une page de cours par notion
+  cours/<page>.html        une page de cours par notion : la source des pages de chapitre
   figures/<page>.js        les figures interactives d'une page de cours
   liens-cours.js           pour chaque étape de chaque niveau, la section du cours qui l'explique (généré)
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
 modules/_modele/           modèle à copier pour un nouveau module (non publié)
+outils/regrouper.js        assemble les pages de cours d'un chapitre en une page de chapitre
 jouer.html, cours.html, concepts/   redirections des anciennes adresses du site de robotique
 tests/math.test.js         calculs et réponses attendues de chaque niveau
 tests/static-check.js      registre, module.js, fichiers, équations, liens, règles d'écriture
-tests/navigateur/          tests dans Chromium : niveaux joués, pages, carte et liens, figures sur un écran
+tests/navigateur/          tests dans Chromium : niveaux joués, pages, chapitres et liens, figures sur un écran
 ```
 
-Le tableau de bord, les cartes, « Tous les cours » et les boutons qui relient les étapes sont générés à partir de
-`registre.js` et des `module.js`. Aucune liste n'est écrite ailleurs.
+Le tableau de bord, les cartes et les pages de chapitre sont générés à partir de `registre.js` et des `module.js`.
+Aucune liste n'est écrite ailleurs.
 
-### La carte d'un sous-module
+### Structure d'un module : une carte, puis une grande page par chapitre
 
-Chaque sous-module a une seule carte, dans l'ordre d'apprentissage (les sous-modules restent séparés ;
-un module sans sous-module a une carte). Dans chaque chapitre, pour chaque notion : l'étape **Cours**
-(nœud livre, page `cours/<id>.html`) puis l'étape **Exercices** (nœud rond, niveau `<id>`). Le chapitre se termine
-par la révision (grand rond « RÉV ») puis le boss (losange). Rien n'est verrouillé : l'ordre est conseillé.
-Pas d'onglets ; un lien discret « Tous les cours » mène à la liste des pages du sous-module.
-- Page de cours : « Passer aux exercices » dans la barre et en bas de page, vers le niveau de la même notion.
-- Fin d'un niveau : le bouton principal mène à l'étape suivante de la carte (`PLATEFORME.apres`).
-- Les exercices ne testent que ce que la page de cours juste avant explique, avec la même notation et les mêmes
-  figures ; les exemples de la page n'utilisent pas les nombres exacts des questions.
-- Après une erreur ou une réponse vue, « Revoir dans le cours » ouvre par-dessus l'exercice la section ou le passage
+Le but : peu de choses à toucher. On lit en faisant défiler, on joue si on veut, on ne change de page qu'au
+chapitre suivant.
+
+- **La carte** (`index.html`, `commun/js/chapitres.js`) : un nœud rond par chapitre, dans l'ordre, reliés par un
+  chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). Chapitre fait en vert, chapitre
+  conseillé en bleu ; rien n'est verrouillé. Un seul bouton principal, « Reprendre » (ou « Commencer »), qui rouvre
+  l'endroit exact où l'on s'était arrêté. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
+- **La page de chapitre** (`chapitres/chapitre-<n>.html`) : tout le cours du chapitre sur une seule page à faire
+  défiler, découpé en 3 à 5 **sections** (moins seulement si le chapitre a moins de pages de cours). Chaque section
+  regroupe une ou plusieurs notions (`sections` dans `module.js`) ; chaque notion garde intacte sa page de cours
+  (intuition, figures, formalisation, exemple, formules clés). Un indicateur discret « 2 / 4 » dans la barre suit
+  le défilement ; une section est lue quand sa fin passe à l'écran.
+- **Blocs « Jouer »** : après chaque notion qui a un niveau, un bloc discret propose les exercices. Ils s'ouvrent
+  par-dessus la page (fenêtre, `jouer.html?cadre=1#<niveau>`) ; « Revenir au cours » la referme au même endroit.
+  Jouer reste facultatif : on peut continuer à lire. Les niveaux de TD sans page vont avant la fin du chapitre.
+- **Fin du chapitre** : la révision et le boss (facultatifs), puis « Chapitre suivant » (ou « Retour à la carte »).
+- Les exercices ne testent que ce que la notion juste avant explique, avec la même notation et les mêmes figures ;
+  les exemples de la page n'utilisent pas les nombres exacts des questions.
+- Après une erreur ou une réponse vue, « Revoir dans le cours » ouvre la page de chapitre à la section ou au passage
   qui l'explique (`liens-cours.js`, `#<ancre>` ou `#<ancre>~<bloc>`, ancres calculées par `PLATEFORME.ancre`).
+
+Les pages de chapitre sont **générées** : on écrit et on corrige toujours `cours/<page>.html` et
+`figures/<page>.js`, puis on lance `node outils/regrouper.js <id>` (ou `--tous`). `tests/static-check.js` vérifie que
+chaque page de chapitre est identique à ce que produit le générateur.
 
 Chaque page d'un module porte `<html lang="fr" data-module="<id>">` et charge dans le `<head>` :
 `registre.js`, `commun/js/plateforme.js`, puis `module.js`. La couleur du module est appliquée avant l'affichage.
@@ -75,15 +92,16 @@ Ne jamais écrire une couleur d'accent en dur dans un niveau ou une figure.
 
 ## 3. Progression
 
-Le tableau de bord compte des étapes : une page de cours est faite quand on arrive en bas (`PLATEFORME.marquerLu`),
-un niveau quand ses défis sont finis
+Le tableau de bord compte les sections lues (`PLATEFORME.marquerSection`, qui marque aussi leurs notions) et les
+niveaux faits. Un chapitre est « fait » quand toutes ses sections sont lues. Un niveau est fait quand ses défis sont finis
 (écran de résultats), avec 1 à 3 étoiles (3 sans erreur, 2 avec une ou deux, 1 sinon ; la meilleure est gardée).
 Chaque question a aussi « Voir la réponse » et « Passer » (ajoutés par le moteur). Une question passée ou dont la
 réponse a été vue ne compte pas comme trouvée : le niveau se termine quand même, avec au plus 1 étoile (aucune, et
 non marqué terminé, si rien n'a été trouvé seul), et l'écran de fin liste ces questions avec « Réessayer ».
-« Continuer » (tableau de bord et carte) ouvre la première étape pas faite de la carte, cours ou exercices, dans le
-sous-module de la dernière page ouverte. Tout passe par `PLATEFORME` (`etapes`, `apres`, `marquer`, `marquerLu`,
-`compte`, `continuer`, `noterDernier`, `effacer`).
+« Reprendre » (tableau de bord et carte) rouvre la dernière position notée dans une page de chapitre
+(`PLATEFORME.noterPlan`, `reprendre`), ou le premier chapitre pas fait. Tout passe par `PLATEFORME` (`chapitresDe`,
+`chapitre`, `marquer`, `marquerSection`, `compte`, `reprendre`, `continuer`, `effacer`). La progression déjà
+enregistrée est toujours gardée.
 
 ## 4. Construire un module à partir des PDF
 
@@ -101,7 +119,9 @@ sous-module de la dernière page ouverte. Tout passe par `PLATEFORME` (`etapes`,
 4. **Écrire les niveaux** (section 5), un fichier `niveaux/<niveau>.js` par notion, puis pour chaque chapitre
    un niveau de révision (`revision: true`) et un boss (`boss: true`). Les ajouter dans `module.js` avec `pret: true`.
 5. **Écrire les pages de cours** (section 6), une par notion, avec `cours: true` sur le niveau du même id
-   (seuls les exercices de TD peuvent ne pas avoir de page). Puis générer `liens-cours.js`
+   (seuls les exercices de TD peuvent ne pas avoir de page). Dans `module.js`, donner à chaque chapitre sa `ligne`
+   et découper son cours en 3 à 5 `sections` (`{ id, chapitre, titre, notions: [...] }`, une idée chacune), puis
+   générer les pages de chapitre (`node outils/regrouper.js <id>`). Puis générer `liens-cours.js`
    (`node tests/navigateur/liens.js <id>`), relire `captures/<id>/liens-rapport.tsv` (les scores faibles en premier)
    et corriger à la main dans `CORRECTIONS` si besoin.
 6. **Tests** : les réponses attendues de chaque niveau dans `tests/math.test.js` (calculées, jamais recopiées) ;
@@ -179,7 +199,7 @@ curseur courts (sur une ligne), étiquettes du dessin d'au moins 16 dans le view
 - Boutons de jeu : contour encre et ombre décalée nette ; cartes de figure : bords doux, coins arrondis.
 - Écran de niveau : figure à gauche (environ 58 %), carte de l'étape à droite, pas de défilement de page.
   La légende de la figure (`chip`, `astuce`) a sa propre rangée au-dessus du dessin : elle ne le recouvre jamais.
-- Carte : nœud livre pour un cours, rond numéroté pour des exercices ; fait en vert, étape conseillée en bleu.
+- Carte : un rond par chapitre ; fait en vert, chapitre conseillé en bleu.
 - Dessins qui remplissent le cadre, traits épais, étiquettes qui ne se chevauchent pas (halo blanc).
 - Pas de barre latérale, pas de table des matières, pas de décoration sans rôle.
 
@@ -211,7 +231,7 @@ node tests/navigateur/jouer.js <id>           # chaque niveau joué jusqu'à 3 �
 node tests/navigateur/reveler.js <id>         # « Voir la réponse » sur chaque étape, bilan et « Réessayer »
 MODE=passer node tests/navigateur/reveler.js <id>   # « Passer » sur chaque étape
 node tests/navigateur/pages.js <id>           # tableau de bord et pages du module sans erreur
-node tests/navigateur/carte.js <id>           # carte, Cours → Exercices → étape suivante, « Revoir dans le cours », Continuer
+node tests/navigateur/chapitres.js <id>       # carte, pages de chapitre, blocs « Jouer », fenêtre d'exercice, Reprendre
 node tests/navigateur/ecran.js <id>           # chaque figure de cours tient sur un écran (W=1366 H=1024 aussi)
 node tests/navigateur/niveaux-ecran.js <id>   # écrans de niveau : pas d'étiquettes qui se chevauchent
 node tests/navigateur/figures.js <id>         # une capture par figure de cours

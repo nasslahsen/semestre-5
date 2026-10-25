@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Organisation et secteurs du laboratoire · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Organisation et secteurs du laboratoire</h1>
+<p class="chapeau">Un tube arrive au guichet ; une heure plus tard, son résultat part chez le médecin. Entre les deux, il a traversé plusieurs pièces dans un ordre précis. Le plan du laboratoire est pensé pour ce trajet.</p>
+
+<h2>Intuition</h2>
+<p>Pense à une chaîne de montage : chaque poste fait une chose, et les postes sont rangés dans l'ordre où le produit les rencontre. Au laboratoire, le produit, c'est l'échantillon. Il entre par la réception, passe par la préparation, arrive à l'analyse. Autour de ce trajet principal, on place ce qui le sert sans le gêner : les rangements, les bureaux, les locaux du personnel.</p>
+
+<div id="fig-secteurs"></div>
+
+<h2>Formalisation</h2>
+<p>L'organisation spatiale d'un LBM suit une <strong>logique de flux</strong> : les échantillons circulent d'un secteur à l'autre dans un ordre précis.</p>
+<div class="tableau"><table>
+<tr><th>Secteur</th><th>Rôle</th></tr>
+<tr><td>1. Unité de réception</td><td>Guichet équipé : station pneumatique pour les échantillons internes, guichet pour les échantillons externes. Certains échantillons ne sont pas transportables par tube pneumatique.</td></tr>
+<tr><td>2. Aire pré-analytique</td><td>Prélèvement, tri, distribution, préparation (centrifugation, aliquotage) et conservation des échantillons. C'est de cette aire que les spécimens sont dirigés vers les aires d'analyse appropriées.</td></tr>
+<tr><td>3. Aire analytique</td><td>Toutes les spécialités du LBM : biochimie, hématologie, microbiologie, pathologie, génétique, diagnostic moléculaire.</td></tr>
+<tr><td>4. Autres locaux spécialisés</td><td>Salle d'autopsie, morgue, aire de prélèvement.</td></tr>
+<tr><td>Rangements et dépôts</td><td>Situés de façon à assurer l'efficience des services en réduisant les déplacements du personnel. Attention au bruit, à la chaleur, à l'humidité et aux risques d'explosion (congélateurs à azote).</td></tr>
+<tr><td>Aires clinico-administratives</td><td>Situées en retrait, dans un secteur où l'on n'a pas à traverser les laboratoires.</td></tr>
+<tr><td>Soutien au personnel</td><td>Salle de repos, vestiaires, toilettes, espaces pour revêtir les EPI propres et se débarrasser des EPI souillés.</td></tr>
+</table></div>
+<p>L'<strong>aliquotage</strong> consiste à diviser un échantillon ou un réactif en plusieurs portions égales, plus petites et représentatives, appelées <b>aliquotes</b>.</p>
+<p>Le laboratoire d'analyses médicales (LAM) est une structure de prestation qui réalise des analyses à but diagnostique ou autre, dans plusieurs disciplines : biochimie (chimie clinique), hématologie, bactériologie, parasitologie, immunologie, anatomopathologie, biologie moléculaire et génétique, pharmacologie et toxicologie.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un tube de sang pour un bilan de biochimie arrive par la station pneumatique : unité de réception. Il est centrifugé et son sérum réparti en deux aliquotes : aire pré-analytique. Une aliquote va sur l'automate de biochimie : aire analytique. La seconde est rangée au froid. Le biologiste qui valide le résultat travaille dans un bureau en retrait, sans traverser les paillasses.</p>
+
+<h2>Formules clés</h2>
+<p>Logique de flux : réception → aire pré-analytique → aire analytique.</p>
+<p>Pré-analytique : prélèvement, tri, distribution, préparation (centrifugation, aliquotage), conservation.</p>
+<p>Autour : locaux spécialisés, rangements et dépôts, aires clinico-administratives en retrait, soutien au personnel.</p>
+<p>Aliquotage : diviser un échantillon en portions égales, plus petites et représentatives.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/secteurs.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Centrifugation et préparation des échantillons · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Centrifugation et préparation des échantillons</h1>
+<p class="chapeau">Pour obtenir un sérum, on fait tourner le tube très vite : les cellules, plus denses, filent au fond. Mais « très vite » ne veut rien dire tant qu'on ne précise pas la force réellement appliquée, qui dépend aussi de la taille du rotor.</p>
+
+<h2>Intuition</h2>
+<p>Dans un manège, tu es plaqué contre la paroi, et d'autant plus fort que le manège tourne vite et que tu es loin du centre. Dans une centrifugeuse, c'est pareil pour les particules d'un échantillon : la force dépend de la vitesse de rotation au carré et de la distance à l'axe. Deux centrifugeuses à la même vitesse, mais avec des rotors de rayons différents, n'appliquent pas la même force. C'est pourquoi on exprime la centrifugation en « × g », la force rapportée à la pesanteur, et pas seulement en tours par minute.</p>
+
+<div id="fig-centrifugation"></div>
+
+<h2>Formalisation</h2>
+<h3>A. Principes</h3>
+<p>La centrifugation sépare les composants d'un mélange selon leur <strong>densité</strong> et leur <strong>taille</strong>, sous l'effet de la force centrifuge. Paramètres clés : la vitesse, en tours par minute (RPM) ou en force centrifuge relative (× g) ; le temps ; la température (certaines centrifugations à 4 °C) ; le rayon du rotor, qui influence la force appliquée.</p>
+\[ \text{RCF} = 1{,}118 \times 10^{-5} \times r \times N^2 \]
+<p>avec RCF la force centrifuge relative (en × g), \(r\) le rayon du rotor en centimètres et \(N\) la vitesse en tours par minute. Le support du cours écrit aussi cette formule avec le coefficient \(1{,}119 \times 10^{-5}\) ; l'écart est négligeable.</p>
+<h3>B. Types de centrifugation</h3>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Principe</th><th>Applications</th></tr>
+<tr><td>Différentielle</td><td>Séparation par taille et densité, vitesse croissante</td><td>Fractionnement cellulaire (noyaux, mitochondries, microsomes)</td></tr>
+<tr><td>En gradient de densité</td><td>Séparation par densité de flottaison</td><td>Séparation des PBMC (Ficoll-Paque), purification virale</td></tr>
+<tr><td>Ultracentrifugation</td><td>60 000 à 150 000 RPM</td><td>Séparation des virus, ribosomes, macromolécules</td></tr>
+<tr><td>En gradient de sucrose</td><td>Gradient continu ou discontinu</td><td>Purification des organites</td></tr>
+</table></div>
+<h3>C. Applications pratiques</h3>
+<ul>
+<li><b>Sérum ou plasma</b> : sang total centrifugé à 2 000 à 2 500 × g pendant 10 à 15 minutes, à température ambiante. Pour le plasma : tube avec anticoagulant, centrifugation immédiate. Pour le sérum : attendre la coagulation complète (30 à 60 minutes, à 37 °C ou à température ambiante), puis centrifuger.</li>
+<li><b>PBMC</b> (cellules mononucléées du sang périphérique) : diluer le sang total avec du PBS ; le déposer délicatement sur du Ficoll-Paque (densité 1,077 g/mL) ; centrifuger à 400 à 450 × g pendant 30 minutes à température ambiante, <b>frein désactivé</b> (pour ne pas perturber le gradient) ; récupérer l'anneau à l'interface ; laver plusieurs fois.</li>
+<li><b>Aliquotes</b> : petits volumes (200 à 500 µL) pour éviter les cycles de congélation et décongélation ; identification précise (nature, date, patient, numéro d'aliquote) ; congélation rapide (azote liquide ou −80 °C).</li>
+</ul>
+<h3>D. Précautions</h3>
+<p><b>Équilibrage</b> : toujours équilibrer la centrifugeuse, masses égales face à face. <b>Hémolyse</b> : éviter les vitesses excessives et les accélérations brutales. <b>Température</b> : respecter celle recommandée pour chaque analyse. <b>Stérilité</b> : pour les échantillons destinés à la culture cellulaire. <b>Matériel</b> : des tubes adaptés, qui résistent à la centrifugation.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une centrifugeuse a un rotor de rayon 15 cm. Pour viser 2 000 × g, on cherche N tel que \(1{,}118 \times 10^{-5} \times 15 \times N^2 = 2\,000\), soit \(N^2 \approx 11\,926\,000\) et \(N \approx 3\,450\) tr/min. Sur un rotor de 10 cm, la même vitesse ne donnerait que \(1{,}118 \times 10^{-5} \times 10 \times 3\,450^2 \approx 1\,330\) × g : trop peu.</p>
+
+<h2>Formules clés</h2>
+\[ \text{RCF} = 1{,}118 \times 10^{-5} \times r\,(\text{cm}) \times N^2\,(\text{tr/min}) \qquad N = \sqrt{\frac{\text{RCF}}{1{,}118 \times 10^{-5} \times r}} \]
+<p>Sérum ou plasma : 2 000 à 2 500 × g, 10 à 15 min ; sérum après 30 à 60 min de coagulation.</p>
+<p>PBMC : Ficoll 1,077 g/mL, 400 à 450 × g, 30 min, frein désactivé. Aliquotes de 200 à 500 µL.</p>
+<p>Toujours équilibrer : masses égales face à face.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/centrifugation.js"></script>
+</body>
+</html>

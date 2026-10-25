@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Maintenance préventive et corrective · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Maintenance préventive et corrective</h1>
+<p class="chapeau">Chaque appareil vu dans ce cours a son calendrier : la centrifugeuse chaque mois et chaque année, le microscope chaque jour, l'automate d'hématologie chaque semaine. Derrière ces listes, il y a deux logiques : intervenir avant la panne, ou réparer après. Et une règle : rien n'est fini tant que le contrôle de qualité n'a pas confirmé que l'appareil mesure juste.</p>
+
+<h2>Intuition</h2>
+<p>La maintenance préventive, c'est la révision de la voiture : planifiée, avant qu'il y ait un problème. La maintenance corrective, c'est le dépannage : on détecte, on cherche la cause, on répare. Dans un laboratoire, la réparation ne suffit pas : il faut prouver que l'appareil mesure de nouveau juste, et garder la trace de tout.</p>
+
+<div id="fig-maintenance"></div>
+
+<h2>Formalisation</h2>
+<h3>Deux types de maintenance</h3>
+<ul>
+<li>La <strong>maintenance préventive</strong> est programmée en amont pour garantir la fiabilité à long terme, la propreté et la conformité : nettoyages, contrôles, remplacements de pièces d'usure, mises à jour, calibrages, tests de performance.</li>
+<li>La <strong>maintenance corrective</strong> (ou curative) corrige un dysfonctionnement, au jour le jour ou sur incident, pour éviter le blocage du service.</li>
+</ul>
+<h3>Les étapes d'une intervention corrective</h3>
+<p>D'après le cours d'hématologie :</p>
+<ol>
+<li><b>Détection</b> de la panne : codes d'erreur, alarmes.</li>
+<li><b>Diagnostic</b> : analyse des journaux (logs).</li>
+<li><b>Intervention</b> : remplacement de pièces, recalibration.</li>
+<li><b>Vérification</b> : contrôle de qualité après la réparation.</li>
+</ol>
+<h3>Des exemples du cours</h3>
+<div class="tableau"><table>
+<tr><th>Appareil</th><th>Préventif</th><th>Correctif</th></tr>
+<tr><td>Réseau pneumatique</td><td>Planifié, souvent annuel : stations, étanchéité, turbines (filtres, courroies, pressions), logiciel et capteurs, envois tests</td><td>Purges des condensats, cartouches coincées, portes et cellules optiques, turbines et électrovannes</td></tr>
+<tr><td>Automate d'hématologie</td><td>Quotidien, hebdomadaire, mensuel, semestriel, annuel</td><td>Détection, diagnostic, intervention, contrôle qualité</td></tr>
+<tr><td>Centrifugeuse</td><td>Chaque mois (mécanique, couvercle, joints), chaque année (électronique, commandes, minuteur, freinage)</td><td>Le cours ne le détaille pas.</td></tr>
+</table></div>
+<h3>Tracer</h3>
+<p>Chaque intervention est enregistrée : l'ISO 15189 demande l'historique complet des interventions, et la documentation d'un équipement réunit manuel, procédures, qualification, calibration, contrôle de qualité, maintenance et pannes.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un automate d'hématologie affiche un code d'erreur sur le canal des globules rouges (détection). Le journal montre des bulles dans le circuit du diluant (diagnostic). Le technicien remplace un joint de seringue et relance une calibration (intervention). Il passe les deux niveaux de contrôle : ils sont dans les limites (vérification). L'intervention est consignée dans l'historique de l'appareil.</p>
+
+<h2>Formules clés</h2>
+<p>Préventive : planifiée, avant la panne. Corrective : sur incident.</p>
+<p>Détection, diagnostic, intervention, vérification par le contrôle de qualité.</p>
+<p>Tout se trace : historique complet des interventions.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/maintenance.js"></script>
+</body>
+</html>

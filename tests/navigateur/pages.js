@@ -1,5 +1,5 @@
-// Charge le tableau de bord et toutes les pages d'un module : aucune erreur JavaScript ou KaTeX,
-// pas de défilement horizontal, chaque niveau marqué « cours » a sa page.
+// Charge le tableau de bord, la carte et les pages de chapitre d'un module : aucune erreur JavaScript ou KaTeX,
+// pas de défilement horizontal, aucune ressource manquante.
 // Lancer : node tests/navigateur/pages.js <module>
 "use strict";
 const { BASE, lancer, pagesCours, W, H } = require("./commun");
@@ -9,7 +9,7 @@ if (!mid) { console.error("usage : node tests/navigateur/pages.js <module>"); pr
 (async () => {
   const b = await lancer();
   const pg = await (await b.newContext({ viewport: { width: W, height: H } })).newPage();
-  const urls = ["index.html", `modules/${mid}/index.html`, `modules/${mid}/cours/index.html`].concat(pagesCours(mid).map(p => `modules/${mid}/cours/${p}.html`));
+  const urls = ["index.html", `modules/${mid}/index.html`].concat(pagesCours(mid).map(p => `modules/${mid}/${p}.html`));
   let ko = 0;
   for (const u of urls) {
     const errs = [], h = e => errs.push(String(e)), r = rep => { if (rep.status() >= 400) errs.push(rep.status() + " " + rep.url()); };

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le dossier patient informatisé</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 5. -->
+<main class="cours-chapitre" data-chapitre="5">
+<p class="etiquette" data-etiquette></p>
+<h1>Le dossier patient informatisé</h1>
+
+<section class="partie" id="s-dpi-sejours">
+<p class="rang-partie">1 / 3</p>
+<h2>DPI, DPP, DSN et séjours</h2>
+
+<article class="notion" id="n-dpi">
+<h3>DPI, dossier communiquant, DPP, DSN</h3>
+<p class="chapeau">« Le DPI ne répond plus » : l'infirmière parle d'un logiciel. « Le DPI de M. Alaoui » : le médecin parle d'un dossier. Et selon jusqu'où ce dossier voyage, il change de nom.</p>
+<h4>Le chapitre en bref</h4>
+<p>Le <b>dossier patient informatisé</b> est au centre du SIH. Ce chapitre en donne les définitions (DPI, DSI / DMI, dossier communiquant, DPP, DSN), son utilité et son organisation en séjours, ses volets et ses échanges avec les modules du SIH, le plan de soins et la pancarte, sa place dans le portail national de santé, et un exemple de prise en charge aux urgences.</p>
+
+<h4>Intuition</h4>
+<p>Plus un dossier voyage loin, plus son nom s'allonge. Dans un hôpital, il échange avec les autres systèmes : il est communiquant. Entre plusieurs établissements, il est partagé. À l'échelle du pays, avec tout le parcours de santé, il devient le dossier de soins numériques.</p>
+<div id="fig-portees"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Terme</th><th>Définition du cours</th></tr>
+<tr><td>DPI (dossier patient informatisé)</td><td>dossier informatique rassemblant les données médicales de patients ; le terme désigne aussi le logiciel dans lequel les agents hospitaliers vont accéder aux informations contenues dans le dossier des patients</td></tr>
+<tr><td>DSI / DMI (dossier soins / médical informatisé)</td><td>font partie du DPI</td></tr>
+<tr><td>Dossier communiquant</td><td>un DPI capable d'échanger des données avec d'autres systèmes à l'intérieur d'un hôpital (ex. le LIS envoie un résultat vers le DPI)</td></tr>
+<tr><td>DPP (dossier patient partagé)</td><td>un dossier accessible par plusieurs acteurs, potentiellement dans plusieurs établissements</td></tr>
+<tr><td>DSN (dossier de soins numériques)</td><td>DPI qui a une portée nationale ; intègre un profil de santé complet (passage dans les structures hospitalières, médecins de ville, vaccination...)</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le LIS dépose une NFS dans le DPI du service : dossier communiquant. Le cardiologue d'une clinique ouvre le dossier constitué au CHU : DPP. Le carnet de vaccination d'un enfant est consultable partout dans le pays : DSN.</p>
+
+<h4>Formules clés</h4>
+<p>DPI (dont DSI / DMI) → communiquant (dans l'hôpital) → DPP (plusieurs établissements) → DSN (portée nationale).</p>
+</article>
+
+<article class="notion" id="n-dpi-sejours">
+<h3>Utilité du DPI et séjours patient</h3>
+<p class="chapeau">M. Chraibi est venu trois fois à l'hôpital : une consultation, un passage aux urgences, une hospitalisation. Son DPI doit dire, pour chaque acte, lors de quel passage il a été fait.</p>
+<h4>Intuition</h4>
+<p>Le DPI sert d'abord à coordonner : le médecin de jour écrit, l'infirmière de nuit lit. Il fait aussi gagner du temps en retrouvant vite une information, et il aide à décider avec des protocoles. Pour que tout cela tienne, il est organisé en séjours : chaque passage du patient a son identifiant, et tout ce qui s'y fait lui est rattaché.</p>
+<div id="fig-sejours"></div>
+
+<h4>Formalisation</h4>
+<p><b>Utilité du DPI</b> :</p>
+<ul>
+<li><b>faciliter la coordination des soins</b> entre les différents professionnels de l'hôpital, et donc faciliter l'interprétation qui en sera faite ;</li>
+<li><b>faciliter l'exercice professionnel</b> quotidien par des outils de classification qui retrouvent les informations rapidement selon plusieurs critères : par nature des données (cliniques, biologiques, imagerie), par ordre chronologique, par nom, par âge, par lieu de domiciliation, par type d'affection ;</li>
+<li><b>apporter une aide à la décision</b>, à l'évaluation et aux études cliniques, en permettant l'utilisation de protocoles de prise en charge prédéfinis établis à partir des référentiels de pratiques.</li>
+</ul>
+<p>Le cours résume ses bénéfices : un précieux gain de temps, une qualité des soins, une traçabilité des données de santé du patient.</p>
+<p><b>DPI et séjours</b> : le DPI contient les données de santé du patient relatives à ses différents passages / séjours à l'hôpital (consultations, urgences, hospitalisations, explorations...). Chaque passage est enregistré sous un séjour ayant un <b>identifiant unique</b>. Toutes les prestations de soins, traitements, mouvements et décisions médicales dispensés lors d'un passage sont rattachés à l'identifiant unique de ce passage / séjour. Le DPI porte l'ID patient, le nom et prénom, la date de naissance ; chaque séjour, son type ou sa spécialité, sa date, son diagnostic d'entrée / sortie.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>L'ECG fait aux urgences le 20 avril reste rattaché au séjour des urgences, même quand M. Chraibi revient en juin. On peut ainsi facturer chaque passage, suivre son déroulé et compter les séjours.</p>
+
+<h4>Formules clés</h4>
+<p>Utilité : coordination, exercice professionnel, aide à la décision. Bénéfices : temps, qualité, traçabilité.</p>
+<p>DPI (ID patient) → séjours (ID unique chacun) → prestations rattachées au séjour.</p>
+</article>
+
+<div class="fin-partie" data-section="dpi-sejours"></div>
+</section>
+
+<section class="partie" id="s-modules-plan">
+<p class="rang-partie">2 / 3</p>
+<h2>Le DPI dans le SIH et le plan de soins</h2>
+
+<article class="notion" id="n-dpi-modules">
+<h3>Le DPI et les modules du SIH</h3>
+<p class="chapeau">Un compte rendu d'imagerie, une ordonnance validée par le pharmacien, une adresse, un courrier scanné : tout finit dans le DPI, mais pas au même endroit, et pas par le même chemin.</p>
+<h4>Intuition</h4>
+<p>Le DPI s'organise en volets autour d'une synthèse : administratif, médical, paramédical, pharmaceutique, social, GED. Il échange avec les modules médico-techniques (RIS, PACS, LIS) et avec les modules administratifs (admission, cotation et facturation, RDV), chacun avec ses standards.</p>
+<div id="fig-volets"></div>
+
+<h4>Formalisation</h4>
+<p>Volets du DPI (schéma du cours) : <b>synthèse</b> au centre ; volets <b>administratif</b>, <b>médical</b>, <b>paramédical</b>, <b>pharmaceutique</b>, <b>social</b>, <b>GED</b>.</p>
+<div class="tableau"><table>
+<tr><th>Côté</th><th>Modules</th><th>Standards et nomenclatures</th></tr>
+<tr><td>Médico-technique</td><td>RIS, PACS, LIS...</td><td>HL7, DICOM, SNOMED</td></tr>
+<tr><td>Administratif</td><td>admission, cotation des prestations et facturation, RDV...</td><td>NGAP, NABM, CIM-10</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Les images d'un scanner arrivent du PACS en DICOM ; le compte rendu opératoire va dans le volet médical, les transmissions infirmières dans le volet paramédical, le courrier scanné du médecin traitant dans la GED, et l'aide à domicile à organiser dans le volet social.</p>
+
+<h4>Formules clés</h4>
+<p>Volets : administratif, médical, paramédical, pharmaceutique, social, GED, autour de la synthèse.</p>
+<p>Médico-technique : HL7, DICOM, SNOMED. Administratif : NGAP, NABM, CIM-10.</p>
+</article>
+
+<article class="notion" id="n-plan-soins">
+<h3>Plan de soins numérique et pancarte</h3>
+<p class="chapeau">Le médecin interrompt une perfusion le temps d'un examen. Dans le plan de soins de l'infirmière, la tâche doit changer tout de suite, sans disparaître.</p>
+<h4>Intuition</h4>
+<p>Le plan de soins est la liste de ce qu'il faut faire pour le patient ; il découle des prescriptions et les suit quand elles changent. La pancarte est ce qu'on relève sur le patient : les constantes. L'un dit quoi faire, l'autre ce qu'on a mesuré.</p>
+<div id="fig-plan"></div>
+<div id="fig-pancarte"></div>
+
+<h4>Formalisation</h4>
+<p>Le <b>plan de soins</b> est l'outil de planification des actions à réaliser pour un patient. Il découle directement des prescriptions médicales. Il contient la liste ordonnée des tâches, des soins techniques (pansements, injections, perfusions), des examens à programmer et des surveillances requises.</p>
+<p>La <b>pancarte</b> (feuille de surveillance) : dans un DPI, elle est entièrement numérisée et représente l'outil de recueil et de visualisation des constantes (température, tension artérielle, fréquence cardiaque, saturation en oxygène).</p>
+<div class="tableau"><table>
+<tr><th>Prescription</th><th>Effet sur le plan de soins</th></tr>
+<tr><td>Créée</td><td>ajout de tâches</td></tr>
+<tr><td>Modifiée</td><td>mise à jour</td></tr>
+<tr><td>Interrompue</td><td>suspension</td></tr>
+<tr><td>Annulée</td><td>retrait du plan</td></tr>
+</table></div>
+<p>Chaîne : prescription → plan de soins (tâches infirmières planifiées) → feuille de surveillance (constantes, actes réalisés).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Sur la pancarte de la figure, la température franchit 38 °C à 14 h (38,3 °C). Le médecin prescrit un bilan : la prescription créée ajoute la tâche « bilan sanguin » au plan de soins.</p>
+
+<h4>Formules clés</h4>
+<p>Créée → ajout ; modifiée → mise à jour ; interrompue → suspension ; annulée → retrait.</p>
+<p>Plan de soins = ce qu'il faut faire. Pancarte = constantes relevées.</p>
+</article>
+
+<div class="fin-partie" data-section="modules-plan"></div>
+</section>
+
+<section class="partie" id="s-portail-urgences">
+<p class="rang-partie">3 / 3</p>
+<h2>Portail national et urgences</h2>
+
+<article class="notion" id="n-dpp-national">
+<h3>Le DPP au sein d'un SIS : portail national</h3>
+<p class="chapeau">Un compte rendu écrit dans une clinique privée de Rabat doit pouvoir être lu par le patient chez lui, et par le médecin d'un hôpital public de Marrakech.</p>
+<h4>Intuition</h4>
+<p>À l'échelle du pays, le système d'information de santé (SIS) relie tout le monde : hôpitaux publics et privés envoient leurs données par une plateforme d'échange commune, un serveur garantit l'identité du patient, une base consolide le dossier patient partagé, et des portails le rendent accessible au citoyen, aux médecins et au ministère.</p>
+<div id="fig-dpp"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Étage</th><th>Contenu (cas du projet de portail national de santé)</th></tr>
+<tr><td>Établissements de soins publics</td><td>systèmes d'information hospitaliers publics (SI Hosix, SI Enova, SI DxCare, SI Bilmedical)</td></tr>
+<tr><td>Établissements de soins privés</td><td>systèmes d'information du secteur privé</td></tr>
+<tr><td>Plateforme d'échange santé</td><td>HL7, HL7 FHIR, HL7 (CDA, CCD, SPL, CCOW), IHE, XDS, DICOM ISO 12052</td></tr>
+<tr><td>Serveur d'identification du patient</td><td>appuyé sur la carte nationale d'identité électronique</td></tr>
+<tr><td>Base de consolidation santé</td><td>dossier patient partagé</td></tr>
+<tr><td>Portails</td><td>portail patient, portail professionnel, systèmes BI</td></tr>
+<tr><td>Utilisateurs</td><td>citoyen, médecin privé, MSPS (ministère de la Santé et de la Protection sociale)</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le compte rendu de la clinique part du SI privé, passe par la plateforme d'échange (HL7 FHIR ou CDA), est rattaché au bon patient par le serveur d'identification, consolidé dans le DPP, puis lu par le patient sur le portail patient.</p>
+
+<h4>Formules clés</h4>
+<p>SIH publics et SI privés → plateforme d'échange → identification + base de consolidation (DPP) → portails → citoyen, médecin, MSPS.</p>
+</article>
+
+<article class="notion" id="n-urgences-dpi">
+<h3>Prise en charge d'un patient aux urgences</h3>
+<p class="chapeau">Un patient arrive aux urgences. Six étapes plus tard, il rentre chez lui ou monte dans un service. À chaque étape, quelqu'un écrit dans son DPI.</p>
+<h4>Intuition</h4>
+<p>Le DPI n'est pas rempli à la sortie : il se construit en continu. L'accueil y met l'identité et le motif, le triage un score, le médecin son examen, les explorations leurs résultats, l'observation la surveillance, la sortie la décision finale.</p>
+<div id="fig-urgences"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui va dans le DPI</th></tr>
+<tr><td>Accueil</td><td>identité, motif</td></tr>
+<tr><td>Triage</td><td>score de tri (IOA)</td></tr>
+<tr><td>Consultation urgence</td><td>examen médical initial</td></tr>
+<tr><td>Explorations</td><td>résultats bio / imagerie</td></tr>
+<tr><td>Salle d'observation</td><td>surveillance, réévaluation</td></tr>
+<tr><td>Sortie</td><td>domicile ou hospitalisation</td></tr>
+</table></div>
+<p>Le DPI est <b>mis à jour en continu</b>. L'IOA est l'infirmier organisateur de l'accueil, qui attribue le score de tri.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Motif : douleur thoracique (accueil). Score de tri : 2 (triage). Troponine : 45 ng/L (explorations). Réévaluation à H+6, douleur disparue (observation). Retour à domicile (sortie).</p>
+
+<h4>Formules clés</h4>
+<p>Accueil → triage → consultation → explorations → observation → sortie, avec un DPI mis à jour à chaque étape.</p>
+</article>
+
+<div class="fin-partie" data-section="portail-urgences"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/dpi.js"></script>
+<script src="../figures/dpi-sejours.js"></script>
+<script src="../figures/dpi-modules.js"></script>
+<script src="../figures/plan-soins.js"></script>
+<script src="../figures/dpp-national.js"></script>
+<script src="../figures/urgences-dpi.js"></script>
+</body>
+</html>

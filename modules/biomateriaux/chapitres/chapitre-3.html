@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Structure et états des polymères</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 3. -->
+<main class="cours-chapitre" data-chapitre="3">
+<p class="etiquette" data-etiquette></p>
+<h1>Structure et états des polymères</h1>
+
+<section class="partie" id="s-macromolecules">
+<p class="rang-partie">1 / 3</p>
+<h2>Macromolécules et masse moléculaire</h2>
+
+<article class="notion" id="n-macromolecules">
+<h3>Forme des macromolécules et familles de plastiques</h3>
+<p class="chapeau">Une seringue en polyéthylène se refond et se remoule ; une pièce en résine époxy, jamais ; un gant en caoutchouc s'étire puis revient. Ce sont tous des polymères. Ce qui les sépare, c'est la forme de leurs macromolécules.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre regarde les polymères de près : leurs chaînes, leur longueur, la façon dont elles s'organisent, et ce que la température leur fait. C'est indispensable en biomédical, où une grande partie des dispositifs (seringues, poches, cathéters, inserts, lentilles) sont en polymère : il faut savoir s'ils seront rigides ou souples à 37 °C, transparents ou non, et comment on peut les mouler.</p>
+<p>Les notions s'enchaînent ainsi :</p>
+<ul>
+<li><strong>Forme des macromolécules</strong> : linéaires, ramifiées ou en réseau ; thermoplastiques, thermodurcissables, élastomères (cette page).</li>
+<li><strong>Masse moléculaire</strong> : plus les chaînes sont longues, plus elles s'enchevêtrent, plus le matériau est résistant.</li>
+<li><strong>États d'un polymère amorphe</strong> : vitreux, transition vitreuse Tg, plateau caoutchouteux, liquide.</li>
+<li><strong>Polymères semi-cristallins</strong> : des cristaux dans une phase amorphe, une deuxième température Tf.</li>
+<li><strong>Taux de cristallinité</strong> : le mesurer par la densité.</li>
+<li><strong>Historique</strong> : du celluloïd au polyéthylène haute densité.</li>
+</ul>
+<div id="fig-carte"></div>
+
+<h4>Intuition</h4>
+<p>Imagine des spaghettis. Des spaghettis libres glissent les uns sur les autres dès qu'on les chauffe : c'est un thermoplastique. Relie-les par quelques ponts : ils peuvent s'étirer mais reviennent, c'est un élastomère. Relie-les par beaucoup de ponts : plus rien ne bouge, c'est un thermodurcissable.</p>
+<div id="fig-structures"></div>
+
+<h4>Formalisation</h4>
+<p>Terminologie à connaître pour la suite : masse moléculaire, état physique (vitreux, caoutchouteux, amorphe, semi-cristallin), température de transition, orientation, additifs, effet des charges et renforts sur la rigidité, loi des mélanges, orientation des fibres.</p>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Forme des macromolécules</th><th>À la chaleur</th><th>État</th><th>Exemples</th></tr>
+<tr><td><strong>Thermoplastiques</strong></td><td>linéaires ou ramifiées</td><td>se ramollissent ; mis en forme dans des moules à l'état ramolli ; ne peuvent pas atteindre l'état gazeux, ils se dégradent avant</td><td>amorphes ou semi-cristallins</td><td>PE, PC, PS (seringues, tubes)</td></tr>
+<tr><td><strong>Thermodurcissables</strong></td><td>réseau à mailles serrées</td><td>une fois durcis et moulés, ne peuvent plus être reformés : ils se dégradent</td><td>amorphes</td><td>polyester insaturé (UP), époxy, phénolique</td></tr>
+<tr><td><strong>Élastomères</strong></td><td>réseau à mailles larges</td><td>restent élastiques (chapitre 4)</td><td>amorphes</td><td>caoutchouc naturel et synthétique</td></tr>
+</table></div>
+<p>Les thermoplastiques sont livrés en granules, en feuilles ou en poudre. Les thermodurcissables sont moulés sous forme de semi-produits : une résine et un catalyseur. L'image du cours : un thermoplastique est un œuf en chocolat (on le refond et on le remoule), un thermodurcissable est un œuf cuit (impossible de revenir en arrière).</p>
+<p>Historiquement, on distingue deux familles de plastiques, thermoplastiques et thermodurcissables, plus les élastomères.</p>
+
+<h4>Exemple</h4>
+<p>Recyclage à l'hôpital : les seringues et tubes en PE ou PS (thermoplastiques) peuvent être broyés, refondus et remoulés. Une pièce en époxy (thermodurcissable) ne peut pas l'être : chauffée, elle brunit et se dégrade.</p>
+
+<h4>Formules clés</h4>
+<p>Thermoplastique : chaînes linéaires ou ramifiées, se ramollit à chaud, remoulable.</p>
+<p>Élastomère : réseau à mailles larges, élastique.</p>
+<p>Thermodurcissable : réseau à mailles serrées, ne se reforme plus.</p>
+<p>Thermoplastique : amorphe ou semi-cristallin ; thermodurcissables et élastomères : amorphes.</p>
+</article>
+
+<article class="notion" id="n-masse-moleculaire">
+<h3>Masse moléculaire et enchevêtrement</h3>
+<p class="chapeau">La paraffine (la cire) et le polyéthylène d'une poche de perfusion sont faits des mêmes atomes, carbone et hydrogène. Pourtant la cire s'émiette et fond à basse température, alors que la poche est résistante. La différence : la longueur des chaînes.</p>
+
+<h4>Intuition</h4>
+<p>Des chaînes courtes ne se tiennent qu'au contact : une fissure passe entre elles en ne rompant que des liaisons faibles. Des chaînes longues s'enchevêtrent comme une pelote de laine : pour séparer le matériau, il faut casser des chaînes, donc des liaisons covalentes, bien plus fortes.</p>
+<div id="fig-rupture"></div>
+
+<h4>Formalisation</h4>
+<p>Les propriétés mécaniques et la viscosité augmentent avec la <strong>masse moléculaire</strong>. Elles sont fonction du <strong>degré d'enchevêtrement</strong> des chaînes.</p>
+<ul>
+<li>Chaînes courtes : la rupture contourne les chaînes ; ce sont les liaisons intermoléculaires qui cèdent.</li>
+<li>Chaînes longues : la rupture coupe un certain nombre de chaînes ; des liaisons intramoléculaires sont rompues.</li>
+</ul>
+<p>La paraffine est faite de chaînes courtes : ses propriétés viennent des liaisons intermoléculaires, d'où sa faible ténacité et sa faible température de fusion.</p>
+<p>La <strong>ténacité</strong> est la capacité d'un matériau à absorber de l'énergie et à se déformer plastiquement sans se fracturer. L'énergie absorbée est l'aire sous la courbe contrainte-déformation : petite pour un matériau fragile, grande pour un matériau ductile.</p>
+<p>La masse moléculaire décale aussi l'état liquide. Sur la courbe du module de relaxation, une augmentation de la masse décale l'apparition de l'état liquide vers les températures plus élevées (M₂ > M₁). Un polymère de masse moléculaire infinie (M₃ → ∞) n'atteint jamais l'état liquide.</p>
+<div id="fig-masse"></div>
+
+<h4>Exemple</h4>
+<p>TD : un polymère de masse moléculaire extrêmement élevée, Tg = 100 °C, reste sur son plateau caoutchouteux (environ 1 MPa) au-dessus de Tg et de Tf, au lieu de couler. Et à l'inverse, une cire de chaînes courtes fond à quelques dizaines de degrés.</p>
+
+<h4>Formules clés</h4>
+<p>Masse moléculaire ↑ ⇒ enchevêtrement ↑ ⇒ propriétés mécaniques et viscosité ↑.</p>
+<p>Chaînes courtes : rupture intermoléculaire. Chaînes longues : rupture de chaînes (intramoléculaire).</p>
+<p>Ténacité = énergie absorbée = aire sous la courbe σ–ε.</p>
+<p>Masse ↑ ⇒ état liquide à plus haute température ; masse infinie ⇒ jamais liquide.</p>
+</article>
+
+<div class="fin-partie" data-section="macromolecules"></div>
+</section>
+
+<section class="partie" id="s-amorphe-cristallin">
+<p class="rang-partie">2 / 3</p>
+<h2>États amorphe et semi-cristallin</h2>
+
+<article class="notion" id="n-etats-amorphe">
+<h3>États d'un polymère amorphe</h3>
+<p class="chapeau">Une lentille en PMMA est dure et cassante à 20 °C ; un tube en caoutchouc naturel est souple. Les deux sont des polymères amorphes. Ce qui change, c'est où se trouve la température d'usage sur la courbe du module : avant ou après la transition vitreuse.</p>
+
+<h4>Intuition</h4>
+<p>À froid, les chaînes sont figées : on ne peut que tirer un peu sur les distances entre atomes, le matériau est rigide comme du verre. En chauffant, à la transition vitreuse Tg, de longues sections de chaînes se mettent à bouger : le module s'effondre d'un facteur mille environ, le matériau devient caoutchouteux. Plus chaud encore, les chaînes se désenchevêtrent et le polymère coule.</p>
+<div id="fig-courbe"></div>
+
+<h4>Formalisation</h4>
+<p>Courbe du module de relaxation \(E_r\) (en échelle logarithmique) d'un polymère amorphe en fonction de la température :</p>
+<div class="tableau"><table>
+<tr><th>Zone</th><th>Nom</th><th>Ce qui se passe</th></tr>
+<tr><td>0-1</td><td>état vitreux</td><td>module élevé (environ 10⁹ Pa) ; une déformation = augmentation de la distance entre atomes</td></tr>
+<tr><td>1-2</td><td>transition vitreuse</td><td>réduction importante du module de relaxation, autour de Tg</td></tr>
+<tr><td>2-3</td><td>plateau caoutchouteux</td><td>le mouvement de longues sections de chaînes devient possible ; module d'environ 10⁶ Pa ; pour un polymère non réticulé, le plateau est dû à l'enchevêtrement physique</td></tr>
+<tr><td>3-4</td><td>transition caoutchouc-liquide</td><td>les chaînes se désenchevêtrent</td></tr>
+<tr><td>5</td><td>état liquide</td><td>le polymère s'écoule</td></tr>
+</table></div>
+<p><strong>Relaxation</strong> : après une déformation, les chaînes veulent retourner à leur équilibre. Elles le font par désenchevêtrement et réenchevêtrement. À déformation maintenue, la contrainte σ décroît donc avec le temps. Le temps nécessaire varie avec la longueur des chaînes.</p>
+<div id="fig-relaxation"></div>
+
+<h4>Exemple</h4>
+<p>Courbe du cours : polystyrène (Tv ≈ 100 °C) et caoutchouc naturel (Tv ≈ −60 °C à −70 °C). À 20 °C, le polystyrène est dans sa zone 0-1, vitreux ; le caoutchouc naturel est sur son plateau, caoutchouteux. La même courbe décalée en température donne deux usages opposés.</p>
+
+<h4>Formules clés</h4>
+<p>0-1 vitreux, 1-2 transition vitreuse (Tg), 2-3 plateau caoutchouteux, 3-4 transition caoutchouc-liquide, 5 liquide.</p>
+<p>Vitreux ≈ 10⁹ Pa ; caoutchouteux ≈ 10⁶ Pa.</p>
+<p>Relaxation : σ(t) décroît à déformation constante (désenchevêtrement, réenchevêtrement) ; plus les chaînes sont longues, plus c'est lent.</p>
+</article>
+
+<article class="notion" id="n-semi-cristallins">
+<h3>Polymères semi-cristallins</h3>
+<p class="chapeau">Une poche en polyéthylène est laiteuse, un flacon en polystyrène est transparent. Le polyéthylène reste souple et résistant bien au-dessus de sa transition vitreuse (−120 °C). La raison : il contient des cristaux.</p>
+
+<h4>Intuition</h4>
+<p>En refroidissant, certaines portions de chaînes s'alignent et se replient pour former des petits cristaux, au milieu de zones restées désordonnées. Ces cristaux sont des points durs qui tiennent le matériau même quand la partie amorphe devient caoutchouteuse. Et ils diffusent la lumière : le polymère devient translucide ou opaque.</p>
+<div id="fig-x"></div>
+
+<h4>Formalisation</h4>
+<p>Un polymère cristallin ne cristallise jamais à 100 % : il y a peu de chance que toutes les chaînes s'alignent lors du refroidissement ; les chaînes doivent se replier pour former un cristal, et des parties de chaînes ne participent pas à la cristallisation. Un polymère dit cristallin est donc une <strong>fraction cristalline dispersée dans un polymère amorphe</strong> :</p>
+<ul>
+<li>phase cristalline : densité \(\rho_c\), température de fusion \(T_f\) ;</li>
+<li>phase amorphe : densité \(\rho_a\), température de transition vitreuse \(T_g\).</li>
+</ul>
+<p>Sur la courbe du module de relaxation : entre Tg et Tf (zone 2-3), le module diminue lentement, car la phase cristalline est dispersée dans une matrice caoutchouteuse ; après Tf (3-4), le polymère est entièrement liquide (ou caoutchouteux si sa masse est très grande). L'influence du taux de cristallinité : forte cristallinité, petite chute à Tg ; faible cristallinité, grande chute ; 0 %, chute totale.</p>
+<p>Les <strong>ramifications nuisent à la cristallisation</strong> : le taux de cristallinité X passe d'environ 0,9 avec environ 5 ramifications pour 1000 atomes de carbone à environ 0,05 avec environ 70.</p>
+<div id="fig-ramif"></div>
+
+<h4>Transparence et vitesse de cristallisation</h4>
+<p>D'après les solutions du TD : un semi-cristallin est translucide ou opaque ; au-dessus de Tf, la phase cristalline a fondu et il devient transparent. En refroidissant depuis l'état fondu, la vitesse de cristallisation est la plus élevée vers \(T = (T_f + T_g)/2\) : trop chaud, les cristaux se défont ; trop froid, les chaînes ne bougent plus.</p>
+
+<h4>Exemple</h4>
+<p>TD, application 1.2 : Tg = −10 °C, Tf = 150 °C, X = 0,5 à 25 °C.</p>
+<ul>
+<li>À 50 °C, translucide ou opaque : vrai (cristaux présents).</li>
+<li>À 30 °C, transparent : faux.</li>
+<li>À 160 °C, transparent : vrai (au-dessus de Tf).</li>
+<li>De −20 à 20 °C, le module diminue légèrement parce que X a baissé : faux (c'est la phase amorphe qui passe Tg).</li>
+<li>De 20 à 160 °C, le module passe de 1 GPa à 1 MPa parce que X est passé à 0 : vrai.</li>
+<li>Vitesse de cristallisation maximale : \(T = (150 - 10)/2 = 70\) °C.</li>
+</ul>
+
+<h4>Formules clés</h4>
+<p>Semi-cristallin = phase cristalline (\(\rho_c\), \(T_f\)) dispersée dans une phase amorphe (\(\rho_a\), \(T_g\)).</p>
+<p>Entre Tg et Tf : module qui diminue lentement ; X grand, petite chute à Tg.</p>
+<p>Ramifications ↑ ⇒ X ↓ (≈ 0,9 à 5 pour 1000 C ; ≈ 0,05 à 70).</p>
+<p>\[T_{\text{cristallisation max}} \approx \frac{T_f + T_g}{2}\]</p>
+</article>
+
+<div class="fin-partie" data-section="amorphe-cristallin"></div>
+</section>
+
+<section class="partie" id="s-cristallinite-histoire">
+<p class="rang-partie">3 / 3</p>
+<h2>Cristallinité et histoire des polymères</h2>
+
+<article class="notion" id="n-taux-cristallinite">
+<h3>Taux de cristallinité</h3>
+<p class="chapeau">On veut savoir quelle part d'un polymère est cristalline, parce que cela fixe sa rigidité, sa transparence et sa masse. On ne compte pas les cristaux un par un : on pèse, on mesure le volume, et la densité suffit.</p>
+
+<h4>Intuition</h4>
+<p>La phase cristalline est plus compacte, donc plus dense que la phase amorphe. Un polymère semi-cristallin a une densité entre les deux. Plus il est proche de la densité du cristal, plus il contient de cristaux.</p>
+<div id="fig-densite"></div>
+
+<h4>Formalisation</h4>
+<p>Le <strong>taux de cristallinité</strong> X est la fraction du polymère à l'état cristallin. Si la phase cristalline a la densité \(\rho_c\) et la phase amorphe \(\rho_a\), la densité du polymère vaut :</p>
+<p>\[\rho = \rho_c\,X + \rho_a\,(1 - X)\]</p>
+<p>d'où, en mesurant la densité :</p>
+<p>\[X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]</p>
+<p>La solution du TD écrit \(X = (\rho - \rho_a)/(\rho - \rho_c)\) : c'est une coquille. Avec \(\rho = \rho_c\), le dénominateur s'annulerait ; la bonne forme, celle du cours, donne bien X = 0 pour \(\rho = \rho_a\) et X = 1 pour \(\rho = \rho_c\).</p>
+
+<h4>Exemple : la plaque du TD 1.1</h4>
+<p>Polymère de masse moléculaire extrêmement élevée, Tg = 100 °C, Tf = 200 °C, \(\rho_a = 1\) et \(\rho_c = 1{,}2\) g/cm³. Plaque de 10 cm × 10 cm × 0,1 cm moulée avec X = 50 %.</p>
+<ul>
+<li>Volume : \(V = 10 \times 10 \times 0{,}1 = 10\) cm³ (5 cm³ cristallins, 5 cm³ amorphes).</li>
+<li>Densité : \(\rho = 1{,}2 \times 0{,}5 + 1 \times 0{,}5 = 1{,}1\) g/cm³ ; masse : \(m = 1{,}1 \times 10 = 11\) g.</li>
+<li>Chauffée à 150 °C puis refroidie instantanément : 150 °C est entre Tg et Tf, l'état de phase ne change pas, le volume reste 10 cm³.</li>
+<li>Chauffée à 250 °C puis refroidie instantanément : le polymère cristallin fond, et la trempe l'empêche de recristalliser. X = 0, \(\rho = \rho_a = 1\) g/cm³ et \(V = 11 / 1 = 11\) cm³.</li>
+</ul>
+<p>Devoir : un nylon de X = 0,33 a une densité de 1,11 g/cm³, sa phase amorphe 1,07 g/cm³. Alors \(1{,}11 = \rho_c \times 0{,}33 + 0{,}67 \times 1{,}07\), d'où \(\rho_c \approx 1{,}19\) g/cm³.</p>
+<div id="fig-plaque"></div>
+
+<h4>Formules clés</h4>
+<p>\[\rho = \rho_c\,X + \rho_a\,(1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]</p>
+<p>Fondu puis trempé : X = 0, \(\rho = \rho_a\). Chauffé sous Tf : X inchangé.</p>
+</article>
+
+<article class="notion" id="n-historique-polymeres">
+<h3>Historique des polymères</h3>
+<p class="chapeau">Les plastiques semblent récents, et pourtant le premier date de la guerre de Sécession. Leur histoire explique pourquoi on parle de thermoplastiques et de thermodurcissables, et pourquoi le polyéthylène est partout à l'hôpital.</p>
+
+<h4>Intuition</h4>
+<p>Chaque étape répond à un besoin : remplacer l'ivoire, faire des films, isoler des radios, faire des brosses à dents, alléger des voitures. Et chaque fois, on découvre une nouvelle façon d'assembler des macromolécules.</p>
+<div id="fig-frise"></div>
+
+<h4>Formalisation</h4>
+<p>Le concept de <strong>macromolécule</strong> est dû à Hermann Staudinger, au début du XXe siècle (prix Nobel de chimie en 1953). Les polymères ne datent pas d'hier ; leur réelle émergence se situe vers 1920–1930, et leur fort développement à partir de la Seconde Guerre mondiale.</p>
+<div class="tableau"><table>
+<tr><th>Date</th><th>Événement</th><th>Ce qu'il faut retenir</th></tr>
+<tr><td>1869</td><td>celluloïd des frères Hyatt</td><td>nitration de la cellulose du bois, avec du camphre, à chaud ; pour remplacer l'ivoire des boules de billard, sous embargo pendant la guerre de Sécession (nitrocellulose)</td></tr>
+<tr><td>1890</td><td>pellicule photographique et films</td><td>le celluloïd comme support</td></tr>
+<tr><td>1907</td><td>Bakélite (Baekeland)</td><td>phénol + formaldéhyde ; premier thermodurcissable complètement synthétique commercialisé ; production industrielle en 1910 (radios, téléphones, fers, dominos, boutons, lampe médicale Osram Theratherm en 1960)</td></tr>
+<tr><td>1935</td><td>nylon (Wallace Hume Carothers, Du Pont de Nemours)</td><td>première commercialisation : brosse à dents à poils en nylon ; puis l'automobile ; nylon 66, nylon 6</td></tr>
+<tr><td>1953</td><td>Corvette, « the plastic car »</td><td>résine polyester et fibres de verre, fabrication de pièces par laminage (hand lay-up)</td></tr>
+<tr><td>1953</td><td>HDPE (Ziegler)</td><td>polyéthylène haute densité, mis en forme par extrusion-soufflage : bouteilles, réservoirs d'essence</td></tr>
+</table></div>
+<p>Aujourd'hui, les polymères sont utilisés presque partout : automobile, laboratoire, poches de perfusion, inhalateurs.</p>
+
+<h4>Exemple</h4>
+<p>Un flacon de sérum en HDPE réunit trois idées de ce chapitre : un thermoplastique (on le moule à chaud), semi-cristallin (il est laiteux), mis en forme par extrusion-soufflage, le procédé né avec le HDPE en 1953 (chapitre 7). Exemple ajouté.</p>
+
+<h4>Formules clés</h4>
+<p>1869 celluloïd ; 1890 pellicule ; 1907 Bakélite (premier thermodurcissable synthétique) ; 1935 nylon ; 1953 Corvette, HDPE, Nobel de Staudinger.</p>
+<p>Émergence 1920–1930, essor à partir de la Seconde Guerre mondiale.</p>
+</article>
+
+<div class="fin-partie" data-section="cristallinite-histoire"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/macromolecules.js"></script>
+<script src="../figures/masse-moleculaire.js"></script>
+<script src="../figures/etats-amorphe.js"></script>
+<script src="../figures/semi-cristallins.js"></script>
+<script src="../figures/taux-cristallinite.js"></script>
+<script src="../figures/historique-polymeres.js"></script>
+</body>
+</html>

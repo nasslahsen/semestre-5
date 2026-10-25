@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Équipements, sécurité et méthode</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 6. -->
+<main class="cours-chapitre" data-chapitre="6">
+<p class="etiquette" data-etiquette></p>
+<h1>Équipements, sécurité et méthode</h1>
+
+<section class="partie" id="s-integration-securite">
+<p class="rang-partie">1 / 3</p>
+<h2>Intégration biomédicale et sécurité</h2>
+
+<article class="notion" id="n-integration-biomedicale">
+<h3>Intégration biomédicale et maintenance</h3>
+<p class="chapeau">Un robot chirurgical pèse lourd, chauffe, se connecte au réseau, demande de la place autour de la table et un accès pour le technicien. Si la salle a été construite sans le savoir, c'est trop tard.</p>
+<h4>Le chapitre en bref</h4>
+<p>Ce dernier chapitre rassemble tout. Les <b>équipements biomédicaux</b> et leur intégration, jusqu'à la maintenance ; la <b>sécurité</b> (incendie, patient, personnel) ; les <b>normes</b> par domaine ; la <b>méthode de conception en dix étapes</b> et la validation avant ouverture ; enfin le <b>rôle de l'ingénieur biomédical</b> et les dix erreurs à éviter. C'est la partie la plus proche de ton futur métier : c'est toi qui porteras ces exigences dans un projet.</p>
+
+<h4>Intuition</h4>
+<p>Chaque appareil a une fiche : sa taille, son poids, ce qu'il consomme, la place qu'il demande autour de lui, la chaleur qu'il rejette, ce à quoi il se connecte, ce qu'il faut pour le réparer. Additionnées pour toute une salle, ces fiches décident de la surface, de la structure du plafond, des prises, des réseaux et de la ventilation. D'où la règle : l'ingénieur biomédical travaille avec l'architecte dès la conception, pas à la livraison.</p>
+
+<div id="fig-equipement"></div>
+
+<h4>Formalisation</h4>
+<p>L'architecte doit travailler avec l'ingénieur biomédical <b>dès la phase de conception</b>. Exemples d'équipements : table opératoire ; scialytique ; respirateur d'anesthésie ; moniteur multiparamétrique ; bistouri électrique ; aspirateur ; pousse-seringues ; défibrillateur ; colonne vidéo ; endoscopie ; échographe ; microscope ; robot chirurgical ; arceau mobile.</p>
+<p>Chaque équipement possède : des <b>dimensions</b> ; un <b>poids</b> ; une <b>alimentation</b> ; des <b>dégagements</b> ; des <b>besoins thermiques</b> ; des <b>interfaces</b> ; des <b>contraintes de maintenance</b>. Il faut donc réaliser un <strong>plan d'implantation biomédical</strong>.</p>
+<h5>Maintenance et accessibilité technique</h5>
+<p>Un équipement peut fonctionner correctement le jour de la réception mais devenir difficile à maintenir si l'architecture n'a pas prévu : l'accès aux filtres ; l'accès aux tableaux électriques ; l'accès aux vannes ; l'accès aux réseaux ; le démontage des équipements ; le cheminement des pièces de rechange.</p>
+<p style="font-size:19px;font-weight:600">Un équipement qui ne peut pas être correctement maintenu est un équipement mal intégré architecturalement.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Fiche simplifiée d'un arceau mobile pour le plan d'implantation : encombrement au sol et rayon de rotation autour de la table (dimensions, dégagements) ; masse sur roulettes (sol adapté au déplacement des équipements) ; prise dédiée et éventuellement secourue (alimentation) ; écrans et liaison au PACS (interfaces) ; chaleur dégagée (besoins thermiques) ; accès du technicien et des pièces (maintenance) ; étude de radioprotection (il émet des rayons X).</p>
+
+<h4>Formules clés</h4>
+<p>Fiche d'un équipement : dimensions, poids, alimentation, dégagements, besoins thermiques, interfaces, contraintes de maintenance → plan d'implantation biomédical.</p>
+<p>Maintenance : accès aux filtres, tableaux électriques, vannes, réseaux ; démontage ; cheminement des pièces de rechange.</p>
+</article>
+
+<article class="notion" id="n-securite">
+<h3>Incendie, sécurité du patient et du personnel</h3>
+<p class="chapeau">Oxygène, appareils électriques, produits inflammables, sources de chaleur : le bloc réunit tout ce qu'il faut pour un incendie, autour d'un patient qui ne peut pas fuir.</p>
+<h4>Intuition</h4>
+<p>La sécurité se pense pour trois publics. Le bâtiment doit détecter un feu tôt, le contenir, permettre d'évacuer et de combattre, en continuant à alimenter ce qui doit l'être. Le patient doit être protégé de tout ce que le bloc peut lui faire subir, de la chute à la mauvaise connexion d'un gaz. Et l'équipe doit être protégée des risques de son métier : rayons X, gaz anesthésiques, germes, charges lourdes, bruit, chaleur.</p>
+
+<div id="fig-securite"></div>
+
+<h4>Formalisation</h4>
+<h5>Contraintes incendie</h5>
+<p>Le bloc doit intégrer : détection incendie ; compartimentage ; évacuation ; signalisation ; matériaux adaptés ; accès pompiers ; alimentation de sécurité. Il faut également tenir compte des risques liés : à l'oxygène ; aux équipements électriques ; aux produits inflammables éventuels ; aux équipements thermiques.</p>
+<h5>Sécurité du patient</h5>
+<p>La conception doit contribuer à prévenir : chute ; erreur d'identification ; infection ; brûlure électrique ; incendie ; interruption de l'alimentation ; mauvaise connexion des gaz médicaux ; défaut de ventilation.</p>
+<h5>Sécurité du personnel</h5>
+<p>Il faut également protéger les professionnels contre : le risque électrique ; les rayonnements ionisants ; les gaz anesthésiques ; les agents biologiques ; la manutention manuelle ; l'exposition au bruit ; une température excessive.</p>
+<div class="tableau"><table>
+<tr><th>Risque pour le personnel</th><th>Réponse vue dans le cours</th></tr>
+<tr><td>Risque électrique</td><td>sécurité électrique : contacts directs / indirects, terre, équipotentialité, différentiels</td></tr>
+<tr><td>Rayonnements ionisants</td><td>protection radiologique calculée par une étude</td></tr>
+<tr><td>Gaz anesthésiques</td><td>évacuation des gaz anesthésiques, ventilation</td></tr>
+<tr><td>Agents biologiques</td><td>zones, séparation des flux, tri des déchets</td></tr>
+<tr><td>Manutention manuelle</td><td>ergonomie, stockage bien placé</td></tr>
+<tr><td>Exposition au bruit</td><td>acoustique</td></tr>
+<tr><td>Température excessive</td><td>ventilation, maîtrise de la température</td></tr>
+</table></div>
+<p>La colonne de droite relie chaque risque aux chapitres du cours (rapprochement ajouté).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>L'oxygène ne brûle pas lui-même, mais il entretient et accélère la combustion. Près du champ opératoire, un air enrichi en oxygène, un antiseptique alcoolique encore humide et la chaleur d'un bistouri électrique réunissent les éléments que le cours cite parmi les risques incendie propres au bloc.</p>
+
+<h4>Formules clés</h4>
+<p>Incendie : détection, compartimentage, évacuation, signalisation, matériaux adaptés, accès pompiers, alimentation de sécurité ; risques liés à l'oxygène, aux équipements électriques, aux produits inflammables, aux équipements thermiques.</p>
+<p>Patient : chute, identification, infection, brûlure électrique, incendie, interruption de l'alimentation, connexion des gaz, ventilation.</p>
+<p>Personnel : électrique, rayonnements ionisants, gaz anesthésiques, agents biologiques, manutention, bruit, température.</p>
+</article>
+
+<div class="fin-partie" data-section="integration-securite"></div>
+</section>
+
+<section class="partie" id="s-normes">
+<p class="rang-partie">2 / 3</p>
+<h2>Normes et référentiels</h2>
+
+<article class="notion" id="n-normes">
+<h3>Normes et référentiels à connaître</h3>
+<p class="chapeau">Il n'existe pas « la norme du bloc opératoire ». Chaque domaine a ses référentiels, et un bon dossier cite le bon texte pour chaque exigence.</p>
+<h4>Intuition</h4>
+<p>Le cours insiste : pour un ingénieur biomédical, il vaut mieux présenter les normes par domaine que citer une seule norme « bloc opératoire ». Une salle mobilise en même temps des textes sur la conception des bâtiments, la ventilation, l'électricité, l'éclairage, les gaz, les appareils et la stérilisation. Le TD le rappelle aussi : distinguer les exigences réglementaires locales, les normes applicables et les recommandations professionnelles.</p>
+
+<div id="fig-normes"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Référentiels cités au cours</th></tr>
+<tr><td>Architecture / conception</td><td>FGI Guidelines (conception des établissements de santé) ; référentiels nationaux de construction hospitalière ; exigences locales de sécurité incendie</td></tr>
+<tr><td>Ventilation</td><td>ASHRAE 170 (ventilation des établissements de santé) ; HTM 03-01 (ventilation dans les établissements de santé au Royaume-Uni) ; recommandations OMS ; recommandations professionnelles de prévention des infections</td></tr>
+<tr><td>Électricité</td><td>IEC 60364-7-710 (installations électriques des locaux médicaux) ; normes nationales associées</td></tr>
+<tr><td>Éclairage</td><td>EN 12464-1 (éclairage des lieux de travail intérieurs, exigences applicables selon les espaces)</td></tr>
+<tr><td>Fluides médicaux</td><td>ISO 7396-1 (systèmes de distribution de gaz médicaux et de vide)</td></tr>
+<tr><td>Équipements électriques médicaux</td><td>IEC 60601-1 (sécurité de base et performances essentielles des équipements électromédicaux)</td></tr>
+<tr><td>Stérilisation</td><td>série ISO 17665 (chaleur humide) ; série ISO 11135 (oxyde d'éthylène) ; série ISO 11140 (indicateurs chimiques) ; série ISO 11607 (emballages des dispositifs médicaux stérilisés terminalement)</td></tr>
+</table></div>
+<p>Le FGI renvoie notamment à <b>ANSI/ASHRAE/ASHE 170</b> pour les exigences de ventilation des espaces de soins.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour la même prise électrique d'un respirateur, deux textes répondent à deux questions différentes : l'IEC 60364-7-710 encadre l'installation électrique du local médical (la prise, le circuit, les protections) ; l'IEC 60601-1 encadre l'appareil lui-même (sa sécurité de base et ses performances essentielles).</p>
+
+<h4>Formules clés</h4>
+<p>Conception : FGI. Ventilation : ASHRAE 170, HTM 03-01. Électricité : IEC 60364-7-710. Éclairage : EN 12464-1. Fluides : ISO 7396-1. Appareils : IEC 60601-1. Stérilisation : ISO 17665, 11135, 11140, 11607.</p>
+</article>
+
+<div class="fin-partie" data-section="normes"></div>
+</section>
+
+<section class="partie" id="s-methode-ingenieur">
+<p class="rang-partie">3 / 3</p>
+<h2>Méthode de conception et rôle de l'ingénieur</h2>
+
+<article class="notion" id="n-methode-conception">
+<h3>Méthode de conception et validation</h3>
+<p class="chapeau">Concevoir un bloc, c'est enchaîner dix étapes dans le bon ordre, puis tout vérifier avant le premier patient : la fin des travaux n'est pas la fin du projet.</p>
+<h4>Intuition</h4>
+<p>L'ordre des étapes suit la logique du cours. On part du besoin (combien de salles, pour quelles chirurgies), on en tire la liste des locaux, on organise les flux, on en déduit les zones, et alors seulement on dessine. Viennent ensuite les réseaux (air, électricité, fluides), puis les équipements. Enfin, on vérifie que tout fonctionne réellement, avec des mesures et des essais, avant d'accueillir un patient.</p>
+
+<div id="fig-methode"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Contenu</th></tr>
+<tr><td>1. Analyse des besoins</td><td>nombre de salles, spécialités, nombre d'interventions, horaires, types de chirurgie</td></tr>
+<tr><td>2. Programme fonctionnel</td><td>définir tous les locaux (salles d'opération, SSPI, stérilisation, locaux du personnel)</td></tr>
+<tr><td>3. Analyse des flux</td><td>patients, personnel, propre, sale, déchets, matériel</td></tr>
+<tr><td>4. Zonage</td><td>public, semi-restreint, restreint</td></tr>
+<tr><td>5. Architecture</td><td>surfaces, dimensions, portes, circulations, matériaux</td></tr>
+<tr><td>6. CVC</td><td>débit, filtration, pression, température, humidité, renouvellement</td></tr>
+<tr><td>7. Électricité</td><td>puissance, alimentation normale, secours, UPS, sécurité</td></tr>
+<tr><td>8. Fluides médicaux</td><td>O₂, air, vide, évacuation des gaz</td></tr>
+<tr><td>9. Implantation biomédicale</td><td>définir les équipements et leurs contraintes</td></tr>
+<tr><td>10. Validation</td><td>avant mise en service : architecture, CVC, électricité, gaz, biomédical, hygiène, sécurité, validation fonctionnelle</td></tr>
+</table></div>
+<p>Les recommandations professionnelles récentes insistent particulièrement sur l'<b>implication de l'équipe de prévention des infections dès la conception</b> et sur la <b>validation avant la première utilisation</b>.</p>
+<h5>Validation technique avant ouverture</h5>
+<p>Un bloc opératoire ne doit pas être considéré comme prêt simplement parce que les travaux sont terminés. Il faut vérifier notamment :</p>
+<div class="tableau"><table>
+<tr><th>CVC</th><th>Électricité</th><th>Gaz médicaux</th><th>Biomédical</th><th>Hygiène</th></tr>
+<tr><td>température, humidité, débits, renouvellement d'air, pression différentielle, filtration, alarmes</td><td>continuité, terre, équipotentialité, alimentation de secours, essais des circuits</td><td>pression, qualité, identification, alarmes, étanchéité</td><td>réception, conformité, essais de sécurité, intégration, formation</td><td>surfaces, nettoyage, flux, procédures, validation</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Cas 2 du TD 1 : la température et l'humidité d'une salle fluctuent ; le service technique répond que « la climatisation fonctionne », sans relevés ni rapport de qualification. Les vérifications de la colonne CVC donnent la démarche : relevés de température et d'humidité, débits et ACH comparés au référentiel, pression différentielle, état des filtres, alarmes et historique de maintenance, avant d'autoriser la reprise d'activité.</p>
+
+<h4>Formules clés</h4>
+<p>Besoins → programme → flux → zonage → architecture → CVC → électricité → fluides → implantation biomédicale → validation.</p>
+<p>Avant ouverture : CVC, électricité, gaz médicaux, biomédical, hygiène ; équipe de prévention des infections dès la conception.</p>
+</article>
+
+<article class="notion" id="n-ingenieur-erreurs">
+<h3>Rôle de l'ingénieur biomédical et erreurs fréquentes</h3>
+<p class="chapeau">L'ingénieur biomédical qui arrive à la réception constate ; celui qui arrive à la conception décide. Et les dix erreurs du cours viennent presque toutes d'une arrivée trop tardive.</p>
+<h4>Intuition</h4>
+<p>Presque toutes les erreurs fréquentes du cours ont la même cause : une décision prise sans les informations d'un autre métier. On construit la salle avant de connaître l'équipement, on ferme le plafond sans accès pour la maintenance, on oublie le secours électrique. L'ingénieur biomédical, présent dès la conception, apporte justement ces informations : ce que les équipements demandent, et ce qu'il faudra pour les maintenir pendant des années.</p>
+
+<div id="fig-role"></div>
+
+<h4>Formalisation</h4>
+<p>L'ingénieur biomédical doit intervenir <b>avant la construction</b>, et non seulement lors de la réception des équipements. Ses responsabilités comprennent : définition des besoins biomédicaux ; rédaction des spécifications techniques ; implantation des équipements ; définition des interfaces ; vérification des alimentations ; vérification des gaz médicaux ; analyse des contraintes CVC ; accessibilité pour maintenance ; réception technique ; sécurité électrique ; formation ; maintenance ; <b>GMAO</b> (gestion de la maintenance assistée par ordinateur) ; gestion du cycle de vie.</p>
+<h5>Erreurs fréquentes à éviter</h5>
+<ol>
+<li>Construire la salle avant de connaître les équipements.</li>
+<li>Prévoir uniquement la surface de la salle et oublier le volume technique.</li>
+<li>Ne pas prévoir les accès de maintenance.</li>
+<li>Mélanger les flux propres et sales.</li>
+<li>Positionner les équipements sans tenir compte des flux du personnel.</li>
+<li>Installer un équipement d'imagerie sans étude radiologique.</li>
+<li>Sous-dimensionner l'électricité.</li>
+<li>Oublier l'alimentation de secours.</li>
+<li>Ne pas intégrer les fluides médicaux dès la conception.</li>
+<li>Considérer la ventilation comme un simple problème de climatisation.</li>
+</ol>
+
+<h4>Exemple</h4>
+<p>Cas 4 du TD 1 : le respirateur d'anesthésie d'une salle est indisponible, avec un délai de remise en service inconnu. Réponse proposée à partir du cours (le TD n'en donne pas le corrigé) : traiter le respirateur comme un équipement critique, réorganiser le programme en priorisant les urgences vers une salle équipée, tracer la demande dans la GMAO ; avant toute remise en service, recueillir le rapport d'intervention, refaire les essais de sécurité et de conformité, vérifier les alimentations et les gaz médicaux.</p>
+
+<h4>Formules clés</h4>
+<p>L'ingénieur biomédical : avant la construction, puis réception, puis toute la vie des équipements (maintenance, GMAO, cycle de vie).</p>
+<p>Idée centrale : un bloc opératoire performant n'est pas seulement une salle équipée ; c'est un système intégré associant architecture, flux, ventilation, électricité, fluides médicaux, équipements biomédicaux, hygiène, sécurité et maintenance.</p>
+</article>
+
+<div class="fin-partie" data-section="methode-ingenieur"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../archi.js"></script>
+<script src="../figures/integration-biomedicale.js"></script>
+<script src="../figures/securite.js"></script>
+<script src="../figures/normes.js"></script>
+<script src="../figures/methode-conception.js"></script>
+<script src="../figures/ingenieur-erreurs.js"></script>
+</body>
+</html>

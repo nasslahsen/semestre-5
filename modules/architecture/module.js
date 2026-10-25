@@ -4,17 +4,19 @@
  * Sources : cours « Architecture hospitalière et contraintes d'installation d'un bloc opératoire » et TD 1 « Bloc opératoire ».
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
- * cours : pages de cours, dans l'ordre du menu « Tous les concepts ».
+ * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * chapitres[].ligne : la ligne courte sous le titre, sur la carte.
+ * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("architecture", {
   chapitres: [
-    { id: 1, titre: "L'hôpital et son bloc", sous: "Ce que l'architecture organise, les huit familles de contraintes, le bloc opératoire" },
-    { id: 2, titre: "Zones et flux", sous: "Gradation des zones, cinq flux, séparation propre / sale, déchets, SSPI, réanimation, imagerie" },
-    { id: 3, titre: "La salle d'opération", sous: "Surface et volume, sols, murs, plafond, portes, bloc hybride, ergonomie et acoustique" },
-    { id: 4, titre: "L'air du bloc", sous: "Objectifs de la ventilation, pression, renouvellement, distribution, filtration" },
-    { id: 5, titre: "Énergie, lumière, fluides et réseaux", sous: "Électricité, éclairage, fluides médicaux, réseaux, plafond technique" },
-    { id: 6, titre: "Équipements, sécurité et méthode", sous: "Intégration biomédicale, sécurité, normes, méthode en dix étapes, erreurs à éviter" },
-    { id: 7, titre: "TD 1 : bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD" }
+    { id: 1, titre: "L'hôpital et son bloc", sous: "Ce que l'architecture organise, les huit familles de contraintes, le bloc opératoire", ligne: "Contraintes, définition du bloc" },
+    { id: 2, titre: "Zones et flux", sous: "Gradation des zones, cinq flux, séparation propre / sale, déchets, SSPI, réanimation, imagerie", ligne: "Zones, flux, déchets, services voisins" },
+    { id: 3, titre: "La salle d'opération", sous: "Surface et volume, sols, murs, plafond, portes, bloc hybride, ergonomie et acoustique", ligne: "Surfaces, bloc hybride, ergonomie" },
+    { id: 4, titre: "L'air du bloc", sous: "Objectifs de la ventilation, pression, renouvellement, distribution, filtration", ligne: "Pression, renouvellement, filtration" },
+    { id: 5, titre: "Énergie, lumière, fluides et réseaux", sous: "Électricité, éclairage, fluides médicaux, réseaux, plafond technique", ligne: "Électricité, éclairage, fluides, réseaux" },
+    { id: 6, titre: "Équipements, sécurité et méthode", sous: "Intégration biomédicale, sécurité, normes, méthode en dix étapes, erreurs à éviter", ligne: "Intégration, sécurité, normes, méthode" },
+    { id: 7, titre: "TD 1 : bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD", ligne: "QCM, calcul et études de cas" }
   ],
   niveaux: [
     { id: "architecture-hospitaliere", chapitre: 1, titre: "Ce que l'architecture organise", cours: true, pret: true },
@@ -70,6 +72,28 @@ PLATEFORME.parcours("architecture", {
     { id: "td-cas-equipement", chapitre: 7, titre: "Cas 4 : équipement critique indisponible", pret: true },
     { id: "revision-td", chapitre: 7, titre: "Révision : le TD en situations nouvelles", revision: true, pret: true },
     { id: "boss-td", chapitre: 7, titre: "Le schéma fonctionnel du groupe", boss: true, pret: true }
+  ],
+  // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
+  sections: [
+    { id: "architecture-hospitaliere", chapitre: 1, titre: "Ce que l'architecture hospitalière organise", notions: ["architecture-hospitaliere"] },
+    { id: "familles-contraintes", chapitre: 1, titre: "Les huit familles de contraintes", notions: ["familles-contraintes"] },
+    { id: "bloc-definition", chapitre: 1, titre: "Le bloc opératoire", notions: ["bloc-definition"] },
+    { id: "zonage", chapitre: 2, titre: "Gradation des zones", notions: ["zonage"] },
+    { id: "flux", chapitre: 2, titre: "Maîtrise et séparation des flux", notions: ["flux", "separation-flux"] },
+    { id: "dechets-services", chapitre: 2, titre: "Déchets, SSPI, réanimation et imagerie", notions: ["dechets-stockage", "bloc-et-services"] },
+    { id: "dimensions-surfaces", chapitre: 3, titre: "Dimensions et surfaces de la salle", notions: ["salle-dimensions", "surfaces"] },
+    { id: "bloc-hybride", chapitre: 3, titre: "Bloc hybride et protection radiologique", notions: ["bloc-hybride"] },
+    { id: "ergonomie-acoustique", chapitre: 3, titre: "Ergonomie et acoustique", notions: ["ergonomie-acoustique"] },
+    { id: "ventilation-objectifs", chapitre: 4, titre: "Objectifs, température et humidité", notions: ["ventilation-objectifs"] },
+    { id: "pression-renouvellement", chapitre: 4, titre: "Pression et renouvellement de l'air", notions: ["pression-cascade", "renouvellement-air"] },
+    { id: "filtration-ucv", chapitre: 4, titre: "Filtration et flux unidirectionnel", notions: ["filtration-ucv"] },
+    { id: "electricite", chapitre: 5, titre: "Électricité et sécurité électrique", notions: ["electricite"] },
+    { id: "eclairage-fluides", chapitre: 5, titre: "Éclairage et fluides médicaux", notions: ["eclairage", "fluides-medicaux"] },
+    { id: "reseaux-plafond", chapitre: 5, titre: "Réseaux et plafond technique", notions: ["reseaux-plafond"] },
+    { id: "integration-securite", chapitre: 6, titre: "Intégration biomédicale et sécurité", notions: ["integration-biomedicale", "securite"] },
+    { id: "normes", chapitre: 6, titre: "Normes et référentiels", notions: ["normes"] },
+    { id: "methode-ingenieur", chapitre: 6, titre: "Méthode de conception et rôle de l'ingénieur", notions: ["methode-conception", "ingenieur-erreurs"] },
+    { id: "td1", chapitre: 7, titre: "TD 1 : bloc opératoire", notions: ["td1"] }
   ],
   cours: [
     { chapitre: 1, id: "architecture-hospitaliere", titre: "Ce que l'architecture hospitalière organise" },

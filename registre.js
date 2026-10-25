@@ -50,7 +50,7 @@ window.REGISTRE = {
       sousModules: []
     },
     {
-      id: "laboratoire", titre: "Technologies de laboratoire d'analyses médicales", statut: "a-venir",
+      id: "laboratoire", titre: "Technologies de laboratoire d'analyses médicales", statut: "actif",
       couleur: "#D9730D", clair: "#FADEC9", texte: "#B6600A",
       sousModules: []
     },

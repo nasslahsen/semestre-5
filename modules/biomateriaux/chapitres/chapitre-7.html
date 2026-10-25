@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Procédés de fabrication des plastiques</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 7. -->
+<main class="cours-chapitre" data-chapitre="7">
+<p class="etiquette" data-etiquette></p>
+<h1>Procédés de fabrication des plastiques</h1>
+
+<section class="partie" id="s-extrusion-injection">
+<p class="rang-partie">1 / 3</p>
+<h2>Extrusion et injection</h2>
+
+<article class="notion" id="n-extrusion">
+<h3>L'extrusion et ses variantes</h3>
+<p class="chapeau">Une tubulure de perfusion mesure des mètres, avec exactement la même section du début à la fin. Aucun moule ne peut la fabriquer d'un coup : il faut un procédé qui pousse la matière en continu à travers une forme.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre répond à une question d'ingénieur : comment passer d'un granulé de plastique à une seringue, une tubulure, un flacon ou un blister ? Le cours présente huit procédés : 1. moulage par extrusion, 2. moulage par injection, 3. injection-soufflage, 4. thermoformage, 5. moulage par compression, 6. moulage par compression-transfert, 7. rotomoulage, 8. moulage par centrifugation. Ils se regroupent en familles : l'injection (injection, injection-soufflage), l'extrusion (extrusion, extrusion-soufflage, extrusion-gonflage), puis le rotomoulage, le thermoformage, et plusieurs autres.</p>
+<p>Pour chaque procédé, on retient trois choses, comme le demande le TP : le principe de fabrication, la matière adaptée et un produit représentatif. On ajoute l'indice qui permet de reconnaître une pièce. Les pages s'enchaînent ainsi :</p>
+<ul>
+<li>L'extrusion (cette page) : une vis pousse la matière fondue à travers une filière, en continu.</li>
+<li>Le moulage par injection : la même vis devient un piston qui remplit un moule fermé.</li>
+<li>Injection-soufflage et extrusion-soufflage : on gonfle une ébauche (préforme injectée ou tube extrudé) dans un moule pour obtenir un contenant creux.</li>
+<li>Rotomoulage et thermoformage : une poudre dans un moule qui tourne, une feuille chaude aspirée sur un moule.</li>
+<li>Compression et compression-transfert : on presse la matière, surtout des thermodurcissables qui cuisent dans le moule.</li>
+<li>Choisir le procédé : les indices de reconnaissance et la grille du TP.</li>
+</ul>
+
+<div id="fig-carte"></div>
+
+<h4>Intuition</h4>
+<p>Pense à un hachoir à viande : une vis tourne dans un tube, pousse la matière, et une plaque percée à la sortie lui donne sa forme. L'extrudeuse fait la même chose avec du plastique chauffé. Tant qu'on remplit la trémie, la machine produit une longueur sans fin, coupée ensuite à la bonne longueur. Toute pièce extrudée a donc la même section sur toute sa longueur.</p>
+
+<div id="fig-extrudeuse"></div>
+
+<h4>Formalisation</h4>
+<p>L'<strong>extrudeuse</strong>, parfois nommée boudineuse, comprend : une trémie par où entrent les granulés, une vis sans fin (1) qui tourne dans un fourreau chauffant, une tête d'extrusion (3) qui porte la filière, et l'extrudat encore fluide (4) qui sort de la filière.</p>
+<p>Principe : on insère la matière plastique dans un cylindre chauffé ; la matière est poussée par une vis sans fin avant de passer à travers une <strong>filière</strong> qui lui donne la forme désirée. La vis malaxe, compresse, cisaille, échauffe et transporte en continu la matière fluidifiée et homogène vers la filière.</p>
+<p>Matière : une masse molaire élevée et une structure amorphe sont préférées pour l'extrusion. Avec de longues chaînes enchevêtrées, la matière fondue est visqueuse et l'extrudat garde sa forme en sortant de la filière, le temps de refroidir.</p>
+<div class="tableau"><table>
+<tr><th>Ce qu'il faut retenir</th><th>Extrusion</th></tr>
+<tr><td>Principe</td><td>vis sans fin dans un cylindre chauffé, passage à travers une filière, production continue</td></tr>
+<tr><td>Matière</td><td>thermoplastique de masse molaire élevée, structure amorphe préférée</td></tr>
+<tr><td>Exemples du cours</td><td>profilés pour les fenêtres, câbles, stores, grillages, tubes, tuyaux en PVC</td></tr>
+<tr><td>Indice</td><td>profilé (pièce ayant la même forme) en continu</td></tr>
+</table></div>
+
+<h4>Les variantes de l'extrusion</h4>
+<p>Le cours liste neuf exemples autour de l'extrusion : 1. le principe de l'extrusion des plastiques, 2. l'extrusion-gainage, 3. l'extrusion-formage, 4. l'extrusion-calandrage, 5. l'extrusion en filière plate, 6. l'extrusion-soufflage, 7. l'extrusion-gonflage, 8. le filage, 9. la co-extrusion. La co-extrusion associe deux matières dans le même profilé, par exemple deux PVC, l'un flexible et l'autre rigide. L'extrusion-soufflage a sa propre page (soufflage). L'extrusion-gonflage se comprend avec la figure ci-dessous.</p>
+<p><strong>Extrusion-gonflage</strong> : variante de l'extrusion où, à la sortie de la filière, on gonfle d'air le tube produit. Il devient une longue bulle de pellicule plastique, une bulle cylindrique verticale. Après refroidissement, on l'aplatit et on l'enroule sur des bobines. Exemples : sacs poubelles, sacs de congélation, et plus généralement la production de films.</p>
+
+<div id="fig-gonflage"></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté : une tubulure de perfusion. On cherche un tube souple, creux, très long, de section constante. La section constante et la grande longueur désignent l'extrusion ; le trou central impose une filière annulaire. Sur la première figure, choisis « anneau » : l'extrudat sort creux. Un cathéter se fabrique de la même façon ; avec la co-extrusion, on peut même associer deux matières dans sa paroi.</p>
+
+<h4>Formules clés</h4>
+<p>Extrusion = vis sans fin + cylindre chauffé + filière, en continu. La vis malaxe, compresse, cisaille, échauffe et transporte.</p>
+<p>Matière préférée : masse molaire élevée, structure amorphe. Indice : profilé de même forme en continu.</p>
+<p>Extrusion-gonflage : tube gonflé d'air à la sortie de la filière, bulle de pellicule, aplatie et enroulée en bobines (sacs).</p>
+</article>
+
+<article class="notion" id="n-injection">
+<h3>Le moulage par injection</h3>
+<p class="chapeau">Un hôpital consomme des milliers de corps de seringue par jour, tous identiques, finis, prêts à l'emploi. Il faut un procédé qui remplit un moule fermé en quelques secondes et recommence aussitôt.</p>
+
+<h4>Intuition</h4>
+<p>Reprends l'extrudeuse, mais au lieu de laisser la matière sortir en continu, ferme la sortie par un moule. La vis tourne d'abord pour accumuler devant elle juste la bonne quantité de matière fondue, puis elle avance d'un coup comme une seringue : elle devient un piston et injecte la matière dans le moule. On attend que la pièce refroidisse, on ouvre, la pièce tombe. Le cycle recommence.</p>
+
+<div id="fig-injection"></div>
+
+<h4>Formalisation</h4>
+<p>L'<strong>injection plastique</strong> est un procédé de mise en œuvre de matières thermo-formables, notamment les matières thermoplastiques. La matière plastique est ramollie puis injectée dans un moule, et ensuite refroidie.</p>
+<ul>
+<li>La matière plastique est chauffée et ramollie dans un cylindre.</li>
+<li>Une vis sans fin y tourne pour préparer la quantité de matière requise.</li>
+<li>Elle se transforme ensuite en piston pour injecter celle-ci dans un moule fermé.</li>
+</ul>
+<p>Sur le schéma du procédé, la matière part de la <strong>buse</strong> (nozzle) poussée avec une pression \(P\), descend par la <strong>carotte</strong> (sprue), se répartit dans les <strong>canaux</strong> (runner), entre dans chaque empreinte par un <strong>seuil</strong> (gate). À l'ouverture, les <strong>éjecteurs</strong> (ejector pins) poussent les pièces (parts) hors du moule. La machine qui fait tout cela est la presse d'injection plastique.</p>
+<div class="tableau"><table>
+<tr><th>Ce qu'il faut retenir</th><th>Moulage par injection</th></tr>
+<tr><td>Principe</td><td>matière chauffée et ramollie dans un cylindre, dosée par la vis, injectée par la vis devenue piston dans un moule fermé, refroidie</td></tr>
+<tr><td>Matière</td><td>matières thermo-formables, notamment les thermoplastiques</td></tr>
+<tr><td>Exemples du cours</td><td>bouchons, couvercles, téléphone, boîtes, corps de stylo, pièces automobiles, électriques et médicales</td></tr>
+<tr><td>Indice</td><td>objets souvent prêts à être utilisés ; on voit un petit point par où la matière est arrivée</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté : le corps d'une seringue. Il est fini à la sortie du moule (graduations, collerette, embout moulés en une fois) et l'on y trouve un petit point, la trace du seuil. Sur la figure, va jusqu'à l'étape « éjection » : les deux pièces sortent ensemble, avec la matière restée dans la carotte et les canaux, qu'on sépare des pièces au niveau des seuils.</p>
+
+<h4>Formules clés</h4>
+<p>Cycle : chauffer et ramollir, doser (la vis tourne), injecter (la vis pousse comme un piston), refroidir, ouvrir et éjecter.</p>
+<p>Chemin de la matière : buse, carotte, canaux, seuils, empreintes ; éjecteurs à l'ouverture.</p>
+<p>Indice : pièce prête à l'emploi avec un petit point d'injection. Matière : thermoplastique.</p>
+</article>
+
+<div class="fin-partie" data-section="extrusion-injection"></div>
+</section>
+
+<section class="partie" id="s-soufflage-moulage">
+<p class="rang-partie">2 / 3</p>
+<h2>Soufflage, rotomoulage et thermoformage</h2>
+
+<article class="notion" id="n-soufflage">
+<h3>Injection-soufflage et extrusion-soufflage</h3>
+<p class="chapeau">Un flacon de sérum est creux et fermé, avec un goulot plus étroit que le corps. Aucun moule ne peut en sortir un noyau intérieur. La solution : partir d'une ébauche et la gonfler à l'air comprimé contre les parois d'un moule.</p>
+
+<h4>Intuition</h4>
+<p>Souffle dans un ballon placé dans une boîte : il se plaque contre les parois et prend la forme de la boîte. Le soufflage fait pareil avec une ébauche de plastique chaude. Il reste à fabriquer l'ébauche. Deux façons : l'injecter (une préforme, comme un petit tube à essai épais) ou l'extruder (un simple tube). C'est ce qui donne les deux procédés, et c'est aussi ce qui laisse une trace différente au fond du contenant.</p>
+
+<div id="fig-soufflage"></div>
+
+<h4>Formalisation</h4>
+<p><strong>Injection-soufflage</strong> : on fabrique une préforme par injection ; on chauffe cette préforme et on y envoie un jet d'air comprimé qui la pousse contre les parois du moule. Pendant la phase d'étirage et de soufflage de la préforme, une canne d'étirage (en jaune sur la figure) allonge la préforme. Exemples : bouteilles, flacons, réservoirs de carburants, contenants divers. Indice : point d'injection au fond du contenant.</p>
+<p><strong>Extrusion-soufflage</strong> : on fabrique un tube par extrusion ; on enferme ce tube chaud à l'intérieur d'un moule et on y envoie un jet d'air comprimé qui le pousse contre les parois du moule. Exemples : bouteilles, flacons, réservoirs, contenants divers. Indice : ligne de soudure au fond du contenant.</p>
+<div class="tableau"><table>
+<tr><th></th><th>Injection-soufflage</th><th>Extrusion-soufflage</th></tr>
+<tr><td>Ébauche</td><td>préforme injectée, fermée au fond</td><td>tube extrudé, ouvert aux deux bouts</td></tr>
+<tr><td>Soufflage</td><td>préforme chauffée, étirée par la canne, air comprimé</td><td>tube chaud enfermé dans le moule, air comprimé</td></tr>
+<tr><td>Exemples du cours</td><td>bouteilles, flacons, réservoirs de carburants</td><td>bouteilles, flacons, réservoirs ; réservoirs d'essence en HDPE</td></tr>
+<tr><td>Indice au fond</td><td>un point d'injection</td><td>une ligne de soudure (le moule pince le tube en se fermant)</td></tr>
+</table></div>
+<p>Historique : en 1953, Ziegler apporte le polyéthylène haute densité (HDPE). L'utilisation de l'extrusion-soufflage augmente alors pour fabriquer des bouteilles et des réservoirs d'essence. Dans le TP, l'extrusion-soufflage porte le nom anglais <em>Blow molding</em>.</p>
+
+<div id="fig-fonds"></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté : un flacon de solution injectable arrive au contrôle qualité. On le retourne. Un point au centre du fond : il vient d'une préforme injectée, donc d'une injection-soufflage. Un trait au fond : le tube a été pincé par le moule, donc extrusion-soufflage. Sur la seconde figure, touche chaque fond pour faire apparaître le procédé.</p>
+
+<h4>Formules clés</h4>
+<p>Soufflage = ébauche chaude + moule fermé + air comprimé contre les parois.</p>
+<p>Injection-soufflage : préforme injectée, canne d'étirage ; indice : point d'injection au fond.</p>
+<p>Extrusion-soufflage : tube extrudé pincé par le moule ; indice : ligne de soudure au fond (HDPE, 1953, Ziegler : bouteilles, réservoirs d'essence).</p>
+</article>
+
+<article class="notion" id="n-rotomoulage-thermoformage">
+<h3>Rotomoulage et thermoformage</h3>
+<p class="chapeau">Une citerne d'eau pour un centre de santé, un blister qui protège chaque comprimé : deux pièces sans rapport, mais toutes deux sans vis ni injection. L'une naît d'une poudre dans un moule qui tourne, l'autre d'une feuille chaude aspirée sur un moule.</p>
+
+<h4>Intuition</h4>
+<p>Rotomoulage : mets du sucre glace dans une boîte fermée et chaude, puis fais-la tourner dans tous les sens. La poudre roule sur toutes les parois, fond à leur contact et s'y colle en couche régulière. À la fin, la boîte contient une coque creuse d'un seul tenant, sans aucune soudure.</p>
+<p>Thermoformage : chauffe une feuille de plastique jusqu'à ce qu'elle soit molle, pose-la sur une forme et aspire l'air en dessous. La feuille épouse la forme. Il ne reste qu'à découper le bord.</p>
+
+<div id="fig-rotomoulage"></div>
+
+<h4>Formalisation</h4>
+<p><strong>Rotomoulage</strong> : c'est un moulage qui se fait en insérant la matière plastique sous forme de poudre dans un moule. En faisant faire des rotations au moule, qui est chauffé, on obtient des pièces creuses sans soudure ni collage. Exemples : citernes, kayaks, réservoirs, planches à voile (et, sur les photos du cours, un aéroglisseur). Indice : pièce creuse de toute dimension, avec un temps de cycle assez long (rentabilité).</p>
+<p><strong>Thermoformage</strong> : en chauffant la feuille de plastique, celle-ci se ramollit ; on applique cette feuille encore chaude sur le moule ; on y retire l'air contenu entre ce moule et la feuille. Exemples : barquettes alimentaires, coques de bateaux, enseignes publicitaires. Indice : pièce plutôt mince, à coins arrondis et avec moins de finition ; on peut apercevoir la découpe au pourtour de la pièce. Les éléments thermoformés sortent en feuilles, avant leur découpage.</p>
+<p>Déroulement d'un cycle de thermoformage, sur une machine avec moule, platine, table et pompe à vide : 1. chauffage ; 2. montée du moule ; 3. aspiration ; 4. refroidissement ; 5. démoulage.</p>
+
+<div id="fig-thermoformage"></div>
+
+<p>Les polymères les plus couramment utilisés en thermoformage sont : polystyrène (PS), polyéthylène (PE), polypropylène (PP), polycarbonate (PC), acrylonitrile butadiène styrène (ABS), polychlorure de vinyle (PVC), polyméthacrylate de méthyle (PMMA), polystyrène choc (SB). Tous sont des thermoplastiques : ils se ramollissent quand on les chauffe, ce que demande la première étape du cycle.</p>
+<div class="tableau"><table>
+<tr><th></th><th>Rotomoulage</th><th>Thermoformage</th></tr>
+<tr><td>Matière de départ</td><td>poudre</td><td>feuille</td></tr>
+<tr><td>Principe</td><td>moule chauffé en rotation</td><td>feuille chauffée, plaquée sur le moule par aspiration de l'air</td></tr>
+<tr><td>Pièce obtenue</td><td>creuse, sans soudure ni collage, de toute dimension</td><td>mince, ouverte, à coins arrondis</td></tr>
+<tr><td>Exemples du cours</td><td>citernes, kayaks, réservoirs, planches à voile</td><td>barquettes alimentaires, coques de bateaux, enseignes</td></tr>
+<tr><td>Indice</td><td>pièce creuse, cycle assez long (rentabilité)</td><td>découpe au pourtour, moins de finition</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté : un blister de comprimés est mince, ses alvéoles ont des coins arrondis, et son bord montre une découpe tout autour : trois indices du thermoformage, souvent sur une feuille de PVC ou de PP, deux matières de la liste du cours. À l'inverse, un réservoir d'eau de 1 000 L, creux et sans soudure, appelle le rotomoulage : le cycle long n'est pas un problème pour une grande pièce fabriquée en petit nombre.</p>
+
+<h4>Formules clés</h4>
+<p>Rotomoulage : poudre + moule chauffé en rotation = pièce creuse sans soudure ni collage ; cycle assez long.</p>
+<p>Thermoformage : feuille chauffée + moule + aspiration de l'air ; cycle : chauffage, montée du moule, aspiration, refroidissement, démoulage ; indice : découpe au pourtour.</p>
+<p>Matières du thermoformage : PS, PE, PP, PC, ABS, PVC, PMMA, SB.</p>
+</article>
+
+<div class="fin-partie" data-section="soufflage-moulage"></div>
+</section>
+
+<section class="partie" id="s-compression-choix">
+<p class="rang-partie">3 / 3</p>
+<h2>Compression et choix du procédé</h2>
+
+<article class="notion" id="n-compression">
+<h3>Compression et compression-transfert</h3>
+<p class="chapeau">Une résine thermodurcissable durcit pour toujours en chauffant : impossible de la fondre dans une vis puis de la pousser comme un thermoplastique. On la place directement dans un moule chaud, on presse, et on la laisse cuire sur place.</p>
+
+<h4>Intuition</h4>
+<p>Pense à un gaufrier : on verse la pâte, on ferme, on presse ; ce qui déborde sort sur les côtés, et on attend que la gaufre cuise avant d'ouvrir. Le moulage par compression suit la même logique. La compression-transfert ajoute une étape : la matière est d'abord ramollie à part, dans un pot, puis poussée par un poinçon dans le moule déjà fermé, à travers un canal.</p>
+
+<div id="fig-compression"></div>
+
+<h4>Formalisation</h4>
+<p>Procédé et mode opératoire du <strong>moulage par compression</strong>. Les matières premières se présentent généralement sous forme de poudres, de granulés, de semi-solides ou de préformés. Les étapes suivantes constituent le moulage :</p>
+<ol>
+<li>chauffage du moule ;</li>
+<li>mise des matières premières dans le moule ouvert ; fermeture du moule ;</li>
+<li>pressage pour obliger la matière à remplir le moule ; l'excès de matière est évacué par des canalisations faites pour ce but ;</li>
+<li>maintien, dans le cas des matières thermodurcissables, de la chauffe et de la pression jusqu'à la fin de la cuisson (réticulation) ; refroidissement du moule ;</li>
+<li>ouverture du moule et récupération de la pièce.</li>
+</ol>
+<p>Sur le schéma simplifié, le demi-moule supérieur descend avec une vitesse \(v\) et une force \(F\) sur la <strong>charge</strong> ; l'excès passe dans les <strong>rainures de débordement</strong> (overflow grooves) et forme la <strong>bavure</strong> (flash) autour des pièces ; les <strong>éjecteurs</strong> (ejector pins) sortent les pièces. Exemples : plateaux en thermodurcissable, bottes en caoutchouc (photographiées avant ébavurage, la bavure encore visible).</p>
+
+<div id="fig-transfert"></div>
+
+<p>Procédé et mode opératoire du <strong>moulage par compression-transfert</strong>. Mêmes matières premières (poudres, granulés, semi-solides, préformés). Les étapes :</p>
+<ol>
+<li>préchauffage du moule ;</li>
+<li>préchauffage de la matière pour la ramollir ;</li>
+<li>introduction de la matière ramollie dans une cavité d'attente ;</li>
+<li>transfert, par pression, de la matière de la cavité d'attente vers le moule préchauffé à l'aide d'un poinçon à travers un canal ;</li>
+<li>maintien, dans le cas des matières thermodurcissables, de la chauffe jusqu'à la fin de la cuisson (réticulation) ;</li>
+<li>refroidissement du moule ;</li>
+<li>ouverture du moule et récupération de la pièce.</li>
+</ol>
+<p>Sur le schéma, la cavité d'attente est le <strong>pot</strong>, le poinçon est le piston (plunger), et les canaux (sprues) mènent la charge vers les empreintes. Dans le TP, ce procédé apparaît sous le nom anglais <em>Transfer molding</em>, traduit « moulage par transfert de résine ».</p>
+<div class="tableau"><table>
+<tr><th></th><th>Compression</th><th>Compression-transfert</th></tr>
+<tr><td>Où la matière est placée</td><td>directement dans le moule ouvert</td><td>dans une cavité d'attente (pot), après préchauffage</td></tr>
+<tr><td>Comment le moule est rempli</td><td>le moule se ferme et presse la charge</td><td>un poinçon pousse la matière à travers un canal dans le moule fermé</td></tr>
+<tr><td>Nombre d'étapes du cours</td><td>5</td><td>7</td></tr>
+<tr><td>Matière</td><td>surtout thermodurcissables (cuisson = réticulation), caoutchoucs</td><td>surtout thermodurcissables</td></tr>
+<tr><td>Indice donné par le cours</td><td>bavure (bottes)</td><td>aucun indice donné</td></tr>
+</table></div>
+<p>Remarque : la liste du cours cite aussi un huitième procédé, le moulage par centrifugation, sans le décrire. Ajout (hors diapositives) : dans ce procédé, la matière liquide est projetée contre la paroi d'un moule qui tourne vite autour de son axe, ce qui donne des pièces creuses de révolution, comme des tubes.</p>
+
+<h4>Exemple</h4>
+<p>Exemple du cours : des bottes en caoutchouc moulées par compression. La matière est placée dans le moule, pressée ; l'excès forme une bavure tout autour de la semelle, qu'on enlève ensuite. Sur la première figure, monte la pression jusqu'au bout : la charge s'étale, remplit l'empreinte, et le surplus apparaît dans les rainures de débordement.</p>
+
+<h4>Formules clés</h4>
+<p>Compression (5 étapes) : chauffer le moule, charger et fermer, presser (excès en bavure), maintenir chauffe et pression jusqu'à la fin de la cuisson puis refroidir, ouvrir.</p>
+<p>Compression-transfert (7 étapes) : préchauffer moule et matière, matière ramollie dans une cavité d'attente, transfert par un poinçon à travers un canal, cuisson, refroidissement, ouverture.</p>
+<p>Cuisson = réticulation : c'est pourquoi ces procédés conviennent aux thermodurcissables.</p>
+</article>
+
+<article class="notion" id="n-choisir-procede">
+<h3>Choisir le procédé</h3>
+<p class="chapeau">Un fournisseur te propose une pièce en plastique pour un dispositif médical. Pour juger son prix, sa qualité ou trouver un autre fabricant, il faut savoir comment elle a été faite. La pièce le dit elle-même : chaque procédé laisse une trace.</p>
+
+<h4>Intuition</h4>
+<p>La matière garde la mémoire de son chemin. Là où elle est entrée dans un moule, il reste un point ; là où un moule a pincé un tube, une ligne ; là où une feuille a été découpée, un bord net ; là où le moule a débordé, une bavure. Une section qui ne change jamais trahit une filière. Une grande pièce creuse sans aucune soudure, un moule qui a tourné. Il suffit de savoir regarder.</p>
+
+<div id="fig-indices"></div>
+
+<h4>Formalisation</h4>
+<p>Synthèse des procédés du cours. Pour chacun, le TP demande le principe de fabrication, la matière plastique adaptée et un produit représentatif ; le cours donne aussi un indice de reconnaissance.</p>
+<div class="tableau"><table>
+<tr><th>Procédé</th><th>Principe</th><th>Matière</th><th>Produits du cours</th><th>Indice</th></tr>
+<tr><td>Extrusion</td><td>vis sans fin dans un cylindre chauffé, filière, en continu</td><td>thermoplastique, masse molaire élevée, amorphe</td><td>profilés de fenêtres, câbles, stores, grillages, tubes, tuyaux en PVC</td><td>profilé de même forme en continu</td></tr>
+<tr><td>Extrusion-gonflage</td><td>tube gonflé d'air à la sortie de la filière</td><td>thermoplastique</td><td>sacs poubelles, sacs de congélation</td><td>pas d'indice dans le cours ; on obtient un film mince en bobine</td></tr>
+<tr><td>Injection</td><td>matière ramollie injectée dans un moule fermé, refroidie</td><td>matières thermo-formables, notamment thermoplastiques</td><td>bouchons, téléphone, boîtes, corps de stylo, pièces automobiles, électriques, médicales</td><td>pièce prête à l'emploi, petit point d'arrivée de la matière</td></tr>
+<tr><td>Injection-soufflage</td><td>préforme injectée, chauffée, gonflée à l'air comprimé</td><td>thermoplastique</td><td>bouteilles, flacons, réservoirs de carburants</td><td>point d'injection au fond</td></tr>
+<tr><td>Extrusion-soufflage</td><td>tube extrudé enfermé chaud dans un moule, gonflé</td><td>thermoplastique (HDPE)</td><td>bouteilles, flacons, réservoirs</td><td>ligne de soudure au fond</td></tr>
+<tr><td>Rotomoulage</td><td>poudre dans un moule chauffé en rotation</td><td>poudre de plastique</td><td>citernes, kayaks, réservoirs, planche à voile</td><td>pièce creuse de toute dimension, cycle assez long</td></tr>
+<tr><td>Thermoformage</td><td>feuille chauffée plaquée sur un moule par aspiration</td><td>PS, PE, PP, PC, ABS, PVC, PMMA, SB</td><td>barquettes alimentaires, coques de bateaux, enseignes publicitaires</td><td>pièce mince, coins arrondis, découpe au pourtour</td></tr>
+<tr><td>Compression</td><td>matière pressée dans un moule chaud, cuisson</td><td>thermodurcissables, caoutchouc</td><td>plateaux, bottes en caoutchouc</td><td>bavure (visible sur les bottes avant ébavurage)</td></tr>
+<tr><td>Compression-transfert</td><td>matière ramollie dans un pot, transférée par un poinçon</td><td>thermodurcissables</td><td>pièces thermodurcissables (pas d'exemple dans le cours)</td><td>aucun indice donné dans le cours</td></tr>
+</table></div>
+<p>Noms anglais de la vidéo du TP (« Plasturgie » ou <em>Understanding Plastics</em>) et leur traduction donnée dans le TP :</p>
+<div class="tableau"><table>
+<tr><th>Appellation en anglais</th><th>Français</th></tr>
+<tr><td>Extrusion</td><td>moulage par extrusion</td></tr>
+<tr><td>Injection molding</td><td>moulage par injection</td></tr>
+<tr><td>Blow molding</td><td>moulage par extrusion soufflage</td></tr>
+<tr><td>Compression molding</td><td>moulage par compression</td></tr>
+<tr><td>Transfer molding</td><td>moulage par transfert de résine</td></tr>
+<tr><td>Rotational molding</td><td>rotomoulage</td></tr>
+<tr><td>Thermoforming</td><td>thermoformage</td></tr>
+</table></div>
+<p>Consigne du TP1, en équipe de trois ou quatre : après la vidéo, décrire brièvement trois procédés, environ une dizaine de lignes par procédé, avec le principe de fabrication, le matériau plastique adapté et un produit ou une application représentatif.</p>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté, rédigé comme le demande le TP. Moulage par injection. Principe : la matière plastique, sous forme de granulés, est chauffée et ramollie dans un cylindre ; une vis sans fin y tourne pour doser la quantité requise, puis avance comme un piston et l'injecte dans un moule fermé ; la matière passe par la carotte, les canaux et les seuils avant de remplir les empreintes ; elle refroidit, puis on ouvre le moule et les éjecteurs sortent la pièce. Matériau : un thermoplastique, qui se ramollit à la chaleur et se fige en refroidissant. Produit représentatif : un corps de seringue, prêt à l'emploi à la sortie du moule, où l'on reconnaît le petit point d'injection.</p>
+
+<h4>Formules clés</h4>
+<p>Décrire un procédé = principe + matière adaptée + produit représentatif (+ indice).</p>
+<p>Indices : section constante (extrusion) ; petit point (injection) ; point au fond (injection-soufflage) ; ligne au fond (extrusion-soufflage) ; creux sans soudure (rotomoulage) ; découpe au pourtour (thermoformage) ; bavure (compression).</p>
+<p>Thermodurcissable : compression ou compression-transfert. Thermoplastique : tous les autres procédés du cours.</p>
+</article>
+
+<div class="fin-partie" data-section="compression-choix"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/extrusion.js"></script>
+<script src="../figures/injection.js"></script>
+<script src="../figures/soufflage.js"></script>
+<script src="../figures/rotomoulage-thermoformage.js"></script>
+<script src="../figures/compression.js"></script>
+<script src="../figures/choisir-procede.js"></script>
+</body>
+</html>
