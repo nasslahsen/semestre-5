@@ -11,8 +11,8 @@ PLATEFORME.parcours("robotique", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "chapitres 1 à 4" },
-      { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "chapitres 5 à 8" }
+      { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "4 chapitres" },
+      { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" }
     ]
   },
   chapitres: [

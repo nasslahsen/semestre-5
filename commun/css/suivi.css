@@ -14,6 +14,7 @@
 .sv-nom { font: 800 20px "Bricolage Grotesque", Inter, sans-serif; letter-spacing: -0.01em; line-height: 1.2; }
 .sv-module[open] summary { border-bottom: 1.5px solid #e3e6ee; }
 .sv-chapitres { padding: 6px 12px 10px; }
+.sv-cours { margin: 14px 10px 4px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--ct); }
 .sv-ch { display: grid; grid-template-columns: 44px minmax(0, 1fr) 300px; align-items: center; gap: 16px; min-height: 60px; padding: 6px 10px; border-radius: 12px; color: var(--encre); text-decoration: none; }
 .sv-ch:active { background: #f4f5f9; }
 .sv-num { font: 700 16px "JetBrains Mono", monospace; color: var(--ct); text-align: center; }

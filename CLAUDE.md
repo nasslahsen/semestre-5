@@ -60,6 +60,9 @@ chapitre suivant.
   chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). Chapitre fait en vert, chapitre
   conseillé en bleu ; rien n'est verrouillé. Un seul bouton principal, « Reprendre » (ou « Commencer »), qui rouvre
   l'endroit exact où l'on s'était arrêté. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
+  Un sous-module est un cours à part entière (son professeur, ses documents) : ses chapitres sont numérotés à partir
+  de 1 (ou de 0 s'il commence par « Les bases ») partout où un numéro s'affiche (`PLATEFORME.numero`), même si leurs
+  `id` dans `module.js` suivent ceux du sous-module précédent.
 - **La page de chapitre** (`chapitres/chapitre-<n>.html`) : tout le cours du chapitre sur une seule page à faire
   défiler, découpé en 3 à 5 **sections** (moins seulement si le chapitre a moins de pages de cours). Chaque section
   regroupe une ou plusieurs notions (`sections` dans `module.js`) ; chaque notion garde intacte sa page de cours

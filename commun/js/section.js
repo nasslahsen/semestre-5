@@ -27,7 +27,7 @@
     rang = barre.querySelector(".rang-barre");
   }
   var etiquette = document.querySelector("[data-etiquette]");
-  if (etiquette) etiquette.textContent = "Chapitre " + ch.id;
+  if (etiquette) etiquette.textContent = "Chapitre " + P.numero(MID, ch.id);
 
   // Ancres : celles des anciennes pages, préfixées par la notion (h4 = ancien h2, h5 = ancien h3)
   [].forEach.call(main.querySelectorAll("article.notion"), function (art) {

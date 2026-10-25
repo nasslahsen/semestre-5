@@ -40,17 +40,20 @@
   function progres() {
     var h = "";
     actifs.forEach(function (m0) {
-      var m = P.module(m0.id), c = P.compte(m.id), chs = [];
-      P.sousModules(m.id).forEach(function (sm) { chs = chs.concat(P.chapitresDe(m.id, sm.id)); });
-      var lignes = chs.map(function (ch) {
-        var f = ch.sections.filter(function (s) { return s.faite; }).length;
-        var etat = ch.etat === "fait" ? "Fait" : ch.etat === "encours" ? "En cours" : "Pas commencé";
-        return '<a class="sv-ch ' + (ch.etat || "rien") + '" href="' + P.urlChapitre(m.id, ch.id) + '">' +
-          '<span class="sv-num">' + ch.id + "</span><span class=\"sv-titre\">" + esc(ch.titre) + "<small>" + etat + "</small></span>" +
-          barre(f, ch.sections.length) + "</a>";
+      var m = P.module(m0.id), c = P.compte(m.id), sms = P.sousModules(m.id).filter(function (sm) { return P.chapitresDe(m.id, sm.id).length; });
+      var corps = sms.map(function (sm) {
+        var chs = P.chapitresDe(m.id, sm.id);
+        var lignes = chs.map(function (ch) {
+          var f = ch.sections.filter(function (s) { return s.faite; }).length;
+          var etat = ch.etat === "fait" ? "Fait" : ch.etat === "encours" ? "En cours" : "Pas commencé";
+          return '<a class="sv-ch ' + (ch.etat || "rien") + '" href="' + P.urlChapitre(m.id, ch.id) + '">' +
+            '<span class="sv-num">' + P.numero(m.id, ch.id) + '</span><span class="sv-titre">' + esc(ch.titre) + "<small>" + etat + "</small></span>" +
+            barre(f, ch.sections.length) + "</a>";
+        }).join("");
+        return (sm.titre && sms.length > 1 ? '<h4 class="sv-cours">' + esc(sm.titre) + "</h4>" : "") + lignes;
       }).join("");
-      h += '<details class="sv-module"' + style(m) + "><summary><span class=\"sv-nom\">" + esc(m.titre) + "</span>" + barre(c.faits, c.total) + "</summary>" +
-        '<div class="sv-chapitres">' + lignes + "</div></details>";
+      h += '<details class="sv-module"' + style(m) + '><summary><span class="sv-nom">' + esc(m.titre) + "</span>" + barre(c.faits, c.total) + "</summary>" +
+        '<div class="sv-chapitres">' + corps + "</div></details>";
     });
     document.getElementById("progres").innerHTML = h;
   }

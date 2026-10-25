@@ -295,6 +295,13 @@
     return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm; })
       .map(function (c) { return P.chapitre(mid, c.id); }).filter(function (c) { return c.sections.length; });
   };
+  // Numéro affiché d'un chapitre : sa place dans son sous-module (un sous-module est un cours à part entière,
+  // avec son professeur : ses chapitres repartent de 1, ou de 0 s'il commence par « Les bases »).
+  P.numero = function (mid, chid) {
+    var chs = P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === P.smDe(mid, chid); });
+    // décalage seulement : un trou dans la numérotation du cours (laboratoire, sans chapitre 6) reste visible
+    return chs.length ? chid - chs[0].id + (chs[0].id === 0 ? 0 : 1) : chid;
+  };
   // Dernière section lue d'un chapitre, par sous-module (pour Reprendre).
   P.noterPlan = function (mid, sm, titre, chemin) {
     var e = etat(mid); e.plan[sm] = { chemin: chemin, titre: titre, quand: Date.now() }; poser(mid, e);

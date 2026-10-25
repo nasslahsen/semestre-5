@@ -13,8 +13,8 @@ PLATEFORME.parcours("informatique", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "chapitres 1 à 6" },
-      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "chapitres 7 à 10" }
+      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "6 chapitres" },
+      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" }
     ]
   },
   chapitres: [

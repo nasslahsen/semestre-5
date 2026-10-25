@@ -38,7 +38,7 @@
 
   // Chapitre en tête de page
   var etiquette = document.querySelector("[data-etiquette]");
-  if (etiquette && chapitre) etiquette.textContent = "Chapitre " + chapitre.id + " · " + chapitre.titre + " · Cours";
+  if (etiquette && chapitre) etiquette.textContent = "Chapitre " + P.numero(MID, chapitre.id) + " · " + chapitre.titre + " · Cours";
 
   // Ancres des sections (h2, h3) : les liens « Revoir dans le cours » du jeu y mènent.
   var vus = {};
