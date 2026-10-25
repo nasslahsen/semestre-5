@@ -80,9 +80,15 @@ const dc = `${BASE}modules/${mid}/`;
       if (await pg.$eval(".rang-barre", e => e.textContent) !== `${ss.length} / ${ss.length}`) pb(`chapitre ${ch} : en bas, la barre n'indique pas la dernière section`);
       if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-fin.png`) });
     }
-    // Carte après lecture : chapitres lus en vert ; Reprendre mène à la dernière section lue
+    // Carte après lecture seule : lire ne suffit pas, un chapitre avec des exercices n'est pas encore vert
     await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(200);
-    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== chsm.length) pb(`carte ${sm} : les chapitres lus ne sont pas marqués faits`);
+    const sansExos = chsm.filter(ch => P.sections.filter(s => s.chapitre === ch).every(s => !s.notions.some(n => P.niveaux.some(x => x.id === n && x.pret))));
+    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== sansExos.length) pb(`carte ${sm} : des chapitres seulement lus sont marqués faits`);
+    // Exercices des notions réussis : les chapitres passent en vert
+    await pg.evaluate(([m, ids]) => { const e = JSON.parse(localStorage.getItem("s5-progres")); e[m].niveaux = e[m].niveaux || {}; ids.forEach(id => { e[m].niveaux[id] = { etoiles: 3 }; }); localStorage.setItem("s5-progres", JSON.stringify(e)); },
+      [mid, P.niveaux.filter(n => n.pret && chsm.includes(n.chapitre)).map(n => n.id)]);
+    await pg.reload({ waitUntil: "networkidle" }); await pg.waitForTimeout(200);
+    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== chsm.length) pb(`carte ${sm} : les chapitres aux exercices réussis ne sont pas marqués faits`);
     const rep = await pg.$eval(".btn.reprendre", a => a.href);
     const der = chsm[chsm.length - 1];
     if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb(`carte ${sm} : Reprendre ne mène pas à la dernière section lue : ` + rep);

@@ -46,7 +46,7 @@
     var u = el("div", "unite", "", grille);
     var a = el("a", "noeud-exos noeud-chapitre" + (c.etat === "fait" ? " fait" : r && r.chapitre === c.id ? " suivant" : ""), '<span class="forme">' + c.id + "</span>", u);
     a.href = P.urlChapitre(MID, c.id);
-    a.setAttribute("aria-label", "Chapitre " + c.id + " : " + c.titre + (c.etat === "fait" ? " (lu)" : ""));
+    a.setAttribute("aria-label", "Chapitre " + c.id + " : " + c.titre + (c.etat === "fait" ? " (fait)" : ""));
     el("div", "nomn", esc(c.titre) + "<small>" + esc(c.ligne) + "</small>", u);
   });
 

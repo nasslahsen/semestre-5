@@ -92,8 +92,11 @@ Ne jamais écrire une couleur d'accent en dur dans un niveau ou une figure.
 
 ## 3. Progression
 
-Le tableau de bord compte les sections lues (`PLATEFORME.marquerSection`, qui marque aussi leurs notions) et les
-niveaux faits. Un chapitre est « fait » quand toutes ses sections sont lues. Un niveau est fait quand ses défis sont finis
+Lire ne suffit pas. Le tableau de bord compte les sections **faites** (`PLATEFORME.sectionFaite`) : une section est
+faite quand les niveaux de ses notions sont réussis (terminés, donc au moins une question trouvée seule) ; une section
+sans exercices est faite quand elle est lue (`PLATEFORME.marquerSection`, qui sert aussi à « Reprendre »). Un chapitre
+est « fait » (vert sur la carte) quand toutes ses sections sont faites ; la révision et le boss restent en plus.
+Un niveau est fait quand ses défis sont finis
 (écran de résultats), avec 1 à 3 étoiles (3 sans erreur, 2 avec une ou deux, 1 sinon ; la meilleure est gardée).
 Chaque question a aussi « Voir la réponse » et « Passer » (ajoutés par le moteur). Une question passée ou dont la
 réponse a été vue ne compte pas comme trouvée : le niveau se termine quand même, avec au plus 1 étoile (aucune, et
