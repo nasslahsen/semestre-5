@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Métrologie et contrôle de qualité · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Métrologie et contrôle de qualité</h1>
+<p class="chapeau">Un appareil qui s'allume et qui répond n'est pas nécessairement un appareil qui mesure juste. Entre les deux, il y a la métrologie : étalonner les grandeurs qui comptent, vérifier, tracer, et surveiller chaque jour que les résultats ne dérivent pas.</p>
+
+<h2>Intuition</h2>
+<p>Un thermomètre de congélateur peut afficher −80 °C sans que l'enceinte y soit ; un minuteur de centrifugeuse peut compter dix minutes qui en durent onze. Chaque grandeur dont dépend un résultat doit être comparée à une référence. Et pour l'analyseur lui-même, on lui fait mesurer chaque jour des contrôles de valeur connue : s'il s'en écarte, on le voit avant les patients.</p>
+
+<div id="fig-metrologie-cqi"></div>
+
+<h2>Formalisation</h2>
+<h3>Grandeurs critiques</h3>
+<p>Température, temps, volume, vitesse, pression, masse, pH, conductivité, longueur d'onde. Pour chacune : <b>étalonnage</b>, <b>vérification</b>, <b>traçabilité</b>, <b>enregistrement</b>.</p>
+<h3>CQI et EEQ</h3>
+<ul>
+<li>Le <strong>contrôle de qualité interne</strong> (CQI) est une surveillance interne et continue des performances de l'analyseur ; en hématologie, au moins 2 niveaux de contrôles (normal, pathologique), avec les règles de Westgard pour détecter les dérives et le graphique de Levey-Jennings pour suivre les moyennes.</li>
+<li>L'<strong>évaluation externe de la qualité</strong> (EEQ, EQA) compare les laboratoires entre eux pour valider la justesse des résultats.</li>
+</ul>
+<p>Fonctionnement n'est pas performance métrologique.</p>
+<h3>Rappel : lire un graphique de Levey-Jennings</h3>
+<p>Les règles détaillées ne sont pas dans le support ; ce sont les règles usuelles. Chaque jour, on porte la valeur du contrôle sur un graphique centré sur sa moyenne \(m\), avec des lignes à \(\pm 2s\) et \(\pm 3s\) (\(s\) : écart-type). On calcule l'écart en nombre d'écarts-types :</p>
+\[ z = \frac{x - m}{s} \]
+<p>Une valeur au-delà de \(\pm 2s\) est un avertissement ; au-delà de \(\pm 3s\), la série est rejetée ; une suite de valeurs toutes du même côté de la moyenne signale une dérive.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un contrôle de glucose a pour moyenne 5,5 mmol/L et pour écart-type 0,2 mmol/L. Le matin, il donne 6,0 : \(z = (6{,}0 - 5{,}5)/0{,}2 = 2{,}5\). C'est au-delà de \(2s\) mais en deçà de \(3s\) : un avertissement, qui pousse à regarder les jours précédents et à repasser le contrôle.</p>
+
+<h2>Formules clés</h2>
+\[ z = \frac{x - m}{s} \]
+<p>Grandeurs critiques : température, temps, volume, vitesse, pression, masse, pH, conductivité, longueur d'onde ; étalonner, vérifier, tracer, enregistrer.</p>
+<p>CQI : interne, continu. EEQ : entre laboratoires, justesse. Fonctionnement n'est pas performance.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/metrologie-cqi.js"></script>
+</body>
+</html>

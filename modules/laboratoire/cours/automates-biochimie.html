@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les automates de biochimie · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les automates de biochimie</h1>
+<p class="chapeau">La biochimie clinique analyse les molécules des liquides biologiques (ions, protides, lipides, enzymes, hormones) pour caractériser l'origine d'une maladie. C'est une discipline qui a connu une grande révolution de l'automatisation : un automate enchaîne pour des centaines de tubes ce qu'on ferait à la main avec une pipette et un spectrophotomètre.</p>
+
+<h2>Intuition</h2>
+<p>Doser du glucose à la main : pipeter l'échantillon, ajouter le réactif, mélanger, attendre à 37 °C, lire l'absorbance, laver la cuve. Un automate fait exactement ces gestes, mais chacun est confié à une unité : un carrousel pour les tubes, un pour les réactifs, des pompes, un agitateur, un carrousel de réaction chauffé, un photomètre, une station de lavage.</p>
+
+<div id="fig-automates-biochimie"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et usages</h3>
+<p>Les <strong>analyseurs de chimie</strong> mesurent la concentration de substances dans le sang ou d'autres liquides biologiques par des réactions chimiques spécifiques, lues par des méthodes photométriques. Ils dosent les substrats (glucose, urée, cholestérol), les enzymes (transaminases, phosphatases), les électrolytes (Na⁺, K⁺, Cl⁻), des médicaments (lithium, phénobarbital) et des substances de toxicologie, dans le sang, le sérum, le plasma, l'urine, le LCR et la sueur.</p>
+<h3>Chimie sèche, chimie liquide</h3>
+<ul>
+<li><b>Chimie sèche</b> : un photomètre à réflectance mesure la couleur d'une réaction sur une bandelette réactive (ou bâtonnet, ou patch). Plus la substance est concentrée, plus la coloration est intense. La source est en général une ou plusieurs LED de longueurs d'onde spécifiques (par exemple 567, 642 ou 951 nm) ; la mesure peut se faire dans une sphère d'Ulbricht (sphère d'intégration), avec une photodiode de référence et une photodiode de mesure. Exemple cité : VITROS (Ortho Clinical Diagnostics).</li>
+<li><b>Chimie liquide</b> : un spectrophotomètre mesure l'absorption de la lumière par l'échantillon liquide, d'après la loi de Beer-Lambert. Source : lampe halogène munie de filtres, ou LED sur les modèles récents. Mesures classiquement entre 304 et 670 nm ; certains appareils font des mesures cinétiques. Exemple cité : Architect (Abbott).</li>
+</ul>
+<h3>Architecture d'un automate de chimie clinique</h3>
+<div class="tableau"><table>
+<tr><th>Unité</th><th>Fonction</th></tr>
+<tr><td>Carrousel d'échantillons (ASP)</td><td>Charge les tubes, les amène à la position d'aspiration</td></tr>
+<tr><td>Carrousel de réactifs (RCU)</td><td>Charge les flacons de réactifs, conservation réfrigérée</td></tr>
+<tr><td>Pompe d'échantillonnage (SPP)</td><td>Aspiration précise de l'échantillon et de l'eau pure</td></tr>
+<tr><td>Pompe de réactifs (RPP)</td><td>Aspiration précise des réactifs</td></tr>
+<tr><td>Carrousel de réaction</td><td>Support des cuves photométriques, maintien à 37 °C</td></tr>
+<tr><td>Unité d'agitation (MIX)</td><td>Homogénéisation de l'échantillon et des réactifs</td></tr>
+<tr><td>Détection photométrique</td><td>Photomètre, filtres multi-longueurs d'onde (340 à 620 nm)</td></tr>
+<tr><td>Unité de lavage (WU)</td><td>Lavage des cuves, évaluation de la propreté optique</td></tr>
+</table></div>
+<h3>Installation</h3>
+<p>À l'écart de la lumière solaire directe, de toute lumière parasite et des sources de chaleur ; prise reliée à la terre ; en général 220 à 230 V, 50 Hz ; stabilisateur de tension pour les appareils sur secteur ; suivre les spécifications du fabricant ; garder l'emballage d'origine.</p>
+<h3>Utilisation</h3>
+<p><b>Chimie sèche</b> : allumer, attendre le chauffage (15 minutes, ou l'indication READ) ; déposer l'échantillon (par exemple 50 µL, sans bulles) au centre de la zone réactive, sans toucher la bandelette avec la pointe ; insérer la bandelette jusqu'au déclic, fermer : l'appareil lit le code du test (GLU pour le glucose) et affiche le délai ; résultat en mg/L, g/L ou mg/dL ; retirer la bandelette.</p>
+<p><b>Chimie liquide</b> : personnel qualifié et autorisé seulement ; préparer sur un portoir le blanc, les étalons et les solutions à analyser ; faire d'abord une mesure à blanc, puis chaque tube ; enregistrer les résultats.</p>
+<h3>Entretien courant</h3>
+<p>Une fois par jour : nettoyer toute éclaboussure ; éteindre en fin de journée ; chimie sèche, ne pas laisser de bandelette dans l'appareil et nettoyer la fenêtre ; chimie liquide, vider et fermer le compartiment échantillon ; couvrir, ranger à l'abri de la poussière. Tous les six mois : inspection visuelle des éléments, boutons, accessoires, fixations, câbles, mise à la terre, fusibles ; alignement de la lampe si le fabricant le recommande.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour une urée en chimie liquide, le tube passe du carrousel d'échantillons à la pompe SPP, qui en dépose quelques microlitres dans une cuve du carrousel de réaction ; la pompe RPP ajoute le réactif pris dans le carrousel réfrigéré ; l'unité MIX mélange ; à 37 °C la réaction avance et le photomètre lit l'absorbance à la longueur d'onde du test ; enfin l'unité de lavage nettoie la cuve et vérifie sa propreté optique pour le test suivant.</p>
+
+<h2>Formules clés</h2>
+<p>Chimie sèche : réflectance sur bandelette, LED, sphère d'Ulbricht. Chimie liquide : absorbance, Beer-Lambert, 304 à 670 nm.</p>
+<p>ASP, RCU (réfrigéré), SPP, RPP, carrousel de réaction (37 °C), MIX, photomètre (340 à 620 nm), WU.</p>
+<p>Chimie liquide : mesure à blanc d'abord. Entretien : chaque jour, et tous les six mois.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/automates-biochimie.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Microscopes et agitateurs chauffants</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 5. -->
+<main class="cours-chapitre" data-chapitre="5">
+<p class="etiquette" data-etiquette></p>
+<h1>Microscopes et agitateurs chauffants</h1>
+
+<section class="partie" id="s-microscopes">
+<p class="rang-partie">1 / 3</p>
+<h2>Les microscopes</h2>
+
+<article class="notion" id="n-microscopes-types">
+<h3>Les types de microscopes</h3>
+<p class="chapeau">Le microscope reste un outil de diagnostic de premier ordre, en hématologie, en bactériologie, en parasitologie. Mais il n'y a pas un microscope : selon ce qu'on veut voir, une cellule colorée, une bactérie vivante, un anticorps fluorescent, un cristal dans une urine, on ne regarde pas l'échantillon de la même façon.</p>
+
+<h4>Intuition</h4>
+<p>Ce qui change d'un microscope à l'autre, c'est la façon de créer du contraste. Une cellule colorée se voit sur fond clair ; une bactérie vivante, transparente, se voit mieux brillante sur fond noir ; un anticorps marqué s'allume en fluorescence ; un cristal change de couleur en lumière polarisée. Même échantillon, autre éclairage, autre image.</p>
+
+<div id="fig-microscopes-types"></div>
+
+<h4>Formalisation</h4>
+<h5>Un peu d'histoire</h5>
+<p>Des verres grossissants servent à corriger la vue dès la fin du XIIIᵉ siècle ; le microscope simple (une lentille) est utilisé en histoire naturelle au XIVᵉ siècle ; le microscope composé (groupes de lentilles) date de la fin du XVIᵉ siècle, attribué aux opticiens hollandais Jansen père et fils (vers 1590). En 1609, Galilée construit un occhiolino. Robert Hooke découvre la cellule en 1665 et présente dans <i>Micrographia</i> un microscope à trois lentilles qui a déjà la forme actuelle. Le premier prototype de microscope électronique est construit en 1931 par Ernst Ruska et Max Knoll.</p>
+<h5>Les types</h5>
+<p>Le mot <strong>microscope</strong> vient du grec <i>micros</i>, petit, et <i>skopein</i>, examiner. Selon le système de contraste :</p>
+<ul>
+<li><b>Fond (champ) clair</b> : la lumière de la source, transmise par l'échantillon, entre directement dans l'objectif ; faible contraste, d'où la coloration ; très utile au laboratoire d'analyses médicales.</li>
+<li><b>Fond noir</b> : contraste augmenté, pour observer le vivant.</li>
+<li><b>Fluorescence</b> : en immunologie (immunofluorescence indirecte, IFI) ; il faut une chambre noire et des ampoules spéciales (mercure ou xénon).</li>
+<li><b>Contraste de phase</b> et <b>interférentiel</b>.</li>
+<li><b>Polarisant</b> : par exemple pour les cristaux (oxalate de calcium, acide urique, struvite, cystine).</li>
+<li><b>Inversé</b> : en virologie, très pratique pour étudier les cultures cellulaires.</li>
+<li><b>Stéréomicroscope</b> (loupe binoculaire).</li>
+<li><b>Électronique</b> : un faisceau d'électrons remplace la lumière.</li>
+<li><b>À effet tunnel</b> : en recherche, il visualise les atomes ; une pointe très fine (idéalement un seul atome au bout) balaie la surface ligne par ligne et suit son relief.</li>
+</ul>
+<h5>Ce qu'est un microscope</h5>
+<p>Un instrument de précision qui réunit des systèmes optiques (lentilles, filtres, prismes, condenseurs), mécaniques (position de l'échantillon en x, y, z), électriques (transformateur, source lumineuse) et électroniques (appareil photo, vidéo). Les échantillons doivent être préparés pour révéler les détails recherchés. Les microscopes sont en général alimentés en 220 V / 60 Hz ; certains ont un miroir à la place d'une lampe.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un même laboratoire peut utiliser un microscope à fond clair pour un frottis sanguin coloré, un microscope polarisant pour identifier des cristaux dans un sédiment urinaire, un microscope à fluorescence dans une pièce sombre pour lire une IFI, et un microscope inversé pour suivre une culture cellulaire au fond de son flacon.</p>
+
+<h4>Formules clés</h4>
+<p>Fond clair : le plus courant, avec coloration. Fond noir : le vivant. Fluorescence : IFI, chambre noire. Polarisant : cristaux. Inversé : cultures cellulaires. Effet tunnel : atomes.</p>
+<p>Microscope composé : fin du XVIᵉ siècle (Jansen). Cellule : Hooke, 1665. Microscope électronique : 1931 (Ruska et Knoll).</p>
+</article>
+
+<article class="notion" id="n-microscope-optique">
+<h3>Le microscope optique</h3>
+<p class="chapeau">Un frottis sanguin, une goutte d'urine, un prélèvement de selles : au microscope optique, on voit ce que l'œil nu ne voit pas. Deux groupes de lentilles suffisent à grossir des centaines de fois. Comprendre leur rôle, c'est savoir régler l'appareil et comprendre pourquoi l'image est à l'envers.</p>
+
+<h4>Intuition</h4>
+<p>Une loupe grossit un peu. Le microscope en met deux à la suite : la première, tout près de l'objet, en fait une grande image à l'intérieur du tube ; la seconde, près de l'œil, regarde cette image comme une loupe et la grossit encore. Les grossissements se multiplient.</p>
+
+<div id="fig-microscope-optique"></div>
+
+<h4>Formalisation</h4>
+<h5>Les lentilles</h5>
+<p>Une <strong>lentille</strong> est un élément optique, en général en verre, qui réfracte la lumière. Si les rayons qui la traversent convergent en un point unique F, la lentille est convexe, dite <b>convergente</b> ; si elle les disperse, elle est concave, dite <b>divergente</b>. La distance entre la lentille et le foyer est la <b>distance focale</b>.</p>
+<h5>Principe</h5>
+<p>Le microscope optique (ou photonique) est un tube avec des lentilles à ses deux extrémités, deux lentilles convergentes :</p>
+<ul>
+<li>l'<b>objectif</b>, tourné vers l'objet, a une très petite distance focale ; il donne une image <b>réelle, renversée et agrandie</b>, l'image intermédiaire, dans le tube ;</li>
+<li>l'<b>oculaire</b>, tourné vers l'œil, fonctionne comme une loupe et grossit cette image : on observe une image <b>virtuelle</b>, renversée par rapport à l'objet.</li>
+</ul>
+<p>Rappel : le grossissement total est le produit du grossissement de l'objectif par celui de l'oculaire.</p>
+\[ G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \]
+<h5>Les éléments</h5>
+<ul>
+<li><b>Oculaires</b> et <b>tête binoculaire</b> (prismes et miroirs).</li>
+<li><b>Revolver porte-objectifs</b> : un encliquetage aligne l'objectif choisi avec le système optique ; en général trois à cinq objectifs.</li>
+<li><b>Objectifs</b>, dont l'objectif à immersion (100×), utilisé avec de l'huile.</li>
+<li><b>Platine porte-objet</b> : déplace la lame selon X et Y ; des clips ou plaques tiennent la lame.</li>
+<li><b>Condenseur</b> et <b>diaphragme</b> : règlent la concentration de la lumière et la quantité qui atteint l'échantillon ; réglage du condenseur en hauteur.</li>
+<li><b>Boutons de mise au point</b> macrométrique et micrométrique.</li>
+<li><b>Éclairage</b> : lampe, lentille du collecteur, diaphragme de champ, verre protecteur avec porte-filtre.</li>
+<li><b>Corps</b> (statif) : bras et socle, qui reçoivent tous les autres éléments.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Avec un objectif 10× et un oculaire 10×, l'objet est grossi 100 fois : pratique pour repérer une zone de lame. Pour regarder les globules d'un frottis, on passe à l'objectif à immersion 100× avec une goutte d'huile : 100 × 10 = 1 000 fois.</p>
+
+<h4>Formules clés</h4>
+\[ G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \]
+<p>Objectif : image réelle, renversée, agrandie. Oculaire : loupe, image virtuelle.</p>
+<p>Revolver : 3 à 5 objectifs. Condenseur et diaphragme : la lumière sur l'échantillon. Macro et micrométrique : la mise au point.</p>
+</article>
+
+<div class="fin-partie" data-section="microscopes"></div>
+</section>
+
+<section class="partie" id="s-entretien-microscope">
+<p class="rang-partie">2 / 3</p>
+<h2>Installer et entretenir</h2>
+
+<article class="notion" id="n-microscope-entretien">
+<h3>Installer et entretenir un microscope</h3>
+<p class="chapeau">Le microscope est un instrument de haute précision, assemblé en usine avec un équipement spécialisé. Une rayure, une trace de doigt, un peu de moisissure, et l'image se brouille ; certains dégâts sont définitifs. Sa longévité tient à la propreté de son environnement et au soin de chaque geste.</p>
+
+<h4>Intuition</h4>
+<p>Presque tous les problèmes d'image viennent de ce qui se dépose sur le trajet de la lumière : poussière, huile, traces, moisissure. D'où trois idées : protéger (housse, capuchons, local sec), nettoyer avec ce qui ne raye pas et n'attaque pas les traitements des lentilles, et ne jamais démonter l'optique sans formation.</p>
+
+<div id="fig-microscope-entretien"></div>
+
+<h4>Formalisation</h4>
+<h5>Problèmes potentiels</h5>
+<ul>
+<li><b>Oculaires</b> : poussière et encrassement, qui font des ombres, surtout à fort grossissement (40× à 100×) ; dehors, on nettoie ; dedans, il faut démonter. Des <b>rayures</b>, dues à un nettoyage négligent ou à des matériaux inadaptés, donnent des ombres en toile d'araignée : il faut remplacer l'oculaire.</li>
+<li><b>Tête binoculaire</b> : prismes (surfaces argentées qui se corrodent) et miroirs ; elle se salit quand on change les oculaires, qu'on installe un accessoire, ou qu'on oublie les protections.</li>
+<li><b>Éclairage</b> : encrassement et détérioration des miroirs et lentilles, défauts de tension, ampoule non recommandée. L'ampoule est un consommable : toujours en prévoir une de rechange ; les microscopes à fluorescence utilisent des ampoules au mercure ou au xénon.</li>
+<li><b>Condenseur</b> : nettoyé au pinceau fin en poil de chameau ; ses éléments mécaniques se règlent avec des outils propres à chaque fabricant.</li>
+</ul>
+<h5>Installation et rangement</h5>
+<p>À l'abri de la poussière et de l'humidité (idéalement climatisé) ; local fermé à clé ; loin des points d'eau, des produits chimiques et du soleil direct ; prise conforme ; surface horizontale et rigide, avec la tête de l'opérateur à hauteur des oculaires sans contrainte pour le dos et le cou ; loin des appareils qui vibrent (centrifugeuses, réfrigérateurs) ; housse en plastique ou en tissu fin non pelucheux si on ne s'en sert pas longtemps.</p>
+<h5>Nettoyage</h5>
+<p>Chiffon en tissu fin, solution de nettoyage pour lentilles (l'éther et le xylène sont parmi les plus utilisés). Corps du microscope : solution détergente au pinceau, puis mélange 50/50 d'eau distillée et d'éthanol à 95 % (pas pour les surfaces optiques). Lubrifier régulièrement, à l'huile fine, les mécanismes de mise au point, du condenseur et de la platine.</p>
+<h5>Précautions</h5>
+<ul>
+<li>Pas d'éthanol sur les éléments optiques ; pas de xylène ni d'acétone sur la base de la platine.</li>
+<li>Pas de papier ordinaire, de tissu ni de doigts nus sur les lentilles : pinceau en poil de chameau ou poire en caoutchouc, puis peau de chamois ou papier optique.</li>
+<li>Toujours les oculaires ou leurs capuchons en place ; pas de rangement en boîte dans un environnement humide.</li>
+<li>Ne pas appuyer l'objectif contre la lame ; mise au point lente.</li>
+<li>Ne pas démonter les éléments optiques (alignement).</li>
+<li>Soulever à deux mains, l'une au bras, l'autre au socle.</li>
+<li>Ne pas toucher l'ampoule ; tension correcte, intensité minimale utile, stabilisateur si le secteur est instable.</li>
+<li>Moisissures : contrôler l'humidité, ventiler ; sinon, un tampon de coton imbibé de solution antifongique (en général de l'éther), en mouvements circulaires très légers.</li>
+</ul>
+<h5>Entretien courant</h5>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Tous les jours, après utilisation</td><td>Essuyer l'huile à immersion de l'objectif 100× (papier optique, ou coton hydrophile) ; nettoyer la platine et le condenseur ; rhéostat au minimum, éclairage éteint ; housse, endroit ventilé.</td></tr>
+<tr><td>Une fois par mois</td><td>Dépoussiérer le corps (chiffon à l'eau distillée) ; souffler la poussière des oculaires, objectifs et condenseur, puis nettoyer les lentilles avec la solution mise sur le papier optique, pas sur la lentille ; nettoyer les clips porte-lames.</td></tr>
+<tr><td>Tous les six mois</td><td>Inspection visuelle générale ; ventilation, température, humidité du local ; installation électrique, câbles, fusibles, ampoule.</td></tr>
+</table></div>
+<p>Maintenance : vérifier la platine (déplacement en X et Y, position tenue), la mise au point (le foyer reste stable), le diaphragme, les clips, l'alignement optique ; nettoyer et lubrifier les éléments mécaniques selon le fabricant.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un technicien voit des ombres qui suivent l'oculaire quand il le tourne : la saleté est sur l'oculaire. Il souffle d'abord la poussière à la poire, puis passe du papier optique imbibé de solution. Si les ombres ont l'aspect d'une toile d'araignée et ne partent pas, ce sont des rayures : l'oculaire est à remplacer.</p>
+
+<h4>Formules clés</h4>
+<p>Chaque jour : huile du 100×, platine, condenseur, éclairage au minimum, housse. Chaque mois : poussière et lentilles. Tous les six mois : inspection, local, électricité.</p>
+<p>Jamais d'éthanol sur l'optique, jamais de doigts ni de papier ordinaire ; pinceau, poire, papier optique.</p>
+<p>Deux mains pour le porter ; loin des vibrations, de l'humidité et du soleil.</p>
+</article>
+
+<div class="fin-partie" data-section="entretien-microscope"></div>
+</section>
+
+<section class="partie" id="s-agitateur">
+<p class="rang-partie">3 / 3</p>
+<h2>L'agitateur chauffant</h2>
+
+<article class="notion" id="n-agitateur">
+<h3>L'agitateur chauffant</h3>
+<p class="chapeau">Dissoudre un réactif, préparer un milieu, garder une solution homogène à température : sur presque chaque paillasse, une plaque chauffe et fait tourner un barreau aimanté au fond d'un bécher. Un appareil simple, mais qui reste brûlant longtemps après qu'on l'a éteint.</p>
+
+<h4>Intuition</h4>
+<p>Deux fonctions sur une même plaque : une résistance chauffe la surface, un moteur fait tourner un aimant sous la plaque, qui entraîne le barreau dans le récipient. On règle l'une, l'autre, ou les deux. Les risques viennent de la chaleur : ce qui fond, ce qui brûle, ce qui reste chaud.</p>
+
+<div id="fig-agitateur"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition et principe</h5>
+<p>L'<strong>agitateur chauffant</strong> (plaque chauffante avec agitateur) chauffe et mélange des liquides dans des récipients de laboratoire : fioles Erlenmeyer, tubes à essais, béchers. Sa surface plane est faite d'un matériau bon conducteur de la chaleur (aluminium ou céramique) ; certaines plaques chauffent uniquement par rayonnement infrarouge. Il possède un élément chauffant (résistance électrique) et un système de contrôle (interrupteur, commande et moteur de l'agitateur).</p>
+<ul>
+<li>Température : de l'ambiante à environ 500 °C.</li>
+<li>Vitesse de rotation : de 60 à environ 1 200 tours par minute.</li>
+</ul>
+<p>Le panneau de contrôle règle la température et la vitesse, séparément ou ensemble.</p>
+<h5>Installation</h5>
+<p>Prise en bon état reliée à la terre ; en général 230 V, 50/60 Hz ; surface horizontale assez robuste pour l'appareil, les récipients et leur contenu ; un espace libre autour (certains fabricants recommandent environ 15 cm).</p>
+<h5>Utilisation et précautions</h5>
+<ul>
+<li>Débrancher avant tout entretien.</li>
+<li>Pas de matériaux combustibles ou inflammables, ni de vapeurs corrosives ; avec des liquides inflammables, gants et lunettes de protection.</li>
+<li>La surface peut rester chaude longtemps après l'arrêt ou le débranchement.</li>
+<li>Ne pas poser sur la plaque : laminés métalliques, matériaux isolants, verrerie à bas point de fusion.</li>
+<li>Ne pas dépasser le poids de récipient indiqué par le fabricant.</li>
+</ul>
+<h5>Entretien de routine</h5>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opération</th></tr>
+<tr><td>Une fois par mois</td><td>Nettoyage : appareil en position verticale (pour que le produit n'atteigne pas l'intérieur), détergent doux sur chiffon fin, appareil bien sec avant de le rebrancher.</td></tr>
+<tr><td>Si nécessaire</td><td>Remplacement de la surface en céramique : débranchée et refroidie, prudence avec les bords coupants, remettre les éléments chauffants, isolants et de sécurité dans leur position d'origine.</td></tr>
+<tr><td>Si nécessaire</td><td>Remplacement d'un fusible, quand la plaque ne chauffe pas alors qu'elle est branchée et allumée : interrupteur sur OFF, débrancher, ouvrir la boîte à fusibles, fusible de mêmes caractéristiques.</td></tr>
+</table></div>
+<p>Bien installé et bien utilisé, il peut fonctionner plusieurs années sans problème.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un technicien éteint la plaque après une dissolution à 150 °C et veut poser aussitôt une boîte en plastique sur la surface : elle peut encore être brûlante et faire fondre la boîte. On attend qu'elle refroidisse, et on ne pose jamais de matériau isolant ni de verrerie à bas point de fusion sur une plaque chaude.</p>
+
+<h4>Formules clés</h4>
+<p>De l'ambiante à environ 500 °C ; de 60 à environ 1 200 tr/min.</p>
+<p>Prise à la terre, 230 V ; surface horizontale robuste ; environ 15 cm d'espace libre.</p>
+<p>Chaque mois : nettoyage, appareil vertical. Si nécessaire : céramique, fusible.</p>
+</article>
+
+<div class="fin-partie" data-section="agitateur"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/microscopes-types.js"></script>
+<script src="../figures/microscope-optique.js"></script>
+<script src="../figures/microscope-entretien.js"></script>
+<script src="../figures/agitateur.js"></script>
+</body>
+</html>

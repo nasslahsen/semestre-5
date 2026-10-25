@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Contrôle de qualité et interférences · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Contrôle de qualité et interférences</h1>
+<p class="chapeau">Un automate rend toujours un chiffre, même quand l'échantillon le trompe. Des plaquettes collées deviennent des globules blancs, un plasma laiteux devient de l'hémoglobine. Le contrôle de qualité surveille l'appareil ; la connaissance des interférences et des règles de validation protège le patient.</p>
+
+<h2>Intuition</h2>
+<p>Chaque principe de mesure a ses pièges. L'impédance range les objets selon leur volume : tout ce qui a la taille d'une plaquette est compté comme plaquette, même un fragment de globule rouge. Le dosage de l'hémoglobine mesure une absorbance : tout ce qui trouble le tube l'augmente. Connaître le principe, c'est prévoir l'erreur.</p>
+
+<div id="fig-interferences"></div>
+
+<h2>Formalisation</h2>
+<h3>Contrôle de qualité interne</h3>
+<ul>
+<li>Contrôles sanguins : au minimum 2 niveaux (normal, pathologique).</li>
+<li>Contrôles électroniques : vérification des canaux.</li>
+<li>Règles de Westgard : détection des dérives.</li>
+<li>Levey-Jennings : suivi graphique des moyennes.</li>
+</ul>
+<h3>Principales interférences</h3>
+<div class="tableau"><table>
+<tr><th>Interférence</th><th>Effet</th><th>Mécanisme</th></tr>
+<tr><td>Agrégats plaquettaires</td><td>PLT ↓, GB ↑</td><td>Plaquettes comptées comme GB</td></tr>
+<tr><td>Cryoglobulines</td><td>GB ↑, Hb ↑</td><td>Précipitation faussant les mesures</td></tr>
+<tr><td>Hyperlipémie</td><td>Hb ↑</td><td>Turbidité augmentant l'absorbance</td></tr>
+<tr><td>Hyperbilirubinémie</td><td>Hb ↑</td><td>Interférence spectrophotométrique</td></tr>
+<tr><td>Globules rouges résistants</td><td>GR ↓</td><td>Hémolyse incomplète</td></tr>
+<tr><td>Fragments érythrocytaires</td><td>PLT ↑</td><td>Schizocytes comptés comme plaquettes</td></tr>
+<tr><td>Caillots</td><td>GR ↓, PLT ↓</td><td>Échantillon non homogène</td></tr>
+<tr><td>Dilution (voie veineuse)</td><td>Tous ↓</td><td>Prélèvement non conforme</td></tr>
+</table></div>
+<h3>Règles de validation (exemple : règles de l'ISLH)</h3>
+<ol>
+<li>GB &lt; 2,0 × 10⁹/L : vérification manuelle.</li>
+<li>PLT &lt; 50 × 10⁹/L : contrôle sur lame.</li>
+<li>Hb &lt; 7 g/dL : vérification.</li>
+<li>Écart Hb / Ht incohérent : alerte.</li>
+<li>Absence de séparation des populations : revue du scattergramme.</li>
+</ol>
+<h3>Le biologiste reste le garant</h3>
+<p>La qualité repose sur un triptyque : contrôle interne, évaluation externe, validation biologique. L'automatisation apporte fiabilité, rapidité, débit, sécurité et standardisation ; mais l'automate mesure, le biologiste interprète ; il détecte, le biologiste valide ; il alerte, le biologiste décide. « L'automate est un outil au service du diagnostic ; le biologiste en reste le garant. »</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un hémogramme montre des plaquettes à 45 × 10⁹/L et des globules blancs un peu élevés, chez un patient sans saignement. La règle 2 impose un contrôle sur lame : on y voit des amas de plaquettes. C'était une interférence (agrégats plaquettaires) : les plaquettes réelles sont normales, et une partie des « globules blancs » étaient des amas.</p>
+
+<h2>Formules clés</h2>
+<p>CQ interne : au moins 2 niveaux, contrôles électroniques, Westgard, Levey-Jennings.</p>
+<p>Agrégats : PLT ↓ GB ↑. Lipémie, bilirubine : Hb ↑. Schizocytes : PLT ↑. Caillots : GR ↓ PLT ↓. Dilution : tous ↓.</p>
+<p>GB &lt; 2,0 ; PLT &lt; 50 ; Hb &lt; 7 : vérifier. L'automate mesure, le biologiste interprète.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/interferences.js"></script>
+</body>
+</html>

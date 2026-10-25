@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Calibration et contrôle des analyseurs · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Calibration et contrôle des analyseurs</h1>
+<p class="chapeau">Un automate ne mesure pas des concentrations : il mesure des absorbances, des réflectances, des tensions. Pour en tirer un résultat en mmol/L, il lui faut une règle de conversion, établie avec des solutions de concentration connue. Si cette règle est fausse, tous les résultats le sont.</p>
+
+<h2>Intuition</h2>
+<p>On passe quelques solutions dont on connaît la concentration, on note le signal de chacune, et on trace la courbe qui les relie. Ensuite, pour un patient, on lit la courbe à l'envers : tel signal, telle concentration. Avec trois points ou plus, on voit si la relation est une droite ou si elle se courbe.</p>
+
+<div id="fig-calibration"></div>
+
+<h2>Formalisation</h2>
+<h3>Calibration</h3>
+<p>La <strong>calibration</strong> est le processus qui établit la relation entre le signal de mesure et une concentration connue. Les automates de biochimie clinique utilisent en général une calibration multipoint (au moins 3 niveaux de concentration) avec des calibrateurs traçables. La courbe de calibration peut être linéaire ou non linéaire (régression non linéaire pour la turbidimétrie immunologique, par exemple).</p>
+<h3>Calibration et ajustement</h3>
+<p>La calibration détermine la relation entre la valeur indiquée et la valeur standard ; l'<strong>ajustement</strong> consiste à amener l'instrument aux performances spécifiées.</p>
+<h3>Exigence</h3>
+<p>La norme ISO 9001 exige une calibration ou une vérification traçable des équipements de mesure. Pour le spectrophotomètre, la bonne pratique est d'étalonner chaque fois qu'une nouvelle série d'échantillons doit être analysée.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois calibrateurs à 2, 4 et 8 mmol/L donnent des absorbances 0,12, 0,24 et 0,48 : les points sont alignés, la pente vaut 0,06 par mmol/L. Un patient donne 0,42 : sa concentration est \(0{,}42 / 0{,}06 = 7\) mmol/L. Si un patient donnait 0,70, au-delà du dernier calibrateur, on ne saurait pas si la droite continue : la courbe n'a été vérifiée qu'entre 2 et 8 mmol/L.</p>
+
+<h2>Formules clés</h2>
+<p>Calibration : relation signal ↔ concentration connue ; multipoint, au moins 3 niveaux ; calibrateurs traçables ; linéaire ou non linéaire.</p>
+<p>Ajustement : ramener l'instrument aux performances spécifiées.</p>
+<p>ISO 9001 : calibration ou vérification traçable. Spectrophotomètre : étalonner à chaque nouvelle série.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/calibration.js"></script>
+</body>
+</html>

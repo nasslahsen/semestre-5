@@ -8,10 +8,10 @@ NIVEAU(LABO.rejouable({
   etapes: [
     { nom: "La vitesse minimale", jouer: function (j, n) {
       var A = LABO; A.vider(n.g); A.icone(n.g, "centrifugeuse", [340, 260], 220, A.C.jeu);
-      j.titre("Rotor de 15 cm. Quelle vitesse minimale, en tours par minute, pour atteindre 2 000 × g ?");
-      j.nombre({ avant: "N \\approx", apres: "\\text{tr/min}", cases: [{ attendu: 3453.4, tol: 8 }],
+      j.titre("Rotor de 18 cm. Quelle vitesse minimale, en tours par minute, pour atteindre 2 200 × g ?");
+      j.nombre({ avant: "N \\approx", apres: "\\text{tr/min}", cases: [{ attendu: 3306.4, tol: 8 }],
         aide: function () { return "Isole N dans RCF = 1,118 × 10⁻⁵ × r × N² : N = racine de RCF / (1,118 × 10⁻⁵ × r)."; },
-        ok: function () { j.bravo("Environ 3 453 tr/min."); j.expliquer("<p>\\(N = \\sqrt{\\dfrac{2\\,000}{1{,}118 \\times 10^{-5} \\times 15}} \\approx 3\\,453\\) tr/min.</p>"); j.suite(); } });
+        ok: function () { j.bravo("Environ 3 306 tr/min."); j.expliquer("<p>\\(N = \\sqrt{\\dfrac{2\\,200}{1{,}118 \\times 10^{-5} \\times 18}} \\approx 3\\,306\\) tr/min.</p>"); j.suite(); } });
     } },
     { nom: "Quatre incidents", jouer: function (j, n) {
       var A = LABO;

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les analyseurs de la coagulation · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les analyseurs de la coagulation</h1>
+<p class="chapeau">Un patient sous antivitamine K vient chaque mois contrôler son traitement. Son temps de coagulation, en secondes, change avec le réactif utilisé : d'un laboratoire à l'autre, le même sang ne donne pas le même chiffre. Les analyseurs de coagulation mesurent ce temps, puis le convertissent en unités qu'on peut comparer.</p>
+
+<h2>Intuition</h2>
+<p>On déclenche la coagulation d'un plasma et on chronomètre l'apparition du caillot : on peut le sentir (une bille qui cesse de bouger), ou le voir (la lumière change). Le temps brut dépend du réactif ; on le rapporte donc à un témoin et on corrige par la sensibilité du réactif. Pour le fibrinogène, plus il y en a, plus le caillot se forme vite.</p>
+
+<div id="fig-coagulometres"></div>
+
+<h2>Formalisation</h2>
+<h3>Les analyses</h3>
+<p>Analyseurs semi-automatiques ou automatiques pour : TP (temps et taux de prothrombine), TCA (temps de céphaline activé), fibrinogène (dosage quantitatif), facteurs de la coagulation (II, V, VII, X, VIII, IX, XI, XII), inhibiteurs (antithrombine, protéine C, protéine S). Les réactions se font dans des <strong>cupules à usage unique</strong>, jetées après chaque test, pour éviter toute contamination croisée (résidus de réactifs, fibrine). La lecture finale se fait par spectrophotométrie à plusieurs longueurs d'onde.</p>
+<h3>Principes de détection</h3>
+<div class="tableau"><table>
+<tr><th>Méthode</th><th>Principe</th><th>Applications</th></tr>
+<tr><td>Viscosimétrie (mécanique)</td><td>Arrêt ou modification du mouvement d'une bille magnétique dans un champ électromagnétique quand le caillot se forme</td><td>TP, TCA, temps de thrombine ; insensible à l'ictère et à l'hémolyse</td></tr>
+<tr><td>Chromogénique (optique)</td><td>L'enzyme cible coupe un substrat synthétique lié à un groupement coloré (p-nitroaniline, pNA), qui libère la couleur</td><td>Antithrombine, plasminogène, facteur Xa</td></tr>
+<tr><td>Immunologique (optique)</td><td>Agglutination de microparticules de latex recouvertes d'anticorps : turbidité</td><td>D-dimères, monomères de fibrine, facteur von Willebrand</td></tr>
+</table></div>
+<h3>Exploiter le temps mesuré</h3>
+<p><b>INR</b> (International Normalized Ratio) : pour le suivi des patients sous antivitamine K, le temps en secondes n'est pas comparable d'un laboratoire à l'autre. L'ISI (International Sensitivity Index) est l'indice de sensibilité de la thromboplastine utilisée, propre à chaque lot de réactif et fourni par le fabricant. La formule n'apparaît pas dans le texte du support ; c'est la définition standard de l'INR :</p>
+\[ \text{INR} = \left( \frac{\text{TP du patient}}{\text{TP du témoin}} \right)^{\text{ISI}} \]
+<p><b>Taux de TP</b> (%) : le temps en secondes est transposé en pourcentage d'activité grâce à une courbe de calibration établie avec des dilutions d'un plasma de référence.</p>
+<p><b>Fibrinogène, méthode de Clauss</b> : après ajout d'une forte dose de thrombine, le temps de coagulation est inversement lié à la concentration en fibrinogène. L'automate projette le temps mesuré \(t\) sur la droite d'étalonnage, en coordonnées log-log :</p>
+\[ \log(\text{concentration de fibrinogène}) = \alpha \times \log(t) + b \]
+<p><b>Méthodes chromogéniques</b> : l'automate suit l'apparition de la couleur jaune (p-nitroaniline) ; l'absorbance suit \(A = \varepsilon \times C \times L\), et la pente cinétique \(\Delta A / \text{min}\) donne la vitesse initiale, proportionnelle à l'activité du facteur ciblé.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un patient a un TP de 27 s pour un témoin à 12 s, avec un réactif d'ISI 1,0 : \(\text{INR} = (27/12)^{1{,}0} = 2{,}25\). Avec un autre lot d'ISI 1,3 et les mêmes temps, on aurait \((27/12)^{1{,}3} \approx 2{,}87\) : c'est pour cela que l'ISI accompagne chaque lot.</p>
+
+<h2>Formules clés</h2>
+\[ \text{INR} = \left( \frac{\text{TP}_{\text{patient}}}{\text{TP}_{\text{témoin}}} \right)^{\text{ISI}} \qquad \log C_{\text{fibrinogène}} = \alpha \log t + b \qquad A = \varepsilon \, C \, L \]
+<p>Viscosimétrie : bille magnétique, insensible à l'ictère et à l'hémolyse. Chromogénique : pNA. Immunologique : latex, turbidité (D-dimères).</p>
+<p>Cupules à usage unique : pas de contamination croisée.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/coagulometres.js"></script>
+</body>
+</html>

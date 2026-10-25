@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les types de microscopes · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les types de microscopes</h1>
+<p class="chapeau">Le microscope reste un outil de diagnostic de premier ordre, en hématologie, en bactériologie, en parasitologie. Mais il n'y a pas un microscope : selon ce qu'on veut voir, une cellule colorée, une bactérie vivante, un anticorps fluorescent, un cristal dans une urine, on ne regarde pas l'échantillon de la même façon.</p>
+
+<h2>Intuition</h2>
+<p>Ce qui change d'un microscope à l'autre, c'est la façon de créer du contraste. Une cellule colorée se voit sur fond clair ; une bactérie vivante, transparente, se voit mieux brillante sur fond noir ; un anticorps marqué s'allume en fluorescence ; un cristal change de couleur en lumière polarisée. Même échantillon, autre éclairage, autre image.</p>
+
+<div id="fig-microscopes-types"></div>
+
+<h2>Formalisation</h2>
+<h3>Un peu d'histoire</h3>
+<p>Des verres grossissants servent à corriger la vue dès la fin du XIIIᵉ siècle ; le microscope simple (une lentille) est utilisé en histoire naturelle au XIVᵉ siècle ; le microscope composé (groupes de lentilles) date de la fin du XVIᵉ siècle, attribué aux opticiens hollandais Jansen père et fils (vers 1590). En 1609, Galilée construit un occhiolino. Robert Hooke découvre la cellule en 1665 et présente dans <i>Micrographia</i> un microscope à trois lentilles qui a déjà la forme actuelle. Le premier prototype de microscope électronique est construit en 1931 par Ernst Ruska et Max Knoll.</p>
+<h3>Les types</h3>
+<p>Le mot <strong>microscope</strong> vient du grec <i>micros</i>, petit, et <i>skopein</i>, examiner. Selon le système de contraste :</p>
+<ul>
+<li><b>Fond (champ) clair</b> : la lumière de la source, transmise par l'échantillon, entre directement dans l'objectif ; faible contraste, d'où la coloration ; très utile au laboratoire d'analyses médicales.</li>
+<li><b>Fond noir</b> : contraste augmenté, pour observer le vivant.</li>
+<li><b>Fluorescence</b> : en immunologie (immunofluorescence indirecte, IFI) ; il faut une chambre noire et des ampoules spéciales (mercure ou xénon).</li>
+<li><b>Contraste de phase</b> et <b>interférentiel</b>.</li>
+<li><b>Polarisant</b> : par exemple pour les cristaux (oxalate de calcium, acide urique, struvite, cystine).</li>
+<li><b>Inversé</b> : en virologie, très pratique pour étudier les cultures cellulaires.</li>
+<li><b>Stéréomicroscope</b> (loupe binoculaire).</li>
+<li><b>Électronique</b> : un faisceau d'électrons remplace la lumière.</li>
+<li><b>À effet tunnel</b> : en recherche, il visualise les atomes ; une pointe très fine (idéalement un seul atome au bout) balaie la surface ligne par ligne et suit son relief.</li>
+</ul>
+<h3>Ce qu'est un microscope</h3>
+<p>Un instrument de précision qui réunit des systèmes optiques (lentilles, filtres, prismes, condenseurs), mécaniques (position de l'échantillon en x, y, z), électriques (transformateur, source lumineuse) et électroniques (appareil photo, vidéo). Les échantillons doivent être préparés pour révéler les détails recherchés. Les microscopes sont en général alimentés en 220 V / 60 Hz ; certains ont un miroir à la place d'une lampe.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un même laboratoire peut utiliser un microscope à fond clair pour un frottis sanguin coloré, un microscope polarisant pour identifier des cristaux dans un sédiment urinaire, un microscope à fluorescence dans une pièce sombre pour lire une IFI, et un microscope inversé pour suivre une culture cellulaire au fond de son flacon.</p>
+
+<h2>Formules clés</h2>
+<p>Fond clair : le plus courant, avec coloration. Fond noir : le vivant. Fluorescence : IFI, chambre noire. Polarisant : cristaux. Inversé : cultures cellulaires. Effet tunnel : atomes.</p>
+<p>Microscope composé : fin du XVIᵉ siècle (Jansen). Cellule : Hooke, 1665. Microscope électronique : 1931 (Ruska et Knoll).</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/microscopes-types.js"></script>
+</body>
+</html>

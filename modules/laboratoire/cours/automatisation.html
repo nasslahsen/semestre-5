@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'automatisation du laboratoire · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'automatisation du laboratoire</h1>
+<p class="chapeau">Un laboratoire hospitalier reçoit des milliers de tubes par jour. Embaucher en proportion n'est pas possible : il faut que les machines fassent davantage avec moins d'interventions humaines. L'automatisation a commencé par un appareil isolé ; elle relie aujourd'hui tout le circuit, de la réception du tube à son stockage.</p>
+
+<h2>Intuition</h2>
+<p>D'abord une machine qui répète un seul geste ; puis une machine qu'on programme pour plusieurs tâches ; puis une machine qui se surveille elle-même. Et à côté de la machine isolée, l'idée de relier toutes les machines par des convoyeurs et un logiciel : on ne parle plus d'un automate, mais d'un laboratoire automatisé.</p>
+
+<div id="fig-automatisation"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition</h3>
+<p>En biochimie, l'<strong>automatisation</strong> désigne le processus par lequel un appareil d'analyse réalise de nombreux examens avec une intervention minimale d'un opérateur. Les automates traitent des volumes de travail nettement plus importants sans accroître proportionnellement les effectifs.</p>
+<h3>Trois âges</h3>
+<p>Comme dans l'industrie, on est passé d'une <b>automatisation fixe</b> (un instrument exécute seul une tâche répétitive) à une <b>automatisation programmable</b> (une variété de tâches différentes), puis à une <b>automatisation intelligente</b>, intégrée à certains systèmes, qui s'auto-surveillent et réagissent à l'évolution des conditions.</p>
+<h3>Automate ou laboratoire automatisé</h3>
+<p>Un <b>automate de laboratoire</b> est un équipement isolé qui exécute une ou plusieurs étapes d'analyse. Un <b>laboratoire automatisé</b> (doté d'une chaîne robotisée) intègre l'ensemble, de la réception de l'échantillon à la validation du résultat, en connectant les machines par des convoyeurs et des logiciels de gestion. Exemple cité : la solution cobas 8100 (tri intelligent, priorisation des urgences, transport bidirectionnel et multiniveaux, détection précoce des erreurs, point d'entrée réservé aux urgences) ; des modules de connexion relient le pré-analytique à l'analytique et au post-analytique.</p>
+<h3>Avantages</h3>
+<p>Moins de variabilité et d'erreurs, en supprimant les tâches répétitives et monotones ; meilleure reproductibilité, donc meilleure qualité des analyses.</p>
+<h3>Ce que l'automatisation englobe</h3>
+<ol>
+<li>Le traitement et le transport des échantillons.</li>
+<li>Leur chargement dans les automates d'analyse.</li>
+<li>L'évaluation des résultats.</li>
+<li>Le stockage des échantillons.</li>
+</ol>
+<h3>Équipements du pré-analytique</h3>
+<ul>
+<li>Prélèvement et identification : automates d'étiquetage des tubes, fauteuils de prélèvement.</li>
+<li>Transport : réseau pneumatique, enceintes et glacières connectées, robots, traçabilité du transport.</li>
+<li>Réception, tri et préparation : centrifugeuses, automates de tri, de débouchage et rebouchage, d'aliquotage.</li>
+<li>Conservation temporaire : réfrigérateurs et congélateurs biomédicaux, traçabilité et contrôle du froid.</li>
+</ul>
+<p>Les grandes chaînes d'automatisation totale (TLA) citées au cours : Abbott (GLP systems), Beckman Coulter (Power Express), Roche (CCM), Siemens Healthineers (Aptio), Thermo Fisher (TCAutomation) ; toutes couvrent le pré-analytique (réception, tri, centrifugation, débouchage), le transport et le post-analytique (rebouchage, stockage, élimination).</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un analyseur d'hématologie posé seul sur une paillasse est un automate : le technicien lui apporte les tubes. Si ce même analyseur est branché sur une chaîne où les tubes arrivent seuls, après tri et débouchage, et repartent vers le stockage réfrigéré, il fait partie d'un laboratoire automatisé.</p>
+
+<h2>Formules clés</h2>
+<p>Automatisation : beaucoup d'examens, intervention minimale. Fixe, puis programmable, puis intelligente.</p>
+<p>Automate : machine isolée. Laboratoire automatisé : tout le circuit, relié par convoyeurs et logiciels.</p>
+<p>Elle englobe : transport, chargement, évaluation des résultats, stockage.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/automatisation.js"></script>
+</body>
+</html>

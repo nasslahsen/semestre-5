@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le microscope optique · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le microscope optique</h1>
+<p class="chapeau">Un frottis sanguin, une goutte d'urine, un prélèvement de selles : au microscope optique, on voit ce que l'œil nu ne voit pas. Deux groupes de lentilles suffisent à grossir des centaines de fois. Comprendre leur rôle, c'est savoir régler l'appareil et comprendre pourquoi l'image est à l'envers.</p>
+
+<h2>Intuition</h2>
+<p>Une loupe grossit un peu. Le microscope en met deux à la suite : la première, tout près de l'objet, en fait une grande image à l'intérieur du tube ; la seconde, près de l'œil, regarde cette image comme une loupe et la grossit encore. Les grossissements se multiplient.</p>
+
+<div id="fig-microscope-optique"></div>
+
+<h2>Formalisation</h2>
+<h3>Les lentilles</h3>
+<p>Une <strong>lentille</strong> est un élément optique, en général en verre, qui réfracte la lumière. Si les rayons qui la traversent convergent en un point unique F, la lentille est convexe, dite <b>convergente</b> ; si elle les disperse, elle est concave, dite <b>divergente</b>. La distance entre la lentille et le foyer est la <b>distance focale</b>.</p>
+<h3>Principe</h3>
+<p>Le microscope optique (ou photonique) est un tube avec des lentilles à ses deux extrémités, deux lentilles convergentes :</p>
+<ul>
+<li>l'<b>objectif</b>, tourné vers l'objet, a une très petite distance focale ; il donne une image <b>réelle, renversée et agrandie</b>, l'image intermédiaire, dans le tube ;</li>
+<li>l'<b>oculaire</b>, tourné vers l'œil, fonctionne comme une loupe et grossit cette image : on observe une image <b>virtuelle</b>, renversée par rapport à l'objet.</li>
+</ul>
+<p>Rappel : le grossissement total est le produit du grossissement de l'objectif par celui de l'oculaire.</p>
+\[ G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \]
+<h3>Les éléments</h3>
+<ul>
+<li><b>Oculaires</b> et <b>tête binoculaire</b> (prismes et miroirs).</li>
+<li><b>Revolver porte-objectifs</b> : un encliquetage aligne l'objectif choisi avec le système optique ; en général trois à cinq objectifs.</li>
+<li><b>Objectifs</b>, dont l'objectif à immersion (100×), utilisé avec de l'huile.</li>
+<li><b>Platine porte-objet</b> : déplace la lame selon X et Y ; des clips ou plaques tiennent la lame.</li>
+<li><b>Condenseur</b> et <b>diaphragme</b> : règlent la concentration de la lumière et la quantité qui atteint l'échantillon ; réglage du condenseur en hauteur.</li>
+<li><b>Boutons de mise au point</b> macrométrique et micrométrique.</li>
+<li><b>Éclairage</b> : lampe, lentille du collecteur, diaphragme de champ, verre protecteur avec porte-filtre.</li>
+<li><b>Corps</b> (statif) : bras et socle, qui reçoivent tous les autres éléments.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Avec un objectif 10× et un oculaire 10×, l'objet est grossi 100 fois : pratique pour repérer une zone de lame. Pour regarder les globules d'un frottis, on passe à l'objectif à immersion 100× avec une goutte d'huile : 100 × 10 = 1 000 fois.</p>
+
+<h2>Formules clés</h2>
+\[ G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \]
+<p>Objectif : image réelle, renversée, agrandie. Oculaire : loupe, image virtuelle.</p>
+<p>Revolver : 3 à 5 objectifs. Condenseur et diaphragme : la lumière sur l'échantillon. Macro et micrométrique : la mise au point.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/microscope-optique.js"></script>
+</body>
+</html>

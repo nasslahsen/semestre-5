@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le cycle de vie d'un équipement · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le cycle de vie d'un équipement</h1>
+<p class="chapeau">Pour l'ingénieur biomédical, le laboratoire est une infrastructure technique critique : équipements, énergie, eau, réseau, qualité, sécurité. Chaque résultat de patient doit reposer sur un système fiable, maîtrisé et documenté, et pas seulement sur un appareil qui fonctionne. Cela commence bien avant l'achat d'un analyseur et finit après son retrait.</p>
+
+<h2>Intuition</h2>
+<p>Un analyseur n'apparaît pas par magie sur la paillasse. On exprime un besoin, on choisit, on installe, on vérifie qu'il est bien installé et qu'il mesure juste, on le met en service, on l'entretient pendant des années, et un jour on le retire. À chaque étape, un document garde la trace de ce qui a été fait.</p>
+
+<div id="fig-cycle-vie"></div>
+
+<h2>Formalisation</h2>
+<h3>Du besoin au décommissionnement</h3>
+<ol>
+<li><b>Besoin</b> : cahier des charges utilisateur (URS).</li>
+<li><b>Sélection</b>.</li>
+<li><b>Installation</b>.</li>
+<li><b>Qualification</b>.</li>
+<li><b>Vérification des performances</b>.</li>
+<li><b>Mise en service</b>.</li>
+<li><b>Maintenance et métrologie</b>.</li>
+<li><b>Décommissionnement</b>.</li>
+</ol>
+<p>Principe directeur : un équipement <b>adapté</b>, puis <b>correctement installé</b>, puis <b>fonctionnel</b>, puis <b>performant</b>, puis <b>maintenu</b>, avec la traçabilité tout du long. Documentation associée : manuel, procédures (SOP), qualification, calibration, contrôle de qualité, maintenance, pannes.</p>
+<h3>Ce que l'ingénieur biomédical apporte à l'ISO 15189</h3>
+<p>L'<strong>ISO 15189:2022</strong> est le référentiel central : qualité et compétence des laboratoires médicaux, du personnel aux processus pré- et post-analytiques. Côté biomédical, elle demande : installation et qualification des équipements ; maintenance préventive et corrective ; suivi des performances analytiques ; métrologie et étalonnage ; historique complet des interventions. Ses autres volets : le personnel (compétence, qualification, formation continue), les locaux (environnement maîtrisé), les réactifs et processus (chaîne pré- et post-analytique documentée), la traçabilité et les risques (non-conformités, amélioration continue).</p>
+<h3>Norme, bonnes pratiques, réglementation</h3>
+<p>Trois textes encadrent le laboratoire : l'ISO 15189 (qualité, compétence et processus), le GBEA (bonnes pratiques d'exécution des analyses) et la réglementation marocaine (exigences légales et réglementaires applicables). Point clé : une norme ISO, un référentiel de bonnes pratiques et une obligation réglementaire ne sont pas juridiquement équivalents.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un laboratoire remplace son automate de coagulation. Il rédige d'abord ses besoins (URS : débit, tests, connexion au LIS), compare les offres et choisit. Après l'installation, la qualification vérifie que l'appareil est installé conformément ; la vérification des performances montre qu'il mesure juste sur des échantillons connus ; alors seulement il est mis en service. L'ancien automate est décommissionné, et son dossier (manuel, interventions, pannes) est archivé.</p>
+
+<h2>Formules clés</h2>
+<p>Besoin (URS), sélection, installation, qualification, vérification des performances, mise en service, maintenance et métrologie, décommissionnement.</p>
+<p>Adapté, installé, fonctionnel, performant, maintenu ; traçabilité.</p>
+<p>ISO 15189, GBEA, réglementation marocaine : pas juridiquement équivalents.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/cycle-vie.js"></script>
+</body>
+</html>

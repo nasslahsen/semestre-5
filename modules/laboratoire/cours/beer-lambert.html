@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La loi de Beer-Lambert · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La loi de Beer-Lambert</h1>
+<p class="chapeau">La photométrie est la méthode la plus fondamentale et la plus utilisée en biochimie clinique. Le glucose, les protéines totales, le cholestérol se dosent ainsi : la réaction donne une couleur, et la quantité de lumière absorbée dit combien il y a de substance. Encore faut-il savoir relier les deux.</p>
+
+<h2>Intuition</h2>
+<p>Regarde une lampe à travers un verre de sirop : plus le sirop est concentré, plus la lumière qui passe est faible ; à concentration égale, un verre deux fois plus large l'atténue davantage. On compare donc ce qui sort de la cuve à ce qui y entre. Le rapport des deux ne varie pas en proportion de la concentration, mais son logarithme, si : c'est l'absorbance.</p>
+
+<div id="fig-beer-lambert"></div>
+
+<h2>Formalisation</h2>
+<h3>Transmittance et absorbance</h3>
+<p>La <strong>transmittance</strong> \(T\) est la fraction du rayonnement incident, de longueur d'onde déterminée, qui traverse l'échantillon :</p>
+\[ T = \frac{I_t}{I_0} \]
+<p>avec \(I_t\) l'intensité du rayonnement transmis et \(I_0\) celle du rayonnement incident. L'<strong>absorbance</strong> \(A\) s'en déduit :</p>
+\[ A = \log_{10} \frac{1}{T} = \log_{10} \frac{I_0}{I_t} \]
+<h3>La loi</h3>
+<p>Lorsqu'un faisceau de lumière monochromatique traverse une solution colorée, l'absorbance est proportionnelle à la concentration de la substance absorbante et à la longueur du trajet optique :</p>
+\[ A = \varepsilon \times l \times c \]
+<p>avec \(\varepsilon\) le coefficient d'absorption molaire (en L·mol⁻¹·cm⁻¹), qui dépend de la substance et de la longueur d'onde incidente, \(l\) la longueur du trajet optique (en cm) et \(c\) la concentration (en mol/L). Si la concentration augmente, la transmittance diminue et l'absorbance augmente.</p>
+<h3>Validité</h3>
+<p>La loi s'applique pour des radiations monochromatiques, et pour des solutions suffisamment diluées pour ne pas modifier les propriétés des molécules (association, complexation).</p>
+<h3>Principaux modes de mesure</h3>
+<ul>
+<li><b>Point final</b> : on lit l'absorbance quand elle ne change plus, après l'équilibre de la réaction ; pour le glucose, les protéines totales, le cholestérol. La méthode en point final à deux points élimine l'interférence de la couleur propre de l'échantillon.</li>
+<li><b>Cinétique</b> (méthode de vitesse) : on suit en continu la vitesse de variation de l'absorbance pendant la phase linéaire de la réaction ; pour l'activité des enzymes (ALT, AST, LDH).</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une solution laisse passer 40 % de la lumière : \(T = 0{,}40\) et \(A = \log_{10}(1/0{,}40) \approx 0{,}40\). Avec \(\varepsilon = 8\,000\) L·mol⁻¹·cm⁻¹ et une cuve de 1 cm, \(c = \dfrac{A}{\varepsilon \, l} = \dfrac{0{,}40}{8\,000} = 5 \times 10^{-5}\) mol/L.</p>
+<p>Avec un étalon mesuré dans les mêmes conditions (même réaction, même cuve, même longueur d'onde), on n'a pas besoin de \(\varepsilon\) : un étalon à 4 mmol/L donne \(A = 0{,}32\), un échantillon donne \(A = 0{,}48\), donc \(c = 4 \times \dfrac{0{,}48}{0{,}32} = 6\) mmol/L.</p>
+
+<h2>Formules clés</h2>
+\[ T = \frac{I_t}{I_0} \qquad A = \log_{10}\frac{1}{T} = \log_{10}\frac{I_0}{I_t} = \varepsilon \times l \times c \]
+<p>Valide en lumière monochromatique et en solution diluée.</p>
+<p>Point final : glucose, protéines totales, cholestérol (deux points : contre la couleur propre). Cinétique : enzymes (ALT, AST, LDH).</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/beer-lambert.js"></script>
+</body>
+</html>

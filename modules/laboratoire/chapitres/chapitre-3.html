@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Technologies de biochimie clinique</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 3. -->
+<main class="cours-chapitre" data-chapitre="3">
+<p class="etiquette" data-etiquette></p>
+<h1>Technologies de biochimie clinique</h1>
+
+<section class="partie" id="s-lumiere-absorbance">
+<p class="rang-partie">1 / 5</p>
+<h2>La lumière et l'absorbance</h2>
+
+<article class="notion" id="n-lumiere">
+<h3>La lumière et la matière</h3>
+<p class="chapeau">La biochimie clinique repose sur des méthodes physico-chimiques, des méthodes optiques classiques aux automates modernes. Presque toutes commencent de la même façon : on envoie de la lumière dans un échantillon et on regarde ce qui en ressort. Avant de mesurer, il faut savoir ce qu'est cette lumière et ce qu'une molécule lui fait.</p>
+
+<h4>Intuition</h4>
+<p>Une solution de sang dilué paraît rouge parce qu'elle absorbe d'autres couleurs et laisse passer le rouge. Chaque molécule « mange » certaines longueurs d'onde et pas d'autres : c'est une signature. En choisissant la bonne longueur d'onde, on voit la molécule qu'on cherche ; en mesurant combien de lumière elle absorbe, on saura bientôt combien il y en a.</p>
+
+<div id="fig-lumiere"></div>
+
+<h4>Formalisation</h4>
+<h5>La lumière, une onde</h5>
+<p>La <strong>lumière</strong> est un rayonnement électromagnétique qui peut produire une sensation visuelle. Une onde est caractérisée par sa longueur d'onde \(\lambda\) (en nm), sa fréquence \(\nu\) (en s⁻¹ ou Hz) et sa période \(T\) (en s), l'équivalent temporel de la longueur d'onde :</p>
+\[ \nu = \frac{1}{T} = \frac{C}{\lambda} \qquad \lambda = \frac{C}{\nu} \]
+<p>avec \(C \approx 3 \times 10^{8}\) m/s, la vitesse de la lumière dans le vide. Le visible va d'environ 400 nm (violet) à 700 nm (rouge) ; en dessous, l'ultraviolet (UV), au-dessus, l'infrarouge (IR). Dans un milieu transparent, la lumière va un peu moins vite :</p>
+\[ V_0 = \frac{C}{N} \]
+<p>où \(N\) est l'indice de réfraction du milieu, en général entre 1,0 et 2,5.</p>
+<h5>Interaction rayonnement matière</h5>
+<p>Quand un rayonnement traverse de la matière (solide, liquide ou gaz), certaines longueurs d'onde sont absorbées de manière sélective. Une entité chimique qui absorbe un photon voit son énergie augmenter : elle passe à un état excité. Le retour à l'état fondamental se fait par émission de chaleur ou de lumière (fluorescence).</p>
+<p>Le rayonnement incident \(I_0\) peut être réfléchi (\(I_r\)), transmis (\(I_t\)), diffusé (\(I_d\)), absorbé, ou absorbé puis réémis en fluorescence (\(I_f\)).</p>
+<h5>Niveaux d'énergie d'une molécule</h5>
+\[ E = E_r + E_v + E_e \qquad E_e \gg E_v \gg E_r \]
+<p>avec l'énergie de rotation \(E_r\), de vibration \(E_v\) et électronique \(E_e\). Les transitions électroniques correspondent à l'UV et au visible, les transitions vibrationnelles à l'infrarouge, les transitions rotationnelles aux hyperfréquences.</p>
+<h5>Spectre d'absorption</h5>
+<p>Le <strong>spectre</strong> UV-visible est le tracé de l'absorbance en fonction de la longueur d'onde (en nm). Pour l'obtenir, il faut un spectrophotomètre.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une radiation de fréquence \(\nu = 5 \times 10^{14}\) Hz a pour longueur d'onde \(\lambda = \dfrac{3 \times 10^{8}}{5 \times 10^{14}} = 6 \times 10^{-7}\) m, soit 600 nm : dans le visible, vers l'orange. Dans un verre d'indice 1,6, cette lumière va à \(\dfrac{3 \times 10^{8}}{1{,}6} \approx 1{,}9 \times 10^{8}\) m/s.</p>
+
+<h4>Formules clés</h4>
+\[ \nu = \frac{1}{T} = \frac{C}{\lambda} \qquad V_0 = \frac{C}{N} \qquad E = E_r + E_v + E_e,\ E_e \gg E_v \gg E_r \]
+<p>Visible : 400 à 700 nm ; UV en dessous, IR au-dessus.</p>
+<p>Lumière incidente : réfléchie, transmise, diffusée, absorbée, réémise en fluorescence.</p>
+</article>
+
+<article class="notion" id="n-beer-lambert">
+<h3>La loi de Beer-Lambert</h3>
+<p class="chapeau">La photométrie est la méthode la plus fondamentale et la plus utilisée en biochimie clinique. Le glucose, les protéines totales, le cholestérol se dosent ainsi : la réaction donne une couleur, et la quantité de lumière absorbée dit combien il y a de substance. Encore faut-il savoir relier les deux.</p>
+
+<h4>Intuition</h4>
+<p>Regarde une lampe à travers un verre de sirop : plus le sirop est concentré, plus la lumière qui passe est faible ; à concentration égale, un verre deux fois plus large l'atténue davantage. On compare donc ce qui sort de la cuve à ce qui y entre. Le rapport des deux ne varie pas en proportion de la concentration, mais son logarithme, si : c'est l'absorbance.</p>
+
+<div id="fig-beer-lambert"></div>
+
+<h4>Formalisation</h4>
+<h5>Transmittance et absorbance</h5>
+<p>La <strong>transmittance</strong> \(T\) est la fraction du rayonnement incident, de longueur d'onde déterminée, qui traverse l'échantillon :</p>
+\[ T = \frac{I_t}{I_0} \]
+<p>avec \(I_t\) l'intensité du rayonnement transmis et \(I_0\) celle du rayonnement incident. L'<strong>absorbance</strong> \(A\) s'en déduit :</p>
+\[ A = \log_{10} \frac{1}{T} = \log_{10} \frac{I_0}{I_t} \]
+<h5>La loi</h5>
+<p>Lorsqu'un faisceau de lumière monochromatique traverse une solution colorée, l'absorbance est proportionnelle à la concentration de la substance absorbante et à la longueur du trajet optique :</p>
+\[ A = \varepsilon \times l \times c \]
+<p>avec \(\varepsilon\) le coefficient d'absorption molaire (en L·mol⁻¹·cm⁻¹), qui dépend de la substance et de la longueur d'onde incidente, \(l\) la longueur du trajet optique (en cm) et \(c\) la concentration (en mol/L). Si la concentration augmente, la transmittance diminue et l'absorbance augmente.</p>
+<h5>Validité</h5>
+<p>La loi s'applique pour des radiations monochromatiques, et pour des solutions suffisamment diluées pour ne pas modifier les propriétés des molécules (association, complexation).</p>
+<h5>Principaux modes de mesure</h5>
+<ul>
+<li><b>Point final</b> : on lit l'absorbance quand elle ne change plus, après l'équilibre de la réaction ; pour le glucose, les protéines totales, le cholestérol. La méthode en point final à deux points élimine l'interférence de la couleur propre de l'échantillon.</li>
+<li><b>Cinétique</b> (méthode de vitesse) : on suit en continu la vitesse de variation de l'absorbance pendant la phase linéaire de la réaction ; pour l'activité des enzymes (ALT, AST, LDH).</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une solution laisse passer 40 % de la lumière : \(T = 0{,}40\) et \(A = \log_{10}(1/0{,}40) \approx 0{,}40\). Avec \(\varepsilon = 8\,000\) L·mol⁻¹·cm⁻¹ et une cuve de 1 cm, \(c = \dfrac{A}{\varepsilon \, l} = \dfrac{0{,}40}{8\,000} = 5 \times 10^{-5}\) mol/L.</p>
+<p>Avec un étalon mesuré dans les mêmes conditions (même réaction, même cuve, même longueur d'onde), on n'a pas besoin de \(\varepsilon\) : un étalon à 4 mmol/L donne \(A = 0{,}32\), un échantillon donne \(A = 0{,}48\), donc \(c = 4 \times \dfrac{0{,}48}{0{,}32} = 6\) mmol/L.</p>
+
+<h4>Formules clés</h4>
+\[ T = \frac{I_t}{I_0} \qquad A = \log_{10}\frac{1}{T} = \log_{10}\frac{I_0}{I_t} = \varepsilon \times l \times c \]
+<p>Valide en lumière monochromatique et en solution diluée.</p>
+<p>Point final : glucose, protéines totales, cholestérol (deux points : contre la couleur propre). Cinétique : enzymes (ALT, AST, LDH).</p>
+</article>
+
+<div class="fin-partie" data-section="lumiere-absorbance"></div>
+</section>
+
+<section class="partie" id="s-spectrophotometre">
+<p class="rang-partie">2 / 5</p>
+<h2>Le spectrophotomètre</h2>
+
+<article class="notion" id="n-spectrophotometre">
+<h3>Le spectrophotomètre</h3>
+<p class="chapeau">Le spectrophotomètre est l'un des principaux appareils du laboratoire, en diagnostic comme en recherche. Il met la loi de Beer-Lambert en pratique : choisir une longueur d'onde, faire traverser l'échantillon, mesurer ce qui ressort. Chaque élément de l'appareil a son rôle, et chacun a ses précautions.</p>
+
+<h4>Intuition</h4>
+<p>Il faut une lumière, une façon de n'en garder qu'une couleur, un support transparent pour l'échantillon, un capteur qui transforme la lumière en courant, et un affichage. Le reste est une affaire de choix : une lampe pour l'UV ou pour le visible, une cuve qui ne bloque pas la longueur d'onde utilisée, un capteur plus ou moins sensible.</p>
+
+<div id="fig-spectrophotometre"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition et usage</h5>
+<p>La lumière émise par une lampe passe par un dispositif qui sélectionne une longueur d'onde déterminée, puis traverse l'échantillon. L'intensité qui sort est capturée et comparée à celle qui est entrée. Le <strong>spectrophotomètre</strong> sert à déterminer la présence ou la concentration d'une substance dans une solution : analyse qualitative ou quantitative.</p>
+<h5>Les éléments</h5>
+<ol>
+<li><b>Source lumineuse</b> : lampe au tungstène pour le visible (350 à 800 nm) ; lampe à arc au deutérium pour l'ultraviolet (190 à 400 nm) ; certains fabricants utilisent des lampes au xénon de longue durée, en lumière pulsée, dans le visible et l'UV.</li>
+<li><b>Monochromateur</b> : disperse la lumière blanche en radiations de différentes longueurs d'onde, dont une seule sert à la lecture. Il a une fente d'entrée, un jeu de miroirs, un élément qui sépare les radiations (dispersion par un prisme, ou diffraction par un réseau ou un cristal) et une fente de sortie, dont la position sur le spectre étalé choisit la longueur d'onde.</li>
+<li><b>Porte-échantillons</b> : en général une cuve rectangulaire, en plastique ou en verre pour le visible, en quartz pour l'UV (220 et 340 nm) ; il existe aussi des cuves et des microplaques à usage unique en plastique (styrène, polystyrène, en ELISA).</li>
+<li><b>Système détecteur</b> : transforme la lumière transmise en signal électrique. Photodiode : un photon crée une paire électron-trou dans un semi-conducteur, leur nombre suit la quantité de lumière. Barrette de diodes : mesure simultanée sur tout le spectre ; une barrette CCD aligne de petites photodiodes (14 µm × 14 µm). Photomultiplicateur : le photon arrache un électron à la cathode, qui est accéléré vers des dynodes et en arrache d'autres ; jusqu'à \(10^{6}\) électrons sur l'anode pour un électron arraché.</li>
+<li><b>Système de lecture</b> : les lectures analogiques sont beaucoup moins précises que les lectures numériques.</li>
+</ol>
+<h5>Simple ou double faisceau</h5>
+<p><b>Simple faisceau</b> : un seul trajet, de la source au détecteur, à travers la cuve. <b>Double faisceau</b> : un système diviseur (miroir tournant ou vibrant) envoie la lumière alternativement à travers la référence et à travers l'essai, et le même photodétecteur les reçoit tour à tour.</p>
+<h5>Installation</h5>
+<p>Alimentation électrique aux normes nationales (220 à 230 V, 50/60 Hz) ; environnement propre, sans poussière ; table stable, à l'écart des appareils qui vibrent (centrifugeuses, agitateurs).</p>
+<h5>Entretien</h5>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Une fois par an</td><td>Inspection de l'environnement : prise reliée à la terre, en bon état, à moins de 1,5 m de l'appareil ; tension à moins de 5 % de celle de la plaque de l'appareil.</td></tr>
+<tr><td>Tous les six mois</td><td>Inspection visuelle de l'état et de l'intégrité des éléments.</td></tr>
+<tr><td>Entretien général</td><td>Cuves en quartz : laver avec une solution alcaline diluée (NaOH 0,1 M) et un acide dilué (HCl 0,1 M), rincer plusieurs fois à l'eau distillée. Piles de la mémoire (date, heure). Lampe : consommable à durée de vie limitée.</td></tr>
+<tr><td>Préventif</td><td>Nettoyer l'extérieur ; inspecter le câble ; vérifier la lampe et le fusible ; allumer et laisser chauffer 5 minutes, vérifier voyants, zéro, source ; tests de courant de fuite, de terre et de polarité.</td></tr>
+</table></div>
+<h5>Bonnes pratiques</h5>
+<ul>
+<li>Étalonner à chaque nouvelle série d'échantillons.</li>
+<li>Fermer le couvercle du porte-échantillons pendant la mesure.</li>
+<li>Ne pas réutiliser les cuves à usage unique.</li>
+<li>Uniquement des cuves en quartz en dessous de 310 nm.</li>
+<li>Pas de cuves en plastique avec des solvants organiques.</li>
+<li>Préparer les étalons dans de la verrerie en verre borosilicaté de qualité supérieure.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour lire une absorbance à 280 nm, on est dans l'UV : lampe au deutérium, et cuve en quartz puisqu'on est sous 310 nm. Pour un dosage coloré lu à 505 nm, la lampe au tungstène et une cuve en plastique suffisent, sauf si l'échantillon contient un solvant organique.</p>
+
+<h4>Formules clés</h4>
+<p>Source, monochromateur, porte-échantillons, détecteur, lecture.</p>
+<p>Tungstène : visible, 350 à 800 nm. Deutérium : UV, 190 à 400 nm. Quartz obligatoire sous 310 nm.</p>
+<p>Photodiode, barrette de diodes (CCD), photomultiplicateur (jusqu'à \(10^{6}\) électrons par électron arraché).</p>
+<p>Prise à moins de 1,5 m, tension à ± 5 % ; inspection de l'environnement une fois par an, visuelle tous les six mois.</p>
+</article>
+
+<div class="fin-partie" data-section="spectrophotometre"></div>
+</section>
+
+<section class="partie" id="s-trouble-ions">
+<p class="rang-partie">3 / 5</p>
+<h2>Mesurer un trouble, mesurer des ions</h2>
+
+<article class="notion" id="n-turbidimetrie">
+<h3>Turbidimétrie et néphélométrie</h3>
+<p class="chapeau">La CRP, les immunoglobulines, la transferrine ne donnent pas de couleur. Mais si on les met en présence de leurs anticorps, elles forment des complexes qui troublent la solution. Ce trouble, la lumière le voit.</p>
+
+<h4>Intuition</h4>
+<p>Un phare dans le brouillard : de face, on le voit moins bien, parce que les gouttelettes renvoient la lumière dans tous les sens ; de côté, on voit le faisceau briller dans le brouillard. On peut donc mesurer un trouble de deux façons : en face, ce qui manque à la lumière qui passe ; de côté, ce qui est renvoyé.</p>
+
+<div id="fig-turbidimetrie"></div>
+
+<h4>Formalisation</h4>
+<h5>Principes</h5>
+<p>Les deux méthodes reposent sur la diffusion ou la transmission de la lumière par les microparticules formées après la réaction antigène-anticorps.</p>
+<ul>
+<li>La <strong>turbidimétrie</strong> mesure la diminution de la lumière transmise due à la diffusion, c'est-à-dire l'augmentation de l'absorbance.</li>
+<li>La <strong>néphélométrie</strong> mesure l'intensité de la lumière diffusée à un certain angle par rapport à la lumière incidente (généralement en angle frontal).</li>
+</ul>
+<h5>Applications cliniques</h5>
+<p>Principalement le dosage des protéines spécifiques sériques : immunoglobulines, complément, apolipoprotéines, protéine C-réactive, préalbumine, haptoglobine, transferrine.</p>
+<h5>Effet crochet</h5>
+<p>La méthode nécessite une calibration multipoint et une régression non linéaire : un excès d'antigène peut provoquer un <strong>effet crochet</strong>, où une concentration antigénique trop élevée entraîne paradoxalement une diminution du signal.</p>
+<h5>Points techniques</h5>
+<p>La turbidimétrie se mesure généralement à 340 nm ou dans la région bleue (435 à 480 nm), avec des agents renforçateurs comme le polyéthylène glycol, qui favorisent la formation stable des complexes immuns.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux sérums donnent le même signal. Le premier est réellement à concentration moyenne ; le second est si riche en antigène qu'il est passé de l'autre côté du sommet de la courbe. Le signal seul ne permet pas de les distinguer : c'est pourquoi la courbe de calibration n'est pas une droite, et pourquoi l'effet crochet doit être connu de qui interprète.</p>
+
+<h4>Formules clés</h4>
+<p>Turbidimétrie : lumière transmise diminuée (absorbance augmentée), à 340 nm ou 435 à 480 nm.</p>
+<p>Néphélométrie : lumière diffusée, mesurée à un angle.</p>
+<p>Protéines spécifiques : immunoglobulines, complément, apolipoprotéines, CRP, préalbumine, haptoglobine, transferrine.</p>
+<p>Excès d'antigène : effet crochet, signal paradoxalement diminué ; calibration multipoint, régression non linéaire.</p>
+</article>
+
+<article class="notion" id="n-potentiometrie">
+<h3>Potentiométrie et électrolytes</h3>
+<p class="chapeau">Le sodium, le potassium, le chlorure ne donnent ni couleur ni trouble. Pour les doser, on ne mesure pas de lumière mais une tension : celle qui apparaît entre une électrode sensible à un seul ion et une électrode de référence.</p>
+
+<h4>Intuition</h4>
+<p>Une membrane qui ne laisse interagir qu'un seul ion se charge plus ou moins selon la quantité de cet ion autour d'elle. La tension qui en résulte ne suit pas la concentration en ligne droite : elle augmente d'un même pas chaque fois que la concentration est multipliée par dix. C'est une réponse logarithmique, comme une échelle de décibels.</p>
+
+<div id="fig-potentiometrie"></div>
+
+<h4>Formalisation</h4>
+<h5>Électrodes sélectives</h5>
+<p>Les <strong>électrodes sélectives aux ions</strong> (ISE) sont des capteurs qui produisent une réponse potentiométrique sélective à un ion donné. Au contact d'une solution contenant l'ion à doser, le potentiel de membrane varie en fonction logarithmique de l'activité ionique, selon l'équation de Nernst, telle que l'écrit le cours :</p>
+\[ E = E^{0} + \frac{RT}{nF} \times \log(\gamma \times C) \]
+<p>avec \(E\) le potentiel d'électrode, \(E^{0}\) le potentiel standard, \(R\) la constante des gaz parfaits, \(T\) la température absolue, \(n\) la charge de l'ion, \(F\) la constante de Faraday, \(\gamma\) le coefficient d'activité et \(C\) la concentration.</p>
+<p>Rappel : dans cette formule, \(\log\) est le logarithme népérien. Avec le logarithme décimal, le facteur devient \(\dfrac{RT \ln 10}{nF}\), soit environ 59 mV par décade de concentration à 25 °C pour un ion de charge 1 (\(R = 8{,}314\) J·mol⁻¹·K⁻¹, \(F = 96\,485\) C·mol⁻¹).</p>
+<h5>Types d'électrodes</h5>
+<ul>
+<li>Électrode à sodium : membrane de verre ou membrane liquide sensible à Na⁺.</li>
+<li>Électrode à potassium : membrane à la valinomycine, hautement sélective pour K⁺.</li>
+<li>Électrode à chlorure : membrane échangeuse d'ions.</li>
+<li>Électrode de référence : argent / chlorure d'argent à double jonction, qui fournit une tension de référence stable.</li>
+</ul>
+<h5>Analyse des électrolytes</h5>
+<p>Intervalles de référence (sérum ou plasma) donnés par le cours :</p>
+<div class="tableau"><table>
+<tr><th>Ion</th><th>Intervalle (mmol/L)</th></tr>
+<tr><td>Na⁺</td><td>135 à 148</td></tr>
+<tr><td>K⁺</td><td>3,5 à 5,3</td></tr>
+<tr><td>Cl⁻</td><td>98 à 107</td></tr>
+<tr><td>Li⁺</td><td>0,30 à 1,20</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>À 25 °C (298,15 K), pour un ion de charge 1, la pente vaut \(\dfrac{8{,}314 \times 298{,}15 \times \ln 10}{96\,485} \approx 0{,}0592\) V, soit 59,2 mV par décade. Si la concentration est multipliée par 4, le potentiel augmente de \(59{,}2 \times \log_{10} 4 \approx 35{,}6\) mV.</p>
+
+<h4>Formules clés</h4>
+\[ E = E^{0} + \frac{RT}{nF} \ln(\gamma C) = E^{0} + \frac{RT\ln 10}{nF}\log_{10}(\gamma C) \]
+<p>Environ 59 mV par décade à 25 °C pour n = 1 ; deux fois moins pour n = 2.</p>
+<p>Na⁺ : verre ou membrane liquide. K⁺ : valinomycine. Cl⁻ : échangeuse d'ions. Référence : Ag/AgCl à double jonction.</p>
+<p>Na⁺ 135 à 148 ; K⁺ 3,5 à 5,3 ; Cl⁻ 98 à 107 ; Li⁺ 0,30 à 1,20 mmol/L.</p>
+</article>
+
+<div class="fin-partie" data-section="trouble-ions"></div>
+</section>
+
+<section class="partie" id="s-automates">
+<p class="rang-partie">4 / 5</p>
+<h2>Les automates et leur calibration</h2>
+
+<article class="notion" id="n-automates-biochimie">
+<h3>Les automates de biochimie</h3>
+<p class="chapeau">La biochimie clinique analyse les molécules des liquides biologiques (ions, protides, lipides, enzymes, hormones) pour caractériser l'origine d'une maladie. C'est une discipline qui a connu une grande révolution de l'automatisation : un automate enchaîne pour des centaines de tubes ce qu'on ferait à la main avec une pipette et un spectrophotomètre.</p>
+
+<h4>Intuition</h4>
+<p>Doser du glucose à la main : pipeter l'échantillon, ajouter le réactif, mélanger, attendre à 37 °C, lire l'absorbance, laver la cuve. Un automate fait exactement ces gestes, mais chacun est confié à une unité : un carrousel pour les tubes, un pour les réactifs, des pompes, un agitateur, un carrousel de réaction chauffé, un photomètre, une station de lavage.</p>
+
+<div id="fig-automates-biochimie"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition et usages</h5>
+<p>Les <strong>analyseurs de chimie</strong> mesurent la concentration de substances dans le sang ou d'autres liquides biologiques par des réactions chimiques spécifiques, lues par des méthodes photométriques. Ils dosent les substrats (glucose, urée, cholestérol), les enzymes (transaminases, phosphatases), les électrolytes (Na⁺, K⁺, Cl⁻), des médicaments (lithium, phénobarbital) et des substances de toxicologie, dans le sang, le sérum, le plasma, l'urine, le LCR et la sueur.</p>
+<h5>Chimie sèche, chimie liquide</h5>
+<ul>
+<li><b>Chimie sèche</b> : un photomètre à réflectance mesure la couleur d'une réaction sur une bandelette réactive (ou bâtonnet, ou patch). Plus la substance est concentrée, plus la coloration est intense. La source est en général une ou plusieurs LED de longueurs d'onde spécifiques (par exemple 567, 642 ou 951 nm) ; la mesure peut se faire dans une sphère d'Ulbricht (sphère d'intégration), avec une photodiode de référence et une photodiode de mesure. Exemple cité : VITROS (Ortho Clinical Diagnostics).</li>
+<li><b>Chimie liquide</b> : un spectrophotomètre mesure l'absorption de la lumière par l'échantillon liquide, d'après la loi de Beer-Lambert. Source : lampe halogène munie de filtres, ou LED sur les modèles récents. Mesures classiquement entre 304 et 670 nm ; certains appareils font des mesures cinétiques. Exemple cité : Architect (Abbott).</li>
+</ul>
+<h5>Architecture d'un automate de chimie clinique</h5>
+<div class="tableau"><table>
+<tr><th>Unité</th><th>Fonction</th></tr>
+<tr><td>Carrousel d'échantillons (ASP)</td><td>Charge les tubes, les amène à la position d'aspiration</td></tr>
+<tr><td>Carrousel de réactifs (RCU)</td><td>Charge les flacons de réactifs, conservation réfrigérée</td></tr>
+<tr><td>Pompe d'échantillonnage (SPP)</td><td>Aspiration précise de l'échantillon et de l'eau pure</td></tr>
+<tr><td>Pompe de réactifs (RPP)</td><td>Aspiration précise des réactifs</td></tr>
+<tr><td>Carrousel de réaction</td><td>Support des cuves photométriques, maintien à 37 °C</td></tr>
+<tr><td>Unité d'agitation (MIX)</td><td>Homogénéisation de l'échantillon et des réactifs</td></tr>
+<tr><td>Détection photométrique</td><td>Photomètre, filtres multi-longueurs d'onde (340 à 620 nm)</td></tr>
+<tr><td>Unité de lavage (WU)</td><td>Lavage des cuves, évaluation de la propreté optique</td></tr>
+</table></div>
+<h5>Installation</h5>
+<p>À l'écart de la lumière solaire directe, de toute lumière parasite et des sources de chaleur ; prise reliée à la terre ; en général 220 à 230 V, 50 Hz ; stabilisateur de tension pour les appareils sur secteur ; suivre les spécifications du fabricant ; garder l'emballage d'origine.</p>
+<h5>Utilisation</h5>
+<p><b>Chimie sèche</b> : allumer, attendre le chauffage (15 minutes, ou l'indication READ) ; déposer l'échantillon (par exemple 50 µL, sans bulles) au centre de la zone réactive, sans toucher la bandelette avec la pointe ; insérer la bandelette jusqu'au déclic, fermer : l'appareil lit le code du test (GLU pour le glucose) et affiche le délai ; résultat en mg/L, g/L ou mg/dL ; retirer la bandelette.</p>
+<p><b>Chimie liquide</b> : personnel qualifié et autorisé seulement ; préparer sur un portoir le blanc, les étalons et les solutions à analyser ; faire d'abord une mesure à blanc, puis chaque tube ; enregistrer les résultats.</p>
+<h5>Entretien courant</h5>
+<p>Une fois par jour : nettoyer toute éclaboussure ; éteindre en fin de journée ; chimie sèche, ne pas laisser de bandelette dans l'appareil et nettoyer la fenêtre ; chimie liquide, vider et fermer le compartiment échantillon ; couvrir, ranger à l'abri de la poussière. Tous les six mois : inspection visuelle des éléments, boutons, accessoires, fixations, câbles, mise à la terre, fusibles ; alignement de la lampe si le fabricant le recommande.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour une urée en chimie liquide, le tube passe du carrousel d'échantillons à la pompe SPP, qui en dépose quelques microlitres dans une cuve du carrousel de réaction ; la pompe RPP ajoute le réactif pris dans le carrousel réfrigéré ; l'unité MIX mélange ; à 37 °C la réaction avance et le photomètre lit l'absorbance à la longueur d'onde du test ; enfin l'unité de lavage nettoie la cuve et vérifie sa propreté optique pour le test suivant.</p>
+
+<h4>Formules clés</h4>
+<p>Chimie sèche : réflectance sur bandelette, LED, sphère d'Ulbricht. Chimie liquide : absorbance, Beer-Lambert, 304 à 670 nm.</p>
+<p>ASP, RCU (réfrigéré), SPP, RPP, carrousel de réaction (37 °C), MIX, photomètre (340 à 620 nm), WU.</p>
+<p>Chimie liquide : mesure à blanc d'abord. Entretien : chaque jour, et tous les six mois.</p>
+</article>
+
+<article class="notion" id="n-calibration">
+<h3>Calibration et contrôle des analyseurs</h3>
+<p class="chapeau">Un automate ne mesure pas des concentrations : il mesure des absorbances, des réflectances, des tensions. Pour en tirer un résultat en mmol/L, il lui faut une règle de conversion, établie avec des solutions de concentration connue. Si cette règle est fausse, tous les résultats le sont.</p>
+
+<h4>Intuition</h4>
+<p>On passe quelques solutions dont on connaît la concentration, on note le signal de chacune, et on trace la courbe qui les relie. Ensuite, pour un patient, on lit la courbe à l'envers : tel signal, telle concentration. Avec trois points ou plus, on voit si la relation est une droite ou si elle se courbe.</p>
+
+<div id="fig-calibration"></div>
+
+<h4>Formalisation</h4>
+<h5>Calibration</h5>
+<p>La <strong>calibration</strong> est le processus qui établit la relation entre le signal de mesure et une concentration connue. Les automates de biochimie clinique utilisent en général une calibration multipoint (au moins 3 niveaux de concentration) avec des calibrateurs traçables. La courbe de calibration peut être linéaire ou non linéaire (régression non linéaire pour la turbidimétrie immunologique, par exemple).</p>
+<h5>Calibration et ajustement</h5>
+<p>La calibration détermine la relation entre la valeur indiquée et la valeur standard ; l'<strong>ajustement</strong> consiste à amener l'instrument aux performances spécifiées.</p>
+<h5>Exigence</h5>
+<p>La norme ISO 9001 exige une calibration ou une vérification traçable des équipements de mesure. Pour le spectrophotomètre, la bonne pratique est d'étalonner chaque fois qu'une nouvelle série d'échantillons doit être analysée.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Trois calibrateurs à 2, 4 et 8 mmol/L donnent des absorbances 0,12, 0,24 et 0,48 : les points sont alignés, la pente vaut 0,06 par mmol/L. Un patient donne 0,42 : sa concentration est \(0{,}42 / 0{,}06 = 7\) mmol/L. Si un patient donnait 0,70, au-delà du dernier calibrateur, on ne saurait pas si la droite continue : la courbe n'a été vérifiée qu'entre 2 et 8 mmol/L.</p>
+
+<h4>Formules clés</h4>
+<p>Calibration : relation signal ↔ concentration connue ; multipoint, au moins 3 niveaux ; calibrateurs traçables ; linéaire ou non linéaire.</p>
+<p>Ajustement : ramener l'instrument aux performances spécifiées.</p>
+<p>ISO 9001 : calibration ou vérification traçable. Spectrophotomètre : étalonner à chaque nouvelle série.</p>
+</article>
+
+<div class="fin-partie" data-section="automates"></div>
+</section>
+
+<section class="partie" id="s-eau">
+<p class="rang-partie">5 / 5</p>
+<h2>L'eau du laboratoire</h2>
+
+<article class="notion" id="n-distillateur">
+<h3>Le distillateur</h3>
+<p class="chapeau">Réactifs, rinçages, dilutions : le laboratoire consomme de l'eau en permanence, et l'eau du robinet porte des particules, des ions, des matières organiques, des gaz, des micro-organismes. Plus une technique est spécialisée, plus elle exige une eau pure. Le distillateur est la façon la plus ancienne de l'obtenir.</p>
+
+<h4>Intuition</h4>
+<p>Le distillateur copie le cycle de l'eau. Le soleil chauffe la mer, une partie de l'eau s'évapore et laisse le sel derrière elle ; la vapeur forme des nuages, se refroidit et retombe en pluie. Dans l'appareil, une résistance remplace le soleil, un condenseur refroidi remplace le ciel, et le récipient de stockage recueille la « pluie ».</p>
+
+<div id="fig-distillateur"></div>
+
+<h4>Formalisation</h4>
+<h5>Les impuretés de l'eau</h5>
+<ul>
+<li>Particules en suspension : sable, argile.</li>
+<li>Colloïdes, organiques ou inorganiques ; contrairement aux particules, ils ne se déposent pas par gravité.</li>
+<li>Ions inorganiques : silicates, chlorures, fluorures, bicarbonates, sulfates, phosphates, nitrates.</li>
+<li>Matières organiques dissoutes : protéines, alcools, chloramines, résidus de pesticides, herbicides et détergents.</li>
+<li>Gaz dissous : O₂, N₂, CO₂.</li>
+<li>Micro-organismes : bactéries, virus, parasites.</li>
+</ul>
+<h5>Définition</h5>
+<p>L'<strong>eau distillée</strong> a subi une distillation : elle est théoriquement exempte de certains sels minéraux et organismes de l'eau naturelle. La distillation sépare des substances liquides dont les températures d'ébullition sont différentes. Le <strong>distillateur</strong> purifie l'eau courante par vaporisation puis refroidissement contrôlés. L'eau du laboratoire doit être exempte de pyrogènes, avoir une teneur en solides totaux d'au plus 1 ppm, un pH compris entre 5,4 et 7,2 et une résistivité d'au moins \(3 \times 10^{5}\) Ω·cm à 25 °C.</p>
+<h5>Éléments</h5>
+<ul>
+<li><b>Générateur de vapeur</b> (bouilleur) : récipient qui contient l'eau à distiller, en verre pour les petits appareils, en acier inoxydable revêtu de cuivre pour les grands ; chauffé jusqu'à 100 °C.</li>
+<li><b>Résistances à immersion</b> (thermoplongeurs) : produisent la chaleur quand un courant les traverse.</li>
+<li><b>Jauge de niveau d'eau</b> : remplace dans le bouilleur l'eau évaporée.</li>
+<li><b>Vanne de régulation</b> : dispositif électromécanique qui règle le débit d'eau entrant.</li>
+<li><b>Raccordement au réseau</b> : apporte l'eau liquide au bouilleur.</li>
+<li><b>Arrivée d'eau froide</b> : refroidit la vapeur pour la condenser.</li>
+<li><b>Condenseur</b> : la vapeur y perd son énergie thermique et redevient liquide ; une circulation d'air ou d'eau froide autour du serpentin accélère la condensation (convection forcée).</li>
+<li><b>Récipient à eau distillée</b> : recueille le distillat ; en plastique spécial, pour éviter une contamination par des ions.</li>
+</ul>
+<h5>Installation</h5>
+<p>Local bien ventilé, avec un espace libre autour de l'appareil (il chauffe la pièce) ; raccordement au réseau d'eau potable (tuyau d'environ 1,25 cm) ; système de distribution de l'eau distillée ; tuyau de vidange vers un évier proche ; raccordement électrique avec les dispositifs de sécurité, en général 220 à 240 V, 50/60 Hz.</p>
+<h5>Entretien de routine</h5>
+<p>Appareil éteint et débranché avant toute intervention.</p>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opération</th></tr>
+<tr><td>Une fois par mois</td><td>Inspection et nettoyage du bouilleur : vérifier si les parois ou les résistances sont entartrées, détartrer avec un produit adapté, vidanger jusqu'à environ 10 cm au-dessus de la jauge de niveau ou des résistances.</td></tr>
+<tr><td>Une fois par an</td><td>Nettoyage du condenseur : le déconnecter, le retirer, aspirer la poussière et les impuretés sur les ailettes.</td></tr>
+<tr><td>De temps à autre</td><td>Décontamination du récipient de stockage, par une méthode chimique (eau de Javel ou autre solution chlorée).</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une eau mesurée à 2 × 10⁵ Ω·cm et pH 6,5 respecte le pH (entre 5,4 et 7,2) mais pas la résistivité (au moins 3 × 10⁵ Ω·cm) : trop d'ions sont encore présents. On vérifie alors le bouilleur (tartre) et le récipient de stockage.</p>
+
+<h4>Formules clés</h4>
+<p>Eau du laboratoire : sans pyrogènes, solides totaux ≤ 1 ppm, pH 5,4 à 7,2, résistivité ≥ 3 × 10⁵ Ω·cm à 25 °C.</p>
+<p>Arrivée d'eau → bouilleur (résistances, 100 °C) → vapeur → condenseur (eau froide) → récipient en plastique.</p>
+<p>Chaque mois : bouilleur. Chaque année : condenseur. De temps à autre : récipient, eau de Javel.</p>
+</article>
+
+<article class="notion" id="n-purificateurs">
+<h3>Les purificateurs d'eau</h3>
+<p class="chapeau">Aucune technique ne retire seule toutes les impuretés de l'eau. Un purificateur enchaîne plusieurs technologies, chacune forte contre certains contaminants et aveugle à d'autres. Pour comprendre un système, il faut savoir ce que fait chaque étage, et ce qu'il laisse passer.</p>
+
+<h4>Intuition</h4>
+<p>Un filtre arrête ce qui est plus gros que ses pores, mais pas un ion dissous. Une résine capture les ions, mais pas une bactérie. Le charbon retient le chlore et les matières organiques. On les met donc en série, dans un ordre qui protège les étages fragiles : la purification est un processus pas à pas.</p>
+
+<div id="fig-purificateurs"></div>
+
+<h4>Formalisation</h4>
+<h5>Les technologies</h5>
+<div class="tableau"><table>
+<tr><th>Technologie</th><th>Principe et avantages</th><th>Limites</th></tr>
+<tr><td>Filtration</td><td>Filtres en profondeur (prétraitement, particules de plus de 1 µm) ; filtres à membrane, dits absolus, porosité inférieure à 0,45 µm (souvent 0,2 µm). Fonctionnement efficace, maintenance limitée aux remplacements.</td><td>Colmatage ; n'élimine pas les matières organiques, les nucléases, les pyrogènes, les gaz dissous ni les matières inorganiques dissoutes.</td></tr>
+<tr><td>Ultrafiltration</td><td>Placée en sortie de système ; élimine les pyrogènes (endotoxines bactériennes), les nucléases, les micro-organismes et les particules plus grands que la porosité : essentiel pour la culture cellulaire et tissulaire. Durable.</td><td>N'élimine pas les matières inorganiques, les gaz dissous ni les matières organiques.</td></tr>
+<tr><td>Osmose inverse</td><td>Loi d'osmose inversée, à travers une membrane semi-perméable ; la méthode la plus économique, jusqu'à 99 % des contaminants : bactéries, pyrogènes, 90 à 95 % des ions inorganiques.</td><td>Faible débit (stockage intermédiaire) ; n'élimine pas les gaz dissous ; prétraitement requis contre l'oxydation (chlore), l'entartrage (CaCO₃), le colmatage (organiques, colloïdes), le perçage (particules dures).</td></tr>
+<tr><td>Déionisation</td><td>Échange d'ions : résines cationiques et anioniques, souvent mélangées (lits mélangés, plus efficaces que les lits séparés). Seule technologie capable de la résistivité de l'eau de qualité réactif (type 1) : plus de 18 MΩ·cm.</td><td>Capacité limitée (cartouche à remplacer quand les sites sont occupés) ; n'élimine ni les organiques, ni les particules, ni les pyrogènes, ni les bactéries.</td></tr>
+<tr><td>Électrodéionisation (EDI)</td><td>Un courant électrique régénère les résines en continu ; membranes sélectives entre une anode et une cathode ; les anions migrent vers l'anode, les cations vers la cathode.</td><td>Eau d'alimentation de très bonne qualité exigée ; n'élimine ni les organiques, ni les particules, ni les pyrogènes, ni les bactéries.</td></tr>
+<tr><td>Adsorption</td><td>Charbon actif à grande surface : retient les matières organiques et le chlore ; première ou deuxième étape de la plupart des systèmes, ou dernière, avec les résines, pour un COT très faible. Durable.</td><td>N'élimine ni les ions ni les particules.</td></tr>
+<tr><td>Oxydation aux UV</td><td>Élimine les traces de matières organiques (COT faible) et inactive les micro-organismes : prévient la contamination bactérienne.</td><td>N'élimine ni les ions, ni les colloïdes, ni les particules.</td></tr>
+</table></div>
+<h5>Quelques notions de base</h5>
+<ul>
+<li><strong>Résistivité</strong> : tendance d'une eau sans ions à ne pas conduire l'électricité ; en MΩ·cm ; qualifie l'eau ultrapure ; maximum théorique 18,2 MΩ·cm à 25 °C ; plus il y a d'ions, plus elle est faible ; mesurée par un résistivimètre en ligne.</li>
+<li><strong>Conductivité</strong> : tendance d'une eau chargée en ions à conduire l'électricité ; en µS/cm ; pour l'eau d'alimentation ou une eau de mauvaise qualité ; mesurée par un conductimètre.</li>
+<li><strong>Carbone organique total</strong> (COT) : contaminants organiques, en ppm ou ppb ; eau d'alimentation 2 à 5 ppm, eau ultrapure 1 à 5 ppb ; mesuré par un analyseur en ligne.</li>
+</ul>
+\[ \rho\,(\text{M}\Omega\cdot\text{cm}) = \frac{1}{\sigma\,(\mu\text{S/cm})} \]
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une eau de conductivité 0,25 µS/cm a une résistivité de \(1/0{,}25 = 4\) MΩ·cm : bien purifiée, mais loin des 18,2 MΩ·cm de l'eau ultrapure. Pour gagner les derniers ions, il faut un étage de déionisation.</p>
+
+<h4>Formules clés</h4>
+\[ \rho = \frac{1}{\sigma} \qquad \rho_{\max} = 18{,}2\ \text{M}\Omega\cdot\text{cm à } 25\ {}^\circ\text{C} \]
+<p>Filtration : particules. Ultrafiltration : pyrogènes, nucléases. Osmose inverse : jusqu'à 99 %, pas les gaz. Déionisation et EDI : ions. Adsorption : organiques et chlore. UV : traces organiques, micro-organismes.</p>
+<p>COT : alimentation 2 à 5 ppm, ultrapure 1 à 5 ppb.</p>
+</article>
+
+<div class="fin-partie" data-section="eau"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/lumiere.js"></script>
+<script src="../figures/beer-lambert.js"></script>
+<script src="../figures/spectrophotometre.js"></script>
+<script src="../figures/turbidimetrie.js"></script>
+<script src="../figures/potentiometrie.js"></script>
+<script src="../figures/automates-biochimie.js"></script>
+<script src="../figures/calibration.js"></script>
+<script src="../figures/distillateur.js"></script>
+<script src="../figures/purificateurs.js"></script>
+</body>
+</html>

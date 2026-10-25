@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le spectrophotomètre · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le spectrophotomètre</h1>
+<p class="chapeau">Le spectrophotomètre est l'un des principaux appareils du laboratoire, en diagnostic comme en recherche. Il met la loi de Beer-Lambert en pratique : choisir une longueur d'onde, faire traverser l'échantillon, mesurer ce qui ressort. Chaque élément de l'appareil a son rôle, et chacun a ses précautions.</p>
+
+<h2>Intuition</h2>
+<p>Il faut une lumière, une façon de n'en garder qu'une couleur, un support transparent pour l'échantillon, un capteur qui transforme la lumière en courant, et un affichage. Le reste est une affaire de choix : une lampe pour l'UV ou pour le visible, une cuve qui ne bloque pas la longueur d'onde utilisée, un capteur plus ou moins sensible.</p>
+
+<div id="fig-spectrophotometre"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et usage</h3>
+<p>La lumière émise par une lampe passe par un dispositif qui sélectionne une longueur d'onde déterminée, puis traverse l'échantillon. L'intensité qui sort est capturée et comparée à celle qui est entrée. Le <strong>spectrophotomètre</strong> sert à déterminer la présence ou la concentration d'une substance dans une solution : analyse qualitative ou quantitative.</p>
+<h3>Les éléments</h3>
+<ol>
+<li><b>Source lumineuse</b> : lampe au tungstène pour le visible (350 à 800 nm) ; lampe à arc au deutérium pour l'ultraviolet (190 à 400 nm) ; certains fabricants utilisent des lampes au xénon de longue durée, en lumière pulsée, dans le visible et l'UV.</li>
+<li><b>Monochromateur</b> : disperse la lumière blanche en radiations de différentes longueurs d'onde, dont une seule sert à la lecture. Il a une fente d'entrée, un jeu de miroirs, un élément qui sépare les radiations (dispersion par un prisme, ou diffraction par un réseau ou un cristal) et une fente de sortie, dont la position sur le spectre étalé choisit la longueur d'onde.</li>
+<li><b>Porte-échantillons</b> : en général une cuve rectangulaire, en plastique ou en verre pour le visible, en quartz pour l'UV (220 et 340 nm) ; il existe aussi des cuves et des microplaques à usage unique en plastique (styrène, polystyrène, en ELISA).</li>
+<li><b>Système détecteur</b> : transforme la lumière transmise en signal électrique. Photodiode : un photon crée une paire électron-trou dans un semi-conducteur, leur nombre suit la quantité de lumière. Barrette de diodes : mesure simultanée sur tout le spectre ; une barrette CCD aligne de petites photodiodes (14 µm × 14 µm). Photomultiplicateur : le photon arrache un électron à la cathode, qui est accéléré vers des dynodes et en arrache d'autres ; jusqu'à \(10^{6}\) électrons sur l'anode pour un électron arraché.</li>
+<li><b>Système de lecture</b> : les lectures analogiques sont beaucoup moins précises que les lectures numériques.</li>
+</ol>
+<h3>Simple ou double faisceau</h3>
+<p><b>Simple faisceau</b> : un seul trajet, de la source au détecteur, à travers la cuve. <b>Double faisceau</b> : un système diviseur (miroir tournant ou vibrant) envoie la lumière alternativement à travers la référence et à travers l'essai, et le même photodétecteur les reçoit tour à tour.</p>
+<h3>Installation</h3>
+<p>Alimentation électrique aux normes nationales (220 à 230 V, 50/60 Hz) ; environnement propre, sans poussière ; table stable, à l'écart des appareils qui vibrent (centrifugeuses, agitateurs).</p>
+<h3>Entretien</h3>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Une fois par an</td><td>Inspection de l'environnement : prise reliée à la terre, en bon état, à moins de 1,5 m de l'appareil ; tension à moins de 5 % de celle de la plaque de l'appareil.</td></tr>
+<tr><td>Tous les six mois</td><td>Inspection visuelle de l'état et de l'intégrité des éléments.</td></tr>
+<tr><td>Entretien général</td><td>Cuves en quartz : laver avec une solution alcaline diluée (NaOH 0,1 M) et un acide dilué (HCl 0,1 M), rincer plusieurs fois à l'eau distillée. Piles de la mémoire (date, heure). Lampe : consommable à durée de vie limitée.</td></tr>
+<tr><td>Préventif</td><td>Nettoyer l'extérieur ; inspecter le câble ; vérifier la lampe et le fusible ; allumer et laisser chauffer 5 minutes, vérifier voyants, zéro, source ; tests de courant de fuite, de terre et de polarité.</td></tr>
+</table></div>
+<h3>Bonnes pratiques</h3>
+<ul>
+<li>Étalonner à chaque nouvelle série d'échantillons.</li>
+<li>Fermer le couvercle du porte-échantillons pendant la mesure.</li>
+<li>Ne pas réutiliser les cuves à usage unique.</li>
+<li>Uniquement des cuves en quartz en dessous de 310 nm.</li>
+<li>Pas de cuves en plastique avec des solvants organiques.</li>
+<li>Préparer les étalons dans de la verrerie en verre borosilicaté de qualité supérieure.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Pour lire une absorbance à 280 nm, on est dans l'UV : lampe au deutérium, et cuve en quartz puisqu'on est sous 310 nm. Pour un dosage coloré lu à 505 nm, la lampe au tungstène et une cuve en plastique suffisent, sauf si l'échantillon contient un solvant organique.</p>
+
+<h2>Formules clés</h2>
+<p>Source, monochromateur, porte-échantillons, détecteur, lecture.</p>
+<p>Tungstène : visible, 350 à 800 nm. Deutérium : UV, 190 à 400 nm. Quartz obligatoire sous 310 nm.</p>
+<p>Photodiode, barrette de diodes (CCD), photomultiplicateur (jusqu'à \(10^{6}\) électrons par électron arraché).</p>
+<p>Prise à moins de 1,5 m, tension à ± 5 % ; inspection de l'environnement une fois par an, visuelle tous les six mois.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/spectrophotometre.js"></script>
+</body>
+</html>

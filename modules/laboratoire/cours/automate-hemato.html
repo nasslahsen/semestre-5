@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'automate d'hématologie · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'automate d'hématologie</h1>
+<p class="chapeau">Impédance, cytométrie, spectrophotométrie : un compteur d'hématologie réunit ces mesures dans un seul appareil, qui aspire le tube, prépare les dilutions, mesure, calcule et transmet. Le connaître module par module, c'est savoir où chercher quand il se plaint.</p>
+
+<h2>Intuition</h2>
+<p>Le sang suit un trajet, du tube jusqu'au système informatique : on le prélève, on le dilue, on le mesure, on transforme le signal en chiffres, on vérifie, on transmet. Chaque étape a son module, ses pièces et son entretien. Et l'appareil n'est fiable que si l'échantillon l'est : le bon tube, analysé à temps.</p>
+
+<div id="fig-automate-hemato"></div>
+
+<h2>Formalisation</h2>
+<h3>Modules constitutifs</h3>
+<div class="tableau"><table>
+<tr><th>Module</th><th>Fonction</th><th>Composants</th></tr>
+<tr><td>Aspiration</td><td>Prélèvement du sang</td><td>Aiguille, sonde capacitive, détection de niveau</td></tr>
+<tr><td>Dilution</td><td>Préparation des échantillons</td><td>Pompes péristaltiques, vannes, seringues</td></tr>
+<tr><td>Mesure</td><td>Analyse des cellules</td><td>Chambre de Coulter, laser, photomultiplicateurs</td></tr>
+<tr><td>Acquisition</td><td>Traitement du signal</td><td>Amplificateurs, convertisseur analogique-numérique, microprocesseur</td></tr>
+<tr><td>Gestion des données</td><td>Calcul et stockage</td><td>Logiciel, base de données, alarmes</td></tr>
+<tr><td>Contrôle qualité</td><td>Vérification</td><td>Contrôles internes, calibration</td></tr>
+<tr><td>Interface LIS</td><td>Communication</td><td>HL7, ASTM, middleware</td></tr>
+</table></div>
+<p>S'y ajoutent la gestion des réactifs et celle des déchets.</p>
+<h3>Types d'automates</h3>
+<ol>
+<li>À impédance (Coulter) : Sysmex KX-21, ABX Micros 60.</li>
+<li>Optiques (cytométrie) : Abbott CELL-DYN, Siemens ADVIA.</li>
+<li>Mixtes (impédance et optique) : Sysmex XN, Beckman DxH, Mindray BC. La technologie mixte (impédance, optique, marquage) équipe la majorité des automates modernes.</li>
+<li>De paillasse (bench-top) : faible débit, moins de 60 tests par heure.</li>
+<li>De grande série (high-throughput) : plus de 100 tests par heure, chaînes modulaires.</li>
+</ol>
+<h3>Chaînes automatisées</h3>
+<p>Entrée des tubes, centrifugeuse, débouchage, hématologie, biochimie, puis stockage et tri. Avantages : moins d'erreurs d'identification (code-barres), temps de rendu (TAT) réduit, ressources humaines optimisées, traçabilité complète.</p>
+<h3>Bonnes pratiques</h3>
+<ul>
+<li>Prélèvement veineux sur EDTA (tube K2 ou K3) ; analyse dans les 4 heures ; homogénéisation douce par retournements ; conservation à température ambiante (20 à 25 °C) ; pas d'agitation violente (hémolyse) ; vérifier la concordance des résultats.</li>
+<li>Toujours un onduleur avec prise de terre ; 50 cm entre l'appareil et le mur pour la circulation d'air ; allumer et attendre environ 10 minutes avant l'emploi ; pas de bulles d'air dans les tuyaux de réactifs ; surveiller les fuites de réactifs, d'air ou de vide ; éviter les allumages et extinctions intempestifs et la poussière dans les réactifs ; bien mélanger les échantillons ; passer les contrôles ; suivre les procédures de démarrage et d'arrêt.</li>
+</ul>
+<h3>Maintenance</h3>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Quotidienne</td><td>Nettoyage, contrôle de qualité, vérification des réactifs ; nettoyer l'appareil avant et après l'analyse (eau distillée, solution de nettoyage préconisée), essuyer toute trace de sang.</td></tr>
+<tr><td>Hebdomadaire</td><td>Nettoyage des sondes, vérification des pompes ; rinçage avec une solution détergente ou fongicide ; nettoyage et rinçage des bacs de mesure.</td></tr>
+<tr><td>Mensuelle</td><td>Remplacement des filtres, calibration.</td></tr>
+<tr><td>Semestrielle</td><td>Remplacement des cordons des pompes.</td></tr>
+<tr><td>Annuelle</td><td>Maintenance constructeur, vérification métrologique ; remplacement des tuyauteries hydrauliques, des cordons des pompes, des joints des seringues.</td></tr>
+</table></div>
+<p><b>Maintenance curative</b> : détection des pannes (codes d'erreur, alarmes), diagnostic (journaux), intervention (pièces, recalibration), puis contrôle qualité après réparation.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un tube EDTA prélevé à 8 h arrive à 14 h : il a dépassé les 4 heures recommandées, le résultat doit être interprété avec prudence ou le prélèvement refait. Le même matin, l'appareil signale des bulles dans le circuit du diluant : on vérifie les tuyaux de réactifs et les fuites d'air avant de relancer la série.</p>
+
+<h2>Formules clés</h2>
+<p>Aspiration, dilution, mesure, acquisition, gestion des données, contrôle qualité, interface LIS.</p>
+<p>Paillasse : moins de 60 tests/h. Grande série : plus de 100 tests/h.</p>
+<p>EDTA K2/K3, analyse en moins de 4 h, 20 à 25 °C. Onduleur, 50 cm du mur, 10 minutes de chauffe.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/automate-hemato.js"></script>
+</body>
+</html>

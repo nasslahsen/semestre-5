@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Turbidimétrie et néphélométrie · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Turbidimétrie et néphélométrie</h1>
+<p class="chapeau">La CRP, les immunoglobulines, la transferrine ne donnent pas de couleur. Mais si on les met en présence de leurs anticorps, elles forment des complexes qui troublent la solution. Ce trouble, la lumière le voit.</p>
+
+<h2>Intuition</h2>
+<p>Un phare dans le brouillard : de face, on le voit moins bien, parce que les gouttelettes renvoient la lumière dans tous les sens ; de côté, on voit le faisceau briller dans le brouillard. On peut donc mesurer un trouble de deux façons : en face, ce qui manque à la lumière qui passe ; de côté, ce qui est renvoyé.</p>
+
+<div id="fig-turbidimetrie"></div>
+
+<h2>Formalisation</h2>
+<h3>Principes</h3>
+<p>Les deux méthodes reposent sur la diffusion ou la transmission de la lumière par les microparticules formées après la réaction antigène-anticorps.</p>
+<ul>
+<li>La <strong>turbidimétrie</strong> mesure la diminution de la lumière transmise due à la diffusion, c'est-à-dire l'augmentation de l'absorbance.</li>
+<li>La <strong>néphélométrie</strong> mesure l'intensité de la lumière diffusée à un certain angle par rapport à la lumière incidente (généralement en angle frontal).</li>
+</ul>
+<h3>Applications cliniques</h3>
+<p>Principalement le dosage des protéines spécifiques sériques : immunoglobulines, complément, apolipoprotéines, protéine C-réactive, préalbumine, haptoglobine, transferrine.</p>
+<h3>Effet crochet</h3>
+<p>La méthode nécessite une calibration multipoint et une régression non linéaire : un excès d'antigène peut provoquer un <strong>effet crochet</strong>, où une concentration antigénique trop élevée entraîne paradoxalement une diminution du signal.</p>
+<h3>Points techniques</h3>
+<p>La turbidimétrie se mesure généralement à 340 nm ou dans la région bleue (435 à 480 nm), avec des agents renforçateurs comme le polyéthylène glycol, qui favorisent la formation stable des complexes immuns.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Deux sérums donnent le même signal. Le premier est réellement à concentration moyenne ; le second est si riche en antigène qu'il est passé de l'autre côté du sommet de la courbe. Le signal seul ne permet pas de les distinguer : c'est pourquoi la courbe de calibration n'est pas une droite, et pourquoi l'effet crochet doit être connu de qui interprète.</p>
+
+<h2>Formules clés</h2>
+<p>Turbidimétrie : lumière transmise diminuée (absorbance augmentée), à 340 nm ou 435 à 480 nm.</p>
+<p>Néphélométrie : lumière diffusée, mesurée à un angle.</p>
+<p>Protéines spécifiques : immunoglobulines, complément, apolipoprotéines, CRP, préalbumine, haptoglobine, transferrine.</p>
+<p>Excès d'antigène : effet crochet, signal paradoxalement diminué ; calibration multipoint, régression non linéaire.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/turbidimetrie.js"></script>
+</body>
+</html>

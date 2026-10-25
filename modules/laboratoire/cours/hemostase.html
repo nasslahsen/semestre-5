@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'hémostase · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'hémostase</h1>
+<p class="chapeau">Si le sang ne coagulait pas, une simple piqûre suffirait à vider le corps de son sang. S'il coagulait au mauvais endroit, il boucherait un vaisseau : c'est la thrombose. Les analyseurs de coagulation mesurent cet équilibre ; pour comprendre ce qu'ils mesurent, il faut d'abord comprendre l'hémostase.</p>
+
+<h2>Intuition</h2>
+<p>Une fuite sur un tuyau : on pince d'abord le tuyau, on bouche le trou avec ce qu'on a sous la main, puis on pose une rustine solide ; une fois réparé, on retire la rustine. L'hémostase fait pareil : le vaisseau se contracte, les plaquettes forment un bouchon, la fibrine le consolide, puis la fibrinolyse dissout le caillot.</p>
+
+<div id="fig-hemostase"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition</h3>
+<p>L'<strong>hémostase</strong> est l'ensemble des processus complexes et interdépendants qui contribuent à l'homéostasie de l'organisme : colmater les fuites du circuit vasculaire et rétablir le flux sanguin en cas de thrombose. Acteurs : la paroi vasculaire (cellules endothéliales, fibroblastes), les cellules sanguines (plaquettes, monocytes) et les protéines plasmatiques. Trois étapes :</p>
+<ol>
+<li><b>Hémostase primaire</b> (3 à 5 minutes) : agrégation des plaquettes, formation du clou plaquettaire.</li>
+<li><b>Hémostase secondaire</b> ou coagulation (5 à 10 minutes) : formation de fibrine, caillot.</li>
+<li><b>Fibrinolyse</b> (48 à 72 heures) : dissolution du caillot, retour à une circulation normale.</li>
+</ol>
+<h3>Hémostase primaire</h3>
+<p>Acteurs : vaisseaux (cellules endothéliales), facteur de von Willebrand (FW), plaquettes, fibrinogène.</p>
+<ul>
+<li><b>Temps vasculaire</b> : vasoconstriction réflexe ; l'écoulement ralentit, plaquettes et protéines coagulantes se regroupent sur la lésion.</li>
+<li><b>Adhésion</b> : la lésion met à nu le sous-endothélium et le collagène ; le FW sert de pont entre le collagène et les plaquettes (glycoprotéine Ib).</li>
+<li><b>Activation</b> : changement de forme (pseudopodes), libération du contenu des granules (denses : Ca²⁺, ATP, ADP, adrénaline, sérotonine ; alpha : fibrinogène, FW, PDGF ; et thromboxane A2), remaniements membranaires (flip-flop) qui exposent les récepteurs GPIIbIIIa.</li>
+<li><b>Agrégation</b> : des ponts de fibrinogène relient les plaquettes activées ; avec les globules rouges piégés, ils forment le clou plaquettaire. Il est insuffisant pour arrêter l'hémorragie dans les gros vaisseaux.</li>
+</ul>
+<h3>Hémostase secondaire : la coagulation</h3>
+<p>Elle renforce le clou plaquettaire par la production de fibrine et aboutit à un caillot insoluble. Deux voies : <b>exogène</b> (facteur tissulaire des cellules endothéliales lésées) et <b>endogène</b> (plasma seul, activée au contact du verre ou du sous-endothélium ; moins importante). Elles convergent vers le facteur X ; le Xa transforme la prothrombine (II) en thrombine (IIa), qui transforme le fibrinogène (I) en fibrine.</p>
+<p>Les facteurs sont des protéines plasmatiques d'origine hépatique (sauf le facteur tissulaire), numérotées de I à XIII (plus PK et KHPM) : I fibrinogène, II prothrombine, IV Ca²⁺, V proaccélérine, VII proconvertine, VIII antihémophilique A, IX antihémophilique B, X Stuart, XI Rosenthal, XII Hageman, XIII stabilisant de la fibrine.</p>
+<ul>
+<li>Le <b>complexe prothrombinase</b> (Xa, Va, phospholipides des plaquettes activées, Ca²⁺) est 100 000 fois plus actif que le Xa seul.</li>
+<li>Le <b>Ca²⁺</b> intervient à plusieurs niveaux ; au laboratoire, un chélateur du Ca²⁺ (EDTA ou citrate) empêche le sang de coaguler.</li>
+<li>La <b>vitamine K</b> est indispensable à l'activation des facteurs II, VII, IX et X ; les antivitamines K traitent le risque de thrombose.</li>
+<li>La <b>thrombine</b> transforme le fibrinogène en fibrine, active les plaquettes, entretient sa propre formation (V, VIII, IX, XI) et freine la coagulation (protéine C).</li>
+</ul>
+<p>Inhibiteurs : antithrombine (inactive la thrombine et le Xa ; activité multipliée par 2 000 à 3 000 par l'héparine), protéines C et S (inhibent l'activation du V et du VIII), TFPI (inhibe l'activation du X par le complexe VII-facteur tissulaire).</p>
+<h3>Fibrinolyse</h3>
+<p>La <b>plasmine</b>, formée à partir du plasminogène par le tPA (activateur tissulaire) ou l'urokinase, dégrade la fibrine en produits de dégradation (PDF). Le PAI (inhibiteur de l'activateur du plasminogène) la freine.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un patient traité par antivitamine K produit des facteurs II, VII, IX et X peu actifs : sa voie exogène, qui dépend du VII, est ralentie, et son temps de coagulation s'allonge. C'est ce que les analyseurs surveillent avec le temps de prothrombine.</p>
+
+<h2>Formules clés</h2>
+<p>Primaire 3 à 5 min (vasoconstriction, adhésion par le FW, activation, agrégation par le fibrinogène). Coagulation 5 à 10 min (fibrine). Fibrinolyse 48 à 72 h (plasmine).</p>
+<p>Prothrombinase : Xa + Va + phospholipides + Ca²⁺, 100 000 fois plus actif.</p>
+<p>Vitamine K : II, VII, IX, X. EDTA ou citrate : chélation du Ca²⁺, pas de coagulation.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/hemostase.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Installer et entretenir un microscope · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Installer et entretenir un microscope</h1>
+<p class="chapeau">Le microscope est un instrument de haute précision, assemblé en usine avec un équipement spécialisé. Une rayure, une trace de doigt, un peu de moisissure, et l'image se brouille ; certains dégâts sont définitifs. Sa longévité tient à la propreté de son environnement et au soin de chaque geste.</p>
+
+<h2>Intuition</h2>
+<p>Presque tous les problèmes d'image viennent de ce qui se dépose sur le trajet de la lumière : poussière, huile, traces, moisissure. D'où trois idées : protéger (housse, capuchons, local sec), nettoyer avec ce qui ne raye pas et n'attaque pas les traitements des lentilles, et ne jamais démonter l'optique sans formation.</p>
+
+<div id="fig-microscope-entretien"></div>
+
+<h2>Formalisation</h2>
+<h3>Problèmes potentiels</h3>
+<ul>
+<li><b>Oculaires</b> : poussière et encrassement, qui font des ombres, surtout à fort grossissement (40× à 100×) ; dehors, on nettoie ; dedans, il faut démonter. Des <b>rayures</b>, dues à un nettoyage négligent ou à des matériaux inadaptés, donnent des ombres en toile d'araignée : il faut remplacer l'oculaire.</li>
+<li><b>Tête binoculaire</b> : prismes (surfaces argentées qui se corrodent) et miroirs ; elle se salit quand on change les oculaires, qu'on installe un accessoire, ou qu'on oublie les protections.</li>
+<li><b>Éclairage</b> : encrassement et détérioration des miroirs et lentilles, défauts de tension, ampoule non recommandée. L'ampoule est un consommable : toujours en prévoir une de rechange ; les microscopes à fluorescence utilisent des ampoules au mercure ou au xénon.</li>
+<li><b>Condenseur</b> : nettoyé au pinceau fin en poil de chameau ; ses éléments mécaniques se règlent avec des outils propres à chaque fabricant.</li>
+</ul>
+<h3>Installation et rangement</h3>
+<p>À l'abri de la poussière et de l'humidité (idéalement climatisé) ; local fermé à clé ; loin des points d'eau, des produits chimiques et du soleil direct ; prise conforme ; surface horizontale et rigide, avec la tête de l'opérateur à hauteur des oculaires sans contrainte pour le dos et le cou ; loin des appareils qui vibrent (centrifugeuses, réfrigérateurs) ; housse en plastique ou en tissu fin non pelucheux si on ne s'en sert pas longtemps.</p>
+<h3>Nettoyage</h3>
+<p>Chiffon en tissu fin, solution de nettoyage pour lentilles (l'éther et le xylène sont parmi les plus utilisés). Corps du microscope : solution détergente au pinceau, puis mélange 50/50 d'eau distillée et d'éthanol à 95 % (pas pour les surfaces optiques). Lubrifier régulièrement, à l'huile fine, les mécanismes de mise au point, du condenseur et de la platine.</p>
+<h3>Précautions</h3>
+<ul>
+<li>Pas d'éthanol sur les éléments optiques ; pas de xylène ni d'acétone sur la base de la platine.</li>
+<li>Pas de papier ordinaire, de tissu ni de doigts nus sur les lentilles : pinceau en poil de chameau ou poire en caoutchouc, puis peau de chamois ou papier optique.</li>
+<li>Toujours les oculaires ou leurs capuchons en place ; pas de rangement en boîte dans un environnement humide.</li>
+<li>Ne pas appuyer l'objectif contre la lame ; mise au point lente.</li>
+<li>Ne pas démonter les éléments optiques (alignement).</li>
+<li>Soulever à deux mains, l'une au bras, l'autre au socle.</li>
+<li>Ne pas toucher l'ampoule ; tension correcte, intensité minimale utile, stabilisateur si le secteur est instable.</li>
+<li>Moisissures : contrôler l'humidité, ventiler ; sinon, un tampon de coton imbibé de solution antifongique (en général de l'éther), en mouvements circulaires très légers.</li>
+</ul>
+<h3>Entretien courant</h3>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Tous les jours, après utilisation</td><td>Essuyer l'huile à immersion de l'objectif 100× (papier optique, ou coton hydrophile) ; nettoyer la platine et le condenseur ; rhéostat au minimum, éclairage éteint ; housse, endroit ventilé.</td></tr>
+<tr><td>Une fois par mois</td><td>Dépoussiérer le corps (chiffon à l'eau distillée) ; souffler la poussière des oculaires, objectifs et condenseur, puis nettoyer les lentilles avec la solution mise sur le papier optique, pas sur la lentille ; nettoyer les clips porte-lames.</td></tr>
+<tr><td>Tous les six mois</td><td>Inspection visuelle générale ; ventilation, température, humidité du local ; installation électrique, câbles, fusibles, ampoule.</td></tr>
+</table></div>
+<p>Maintenance : vérifier la platine (déplacement en X et Y, position tenue), la mise au point (le foyer reste stable), le diaphragme, les clips, l'alignement optique ; nettoyer et lubrifier les éléments mécaniques selon le fabricant.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un technicien voit des ombres qui suivent l'oculaire quand il le tourne : la saleté est sur l'oculaire. Il souffle d'abord la poussière à la poire, puis passe du papier optique imbibé de solution. Si les ombres ont l'aspect d'une toile d'araignée et ne partent pas, ce sont des rayures : l'oculaire est à remplacer.</p>
+
+<h2>Formules clés</h2>
+<p>Chaque jour : huile du 100×, platine, condenseur, éclairage au minimum, housse. Chaque mois : poussière et lentilles. Tous les six mois : inspection, local, électricité.</p>
+<p>Jamais d'éthanol sur l'optique, jamais de doigts ni de papier ordinaire ; pinceau, poire, papier optique.</p>
+<p>Deux mains pour le porter ; loin des vibrations, de l'humidité et du soleil.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/microscope-entretien.js"></script>
+</body>
+</html>

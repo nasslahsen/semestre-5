@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'automate d'étiquetage des tubes · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'automate d'étiquetage des tubes</h1>
+<p class="chapeau">Une étiquette collée de travers, un code-barres flou, et c'est l'automate d'analyse qui ne lit plus le tube, ou pire, un tube attribué au mauvais patient. L'automate d'étiquetage colle chaque étiquette au bon endroit, sur le bon tube, avec un code-barres qui restera lisible après la centrifugation et le congélateur.</p>
+
+<h2>Intuition</h2>
+<p>La machine fait ce que ferait une infirmière très régulière : elle lit la prescription, prend le bon tube, imprime l'étiquette, la pose bien droite à la bonne hauteur, et rend le tube. La difficulté est dans les détails : trouver l'orientation du tube, imprimer une encre qui ne s'efface pas, enrouler l'étiquette sans pli ni bulle.</p>
+
+<div id="fig-etiqueteuse"></div>
+
+<h2>Formalisation</h2>
+<h3>Rôle</h3>
+<p>L'<strong>automate d'étiquetage</strong> colle automatiquement et avec précision une étiquette d'identification (code-barres et informations du patient) sur les tubes de prélèvement. Avantages : <b>sécurité et traçabilité</b> (plus d'erreurs de collage ou de mélange, lien fiable avec le LIS) ; <b>gain de temps</b> (beaucoup de tubes par heure) ; <b>précision</b> (étiquette droite, sans pli ni bulle, à la hauteur exigée par les lecteurs et les bras robotisés) ; <b>moins d'accidents et de contamination</b> (moins de manipulations).</p>
+<h3>Fonctionnement, étape par étape</h3>
+<ol>
+<li><b>Réception des ordres</b> : connexion au LIS ou au SIH pour recevoir les prescriptions ; génération d'un identifiant unique (numéro d'accession) et des informations codées (code-barres 1D ou 2D, nom, type de tube).</li>
+<li><b>Sélection du tube</b> : tubes de différentes tailles (par exemple 13 × 75 mm ou 13 × 100 mm) stockés dans des carrousels, tiroirs ou trémies ; le bon type (EDTA, sérum, citrate) est choisi et acheminé par gravité ou par convoyeur.</li>
+<li><b>Détection de position</b> : la position de départ du tube est aléatoire ; un capteur photoélectrique repère les marques d'usine (graduation, bord de l'étiquette d'origine) et le moteur ajuste l'angle de rotation (\(R = R_B + R_P\)) pour aligner la nouvelle étiquette, de façon à laisser voir le volume et l'aspect du sang.</li>
+<li><b>Impression et application</b> : impression thermique à la demande, puis collage par roulement : le bord avant est posé sur le tube, qui fait un tour complet sur lui-même.</li>
+<li><b>Éjection et traçabilité</b> : le tube étiqueté est délivré (mode normal ou urgence STAT) et son statut est validé dans la base de données.</li>
+</ol>
+<h3>Impression thermique</h3>
+<p>Le <strong>papier thermique</strong> porte une couche active : un colorant leucobase (incolore), un développeur acide (autrefois le bisphénol A, aujourd'hui souvent BPS ou Pergafast) et un sensibilisateur (une cire qui fond entre 60 et 100 °C). La tête chauffe des points précis ; la cire fond, l'acide donne un proton au colorant, qui devient noir ; en refroidissant, l'image se fige.</p>
+<ul>
+<li><b>Thermique directe</b> : la tête chauffe directement le papier thermique ; ni ruban ni cartouche, mais l'impression s'altère avec le temps, la lumière, la chaleur, l'humidité, les frottements (tickets de caisse, étiquettes courtes).</li>
+<li><b>Transfert thermique</b> : la tête chauffe un ruban encreur (cire, résine ou mélange) dont l'encre fond et se fixe sur le support ; excellente tenue aux frottements et aux solvants.</li>
+</ul>
+<p>Au laboratoire, on utilise le <b>transfert thermique avec ruban en résine pure</b> : lisible après cryogénisation (azote liquide, −80 °C) et centrifugation, insensible aux solvants (alcool isopropylique, xylène) et au sang, contraste et netteté maximaux (300 ou 600 dpi) pour la lecture à haute vitesse.</p>
+<h3>Maintenance</h3>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Opérations</th></tr>
+<tr><td>Chaque jour</td><td>Désinfecter les surfaces (chiffon non pelucheux, éthanol à 70 % ou lingettes de grade médical) ; nettoyer la tête d'impression au coton-tige imbibé d'alcool isopropylique ; retirer colle et étiquettes coincées sur les rouleaux (alcool à 70°, jamais d'objet métallique).</td></tr>
+<tr><td>Chaque semaine</td><td>Nettoyer les capteurs photoélectriques (chiffon sec ou soufflette) ; vérifier l'alignement et la tension de la bande ; contrôler le massicot et les rouleaux de rechange.</td></tr>
+<tr><td>Chaque mois à chaque trimestre</td><td>Lubrifier axes et engrenages si le fabricant le recommande (jamais la tête ni les rouleaux en caoutchouc) ; vérifier les fixations ; calibrer les capteurs et faire des tests de dépose.</td></tr>
+</table></div>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un laboratoire étiquette ses aliquotes avec une imprimante thermique directe. Après quelques semaines à −80 °C et une décongélation, certains codes-barres ont grisé et l'automate ne les lit plus. Avec un transfert thermique sur ruban résine, l'encre fondue sur un support synthétique aurait résisté au froid et aux manipulations.</p>
+
+<h2>Formules clés</h2>
+<p>Ordres du LIS, choix du tube, détection de position (\(R = R_B + R_P\)), impression, collage par roulement, éjection et traçabilité.</p>
+<p>Thermique directe : sans ruban, s'altère. Transfert thermique sur résine : résiste au froid, aux solvants, au sang ; 300 à 600 dpi.</p>
+<p>Chaque jour : surfaces, tête, rouleaux. Chaque semaine : capteurs, bande. Mois à trimestre : lubrification, fixations, calibration.</p>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/etiqueteuse.js"></script>
+</body>
+</html>
