@@ -8,6 +8,13 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("robotique", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "chapitres 1 à 4" },
+      { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "chapitres 5 à 8" }
+    ]
+  },
   chapitres: [
     { id: 0, titre: "Les bases", sous: "Angles, trigonométrie, vecteurs : tout ce qu'il faut avant le robot", ligne: "Angles, trigonométrie, vecteurs, matrices", sousModule: "bio" },
     { id: 1, titre: "Le robot et sa description", sous: "Anatomie, liaisons, architectures, performances", ligne: "Anatomie, liaisons, architectures, performances", sousModule: "bio" },

@@ -9,6 +9,13 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("architecture", {
+  // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
+  documents: {
+    recus: [
+      { titre: "Cours « Architecture hospitalière et contraintes d'installation d'un bloc opératoire »", couvre: "chapitres 1 à 6" },
+      { titre: "TD 1 « Bloc opératoire »", couvre: "chapitre 7" }
+    ]
+  },
   chapitres: [
     { id: 1, titre: "L'hôpital et son bloc", sous: "Ce que l'architecture organise, les huit familles de contraintes, le bloc opératoire", ligne: "Contraintes, définition du bloc" },
     { id: 2, titre: "Zones et flux", sous: "Gradation des zones, cinq flux, séparation propre / sale, déchets, SSPI, réanimation, imagerie", ligne: "Zones, flux, déchets, services voisins" },

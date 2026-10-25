@@ -1,0 +1,47 @@
+/* Page « Mon suivi » : progression, questions à revoir, documents reçus. Reprend tableau.css. */
+.site-barre .site-marque { font-size: 20px; }
+.suivi-tete h1 { margin: 6px 0 8px; font-size: 46px; letter-spacing: -0.025em; font-weight: 800; }
+.suivi-tete p, .suivi-note { margin: 0; color: var(--doux); font-size: 18px; line-height: 1.5; }
+.suivi-note { margin: -4px 0 18px; font-size: 17px; }
+.suivi-vide { margin: 0; padding: 22px 24px; border: 1.5px dashed #c9cdd8; border-radius: 18px; color: var(--doux); font-size: 17px; }
+
+/* Où j'en suis */
+.sv-module { margin-bottom: 14px; border: 2px solid var(--encre); border-left: 12px solid var(--c); border-radius: 20px; background: #fff; overflow: hidden; }
+.sv-module summary { display: grid; grid-template-columns: minmax(0, 1fr) 360px 14px; align-items: center; gap: 24px; min-height: 72px; padding: 14px 22px; cursor: pointer; list-style: none; }
+.sv-module summary::-webkit-details-marker { display: none; }
+.sv-module summary::after { content: ""; width: 9px; height: 9px; border-right: 2.5px solid var(--encre); border-bottom: 2.5px solid var(--encre); transform: rotate(45deg); margin-top: -6px; }
+.sv-module[open] summary::after { transform: rotate(-135deg); margin-top: 6px; }
+.sv-nom { font: 800 20px "Bricolage Grotesque", Inter, sans-serif; letter-spacing: -0.01em; line-height: 1.2; }
+.sv-module[open] summary { border-bottom: 1.5px solid #e3e6ee; }
+.sv-chapitres { padding: 6px 12px 10px; }
+.sv-ch { display: grid; grid-template-columns: 44px minmax(0, 1fr) 300px; align-items: center; gap: 16px; min-height: 60px; padding: 6px 10px; border-radius: 12px; color: var(--encre); text-decoration: none; }
+.sv-ch:active { background: #f4f5f9; }
+.sv-num { font: 700 16px "JetBrains Mono", monospace; color: var(--ct); text-align: center; }
+.sv-titre { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.sv-titre small { display: block; font-size: 14px; font-weight: 500; color: var(--doux); }
+.sv-ch.fait .sv-titre small { color: var(--ok, #12a26b); }
+.sv-ch .piste { height: 10px; }
+
+/* À revoir */
+.sv-revoir { display: flex; align-items: center; gap: 24px; margin-bottom: 14px; padding: 18px 22px 18px 26px; border: 2px solid var(--encre); border-left: 12px solid var(--c); border-radius: 20px; background: #fff; }
+.sv-rt { flex: 1; min-width: 0; }
+.sv-kicker { font: 700 12px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--ct); }
+.sv-revoir h3 { margin: 4px 0 6px; font-size: 21px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+.sv-revoir p { margin: 0; font-size: 16px; line-height: 1.5; color: #3d4250; }
+.sv-revoir small { color: var(--doux); font-size: 15px; }
+.sv-actions { flex: none; display: flex; align-items: center; gap: 18px; }
+.sv-lien { display: inline-flex; align-items: center; min-height: 48px; color: var(--encre); font-weight: 600; font-size: 16px; }
+
+/* Documents reçus */
+.sv-docs { margin-bottom: 18px; padding: 18px 22px 10px 26px; border: 1.5px solid #e3e6ee; border-left: 12px solid var(--c); border-radius: 20px; background: #fff; }
+.sv-docs h3 { margin: 0 0 8px; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; }
+.sv-docs ul { margin: 0; padding: 0; list-style: none; }
+.sv-docs li { display: grid; grid-template-columns: 260px minmax(0, 1fr) 120px; align-items: baseline; gap: 18px; padding: 10px 0; border-top: 1px solid #eef0f5; font-size: 16px; line-height: 1.45; }
+.sv-docs li:first-child { border-top: 0; }
+.sv-sm { grid-column: 1; font-weight: 600; color: var(--ct); }
+.sv-doc { grid-column: 2; }
+.sv-doc small { display: block; color: var(--doux); font-size: 14px; }
+.sv-etat { grid-column: 3; justify-self: end; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--ok, #12a26b); }
+.manque .sv-doc { color: var(--doux); }
+.manque .sv-etat { color: var(--ko, #e5484d); }
+.partiel .sv-etat { color: #b6600a; }

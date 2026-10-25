@@ -10,7 +10,8 @@ Utilisation : uniquement sur iPad, en paysage, au doigt et parfois à l'Apple Pe
 ## 1. Structure
 
 ```
-index.html                 tableau de bord : une carte par module, bandeau « Reprendre »
+index.html                 tableau de bord : une carte par module, bandeau « Reprendre », lien « Mon suivi »
+suivi.html                 Mon suivi : progression par module et chapitre, questions à revoir, documents reçus
 registre.js                registre central : modules, sous-modules, couleurs, statut
 commun/                    système de design partagé (ne pas copier dans les modules)
   css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
@@ -24,12 +25,13 @@ commun/                    système de design partagé (ne pas copier dans les m
   js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
   js/lib.js                figures des pages de cours (RM) : calculs, SVG 2D/3D, curseurs, étapes, mise en page sur un écran
   js/tableau.js            tableau de bord
+  js/suivi.js, css/suivi.css   page « Mon suivi »
   jeu/moteur.js            moteur des niveaux : étapes, retours, étoiles, « Revoir dans le cours », écran de fin ;
                            mode « cadre » quand l'exercice s'ouvre par-dessus une page de chapitre
   jeu/dessin.js, outils.js dessins des niveaux (D) et outils (E)
   vendor/katex/            KaTeX 0.16.11, servi localement
 modules/<id>/              un dossier par module actif
-  module.js                chapitres (avec `ligne`), niveaux, sections, pages de cours
+  module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
@@ -106,11 +108,18 @@ non marqué terminé, si rien n'a été trouvé seul), et l'écran de fin liste 
 `chapitre`, `marquer`, `marquerSection`, `compte`, `reprendre`, `continuer`, `effacer`). La progression déjà
 enregistrée est toujours gardée.
 
+À la fin de chaque niveau, le moteur note le dernier passage (`PLATEFORME.noterEssai`) : les étapes avec erreurs,
+réponse vue ou passées. La page « Mon suivi » (`suivi.html`) en fait la liste « À revoir », avec « Revoir le cours »
+et « Rejouer ». Elle montre aussi la progression de chaque module, chapitre par chapitre, et les documents reçus.
+
 ## 4. Construire un module à partir des PDF
 
 1. **Lire tous les PDF** de `modules/<id>/sources/` en entier (pages, formules, exemples, exercices, notations).
    Noter la notation exacte du professeur, les exemples numériques et les exercices corrigés : ils deviennent
    des défis. Rien d'autre ne sert de source, sauf des références réelles et précises.
+   Noter chaque document reçu dans `module.js`, `documents.recus` (`{ sousModule, titre, couvre }`, le titre exact du
+   document, jamais le fichier), et ce qui manque ou n'a que son titre dans `documents.manque` : la page « Mon suivi »
+   montre ce qui a été envoyé et ce qui ne l'a pas été (un sous-module sans document y est « à envoyer »).
 2. **Plan** : découper en chapitres, rattacher chaque chapitre à un sous-module du registre. Si l'appartenance d'une
    partie à un sous-module n'est pas claire, demander. Ajouter un chapitre 0 « Les bases » quand le module
    suppose des prérequis (mathématiques, physique) que le cours ne rappelle pas ; il a lui aussi une page de cours

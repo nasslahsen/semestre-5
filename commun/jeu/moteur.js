@@ -61,6 +61,8 @@
     var panneau = document.getElementById("panneau"), courante = -1, erreurs = 0, nettoyages = [];
     // État de chaque étape : "resolue" (trouvée seule), "revelee" (réponse vue) ou "passee" ; rejeu : étape rejouée depuis l'écran de fin
     var etats = [], rejeu = false;
+    // Erreurs de chaque étape, pour la liste « À revoir » de la page Mon suivi
+    var errEtape = [];
 
     function majSegments() { [].forEach.call(seg.children, function (s, i) { s.className = i < courante ? "fait" : i === courante ? "courant" : ""; }); }
 
@@ -132,7 +134,7 @@
       j.nettoyer = function (f) { nettoyages.push(f); };
       j.erreur = function (html) {
         if (revelation) return;
-        erreurs++;
+        erreurs++; errEtape[i] = (errEtape[i] || 0) + 1;
         var m = ligneMsg(); m.className = "retour-msg ko"; m.innerHTML = "<span>" + html + "</span>"; E.rendre(m);
         m.classList.remove("secoue"); void m.offsetWidth; m.classList.add("secoue");
         lienCours(el, i, m);
@@ -310,6 +312,10 @@
       def.etapes.forEach(function (e, k) { if (etats[k] === "resolue") trouvees++; else restantes.push(k); });
       var nb = !restantes.length ? JEU.etoiles(erreurs) : trouvees ? 1 : 0;
       if (nb) P.marquer(MID, def.id, nb);
+      P.noterEssai(MID, def.id, def.etapes.map(function (e, k) {
+        var cause = etats[k] === "revelee" ? "revelee" : etats[k] !== "resolue" ? "passee" : errEtape[k] ? "erreur" : "";
+        return cause ? { k: k, nom: e.nom, cause: cause, erreurs: errEtape[k] || 0 } : null;
+      }).filter(Boolean));
       // l'étape suivante sur la carte : le cours de la notion suivante, ou la révision, ou le boss
       var suivant = plan ? null : P.apres(MID, "exos", def.id);
       if (suivant) P.noterDernier(MID, P.genre(suivant) + " : " + suivant.titre, suivant.url);
@@ -324,7 +330,7 @@
       restantes.forEach(function (k) {
         var l = E.h("div", "", '<span><b>Étape ' + (k + 1) + "</b> · " + def.etapes[k].nom + "<small>" + (etats[k] === "revelee" ? "réponse vue" : "passée") + "</small></span>", liste2);
         var b = E.h("button", "btn clair", "Réessayer", l); b.type = "button";
-        b.addEventListener("click", function () { r.classList.remove("on"); rejeu = true; etats[k] = undefined; aller(k); });
+        b.addEventListener("click", function () { r.classList.remove("on"); rejeu = true; etats[k] = undefined; errEtape[k] = 0; aller(k); });
       });
       var act = r.querySelector(".actions");
       var b1 = null;

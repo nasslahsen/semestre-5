@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mon suivi · Semestre 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun/css/jeu.css">
+<link rel="stylesheet" href="commun/css/barre.css">
+<link rel="stylesheet" href="commun/css/tableau.css">
+<link rel="stylesheet" href="commun/css/suivi.css">
+<script src="registre.js"></script>
+<script src="commun/js/plateforme.js"></script>
+</head>
+<body class="tableau">
+<header class="site-barre"><div class="site-barre-int">
+  <a class="site-retour" href="index.html" id="semestre">Semestre 5</a>
+  <span class="site-marque">Mon suivi</span>
+</div></header>
+<main class="tableau-int suivi">
+  <section class="suivi-tete">
+    <h1>Mon suivi</h1>
+    <p id="resume"></p>
+  </section>
+  <h2 class="tableau-titre">Où j'en suis</h2>
+  <div id="progres"></div>
+  <h2 class="tableau-titre">À revoir</h2>
+  <div id="revoir"></div>
+  <h2 class="tableau-titre">Documents reçus</h2>
+  <p class="suivi-note">Ce que tu m'as envoyé pour chaque module, et ce qui manque encore. Les fichiers ne sont jamais publiés : seuls leurs titres sont notés ici.</p>
+  <div id="documents"></div>
+</main>
+<script src="commun/js/suivi.js"></script>
+</body>
+</html>
