@@ -67,7 +67,7 @@ th { font-weight: 600; background: var(--fond-doux); }
 
 /* ---------- Figures interactives : un écran ----------
    Comme l'écran de niveau : le dessin à gauche, le texte « Essaie / Observe » et les commandes à droite.
-   Le bloc prend toute la largeur de l'écran et tient dans la hauteur visible sous la barre (72 px). */
+   Le bloc prend toute la largeur de la colonne et tient dans la hauteur visible sous la barre (72 px). */
 :root { --barre: 73px; --h-fig: calc(100vh - var(--barre) - 44px); }
 @supports (height: 100dvh) { :root { --h-fig: calc(100dvh - var(--barre) - 44px); } }
 .fig {
@@ -219,15 +219,11 @@ main h4, main h5, main article.notion { scroll-margin-top: calc(var(--barre) + 1
 .fenetre-jeu iframe { width: 100%; height: 100%; border: 0; display: block; }
 html.jeu-ouvert, html.jeu-ouvert body { overflow: hidden; }
 
-/* ---------- Mise en page : un seul axe ----------
-   Le texte, les titres, les formules, les tableaux et les blocs « Jouer » partagent une même colonne centrée ;
-   les figures, plus larges, débordent de la même façon des deux côtés. */
-main { --texte: 900px; }
-main > *:not(.fig):not(.partie):not(.notion):not(.fin-chapitre),
-main .partie > *:not(.notion):not(.fig),
-main .notion > *:not(.fig),
-main .fin-chapitre > * { max-width: var(--texte); margin-left: auto; margin-right: auto; }
-main .chapeau { max-width: var(--texte); }
+/* ---------- Mise en page : une seule colonne ----------
+   Titres, texte, formules, tableaux, figures, traits de section et blocs « Jouer » ont les mêmes bords gauche et droit. */
+main .notion > p, main .notion > ul, main .notion > ol, main .partie > p { max-width: 880px; }
+main .fig { width: auto; margin: 28px 0 36px; }
+main .jouer { max-width: none; }
 /* Une fraction dans une ligne de texte : assez d'interligne pour qu'elle ne touche pas la ligne voisine */
 main p:has(.katex .mfrac), main li:has(.katex .mfrac), main td:has(.katex .mfrac) { line-height: 2.15; }
-main p.complement, main .notion > p.complement, main .partie > p.complement { display: block; width: fit-content; max-width: var(--texte); margin-left: max(0px, calc((100% - var(--texte)) / 2)); margin-right: 0; }
+main p .katex:has(.mfrac), main li .katex:has(.mfrac) { display: inline-block; margin: 6px 0; line-height: 1.2; }

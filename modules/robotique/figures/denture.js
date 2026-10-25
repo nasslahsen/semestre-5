@@ -116,7 +116,7 @@
       R.texte(g, "Z = " + Z, [c[0], c[1] + r.ra + 26], { italique: false, gras: true, taille: 18 });
       var L = 10 * k; R.ligne(g, [900 - L, 470], [900, 470], { couleur: C.fonce, epaisseur: 4 });
       R.texte(g, "10 mm", [900 - L / 2, 450], { italique: false, taille: 15 });
-      R.rendre(zone, "d = mZ = " + R.tc(d, 2) + "\\ \\text{mm} \\quad d_a = d + 2m = " + R.tc(da, 2) + "\\ \\text{mm} \\quad d_f = d - 2{,}5\\,m = " + R.tc(df, 3) + "\\ \\text{mm} \\quad p = \\pi m = " + R.tn(PI * m, 2) + "\\ \\text{mm} \\quad h = 2{,}25\\,m = " + R.tc(2.25 * m, 3) + "\\ \\text{mm}");
+      R.rendre(zone, "\\begin{gathered} d = mZ = " + R.tc(d, 2) + "\\ \\text{mm} \\quad d_a = d + 2m = " + R.tc(da, 2) + "\\ \\text{mm} \\quad d_f = d - 2{,}5\\,m = " + R.tc(df, 3) + "\\ \\text{mm} \\\\ p = \\pi m = " + R.tn(PI * m, 2) + "\\ \\text{mm} \\quad h = 2{,}25\\,m = " + R.tc(2.25 * m, 3) + "\\ \\text{mm} \\end{gathered}");
     }
     dessiner();
   })();

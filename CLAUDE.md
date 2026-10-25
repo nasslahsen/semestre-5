@@ -187,7 +187,7 @@ crée le dessin et ses panneaux ; `R.plan`, `R.grille` (quadrillage plein), `R.v
 formules en direct. Chaque figure a son texte « Essaie : … Observe : … ». Format large conseillé (960 × 540).
 
 **Règle permanente : une figure tient sur un écran.** `R.figure` pose le dessin à gauche, le texte « Essaie / Observe »
-et les commandes à droite, sur toute la largeur ; le bloc entier tient sous la barre, sans défilement (le dessin se
+et les commandes à droite, sur toute la largeur de la colonne (la même que le texte, les tableaux et les blocs « Jouer » : mêmes bords gauche et droit) ; le bloc entier tient sous la barre, sans défilement (le dessin se
 réduit). Les nombres en direct (`f.direct`) vont sous le dessin (`directCote: true` pour les mettre à droite) ; une
 ligne trop large est réduite, au plus de 30 % : au-delà, la couper en plusieurs lignes. Peu de commandes, noms de
 curseur courts (sur une ligne), étiquettes du dessin d'au moins 16 dans le viewBox. Vérifier avec
