@@ -763,6 +763,34 @@ test("laboratoire : microscope, transport, contrôle de qualité", () => {
   proche(L.z(5.6, 6.2, 0.3), -2, 1e-9); proche(L.z(7.25, 6.2, 0.3), 3.5, 1e-9);
 });
 
+test("TD 1 robotique : 3R de Denavit–Hartenberg, sonde d'échographie 2R, révision et boss", () => {
+  // matrice DH du TD avec alpha = 0, r = 0, d = L : rotation theta puis L le long du nouvel x
+  const dh = (t, L) => [[Math.cos(t), -Math.sin(t), 0, L * Math.cos(t)], [Math.sin(t), Math.cos(t), 0, L * Math.sin(t)], [0, 0, 1, 0], [0, 0, 0, 1]];
+  const t = [20 * D, 35 * D, 40 * D], L = [4, 3, 2];
+  const T = m.matMul(m.matMul(dh(t[0], L[0]), dh(t[1], L[1])), dh(t[2], L[2]));
+  const s = t[0] + t[1] + t[2];
+  proche(T[0][3], L[0] * Math.cos(t[0]) + L[1] * Math.cos(t[0] + t[1]) + L[2] * Math.cos(s));
+  proche(T[1][3], L[0] * Math.sin(t[0]) + L[1] * Math.sin(t[0] + t[1]) + L[2] * Math.sin(s));
+  proche(Math.atan2(T[1][0], T[0][0]) / D, 95, 1e-9);
+  const T0 = m.matMul(m.matMul(dh(0, 30), dh(0, 20)), dh(0, 10));
+  proche(T0[0][3], 60); proche(T0[1][3], 0);
+  // révision : 30 / 20 / 10, 90° / -90° / 0°
+  const R = m.matMul(m.matMul(dh(90 * D, 30), dh(-90 * D, 20)), dh(0, 10));
+  proche(R[0][3], 30, 1e-9); proche(R[1][3], 30, 1e-9);
+  // exercice 2 : L1 = 40, L2 = 35
+  const sonde = (a, b) => m.bras2R(a * D, b * D, 40, 35).M;
+  const q = sonde(30, 45); proche(q[0], 43.70, 0.005); proche(q[1], 53.81, 0.005);
+  proche(45 - q[0], 1.30, 0.005); proche(50 - q[1], -3.81, 0.005);
+  assert.ok(80 > 40 + 35);
+  // page : exemple ajouté 60° / -30°
+  const e = sonde(60, -30); proche(e[0], 50.31, 0.005); proche(e[1], 52.14, 0.005); proche(Math.hypot(e[0], e[1]), 72.5, 0.05);
+  // boss
+  const b = sonde(10, 80); proche(b[0], 39.39, 0.005); proche(b[1], 41.95, 0.005);
+  proche(45 - b[0], 5.61, 0.005); proche(50 - b[1], 8.05, 0.005);
+  proche(Math.hypot(45, 50), 67.27, 0.005);
+  for (const [a, c] of [[24, 53], [72, -53]]) { const p = sonde(a, c); assert.ok(Math.hypot(p[0] - 45, p[1] - 50) < 1.5); }
+});
+
 // Module Biomatériaux : un fichier de tests par chapitre (tests/biomateriaux/), mêmes outils.
 const dossierBio = require("path").join(__dirname, "biomateriaux");
 if (require("fs").existsSync(dossierBio)) for (const f of require("fs").readdirSync(dossierBio).filter(f => f.endsWith(".test.js")).sort()) require("./biomateriaux/" + f)({ test, proche, assert });

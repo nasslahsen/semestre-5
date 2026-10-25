@@ -27,7 +27,7 @@
     // dans le cadre de la page du chapitre : fermer l'exercice
     function revenir(e) { if (e) e.preventDefault(); if (window.parent !== window) window.parent.postMessage({ s5: "fermer-exercice" }, "*"); }
     var nom = document.getElementById("nom-niveau"), ici = P.trouver(MID, "exos", def.id);
-    nom.innerHTML = "<small>" + (info.boss ? "BOSS · " : info.revision ? "RÉVISION · " : "EXERCICES · ") + "CHAPITRE " + P.numero(MID, info.chapitre) + "</small><h1>" + info.titre + "</h1>";
+    nom.innerHTML = "<small>" + (info.boss ? "BOSS · " : info.revision ? "RÉVISION · " : "EXERCICES · ") + P.nomChapitre(MID, info.chapitre).toUpperCase() + "</small><h1>" + info.titre + "</h1>";
     var lienCarte = document.querySelector(".barre .carte-lien");
     if (lienCarte) lienCarte.href = P.urlCarte(MID, ici ? ici.etape.sm : undefined, info.chapitre);
     if (lienCarte && plan) { lienCarte.href = P.urlChapitre(MID, info.chapitre); lienCarte.textContent = "Revenir au cours"; lienCarte.addEventListener("click", revenir); }

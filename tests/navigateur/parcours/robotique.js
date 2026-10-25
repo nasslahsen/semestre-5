@@ -162,6 +162,50 @@ tous['boss-transformations'] = async (a) => {
   await a.nombres([0.346, 0.2, 0, 1]); await a.suite();
 };
 
+tous.td1 = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['a', 'b', 'c', 'd']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([10, 50]); await a.suite();
+};
+tous['td1-classer'] = async (a) => {
+  await a.jetons(['f', 'p', 'g', 'i']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.jetons(['t', 'm']); await a.suite();
+};
+tous['td1-questions'] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['c', 'v', 'p', 'b']); await a.suite();
+};
+tous['td1-dh'] = async (a) => {
+  await a.jetons(['c', 's', 'z']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['a', 'b', 'c']); await a.suite();
+  await a.nombres([95]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['td1-echo'] = async (a) => {
+  await a.jetons(['a', 'b', 'c', 'd']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([43.70, 53.81]); await a.suite();
+  await a.nombres([1.30, -3.81]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['revision-td1'] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([30, 30]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['boss-td1'] = async (a) => {
+  await a.nombres([39.39, 41.95]); await a.suite();
+  await a.nombres([5.61, 8.05]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.curseur(0, 24); await a.curseur(1, 53); await a.suite();
+};
+
 tous['robot-systeme'] = async (a) => {
   await a.jetons(['0', '1', '2', '3']); await a.suite();
   await a.jetons(['c', 'a', 'c', 'a']); await a.suite();

@@ -23,7 +23,14 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
-  robotique: { "boss-transformations": { 3: ["bras-2r", "calcul~11", "Calcul"], 4: ["bras-2r", "calcul~11", "Calcul"] } }, // espace de travail du bras 2R
+  robotique: {
+    "boss-transformations": { 3: ["bras-2r", "calcul~11", "Calcul"], 4: ["bras-2r", "calcul~11", "Calcul"] }, // espace de travail du bras 2R
+    // TD 1 : classement (cinq critères), calculs de la sonde (exemple du bras 2R de la page du TD)
+    "td1-classer": { 1: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"], 3: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"] },
+    "td1-echo": { 3: ["td1", "exemple~4", "Exemple"], 4: ["td1", "exemple~4", "Exemple"] },
+    "revision-td1": { 2: ["performances", "formalisation~0", "Formalisation"], 3: ["td1", "exercice-1-la-convention-du-td~6", "Exercice 1 : la convention du TD"] },
+    "boss-td1": { 1: ["td1", "exemple~4", "Exemple"], 2: ["td1", "exemple~4", "Exemple"], 4: ["bras-2r", "calcul~11", "Calcul"] }
+  },
   laboratoire: {
     hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
     interferences: { 4: ["interferences", "principales-interferences", "Principales interférences"] },

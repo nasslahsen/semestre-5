@@ -298,9 +298,16 @@
   // Numéro affiché d'un chapitre : sa place dans son sous-module (un sous-module est un cours à part entière,
   // avec son professeur : ses chapitres repartent de 1, ou de 0 s'il commence par « Les bases »).
   P.numero = function (mid, chid) {
+    var ch = P.module(mid).chapitres.filter(function (c) { return c.id === chid; })[0];
+    if (ch && ch.numero !== undefined) return ch.numero;
     var chs = P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === P.smDe(mid, chid); });
     // décalage seulement : un trou dans la numérotation du cours (laboratoire, sans chapitre 6) reste visible
     return chs.length ? chid - chs[0].id + (chs[0].id === 0 ? 0 : 1) : chid;
+  };
+  // Nom court d'un chapitre : « Chapitre 3 », ou son numéro propre s'il en a un (« TD 1 »).
+  P.nomChapitre = function (mid, chid) {
+    var x = P.numero(mid, chid);
+    return typeof x === "string" ? x : "Chapitre " + x;
   };
   // Dernière section lue d'un chapitre, par sous-module (pour Reprendre).
   P.noterPlan = function (mid, sm, titre, chemin) {
