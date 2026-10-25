@@ -12,9 +12,9 @@
     { t: "Électricité", ic: "eclair", p: [150, 110], d: "Réseau, terre, protections, onduleur (UPS), groupe électrogène." },
     { t: "Réfrigération", ic: "flocon", p: [480, 70], d: "2 à 8 °C, congélation, alarmes de dérive." },
     { t: "HVAC", ic: "thermo", p: [810, 110], d: "Température, humidité, renouvellement et pression de l'air." },
-    { t: "Eau", ic: "goutte", p: [810, 430], d: "Qualité, traitement, surveillance continue selon l'activité." },
-    { t: "Gaz, incendie", ic: "feu", p: [480, 470], d: "Réseau de gaz, détection et protection incendie." },
-    { t: "Réseau, déchets", ic: "ordi", p: [150, 430], d: "Réseau informatique et gestion des déchets." }
+    { t: "Eau", ic: "goutte", p: [810, 400], d: "Qualité, traitement, surveillance continue selon l'activité." },
+    { t: "Gaz, incendie", ic: "feu", p: [480, 410], d: "Réseau de gaz, détection et protection incendie." },
+    { t: "Réseau, déchets", ic: "ordi", p: [150, 400], d: "Réseau informatique et gestion des déchets." }
   ];
   var zone = R.h("div", null, "", f.direct);
   function dessiner() {

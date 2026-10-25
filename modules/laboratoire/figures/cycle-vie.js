@@ -23,7 +23,7 @@
     A.vider(g);
     E.forEach(function (e, i) {
       var x = 30 + (i % 4) * 230, y = i < 4 ? 70 : 300, on = k === i + 1, vu = k >= i + 1;
-      A.boite(g, x, y, 200, 130, { fond: on ? C.jeu : vu ? C.jeuPale : "#fff", bord: vu ? C.jeu : C.trait, ep: 3, rx: 16, titre: e.t, taille: 20, coul: on ? "#fff" : vu ? C.encre : C.gris });
+      A.boite(g, x, y, 200, 130, { fond: on ? C.jeu : vu ? C.jeuPale : "#fff", bord: vu ? C.jeu : C.trait, ep: 3, rx: 16, titre: e.t, taille: 17, coul: on ? "#fff" : vu ? C.encre : C.gris });
       A.texte(g, String(i + 1), [x + 22, y + 24], { taille: 18, gras: 800, coul: on ? "#fff" : C.doux });
       if (i < 3) A.fleche(g, [x + 202, y + 65], [x + 228, y + 65], { coul: vu ? C.jeu : C.trait, ep: 4 });
       if (i > 4) A.fleche(g, [x - 28, y + 65], [x - 2, y + 65], { coul: k >= i + 1 ? C.jeu : C.trait, ep: 4 });
