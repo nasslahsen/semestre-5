@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le robot 2R en Denavit–Hartenberg · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Le robot 2R en Denavit–Hartenberg</h1>
+<p class="chapeau">Un robot simple oriente une aiguille de biopsie dans un plan : deux pivots, deux segments. On le décrit avec la convention de Denavit–Hartenberg, étape par étape.</p>
+
+<h2>Intuition</h2>
+<p>Deux articulations pivots (rotoïdes) dans le plan \((x, y)\) ; segment 1 de longueur \(L_1\), segment 2 de longueur \(L_2\) ; variables articulaires \(\theta_1\) et \(\theta_2\) ; l'organe terminal, la pointe de l'aiguille, est au bout du segment 2. Avec Denavit–Hartenberg, chaque repère est au bout de son segment, sur l'articulation suivante : \(O_1\) est sur le pivot 2, \(O_2\) sur l'outil.</p>
+
+<div id="fig-dh-2r"></div>
+
+<h2>Formalisation</h2>
+<h3>Étape 1 : placement des repères</h3>
+<p>Les axes \(z_0\), \(z_1\), \(z_2\) sortent de la page, parallèles et de même sens. Les normales communes sont les segments eux-mêmes : \(x_1\) suit le segment 1, \(x_2\) suit le segment 2.</p>
+<h3>Étape 2 : le tableau de Denavit–Hartenberg</h3>
+<p>Torsion entre les axes : \(\alpha_1 = \alpha_2 = 0\) (\(z_0 \parallel z_1 \parallel z_2\), de même sens). Décalage selon les axes \(z\) : \(r_1 = r_2 = 0\) (\(O_0\), \(O_1\), \(O_2\) dans le même plan).</p>
+<div class="tableau"><table>
+<tr><th>\(j\)</th><th>\(\alpha_j\)</th><th>\(d_j\)</th><th>\(\theta_j\)</th><th>\(r_j\)</th></tr>
+<tr><td>1</td><td>0</td><td>\(L_1\)</td><td>\(\theta_1\)</td><td>0</td></tr>
+<tr><td>2</td><td>0</td><td>\(L_2\)</td><td>\(\theta_2\)</td><td>0</td></tr>
+</table></div>
+<h3>Étape 3 : les matrices élémentaires</h3>
+<p>La transformation du repère \(R_1\) exprimé dans \(R_0\), et celle du repère \(R_2\) exprimé dans \(R_1\) :</p>
+\[ {}^0T_1 = \begin{pmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & L_1\cos\theta_1 \\ \sin\theta_1 & \cos\theta_1 & 0 & L_1\sin\theta_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad {}^1T_2 = \begin{pmatrix} \cos\theta_2 & -\sin\theta_2 & 0 & L_2\cos\theta_2 \\ \sin\theta_2 & \cos\theta_2 & 0 & L_2\sin\theta_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<h3>Étape 4 : la matrice homogène finale</h3>
+<p>En effectuant le produit ligne par colonne, \({}^0T_2 = {}^0T_1\,{}^1T_2\) :</p>
+\[ {}^0T_2 = \begin{pmatrix} \cos(\theta_1 + \theta_2) & -\sin(\theta_1 + \theta_2) & 0 & L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \\ \sin(\theta_1 + \theta_2) & \cos(\theta_1 + \theta_2) & 0 & L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>En lisant directement la 4e colonne, les coordonnées de l'organe terminal dans le repère de base :</p>
+\[ {}^0P = \begin{pmatrix} P_x \\ P_y \\ P_z \end{pmatrix} = \begin{pmatrix} L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \\ L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \\ 0 \end{pmatrix} \]
+<p>C'est le même résultat que le bras 2R du chapitre 4, où \(O_1\) était confondu avec \(O_0\) et la translation \(l_1\) était dans \(T^{1,2}\). Les repères diffèrent, la position de l'outil non.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>\(L_1 = 40\) cm, \(L_2 = 30\) cm, \(\theta_1 = 90°\), \(\theta_2 = -90°\) : le segment 1 monte, le segment 2 repart à l'horizontale.</p>
+\[ P_x = 40\cos 90° + 30\cos 0° = 0 + 30 = 30 \text{ cm} \qquad P_y = 40\sin 90° + 30\sin 0° = 40 \text{ cm} \]
+<p>Orientation de l'outil : \(\theta_1 + \theta_2 = 0°\), l'aiguille est parallèle à \(x_0\).</p>
+
+<h2>Formules clés</h2>
+\[ \alpha_j = 0,\ d_j = L_j,\ r_j = 0 \qquad {}^0T_2 = {}^0T_1\,{}^1T_2 \]
+\[ P_x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \qquad P_y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/dh-2r.js"></script>
+</body>
+</html>

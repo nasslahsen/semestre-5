@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modélisation des robots médicaux</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 10. -->
+<main class="cours-chapitre" data-chapitre="10">
+<p class="etiquette" data-etiquette></p>
+<h1>Modélisation des robots médicaux</h1>
+
+<section class="partie" id="s-dh-convention">
+<p class="rang-partie">1 / 4</p>
+<h2>Pourquoi une convention, et ses deux règles</h2>
+
+<article class="notion" id="n-dh-convention">
+<p class="etiquette" data-etiquette></p>
+<h3>Pourquoi une convention : Denavit–Hartenberg</h3>
+<p class="chapeau">Un robot médical est une chaîne de segments articulés. Le dossier patient, le logiciel de planification et le robot doivent décrire sa géométrie de la même façon, sinon leurs données ne se parlent pas.</p>
+
+<h4>Intuition</h4>
+<p>Pour passer d'un repère au suivant, il faut en général six nombres : trois pour la position, trois pour l'orientation. Si chaque fabricant ou chaque logiciel de simulation place ses repères à sa manière, le même robot a plusieurs descriptions incompatibles, et l'interopérabilité devient impossible.</p>
+<p>L'idée de Denavit et Hartenberg : imposer où mettre chaque repère. Avec des repères bien placés, quatre nombres suffisent pour décrire chaque liaison. On les range dans un tableau, une ligne par articulation.</p>
+
+<div id="fig-dh-regles"></div>
+
+<h4>Formalisation</h4>
+<h5>Le problème et la solution</h5>
+<p>En 1955, Denavit et Hartenberg ont proposé une <strong>convention de placement des repères</strong> qui décrit chaque liaison avec 4 paramètres au lieu de 6. Elle est devenue le standard universel en robotique : elle est reprise par les principaux logiciels (MATLAB, RoboDK, CoppeliaSim…), et un même tableau de 4 paramètres par articulation fonctionne partout.</p>
+<p>Sa limite : développée pour des structures ouvertes simples, elle présente des ambiguïtés sur les robots à structure fermée ou arborescente.</p>
+<h5>Le principe : deux règles</h5>
+<p>Pour chaque segment du robot, numéroté \(j\), qui relie l'articulation \(j\) à l'articulation \(j+1\), on place un repère \((O_j, X_j, Y_j, Z_j)\) :</p>
+<ol>
+<li><strong>Règle de l'axe \(Z_j\)</strong> : \(Z_j\) est toujours aligné avec l'axe de mouvement de l'articulation \(j+1\) (et non de l'articulation \(j\)).</li>
+<li><strong>Règle de l'axe \(X_j\)</strong> : \(X_j\) est toujours placé le long de la <strong>normale commune</strong> entre \(Z_{j-1}\) et \(Z_j\), et il est dirigé de \(Z_{j-1}\) vers \(Z_j\).</li>
+</ol>
+<p>La normale commune est la droite perpendiculaire à la fois à \(Z_{j-1}\) et à \(Z_j\). L'origine \(O_j\) est là où elle coupe \(Z_j\).</p>
+
+<h4>Exemple</h4>
+<p>Le système d'insertion d'aiguille 2R du cours : deux pivots dans le plan \((x, y)\). Les axes \(z_0\), \(z_1\), \(z_2\) sortent de la page, parallèles et de même sens. Entre \(z_0\) et \(z_1\), la normale commune est la droite \(O_0O_1\), le long du segment 1 : elle porte \(x_1\). Entre \(z_1\) et \(z_2\), c'est la droite \(O_1O_2\), le long du segment 2 : elle porte \(x_2\). Comme les segments sont dans le plan et les axes \(z\) perpendiculaires à ce plan, les normales communes se superposent aux lignes centrales des segments. \(x_0\) est la référence horizontale choisie pour mesurer \(\theta_1\).</p>
+
+<h4>Formules clés</h4>
+\[ Z_j = \text{axe de l'articulation } j+1 \qquad X_j = \text{normale commune de } Z_{j-1} \text{ vers } Z_j \]
+<p>4 paramètres par liaison au lieu de 6 ; ambiguïtés pour les structures fermées ou arborescentes.</p>
+</article>
+
+<div class="fin-partie" data-section="dh-convention"></div>
+</section>
+
+<section class="partie" id="s-dh-parametres">
+<p class="rang-partie">2 / 4</p>
+<h2>Les quatre paramètres et la matrice DH</h2>
+
+<article class="notion" id="n-dh-parametres">
+<p class="etiquette" data-etiquette></p>
+<h3>Les quatre paramètres et la matrice DH</h3>
+<p class="chapeau">Une fois les repères placés, le passage du repère \(j-1\) au repère \(j\) se décrit avec seulement quatre nombres : la « carte d'identité » de la liaison.</p>
+
+<h4>Intuition</h4>
+<p>Pour aller de \(R_{j-1}\) à \(R_j\), on enchaîne quatre mouvements simples : tourner autour de \(Z_{j-1}\) pour aligner \(X\) sur la normale commune, monter le long de \(Z_{j-1}\) jusqu'à elle, avancer le long d'elle jusqu'à l'axe suivant, puis incliner l'axe \(Z\) autour de \(X\). Deux rotations et deux translations : quatre paramètres.</p>
+
+<div id="fig-dh-params"></div>
+
+<h4>Formalisation</h4>
+<h5>Les quatre paramètres</h5>
+<ul>
+<li>\(\alpha_j\) : angle entre les axes \(Z_{j-1}\) et \(Z_j\), correspondant à une rotation autour de \(X_j\) ;</li>
+<li>\(d_j\) : distance entre les axes \(Z_{j-1}\) et \(Z_j\), mesurée le long de \(X_j\) ;</li>
+<li>\(\theta_j\) : angle entre les axes \(X_{j-1}\) et \(X_j\), correspondant à une rotation autour de \(Z_{j-1}\) ;</li>
+<li>\(r_j\) : distance entre les axes \(X_{j-1}\) et \(X_j\), mesurée le long de \(Z_{j-1}\).</li>
+</ul>
+<h5>La matrice de transformation homogène DH</h5>
+<p>\(d_j\), \(\alpha_j\), \(r_j\), \(\theta_j\) sont les paramètres de <strong>Denavit–Hartenberg</strong>. Le passage de \(R_{j-1}\) à \(R_j\) s'écrit :</p>
+\[ T^{j-1,j} = \text{Rot}(z, \theta_j)\,\text{Trans}(z, r_j)\,\text{Trans}(x, d_j)\,\text{Rot}(x, \alpha_j) \]
+\[ \begin{pmatrix} \cos\theta_j & -\sin\theta_j & 0 & 0 \\ \sin\theta_j & \cos\theta_j & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & d_j \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha_j & -\sin\alpha_j & 0 \\ 0 & \sin\alpha_j & \cos\alpha_j & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Le produit donne :</p>
+\[ {}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Le cours écrit la même matrice \(T^{j-1,j}\) ou \({}^{j-1}T_j\). La dernière colonne est la position de \(O_j\) dans \(R_{j-1}\) : on avance de \(d_j\) dans la direction \(\theta_j\), à la hauteur \(r_j\).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Une liaison avec \(\theta_j = 90°\), \(r_j = 0\), \(d_j = 2\), \(\alpha_j = 0\). Avec \(\cos 90° = 0\), \(\sin 90° = 1\), \(\cos 0 = 1\), \(\sin 0 = 0\) :</p>
+\[ {}^{j-1}T_j = \begin{pmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>\(O_j\) est à 2 unités sur \(Y_{j-1}\), et \(X_j\) pointe dans la direction de \(Y_{j-1}\). Avec \(\alpha_j = 0\), les deux axes \(Z\) restent parallèles : c'est le cas des bras plans.</p>
+
+<h4>Formules clés</h4>
+\[ T^{j-1,j} = \text{Rot}(z, \theta_j)\,\text{Trans}(z, r_j)\,\text{Trans}(x, d_j)\,\text{Rot}(x, \alpha_j) \]
+\[ {}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+</article>
+
+<div class="fin-partie" data-section="dh-parametres"></div>
+</section>
+
+<section class="partie" id="s-dh-2r">
+<p class="rang-partie">3 / 4</p>
+<h2>Le robot 2R en Denavit–Hartenberg</h2>
+
+<article class="notion" id="n-dh-2r">
+<p class="etiquette" data-etiquette></p>
+<h3>Le robot 2R en Denavit–Hartenberg</h3>
+<p class="chapeau">Un robot simple oriente une aiguille de biopsie dans un plan : deux pivots, deux segments. On le décrit avec la convention de Denavit–Hartenberg, étape par étape.</p>
+
+<h4>Intuition</h4>
+<p>Deux articulations pivots (rotoïdes) dans le plan \((x, y)\) ; segment 1 de longueur \(L_1\), segment 2 de longueur \(L_2\) ; variables articulaires \(\theta_1\) et \(\theta_2\) ; l'organe terminal, la pointe de l'aiguille, est au bout du segment 2. Avec Denavit–Hartenberg, chaque repère est au bout de son segment, sur l'articulation suivante : \(O_1\) est sur le pivot 2, \(O_2\) sur l'outil.</p>
+
+<div id="fig-dh-2r"></div>
+
+<h4>Formalisation</h4>
+<h5>Étape 1 : placement des repères</h5>
+<p>Les axes \(z_0\), \(z_1\), \(z_2\) sortent de la page, parallèles et de même sens. Les normales communes sont les segments eux-mêmes : \(x_1\) suit le segment 1, \(x_2\) suit le segment 2.</p>
+<h5>Étape 2 : le tableau de Denavit–Hartenberg</h5>
+<p>Torsion entre les axes : \(\alpha_1 = \alpha_2 = 0\) (\(z_0 \parallel z_1 \parallel z_2\), de même sens). Décalage selon les axes \(z\) : \(r_1 = r_2 = 0\) (\(O_0\), \(O_1\), \(O_2\) dans le même plan).</p>
+<div class="tableau"><table>
+<tr><th>\(j\)</th><th>\(\alpha_j\)</th><th>\(d_j\)</th><th>\(\theta_j\)</th><th>\(r_j\)</th></tr>
+<tr><td>1</td><td>0</td><td>\(L_1\)</td><td>\(\theta_1\)</td><td>0</td></tr>
+<tr><td>2</td><td>0</td><td>\(L_2\)</td><td>\(\theta_2\)</td><td>0</td></tr>
+</table></div>
+<h5>Étape 3 : les matrices élémentaires</h5>
+<p>La transformation du repère \(R_1\) exprimé dans \(R_0\), et celle du repère \(R_2\) exprimé dans \(R_1\) :</p>
+\[ {}^0T_1 = \begin{pmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & L_1\cos\theta_1 \\ \sin\theta_1 & \cos\theta_1 & 0 & L_1\sin\theta_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad {}^1T_2 = \begin{pmatrix} \cos\theta_2 & -\sin\theta_2 & 0 & L_2\cos\theta_2 \\ \sin\theta_2 & \cos\theta_2 & 0 & L_2\sin\theta_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<h5>Étape 4 : la matrice homogène finale</h5>
+<p>En effectuant le produit ligne par colonne, \({}^0T_2 = {}^0T_1\,{}^1T_2\) :</p>
+\[ {}^0T_2 = \begin{pmatrix} \cos(\theta_1 + \theta_2) & -\sin(\theta_1 + \theta_2) & 0 & L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \\ \sin(\theta_1 + \theta_2) & \cos(\theta_1 + \theta_2) & 0 & L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>En lisant directement la 4e colonne, les coordonnées de l'organe terminal dans le repère de base :</p>
+\[ {}^0P = \begin{pmatrix} P_x \\ P_y \\ P_z \end{pmatrix} = \begin{pmatrix} L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \\ L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \\ 0 \end{pmatrix} \]
+<p>C'est le même résultat que le bras 2R du chapitre 4, où \(O_1\) était confondu avec \(O_0\) et la translation \(l_1\) était dans \(T^{1,2}\). Les repères diffèrent, la position de l'outil non.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>\(L_1 = 40\) cm, \(L_2 = 30\) cm, \(\theta_1 = 90°\), \(\theta_2 = -90°\) : le segment 1 monte, le segment 2 repart à l'horizontale.</p>
+\[ P_x = 40\cos 90° + 30\cos 0° = 0 + 30 = 30 \text{ cm} \qquad P_y = 40\sin 90° + 30\sin 0° = 40 \text{ cm} \]
+<p>Orientation de l'outil : \(\theta_1 + \theta_2 = 0°\), l'aiguille est parallèle à \(x_0\).</p>
+
+<h4>Formules clés</h4>
+\[ \alpha_j = 0,\ d_j = L_j,\ r_j = 0 \qquad {}^0T_2 = {}^0T_1\,{}^1T_2 \]
+\[ P_x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \qquad P_y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \]
+</article>
+
+<div class="fin-partie" data-section="dh-2r"></div>
+</section>
+
+<section class="partie" id="s-mgd">
+<p class="rang-partie">4 / 4</p>
+<h2>Modèle géométrique direct</h2>
+
+<article class="notion" id="n-mgd">
+<p class="etiquette" data-etiquette></p>
+<h3>Modélisation géométrique directe (MGD)</h3>
+<p class="chapeau">En sénologie, un robot guide une aiguille de biopsie vers une micro-lésion vue en imagerie 3D. Ses capteurs ne donnent que les angles des moteurs ; le radiologue, lui, veut voir où est la pointe sur l'image.</p>
+
+<h4>Intuition</h4>
+<p>La <strong>modélisation géométrique</strong> étudie la position et l'orientation du robot sans tenir compte des forces (poids des organes, résistance des tissus) : c'est la première étape de la planification. Avant une opération, un logiciel place le modèle géométrique du robot sur le scanner du patient et vérifie que le bras atteint la tumeur sans que sa base ne gêne l'anesthésiste : c'est vérifier l'<strong>espace de travail</strong>.</p>
+<p>Le modèle direct répond à la question « où est l'outil ? » : les encodeurs fournissent \(\theta_1\) et \(\theta_2\), la MGD calcule la position \((x, y)\) dans le repère du robot, et le recalage robot-image superpose cette position à l'image.</p>
+
+<div id="fig-mgd"></div>
+
+<h4>Formalisation</h4>
+<h5>Définition et objectif</h5>
+<p>La <strong>modélisation géométrique directe</strong> (MGD) a pour but de déterminer la position et l'orientation de l'organe terminal (OT, ou outil) dans l'espace de travail, en fonction des valeurs des variables articulaires (les angles des moteurs \(\theta_i\) ou les courses des vérins \(d_i\)) :</p>
+\[ X = f(q) \]
+<p>où \(q = [q_1, q_2, \dots, q_n]^T\) est le vecteur des variables articulaires, et \(X = [x, y, z, \phi, \theta, \psi]^T\) la posture de l'outil dans l'espace, par rapport à la base du robot (souvent fixée au bord du lit d'opération).</p>
+<h5>Méthodologie de calcul : le chaînage DH</h5>
+<p>La convention DH donne, pour chaque articulation, une petite matrice \({}^{i-1}_{\ \ i}T\) qui décrit le passage d'un repère au suivant. Pour connaître la position finale de l'outil par rapport à la base, on multiplie toutes ces matrices les unes à la suite des autres :</p>
+\[ {}^0_nT(q) = {}^0_1T(q_1)\;{}^1_2T(q_2)\;{}^2_3T(q_3) \cdots {}^{n-1}_{\ \ \ n}T(q_n) \]
+<p>La matrice résultante est une matrice \(4 \times 4\) :</p>
+\[ {}^0_nT = \begin{pmatrix} r_{11} & r_{12} & r_{13} & p_x \\ r_{21} & r_{22} & r_{23} & p_y \\ r_{31} & r_{32} & r_{33} & p_z \\ 0 & 0 & 0 & 1 \end{pmatrix} = \begin{pmatrix} {}^0_nR & {}^0\vec{P}_n \\ 0_{1\times 3} & 1 \end{pmatrix} \]
+<p>Position \((P_x, P_y, P_z)\) : 4e colonne de la matrice résultante. Orientation : la sous-matrice de rotation \({}^0_nR\) (\(3 \times 3\)).</p>
+<h5>Méthodologie pas à pas</h5>
+<ol>
+<li>Récupérer le tableau DH du robot.</li>
+<li>Écrire les matrices élémentaires \({}^{i-1}_{\ \ i}T\) pour chaque articulation, en remplaçant les paramètres DH par leurs valeurs.</li>
+<li>Multiplier les matrices dans l'ordre strict, de la gauche vers la droite, de la base vers l'outil. La multiplication matricielle n'est pas commutative.</li>
+<li>Simplifier les expressions trigonométriques du résultat final.</li>
+<li>Extraire position et orientation.</li>
+</ol>
+<h5>Applications médicales</h5>
+<ul>
+<li>Navigation chirurgicale assistée par ordinateur (orthopédie, neurochirurgie, chirurgie ORL) : imagerie (IRM ou scanner), suivi de l'instrument, recalage spatial ; le chirurgien voit où se trouve l'instrument par rapport à l'anatomie.</li>
+<li>Systèmes de biopsie guidée (sénologie, pneumologie, radiologie interventionnelle) : localiser la lésion, planifier le point d'entrée et l'orientation, vérifier la position par imagerie.</li>
+<li>Robots de rééducation (post-AVC, motrice) : mesurer le mouvement du bras, le comparer à l'exercice, retour visuel au patient.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p>Exemple clinique du cours : robot de biopsie du sein, 2R plan. Segment 1 : \(L_1 = 40\) cm, relié à la base par l'articulation 1 (angle \(\theta_1\)) ; segment 2 : \(L_2 = 30\) cm, relié au segment 1 par l'articulation 2 (angle \(\theta_2\)). Le repère de base \(\{0\}\) est fixé au point d'ancrage du robot sur la table d'examen.</p>
+\[ {}^0_2T = {}^0_1T\;{}^1_2T = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p class="complement">Exemple ajouté.</p>
+<p>Avec \(\theta_1 = 30°\) et \(\theta_2 = 60°\) : \(x = 40\cos 30° + 30\cos 90° = 34{,}64\) cm, \(y = 40\sin 30° + 30\sin 90° = 20 + 30 = 50\) cm, et l'aiguille est orientée à \(\theta_1 + \theta_2 = 90°\), verticale.</p>
+
+<h4>Formules clés</h4>
+\[ X = f(q) \qquad {}^0_nT(q) = {}^0_1T(q_1)\;{}^1_2T(q_2) \cdots {}^{n-1}_{\ \ \ n}T(q_n) \]
+<p>Position : 4e colonne de \({}^0_nT\). Orientation : la sous-matrice \({}^0_nR\). Ordre strict, de la base vers l'outil.</p>
+</article>
+
+<div class="fin-partie" data-section="mgd"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../figures/dh-convention.js"></script>
+<script src="../figures/dh-parametres.js"></script>
+<script src="../figures/dh-2r.js"></script>
+<script src="../figures/mgd.js"></script>
+</body>
+</html>

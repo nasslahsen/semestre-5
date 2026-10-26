@@ -162,6 +162,48 @@ tous['boss-transformations'] = async (a) => {
   await a.nombres([0.346, 0.2, 0, 1]); await a.suite();
 };
 
+tous['dh-convention'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['dh-parametres'] = async (a) => {
+  await a.jetons(['t', 'r', 'd', 'a']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['a', 'b', 'c', 'd']); await a.suite();
+  await a.nombres([0, 5, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['dh-2r'] = async (a) => {
+  await a.jetons(['z', 'l']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([40, 30]); await a.suite();
+  await a.nombres([90]); await a.suite();
+};
+tous.mgd = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['q', 'x']); await a.suite();
+  await a.jetons(['a', 'b', 'c', 'd', 'e']); await a.suite();
+  await a.nombres([45.98, 49.64]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['revision-modelisation'] = async (a) => {
+  await a.nombres([0]); await a.suite();
+  await a.nombres([-15, 25]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['a', 'b', 'c']); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['boss-modelisation'] = async (a) => {
+  await a.nombres([40, 30]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.curseur(0, 59); await a.curseur(1, -48); await a.suite();
+  await a.nombres([11]); await a.suite();
+};
 tous.td1 = async (a) => {
   await a.choix(0); await a.suite();
   await a.jetons(['a', 'b', 'c', 'd']); await a.suite();

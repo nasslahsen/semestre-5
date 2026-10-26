@@ -39,10 +39,10 @@ NIVEAU({
       var z = j.zone("", '<div style="display:grid;gap:8px;font-size:18px">' + [1, 2, 3, 4].map(function (k) { return '<div style="display:flex;align-items:center;gap:10px"><b>' + k + '.</b><span class="trou" data-attendu="' + "abcd"[k - 1] + '" style="min-width:420px"></span></div>'; }).join("") + "</div>");
       j.jetons({
         trous: [].slice.call(z.querySelectorAll(".trou")),
-        jetons: [{ id: "b", html: "placer R₀ sur la base, R₁ et R₂ sur les segments" }, { id: "d", html: "multiplier T(0,1) T(1,2), lire la position de la sonde" }, { id: "a", html: "décrire le robot : L₁, L₂, pivots, θ₁, θ₂" }, { id: "c", html: "écrire la matrice de chaque articulation" }],
-        aide: "Il faut des repères avant de pouvoir écrire une matrice entre eux.",
+        jetons: [{ id: "c", html: "écrire les matrices élémentaires" }, { id: "a", html: "placer les repères selon DH" }, { id: "d", html: "multiplier dans l'ordre, lire la 4e colonne" }, { id: "b", html: "remplir le tableau DH" }],
+        aide: "Le tableau se lit sur les repères placés, et les matrices s'écrivent à partir du tableau.",
         ok: function () {
-          j.bravo("Décrire, placer les repères, écrire les matrices, composer.");
+          j.bravo("Repères, tableau DH, matrices, produit.");
           j.expliquer("<p>Le résultat est le modèle de l'énoncé : \\(x = L_1\\cos\\theta_1 + L_2\\cos(\\theta_1 + \\theta_2)\\), \\(y = L_1\\sin\\theta_1 + L_2\\sin(\\theta_1 + \\theta_2)\\).</p>");
           j.suite();
         }

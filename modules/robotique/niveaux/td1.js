@@ -48,11 +48,11 @@ NIVEAU({
       var z = j.zone("", '<div style="display:grid;gap:8px;font-size:18px">' + [1, 2, 3, 4].map(function (k) { return '<div style="display:flex;align-items:center;gap:10px"><b>' + k + '.</b><span class="trou" data-attendu="' + "abcd"[k - 1] + '" style="min-width:420px"></span></div>'; }).join("") + "</div>");
       j.jetons({
         trous: [].slice.call(z.querySelectorAll(".trou")),
-        jetons: [{ id: "c", html: "écrire une matrice homogène par articulation" }, { id: "a", html: "décrire segments, longueurs et variables articulaires" }, { id: "d", html: "multiplier les matrices et lire la dernière colonne" }, { id: "b", html: "placer un repère fixe, puis un repère par segment" }],
-        aide: "On ne peut écrire une matrice qu'entre deux repères déjà placés.",
+        jetons: [{ id: "c", html: "écrire les matrices élémentaires" }, { id: "a", html: "placer les repères selon DH" }, { id: "d", html: "multiplier dans l'ordre, lire la 4e colonne" }, { id: "b", html: "remplir le tableau DH" }],
+        aide: "Le tableau se lit sur les repères placés, et les matrices s'écrivent à partir du tableau.",
         ok: function () {
-          j.bravo("Décrire, placer les repères, écrire les matrices, composer.");
-          j.expliquer("<p>C'est la méthode du bras 2R du chapitre 4. La position de l'organe terminal est la dernière colonne de \\(T^{0,n}\\).</p>");
+          j.bravo("Repères, tableau DH, matrices, produit.");
+          j.expliquer("<p>C'est la méthode du chapitre 5. La position de l'organe terminal est la dernière colonne de \\(T^{0,n}\\).</p>");
           j.suite();
         }
       });
