@@ -1,8 +1,9 @@
 /*
  * Un chapitre sur une seule grande page qui défile (modules/<id>/chapitres/chapitre-<n>.html,
  * générée par outils/regrouper.js). Pas de bouton entre les sections : on lit d'un trait.
- * Après chaque notion, ses exercices en option (« Jouer ») : ils s'ouvrent par-dessus la page, qui reste à sa place ;
- * sinon on continue de défiler. En fin de chapitre : la révision et le défi final, en option, puis « Chapitre suivant ».
+ * À la fin de chaque section, un seul bloc « Jouer » en option : il enchaîne les exercices de la section, par-dessus la page,
+ * qui reste à sa place ; sinon on continue de défiler. En fin de chapitre : un bloc pour la révision puis le défi final,
+ * puis « Chapitre suivant ».
  * La barre montre la section où l'on est (« 2 / 4 ») ; une section est lue quand on passe sa fin ;
  * « Reprendre » rouvre la page à la section où l'on s'est arrêté.
  * Ancres : s-<section>, n-<notion>, et <notion>-<titre> (même calcul que les anciennes pages, notion par notion),
@@ -75,34 +76,36 @@
       [].forEach.call(main.querySelectorAll(".fin-partie"), function (f) { obs.observe(f); });
     }
 
-    // Exercices facultatifs : après chaque notion qui a un niveau ; la révision et le défi final en fin de chapitre
+    // Exercices facultatifs : un seul bloc « Jouer » à la fin de chaque section, qui enchaîne les exercices de ses notions ;
+    // en fin de chapitre, un bloc pour la révision puis le défi final. Les exercices sans page de cours (TD) vont avec la dernière section.
     var parId = {};
     ch.niveaux.forEach(function (n) { parId[n.id] = n; });
-    function bloc(n, ou, avant) {
+    function bloc(ids, petit, titre, ou, avant, defi) {
       var b = document.createElement("div");
-      b.className = "jouer" + (n.boss ? " defi" : "");
-      b.dataset.niveau = n.id;
-      b.innerHTML = '<span><small>' + (n.boss ? "Défi final" : n.revision ? "Révision du chapitre" : "Exercices") + "</small>" + esc(n.titre) + "</span>" +
-        '<button type="button" class="btn-jouer"></button>';
-      b.querySelector("button").addEventListener("click", function () { ouvrir(n.id); });
+      b.className = "jouer" + (defi ? " defi" : "");
+      b.dataset.niveaux = ids.join(" ");
+      b.innerHTML = '<span><small>' + petit + "</small>" + esc(titre) + "</span>" + '<button type="button" class="btn-jouer"></button>';
+      b.querySelector("button").addEventListener("click", function () {
+        var fait = P.chapitre(MID, ch.id).niveaux.filter(function (n) { return n.fait; }).map(function (n) { return n.id; });
+        var k = ids.filter(function (id) { return fait.indexOf(id) < 0; })[0];
+        ouvrir(ids, k ? ids.indexOf(k) : 0);
+      });
       ou.insertBefore(b, avant || null);
       return b;
     }
-    var notions = [];
-    [].forEach.call(main.querySelectorAll("article.notion"), function (art) {
-      var nid = art.id.replace(/^n-/, ""), n = parId[nid];
-      notions.push(nid);
-      if (n) bloc(n, art.parentNode, art.nextSibling);
-    });
-    // exercices sans page de cours (TD) : à la fin du cours, avant la révision
-    var finCours = parties.length ? parties[parties.length - 1].querySelector(".fin-partie") : null;
-    ch.niveaux.forEach(function (n) {
-      if (!n.revision && !n.boss && notions.indexOf(n.id) < 0 && finCours) bloc(n, finCours.parentNode, finCours);
+    var notions = [].map.call(main.querySelectorAll("article.notion"), function (art) { return art.id.replace(/^n-/, ""); });
+    var sansPage = ch.niveaux.filter(function (n) { return !n.revision && !n.boss && notions.indexOf(n.id) < 0; }).map(function (n) { return n.id; });
+    parties.forEach(function (partie, k) {
+      var s = ch.sections[k], ids = s.notions.filter(function (nid) { return parId[nid]; });
+      if (k === parties.length - 1) ids = ids.concat(sansPage);
+      var fin = partie.querySelector(".fin-partie");
+      if (ids.length) bloc(ids, "Exercices", s.titre, fin ? fin.parentNode : partie, fin);
     });
     var fin = document.createElement("section");
     fin.className = "fin-chapitre";
     fin.innerHTML = "<h2>Fin du chapitre</h2><p>Pour tout mélanger, si tu en as envie : la révision, puis le défi final.</p>";
-    ch.niveaux.filter(function (n) { return n.revision || n.boss; }).forEach(function (n) { bloc(n, fin); });
+    var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
+    if (finIds.length) bloc(finIds, "Fin du chapitre", "Révision et défi final", fin, null, true);
     // la suite reste dans le même espace : le chapitre de cours suivant, ou le TD suivant
     var sms = P.chapitresDe(MID, ch.sm, ch.td ? "td" : "cours"), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
     var bas = document.createElement("nav");
@@ -117,22 +120,23 @@
       var c = P.chapitre(MID, ch.id), fait = {};
       c.niveaux.forEach(function (n) { fait[n.id] = n.fait; });
       [].forEach.call(document.querySelectorAll(".jouer"), function (b) {
-        b.classList.toggle("fait", !!fait[b.dataset.niveau]);
-        b.querySelector("button").textContent = fait[b.dataset.niveau] ? "Rejouer" : "Jouer";
+        var tous = b.dataset.niveaux.split(" ").every(function (id) { return fait[id]; });
+        b.classList.toggle("fait", tous);
+        b.querySelector("button").textContent = tous ? "Rejouer" : "Jouer";
       });
     }
     majBlocs();
 
     // L'exercice s'ouvre par-dessus la page ; « Revenir au cours » le ferme et la page n'a pas bougé
     var fenetre = null;
-    function ouvrir(nid) {
+    function ouvrir(ids, k) {
       if (!fenetre) {
         fenetre = document.createElement("div");
         fenetre.className = "fenetre-jeu";
         fenetre.innerHTML = '<iframe title="Exercices"></iframe>';
         document.body.appendChild(fenetre);
       }
-      fenetre.querySelector("iframe").src = P.urlExercice(MID, nid);
+      fenetre.querySelector("iframe").src = P.urlExercice(MID, ids[k], ids.slice(k + 1));
       fenetre.classList.add("on");
       document.documentElement.classList.add("jeu-ouvert");
     }

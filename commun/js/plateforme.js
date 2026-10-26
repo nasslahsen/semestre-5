@@ -273,7 +273,10 @@
     return racine + "modules/" + mid + "/index.html" + (q.length ? "?" + q.join("&") : "");
   };
   // Un niveau ouvert depuis la page d'un chapitre, par-dessus elle : jouer.html?cadre=1#<niveau>.
-  P.urlExercice = function (mid, nid) { return racine + "modules/" + mid + "/jouer.html?cadre=1#" + nid; };
+  // suite : les exercices à enchaîner ensuite (bloc « Jouer » d'une section), jouer.html?cadre=1&suite=a,b#<niveau>.
+  P.urlExercice = function (mid, nid, suite) {
+    return racine + "modules/" + mid + "/jouer.html?cadre=1" + (suite && suite.length ? "&suite=" + suite.map(encodeURIComponent).join(",") : "") + "#" + nid;
+  };
   // État d'un chapitre : sections (avec lue, faite), niveaux (avec fait, etoiles), coursLu, sectionsFaites, exosFaits,
   // etat : "fait" (toutes les sections faites, exercices réussis), "encours" (quelque chose de commencé) ou "" (rien).
   P.chapitre = function (mid, chid) {

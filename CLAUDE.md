@@ -21,7 +21,7 @@ commun/                    système de design partagé (ne pas copier dans les m
   css/tableau.css          tableau de bord
   js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
   js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »
-  js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, blocs « Jouer », fin de chapitre
+  js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, un bloc « Jouer » par section, fin de chapitre
   js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
   js/lib.js                figures des pages de cours (RM) : calculs, SVG 2D/3D, curseurs, étapes, mise en page sur un écran
   js/tableau.js            tableau de bord
@@ -73,10 +73,11 @@ chapitre suivant.
   regroupe une ou plusieurs notions (`sections` dans `module.js`) ; chaque notion garde intacte sa page de cours
   (intuition, figures, formalisation, exemple, formules clés). Un indicateur discret « 2 / 4 » dans la barre suit
   le défilement ; une section est lue quand sa fin passe à l'écran.
-- **Blocs « Jouer »** : après chaque notion qui a un niveau, un bloc discret propose les exercices. Ils s'ouvrent
-  par-dessus la page (fenêtre, `jouer.html?cadre=1#<niveau>`) ; « Revenir au cours » la referme au même endroit.
-  Jouer reste facultatif : on peut continuer à lire. Les niveaux de TD sans page vont avant la fin du chapitre.
-- **Fin du chapitre** : la révision et le boss (facultatifs), puis « Chapitre suivant » (ou « Retour à la carte »).
+- **Blocs « Jouer »** : un seul bloc discret à la fin de chaque section qui a des exercices. Son bouton enchaîne les
+  niveaux des notions de la section, en commençant par le premier pas fait, par-dessus la page (fenêtre,
+  `jouer.html?cadre=1&suite=b,c#a`) : à la fin d'un niveau, « Exercice suivant » ouvre le suivant, « Revenir au cours »
+  referme la fenêtre au même endroit. Jouer reste facultatif. Les niveaux de TD sans page vont dans le bloc de la dernière section.
+- **Fin du chapitre** : un seul bloc pour la révision puis le boss (facultatifs), puis « Chapitre suivant » (ou « Retour à la carte »).
 - Les exercices ne testent que ce que la notion juste avant explique, avec la même notation et les mêmes figures ;
   les exemples de la page n'utilisent pas les nombres exacts des questions.
 - Après une erreur ou une réponse vue, « Revoir dans le cours » ouvre la page de chapitre à la section ou au passage
