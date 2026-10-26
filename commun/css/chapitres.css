@@ -10,3 +10,9 @@
 .noeud-chapitre .forme.texte { font-size: 24px; white-space: nowrap; }
 .carte-chapitres .unite .nomn { font: 800 21px/1.2 "Bricolage Grotesque", Inter, sans-serif; max-width: 270px; }
 .carte-chapitres .unite .nomn small { display: block; margin-top: 6px; font: 400 15px/1.4 Inter, sans-serif; color: var(--doux); }
+/* Choix Cours / TD : discret, sous le choix du sous-module */
+.carte-chapitres .choix-ligne { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+.carte-chapitres .choix-ligne .choix-sm { margin-bottom: 0; }
+.carte-chapitres .onglets-carte { display: inline-flex; margin-left: auto; }
+.carte-chapitres .onglets-carte a { height: 44px; padding: 0 26px; }
+.carte-chapitres .td-vide { margin: 18px 0 0; color: var(--doux); font-size: 17px; }

@@ -22,7 +22,7 @@
   var rang = null;
   if (!integre) {
     var barre = document.createElement("header");
-    P.barre(barre, { carte: P.urlPlan(MID, ch.sm), droite: '<span class="rang-barre" aria-live="polite"></span>' });
+    P.barre(barre, { carte: P.urlPlan(MID, ch.sm, ch.td ? "td" : ""), droite: '<span class="rang-barre" aria-live="polite"></span>' });
     document.body.insertBefore(barre, document.body.firstChild);
     rang = barre.querySelector(".rang-barre");
   }
@@ -103,13 +103,14 @@
     fin.className = "fin-chapitre";
     fin.innerHTML = "<h2>Fin du chapitre</h2><p>Pour tout mélanger, si tu en as envie : la révision, puis le défi final.</p>";
     ch.niveaux.filter(function (n) { return n.revision || n.boss; }).forEach(function (n) { bloc(n, fin); });
-    var sms = P.chapitresDe(MID, ch.sm), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
+    // la suite reste dans le même espace : le chapitre de cours suivant, ou le TD suivant
+    var sms = P.chapitresDe(MID, ch.sm, ch.td ? "td" : "cours"), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
     var bas = document.createElement("nav");
     bas.className = "fin-cours";
     bas.setAttribute("aria-label", "Suite");
     bas.innerHTML = suiv && suiv.sections.length
-      ? '<a class="aller" href="' + P.urlChapitre(MID, suiv.id) + '"><small>Chapitre suivant</small>' + esc(suiv.titre) + "</a>"
-      : '<a class="aller" href="' + P.urlPlan(MID, ch.sm) + '"><small>Dernier chapitre</small>Retour à la carte</a>';
+      ? '<a class="aller" href="' + P.urlChapitre(MID, suiv.id) + '"><small>' + (ch.td ? "TD suivant" : "Chapitre suivant") + "</small>" + esc(suiv.titre) + "</a>"
+      : '<a class="aller" href="' + P.urlPlan(MID, ch.sm, ch.td ? "td" : "") + '"><small>' + (ch.td ? "Dernier TD" : "Dernier chapitre") + "</small>" + (ch.td ? "Retour aux TD" : "Retour à la carte") + "</a>";
     fin.appendChild(bas);
     main.appendChild(fin);
     function majBlocs() {

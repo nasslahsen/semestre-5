@@ -32,7 +32,7 @@ commun/                    système de design partagé (ne pas copier dans les m
   vendor/katex/            KaTeX 0.16.11, servi localement
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
-  index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>)
+  index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
   niveaux/<niveau>.js      un fichier par niveau
@@ -63,8 +63,11 @@ chapitre suivant.
   Un sous-module est un cours à part entière (son professeur, ses documents) : ses chapitres sont numérotés à partir
   de 1 (ou de 0 s'il commence par « Les bases ») partout où un numéro s'affiche (`PLATEFORME.numero`), même si leurs
   `id` dans `module.js` suivent ceux du sous-module précédent.
-  Un chapitre de TD porte son propre numéro affiché (`numero: "TD 1"` dans `chapitres`), placé après les chapitres
-  du cours qu'il reprend ; la page du TD dit où chercher chaque réponse et signale ce que le cours reçu ne couvre pas.
+- **Les TD ont leur propre espace** : un chapitre de TD porte `td: true` et son numéro affiché (`numero: "TD 1"`)
+  dans `chapitres`. Il n'est pas sur le chemin du cours : la carte a un choix discret « Cours / TD » (`index.html?sm=…&vue=td`),
+  l'espace TD montre les séries reçues (ou dit qu'aucune n'est reçue), et « Chapitre suivant » reste dans le même espace
+  (`PLATEFORME.chapitresDe(mid, sm, "cours" | "td")`). La page du TD dit où chercher chaque réponse dans le cours et
+  signale ce que le cours reçu ne couvre pas ; ses sections comptent dans la progression comme les autres.
 - **La page de chapitre** (`chapitres/chapitre-<n>.html`) : tout le cours du chapitre sur une seule page à faire
   défiler, découpé en 3 à 5 **sections** (moins seulement si le chapitre a moins de pages de cours). Chaque section
   regroupe une ou plusieurs notions (`sections` dans `module.js`) ; chaque notion garde intacte sa page de cours
