@@ -62,16 +62,19 @@ const dc = `${BASE}modules/${mid}/`;
       verifErr("chapitre " + ch);
       const v = await pg.evaluate(() => ({ parties: [...document.querySelectorAll("section.partie")].map(x => x.id), notions: [...document.querySelectorAll("article.notion")].map(a => a.id),
         katexErr: document.querySelectorAll(".katex-error").length, figs: document.querySelectorAll(".fig .dessin").length, vides: [...document.querySelectorAll(".fig")].filter(f => !f.querySelector(".dessin")).length,
-        jouer: [...document.querySelectorAll(".jouer")].map(j => j.dataset.niveau), suite: (document.querySelector(".fin-cours a.aller") || {}).href || "",
-        apresNotion: [...document.querySelectorAll("article.notion + .jouer")].length }));
+        jouer: [...document.querySelectorAll(".jouer")].map(j => j.dataset.niveaux), suite: (document.querySelector(".fin-cours a.aller") || {}).href || "",
+        finSection: [...document.querySelectorAll(".jouer + .fin-partie")].length }));
       if (v.parties.join() !== ss.map(x => "s-" + x.id).join()) pb(`chapitre ${ch} : sections ${v.parties}`);
       if (v.notions.join() !== notions.map(n => "n-" + n).join()) pb(`chapitre ${ch} : notions ${v.notions}`);
       if (v.katexErr) pb(`chapitre ${ch} : ${v.katexErr} formules en erreur`);
       if (v.vides) pb(`chapitre ${ch} : ${v.vides} figures pas dessinées`);
-      const avecPage = notions.filter(n => niv.some(x => x.id === n));
-      const attendus = avecPage.concat(niv.filter(n => !n.revision && !n.boss && !notions.includes(n.id)).map(n => n.id), niv.filter(n => n.revision || n.boss).map(n => n.id));
-      if (v.jouer.join() !== attendus.join()) pb(`chapitre ${ch} : blocs Jouer ${v.jouer} au lieu de ${attendus}`);
-      if (v.apresNotion !== avecPage.length) pb(`chapitre ${ch} : un bloc Jouer n'est pas juste après sa notion`);
+      // un bloc par section (ses exercices enchaînés ; les exercices sans page avec la dernière section), un en fin de chapitre
+      const sansPage = niv.filter(n => !n.revision && !n.boss && !notions.includes(n.id)).map(n => n.id);
+      const parSection = ss.map((x, k) => x.notions.filter(n => niv.some(y => y.id === n)).concat(k === ss.length - 1 ? sansPage : []).join(" ")).filter(Boolean);
+      const finCh = niv.filter(n => n.revision).concat(niv.filter(n => n.boss)).map(n => n.id).join(" ");
+      const attendus = parSection.concat(finCh ? [finCh] : []);
+      if (v.jouer.join("|") !== attendus.join("|")) pb(`chapitre ${ch} : blocs Jouer ${v.jouer.join("|")} au lieu de ${attendus.join("|")}`);
+      if (v.finSection !== parSection.length) pb(`chapitre ${ch} : un bloc Jouer n'est pas à la fin de sa section`);
       const meme = estTD(ch) ? tdSm : coursSm, suivant = meme[meme.indexOf(ch) + 1];
       if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !(v.suite.includes("index.html") && v.suite.includes("vue=td") === estTD(ch))) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
       if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-debut.png`) });
@@ -105,12 +108,15 @@ const dc = `${BASE}modules/${mid}/`;
     if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb(`carte ${sm} : Reprendre ne mène pas à la dernière section lue : ` + rep);
   }
 
-  // Un exercice par-dessus la page : la page ne bouge pas, « Revenir au cours » la retrouve
-  const ch0 = chs[0], n0 = P.niveaux.find(n => n.chapitre === ch0 && n.pret && !n.revision && !n.boss);
+  // Un exercice par-dessus la page : la page ne bouge pas, « Revenir au cours » la retrouve ; un bloc de section enchaîne ses exercices
+  const ch0 = chs[0], ss0 = P.sections.filter(x => x.chapitre === ch0);
+  const ids0 = ss0.map(x => x.notions.filter(n => P.niveaux.some(y => y.id === n && y.pret))).find(l => l.length);
+  const n0 = { id: ids0[0] };
   await pg.goto(dc + `chapitres/chapitre-${ch0}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
-  await pg.evaluate(id => document.querySelector(`.jouer[data-niveau="${id}"]`).scrollIntoView({ block: "center" }), n0.id); await pg.waitForTimeout(200);
+  const sel0 = `.jouer[data-niveaux="${ids0.join(" ")}"]`;
+  await pg.evaluate(sel => document.querySelector(sel).scrollIntoView({ block: "center" }), sel0); await pg.waitForTimeout(200);
   const y0 = await pg.evaluate(() => scrollY);
-  await pg.click(`.jouer[data-niveau="${n0.id}"] button`); await pg.waitForTimeout(1200);
+  await pg.click(sel0 + " button"); await pg.waitForTimeout(1200);
   const fr = pg.frames().find(f => f.url().includes("jouer.html"));
   if (!fr) pb("Jouer n'ouvre pas l'exercice");
   else {
@@ -139,9 +145,18 @@ const dc = `${BASE}modules/${mid}/`;
       if (k >= 0) { await (await fr.$$(".etape:not(.sortie) button"))[k].click(); await fr.waitForTimeout(400); }
     }
     const b1 = await fr.$eval("#resultat .btn-suivant", a => a.textContent).catch(() => "");
-    if (!/Revenir au cours/.test(b1)) pb("fin de l'exercice : pas de « Revenir au cours » : " + b1);
     await pg.screenshot({ path: path.join(out, "fin-exercice.png") });
-    await fr.click("#resultat .btn-suivant"); await pg.waitForTimeout(500);
+    if (ids0.length > 1) {
+      if (!/Exercice suivant/.test(b1)) pb("fin de l'exercice : pas de « Exercice suivant » dans un bloc de plusieurs exercices : " + b1);
+      await fr.click("#resultat .btn-suivant"); await pg.waitForTimeout(1200);
+      const fr2 = pg.frames().find(f => f.url().includes("jouer.html"));
+      if (!fr2 || !fr2.url().endsWith("#" + ids0[1])) pb("Exercice suivant n'ouvre pas le deuxième exercice de la section");
+      else await fr2.evaluate(() => window.parent.postMessage({ s5: "fermer-exercice" }, "*"));
+      await pg.waitForTimeout(500);
+    } else {
+      if (!/Revenir au cours/.test(b1)) pb("fin de l'exercice : pas de « Revenir au cours » : " + b1);
+      await fr.click("#resultat .btn-suivant"); await pg.waitForTimeout(500);
+    }
     const etat = await pg.evaluate(() => ({ ouvert: document.querySelector(".fenetre-jeu.on") !== null, y: scrollY }));
     if (etat.ouvert) pb("Revenir au cours ne ferme pas l'exercice");
     if (Math.abs(etat.y - y0) > 2) pb(`la page a bougé pendant l'exercice (${y0} → ${etat.y})`);

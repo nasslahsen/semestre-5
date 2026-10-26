@@ -339,7 +339,14 @@
         b1 = E.h("a", "btn btn-suivant", lib + "<small>" + suivant.titre + "</small>", act); b1.href = P.urlEtape(suivant);
       }
       // dans le cadre : on revient au cours, à l'endroit où on l'avait laissé
-      if (plan) { b1 = E.h("a", "btn btn-suivant", "Revenir au cours", act); b1.href = P.urlChapitre(MID, info.chapitre); b1.addEventListener("click", revenir); }
+      // ou, si le bloc « Jouer » de la section enchaîne plusieurs exercices, on passe au suivant
+      var suite = plan ? (new URLSearchParams(location.search).get("suite") || "").split(",").filter(Boolean) : [];
+      var prochain = suite.length ? (MOD.niveaux || []).filter(function (x) { return x.id === suite[0]; })[0] : null;
+      if (prochain) {
+        b1 = E.h("a", "btn btn-suivant", "Exercice suivant<small>" + prochain.titre + "</small>", act); b1.href = P.urlExercice(MID, prochain.id, suite.slice(1));
+        var b0 = E.h("a", "btn clair", "Revenir au cours", act); b0.href = P.urlChapitre(MID, info.chapitre); b0.addEventListener("click", revenir);
+        b0.style.cssText = "display:inline-flex;align-items:center;text-decoration:none";
+      } else if (plan) { b1 = E.h("a", "btn btn-suivant", "Revenir au cours", act); b1.href = P.urlChapitre(MID, info.chapitre); b1.addEventListener("click", revenir); }
       var b2 = E.h("a", "btn clair", "Rejouer", act); b2.href = "jouer.html#" + def.id; b2.addEventListener("click", function (e) { e.preventDefault(); location.reload(); });
       var b3 = plan ? null : E.h("a", "btn clair", "Carte", act); if (b3) b3.href = P.urlCarte(MID, ici ? ici.etape.sm : undefined, info.chapitre);
       [b2, b3].forEach(function (b) { if (b) b.style.cssText = "display:inline-flex;align-items:center;text-decoration:none"; });
