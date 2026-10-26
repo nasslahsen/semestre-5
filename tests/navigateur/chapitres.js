@@ -30,17 +30,28 @@ const dc = `${BASE}modules/${mid}/`;
   const chs = P.chapitres.map(c => c.id).filter(id => P.sections.some(s => s.chapitre === id));
   const sms = [...new Set(chs.map(smDe))];
 
+  const estTD = ch => !!(P.chapitres.find(c => c.id === ch) || {}).td;
   for (const sm of sms) {
-    const chsm = chs.filter(c => smDe(c) === sm), urlCarte = dc + "index.html" + (sm ? "?sm=" + sm : "");
+    // les TD ont leur propre espace (vue=td) : la carte du cours ne montre que les chapitres de cours
+    const coursSm = chs.filter(c => smDe(c) === sm && !estTD(c)), tdSm = chs.filter(c => smDe(c) === sm && estTD(c));
+    const chsm = coursSm.concat(tdSm), urlCarte = dc + "index.html" + (sm ? "?sm=" + sm : "");
+    const urlTD = dc + "index.html?" + (sm ? "sm=" + sm + "&" : "") + "vue=td";
+    await pg.goto(urlTD, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+    verifErr("TD " + sm);
+    const nTD = await pg.$$eval(".noeud-chapitre", l => l.map(a => a.href));
+    if (nTD.length !== tdSm.length || nTD.some((h, i) => !h.endsWith(`chapitre-${tdSm[i]}.html`))) pb(`TD ${sm} : ${nTD.length} nœuds pour ${tdSm.length} TD`);
+    if (await pg.$$eval(".btn.reprendre", l => l.length)) pb(`TD ${sm} : un bouton Reprendre dans l'espace TD`);
+    if (!tdSm.length && !(await pg.$(".td-vide"))) pb(`TD ${sm} : pas de message quand aucun TD n'est reçu`);
+    await pg.screenshot({ path: path.join(out, `td${sm ? "-" + sm : ""}.png`), fullPage: true });
     // Carte du sous-module
     await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
     verifErr("carte " + sm);
     const noeuds = await pg.$$eval(".noeud-chapitre", l => l.map(a => { const r = a.getBoundingClientRect(); return { href: a.href, r: [r.left, r.right] }; }));
-    if (noeuds.length !== chsm.length) pb(`carte ${sm} : ${noeuds.length} nœuds pour ${chsm.length} chapitres`);
-    noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte ${sm} : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${chsm[i]}.html`)) pb(`carte ${sm} : nœud ${i} mène à ${n.href}`); });
+    if (noeuds.length !== coursSm.length) pb(`carte ${sm} : ${noeuds.length} nœuds pour ${coursSm.length} chapitres`);
+    noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte ${sm} : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${coursSm[i]}.html`)) pb(`carte ${sm} : nœud ${i} mène à ${n.href}`); });
     if (await pg.$$eval(".btn.reprendre", l => l.length) !== 1) pb(`carte ${sm} : pas un seul bouton Reprendre`);
     const liens = await pg.$$eval("#entete a, #chapitres a", l => l.length);
-    if (liens > chsm.length + 4) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
+    if (liens > coursSm.length + 6) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
     await pg.screenshot({ path: path.join(out, `carte${sm ? "-" + sm : ""}.png`), fullPage: true });
 
     for (const [ic, ch] of chsm.entries()) {
@@ -61,8 +72,8 @@ const dc = `${BASE}modules/${mid}/`;
       const attendus = avecPage.concat(niv.filter(n => !n.revision && !n.boss && !notions.includes(n.id)).map(n => n.id), niv.filter(n => n.revision || n.boss).map(n => n.id));
       if (v.jouer.join() !== attendus.join()) pb(`chapitre ${ch} : blocs Jouer ${v.jouer} au lieu de ${attendus}`);
       if (v.apresNotion !== avecPage.length) pb(`chapitre ${ch} : un bloc Jouer n'est pas juste après sa notion`);
-      const suivant = chsm[ic + 1];
-      if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !v.suite.includes("index.html")) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
+      const meme = estTD(ch) ? tdSm : coursSm, suivant = meme[meme.indexOf(ch) + 1];
+      if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !(v.suite.includes("index.html") && v.suite.includes("vue=td") === estTD(ch))) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
       if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-debut.png`) });
       for (let k = 0; k < ss.length; k++) {
         await pg.evaluate(id => document.getElementById(id).scrollIntoView({ block: "start" }), "s-" + ss[k].id); await pg.waitForTimeout(250);
@@ -82,13 +93,13 @@ const dc = `${BASE}modules/${mid}/`;
     }
     // Carte après lecture seule : lire ne suffit pas, un chapitre avec des exercices n'est pas encore vert
     await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(200);
-    const sansExos = chsm.filter(ch => P.sections.filter(s => s.chapitre === ch).every(s => !s.notions.some(n => P.niveaux.some(x => x.id === n && x.pret))));
+    const sansExos = coursSm.filter(ch => P.sections.filter(s => s.chapitre === ch).every(s => !s.notions.some(n => P.niveaux.some(x => x.id === n && x.pret))));
     if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== sansExos.length) pb(`carte ${sm} : des chapitres seulement lus sont marqués faits`);
     // Exercices des notions réussis : les chapitres passent en vert
     await pg.evaluate(([m, ids]) => { const e = JSON.parse(localStorage.getItem("s5-progres")); e[m].niveaux = e[m].niveaux || {}; ids.forEach(id => { e[m].niveaux[id] = { etoiles: 3 }; }); localStorage.setItem("s5-progres", JSON.stringify(e)); },
       [mid, P.niveaux.filter(n => n.pret && chsm.includes(n.chapitre)).map(n => n.id)]);
     await pg.reload({ waitUntil: "networkidle" }); await pg.waitForTimeout(200);
-    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== chsm.length) pb(`carte ${sm} : les chapitres aux exercices réussis ne sont pas marqués faits`);
+    if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== coursSm.length) pb(`carte ${sm} : les chapitres aux exercices réussis ne sont pas marqués faits`);
     const rep = await pg.$eval(".btn.reprendre", a => a.href);
     const der = chsm[chsm.length - 1];
     if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb(`carte ${sm} : Reprendre ne mène pas à la dernière section lue : ` + rep);

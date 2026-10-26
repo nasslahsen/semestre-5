@@ -266,7 +266,12 @@
   };
   P.urlSection = function (mid, sid, ancre) { return racine + P.pageCours(mid, sid) + "#" + (ancre || "s-" + sid); };
   P.urlChapitre = function (mid, ch) { return racine + P.dossierChapitres(mid) + "chapitre-" + ch + ".html"; };
-  P.urlPlan = function (mid, sm) { return racine + "modules/" + mid + "/index.html" + (sm ? "?sm=" + encodeURIComponent(sm) : ""); };
+  P.urlPlan = function (mid, sm, vue) {
+    var q = [];
+    if (sm) q.push("sm=" + encodeURIComponent(sm));
+    if (vue === "td") q.push("vue=td");
+    return racine + "modules/" + mid + "/index.html" + (q.length ? "?" + q.join("&") : "");
+  };
   // Un niveau ouvert depuis la page d'un chapitre, par-dessus elle : jouer.html?cadre=1#<niveau>.
   P.urlExercice = function (mid, nid) { return racine + "modules/" + mid + "/jouer.html?cadre=1#" + nid; };
   // État d'un chapitre : sections (avec lue, faite), niveaux (avec fait, etoiles), coursLu, sectionsFaites, exosFaits,
@@ -286,13 +291,14 @@
     var exosFaits = niveaux.length > 0 && niveaux.every(function (n) { return n.fait; });
     var commence = sections.some(function (s) { return s.lue || s.notions.some(function (n) { return e.lus[n]; }); }) ||
       niveaux.some(function (n) { return n.fait; });
-    return { id: ch.id, titre: ch.titre, ligne: ch.ligne || ch.sous || "", sm: P.smDe(mid, ch.id),
+    return { id: ch.id, titre: ch.titre, ligne: ch.ligne || ch.sous || "", sm: P.smDe(mid, ch.id), td: !!ch.td,
       sections: sections, niveaux: niveaux, coursLu: coursLu, sectionsFaites: sectionsFaites, exosFaits: exosFaits,
       etat: sectionsFaites ? "fait" : commence ? "encours" : "" };
   };
-  // Chapitres d'un sous-module qui ont un cours.
-  P.chapitresDe = function (mid, sm) {
-    return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm; })
+  // Chapitres d'un sous-module qui ont un cours. quoi : "cours" (sans les TD), "td" (les TD seulement), sinon tous.
+  // Les TD (td: true dans module.js) ont leur propre espace sur la carte : index.html?sm=…&vue=td.
+  P.chapitresDe = function (mid, sm, quoi) {
+    return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm && (!quoi || !!c.td === (quoi === "td")); })
       .map(function (c) { return P.chapitre(mid, c.id); }).filter(function (c) { return c.sections.length; });
   };
   // Numéro affiché d'un chapitre : sa place dans son sous-module (un sous-module est un cours à part entière,
@@ -318,7 +324,7 @@
   P.reprendre = function (mid, sm) {
     var e = etat(mid), d = e.plan[sm], x;
     if (d && d.chemin && (x = d.chemin.match(/chapitre-(\d+)\.html/))) return { url: racine + d.chemin, titre: d.titre, deja: true, chapitre: +x[1] };
-    var chs = P.chapitresDe(mid, sm);
+    var chs = P.chapitresDe(mid, sm, "cours").concat(P.chapitresDe(mid, sm, "td"));
     for (var i = 0; i < chs.length; i++) {
       var s = chs[i].sections.filter(function (y) { return !y.faite; })[0];
       if (s) return { url: P.urlSection(mid, s.id), titre: s.titre === chs[i].titre ? s.titre : chs[i].titre + " · " + s.titre, deja: false, chapitre: chs[i].id };

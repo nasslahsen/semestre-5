@@ -28,7 +28,7 @@ PLATEFORME.parcours("robotique", {
     { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", ligne: "Matrices de rotation, angles d'Euler", sousModule: "bio" },
     { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", ligne: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio" },
     { id: 10, numero: 5, titre: "Modélisation des robots médicaux", sous: "Convention de Denavit–Hartenberg, modèle géométrique direct", ligne: "Denavit–Hartenberg, modèle géométrique direct", sousModule: "bio" },
-    { id: 9, numero: "TD 1", titre: "TD 1 : introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
+    { id: 9, td: true, numero: "TD 1", titre: "TD 1 : introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
     { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
     { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
     { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge", ligne: "Roulements, durée de vie, montage, précharge", sousModule: "meca" },

@@ -23,7 +23,7 @@ PLATEFORME.parcours("architecture", {
     { id: 4, titre: "L'air du bloc", sous: "Objectifs de la ventilation, pression, renouvellement, distribution, filtration", ligne: "Pression, renouvellement, filtration" },
     { id: 5, titre: "Énergie, lumière, fluides et réseaux", sous: "Électricité, éclairage, fluides médicaux, réseaux, plafond technique", ligne: "Électricité, éclairage, fluides, réseaux" },
     { id: 6, titre: "Équipements, sécurité et méthode", sous: "Intégration biomédicale, sécurité, normes, méthode en dix étapes, erreurs à éviter", ligne: "Intégration, sécurité, normes, méthode" },
-    { id: 7, titre: "TD 1 : bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD", ligne: "QCM, calcul et études de cas" }
+    { id: 7, td: true, numero: "TD 1", titre: "TD 1 : bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD", ligne: "QCM, calcul et études de cas" }
   ],
   niveaux: [
     { id: "architecture-hospitaliere", chapitre: 1, titre: "Ce que l'architecture organise", cours: true, pret: true },
