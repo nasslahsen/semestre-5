@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les quatre paramètres et la matrice DH · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Les quatre paramètres et la matrice DH</h1>
+<p class="chapeau">Une fois les repères placés, le passage du repère \(j-1\) au repère \(j\) se décrit avec seulement quatre nombres : la « carte d'identité » de la liaison.</p>
+
+<h2>Intuition</h2>
+<p>Pour aller de \(R_{j-1}\) à \(R_j\), on enchaîne quatre mouvements simples : tourner autour de \(Z_{j-1}\) pour aligner \(X\) sur la normale commune, monter le long de \(Z_{j-1}\) jusqu'à elle, avancer le long d'elle jusqu'à l'axe suivant, puis incliner l'axe \(Z\) autour de \(X\). Deux rotations et deux translations : quatre paramètres.</p>
+
+<div id="fig-dh-params"></div>
+
+<h2>Formalisation</h2>
+<h3>Les quatre paramètres</h3>
+<ul>
+<li>\(\alpha_j\) : angle entre les axes \(Z_{j-1}\) et \(Z_j\), correspondant à une rotation autour de \(X_j\) ;</li>
+<li>\(d_j\) : distance entre les axes \(Z_{j-1}\) et \(Z_j\), mesurée le long de \(X_j\) ;</li>
+<li>\(\theta_j\) : angle entre les axes \(X_{j-1}\) et \(X_j\), correspondant à une rotation autour de \(Z_{j-1}\) ;</li>
+<li>\(r_j\) : distance entre les axes \(X_{j-1}\) et \(X_j\), mesurée le long de \(Z_{j-1}\).</li>
+</ul>
+<h3>La matrice de transformation homogène DH</h3>
+<p>\(d_j\), \(\alpha_j\), \(r_j\), \(\theta_j\) sont les paramètres de <strong>Denavit–Hartenberg</strong>. Le passage de \(R_{j-1}\) à \(R_j\) s'écrit :</p>
+\[ T^{j-1,j} = \text{Rot}(z, \theta_j)\,\text{Trans}(z, r_j)\,\text{Trans}(x, d_j)\,\text{Rot}(x, \alpha_j) \]
+\[ \begin{pmatrix} \cos\theta_j & -\sin\theta_j & 0 & 0 \\ \sin\theta_j & \cos\theta_j & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & d_j \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha_j & -\sin\alpha_j & 0 \\ 0 & \sin\alpha_j & \cos\alpha_j & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Le produit donne :</p>
+\[ {}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Le cours écrit la même matrice \(T^{j-1,j}\) ou \({}^{j-1}T_j\). La dernière colonne est la position de \(O_j\) dans \(R_{j-1}\) : on avance de \(d_j\) dans la direction \(\theta_j\), à la hauteur \(r_j\).</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Une liaison avec \(\theta_j = 90°\), \(r_j = 0\), \(d_j = 2\), \(\alpha_j = 0\). Avec \(\cos 90° = 0\), \(\sin 90° = 1\), \(\cos 0 = 1\), \(\sin 0 = 0\) :</p>
+\[ {}^{j-1}T_j = \begin{pmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>\(O_j\) est à 2 unités sur \(Y_{j-1}\), et \(X_j\) pointe dans la direction de \(Y_{j-1}\). Avec \(\alpha_j = 0\), les deux axes \(Z\) restent parallèles : c'est le cas des bras plans.</p>
+
+<h2>Formules clés</h2>
+\[ T^{j-1,j} = \text{Rot}(z, \theta_j)\,\text{Trans}(z, r_j)\,\text{Trans}(x, d_j)\,\text{Rot}(x, \alpha_j) \]
+\[ {}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/dh-parametres.js"></script>
+</body>
+</html>

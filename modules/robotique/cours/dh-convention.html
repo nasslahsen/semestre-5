@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Pourquoi une convention : Denavit–Hartenberg · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Pourquoi une convention : Denavit–Hartenberg</h1>
+<p class="chapeau">Un robot médical est une chaîne de segments articulés. Le dossier patient, le logiciel de planification et le robot doivent décrire sa géométrie de la même façon, sinon leurs données ne se parlent pas.</p>
+
+<h2>Intuition</h2>
+<p>Pour passer d'un repère au suivant, il faut en général six nombres : trois pour la position, trois pour l'orientation. Si chaque fabricant ou chaque logiciel de simulation place ses repères à sa manière, le même robot a plusieurs descriptions incompatibles, et l'interopérabilité devient impossible.</p>
+<p>L'idée de Denavit et Hartenberg : imposer où mettre chaque repère. Avec des repères bien placés, quatre nombres suffisent pour décrire chaque liaison. On les range dans un tableau, une ligne par articulation.</p>
+
+<div id="fig-dh-regles"></div>
+
+<h2>Formalisation</h2>
+<h3>Le problème et la solution</h3>
+<p>En 1955, Denavit et Hartenberg ont proposé une <strong>convention de placement des repères</strong> qui décrit chaque liaison avec 4 paramètres au lieu de 6. Elle est devenue le standard universel en robotique : elle est reprise par les principaux logiciels (MATLAB, RoboDK, CoppeliaSim…), et un même tableau de 4 paramètres par articulation fonctionne partout.</p>
+<p>Sa limite : développée pour des structures ouvertes simples, elle présente des ambiguïtés sur les robots à structure fermée ou arborescente.</p>
+<h3>Le principe : deux règles</h3>
+<p>Pour chaque segment du robot, numéroté \(j\), qui relie l'articulation \(j\) à l'articulation \(j+1\), on place un repère \((O_j, X_j, Y_j, Z_j)\) :</p>
+<ol>
+<li><strong>Règle de l'axe \(Z_j\)</strong> : \(Z_j\) est toujours aligné avec l'axe de mouvement de l'articulation \(j+1\) (et non de l'articulation \(j\)).</li>
+<li><strong>Règle de l'axe \(X_j\)</strong> : \(X_j\) est toujours placé le long de la <strong>normale commune</strong> entre \(Z_{j-1}\) et \(Z_j\), et il est dirigé de \(Z_{j-1}\) vers \(Z_j\).</li>
+</ol>
+<p>La normale commune est la droite perpendiculaire à la fois à \(Z_{j-1}\) et à \(Z_j\). L'origine \(O_j\) est là où elle coupe \(Z_j\).</p>
+
+<h2>Exemple</h2>
+<p>Le système d'insertion d'aiguille 2R du cours : deux pivots dans le plan \((x, y)\). Les axes \(z_0\), \(z_1\), \(z_2\) sortent de la page, parallèles et de même sens. Entre \(z_0\) et \(z_1\), la normale commune est la droite \(O_0O_1\), le long du segment 1 : elle porte \(x_1\). Entre \(z_1\) et \(z_2\), c'est la droite \(O_1O_2\), le long du segment 2 : elle porte \(x_2\). Comme les segments sont dans le plan et les axes \(z\) perpendiculaires à ce plan, les normales communes se superposent aux lignes centrales des segments. \(x_0\) est la référence horizontale choisie pour mesurer \(\theta_1\).</p>
+
+<h2>Formules clés</h2>
+\[ Z_j = \text{axe de l'articulation } j+1 \qquad X_j = \text{normale commune de } Z_{j-1} \text{ vers } Z_j \]
+<p>4 paramètres par liaison au lieu de 6 ; ambiguïtés pour les structures fermées ou arborescentes.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/dh-convention.js"></script>
+</body>
+</html>

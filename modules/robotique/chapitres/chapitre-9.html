@@ -27,7 +27,7 @@
 <article class="notion" id="n-td1">
 <p class="etiquette" data-etiquette></p>
 <h3>TD 1 : les réponses dans le cours</h3>
-<p class="chapeau">La série 1 de TD reprend les chapitres 1 et 4 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation.</p>
+<p class="chapeau">La série 1 de TD reprend les chapitres 1, 4 et 5 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation.</p>
 
 <h4>Intuition</h4>
 <p>Le TD a deux parties. La partie 1 se répond avec les pages du chapitre 1 : critères de classement, précision et répétabilité, robots sériels et parallèles, boucle percevoir, traiter, agir. La partie 2 refait le calcul du bras 2R avec un segment de plus, puis l'applique à une sonde d'échographie. L'idée ne change pas : un repère par segment, une matrice par articulation, on multiplie, on lit la dernière colonne.</p>
@@ -48,7 +48,7 @@
 <h5>Exercice 1 : la convention du TD</h5>
 <p>Le TD adopte la convention de <strong>Denavit–Hartenberg</strong> standard, \(T^{i-1,i} = R_z(\theta_i)\,T_z(d_i)\,T_x(a_i)\,R_x(\alpha_i)\), avec la matrice telle que l'énoncé la donne :</p>
 \[ T^{i-1,i} = \begin{pmatrix} \cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\alpha_i\sin\theta_i & d_i\cos\theta_i \\ \sin\theta_i & \cos\theta_i\cos\alpha_i & -\sin\alpha_i\cos\theta_i & d_i\sin\theta_i \\ 0 & \sin\alpha_i & \cos\alpha_i & r_i \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p class="complement">La convention de Denavit–Hartenberg n'est pas encore dans le cours reçu : la matrice vient de l'énoncé du TD, avec sa notation.</p>
+<p>La convention et ses quatre paramètres sont expliqués au chapitre 5, <a href="chapitre-10.html#n-dh-parametres">Les quatre paramètres et la matrice DH</a>. Le TD numérote les articulations \(i\), le cours \(j\) : c'est la même matrice.</p>
 <p>Le tableau du TD donne, pour les trois articulations, \(d_i = L_i\), \(\alpha_i = 0\), \(r_i = 0\) et \(\theta_i\) variable. Avec \(\cos 0 = 1\) et \(\sin 0 = 0\), chaque matrice est une rotation d'angle \(\theta_i\) autour de \(z\) suivie d'une translation de \(L_i\) le long du nouvel axe \(x\) :</p>
 \[ T^{i-1,i} = \begin{pmatrix} \cos\theta_i & -\sin\theta_i & 0 & L_i\cos\theta_i \\ \sin\theta_i & \cos\theta_i & 0 & L_i\sin\theta_i \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p>Le produit \(T^{0,3} = T^{0,1}\,T^{1,2}\,T^{2,3}\) se calcule comme pour le bras 2R : les rotations autour d'axes parallèles s'additionnent (formules d'addition), les translations se cumulent. Notation : \(c_{12} = \cos(\theta_1 + \theta_2)\), \(c_{123} = \cos(\theta_1 + \theta_2 + \theta_3)\), de même pour \(s\).</p>
@@ -56,12 +56,12 @@
 <p>Lecture : la dernière colonne donne \(p_x\) et \(p_y\), car \(P\) est l'origine de \(R_3\). Le bloc de rotation est une rotation d'angle \(\varphi = \theta_1 + \theta_2 + \theta_3\) : c'est l'orientation de l'outil par rapport à \(R_0\).</p>
 
 <h5>Exercice 2 : la méthode du modèle géométrique direct</h5>
-<p>Ce sont les étapes du bras 2R du chapitre 4 :</p>
+<p>C'est la méthode du chapitre 5 (<a href="chapitre-10.html#n-mgd">Modélisation géométrique directe</a>) :</p>
 <ol>
-<li>Décrire le robot : segments, longueurs, articulations, variables articulaires (ici \(\theta_1\), \(\theta_2\)).</li>
-<li>Placer un repère fixe \(R_0\) sur la base, puis un repère par segment, son axe \(x_i\) porté par le segment.</li>
-<li>Écrire la matrice homogène de chaque articulation, \(T^{0,1}\), \(T^{1,2}\).</li>
-<li>Les multiplier, \(T^{0,2} = T^{0,1}\,T^{1,2}\), et lire la position de l'organe terminal dans la dernière colonne (ou appliquer \(T^{0,2}\) au point en bout de segment 2).</li>
+<li>Placer les repères selon Denavit–Hartenberg, un par segment.</li>
+<li>Remplir le tableau DH : \(\alpha_j\), \(d_j\), \(\theta_j\), \(r_j\) pour chaque articulation.</li>
+<li>Écrire les matrices élémentaires \(T^{0,1}\), \(T^{1,2}\) en remplaçant les paramètres par leurs valeurs.</li>
+<li>Les multiplier dans l'ordre, de la base vers l'outil, simplifier, puis lire la position dans la 4e colonne de \(T^{0,2}\).</li>
 </ol>
 <p>Le codeur du coude mesure \(\theta_2\) entre le segment 1 et le segment 2. Mais le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle. Par rapport au repère fixe, le segment 2 est donc orienté de \(\theta_1 + \theta_2\).</p>
 <p><strong>Espace de travail.</strong> Si les deux pivots tournent librement, l'organe terminal atteint les points dont la distance à la base est comprise entre \(|L_1 - L_2|\) (bras replié) et \(L_1 + L_2\) (bras tendu), le <strong>rayon maximal</strong>. Un point plus loin que \(L_1 + L_2\) est hors d'atteinte, quels que soient les angles.</p>

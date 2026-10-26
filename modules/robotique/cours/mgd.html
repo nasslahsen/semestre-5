@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modélisation géométrique directe (MGD) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Modélisation géométrique directe (MGD)</h1>
+<p class="chapeau">En sénologie, un robot guide une aiguille de biopsie vers une micro-lésion vue en imagerie 3D. Ses capteurs ne donnent que les angles des moteurs ; le radiologue, lui, veut voir où est la pointe sur l'image.</p>
+
+<h2>Intuition</h2>
+<p>La <strong>modélisation géométrique</strong> étudie la position et l'orientation du robot sans tenir compte des forces (poids des organes, résistance des tissus) : c'est la première étape de la planification. Avant une opération, un logiciel place le modèle géométrique du robot sur le scanner du patient et vérifie que le bras atteint la tumeur sans que sa base ne gêne l'anesthésiste : c'est vérifier l'<strong>espace de travail</strong>.</p>
+<p>Le modèle direct répond à la question « où est l'outil ? » : les encodeurs fournissent \(\theta_1\) et \(\theta_2\), la MGD calcule la position \((x, y)\) dans le repère du robot, et le recalage robot-image superpose cette position à l'image.</p>
+
+<div id="fig-mgd"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et objectif</h3>
+<p>La <strong>modélisation géométrique directe</strong> (MGD) a pour but de déterminer la position et l'orientation de l'organe terminal (OT, ou outil) dans l'espace de travail, en fonction des valeurs des variables articulaires (les angles des moteurs \(\theta_i\) ou les courses des vérins \(d_i\)) :</p>
+\[ X = f(q) \]
+<p>où \(q = [q_1, q_2, \dots, q_n]^T\) est le vecteur des variables articulaires, et \(X = [x, y, z, \phi, \theta, \psi]^T\) la posture de l'outil dans l'espace, par rapport à la base du robot (souvent fixée au bord du lit d'opération).</p>
+<h3>Méthodologie de calcul : le chaînage DH</h3>
+<p>La convention DH donne, pour chaque articulation, une petite matrice \({}^{i-1}_{\ \ i}T\) qui décrit le passage d'un repère au suivant. Pour connaître la position finale de l'outil par rapport à la base, on multiplie toutes ces matrices les unes à la suite des autres :</p>
+\[ {}^0_nT(q) = {}^0_1T(q_1)\;{}^1_2T(q_2)\;{}^2_3T(q_3) \cdots {}^{n-1}_{\ \ \ n}T(q_n) \]
+<p>La matrice résultante est une matrice \(4 \times 4\) :</p>
+\[ {}^0_nT = \begin{pmatrix} r_{11} & r_{12} & r_{13} & p_x \\ r_{21} & r_{22} & r_{23} & p_y \\ r_{31} & r_{32} & r_{33} & p_z \\ 0 & 0 & 0 & 1 \end{pmatrix} = \begin{pmatrix} {}^0_nR & {}^0\vec{P}_n \\ 0_{1\times 3} & 1 \end{pmatrix} \]
+<p>Position \((P_x, P_y, P_z)\) : 4e colonne de la matrice résultante. Orientation : la sous-matrice de rotation \({}^0_nR\) (\(3 \times 3\)).</p>
+<h3>Méthodologie pas à pas</h3>
+<ol>
+<li>Récupérer le tableau DH du robot.</li>
+<li>Écrire les matrices élémentaires \({}^{i-1}_{\ \ i}T\) pour chaque articulation, en remplaçant les paramètres DH par leurs valeurs.</li>
+<li>Multiplier les matrices dans l'ordre strict, de la gauche vers la droite, de la base vers l'outil. La multiplication matricielle n'est pas commutative.</li>
+<li>Simplifier les expressions trigonométriques du résultat final.</li>
+<li>Extraire position et orientation.</li>
+</ol>
+<h3>Applications médicales</h3>
+<ul>
+<li>Navigation chirurgicale assistée par ordinateur (orthopédie, neurochirurgie, chirurgie ORL) : imagerie (IRM ou scanner), suivi de l'instrument, recalage spatial ; le chirurgien voit où se trouve l'instrument par rapport à l'anatomie.</li>
+<li>Systèmes de biopsie guidée (sénologie, pneumologie, radiologie interventionnelle) : localiser la lésion, planifier le point d'entrée et l'orientation, vérifier la position par imagerie.</li>
+<li>Robots de rééducation (post-AVC, motrice) : mesurer le mouvement du bras, le comparer à l'exercice, retour visuel au patient.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p>Exemple clinique du cours : robot de biopsie du sein, 2R plan. Segment 1 : \(L_1 = 40\) cm, relié à la base par l'articulation 1 (angle \(\theta_1\)) ; segment 2 : \(L_2 = 30\) cm, relié au segment 1 par l'articulation 2 (angle \(\theta_2\)). Le repère de base \(\{0\}\) est fixé au point d'ancrage du robot sur la table d'examen.</p>
+\[ {}^0_2T = {}^0_1T\;{}^1_2T = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p class="complement">Exemple ajouté.</p>
+<p>Avec \(\theta_1 = 30°\) et \(\theta_2 = 60°\) : \(x = 40\cos 30° + 30\cos 90° = 34{,}64\) cm, \(y = 40\sin 30° + 30\sin 90° = 20 + 30 = 50\) cm, et l'aiguille est orientée à \(\theta_1 + \theta_2 = 90°\), verticale.</p>
+
+<h2>Formules clés</h2>
+\[ X = f(q) \qquad {}^0_nT(q) = {}^0_1T(q_1)\;{}^1_2T(q_2) \cdots {}^{n-1}_{\ \ \ n}T(q_n) \]
+<p>Position : 4e colonne de \({}^0_nT\). Orientation : la sous-matrice \({}^0_nR\). Ordre strict, de la base vers l'outil.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/mgd.js"></script>
+</body>
+</html>

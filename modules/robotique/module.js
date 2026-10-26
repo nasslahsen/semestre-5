@@ -13,10 +13,11 @@ PLATEFORME.parcours("robotique", {
     recus: [
       { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "4 chapitres" },
       { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" },
+      { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3 « Modélisation des robots médicaux » (Pr. Hasnaa El Hansali)", couvre: "chapitre 5 : convention de Denavit–Hartenberg, modèle géométrique direct ; fin du chapitre 2 (bras 2R)" },
       { sousModule: "bio", titre: "TD série 1 « Introduction générale, domaines d'applications de la robotique et modélisation des robots industriels » (Pr. El Hansali Hasnaa)", couvre: "chapitre TD 1 : partie 1, exercice 1 et exercice 2 questions 1 à 5" }
     ],
     manque: [
-      "Robotique biomédicale : la partie du cours sur la convention de Denavit–Hartenberg, le modèle cinématique (jacobienne), le modèle cinématique inverse, le modèle géométrique inverse et les singularités. Le TD 1 s'en sert.",
+      "Robotique biomédicale : la suite du chapitre 3 (modèle cinématique et jacobienne, modèle cinématique inverse, modèle géométrique inverse, singularités). Le TD 1 s'en sert.",
       "TD 1 : le modèle cinématique direct, le modèle cinématique inverse et l'exercice 3 attendent cette partie du cours."
     ]
   },
@@ -26,6 +27,7 @@ PLATEFORME.parcours("robotique", {
     { id: 2, titre: "Repères et vecteurs dans l'espace", sous: "Coordonnées, produits, position d'un solide", ligne: "Coordonnées, produits, position d'un solide", sousModule: "bio" },
     { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", ligne: "Matrices de rotation, angles d'Euler", sousModule: "bio" },
     { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", ligne: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio" },
+    { id: 10, numero: 5, titre: "Modélisation des robots médicaux", sous: "Convention de Denavit–Hartenberg, modèle géométrique direct", ligne: "Denavit–Hartenberg, modèle géométrique direct", sousModule: "bio" },
     { id: 9, numero: "TD 1", titre: "TD 1 : introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
     { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
     { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
@@ -76,6 +78,13 @@ PLATEFORME.parcours("robotique", {
     { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", cours: true, pret: true },
     { id: "revision-transformations", chapitre: 4, titre: "Révision : les transformations", revision: true, pret: true },
     { id: "boss-transformations", chapitre: 4, titre: "Le bras 2R atteint la cible", boss: true, pret: true },
+
+    { id: "dh-convention", chapitre: 10, titre: "Pourquoi Denavit–Hartenberg", cours: true, pret: true },
+    { id: "dh-parametres", chapitre: 10, titre: "Les quatre paramètres DH", cours: true, pret: true },
+    { id: "dh-2r", chapitre: 10, titre: "Le robot 2R en DH", cours: true, pret: true },
+    { id: "mgd", chapitre: 10, titre: "Modèle géométrique direct", cours: true, pret: true },
+    { id: "revision-modelisation", chapitre: 10, titre: "Révision : la modélisation", revision: true, pret: true },
+    { id: "boss-modelisation", chapitre: 10, titre: "L'aiguille vise la lésion", boss: true, pret: true },
 
     { id: "td1", chapitre: 9, titre: "TD 1 : les réponses dans le cours", cours: true, pret: true },
     { id: "td1-classer", chapitre: 9, titre: "Partie 1, exercice 1 : classer trois robots", pret: true },
@@ -139,6 +148,10 @@ PLATEFORME.parcours("robotique", {
     { id: "changement-repere", chapitre: 4, titre: "Changement de repère", notions: ["changement-repere"] },
     { id: "homogene-composition", chapitre: 4, titre: "Matrice homogène et composition", notions: ["matrice-homogene", "composition"] },
     { id: "bras-2r", chapitre: 4, titre: "Le bras 2R", notions: ["bras-2r"] },
+    { id: "dh-convention", chapitre: 10, titre: "Pourquoi une convention, et ses deux règles", notions: ["dh-convention"] },
+    { id: "dh-parametres", chapitre: 10, titre: "Les quatre paramètres et la matrice DH", notions: ["dh-parametres"] },
+    { id: "dh-2r", chapitre: 10, titre: "Le robot 2R en Denavit–Hartenberg", notions: ["dh-2r"] },
+    { id: "mgd", chapitre: 10, titre: "Modèle géométrique direct", notions: ["mgd"] },
     { id: "td1", chapitre: 9, titre: "TD 1 : introduction et modélisation", notions: ["td1"] },
     { id: "chaine-nomenclature", chapitre: 5, titre: "La chaîne fonctionnelle et ses symboles", notions: ["chaine-fonctionnelle", "nomenclature"] },
     { id: "vitesse-couple", chapitre: 5, titre: "Vitesse, couple et puissance", notions: ["vitesse-couple-puissance"] },
@@ -186,6 +199,10 @@ PLATEFORME.parcours("robotique", {
     { chapitre: 4, id: "matrice-homogene", titre: "Matrice homogène" },
     { chapitre: 4, id: "composition", titre: "Composition des transformations" },
     { chapitre: 4, id: "bras-2r", titre: "Modèle géométrique direct du bras 2R" },
+    { chapitre: 10, id: "dh-convention", titre: "Pourquoi une convention : Denavit–Hartenberg" },
+    { chapitre: 10, id: "dh-parametres", titre: "Les quatre paramètres et la matrice DH" },
+    { chapitre: 10, id: "dh-2r", titre: "Le robot 2R en Denavit–Hartenberg" },
+    { chapitre: 10, id: "mgd", titre: "Modélisation géométrique directe (MGD)" },
     { chapitre: 9, id: "td1", titre: "TD 1 : les réponses dans le cours" },
     { chapitre: 5, id: "chaine-fonctionnelle", titre: "Chaîne fonctionnelle d'un axe" },
     { chapitre: 5, id: "nomenclature", titre: "Nomenclature : symboles, unités, indices" },

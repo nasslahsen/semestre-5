@@ -763,6 +763,31 @@ test("laboratoire : microscope, transport, contrôle de qualité", () => {
   proche(L.z(5.6, 6.2, 0.3), -2, 1e-9); proche(L.z(7.25, 6.2, 0.3), 3.5, 1e-9);
 });
 
+test("chapitre Modélisation : matrice DH, 2R en DH, MGD de la biopsie, révision et boss", () => {
+  const Rz = t => [[Math.cos(t), -Math.sin(t), 0, 0], [Math.sin(t), Math.cos(t), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+  const Rx = a => [[1, 0, 0, 0], [0, Math.cos(a), -Math.sin(a), 0], [0, Math.sin(a), Math.cos(a), 0], [0, 0, 0, 1]];
+  const Tz = r => [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, r], [0, 0, 0, 1]];
+  const Tx = d => [[1, 0, 0, d], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+  const dh = (t, r, d, a) => m.matMul(m.matMul(m.matMul(Rz(t), Tz(r)), Tx(d)), Rx(a));
+  // la forme développée du cours
+  const [t, r, d, a] = [0.7, 0.4, 1.3, -0.9];
+  procheMat(dh(t, r, d, a), [[Math.cos(t), -Math.sin(t) * Math.cos(a), Math.sin(t) * Math.sin(a), d * Math.cos(t)], [Math.sin(t), Math.cos(t) * Math.cos(a), -Math.cos(t) * Math.sin(a), d * Math.sin(t)], [0, Math.sin(a), Math.cos(a), r], [0, 0, 0, 1]]);
+  // exemple de la page : theta = 90°, d = 2 ; niveau : d = 5 ; alpha = 90° : 3e ligne (0, 1, 0, r)
+  procheMat(dh(90 * D, 0, 2, 0), [[0, -1, 0, 0], [1, 0, 0, 2], [0, 0, 1, 0], [0, 0, 0, 1]], 1e-12);
+  const c5 = dh(90 * D, 0, 5, 0); proche(c5[0][3], 0, 1e-12); proche(c5[1][3], 5); proche(c5[2][3], 0);
+  const a90 = dh(0.3, 0.8, 1, 90 * D); proche(a90[2][1], 1); proche(a90[2][2], 0, 1e-12); proche(a90[2][3], 0.8);
+  // 2R en DH = 2R du chapitre 4
+  const p = (t1, t2, L1, L2) => m.matMul(dh(t1 * D, 0, L1, 0), dh(t2 * D, 0, L2, 0));
+  for (const [t1, t2] of [[30, 40], [-20, 75]]) { const T = p(t1, t2, 40, 30), q = m.bras2R(t1 * D, t2 * D, 40, 30).M; proche(T[0][3], q[0]); proche(T[1][3], q[1]); }
+  const e = p(90, -90, 40, 30); proche(e[0][3], 30, 1e-9); proche(e[1][3], 40, 1e-9);
+  const n = p(0, 90, 40, 30); proche(n[0][3], 40, 1e-9); proche(n[1][3], 30, 1e-9);
+  const g = p(60, -30, 40, 30); proche(g[0][3], 45.98, 0.005); proche(g[1][3], 49.64, 0.005);
+  const s = p(30, 60, 40, 30); proche(s[0][3], 34.64, 0.005); proche(s[1][3], 50, 1e-9);
+  const rv = p(90, 90, 25, 15); proche(rv[0][3], -15, 1e-9); proche(rv[1][3], 25, 1e-9);
+  proche(Math.hypot(50, 40), 64.03, 0.005);
+  for (const [t1, t2] of [[18, 48], [59, -48]]) { const T = p(t1, t2, 40, 30); assert.ok(Math.hypot(T[0][3] - 50, T[1][3] - 40) < 1.5); }
+});
+
 test("TD 1 robotique : 3R de Denavit–Hartenberg, sonde d'échographie 2R, révision et boss", () => {
   // matrice DH du TD avec alpha = 0, r = 0, d = L : rotation theta puis L le long du nouvel x
   const dh = (t, L) => [[Math.cos(t), -Math.sin(t), 0, L * Math.cos(t)], [Math.sin(t), Math.cos(t), 0, L * Math.sin(t)], [0, 0, 1, 0], [0, 0, 0, 1]];

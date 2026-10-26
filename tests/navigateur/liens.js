@@ -24,12 +24,18 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
   robotique: {
-    "boss-transformations": { 3: ["bras-2r", "calcul~11", "Calcul"], 4: ["bras-2r", "calcul~11", "Calcul"] }, // espace de travail du bras 2R
+    "boss-transformations": { 3: ["bras-2r", "calcul~10", "Calcul"], 4: ["bras-2r", "calcul~10", "Calcul"] }, // espace de travail du bras 2R
     // TD 1 : classement (cinq critères), calculs de la sonde (exemple du bras 2R de la page du TD)
     "td1-classer": { 1: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"], 3: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"] },
     "td1-echo": { 3: ["td1", "exemple~4", "Exemple"], 4: ["td1", "exemple~4", "Exemple"] },
     "revision-td1": { 2: ["performances", "formalisation~0", "Formalisation"], 3: ["td1", "exercice-1-la-convention-du-td~6", "Exercice 1 : la convention du TD"] },
-    "boss-td1": { 1: ["td1", "exemple~4", "Exemple"], 2: ["td1", "exemple~4", "Exemple"], 4: ["bras-2r", "calcul~11", "Calcul"] }
+    // chapitre 5 : calculs du 2R vers l'exemple ajouté de la MGD, l'espace de travail vers le bras 2R du chapitre 4
+    mgd: { 4: ["mgd", "exemple~3", "Exemple"] },
+    "dh-2r": { 5: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
+    "dh-parametres": { 4: ["dh-parametres", "exemple~1", "Exemple"], 5: ["dh-parametres", "la-matrice-de-transformation-homogene-dh", "La matrice de transformation homogène DH"] },
+    "revision-modelisation": { 2: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
+    "boss-modelisation": { 1: ["mgd", "exemple~3", "Exemple"], 2: ["bras-2r", "calcul~10", "Calcul"], 3: ["mgd", "exemple~3", "Exemple"], 4: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
+    "boss-td1": { 1: ["td1", "exemple~4", "Exemple"], 2: ["td1", "exemple~4", "Exemple"], 4: ["bras-2r", "calcul~10", "Calcul"] }
   },
   laboratoire: {
     hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
