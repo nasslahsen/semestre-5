@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modélisation géométrique inverse (MGI) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Modélisation géométrique inverse (MGI)</h1>
+<p class="chapeau">Le chirurgien choisit une cible sur l'imagerie. Le robot, lui, ne sait régler que les angles de ses moteurs. Il faut donc trouver les angles qui amènent l'outil sur la cible.</p>
+
+<h2>Intuition</h2>
+<p>La MGD va des angles vers la position. Le modèle inverse fait le chemin dans l'autre sens : on connaît le point visé, on cherche les angles. Ce chemin est plus difficile. Une cible trop loin n'a aucune solution ; une cible accessible en a souvent plusieurs, comme un bras qui peut atteindre le même point coude en haut ou coude en bas.</p>
+
+<div id="fig-mgi"></div>
+
+<h2>Formalisation</h2>
+<h3>Définition et objectif</h3>
+<p>La <strong>modélisation géométrique inverse</strong> (MGI) a pour but de déterminer les valeurs des variables articulaires \(q\) nécessaires pour placer l'organe terminal (OT) à une position et une orientation désirées dans l'espace de travail. Mathématiquement, on cherche à inverser la fonction de la MGD :</p>
+\[ q = f^{-1}(X) \]
+<p>où \(X = [x, y, z, \phi, \theta, \psi]^T\) est le vecteur de posture désirée de l'outil (espace cartésien) et \(q = [q_1, q_2, \dots, q_n]^T\) le vecteur des variables articulaires à trouver (espace articulaire).</p>
+<h3>Les défis de la MGI</h3>
+<ol>
+<li><strong>La non-linéarité</strong> : inverser \(x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2)\) et \(y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2)\) n'est pas trivial ; une forme fermée n'est pas toujours disponible.</li>
+<li><strong>L'existence des solutions</strong> : une cible hors de portée n'a aucune solution ; l'orientation souhaitée doit aussi être réalisable.</li>
+<li><strong>La multiplicité des solutions</strong> : même position, plusieurs configurations (coude haut, coude bas) ; il faut choisir un jeu d'angles adapté.</li>
+<li><strong>Les singularités</strong> : par exemple bras tendu, \(\theta_2 = 0\) ; la mobilité instantanée de l'outil est réduite (perte de rang de la jacobienne de position).</li>
+</ol>
+<h3>Les méthodes de résolution</h3>
+<p><strong>Méthodes analytiques (ou géométriques)</strong> : elles utilisent la géométrie et la trigonométrie du robot pour résoudre les équations de manière exacte. Avantages : solution exacte, rapide (temps réel), toutes les solutions. Inconvénients : pas de méthode générale, difficile pour les robots complexes.</p>
+<p><strong>Méthodes numériques</strong> : elles partent d'une estimation initiale des angles et itèrent pour se rapprocher de la solution. La plus connue est la méthode de Newton-Raphson, qui utilise la matrice jacobienne \(J(q)\) pour linéariser la MGD autour d'une solution courante \(q_k\) :</p>
+\[ q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
+<p>Avantages : méthode générale (elle fonctionne pour n'importe quel robot), facile à implémenter. Inconvénients : convergence non garantie, lente, une seule solution.</p>
+<h3>Applications et importance</h3>
+<ul>
+<li>Planification chirurgicale pré-opératoire (chirurgie assistée par ordinateur) : le chirurgien choisit les points cibles, le logiciel calcule les trajectoires, le chirurgien vérifie et valide le plan.</li>
+<li>Radiothérapie adaptative : suivi respiratoire d'une tumeur mobile du poumon ou du foie ; les angles du robot sont recalculés pour ajuster le faisceau.</li>
+</ul>
+<p>Le MGI traduit la cible en configurations (la cible issue de l'imagerie est exprimée dans le repère du robot), permet de choisir une configuration compatible avec les limites et les obstacles, et, avec des solutions successives cohérentes, des gestes continus sans changement brusque de configuration.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Le robot de biopsie du cours a \(L_1 = 40\) cm et \(L_2 = 30\) cm. Une cible à 75 cm de la base : 75 &gt; 70 = \(L_1 + L_2\), aucune solution, quels que soient les angles. Une cible à 5 cm : 5 &lt; 10 = \(|L_1 - L_2|\), aucune solution non plus. Une cible à 40 cm : deux solutions, coude haut et coude bas.</p>
+
+<h2>Formules clés</h2>
+\[ q = f^{-1}(X) \qquad |L_1 - L_2| \leq r \leq L_1 + L_2 \qquad q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
+<p>Analytique : exacte, rapide, toutes les solutions. Numérique : générale, une seule solution, convergence non garantie.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/mgi.js"></script>
+</body>
+</html>

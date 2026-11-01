@@ -204,6 +204,39 @@ tous['boss-modelisation'] = async (a) => {
   await a.curseur(0, 59); await a.curseur(1, -48); await a.suite();
   await a.nombres([11]); await a.suite();
 };
+tous.mgi = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.jetons(['a', 'n']); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['mgi-2r'] = async (a) => {
+  await a.nombres([50]); await a.suite();
+  await a.nombres([90]); await a.suite();
+  await a.nombres([53.13]); await a.suite();
+  await a.nombres([16.26]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous.cinematique = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['j', 'q']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([6, 4]); await a.suite();
+  await a.nombres([-0.4, 0.346]); await a.suite();
+};
+tous['revision-inverse'] = async (a) => {
+  await a.nombres([0.458]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['boss-inverse'] = async (a) => {
+  await a.nombres([53.85]); await a.suite();
+  await a.nombres([80.41]); await a.suite();
+  await a.nombres([-11.52]); await a.suite();
+  await a.curseur(0, -12); await a.curseur(1, 80); await a.suite();
+};
 tous.td1 = async (a) => {
   await a.choix(0); await a.suite();
   await a.jetons(['a', 'b', 'c', 'd']); await a.suite();
@@ -234,6 +267,19 @@ tous['td1-echo'] = async (a) => {
   await a.nombres([43.70, 53.81]); await a.suite();
   await a.nombres([1.30, -3.81]); await a.suite();
   await a.choix(0); await a.suite();
+};
+tous['td1-mcd'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([-49.43, 47.42]); await a.suite();
+  await a.nombres([-3.28, 4.20]); await a.suite();
+  await a.nombres([2.66]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['td1-ex3'] = async (a) => {
+  await a.nombres([65.19]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([43.18]); await a.suite();
+  await a.nombres([14.12]); await a.suite();
 };
 tous['revision-td1'] = async (a) => {
   await a.choix(1); await a.suite();

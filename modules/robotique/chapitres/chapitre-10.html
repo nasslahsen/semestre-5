@@ -194,6 +194,9 @@
 <h4>Exemple</h4>
 <p>Exemple clinique du cours : robot de biopsie du sein, 2R plan. Segment 1 : \(L_1 = 40\) cm, relié à la base par l'articulation 1 (angle \(\theta_1\)) ; segment 2 : \(L_2 = 30\) cm, relié au segment 1 par l'articulation 2 (angle \(\theta_2\)). Le repère de base \(\{0\}\) est fixé au point d'ancrage du robot sur la table d'examen.</p>
 \[ {}^0_2T = {}^0_1T\;{}^1_2T = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Application du cours à un instant T : les capteurs indiquent \(\theta_1 = 45°\) (le bras principal est incliné à 45° par rapport à l'horizontale) et \(\theta_2 = 30°\) (le porte-aiguille forme un angle de 30° avec le segment 1). Donc \(\theta_1 + \theta_2 = 75°\) :</p>
+\[ x = 40 \times 0{,}707 + 30 \times 0{,}259 = 28{,}28 + 7{,}77 \approx 36{,}05 \text{ cm} \qquad y = 40 \times 0{,}707 + 30 \times 0{,}966 = 28{,}28 + 28{,}98 \approx 57{,}26 \text{ cm} \]
+<p>La pointe de l'aiguille est à environ 36 cm horizontalement et 57 cm verticalement de la base ; l'outil est tourné de \(\theta_{total} = \theta_1 + \theta_2 = 75°\) par rapport à l'horizontale. La MGD localise l'outil ; le recalage le situe par rapport au patient.</p>
 <p class="complement">Exemple ajouté.</p>
 <p>Avec \(\theta_1 = 30°\) et \(\theta_2 = 60°\) : \(x = 40\cos 30° + 30\cos 90° = 34{,}64\) cm, \(y = 40\sin 30° + 30\sin 90° = 20 + 30 = 50\) cm, et l'aiguille est orientée à \(\theta_1 + \theta_2 = 90°\), verticale.</p>
 

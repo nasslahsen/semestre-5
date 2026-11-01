@@ -19,7 +19,7 @@
 <p class="etiquette" data-etiquette></p>
 <p class="etiquette" data-etiquette></p>
 <h1>TD 1 : les réponses dans le cours</h1>
-<p class="chapeau">La série 1 de TD reprend les chapitres 1, 4 et 5 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation.</p>
+<p class="chapeau">La série 1 de TD reprend les chapitres 1, 4, 5 et 6 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation.</p>
 
 <h2>Intuition</h2>
 <p>Le TD a deux parties. La partie 1 se répond avec les pages du chapitre 1 : critères de classement, précision et répétabilité, robots sériels et parallèles, boucle percevoir, traiter, agir. La partie 2 refait le calcul du bras 2R avec un segment de plus, puis l'applique à une sonde d'échographie. L'idée ne change pas : un repère par segment, une matrice par articulation, on multiplie, on lit la dernière colonne.</p>
@@ -58,6 +58,14 @@
 <p>Le codeur du coude mesure \(\theta_2\) entre le segment 1 et le segment 2. Mais le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle. Par rapport au repère fixe, le segment 2 est donc orienté de \(\theta_1 + \theta_2\).</p>
 <p><strong>Espace de travail.</strong> Si les deux pivots tournent librement, l'organe terminal atteint les points dont la distance à la base est comprise entre \(|L_1 - L_2|\) (bras replié) et \(L_1 + L_2\) (bras tendu), le <strong>rayon maximal</strong>. Un point plus loin que \(L_1 + L_2\) est hors d'atteinte, quels que soient les angles.</p>
 <p class="complement">Le TD n'a pas de corrigé : les réponses des exercices sont calculées ici, pas données par la professeure.</p>
+
+<h3>Exercice 2 : le modèle cinématique direct</h3>
+<p>Méthode du chapitre 6 (<a href="cinematique.html">Modélisation cinématique et matrice jacobienne</a>) : la vitesse de l'aiguille est \(V = J(q)\,\dot q\), et la jacobienne du 2R s'obtient en dérivant les deux équations de la MGD :</p>
+\[ J(q) = \begin{pmatrix} -L_1\sin\theta_1 - L_2\sin(\theta_1 + \theta_2) & -L_2\sin(\theta_1 + \theta_2) \\ L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) & L_2\cos(\theta_1 + \theta_2) \end{pmatrix} \]
+<p>L'énoncé ne redonne pas les longueurs dans cette partie : on garde celles du robot de l'exercice 2, \(L_1 = 40\) cm et \(L_2 = 35\) cm. Pour respecter une vitesse maximale, on compare \(\|V\| = \sqrt{v_x^2 + v_y^2}\) à la limite ; le facteur de réduction est \(\|V\| / v_{max}\) : on divise toutes les vitesses articulaires par ce facteur, ce qui divise la vitesse de l'aiguille d'autant, sans changer sa direction. La \(i\)-ème colonne de \(J\) est la vitesse de l'aiguille quand seule l'articulation \(i\) bouge à vitesse 1.</p>
+<h3>Exercice 3 : accessibilité et modèle inverse</h3>
+<p>Méthode du chapitre 6 (<a href="mgi-2r.html">le MGI du robot 2R</a>) : distance de la cible à la base \(r = \sqrt{x_c^2 + y_c^2}\), à comparer à la portée ; puis Al-Kashi pour \(\theta_2\), et \(\theta_1 = \alpha - \beta\) ou \(\alpha + \beta\) selon la configuration. Les exercices suivent les noms du tableau du cours : « coude bas » pour \(\theta_2 &gt; 0\) avec \(\theta_1 = \alpha - \beta\). La figure de l'énoncé a son axe \(y_0\) vers le bas et ses angles positifs dans le sens horaire : vérifie avec ton enseignante quelle solution elle appelle « coude vers le bas ».</p>
+<p class="complement">Pas encore construit : le modèle cinématique inverse, les singularités et les questions 3 à 6 de l'exercice 3. Ils attendent la suite du chapitre 3.</p>
 
 <h2>Exemple</h2>
 <p class="complement">Exemple ajouté.</p>
