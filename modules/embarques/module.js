@@ -12,9 +12,36 @@ PLATEFORME.parcours("embarques", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "embarques", titre: "Diapositives du cours « Systèmes embarqués »", couvre: "chapitres 1 à 5" }
+      { sousModule: "embarques", titre: "Diapositives du cours « Systèmes embarqués »", couvre: "chapitres 1 à 5" },
+      { sousModule: "instrumentation", titre: "Partie 1 : Objets connectés dans le milieu médical, Internet of Medical Things (IoMT) (Pr A. Jbari)", couvre: "reçu, pas encore construit" },
+      { sousModule: "instrumentation", titre: "ThingSpeak IoT Platform : Labs (implémentation sur ESP32, serveur MQTT, React App)", couvre: "reçu, pas encore construit" },
+      { sousModule: "instrumentation", titre: "JSON Format", couvre: "reçu, pas encore construit" },
+      { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "reçu, pas encore construit" },
+      { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "reçu, pas encore construit" },
+      { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "reçu, pas encore construit" }
+    ],
+    manque: [
+      "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
+      "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté."
     ]
   },
+  // Programme du module, sujet par sujet ; page « Mon suivi ». chapitres : où le sujet est sur le site ; recu : document reçu, pas encore construit.
+  programme: [
+    { sousModule: "embarques", sujet: "Architecture d'un système embarqué : Harvard, Super-Harvard ; AVR, CISC, RISC", chapitres: [2] },
+    { sousModule: "embarques", sujet: "Modules : ADC, DAC, PWM, Timer, Watchdog", chapitres: [5] },
+    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "organigramme et programme : exemples reçus avec les labs IoT, pas encore d'exercices" },
+    { sousModule: "embarques", sujet: "Bus de communication : UART, I2C, SPI", chapitres: [3] },
+    { sousModule: "embarques", sujet: "Capteurs : température, force, pression, MEMS" },
+    { sousModule: "embarques", sujet: "Conditionneur : pont de Wheatstone, alimentation en courant et en tension" },
+    { sousModule: "embarques", sujet: "Amplificateur d'instrumentation" },
+    { sousModule: "embarques", sujet: "Modèle électrique d'un tissu biologique" },
+    { sousModule: "instrumentation", sujet: "Développement de dashboard sur Node-RED", recu: true },
+    { sousModule: "instrumentation", sujet: "Plateforme ThingSpeak : création de channels, écriture et lecture de données", recu: true },
+    { sousModule: "instrumentation", sujet: "Objet connecté sur ESP32 : serveur web embarqué", note: "pas de document sur le serveur web embarqué" },
+    { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", recu: true },
+    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", recu: true, note: "simulateur ECG reçu (lab Bluetooth) ; la semelle est un exemple du chapitre 1 ; rien sur l'oxymètre" },
+    { projet: true, sujet: "Polysomnographie CPAP : rapport technique (étude, conception, développement, test, limites), électronique et systèmes embarqués, objet connecté (acquisition, traitement, transmission, dashboard)" }
+  ],
   chapitres: [
     { id: 0, titre: "Les bases du numérique", sous: "Bits, binaire, hexadécimal, registres et signaux logiques : ce que le cours suppose", ligne: "Bits, hexadécimal, signaux logiques", sousModule: "embarques" },
     { id: 1, titre: "Le système embarqué", sous: "Définitions, exigences de conception, organisation en couches, deux dispositifs médicaux", ligne: "Définitions, exigences, organisation", sousModule: "embarques" },

@@ -42,7 +42,9 @@
 .sv-sm { grid-column: 1; font-weight: 600; color: var(--ct); }
 .sv-doc { grid-column: 2; }
 .sv-doc small { display: block; color: var(--doux); font-size: 14px; }
-.sv-etat { grid-column: 3; justify-self: end; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--ok, #12a26b); }
+.sv-etat { grid-column: 3; justify-self: end; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; color: var(--ok, #12a26b); }
 .manque .sv-doc { color: var(--doux); }
 .manque .sv-etat { color: var(--ko, #e5484d); }
 .partiel .sv-etat { color: #b6600a; }
+.sv-doc a { color: var(--encre); text-decoration: none; border-bottom: 1.5px solid var(--cl); }
+.projet .sv-etat { color: var(--doux); }
