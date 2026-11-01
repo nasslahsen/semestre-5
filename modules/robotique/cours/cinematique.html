@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modélisation cinématique et matrice jacobienne · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Modélisation cinématique et matrice jacobienne</h1>
+<p class="chapeau">Pour déplacer une sonde d'échographie de A vers B sur le patient, connaître les deux poses ne suffit pas : à quelle vitesse, dans quelle direction ? Il faut coordonner les vitesses des articulations.</p>
+
+<h2>Intuition</h2>
+<p>La modélisation géométrique répond à « où placer et comment orienter la sonde ? ». La modélisation cinématique répond à « comment la déplacer ? ». Si je change la vitesse d'un moteur précis, quel est l'effet exact sur la vitesse et la direction de l'outil ? La matrice jacobienne fait cette traduction.</p>
+
+<div id="fig-jacobienne"></div>
+
+<h2>Formalisation</h2>
+<h3>La modélisation cinématique</h3>
+<p>Elle étudie le mouvement des robots sans considérer les forces qui le provoquent. Elle établit les relations entre les variables articulaires (positions, vitesses, accélérations des moteurs) et les variables opérationnelles (positions, vitesses, accélérations de l'organe terminal). Elle est essentielle pour la commande en temps réel du robot, la planification de trajectoires, la détection de singularités et le dimensionnement des actionneurs.</p>
+<h3>Deux espaces à distinguer</h3>
+<ul>
+<li><strong>Espace articulaire</strong> (côté articulations) : positions \(q = (q_1, q_2, \dots, q_n)^T\), angles (rad) ou déplacements (m) ; vitesses \(\dot q = (\dot q_1, \dot q_2, \dots, \dot q_n)^T\), en rad/s ou m/s selon l'articulation.</li>
+<li><strong>Espace cartésien</strong> (côté outil, dans un repère choisi) : position \(p = (p_x, p_y, p_z)^T\) (m) et orientation (matrice de rotation \(R\)) ; vecteur vitesse de l'outil (« twist ») \(V = (v_x, v_y, v_z, \omega_x, \omega_y, \omega_z)^T\) : 3 composantes linéaires (m/s) et 3 angulaires (rad/s).</li>
+</ul>
+<h3>Le modèle cinématique direct (MCD)</h3>
+<p>Le <strong>modèle cinématique direct</strong> (MCD) est la relation qui permet de calculer, pour une configuration donnée du robot, la vitesse de translation et la vitesse de rotation de son organe terminal à partir des vitesses de ses articulations :</p>
+\[ V = J(q)\,\dot q \qquad \text{vitesse de la pince = jacobienne} \times \text{vitesses des articulations} \]
+<h3>La matrice jacobienne</h3>
+<p>La <strong>matrice jacobienne</strong> \(J(q)\) est l'outil central de la cinématique : une grille de conversion entre l'espace articulaire et l'espace cartésien. Définition physique : la \(i\)-ème colonne de la jacobienne représente la vitesse de l'outil lorsque seule l'articulation \(i\) bouge à vitesse 1, toutes les autres étant immobiles.</p>
+<p>Pour un robot à \(n\) articulations dans l'espace 3D, c'est un tableau de 6 lignes et \(n\) colonnes :</p>
+\[ J(q) = \begin{pmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} & \cdots & \frac{\partial x}{\partial q_n} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} & \cdots & \frac{\partial y}{\partial q_n} \\ \frac{\partial z}{\partial q_1} & \frac{\partial z}{\partial q_2} & \cdots & \frac{\partial z}{\partial q_n} \\ \frac{\partial \omega_x}{\partial q_1} & \frac{\partial \omega_x}{\partial q_2} & \cdots & \frac{\partial \omega_x}{\partial q_n} \\ \frac{\partial \omega_y}{\partial q_1} & \frac{\partial \omega_y}{\partial q_2} & \cdots & \frac{\partial \omega_y}{\partial q_n} \\ \frac{\partial \omega_z}{\partial q_1} & \frac{\partial \omega_z}{\partial q_2} & \cdots & \frac{\partial \omega_z}{\partial q_n} \end{pmatrix} \]
+<p>Chaque colonne correspond à une articulation, chaque ligne à une direction de mouvement (x, y, z ou une rotation). Chaque case dit : « si je fais bouger l'articulation \(j\), combien ça affecte le mouvement dans la direction \(i\) ».</p>
+
+<h2>Exemple</h2>
+<p>Exemple du cours : un robot posé sur une table, deux articulations pivots dans le plan \((x_0, y_0)\), \(L_1 = L_2 = 1\) m, \(q_1 = 30°\), \(q_2 = 60°\) (\(q_2\) mesuré par rapport au prolongement du premier segment).</p>
+<p class="complement">Les diapositives reçues s'arrêtent à ces données. Le calcul ci-dessous applique la forme générale aux deux lignes de position de la MGD.</p>
+\[ J(q) = \begin{pmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} \end{pmatrix} = \begin{pmatrix} -L_1\sin q_1 - L_2\sin(q_1 + q_2) & -L_2\sin(q_1 + q_2) \\ L_1\cos q_1 + L_2\cos(q_1 + q_2) & L_2\cos(q_1 + q_2) \end{pmatrix} \]
+\[ q_1 + q_2 = 90° \;\Rightarrow\; J = \begin{pmatrix} -0{,}5 - 1 & -1 \\ 0{,}866 + 0 & 0 \end{pmatrix} = \begin{pmatrix} -1{,}5 & -1 \\ 0{,}866 & 0 \end{pmatrix} \]
+<p>Colonne 2 : si seul le coude tourne à 1 rad/s, la pince part à 1 m/s vers les \(x\) négatifs, perpendiculairement au segment 2 qui est vertical.</p>
+
+<h2>Formules clés</h2>
+\[ V = J(q)\,\dot q \qquad J_{ij} = \frac{\partial X_i}{\partial q_j} \qquad \text{colonne } i = \text{vitesse de l'outil quand seule l'articulation } i \text{ bouge à vitesse 1} \]
+\[ \text{2R : } J = \begin{pmatrix} -L_1\sin q_1 - L_2\sin(q_1 + q_2) & -L_2\sin(q_1 + q_2) \\ L_1\cos q_1 + L_2\cos(q_1 + q_2) & L_2\cos(q_1 + q_2) \end{pmatrix} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/cinematique.js"></script>
+</body>
+</html>

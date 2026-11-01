@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Planification de biopsie : le MGI du robot 2R · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<p class="etiquette" data-etiquette></p>
+<h1>Planification de biopsie : le MGI du robot 2R</h1>
+<p class="chapeau">Le robot 2R de biopsie doit placer son aiguille en \((50, 40)\) cm, coude vers le bas pour éloigner les moteurs de la zone stérile. On trouve \(\theta_1\) et \(\theta_2\) par la méthode analytique.</p>
+
+<h2>Intuition</h2>
+<p>La base O, le coude A et la cible P forment un triangle dont on connaît les trois côtés : \(OA = L_1\), \(AP = L_2\), \(OP = r\). Avec trois côtés connus, la loi des cosinus (théorème d'Al-Kashi) donne les angles. L'angle au coude donne \(\theta_2\) ; l'angle en O, ajouté à la direction de la cible, donne \(\theta_1\).</p>
+
+<div id="fig-mgi-2r"></div>
+
+<h2>Formalisation</h2>
+<p>Données du cours : \(L_1 = 40\) cm, \(L_2 = 30\) cm ; MGD \(x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2)\), \(y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2)\) ; point cible \((x_c, y_c) = (50, 40)\) cm.</p>
+<h3>Étape 1 : vérification de l'accessibilité</h3>
+<p>Avant de calculer quoi que ce soit, l'algorithme vérifie que le point cible est physiquement atteignable :</p>
+\[ r = \sqrt{x_c^2 + y_c^2} = \sqrt{50^2 + 40^2} = \sqrt{4100} \approx 64{,}03 \text{ cm} \]
+<p>Le point est accessible si \(|L_1 - L_2| \leq r \leq L_1 + L_2\). Portée maximale (bras tendu) : 70 cm ; portée minimale (bras replié) : 10 cm. Puisque \(10 \leq 64{,}03 \leq 70\), le point est accessible. Sinon, il n'y a pas de solution.</p>
+<h3>Étape 2 : calcul de \(\theta_2\) (angle du coude)</h3>
+<p>Dans le triangle OAP, l'angle au sommet A est \(\beta = \pi - \theta_2\), et \(r\) est le côté opposé. Loi des cosinus :</p>
+\[ r^2 = L_1^2 + L_2^2 - 2L_1L_2\cos\beta \quad\Rightarrow\quad r^2 = L_1^2 + L_2^2 + 2L_1L_2\cos\theta_2 \]
+\[ \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2} \qquad \theta_2 = \pm\arccos\left(\frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2}\right) \]
+\[ \cos\theta_2 = \frac{4100 - 1600 - 900}{2 \times 40 \times 30} = \frac{1600}{2400} = \frac{2}{3} \qquad \theta_2 = \pm\arccos\frac{2}{3} \approx \pm 48{,}19° \]
+<p>Le \(\pm\) montre qu'il y a deux solutions. Selon la contrainte médicale, le cours retient \(\theta_2 = 48{,}19°\).</p>
+<h3>Étape 3 : calcul de \(\theta_1\) (angle de l'épaule)</h3>
+<p>On trace la droite OP. \(\alpha\) est l'angle entre l'axe horizontal et OP ; \(\beta\) est l'angle entre le premier bras OA et OP (ici, dans le triangle, au sommet O). Dans la configuration retenue, \(\alpha = \theta_1 + \beta\), donc \(\theta_1 = \alpha - \beta\).</p>
+\[ \tan\alpha = \frac{40}{50} \;\Rightarrow\; \alpha = \arctan\left(\frac{40}{50}\right) = 38{,}66° \]
+\[ L_2^2 = L_1^2 + r^2 - 2L_1r\cos\beta \;\Rightarrow\; \beta = \arccos\left(\frac{L_1^2 + r^2 - L_2^2}{2L_1r}\right) = 20{,}44° \]
+\[ \theta_1 = \alpha - \beta = 38{,}66° - 20{,}44° = 18{,}22° \]
+<p>Interprétation : le premier bras s'élève à 18,2° par rapport à l'horizontale, le second redescend de 48° par rapport au prolongement du premier, l'aiguille atteint \((50, 40)\) cm et les moteurs restent éloignés du champ opératoire stérile.</p>
+<h3>Étape 4 : choisir la configuration adaptée à l'environnement</h3>
+<div class="tableau"><table>
+<tr><th>Configuration</th><th>\(\theta_1\)</th><th>\(\theta_2\)</th><th>Contrainte</th></tr>
+<tr><td>Coude bas</td><td>18,22°</td><td>+48,19°</td><td>dégage l'équipement</td></tr>
+<tr><td>Coude haut</td><td>59,10°</td><td>−48,19°</td><td>rencontre l'équipement fixe représenté</td></tr>
+</table></div>
+<p>On retient \(\theta_1 = 18{,}22°\) et \(\theta_2 = 48{,}19°\). Pour la configuration coude haut, \(\theta_1 = \alpha + \beta = 59{,}10°\).</p>
+<p class="complement">Le cours appelle « coude bas » la solution \(\theta_2 = +48{,}19°\) (tableau de l'étape 4), alors qu'une ligne de l'étape 2 associe le coude bas à \(\theta_2 &lt; 0\). Les exercices suivent le tableau.</p>
+<h3>Étape 5 : vérifier le résultat avec la MGD</h3>
+\[ x = 40\cos(18{,}22°) + 30\cos(18{,}22° + 48{,}19°) \approx 50 \text{ cm} \qquad y = 40\sin(18{,}22°) + 30\sin(18{,}22° + 48{,}19°) \approx 40 \text{ cm} \]
+<p>La configuration retenue atteint bien la cible \(P_c = (50, 40)\) cm.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Même robot, cible \((40, 30)\) cm. \(r = 50\) cm, accessible. \(\cos\theta_2 = (2500 - 1600 - 900)/2400 = 0\), donc \(\theta_2 = \pm 90°\). \(\alpha = \arctan(30/40) = 36{,}87°\) ; \(\cos\beta = (1600 + 2500 - 900)/(2 \times 40 \times 50) = 0{,}8\), donc \(\beta = 36{,}87°\). Coude bas : \(\theta_1 = \alpha - \beta = 0°\), \(\theta_2 = 90°\) : bras 1 à l'horizontale, bras 2 vertical. Vérification : \(x = 40 + 0 = 40\), \(y = 0 + 30 = 30\).</p>
+
+<h2>Formules clés</h2>
+\[ r = \sqrt{x_c^2 + y_c^2} \qquad \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2} \]
+\[ \alpha = \arctan\frac{y_c}{x_c} \qquad \beta = \arccos\frac{L_1^2 + r^2 - L_2^2}{2L_1r} \qquad \theta_1 = \alpha - \beta \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../figures/mgi-2r.js"></script>
+</body>
+</html>

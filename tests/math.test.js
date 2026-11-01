@@ -788,6 +788,47 @@ test("chapitre Modélisation : matrice DH, 2R en DH, MGD de la biopsie, révisio
   for (const [t1, t2] of [[18, 48], [59, -48]]) { const T = p(t1, t2, 40, 30); assert.ok(Math.hypot(T[0][3] - 50, T[1][3] - 40) < 1.5); }
 });
 
+test("chapitre 6 : MGI du 2R (Al-Kashi), jacobienne, révision et boss", () => {
+  const mgi = (xc, yc, L1, L2) => {
+    const r = Math.hypot(xc, yc), c2 = (r * r - L1 * L1 - L2 * L2) / (2 * L1 * L2), t2 = Math.acos(c2) / D;
+    const al = Math.atan2(yc, xc) / D, be = Math.acos((L1 * L1 + r * r - L2 * L2) / (2 * L1 * r)) / D;
+    return { r, c2, t2, al, be, bas: [al - be, t2], haut: [al + be, -t2] };
+  };
+  // exemple du cours : (50 ; 40), 40 et 30
+  const c = mgi(50, 40, 40, 30);
+  proche(c.r, 64.03, 0.005); proche(c.c2, 2 / 3); proche(c.t2, 48.19, 0.005); proche(c.al, 38.66, 0.005); proche(c.be, 20.44, 0.005);
+  proche(c.bas[0], 18.22, 0.01); proche(c.haut[0], 59.10, 0.01);
+  for (const q of [c.bas, c.haut]) procheVec(m.bras2R(q[0] * D, q[1] * D, 40, 30).M, [50, 40, 0], 1e-9);
+  // MGD du cours : 45° et 30°
+  const g = m.bras2R(45 * D, 30 * D, 40, 30).M; proche(g[0], 36.05, 0.005); proche(g[1], 57.26, 0.005);
+  // exemple ajouté (40 ; 30) et niveau (30 ; 40)
+  const e = mgi(40, 30, 40, 30); proche(e.t2, 90, 1e-9); proche(e.bas[0], 0, 1e-9);
+  const n = mgi(30, 40, 40, 30); proche(n.r, 50); proche(n.t2, 90, 1e-9); proche(n.al, 53.13, 0.005); proche(n.be, 36.87, 0.005); proche(n.bas[0], 16.26, 0.005); proche(n.haut[0], 90, 1e-9);
+  // révision : (60 ; 0) ; boss : (50 ; 20)
+  proche(mgi(60, 0, 40, 30).c2, 0.458, 0.0005);
+  const b = mgi(50, 20, 40, 30); proche(b.r, 53.85, 0.005); proche(b.t2, 80.41, 0.005); proche(b.al, 21.80, 0.005); proche(b.be, 33.32, 0.005); proche(b.bas[0], -11.52, 0.005);
+  for (const [a, t] of [[-12, 80], [55, -80]]) { const p = m.bras2R(a * D, t * D, 40, 30).M; assert.ok(Math.hypot(p[0] - 50, p[1] - 20) < 1.5); }
+  // jacobienne du 2R du cours, L1 = L2 = 1, q = (30°, 60°)
+  const J = (q1, q2, L1, L2) => [[-L1 * Math.sin(q1) - L2 * Math.sin(q1 + q2), -L2 * Math.sin(q1 + q2)], [L1 * Math.cos(q1) + L2 * Math.cos(q1 + q2), L2 * Math.cos(q1 + q2)]];
+  const j = J(30 * D, 60 * D, 1, 1); procheMat(j, [[-1.5, -1], [Math.sqrt(3) / 2, 0]], 1e-9);
+  const v = [j[0][0] * 0.4 + j[0][1] * -0.2, j[1][0] * 0.4 + j[1][1] * -0.2]; proche(v[0], -0.4, 1e-9); proche(v[1], 0.346, 0.0005);
+  // la jacobienne est bien la dérivée de la MGD (différences finies)
+  const h = 1e-6, f = (a, b) => m.bras2R(a, b, 1, 1).M;
+  proche((f(30 * D + h, 60 * D)[0] - f(30 * D - h, 60 * D)[0]) / (2 * h), -1.5, 1e-6);
+});
+
+test("TD 1 : modèle cinématique direct (40 ; 35) et exercice 3 questions 1 et 2", () => {
+  const J = (q1, q2, L1, L2) => [[-L1 * Math.sin(q1) - L2 * Math.sin(q1 + q2), -L2 * Math.sin(q1 + q2)], [L1 * Math.cos(q1) + L2 * Math.cos(q1 + q2), L2 * Math.cos(q1 + q2)]];
+  const j = J(23.8 * D, 48.19 * D, 40, 35);
+  proche(j[0][0], -49.43, 0.005); proche(j[1][0], 47.42, 0.005); proche(j[0][1], -33.29, 0.005); proche(j[1][1], 10.82, 0.005);
+  const v = [j[0][0] * 0.1 + j[0][1] * -0.05, j[1][0] * 0.1 + j[1][1] * -0.05];
+  proche(v[0], -3.28, 0.005); proche(v[1], 4.20, 0.005); proche(Math.hypot(...v), 5.33, 0.005); proche(Math.hypot(...v) / 2, 2.66, 0.005);
+  const r = Math.hypot(55, 35); proche(r, 65.19, 0.005); assert.ok(r <= 35 + 25 + 10);
+  const t2 = Math.acos((r * r - 1600 - 900) / 2400) / D, al = Math.atan2(35, 55) / D, be = Math.acos((1600 + r * r - 900) / (80 * r)) / D;
+  proche(t2, 43.18, 0.005); proche(al, 32.47, 0.005); proche(be, 18.36, 0.005); proche(al - be, 14.12, 0.01);
+  procheVec(m.bras2R((al - be) * D, t2 * D, 40, 30).M, [55, 35, 0], 1e-9);
+});
+
 test("TD 1 robotique : 3R de Denavit–Hartenberg, sonde d'échographie 2R, révision et boss", () => {
   // matrice DH du TD avec alpha = 0, r = 0, d = L : rotation theta puis L le long du nouvel x
   const dh = (t, L) => [[Math.cos(t), -Math.sin(t), 0, L * Math.cos(t)], [Math.sin(t), Math.cos(t), 0, L * Math.sin(t)], [0, 0, 1, 0], [0, 0, 0, 1]];

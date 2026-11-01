@@ -14,11 +14,12 @@ PLATEFORME.parcours("robotique", {
       { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "4 chapitres" },
       { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" },
       { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3 « Modélisation des robots médicaux » (Pr. Hasnaa El Hansali)", couvre: "chapitre 5 : convention de Denavit–Hartenberg, modèle géométrique direct ; fin du chapitre 2 (bras 2R)" },
-      { sousModule: "bio", titre: "TD série 1 « Introduction générale, domaines d'applications de la robotique et modélisation des robots industriels » (Pr. El Hansali Hasnaa)", couvre: "chapitre TD 1 : partie 1, exercice 1 et exercice 2 questions 1 à 5" }
+      { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3, partie 2 (Pr. Hasnaa El Hansali)", couvre: "chapitre 6 : modèle géométrique inverse, modélisation cinématique, matrice jacobienne ; exemple de MGD du chapitre 5" },
+      { sousModule: "bio", titre: "TD série 1 « Introduction générale, domaines d'applications de la robotique et modélisation des robots industriels » (Pr. El Hansali Hasnaa)", couvre: "TD 1 : partie 1, exercices 1 et 2 (MGD et modèle cinématique direct), exercice 3 questions 1 et 2" }
     ],
     manque: [
-      "Robotique biomédicale : la suite du chapitre 3 (modèle cinématique et jacobienne, modèle cinématique inverse, modèle géométrique inverse, singularités). Le TD 1 s'en sert.",
-      "TD 1 : le modèle cinématique direct, le modèle cinématique inverse et l'exercice 3 attendent cette partie du cours."
+      "Robotique biomédicale : la suite du chapitre 3. Le calcul de la jacobienne du 2R s'arrête à ses données ; le modèle cinématique inverse et les singularités ne sont pas encore reçus. Le TD 1 s'en sert.",
+      "TD 1 : le modèle cinématique inverse, les singularités et les questions 3 à 6 de l'exercice 3 attendent cette partie du cours."
     ]
   },
   chapitres: [
@@ -28,6 +29,7 @@ PLATEFORME.parcours("robotique", {
     { id: 3, titre: "Orientations", sous: "Matrices de rotation et angles d'Euler", ligne: "Matrices de rotation, angles d'Euler", sousModule: "bio" },
     { id: 4, titre: "Transformations", sous: "Changement de repère, matrices homogènes, bras 2R", ligne: "Changement de repère, matrices homogènes, bras 2R", sousModule: "bio" },
     { id: 10, numero: 5, titre: "Modélisation des robots médicaux", sous: "Convention de Denavit–Hartenberg, modèle géométrique direct", ligne: "Denavit–Hartenberg, modèle géométrique direct", sousModule: "bio" },
+    { id: 11, numero: 6, titre: "Modèle inverse et cinématique", sous: "Modèle géométrique inverse, Al-Kashi, modèle cinématique direct et jacobienne", ligne: "MGI, Al-Kashi, jacobienne et vitesses", sousModule: "bio" },
     { id: 9, td: true, numero: "TD 1", titre: "TD 1 : introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
     { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
     { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
@@ -86,11 +88,19 @@ PLATEFORME.parcours("robotique", {
     { id: "revision-modelisation", chapitre: 10, titre: "Révision : la modélisation", revision: true, pret: true },
     { id: "boss-modelisation", chapitre: 10, titre: "L'aiguille vise la lésion", boss: true, pret: true },
 
+    { id: "mgi", chapitre: 11, titre: "Modèle géométrique inverse", cours: true, pret: true },
+    { id: "mgi-2r", chapitre: 11, titre: "Le MGI du 2R pas à pas", cours: true, pret: true },
+    { id: "cinematique", chapitre: 11, titre: "Cinématique et jacobienne", cours: true, pret: true },
+    { id: "revision-inverse", chapitre: 11, titre: "Révision : modèle inverse et vitesses", revision: true, pret: true },
+    { id: "boss-inverse", chapitre: 11, titre: "Planifier la biopsie", boss: true, pret: true },
+
     { id: "td1", chapitre: 9, titre: "TD 1 : les réponses dans le cours", cours: true, pret: true },
     { id: "td1-classer", chapitre: 9, titre: "Partie 1, exercice 1 : classer trois robots", pret: true },
     { id: "td1-questions", chapitre: 9, titre: "Partie 1, exercices 2 à 4", pret: true },
     { id: "td1-dh", chapitre: 9, titre: "Exercice 1 : le robot plan 3R", pret: true },
     { id: "td1-echo", chapitre: 9, titre: "Exercice 2 : où est la sonde ?", pret: true },
+    { id: "td1-mcd", chapitre: 9, titre: "Exercice 2 : la vitesse de l'aiguille", pret: true },
+    { id: "td1-ex3", chapitre: 9, titre: "Exercice 3 : atteindre la lésion du foie", pret: true },
     { id: "revision-td1", chapitre: 9, titre: "Révision : le TD 1 en situations nouvelles", revision: true, pret: true },
     { id: "boss-td1", chapitre: 9, titre: "La sonde doit rejoindre la cible", boss: true, pret: true },
 
@@ -152,6 +162,9 @@ PLATEFORME.parcours("robotique", {
     { id: "dh-parametres", chapitre: 10, titre: "Les quatre paramètres et la matrice DH", notions: ["dh-parametres"] },
     { id: "dh-2r", chapitre: 10, titre: "Le robot 2R en Denavit–Hartenberg", notions: ["dh-2r"] },
     { id: "mgd", chapitre: 10, titre: "Modèle géométrique direct", notions: ["mgd"] },
+    { id: "mgi", chapitre: 11, titre: "Le modèle géométrique inverse", notions: ["mgi"] },
+    { id: "mgi-2r", chapitre: 11, titre: "Le MGI du robot 2R, méthode analytique", notions: ["mgi-2r"] },
+    { id: "cinematique", chapitre: 11, titre: "Cinématique : la matrice jacobienne", notions: ["cinematique"] },
     { id: "td1", chapitre: 9, titre: "TD 1 : introduction et modélisation", notions: ["td1"] },
     { id: "chaine-nomenclature", chapitre: 5, titre: "La chaîne fonctionnelle et ses symboles", notions: ["chaine-fonctionnelle", "nomenclature"] },
     { id: "vitesse-couple", chapitre: 5, titre: "Vitesse, couple et puissance", notions: ["vitesse-couple-puissance"] },
@@ -203,6 +216,9 @@ PLATEFORME.parcours("robotique", {
     { chapitre: 10, id: "dh-parametres", titre: "Les quatre paramètres et la matrice DH" },
     { chapitre: 10, id: "dh-2r", titre: "Le robot 2R en Denavit–Hartenberg" },
     { chapitre: 10, id: "mgd", titre: "Modélisation géométrique directe (MGD)" },
+    { chapitre: 11, id: "mgi", titre: "Modélisation géométrique inverse (MGI)" },
+    { chapitre: 11, id: "mgi-2r", titre: "Planification de biopsie : le MGI du robot 2R" },
+    { chapitre: 11, id: "cinematique", titre: "Modélisation cinématique et matrice jacobienne" },
     { chapitre: 9, id: "td1", titre: "TD 1 : les réponses dans le cours" },
     { chapitre: 5, id: "chaine-fonctionnelle", titre: "Chaîne fonctionnelle d'un axe" },
     { chapitre: 5, id: "nomenclature", titre: "Nomenclature : symboles, unités, indices" },
