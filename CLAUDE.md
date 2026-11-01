@@ -129,6 +129,9 @@ et « Rejouer ». Elle montre aussi la progression de chaque module, chapitre pa
    Noter chaque document reçu dans `module.js`, `documents.recus` (`{ sousModule, titre, couvre }`, le titre exact du
    document, jamais le fichier), et ce qui manque ou n'a que son titre dans `documents.manque` : la page « Mon suivi »
    montre ce qui a été envoyé et ce qui ne l'a pas été (un sous-module sans document y est « à envoyer »).
+   Si l'utilisatrice donne le programme officiel du module, le noter dans `module.js`, `programme`
+   (`{ sousModule, sujet, chapitres: [ids], recu, note }`, ou `{ projet: true, sujet }`) : « Mon suivi » montre pour
+   chaque sujet s'il est sur le site, reçu mais pas encore construit, ou pas encore reçu. Le tenir à jour à chaque module construit.
 2. **Plan** : découper en chapitres, rattacher chaque chapitre à un sous-module du registre. Si l'appartenance d'une
    partie à un sous-module n'est pas claire, demander. Ajouter un chapitre 0 « Les bases » quand le module
    suppose des prérequis (mathématiques, physique) que le cours ne rappelle pas ; il a lui aussi une page de cours

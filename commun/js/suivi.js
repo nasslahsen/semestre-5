@@ -33,7 +33,7 @@
     });
     document.getElementById("resume").textContent = faits + " sections faites sur " + total + ", " + niveaux +
       (niveaux > 1 ? " niveaux réussis." : " niveau réussi.") + " Une section compte quand ses exercices sont réussis.";
-    progres(); revoir(); documents();
+    progres(); revoir(); programme(); documents();
   }
 
   // Où j'en suis : un module par ligne ; on l'ouvre pour voir ses chapitres.
@@ -88,6 +88,32 @@
         '<div class="sv-actions"><a class="btn-continuer" href="' + cours + '">Revoir le cours</a>' +
         '<a class="sv-lien" href="' + P.racine + "modules/" + x.m.id + "/jouer.html#" + x.n.id + '">Rejouer</a></div></article>';
     }).join("");
+  }
+
+  // Programme officiel d'un module (module.js, « programme ») : chaque sujet, et où il en est sur le site.
+  // Sujet avec des chapitres : sur le site ; document reçu mais pas encore construit : à construire ; sinon : pas encore reçu.
+  function programme() {
+    var h = "";
+    actifs.forEach(function (m0) {
+      var m = P.module(m0.id), prog = m.programme || [];
+      if (!prog.length) return;
+      var lignes = "", dernier = null;
+      prog.forEach(function (x) {
+        var sm = (m.sousModules || []).filter(function (y) { return y.id === x.sousModule; })[0];
+        var groupe = x.projet ? "Projet" : sm ? sm.titre : "";
+        var chs = (x.chapitres || []).map(function (id) { return P.chapitre(m.id, id); }).filter(Boolean);
+        var etat = x.projet ? ["projet", "Projet"] : chs.length ? ["recu", "Sur le site"] : x.recu ? ["partiel", "Reçu, à construire"] : ["manque", "Pas encore reçu"];
+        var detail = chs.map(function (c) { return P.nomChapitre(m.id, c.id) + " · " + c.titre; }).join(" ; ");
+        if (x.note) detail = detail ? detail + " ; " + x.note : x.note;
+        var lien = chs.length ? ' href="' + P.urlChapitre(m.id, chs[0].id) + '"' : "";
+        lignes += '<li class="' + etat[0] + '">' + (groupe !== dernier ? '<span class="sv-sm">' + esc(groupe) + "</span>" : "") +
+          '<span class="sv-doc">' + (lien ? "<a" + lien + ">" + esc(x.sujet) + "</a>" : esc(x.sujet)) + (detail ? "<small>" + esc(detail) + "</small>" : "") + "</span>" +
+          '<span class="sv-etat">' + etat[1] + "</span></li>";
+        dernier = groupe;
+      });
+      h += '<section class="sv-docs"' + style(m) + "><h3>" + esc(m.titre) + "</h3><ul>" + lignes + "</ul></section>";
+    });
+    document.getElementById("programme").innerHTML = h ? '<h2 class="tableau-titre">Programme</h2><p class="suivi-note">Le programme du module, sujet par sujet : ce qui est déjà sur le site, ce qui est reçu mais pas encore construit, et ce qui reste à envoyer.</p>' + h : "";
   }
 
   // Documents reçus : par module et par sous-module ; un sous-module à venir n'a encore rien reçu.
