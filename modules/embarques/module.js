@@ -13,12 +13,12 @@ PLATEFORME.parcours("embarques", {
   documents: {
     recus: [
       { sousModule: "embarques", titre: "Diapositives du cours « Systèmes embarqués »", couvre: "chapitres 1 à 5" },
-      { sousModule: "instrumentation", titre: "Partie 1 : Objets connectés dans le milieu médical, Internet of Medical Things (IoMT) (Pr A. Jbari)", couvre: "reçu, pas encore construit" },
-      { sousModule: "instrumentation", titre: "ThingSpeak IoT Platform : Labs (implémentation sur ESP32, serveur MQTT, React App)", couvre: "reçu, pas encore construit" },
-      { sousModule: "instrumentation", titre: "JSON Format", couvre: "reçu, pas encore construit" },
-      { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "reçu, pas encore construit" },
-      { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "reçu, pas encore construit" },
-      { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "reçu, pas encore construit" }
+      { sousModule: "instrumentation", titre: "Partie 1 : Objets connectés dans le milieu médical, Internet of Medical Things (IoMT) (Pr A. Jbari)", couvre: "chapitres 1 et 2" },
+      { sousModule: "instrumentation", titre: "ThingSpeak IoT Platform : Labs (implémentation sur ESP32, serveur MQTT, React App)", couvre: "chapitre 3, labs 3, 4 et 5" },
+      { sousModule: "instrumentation", titre: "JSON Format", couvre: "chapitre 3" },
+      { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "lab 6" },
+      { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "lab 7" },
+      { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
@@ -29,17 +29,17 @@ PLATEFORME.parcours("embarques", {
   programme: [
     { sousModule: "embarques", sujet: "Architecture d'un système embarqué : Harvard, Super-Harvard ; AVR, CISC, RISC", chapitres: [2] },
     { sousModule: "embarques", sujet: "Modules : ADC, DAC, PWM, Timer, Watchdog", chapitres: [5] },
-    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "organigramme et programme : exemples reçus avec les labs IoT, pas encore d'exercices" },
+    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "programmes complets à copier dans les labs 2 à 7 d'Instrumentation connectée ; organigramme : pas encore d'exercices" },
     { sousModule: "embarques", sujet: "Bus de communication : UART, I2C, SPI", chapitres: [3] },
     { sousModule: "embarques", sujet: "Capteurs : température, force, pression, MEMS" },
     { sousModule: "embarques", sujet: "Conditionneur : pont de Wheatstone, alimentation en courant et en tension" },
     { sousModule: "embarques", sujet: "Amplificateur d'instrumentation" },
     { sousModule: "embarques", sujet: "Modèle électrique d'un tissu biologique" },
-    { sousModule: "instrumentation", sujet: "Développement de dashboard sur Node-RED", recu: true },
-    { sousModule: "instrumentation", sujet: "Plateforme ThingSpeak : création de channels, écriture et lecture de données", recu: true },
+    { sousModule: "instrumentation", sujet: "Développement de dashboard sur Node-RED", chapitres: [9] },
+    { sousModule: "instrumentation", sujet: "Plateforme ThingSpeak : création de channels, écriture et lecture de données", chapitres: [8, 11, 12, 13] },
     { sousModule: "instrumentation", sujet: "Objet connecté sur ESP32 : serveur web embarqué", note: "pas de document sur le serveur web embarqué" },
-    { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", recu: true },
-    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", recu: true, note: "simulateur ECG reçu (lab Bluetooth) ; la semelle est un exemple du chapitre 1 ; rien sur l'oxymètre" },
+    { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", chapitres: [7, 8, 10, 14] },
+    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15], note: "simulateur ECG : lab 7 ; la semelle est un exemple du chapitre 1 de Systèmes embarqués ; rien sur l'oxymètre" },
     { projet: true, sujet: "Polysomnographie CPAP : rapport technique (étude, conception, développement, test, limites), électronique et systèmes embarqués, objet connecté (acquisition, traitement, transmission, dashboard)" }
   ],
   chapitres: [
@@ -48,7 +48,19 @@ PLATEFORME.parcours("embarques", {
     { id: 2, titre: "Architectures matérielles", sous: "Contrôleur embarqué, Von Neumann et Harvard, CISC et RISC, AVR, ARM", ligne: "Contrôleur, Harvard, RISC, AVR, ARM", sousModule: "embarques" },
     { id: 3, titre: "Bus de communication", sous: "Pourquoi des bus, UART, SPI, I2C", ligne: "UART, SPI, I2C", sousModule: "embarques" },
     { id: 4, titre: "L'ESP32 : la carte et la puce", sous: "Caractéristiques, nomenclature, carte DEV KIT V1, cœurs, mémoire, alimentation", ligne: "Carte, cœurs, mémoire, alimentation", sousModule: "embarques" },
-    { id: 5, titre: "Programmer les périphériques de l'ESP32", sous: "GPIO, interruptions, ADC, DAC, timers, watchdog, PWM, I2C et SPI", ligne: "GPIO, ADC, DAC, timers, PWM", sousModule: "embarques" }
+    { id: 5, titre: "Programmer les périphériques de l'ESP32", sous: "GPIO, interruptions, ADC, DAC, timers, watchdog, PWM, I2C et SPI", ligne: "GPIO, ADC, DAC, timers, PWM", sousModule: "embarques" },
+
+    { id: 6, titre: "L'IoMT : objets connectés en santé", sous: "Définition, cloud, fog et edge, architecture, conception", ligne: "Définition, cloud et edge, architecture", sousModule: "instrumentation" },
+    { id: 7, titre: "Modèles et protocoles de communication", sous: "Requête-réponse, publish-subscribe, HTTP, MQTT, WebSockets, RPC", ligne: "Requête-réponse, HTTP, MQTT, WebSockets", sousModule: "instrumentation" },
+    { id: 8, titre: "JSON et la plateforme ThingSpeak", sous: "Format JSON, channels et champs, écriture et lecture, MQTT", ligne: "JSON, channels, écrire et lire, MQTT", sousModule: "instrumentation" },
+    // Labs : un espace à part (lab: true), des étapes à suivre et du code à copier
+    { id: 9, lab: true, numero: "Lab 1", titre: "Node-RED, Mosquitto et dashboard", ligne: "Flux MQTT, JSON, power meter, dashboard", sousModule: "instrumentation" },
+    { id: 10, lab: true, numero: "Lab 2", titre: "JSON sur l'ESP32 avec ArduinoJson", ligne: "Générer et lire un document JSON", sousModule: "instrumentation" },
+    { id: 11, lab: true, numero: "Lab 3", titre: "ESP32 et ThingSpeak en HTTP", ligne: "Channel, écrire deux champs, lire", sousModule: "instrumentation" },
+    { id: 12, lab: true, numero: "Lab 4", titre: "ThingSpeak en MQTT : MQTTX puis ESP32", ligne: "Device MQTT, publier, s'abonner", sousModule: "instrumentation" },
+    { id: 13, lab: true, numero: "Lab 5", titre: "ThingSpeak : MATLAB Analysis et React", ligne: "Calculer un état, réagir aux données", sousModule: "instrumentation" },
+    { id: 14, lab: true, numero: "Lab 6", titre: "MQTT sur l'ESP32 : LED et température", ligne: "Broker public, LED pilotée, mesure", sousModule: "instrumentation" },
+    { id: 15, lab: true, numero: "Lab 7", titre: "ECG en Bluetooth depuis l'ESP32", ligne: "Simulateur ECG, liaison Bluetooth", sousModule: "instrumentation" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -103,7 +115,26 @@ PLATEFORME.parcours("embarques", {
     { id: "pwm", chapitre: 5, titre: "PWM : la largeur d'impulsion", cours: true, pret: true },
     { id: "bus-esp32", chapitre: 5, titre: "I2C et SPI sur l'ESP32", cours: true, pret: true },
     { id: "revision-peripheriques", chapitre: 5, titre: "Révision : les périphériques", revision: true, pret: true },
-    { id: "boss-peripheriques", chapitre: 5, titre: "Le moniteur de perfusion", boss: true, pret: true }
+    { id: "boss-peripheriques", chapitre: 5, titre: "Le moniteur de perfusion", boss: true, pret: true },
+
+    { id: "iomt", chapitre: 6, titre: "IoMT : définition, cloud, fog, edge", cours: true, pret: true },
+    { id: "iomt-architecture", chapitre: 6, titre: "Architecture d'un système IoMT", cours: true, pret: true },
+    { id: "iomt-conception", chapitre: 6, titre: "Concevoir : temps, événements, technologies", cours: true, pret: true },
+    { id: "revision-iomt", chapitre: 6, titre: "Révision : l'IoMT", revision: true, pret: true },
+    { id: "boss-iomt", chapitre: 6, titre: "Le patch ECG connecté", boss: true, pret: true },
+
+    { id: "modeles", chapitre: 7, titre: "Quatre modèles de communication", cours: true, pret: true },
+    { id: "http", chapitre: 7, titre: "HTTP : requêtes et méthodes", cours: true, pret: true },
+    { id: "mqtt", chapitre: 7, titre: "MQTT : topics et QoS", cours: true, pret: true },
+    { id: "websockets-rpc", chapitre: 7, titre: "WebSockets et RPC", cours: true, pret: true },
+    { id: "revision-protocoles", chapitre: 7, titre: "Révision : les protocoles", revision: true, pret: true },
+    { id: "boss-protocoles", chapitre: 7, titre: "La chambre connectée", boss: true, pret: true },
+
+    { id: "json", chapitre: 8, titre: "Le format JSON", cours: true, pret: true },
+    { id: "thingspeak", chapitre: 8, titre: "ThingSpeak : channels, écrire, lire", cours: true, pret: true },
+    { id: "thingspeak-mqtt", chapitre: 8, titre: "ThingSpeak en MQTT", cours: true, pret: true },
+    { id: "revision-thingspeak", chapitre: 8, titre: "Révision : JSON et ThingSpeak", revision: true, pret: true },
+    { id: "boss-thingspeak", chapitre: 8, titre: "L'oxymètre sur ThingSpeak", boss: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -128,7 +159,35 @@ PLATEFORME.parcours("embarques", {
     { id: "interruptions", chapitre: 5, titre: "Interruptions et registre GPIO", notions: ["interruptions", "registre-gpio"] },
     { id: "adc-dac", chapitre: 5, titre: "ADC et DAC", notions: ["adc", "dac"] },
     { id: "timers", chapitre: 5, titre: "Timers et watchdog", notions: ["timer", "watchdog"] },
-    { id: "pwm-bus", chapitre: 5, titre: "PWM, I2C et SPI de l'ESP32", notions: ["pwm", "bus-esp32"] }
+    { id: "pwm-bus", chapitre: 5, titre: "PWM, I2C et SPI de l'ESP32", notions: ["pwm", "bus-esp32"] },
+    { id: "iomt", chapitre: 6, titre: "IoT, IoMT, cloud, fog et edge", notions: ["iomt"] },
+    { id: "iomt-architecture", chapitre: 6, titre: "L'architecture IoMT", notions: ["iomt-architecture"] },
+    { id: "iomt-conception", chapitre: 6, titre: "Concevoir un système IoMT", notions: ["iomt-conception"] },
+    { id: "modeles", chapitre: 7, titre: "Les modèles de communication", notions: ["modeles"] },
+    { id: "http", chapitre: 7, titre: "HTTP", notions: ["http"] },
+    { id: "mqtt", chapitre: 7, titre: "MQTT", notions: ["mqtt"] },
+    { id: "websockets-rpc", chapitre: 7, titre: "WebSockets et RPC", notions: ["websockets-rpc"] },
+    { id: "json", chapitre: 8, titre: "Le format JSON", notions: ["json"] },
+    { id: "thingspeak", chapitre: 8, titre: "ThingSpeak : channels, écrire, lire", notions: ["thingspeak"] },
+    { id: "thingspeak-mqtt", chapitre: 8, titre: "ThingSpeak en MQTT", notions: ["thingspeak-mqtt"] },
+    { id: "lab1-installer", chapitre: 9, titre: "Installer les outils", notions: ["lab-installer"] },
+    { id: "lab1-flux", chapitre: 9, titre: "Un premier flux MQTT", notions: ["lab-flux-mqtt"] },
+    { id: "lab1-json", chapitre: 9, titre: "Power meter : MQTT et JSON", notions: ["lab-power-meter"] },
+    { id: "lab1-dashboard", chapitre: 9, titre: "Le dashboard", notions: ["lab-dashboard"] },
+    { id: "lab2-preparer", chapitre: 10, titre: "Préparer l'Arduino IDE", notions: ["lab-arduino-esp32"] },
+    { id: "lab2-generer", chapitre: 10, titre: "Générer un document JSON", notions: ["lab-json-generer"] },
+    { id: "lab2-lire", chapitre: 10, titre: "Lire un document JSON", notions: ["lab-json-lire"] },
+    { id: "lab3-canal", chapitre: 11, titre: "Créer le channel", notions: ["lab-ts-canal"] },
+    { id: "lab3-ecrire", chapitre: 11, titre: "L'ESP32 écrit dans le channel", notions: ["lab-ts-ecrire"] },
+    { id: "lab3-lire", chapitre: 11, titre: "L'ESP32 lit le channel", notions: ["lab-ts-lire"] },
+    { id: "lab4-mqttx", chapitre: 12, titre: "MQTTX et ThingSpeak", notions: ["lab-mqttx"] },
+    { id: "lab4-esp32", chapitre: 12, titre: "L'ESP32 publie en MQTT", notions: ["lab-ts-mqtt-esp32"] },
+    { id: "lab5-matlab", chapitre: 13, titre: "Une analyse MATLAB", notions: ["lab-matlab"] },
+    { id: "lab5-react", chapitre: 13, titre: "Une réaction React", notions: ["lab-react"] },
+    { id: "lab6-code", chapitre: 14, titre: "Le programme", notions: ["lab-mqtt-led"] },
+    { id: "lab6-tester", chapitre: 14, titre: "Piloter la LED, lire la température", notions: ["lab-mqtt-tester"] },
+    { id: "lab7-code", chapitre: 15, titre: "Le simulateur ECG", notions: ["lab-ecg-code"] },
+    { id: "lab7-afficher", chapitre: 15, titre: "Recevoir et tracer l'ECG", notions: ["lab-ecg-afficher"] }
   ],
   cours: [
     { chapitre: 0, id: "binaire", titre: "Bits et binaire" },
@@ -166,6 +225,34 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 5, id: "timer", titre: "Timers" },
     { chapitre: 5, id: "watchdog", titre: "Watchdog Timers (WDT)" },
     { chapitre: 5, id: "pwm", titre: "PWM (Pulse Width Modulation)" },
-    { chapitre: 5, id: "bus-esp32", titre: "Interfaces I2C et SPI de l'ESP32" }
+    { chapitre: 5, id: "bus-esp32", titre: "Interfaces I2C et SPI de l'ESP32" },
+    { chapitre: 6, id: "iomt", titre: "IoMT : définition, cloud, fog et edge" },
+    { chapitre: 6, id: "iomt-architecture", titre: "Architecture d'un système IoMT" },
+    { chapitre: 6, id: "iomt-conception", titre: "IoT Design et technologies de communication" },
+    { chapitre: 7, id: "modeles", titre: "Modèles de communication" },
+    { chapitre: 7, id: "http", titre: "HTTP : requêtes, méthodes, REST" },
+    { chapitre: 7, id: "mqtt", titre: "MQTT : publish/subscribe, topics, QoS" },
+    { chapitre: 7, id: "websockets-rpc", titre: "WebSockets et RPC" },
+    { chapitre: 8, id: "json", titre: "JSON (JavaScript Object Notation)" },
+    { chapitre: 8, id: "thingspeak", titre: "ThingSpeak : channels, écriture et lecture" },
+    { chapitre: 8, id: "thingspeak-mqtt", titre: "ThingSpeak et MQTT" },
+    { chapitre: 9, id: "lab-installer", titre: "Installer Node.js, Node-RED, le dashboard et Mosquitto" },
+    { chapitre: 9, id: "lab-flux-mqtt", titre: "Un premier flux MQTT : sensors/voltage" },
+    { chapitre: 9, id: "lab-power-meter", titre: "Power meter : MQTT et format JSON" },
+    { chapitre: 9, id: "lab-dashboard", titre: "Le dashboard Node-RED" },
+    { chapitre: 10, id: "lab-arduino-esp32", titre: "Préparer l'Arduino IDE pour l'ESP32" },
+    { chapitre: 10, id: "lab-json-generer", titre: "JSON generator example" },
+    { chapitre: 10, id: "lab-json-lire", titre: "JSON parser example" },
+    { chapitre: 11, id: "lab-ts-canal", titre: "Créer un channel ThingSpeak" },
+    { chapitre: 11, id: "lab-ts-ecrire", titre: "Lab 1 : l'ESP32 écrit dans le channel" },
+    { chapitre: 11, id: "lab-ts-lire", titre: "Lire un champ du channel" },
+    { chapitre: 12, id: "lab-mqttx", titre: "Lab 1 : ThingSpeak et MQTTX" },
+    { chapitre: 12, id: "lab-ts-mqtt-esp32", titre: "Lab 2 : MQTT sur la carte ESP32" },
+    { chapitre: 13, id: "lab-matlab", titre: "MATLAB Analysis : un état à partir d'une mesure" },
+    { chapitre: 13, id: "lab-react", titre: "Lab 3 : React App" },
+    { chapitre: 14, id: "lab-mqtt-led", titre: "MQTT Implementation on ESP32 board : le programme" },
+    { chapitre: 14, id: "lab-mqtt-tester", titre: "Piloter la LED, lire la température" },
+    { chapitre: 15, id: "lab-ecg-code", titre: "Lab 2 : Bluetooth Biomedical Data Communication" },
+    { chapitre: 15, id: "lab-ecg-afficher", titre: "Recevoir et tracer l'ECG" }
   ]
 });

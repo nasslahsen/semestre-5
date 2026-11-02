@@ -31,10 +31,12 @@ const dc = `${BASE}modules/${mid}/`;
   const sms = [...new Set(chs.map(smDe))];
 
   const estTD = ch => !!(P.chapitres.find(c => c.id === ch) || {}).td;
+  const estLab = ch => !!(P.chapitres.find(c => c.id === ch) || {}).lab;
   for (const sm of sms) {
     // les TD ont leur propre espace (vue=td) : la carte du cours ne montre que les chapitres de cours
-    const coursSm = chs.filter(c => smDe(c) === sm && !estTD(c)), tdSm = chs.filter(c => smDe(c) === sm && estTD(c));
-    const chsm = coursSm.concat(tdSm), urlCarte = dc + "index.html" + (sm ? "?sm=" + sm : "");
+    const coursSm = chs.filter(c => smDe(c) === sm && !estTD(c) && !estLab(c)), tdSm = chs.filter(c => smDe(c) === sm && estTD(c));
+    const labSm = chs.filter(c => smDe(c) === sm && estLab(c));
+    const chsm = coursSm.concat(tdSm, labSm), urlCarte = dc + "index.html" + (sm ? "?sm=" + sm : "");
     const urlTD = dc + "index.html?" + (sm ? "sm=" + sm + "&" : "") + "vue=td";
     await pg.goto(urlTD, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
     verifErr("TD " + sm);
@@ -43,6 +45,15 @@ const dc = `${BASE}modules/${mid}/`;
     if (await pg.$$eval(".btn.reprendre", l => l.length)) pb(`TD ${sm} : un bouton Reprendre dans l'espace TD`);
     if (!tdSm.length && !(await pg.$(".td-vide"))) pb(`TD ${sm} : pas de message quand aucun TD n'est reçu`);
     await pg.screenshot({ path: path.join(out, `td${sm ? "-" + sm : ""}.png`), fullPage: true });
+    // les labs aussi (vue=lab), quand le cours en a : un nœud par lab, pas de Reprendre
+    if (labSm.length) {
+      await pg.goto(dc + "index.html?" + (sm ? "sm=" + sm + "&" : "") + "vue=lab", { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
+      verifErr("labs " + sm);
+      const nLab = await pg.$$eval(".noeud-chapitre", l => l.map(a => a.href));
+      if (nLab.length !== labSm.length || nLab.some((h, i) => !h.endsWith(`chapitre-${labSm[i]}.html`))) pb(`labs ${sm} : ${nLab.length} nœuds pour ${labSm.length} labs`);
+      if (await pg.$$eval(".btn.reprendre", l => l.length)) pb(`labs ${sm} : un bouton Reprendre dans l'espace des labs`);
+      await pg.screenshot({ path: path.join(out, `labs${sm ? "-" + sm : ""}.png`), fullPage: true });
+    }
     // Carte du sous-module
     await pg.goto(urlCarte, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
     verifErr("carte " + sm);
@@ -75,8 +86,8 @@ const dc = `${BASE}modules/${mid}/`;
       const attendus = parSection.concat(finCh ? [finCh] : []);
       if (v.jouer.join("|") !== attendus.join("|")) pb(`chapitre ${ch} : blocs Jouer ${v.jouer.join("|")} au lieu de ${attendus.join("|")}`);
       if (v.finSection !== parSection.length) pb(`chapitre ${ch} : un bloc Jouer n'est pas à la fin de sa section`);
-      const meme = estTD(ch) ? tdSm : coursSm, suivant = meme[meme.indexOf(ch) + 1];
-      if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !(v.suite.includes("index.html") && v.suite.includes("vue=td") === estTD(ch))) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
+      const meme = estTD(ch) ? tdSm : estLab(ch) ? labSm : coursSm, suivant = meme[meme.indexOf(ch) + 1];
+      if (suivant !== undefined ? !v.suite.endsWith(`chapitre-${suivant}.html`) : !(v.suite.includes("index.html") && v.suite.includes("vue=td") === estTD(ch) && v.suite.includes("vue=lab") === estLab(ch))) pb(`chapitre ${ch} : la fin mène à ${v.suite}`);
       if (ic === 0) await pg.screenshot({ path: path.join(out, `chapitre-${ch}-debut.png`) });
       for (let k = 0; k < ss.length; k++) {
         await pg.evaluate(id => document.getElementById(id).scrollIntoView({ block: "start" }), "s-" + ss[k].id); await pg.waitForTimeout(250);

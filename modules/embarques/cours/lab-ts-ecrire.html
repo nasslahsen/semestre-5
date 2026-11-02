@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Lab 1 : l'ESP32 écrit dans le channel · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Lab 1 : l'ESP32 écrit dans le channel</h1>
+<p class="chapeau">L'ESP32 fabrique deux valeurs (Val1 de 10 en 10, Val2 de 20 en 20) et les envoie dans Field 1 et Field 2 du channel, toutes les 5 secondes (CLK_TRANSMIT : 5 s dans le cours).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : coller le programme</h2>
+<p>Le programme du cours, assemblé à partir de ses diapositives (déclarations, setup, connexion Wi-Fi, données, écriture). Seuls les identifiants sont remplacés.</p>
+<pre class="code long" data-titre="ESP32 vers ThingSpeak (HTTP)"><code>#include &lt;WiFi.h&gt;
+#include "ThingSpeak.h"
+
+const char* ssid = "TON_WIFI";          // your network SSID (name)
+const char* password = "TON_MOT_DE_PASSE"; // your network password
+WiFiClient client;
+unsigned long myChannelNumber = 0000000;    // remplace par le Channel ID
+const char * myWriteAPIKey = "TA_CLE_WRITE"; // remplace par la Write API Key
+
+// Timer variables
+unsigned long lastTime = 0;
+unsigned long timerDelay = 5000;
+float val1 = 0, val2 = 0;
+
+void setup() {
+  Serial.begin(115200);       // Initialize serial
+  WiFi.mode(WIFI_STA);
+  ThingSpeak.begin(client);   // Initialize ThingSpeak
+}
+
+void loop() {
+  if ((millis() - lastTime) &gt; timerDelay) {
+    // Connect or reconnect to WiFi
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.print("Attempting to connect");
+      while (WiFi.status() != WL_CONNECTED) {
+        WiFi.begin(ssid, password);
+        delay(5000);
+      }
+      Serial.println("\nConnected.");
+    }
+
+    // Get a new sensor reading
+    val1 = val1 + 10;
+    if (val1 &gt; 100) val1 = 0;
+    val2 = val2 + 20;
+    if (val2 &gt; 100) val2 = 0;
+    Serial.print("Val1 : ");
+    Serial.println(val1);
+    Serial.print("Val2 : ");
+    Serial.println(val2);
+
+    // Write to ThingSpeak. There are up to 8 fields in a channel, allowing you to store up to 8
+    // different pieces of information in a channel. Here, we write to field 1 and field 2.
+    // int x = ThingSpeak.writeField(myChannelNumber, 1, val1, myWriteAPIKey);
+    ThingSpeak.setField(1, val1);
+    ThingSpeak.setField(2, val2);
+    int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+    if (x == 200) {
+      Serial.println("Channel update successful.");
+    } else {
+      Serial.println("Problem updating channel. HTTP error code " + String(x));
+    }
+    lastTime = millis();
+  }
+}</code></pre>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : mettre tes identifiants</h2>
+<ul>
+<li><code>ssid</code> et <code>password</code> : ton Wi-Fi. L'ESP32 ne se connecte qu'en 2,4 GHz : un partage de connexion du téléphone marche bien.</li>
+<li><code>myChannelNumber</code> : le Channel ID, sans guillemets.</li>
+<li><code>myWriteAPIKey</code> : la Write API Key, entre guillemets.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : téléverser et regarder</h2>
+<p>Upload, puis Serial Monitor à 115200 bauds.</p>
+<p class="attendu">Tu dois voir : <code>Attempting to connect</code>, <code>Connected.</code>, puis toutes les 5 s <code>Val1 : 10.00</code>, <code>Val2 : 20.00</code> et <code>Channel update successful.</code> Sur ThingSpeak, les deux courbes montent en dents de scie.</p>
+<p class="attention">Si une écriture sur deux affiche <code>Problem updating channel. HTTP error code -401</code>, c'est la limite d'une écriture toutes les 15 s du compte gratuit : passe <code>timerDelay</code> à <code>20000</code>. Le code <code>-301</code> veut dire que la carte ne joint pas ThingSpeak (Wi-Fi).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : une seule valeur</h2>
+<p>La ligne en commentaire écrit un seul champ à la fois. Pour essayer, mets en commentaire les trois lignes <code>setField</code>, <code>setField</code>, <code>writeFields</code>, et active celle-ci :</p>
+<pre class="code" data-titre="Écrire seulement le champ 1"><code>int x = ThingSpeak.writeField(myChannelNumber, 1, val1, myWriteAPIKey);</code></pre>
+<p class="attendu">Tu dois voir : seule la courbe de Field 1 avance.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

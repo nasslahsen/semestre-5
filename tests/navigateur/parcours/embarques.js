@@ -423,4 +423,104 @@ tous['boss-peripheriques'] = async (a) => {
 };
 }
 
+// Instrumentation connectée : chapitres 1 à 3 (IoMT, protocoles, JSON et ThingSpeak)
+{
+tous.iomt = async (a) => {
+  await a.svg([340, 355]); await a.suite();
+  await a.jetons(['c', 'f', 'e']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous['iomt-architecture'] = async (a) => {
+  await a.svg([565, 295]); await a.suite();
+  await a.jetons(['d', 'c', 'm']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['iomt-conception'] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.nombres([96]); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous['revision-iomt'] = async (a) => {
+  await a.jetons(['e', 'f', 'c']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([48]); await a.suite();
+};
+tous['boss-iomt'] = async (a) => {
+  await a.svg([340, 100]); await a.suite();
+  await a.jetons(['b', 'c']); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.nombres([30000]); await a.suite();
+};
+tous.modeles = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['r', 'p', 'e']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous.http = async (a) => {
+  await a.jetons(['g', 'p', 'd']); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous.mqtt = async (a) => {
+  await a.nombres([3]); await a.suite();
+  await a.jetons(['f', 'p', 'h']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous['websockets-rpc'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['b', 'f', 't']); await a.suite();
+  await a.nombres([100]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['revision-protocoles'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['r', 'p', 's']); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous['boss-protocoles'] = async (a) => {
+  await a.nombres([2]); await a.suite();
+  await a.jetons(['p', 'p', 'a']); await a.suite();
+  await a.jetons(['1', '2', '0']); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous.json = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['a', 'd', 'c', 'f']); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous.thingspeak = async (a) => {
+  await a.jetons(['u', 'w', 'f']); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([10]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['thingspeak-mqtt'] = async (a) => {
+  await a.jetons(['p', 'f', 'd']); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['revision-thingspeak'] = async (a) => {
+  await a.nombres([16]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.jetons(['h', 'm']); await a.suite();
+  await a.nombres([1]); await a.suite();
+};
+tous['boss-thingspeak'] = async (a) => {
+  await a.jetons(['h', 'v', 'n']); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.nombres([240]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+}
+
 module.exports = tous;

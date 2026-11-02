@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>IoMT : définition, cloud, fog et edge · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>IoMT : définition, cloud, fog et edge</h1>
+<p class="chapeau">Un patient cardiaque rentre chez lui avec un patch ECG. Ses signes vitaux doivent arriver à son cardiologue en temps réel, et une alarme doit partir tout de suite si son rythme s'emballe. Où traiter chaque donnée ?</p>
+
+<h2>Le chapitre en bref</h2>
+<p>Ce chapitre ouvre la partie « Objets connectés dans le milieu médical » du cours de Pr A. Jbari. On définit l'IoMT et on range ses calculs en trois couches (cette page), on décrit l'architecture d'un système IoMT, puis la façon de le concevoir : quand transmettre, et avec quelle technologie sans fil. Le chapitre suivant étudie les protocoles (HTTP, MQTT), le troisième le format JSON et la plateforme ThingSpeak. Les labs mettent tout en pratique.</p>
+
+<h2>Intuition</h2>
+<p>L'<b>IoT</b> (Internet of Things) relie des objets au réseau. L'<b>IoMT</b> (Internet of Medical Things) en est la partie santé : des capteurs médicaux sur le patient, un réseau qui transporte leurs mesures, et un cloud où le médecin les consulte. Le cours cite deux autres noms pour la même idée : <i>Healthcare IoT</i> (H-IoT) et <i>smart healthcare systems</i>.</p>
+<p>Toutes les données ne demandent pas le même traitement. Une alarme doit partir en quelques millisecondes, près du patient ; une étude sur des milliers de patients peut attendre, loin, dans un grand centre de calcul. D'où trois couches : <b>edge</b> (au bord, près des capteurs), <b>fog</b> (le brouillard, au niveau du réseau local) et <b>cloud</b> (le nuage, les grands serveurs).</p>
+
+<div id="fig-couches"></div>
+
+<h2>Formalisation</h2>
+<p>Définition du cours : l'IoMT est l'utilisation de l'informatique mobile, de capteurs médicaux et du cloud computing pour surveiller en temps réel les signes vitaux des patients, avec des technologies de communication qui relaient les données vers un cadre de cloud computing. Les médecins accèdent à ces données pour surveiller, diagnostiquer et traiter les patients.</p>
+<p>Organisation d'un système IoT (schéma du cours, <i>Industrial IoT data processing layer stack</i>) :</p>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Ce qu'elle fait (schéma du cours)</th><th>Temps de réponse</th></tr>
+<tr><td>Cloud computing</td><td>big data processing, business logic, data warehousing : analyses globales (business analytics, intelligence)</td><td>le plus lent</td></tr>
+<tr><td>Fog computing</td><td>local network, data analysis and reduction, control response, virtualization, standardization (fog nodes, serveurs)</td><td>intermédiaire</td></tr>
+<tr><td>Edge computing</td><td>large volume real-time data processing, visualisation sur place, industrial PCs, embedded systems, gateways, micro data storage</td><td>le plus rapide</td></tr>
+<tr><td>Capteurs et contrôleurs</td><td>origine des données (data origination)</td><td></td></tr>
+</table></div>
+<p>Le schéma « General IoT in healthcare » du cours ajoute deux sigles : <b>HIS</b>, Hospital Information System (le système d'information de l'hôpital), et <b>WBAN</b>, Wireless Body Area Networks (les réseaux sans fil de capteurs portés sur le corps).</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Le patch ECG du chapeau. Edge : le patch et le smartphone qui sert de passerelle filtrent le signal et détectent une arythmie sur place, sans attendre le réseau. Fog : le serveur du service de cardiologie reçoit les patchs de tous ses patients, réduit les données et prévient l'infirmière de garde. Cloud : l'historique de chaque patient y est stocké, et des analyses sur toute la population cherchent des tendances.</p>
+
+<h2>Formules clés</h2>
+\[ \text{capteurs} \,\rightarrow\, \text{edge} \,\rightarrow\, \text{fog} \,\rightarrow\, \text{cloud} \qquad \text{du plus rapide (près du patient) au plus lent (analyses globales)} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/iomt.js"></script>
+</body>
+</html>

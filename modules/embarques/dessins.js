@@ -233,7 +233,86 @@ window.EMB = (function () {
   function hexa(n, nb) { var s = (n >>> 0).toString(16).toUpperCase(); while (s.length < (nb || 1)) s = "0" + s; return s; }
   function virgule(x, d) { var s = (d === undefined ? String(x) : x.toFixed(d)).replace(".", ","); return s.charAt(0) === "-" ? "−" + s.slice(1) : s; }
 
+  /* ---------- Instrumentation connectée : couches cloud, fog, edge ; broker MQTT ; lignes de code ou de JSON ---------- */
+  // Les trois couches du schéma du cours (Organization of an IoT system), de haut en bas, et les capteurs sous l'edge.
+  // r : [x, y, w, h] ; o.sel : "cloud" | "fog" | "edge" | "capteurs" ; o.coul : couleur de la couche choisie. Renvoie les zones.
+  var COUCHES = [["cloud", "Cloud"], ["fog", "Fog"], ["edge", "Edge"], ["capteurs", "Capteurs"]];
+  function couches(g, r, o) {
+    o = o || {};
+    var x = r[0], y = r[1], w = r[2], h = r[3], hb = (h - 3 * 14) / 4, z = {}, taille = o.taille || 20;
+    COUCHES.forEach(function (c, i) {
+      var yy = y + i * (hb + 14), choisi = o.sel === c[0], coul = choisi ? (o.coul || C.acc) : C.encre;
+      if (c[0] === "capteurs") {
+        for (var k = 0; k < 8; k++) {
+          var cx = x + w * (k + 0.5) / 8;
+          el("circle", { cx: cx, cy: yy + hb / 2, r: Math.min(14, hb / 3), fill: choisi ? (o.coul || C.acc) : "#fff", stroke: coul, "stroke-width": 3 }, g);
+        }
+        texte(g, o.noms ? o.noms[3] : "Capteurs et contrôleurs", [x + w / 2, yy + hb + 4], { taille: taille - 4, coul: coul });
+      } else {
+        bloc(g, x + i * w * 0.08, yy, w - 2 * i * w * 0.08, hb, o.noms ? o.noms[i] : c[1], { taille: taille, actif: choisi, stroke: choisi ? o.coul : null, rx: c[0] === "cloud" ? hb / 2 : 12 });
+        if (i < 2) fleche(g, [x + w / 2, yy + hb + 13], [x + w / 2, yy + hb + 1], { coul: C.gris, ep: 3, double: true, tete: 8 });
+      }
+      z[c[0]] = [x, yy, w, hb];
+    });
+    if (o.vitesse) {
+      fleche(g, [x + w + 30, y + h - 10], [x + w + 30, y + 10], { coul: C.doux, ep: 3 });
+      texte(g, "plus lent", [x + w + 30, y - 8], { taille: 16, coul: C.doux });
+      texte(g, "plus rapide", [x + w + 30, y + h + 16], { taille: 16, coul: C.doux });
+    }
+    return z;
+  }
+  // Broker au centre, émetteurs à gauche, abonnés à droite. o : { pub: [{id, nom, topic}], sub: [{id, nom, filtre}],
+  // recoit: {id: true}, sel: id, cx, cy, l (largeur totale), h, taille }. Renvoie les zones (pub-<id>, sub-<id>, broker).
+  function pubsub(g, o) {
+    var W = o.l || 640, H = o.h || 420, x0 = o.x || 20, y0 = o.y || 60, z = {}, t = o.taille || 17;
+    var lp = o.lp || 0.27, ls = o.ls || 0.27, ecart = W * (1 - lp - ls);
+    var bx = x0 + W * lp + ecart / 2, by = y0 + H / 2, bw = Math.min(W * 0.2, ecart * 0.5), bh = 76;
+    function col(liste, gauche) {
+      var n = liste.length, pas = H / Math.max(n, 1), bw2 = W * (gauche ? o.lp || 0.27 : o.ls || 0.27);
+      liste.forEach(function (it, i) {
+        var cy = y0 + pas * (i + 0.5), xx = gauche ? x0 : x0 + W - bw2, hh = Math.min(pas - 14, 70);
+        var recu = !gauche && o.recoit && o.recoit[it.id], choisi = o.sel === it.id;
+        var trait = recu ? C.ok : C.gris;
+        if (gauche) fleche(g, [xx + bw2, cy], [bx - bw / 2 - 4, by + (cy - by) * 0.25], { coul: o.publie === it.id ? C.acc : C.gris, ep: o.publie === it.id ? 4 : 2.5 });
+        else fleche(g, [bx + bw / 2 + 4, by + (cy - by) * 0.25], [xx, cy], { coul: trait, ep: recu ? 4 : 2.5, tirets: recu ? null : "7 6" });
+        bloc(g, xx, cy - hh / 2, bw2, hh, it.nom, { taille: t, actif: choisi, stroke: recu ? C.ok : null, fill: recu ? "#e9f8f0" : null, dy: it.topic || it.filtre ? -10 : 0 });
+        if (it.topic || it.filtre) texte(g, it.topic || it.filtre, [xx + bw2 / 2, cy + 14], { taille: t - 3, mono: true, coul: C.doux, halo: false });
+        z[(gauche ? "pub-" : "sub-") + it.id] = [xx, cy - hh / 2, bw2, hh];
+      });
+    }
+    col(o.pub || [], true); col(o.sub || [], false);
+    bloc(g, bx - bw / 2, by - bh / 2, bw, bh, o.nomBroker || "Broker", { taille: t + 2, actif: o.sel === "broker", rx: 38 });
+    z.broker = [bx - bw / 2, by - bh / 2, bw, bh];
+    return z;
+  }
+  // Lignes de code ou de JSON en police fixe, sur une carte. o : { x, y, l, pas, taille, sel: indice, coulSel, gris: {indice: true} }.
+  // Renvoie la zone de chaque ligne.
+  function lignesCode(g, lignes, o) {
+    o = o || {};
+    var x = o.x || 20, y = o.y || 20, l = o.l || 640, pas = o.pas || 34, t = o.taille || 18, z = [];
+    el("rect", { x: x, y: y, width: l, height: lignes.length * pas + 24, rx: 14, fill: C.fond, stroke: C.pale, "stroke-width": 2 }, g);
+    lignes.forEach(function (ln, i) {
+      var yy = y + 12 + i * pas;
+      if (o.sel === i || (o.marques && o.marques[i])) el("rect", { x: x + 6, y: yy, width: l - 12, height: pas, rx: 8, fill: (o.marques && o.marques[i]) || o.coulSel || C.clair }, g);
+      texte(g, ln.replace(/^ +/, function (m) { return new Array(m.length + 1).join("\u00a0"); }), [x + 18, yy + pas / 2], { taille: t, mono: true, ancre: "start", gras: false, halo: false, coul: o.gris && o.gris[i] ? C.gris : C.encre });
+      z.push([x, yy, l, pas]);
+    });
+    return z;
+  }
+
+  // Un topic MQTT correspond-il à un filtre d'abonnement ? « + » remplace un niveau, « # » (en dernier) tous les niveaux suivants.
+  function correspond(filtre, topic) {
+    var f = filtre.split("/"), t = topic.split("/");
+    for (var i = 0; i < f.length; i++) {
+      if (f[i] === "#") return true;
+      if (i >= t.length) return false;
+      if (f[i] !== "+" && f[i] !== t[i]) return false;
+    }
+    return f.length === t.length;
+  }
+
   return {
+    couches: couches, pubsub: pubsub, lignesCode: lignesCode, correspond: correspond,
     C: C, teinte: teinte, el: el, vider: vider, texte: texte, bloc: bloc, fleche: fleche, bus: bus, bits: bits,
     onde: onde, horloge: horloge, point: point, dans: dans, toucher: toucher, zoneMin: zoneMin,
     binaire: binaire, hexa: hexa, virgule: virgule, pied: pied, semelle: semelle, CAPTEURS: CAPT, bpm: bpm

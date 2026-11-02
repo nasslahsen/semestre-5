@@ -47,5 +47,21 @@ window.LIENS_COURS = {
   "pwm": [["pwm","intuition","Intuition"],["pwm","intuition","Intuition"],["pwm","formalisation~0","Formalisation"],["pwm","formalisation~0","Formalisation"],["pwm","formalisation~0","Formalisation"],["pwm","exemple","Exemple"]],
   "bus-esp32": [["bus-esp32","interface-i2c","Interface I2C"],["bus-esp32","exemple~2","Exemple"],["bus-esp32","interface-spi~0","Interface SPI"],["bus-esp32","interface-spi~2","Interface SPI"],["bus-esp32","interface-spi~0","Interface SPI"],["bus-esp32","interface-spi~0","Interface SPI"]],
   "revision-peripheriques": [["interruptions","le-type-d-interruption-d-une-broche","Le type d'interruption d'une broche"],["adc","exemple~2","Exemple"],["adc","les-canaux~1","Les canaux"],["pwm","formalisation~0","Formalisation"],["pad","exemple","Exemple"],["dac","exemple~1","Exemple"]],
-  "boss-peripheriques": [["interruptions","exemple","Exemple"],["interruptions","exemple","Exemple"],["adc","les-canaux~1","Les canaux"],["adc","exemple~2","Exemple"],["pwm","formalisation~1","Formalisation"],["watchdog","exemple","Exemple"]]
+  "boss-peripheriques": [["interruptions","exemple","Exemple"],["interruptions","exemple","Exemple"],["adc","les-canaux~1","Les canaux"],["adc","exemple~2","Exemple"],["pwm","formalisation~1","Formalisation"],["watchdog","exemple","Exemple"]],
+  "iomt": [["iomt","intuition~1","Intuition"],["iomt","intuition~2","Intuition"],["iomt","formalisation~3","Formalisation"],["iomt","formalisation~0","Formalisation"]],
+  "iomt-architecture": [["iomt-architecture","formalisation~1","Formalisation"],["iomt-architecture","formalisation~1","Formalisation"],["iomt-architecture","formalisation~2","Formalisation"],["iomt-architecture","formalisation~3","Formalisation"]],
+  "iomt-conception": [["iomt-conception","formalisation~1","Formalisation"],["iomt-conception","intuition~1","Intuition"],["iomt-conception","intuition~2","Intuition"],["iomt-conception","formalisation~2","Formalisation"]],
+  "revision-iomt": [["iomt","exemple","Exemple"],["iomt-architecture","formalisation~1","Formalisation"],["iomt-conception","intuition~1","Intuition"],["iomt-conception","intuition~1","Intuition"]],
+  "boss-iomt": [["iomt","formalisation~2","Formalisation"],["iomt-conception","formalisation~4","Formalisation"],["iomt-architecture","formalisation~2","Formalisation"],["iomt-conception","formalisation~3","Formalisation"]],
+  "modeles": [["modeles","exemple","Exemple"],["modeles","formalisation","Formalisation"],["modeles","formalisation","Formalisation"],["modeles","formalisation","Formalisation"]],
+  "http": [["http","formules-cles","Formules clés"],["http","formalisation~2","Formalisation"],["http","formalisation~3","Formalisation"],["http","formalisation~4","Formalisation"]],
+  "mqtt": [["mqtt","exemple","Exemple"],["mqtt","formalisation~2","Formalisation"],["mqtt","formalisation~5","Formalisation"],["mqtt","formalisation~3","Formalisation"]],
+  "websockets-rpc": [["websockets-rpc","formalisation~0","Formalisation"],["websockets-rpc","formalisation~1","Formalisation"],["websockets-rpc","exemple","Exemple"],["websockets-rpc","formalisation~2","Formalisation"]],
+  "revision-protocoles": [["mqtt","intuition","Intuition"],["modeles","formules-cles","Formules clés"],["http","formalisation~2","Formalisation"],["mqtt","formalisation~6","Formalisation"]],
+  "boss-protocoles": [["mqtt","intuition","Intuition"],["websockets-rpc","exemple","Exemple"],["mqtt","formalisation~6","Formalisation"],["websockets-rpc","intuition","Intuition"]],
+  "json": [["json","intuition","Intuition"],["json","formalisation~3","Formalisation"],["json","exemple~0","Exemple"],["json","exemple~1","Exemple"]],
+  "thingspeak": [["thingspeak","formalisation","Formalisation"],["thingspeak","formalisation","Formalisation"],["thingspeak","exemple","Exemple"],["thingspeak","exemple","Exemple"]],
+  "thingspeak-mqtt": [["thingspeak-mqtt","formalisation","Formalisation"],["thingspeak-mqtt","exemple","Exemple"],["thingspeak-mqtt","formalisation","Formalisation"],["thingspeak-mqtt","exemple","Exemple"]],
+  "revision-thingspeak": [["thingspeak","formalisation","Formalisation"],["json","formalisation~4","Formalisation"],["thingspeak","formalisation","Formalisation"],["thingspeak","exemple","Exemple"]],
+  "boss-thingspeak": [["thingspeak-mqtt","exemple","Exemple"],["thingspeak-mqtt","formalisation","Formalisation"],["thingspeak-mqtt","",""],["thingspeak-mqtt","exemple","Exemple"]]
 };

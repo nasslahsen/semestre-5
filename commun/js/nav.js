@@ -28,6 +28,7 @@
 
   // Barre du haut
   var main = document.querySelector("main");
+  P.boutonsCopier(main);
   if (!integre) {
     var barre = document.createElement("header");
     P.barre(barre, { sm: etape ? etape.sm : new URLSearchParams(location.search).get("sm") || undefined, chapitre: etape ? etape.chapitre : undefined,

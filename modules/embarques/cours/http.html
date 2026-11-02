@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>HTTP : requêtes, méthodes, REST · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>HTTP : requêtes, méthodes, REST</h1>
+<p class="chapeau">Une application de suivi doit lire la dernière tension d'un patient sur un serveur, en ajouter une nouvelle, corriger une erreur. Comment dit-on au serveur ce qu'on veut faire de la ressource ?</p>
+
+<h2>Intuition</h2>
+<p>Le web fonctionne en request-response. Le navigateur (ou l'ESP32) envoie une requête à une adresse, le serveur répond. La requête porte un verbe qui dit l'intention : lire, envoyer, remplacer, supprimer.</p>
+
+<div id="fig-http"></div>
+
+<h2>Formalisation</h2>
+<p>Une application web s'appuie sur des protocoles comme <b>HTTP</b>, FTP ou WebSocket. Une ressource se désigne par son <b>URL</b> (Uniform Resource Locator), par exemple <code>https://sites.google.com/view/atmjbari/home</code>.</p>
+<p>HTTP prend en charge 8 types de requêtes, appelés méthodes ou verbes :</p>
+<div class="tableau"><table>
+<tr><th>Méthode</th><th>Rôle (cours)</th></tr>
+<tr><td>GET</td><td>demander une ressource au serveur</td></tr>
+<tr><td>POST</td><td>soumettre une ressource au serveur</td></tr>
+<tr><td>PUT</td><td>comme POST, mais remplace une ressource</td></tr>
+<tr><td>DELETE</td><td>supprimer une ressource du serveur</td></tr>
+<tr><td>HEAD</td><td>comme GET, mais ne renvoie que les en-têtes, pas le contenu</td></tr>
+<tr><td>OPTIONS</td><td>obtenir les options de la ressource</td></tr>
+<tr><td>PATCH</td><td>appliquer des modifications à une ressource</td></tr>
+<tr><td>TRACE</td><td>renvoyer le message en boucle (loop-back)</td></tr>
+</table></div>
+<p>Exemple du cours, un interrupteur hypothétique en HTTP RESTful : le téléphone envoie une requête à <code>api.example.com/turnoff</code> ; l'interrupteur Wi-Fi, lui, interroge <code>api.example.com/shoulditurnoff</code> (« dois-je m'éteindre ? »), traite la réponse, et s'éteint si elle est oui. En HTTP, c'est toujours le client qui parle le premier : l'interrupteur doit venir demander.</p>
+<p>Le modèle <b>OSI</b> (Open Systems Interconnection Reference Model) est un modèle en couches qui décrit comment l'information passe d'un programme sur un ordinateur à un programme sur un autre. Couches hautes (host layers) : Application, Presentation, Session (données), Transport (segments). Couches basses (media layers) : Network (paquets, adressage IP), Data Link (trames, adresses physiques MAC), Physical (bits). HTTP est un protocole de la couche Application.</p>
+
+<div id="fig-osi"></div>
+
+<h2>Exemple</h2>
+<p>L'écriture dans ThingSpeak des labs est une requête GET dont l'URL porte la clé et la valeur : <code>https://api.thingspeak.com/update?api_key=…&amp;field5=70</code>. Le serveur répond par le numéro de l'entrée créée.</p>
+
+<h2>Formules clés</h2>
+\[ \text{requête : méthode} + \text{URL} \;\longrightarrow\; \text{réponse du serveur} \qquad \text{GET lire, POST envoyer, PUT remplacer, DELETE supprimer} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/http.js"></script>
+</body>
+</html>

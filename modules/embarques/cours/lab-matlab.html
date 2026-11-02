@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>MATLAB Analysis : un état à partir d'une mesure · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>MATLAB Analysis : un état à partir d'une mesure</h1>
+<p class="chapeau">Exemple du cours, « react on Counter measurement » : un compteur envoie ses mesures dans un channel ; une analyse MATLAB lit la mesure EPF, en déduit un état (0, 1 ou 2) et l'écrit dans un deuxième channel.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : créer les deux channels</h2>
+<ol>
+<li>Channel de lecture <code>counterAcquisition</code> : Field 1 <code>UF</code>, Field 2 <code>IF</code>, Field 3 <code>COSOHIF</code>, Field 4 <code>TF</code>, Field 5 <code>EPF</code>, Field 6 <code>state</code>.</li>
+<li>Channel d'écriture <code>counterState</code> : Field 1 <code>state</code>.</li>
+</ol>
+<p>Note l'ID et les clés des deux : la Read API Key de counterAcquisition, la Write API Key de counterState.</p>
+<p class="attendu">Tu dois voir : deux channels dans My Channels.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : créer l'analyse</h2>
+<p>Apps, MATLAB Analysis, New. Choisis le modèle qui lit un channel et écrit dans un autre (ou Custom, sans code), puis Create. Nomme-la <code>stateCounterMatlab</code>, efface le code et colle :</p>
+<pre class="code long" data-titre="Analyse MATLAB du cours"><code>% TODO - Replace the [] with channel ID to read data from:
+readChannelID = 0000000;        % ID de counterAcquisition
+% TODO - Enter the Read API Key between the '' below:
+readAPIKey = 'TA_CLE_READ';     % Read API Key de counterAcquisition
+
+% TODO - Replace the [] with channel ID to write data to:
+writeChannelID = 0000000;       % ID de counterState
+% TODO - Enter the Write API Key between the '' below:
+writeAPIKey = 'TA_CLE_WRITE';   % Write API Key de counterState
+
+%% Read Data %%
+data = thingSpeakRead(readChannelID, 'ReadKey', readAPIKey);
+
+%% Analyze Data %%
+% Add code in this section to analyze data and store the result in the
+% 'analyzedData' variable.
+%analyzedData = data
+EPF = data(5);
+if EPF &lt; 80
+    state = 0;
+elseif EPF &lt; 100
+    state = 1;
+else
+    state = 2;
+end
+[EPF state]
+
+%% Write Data %%
+thingSpeakWrite(writeChannelID, state, 'Field', 1, 'WriteKey', writeAPIKey);</code></pre>
+<p>Remplace les deux IDs et les deux clés. Save.</p>
+<p>Seuils du schéma du cours : EPF &lt; 80, état 0 ; 80 ≤ EPF ≤ 100, état 1 ; EPF &gt; 100, état 2. Le code, lui, teste <code>EPF &lt; 100</code> : pour EPF = 100 exactement, il donne 2 et non 1. Si tu veux suivre le schéma, écris <code>elseif EPF &lt;= 100</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : essayer à la main</h2>
+<p>Écris une mesure EPF de 70 dans counterAcquisition depuis le navigateur (Write API Key de counterAcquisition) :</p>
+<pre class="code" data-titre="Écrire EPF = 70"><code>https://api.thingspeak.com/update?api_key=TA_CLE_WRITE&amp;field5=70</code></pre>
+<p>Reviens dans l'analyse et clique sur Save and Run.</p>
+<p class="attendu">Tu dois voir : dans Output, <code>70 0</code> (la mesure et l'état), et un point à 0 dans le channel counterState.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

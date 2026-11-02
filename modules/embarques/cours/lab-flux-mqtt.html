@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Un premier flux MQTT : sensors/voltage · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Un premier flux MQTT : sensors/voltage</h1>
+<p class="chapeau">Node-RED publie une tension sur le topic <code>sensors/voltage</code> et la reçoit aussitôt, en passant par le broker Mosquitto. C'est le premier aller-retour du lab (partie 2 du cours, MQTT communication on Node-RED and Mosquitto server).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : préparer</h2>
+<p>Vérifie que Mosquitto tourne (service ou <code>mosquitto -v</code>), lance <code>node-red</code>, puis ouvre <code>http://127.0.0.1:1880</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : construire le flux</h2>
+<p>Le flux du cours a deux lignes. Les nœuds sont dans les catégories common et network de la palette.</p>
+<ol>
+<li>Glisse un nœud <b>inject</b> (common). Double-clique : msg.payload de type number, valeur <code>25</code>. Done.</li>
+<li>Glisse un nœud <b>mqtt out</b> (network) et relie la sortie de inject à son entrée. Double-clique : Topic <code>sensors/voltage</code> ; laisse QoS et Retain vides.</li>
+<li>À côté de Server, clique sur le crayon pour créer le broker. Onglet Connection : Server <code>127.0.0.1</code>, Port <code>1883</code>, Protocol MQTT V3.1.1, Client ID vide, Keep Alive 60, Use clean session coché. Update, puis Done.</li>
+<li>Dessous, glisse un nœud <b>mqtt in</b> : Server le même broker, Topic <code>sensors/voltage</code>. Done.</li>
+<li>Glisse un nœud <b>debug</b>, nomme-le <code>Circuit_V1</code>, et relie mqtt in à debug.</li>
+</ol>
+<p class="attendu">Tu dois voir : deux lignes : inject → sensors/voltage, et sensors/voltage → Circuit_V1.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Raccourci : importer le flux</h2>
+<p>Raccourci ajouté, pas dans le cours : le même flux, prêt à coller. Menu ≡, Import, colle le texte, Import. Il crée aussi le broker <code>Mosquitto local</code> (127.0.0.1, port 1883).</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "inj_25",
+  "type": "inject",
+  "name": "",
+  "props": [
+   {
+    "p": "payload"
+   }
+  ],
+  "repeat": "",
+  "crontab": "",
+  "once": false,
+  "onceDelay": 0.1,
+  "topic": "",
+  "payload": "25",
+  "payloadType": "num",
+  "x": 130,
+  "y": 80,
+  "wires": [
+   [
+    "out_voltage"
+   ]
+  ]
+ },
+ {
+  "id": "out_voltage",
+  "type": "mqtt out",
+  "name": "",
+  "topic": "sensors/voltage",
+  "qos": "",
+  "retain": "",
+  "respTopic": "",
+  "contentType": "",
+  "userProps": "",
+  "correl": "",
+  "expiry": "",
+  "broker": "broker_local",
+  "x": 380,
+  "y": 80,
+  "wires": []
+ },
+ {
+  "id": "in_voltage",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors/voltage",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 140,
+  "y": 180,
+  "wires": [
+   [
+    "dbg_v1"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_v1",
+  "type": "debug",
+  "name": "Circuit_V1",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 380,
+  "y": 180,
+  "wires": []
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+<p>Si tu as déjà construit le flux à la main, tu peux sauter cette étape et la cocher.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : déployer et tester avec le bouton</h2>
+<p>Clique sur Deploy (en haut à droite). Ouvre le panneau debug (icône d'insecte, à droite). Clique sur le petit carré à gauche du nœud inject.</p>
+<p class="attendu">Tu dois voir : sous les deux nœuds MQTT, un point vert « connected » ; dans le panneau debug : <code>sensors/voltage : msg.payload : number</code> puis <code>25</code>.</p>
+<p class="attention">Si les nœuds MQTT restent sur « connecting », le broker ne tourne pas : relance Mosquitto (étape 5 de l'installation).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : publier depuis la ligne de commande</h2>
+<p>Ouvre une deuxième invite de commandes, place-toi dans le dossier de Mosquitto, et publie une valeur sur le même topic :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors/voltage -m 30</code></pre>
+<p class="attendu">Tu dois voir : dans le panneau debug de Node-RED, <code>"30"</code> (une chaîne, puisqu'elle vient du texte de la commande).</p>
+<p class="attention">Sans <code>-t</code> devant le topic, Mosquitto répond <code>Error: Unknown option 'sensors/voltage'</code>, comme dans la capture du cours : <code>-h</code> donne le broker, <code>-t</code> le topic, <code>-m</code> le message.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 5 : s'abonner depuis la ligne de commande</h2>
+<pre class="code" data-titre="S&#x27;abonner au topic (la fenêtre attend les messages)"><code>mosquitto_sub -h localhost -t sensors/voltage</code></pre>
+<p>Laisse cette fenêtre ouverte, puis clique à nouveau sur le bouton du nœud inject dans Node-RED.</p>
+<p class="attendu">Tu dois voir : <code>25</code> s'affiche dans la fenêtre de <code>mosquitto_sub</code> à chaque clic. Le broker distribue le message à tous les abonnés : Node-RED et la ligne de commande.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

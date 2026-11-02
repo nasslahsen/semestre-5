@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>JSON sur l'ESP32 avec ArduinoJson</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 10. -->
+<main class="cours-chapitre" data-chapitre="10">
+<p class="etiquette" data-etiquette></p>
+<h1>JSON sur l'ESP32 avec ArduinoJson</h1>
+
+<section class="partie" id="s-lab2-preparer">
+<p class="rang-partie">1 / 3</p>
+<h2>Préparer l'Arduino IDE</h2>
+
+<article class="notion" id="n-lab-arduino-esp32">
+<h3>Préparer l'Arduino IDE pour l'ESP32</h3>
+<p class="chapeau">Les labs suivants se programment dans l'Arduino IDE, sur la carte ESP32 DEV KIT V1. Cette partie installe la carte et les trois bibliothèques des labs, une fois pour toutes.</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : installer l'Arduino IDE</h4>
+<p>Télécharge l'Arduino IDE (version 2) : <a href="https://www.arduino.cc/en/software">arduino.cc/en/software</a>, et installe-le.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : ajouter les cartes ESP32</h4>
+<p>File, Preferences. Dans « Additional boards manager URLs », colle l'adresse des cartes d'Espressif :</p>
+<pre class="code" data-titre="Additional boards manager URLs"><code>https://espressif.github.io/arduino-esp32/package_esp32_index.json</code></pre>
+<p>OK, puis Tools, Board, Boards Manager. Cherche <code>esp32</code> et installe « esp32 by Espressif Systems ».</p>
+<p class="attendu">Tu dois voir : « INSTALLED » sous esp32 by Espressif Systems.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : choisir la carte et le port</h4>
+<p>Branche l'ESP32 en USB. Tools, Board, esp32, <b>DOIT ESP32 DEVKIT V1</b>. Puis Tools, Port : le port de la carte (COM3, COM4… sous Windows).</p>
+<p class="attention">Si aucun port n'apparaît : essaie un autre câble (certains ne font que charger), puis installe le pilote USB de la puce de ta carte, en général CP210x (Silicon Labs) ou CH340.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 4 : installer les bibliothèques des labs</h4>
+<p>Sketch, Include Library, Manage Libraries. Cherche et installe :</p>
+<ul>
+<li><code>ArduinoJson</code> de Benoit Blanchon (lab 2) ;</li>
+<li><code>ThingSpeak</code> de MathWorks (lab 3) ;</li>
+<li><code>PubSubClient</code> de Nick O'Leary (labs 4 et 6).</li>
+</ul>
+<p>Les bibliothèques <code>WiFi.h</code> et <code>BluetoothSerial.h</code> viennent avec les cartes ESP32 : rien à installer.</p>
+<p class="attention">Le code du cours est écrit pour ArduinoJson 6 (<code>StaticJsonDocument</code>, <code>createNestedArray</code>). Pour suivre sans surprise, choisis une version 6.x dans la liste des versions. La version 7 compile aussi, avec des avertissements « deprecated ».</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 5 : téléverser et ouvrir le moniteur série</h4>
+<p>Pour chaque programme : bouton Upload (flèche vers la droite), puis Tools, Serial Monitor, et règle la vitesse (en bas à droite) sur celle de <code>Serial.begin</code> : 9600 pour ce lab, 115200 pour les suivants.</p>
+<p class="attention">Si le téléversement s'arrête sur <code>Connecting....</code> puis <code>Failed to connect</code>, maintiens le bouton BOOT de la carte pendant que les points s'affichent, puis relâche.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab2-preparer"></div>
+</section>
+
+<section class="partie" id="s-lab2-generer">
+<p class="rang-partie">2 / 3</p>
+<h2>Générer un document JSON</h2>
+
+<article class="notion" id="n-lab-json-generer">
+<h3>JSON generator example</h3>
+<p class="chapeau">L'ESP32 doit envoyer une mesure à un serveur : il faut l'emballer en JSON. La bibliothèque ArduinoJson construit le document clé par clé, puis l'écrit en texte (partie 4.1 du cours).</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : coller le programme du cours</h4>
+<p>Crée un nouveau sketch (File, New Sketch), efface tout et colle :</p>
+<pre class="code long" data-titre="JSON generator (programme du cours)"><code>// ArduinoJson - https://arduinojson.org
+// Copyright Benoit Blanchon 2014-2021
+// MIT License
+//
+// This example shows how to generate a JSON document with ArduinoJson.
+//
+// https://arduinojson.org/v6/example/generator/
+
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  // Initialize Serial port
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  doc["sensor"] = "gps";
+  doc["time"] = 1351824120;
+
+  // Add an array.
+  JsonArray data = doc.createNestedArray("data");
+  data.add(48.756080);
+  data.add(2.302038);
+
+  // Generate the minified JSON and send it to the Serial port.
+  serializeJson(doc, Serial);
+  // The above line prints:
+  // {"sensor":"gps","time":1351824120,"data":[48.756080,2.302038]}
+
+  // Start a new line
+  Serial.println();
+
+  // Generate the prettified JSON and send it to the Serial port.
+  //
+  serializeJsonPretty(doc, Serial);
+  // The above line prints:
+  // {
+  //   "sensor": "gps",
+  //   "time": 1351824120,
+  //   "data": [
+  //     48.756080,
+  //     2.302038
+  //   ]
+  // }
+}
+
+void loop() {
+  // not used in this example
+}</code></pre>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : téléverser et lire le résultat</h4>
+<p>Upload, puis Serial Monitor à 9600 bauds. Appuie sur le bouton EN (reset) de la carte si rien ne s'affiche : <code>setup()</code> ne tourne qu'une fois.</p>
+<p class="attendu">Tu dois voir : la version compacte <code>{"sensor":"gps","time":1351824120,"data":[48.75608,2.302038]}</code>, puis la même en version lisible, une clé par ligne. Le nombre de décimales affichées peut différer un peu de celui des commentaires du cours.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : comprendre ce que fait chaque ligne</h4>
+<ul>
+<li><code>StaticJsonDocument&lt;200&gt; doc;</code> réserve 200 octets pour le document.</li>
+<li><code>doc["sensor"] = "gps";</code> ajoute une paire clé-valeur.</li>
+<li><code>createNestedArray("data")</code> ajoute un tableau, rempli avec <code>add</code>.</li>
+<li><code>serializeJson</code> écrit le texte compact (celui qu'on envoie sur le réseau) ; <code>serializeJsonPretty</code> l'écrit avec retours à la ligne, pour le lire.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 4 : à toi (exercice ajouté)</h4>
+<p>Fais produire à l'ESP32 le message du power meter du lab 1, <code>{"V":220,"I":20}</code>. Essaie seul, puis compare :</p>
+<pre class="code" data-titre="Une solution"><code>// Exercice ajouté : le message du power meter (lab 1), produit par l'ESP32
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  doc["V"] = 220;
+  doc["I"] = 20;
+  serializeJson(doc, Serial);   // {"V":220,"I":20}
+  Serial.println();
+}
+
+void loop() {
+}</code></pre>
+<p class="attendu">Tu dois voir : <code>{"V":220,"I":20}</code> dans le moniteur série. C'est le message que Node-RED savait déjà découper.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab2-generer"></div>
+</section>
+
+<section class="partie" id="s-lab2-lire">
+<p class="rang-partie">3 / 3</p>
+<h2>Lire un document JSON</h2>
+
+<article class="notion" id="n-lab-json-lire">
+<h3>JSON parser example</h3>
+<p class="chapeau">Dans l'autre sens, l'ESP32 reçoit un texte JSON (par exemple d'un serveur) et doit en tirer chaque valeur. ArduinoJson le lit, le vérifie, puis donne accès aux champs (partie 4.2 du cours).</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : coller le programme du cours</h4>
+<pre class="code long" data-titre="JSON parser (programme du cours)"><code>// This example shows how to deserialize a JSON document with ArduinoJson.
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  // Initialize serial port
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  char json[] =
+      "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+
+  // Deserialize the JSON document
+  DeserializationError error = deserializeJson(doc, json);
+
+  // Test if parsing succeeds.
+  if (error) {
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.f_str());
+    return;
+  }
+
+  // Fetch values.
+  //
+  // Most of the time, you can rely on the implicit casts.
+  // In other case, you can do doc["time"].as&lt;long&gt;();
+  const char* sensor = doc["sensor"];
+  long time = doc["time"];
+  double latitude = doc["data"][0];
+  double longitude = doc["data"][1];
+
+  // Print values.
+  Serial.println(sensor);
+  Serial.println(time);
+  Serial.println(latitude, 6);
+  Serial.println(longitude, 6);
+}
+
+void loop() {
+  // not used in this example
+}</code></pre>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : téléverser et lire le résultat</h4>
+<p>Upload, Serial Monitor à 9600 bauds, puis bouton EN si besoin.</p>
+<p class="attendu">Tu dois voir : quatre lignes : <code>gps</code>, <code>1351824120</code>, <code>48.756080</code> et <code>2.302038</code> (6 décimales, demandées par <code>println(latitude, 6)</code>).</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : provoquer une erreur</h4>
+<p>Retire l'accolade finale du texte JSON (la dernière <code>}</code> avant le guillemet fermant) et téléverse à nouveau.</p>
+<p class="attendu">Tu dois voir : <code>deserializeJson() failed: IncompleteInput</code>. Le programme teste <code>error</code> avant de lire les champs : un message abîmé ne donne pas de fausses valeurs. Remets l'accolade.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab2-lire"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+
+</body>
+</html>

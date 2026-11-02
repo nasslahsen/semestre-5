@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Installer Node.js, Node-RED, le dashboard et Mosquitto · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Installer Node.js, Node-RED, le dashboard et Mosquitto</h1>
+<p class="chapeau">Avant de câbler un flux, il te faut trois outils sur ton PC : Node.js, Node-RED (avec son dashboard) et le serveur MQTT Mosquitto. Liste du cours : Nodejs, Mosquitto Server, Arduino JSON Library, Proteus, Arduino IDE.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : installer Node.js</h2>
+<p>Télécharge Node.js pour ton système : <a href="https://nodejs.org/en/download">nodejs.org/en/download</a>. Lance l'installateur, clique sur Run, puis Next jusqu'au bout.</p>
+<p>Le dossier de Node.js contient deux programmes : <code>node</code> et <code>npm</code> (node package manager). L'installateur ajoute ce dossier au PATH du système ; s'il ne le fait pas, ajoute-le à la main (le cours le demande).</p>
+<p>Ouvre une nouvelle invite de commandes (Windows : touche Windows, tape <kbd>cmd</kbd>) et vérifie les versions :</p>
+<pre class="code" data-titre="Vérifier l&#x27;installation"><code>node -v
+npm -v</code></pre>
+<p class="attendu">Tu dois voir : deux numéros de version, par exemple <code>v22.x</code> et <code>10.x</code> (le cours montre v13.14.0 et 6.14.4 : une version plus récente marche aussi).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : installer Node-RED</h2>
+<p>Node-RED s'installe avec npm, la commande qui vient avec Node.js. Sous Windows, sans <code>sudo</code> :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>npm install -g --unsafe-perm node-red</code></pre>
+<p>Sous macOS ou Linux, la même commande précédée de <code>sudo</code> :</p>
+<pre class="code" data-titre="macOS ou Linux : Terminal"><code>sudo npm install -g --unsafe-perm node-red</code></pre>
+<p class="attendu">Tu dois voir : la fin de l'installation, avec une ligne <code>added … packages</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : lancer Node-RED</h2>
+<pre class="code" data-titre="Lancer Node-RED (laisse cette fenêtre ouverte)"><code>node-red</code></pre>
+<p>Ouvre ensuite l'éditeur dans le navigateur, à l'adresse <code>http://localhost:1880</code> (ou <code>http://127.0.0.1:1880</code>).</p>
+<p class="attendu">Tu dois voir : dans la fenêtre de commande, <code>Server now running at http://127.0.0.1:1880/</code> ; dans le navigateur, l'éditeur avec la palette des nœuds à gauche.</p>
+<p class="attention">Pour arrêter Node-RED : <kbd>Ctrl</kbd> + <kbd>C</kbd> dans cette fenêtre. Pour le relancer : <code>node-red</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : installer le dashboard</h2>
+<p>Dans l'éditeur : menu ≡ en haut à droite, Manage palette, onglet Install, cherche <code>node-red-dashboard</code> et clique sur Install. Ou bien, dans le dossier utilisateur de Node-RED (en général <code>~/.node-red</code>) :</p>
+<pre class="code" data-titre="Installer le dashboard en ligne de commande"><code>cd ~/.node-red
+npm i node-red-dashboard</code></pre>
+<p>Redémarre Node-RED (<kbd>Ctrl</kbd> + <kbd>C</kbd>, puis <code>node-red</code>).</p>
+<p class="attendu">Tu dois voir : une catégorie dashboard dans la palette (button, gauge, chart…) et un onglet dashboard dans le panneau de droite. L'interface s'ouvrira à <code>http://localhost:1880/ui</code>.</p>
+<p class="attention">node-red-dashboard est le dashboard du cours. Node-RED le signale comme ancien (il propose aussi Dashboard 2.0), mais il s'installe et fonctionne toujours : garde celui du cours pour suivre le lab.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 5 : installer Mosquitto</h2>
+<p>Télécharge le serveur MQTT Mosquitto : <a href="https://mosquitto.org/download/">mosquitto.org/download</a>. Sous Windows, prends l'installateur 64 bits (<code>mosquitto-…-install-windows-x64.exe</code>) et installe-le dans <code>C:\Program Files\mosquitto</code>.</p>
+<p>Regarde ce qu'il contient :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+dir *.exe</code></pre>
+<p class="attendu">Tu dois voir : <code>mosquitto.exe</code> (le broker), <code>mosquitto_pub.exe</code> (publier), <code>mosquitto_sub.exe</code> (s'abonner), <code>mosquitto_passwd.exe</code> et <code>mosquitto_ctrl.exe</code>.</p>
+<p>L'installateur crée en général un service Windows, « Mosquitto Broker », qui tourne déjà. S'il ne tourne pas, lance le broker toi-même dans ce dossier et laisse la fenêtre ouverte :</p>
+<pre class="code" data-titre="Lancer le broker à la main (si le service ne tourne pas)"><code>mosquitto -v</code></pre>
+<p class="attendu">Tu dois voir : une ligne qui dit que le broker écoute sur le port 1883 (<code>Opening ipv4 listen socket on port 1883</code>). Si la commande répond que le port est déjà pris, c'est que le service tourne : tout va bien.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

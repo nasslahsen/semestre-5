@@ -49,9 +49,12 @@
             '<span class="sv-num">' + P.numero(m.id, ch.id) + '</span><span class="sv-titre">' + esc(ch.titre) + "<small>" + etat + "</small></span>" +
             barre(f, ch.sections.length) + "</a>";
         };
-        var tds = P.chapitresDe(m.id, sm.id, "td");
+        var autre = function (quoi, nom) {
+          var l = P.chapitresDe(m.id, sm.id, quoi);
+          return l.length ? '<h4 class="sv-cours">' + (sm.titre && sms.length > 1 ? nom + " · " + esc(sm.titre) : nom) + "</h4>" + l.map(ligne).join("") : "";
+        };
         return (sm.titre && sms.length > 1 ? '<h4 class="sv-cours">' + esc(sm.titre) + "</h4>" : "") + P.chapitresDe(m.id, sm.id, "cours").map(ligne).join("") +
-          (tds.length ? '<h4 class="sv-cours">' + (sm.titre && sms.length > 1 ? "TD · " + esc(sm.titre) : "TD") + "</h4>" + tds.map(ligne).join("") : "");
+          autre("td", "TD") + autre("lab", "Labs");
       }).join("");
       h += '<details class="sv-module"' + style(m) + '><summary><span class="sv-nom">' + esc(m.titre) + "</span>" + barre(c.faits, c.total) + "</summary>" +
         '<div class="sv-chapitres">' + corps + "</div></details>";

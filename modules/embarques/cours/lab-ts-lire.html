@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Lire un champ du channel · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Lire un champ du channel</h1>
+<p class="chapeau">Dans l'autre sens, une carte peut relire un channel : par exemple un afficheur au chevet qui montre la dernière fréquence cardiaque envoyée par un capteur.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : coller le programme</h2>
+<p>Programme assemblé autour de la diapositive « Read Channel Field » : la lecture est celle du cours ; la connexion Wi-Fi reprend celle du lab 1, et la lecture se répète toutes les 20 s.</p>
+<pre class="code long" data-titre="Lire le champ 1 (HTTP)"><code>#include &lt;WiFi.h&gt;
+#include "ThingSpeak.h"
+
+const char* ssid = "TON_WIFI";
+const char* password = "TON_MOT_DE_PASSE";
+WiFiClient client;
+unsigned long myChannelNumberRead = 0000000;  // le Channel ID à lire
+const char * myReadAPIKey = "TA_CLE_READ";    // sa Read API Key
+unsigned int FieldNumber = 1;
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  ThingSpeak.begin(client);
+}
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.print("Attempting to connect");
+    while (WiFi.status() != WL_CONNECTED) {
+      WiFi.begin(ssid, password);
+      delay(5000);
+    }
+    Serial.println("\nConnected.");
+  }
+
+  // Read in field 1 of the private channel
+  FieldNumber = 1;
+  long val1 = ThingSpeak.readLongField(myChannelNumberRead, FieldNumber, myReadAPIKey);
+  // Check the status of the read operation to see if it was successful
+  int statusCode = ThingSpeak.getLastReadStatus();
+  if (statusCode == 200) {
+    Serial.println("Field1: " + String(val1));
+  } else {
+    Serial.println("Problem reading channel. HTTP error code " + String(statusCode));
+  }
+  delay(20000);
+}</code></pre>
+<p>Mets ton Wi-Fi, le Channel ID et la Read API Key du channel du lab 1.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : téléverser et comparer</h2>
+<p>Laisse une carte (ou le navigateur) écrire dans le channel pendant que celle-ci lit. Avec une seule carte, écris des valeurs depuis le navigateur (lab précédent, étape 4).</p>
+<p class="attendu">Tu dois voir : toutes les 20 s, <code>Field1: 70</code> (ou la dernière valeur écrite). Le code 200 de <code>getLastReadStatus()</code> veut dire que la lecture a réussi.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : lire plusieurs champs d'un coup</h2>
+<p>La deuxième diapositive lit tous les champs en une requête : fréquence cardiaque (champ 1), SpO2 (champ 2) et un résultat en texte (champ 3). Remplace le bloc de lecture de <code>loop()</code> (de <code>FieldNumber = 1;</code> jusqu'à l'accolade du <code>else</code>) par :</p>
+<pre class="code" data-titre="Lire tous les champs (diapositive du cours)"><code>  // Read and store all the latest field values, location coordinates, status message, and created-at timestamp
+  // use ThingSpeak.readMultipleFields(channelNumber, readAPIKey) for private channels
+  int field[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+  int statusCode = ThingSpeak.readMultipleFields(myChannelNumberRead, myReadAPIKey);
+  if (statusCode == 200) {
+    // Fetch the stored data
+    int HR1 = ThingSpeak.getFieldAsInt(field[0]);           // Field 1
+    int SPO21 = ThingSpeak.getFieldAsInt(field[1]);         // Field 2
+    String result = ThingSpeak.getFieldAsString(field[2]);  // Field 3
+    Serial.println("HR=" + String(HR1));
+    Serial.println("RESULT =" + result);
+  } else {
+    Serial.println("Problem reading channel. HTTP error code " + String(statusCode));
+  }</code></pre>
+<p class="attendu">Tu dois voir : <code>HR=…</code> et <code>RESULT =…</code>. Avec le channel du lab 1, HR montre Val1, et RESULT reste vide car le champ 3 n'existe pas : crée un champ 3 et écris-y du texte pour le voir.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

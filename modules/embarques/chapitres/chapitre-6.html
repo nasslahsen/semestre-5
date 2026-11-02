@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'IoMT : objets connectés en santé</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 6. -->
+<main class="cours-chapitre" data-chapitre="6">
+<p class="etiquette" data-etiquette></p>
+<h1>L'IoMT : objets connectés en santé</h1>
+
+<section class="partie" id="s-iomt">
+<p class="rang-partie">1 / 3</p>
+<h2>IoT, IoMT, cloud, fog et edge</h2>
+
+<article class="notion" id="n-iomt">
+<h3>IoMT : définition, cloud, fog et edge</h3>
+<p class="chapeau">Un patient cardiaque rentre chez lui avec un patch ECG. Ses signes vitaux doivent arriver à son cardiologue en temps réel, et une alarme doit partir tout de suite si son rythme s'emballe. Où traiter chaque donnée ?</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre ouvre la partie « Objets connectés dans le milieu médical » du cours de Pr A. Jbari. On définit l'IoMT et on range ses calculs en trois couches (cette page), on décrit l'architecture d'un système IoMT, puis la façon de le concevoir : quand transmettre, et avec quelle technologie sans fil. Le chapitre suivant étudie les protocoles (HTTP, MQTT), le troisième le format JSON et la plateforme ThingSpeak. Les labs mettent tout en pratique.</p>
+
+<h4>Intuition</h4>
+<p>L'<b>IoT</b> (Internet of Things) relie des objets au réseau. L'<b>IoMT</b> (Internet of Medical Things) en est la partie santé : des capteurs médicaux sur le patient, un réseau qui transporte leurs mesures, et un cloud où le médecin les consulte. Le cours cite deux autres noms pour la même idée : <i>Healthcare IoT</i> (H-IoT) et <i>smart healthcare systems</i>.</p>
+<p>Toutes les données ne demandent pas le même traitement. Une alarme doit partir en quelques millisecondes, près du patient ; une étude sur des milliers de patients peut attendre, loin, dans un grand centre de calcul. D'où trois couches : <b>edge</b> (au bord, près des capteurs), <b>fog</b> (le brouillard, au niveau du réseau local) et <b>cloud</b> (le nuage, les grands serveurs).</p>
+
+<div id="fig-couches"></div>
+
+<h4>Formalisation</h4>
+<p>Définition du cours : l'IoMT est l'utilisation de l'informatique mobile, de capteurs médicaux et du cloud computing pour surveiller en temps réel les signes vitaux des patients, avec des technologies de communication qui relaient les données vers un cadre de cloud computing. Les médecins accèdent à ces données pour surveiller, diagnostiquer et traiter les patients.</p>
+<p>Organisation d'un système IoT (schéma du cours, <i>Industrial IoT data processing layer stack</i>) :</p>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Ce qu'elle fait (schéma du cours)</th><th>Temps de réponse</th></tr>
+<tr><td>Cloud computing</td><td>big data processing, business logic, data warehousing : analyses globales (business analytics, intelligence)</td><td>le plus lent</td></tr>
+<tr><td>Fog computing</td><td>local network, data analysis and reduction, control response, virtualization, standardization (fog nodes, serveurs)</td><td>intermédiaire</td></tr>
+<tr><td>Edge computing</td><td>large volume real-time data processing, visualisation sur place, industrial PCs, embedded systems, gateways, micro data storage</td><td>le plus rapide</td></tr>
+<tr><td>Capteurs et contrôleurs</td><td>origine des données (data origination)</td><td></td></tr>
+</table></div>
+<p>Le schéma « General IoT in healthcare » du cours ajoute deux sigles : <b>HIS</b>, Hospital Information System (le système d'information de l'hôpital), et <b>WBAN</b>, Wireless Body Area Networks (les réseaux sans fil de capteurs portés sur le corps).</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Le patch ECG du chapeau. Edge : le patch et le smartphone qui sert de passerelle filtrent le signal et détectent une arythmie sur place, sans attendre le réseau. Fog : le serveur du service de cardiologie reçoit les patchs de tous ses patients, réduit les données et prévient l'infirmière de garde. Cloud : l'historique de chaque patient y est stocké, et des analyses sur toute la population cherchent des tendances.</p>
+
+<h4>Formules clés</h4>
+\[ \text{capteurs} \,\rightarrow\, \text{edge} \,\rightarrow\, \text{fog} \,\rightarrow\, \text{cloud} \qquad \text{du plus rapide (près du patient) au plus lent (analyses globales)} \]
+</article>
+
+<div class="fin-partie" data-section="iomt"></div>
+</section>
+
+<section class="partie" id="s-iomt-architecture">
+<p class="rang-partie">2 / 3</p>
+<h2>L'architecture IoMT</h2>
+
+<article class="notion" id="n-iomt-architecture">
+<h3>Architecture d'un système IoMT</h3>
+<p class="chapeau">Un hôpital veut suivre à distance l'ECG de ses patients sortis. Il faut choisir les capteurs, la façon de faire voyager leurs mesures, et l'endroit où les ranger et les analyser, sans exposer le dossier du patient.</p>
+
+<h4>Intuition</h4>
+<p>Un système IoMT se lit de gauche à droite, comme l'exemple du cours, un système de surveillance ECG basé sur l'IoT : un réseau de capteurs ECG sur le patient, le cloud de l'IoT, puis une interface graphique pour le médecin. Entre les deux premiers, il faut une liaison ; autour de tout, il faut de la sécurité.</p>
+
+<div id="fig-architecture"></div>
+
+<h4>Formalisation</h4>
+<p>Le cours définit l'architecture IoMT comme un cadre qui intègre et relie les dispositifs médicaux, les systèmes de santé et les plateformes d'analyse de données. Elle sert à collecter, gérer et analyser les données de santé de façon sûre et interopérable. Elle a trois composants principaux :</p>
+<ul>
+<li><b>Devices and sensors</b> (dispositifs et capteurs) : traqueurs de santé portés, dispositifs de suivi à distance, équipements de diagnostic. Ils collectent en temps réel les signes vitaux, le niveau d'activité, la prise des médicaments.</li>
+<li><b>Connectivity</b> (connectivité) : Wi-Fi, Bluetooth, réseaux cellulaires et protocoles propres aux dispositifs médicaux, pour transférer les données en sécurité vers leur système de gestion.</li>
+<li><b>Data management</b> (gestion des données) : l'infrastructure cloud (serveurs, bases de données, ressources de calcul) stocke et traite les données ; des plateformes d'analyse et des algorithmes d'apprentissage automatique en tirent des informations pour les soignants et les chercheurs.</li>
+</ul>
+<p>S'y ajoutent la <b>sécurité et la confidentialité</b> (chiffrement, authentification, contrôle d'accès, conformité aux réglementations), et l'<b>interopérabilité</b> : des protocoles de communication et des standards d'échange de données de santé communs, pour que systèmes et dispositifs différents se comprennent. Les utilisateurs y accèdent par des interfaces : applications mobiles, portails web, logiciels de santé spécialisés.</p>
+<p>Le cours cite les bénéfices (suivi à distance, coûts réduits, suivi continu des maladies chroniques, services d'urgence personnels ou PERS qui réduisent le temps de réponse), des applications (hôpitaux intelligents, suivi à distance, télémédecine, imagerie médicale, applications de santé et de bien-être), et sept catégories de dispositifs : fitness wearables, clinical grade wearables, remote patient monitoring devices, smart pills, point of care devices and kiosks, clinical monitors, hospital devices.</p>
+
+<h4>Exemple</h4>
+<p>Exemple du cours : un système intelligent de suivi du glucose pour un patient diabétique. Le capteur de glycémie est le dispositif ; la communication se fait en Wi-Fi (module ESP8266), en Bluetooth ou Zigbee, ou en NFC ; les mesures arrivent dans le cloud où le patient et le médecin les consultent. Les trois composants sont là, et la sécurité aussi : la glycémie d'un patient est une donnée de santé protégée.</p>
+
+<h4>Formules clés</h4>
+\[ \text{IoMT} = \text{devices and sensors} + \text{connectivity} + \text{data management} \qquad (+\ \text{sécurité},\ \text{interopérabilité}) \]
+</article>
+
+<div class="fin-partie" data-section="iomt-architecture"></div>
+</section>
+
+<section class="partie" id="s-iomt-conception">
+<p class="rang-partie">3 / 3</p>
+<h2>Concevoir un système IoMT</h2>
+
+<article class="notion" id="n-iomt-conception">
+<h3>IoT Design et technologies de communication</h3>
+<p class="chapeau">Un capteur de chute pour personne âgée et un tensiomètre connecté n'envoient pas leurs données de la même façon : l'un attend l'événement, l'autre mesure à heure fixe. Et selon la distance et le débit, on ne choisit pas la même radio.</p>
+
+<h4>Intuition</h4>
+<p>Deux façons de décider quand transmettre. Soit à intervalle fixe, même si rien ne change : c'est simple et régulier. Soit seulement quand il se passe quelque chose : on économise la batterie et le réseau, mais il faut savoir détecter l'événement.</p>
+
+<div id="fig-temps"></div>
+
+<p>Puis il faut une radio. Plus elle porte loin et plus elle a de débit, plus elle consomme et plus elle coûte : on choisit la plus modeste qui suffit.</p>
+
+<div id="fig-technologies"></div>
+
+<h4>Formalisation</h4>
+<p>Le cours distingue deux architectures de gestion (IoT Design) :</p>
+<ul>
+<li><b>Event-driven</b> (pilotée par les événements) : les capteurs transmettent quand une activité est détectée, comme une alarme qui se déclenche quand une porte s'ouvre.</li>
+<li><b>Time-based</b> (pilotée par le temps) : les composants transmettent en continu, à un intervalle de temps fixé.</li>
+</ul>
+<p>Technologies de communication (graphique du cours, débit et consommation en fonction de la portée) :</p>
+<div class="tableau"><table>
+<tr><th>Technologie</th><th>Portée</th><th>Débit</th></tr>
+<tr><td>RFID</td><td>quelques mètres</td><td>vers 1 kbps</td></tr>
+<tr><td>BLE, Zigbee, Z-Wave</td><td>10 à 100 m</td><td>vers 100 kbps</td></tr>
+<tr><td>Bluetooth</td><td>vers 10 m</td><td>vers 1 Mbps</td></tr>
+<tr><td>Wi-Fi</td><td>vers 10 m</td><td>jusqu'à 100 Mbps</td></tr>
+<tr><td>Wi-Fi HaLow</td><td>vers 100 m</td><td>entre 1 et 100 Mbps</td></tr>
+<tr><td>Cellulaire (3G, 4G/LTE, 5G)</td><td>vers 1 km</td><td>entre 1 et 100 Mbps</td></tr>
+<tr><td>LPWAN sous licence (LTE-M, EC-GSM, NB-IoT)</td><td>100 m à plus de 1 km</td><td>100 kbps à 1 Mbps</td></tr>
+<tr><td>LPWAN sans licence (MYTHINGS, LoRa, Sigfox)</td><td>1 à 10 km</td><td>1 à 100 kbps</td></tr>
+</table></div>
+<p>Valeurs lues sur le graphique du cours, à un ordre de grandeur près. Son tableau d'usages coche, pour la santé connectée (<i>Connected Health</i>), le cellulaire et le BLE ; pour les objets portés (<i>Wearables</i>), surtout le BLE.</p>
+
+<h4>Exemple</h4>
+<p class="complement">Exemple ajouté.</p>
+<p>Un détecteur de chute porté au poignet : event-driven (il n'émet que s'il détecte une chute), en BLE vers le smartphone tout proche. Un pèse-personne connecté qui envoie le poids chaque matin à 7 h : time-based, en Wi-Fi vers la box de la maison.</p>
+
+<h4>Formules clés</h4>
+\[ \text{time-based : envoi tous les } \Delta t \qquad \text{event-driven : envoi à chaque événement} \qquad \text{portée} \uparrow,\ \text{débit} \uparrow \Rightarrow \text{consommation et coût} \uparrow \]
+</article>
+
+<div class="fin-partie" data-section="iomt-conception"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/iomt.js"></script>
+<script src="../figures/iomt-architecture.js"></script>
+<script src="../figures/iomt-conception.js"></script>
+</body>
+</html>

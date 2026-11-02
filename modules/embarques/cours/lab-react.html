@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Lab 3 : React App · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Lab 3 : React App</h1>
+<p class="chapeau">Lancer l'analyse à la main ne sert à rien en vrai : React la déclenche toute seule quand une donnée arrive. React marche avec ThingHTTP, ThingTweet et MATLAB Analysis, pour agir quand les données d'un channel remplissent une condition.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : créer la réaction</h2>
+<p>Apps, React, New React. Les réglages de la capture du cours :</p>
+<ul>
+<li>React Name : <code>ReactStateCounter</code> ;</li>
+<li>Condition Type : String ; Test Frequency : On Data Insertion ;</li>
+<li>Condition : If channel counterAcquisition, field 5 (EPF), is not equal to <code>0</code> ;</li>
+<li>Action : MATLAB Analysis ; Code to execute : <code>stateCounterMatlab</code> ;</li>
+<li>Options : Run action each time condition is met.</li>
+</ul>
+<p>Save React.</p>
+<p class="attendu">Tu dois voir : ReactStateCounter dans la liste, cochée.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : comprendre les réglages</h2>
+<ul>
+<li>Condition Type : String, Status, Numeric, Geo Location ou No Data Check (vérifie que le channel reçoit bien des données à l'intervalle prévu).</li>
+<li>Test Frequency : On Data Insertion (à chaque nouvelle donnée), ou toutes les 10, 30 ou 60 minutes, à l'heure pile.</li>
+<li>Options : « only the first time » agit seulement quand la condition passe de fausse à vraie ; « each time » agit à chaque fois qu'elle est vraie.</li>
+<li>Si l'analyse MATLAB plante plusieurs fois de suite, React s'arrête : coche « Notify me via email » dans l'analyse pour être prévenue.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : tester les trois états</h2>
+<p>Écris trois mesures dans counterAcquisition, en attendant au moins 15 s entre deux :</p>
+<pre class="code" data-titre="Trois mesures, une par une"><code>https://api.thingspeak.com/update?api_key=TA_CLE_WRITE&amp;field5=70
+https://api.thingspeak.com/update?api_key=TA_CLE_WRITE&amp;field5=90
+https://api.thingspeak.com/update?api_key=TA_CLE_WRITE&amp;field5=110</code></pre>
+<p class="attendu">Tu dois voir : dans counterState, l'état passe à 0, puis 1, puis 2 (les voyants jaune, vert et rouge des résultats du cours), sans avoir lancé l'analyse à la main.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : régler l'affichage d'un graphique</h2>
+<p>Un graphique de channel s'ouvre aussi par une requête HTTP GET, avec ses réglages dans l'adresse : <code>title</code> (titre), <code>color</code> (couleur de la ligne), <code>width</code> (largeur en pixels), <code>xaxis</code> (nom de l'axe).</p>
+<pre class="code" data-titre="Graphique du champ 1 de counterAcquisition"><code>https://api.thingspeak.com/channels/0000000/charts/1?title=Voltage&amp;color=FF69B4&amp;width=850&amp;xaxis=Time</code></pre>
+<p class="attendu">Tu dois voir : le graphique du champ 1, titré Voltage, avec une ligne rose et l'axe horizontal nommé Time. Si le channel est privé, ajoute <code>&amp;api_key=TA_CLE_READ</code> à la fin.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

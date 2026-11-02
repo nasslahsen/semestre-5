@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Lab 2 : MQTT sur la carte ESP32 · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Lab 2 : MQTT sur la carte ESP32</h1>
+<p class="chapeau">Même échange qu'avec MQTTX, mais c'est l'ESP32 qui publie HR et SPO2 toutes les 15 s sur <code>channels/channelID/publish</code>, et qui s'abonne à <code>channels/channelID/subscribe</code> pour relire chaque entrée.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : coller le programme du cours</h2>
+<p>Le programme des diapositives, en un seul bloc. Bibliothèque nécessaire : PubSubClient. Seuls les identifiants sont remplacés.</p>
+<pre class="code long" data-titre="ESP32 vers ThingSpeak (MQTT)"><code>// Thingspeak IoT Platform: send data from ESP32 to TS Channel using MQTT
+// Device (MQTTDeviceTest) defined by: mqttUserName, clientID, mqttPass
+#include &lt;PubSubClient.h&gt;
+#include &lt;WiFi.h&gt;
+#define mqttPort 1883
+
+// Ensure correct credentials to connect to your WiFi Network.
+const char* ssid = "TON_WIFI";          // your network SSID (name)
+const char* pass = "TON_MOT_DE_PASSE";  // your network password
+
+// Ensure that the credentials here allow you to publish and subscribe to the ThingSpeak channel.
+#define channelID 0000000                      // remplace par le Channel ID
+const char mqttUserName[] = "TON_USERNAME";     // Username du device MQTT
+const char clientID[] = "TON_CLIENT_ID";        // Client ID du device MQTT
+const char mqttPass[] = "TON_PASSWORD";         // Password du device MQTT
+const char* server = "mqtt3.thingspeak.com";
+
+int status = WL_IDLE_STATUS;
+long lastPublishMillis = 0;
+int connectionDelay = 1;
+int updateInterval = 15;
+WiFiClient client;
+PubSubClient mqttClient(client);
+float HR = 50;
+float SPO2 = 80;
+
+// Connect to WiFi.
+void connectWifi() {
+  Serial.print("Connecting to Wi-Fi...");
+  // Connect or reconnect to WiFi
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.print("Attempting to connect");
+    while (WiFi.status() != WL_CONNECTED) {
+      WiFi.begin(ssid, pass);
+      delay(5000);
+    }
+    Serial.println("\nConnected.");
+  }
+}
+
+// Function to handle messages from MQTT subscription.
+void mqttSubscriptionCallback(char* topic, byte* payload, unsigned int length) {
+  // Print the details of the message that was received to the serial monitor.
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i = 0; i &lt; length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
+// Publish messages to a ThingSpeak channel.
+void mqttPublish(long pubChannelID, String message) {
+  String topicString = "channels/" + String(pubChannelID) + "/publish";
+  mqttClient.publish(topicString.c_str(), message.c_str());
+}
+
+// Subscribe to ThingSpeak channel for updates.
+void mqttSubscribe(long subChannelID) {
+  String myTopic = "channels/" + String(subChannelID) + "/subscribe";
+  mqttClient.subscribe(myTopic.c_str());
+}
+
+// Connect to MQTT server.
+void mqttConnect() {
+  // Loop until connected.
+  while (!mqttClient.connected()) {
+    // Connect to the MQTT broker.
+    if (mqttClient.connect(clientID, mqttUserName, mqttPass)) {
+      Serial.print("MQTT to ");
+      Serial.print(server);
+      Serial.print(" at port ");
+      Serial.print(mqttPort);
+      Serial.println(" successful.");
+    } else {
+      Serial.print("MQTT connection failed, rc = ");
+      Serial.print(mqttClient.state());
+      Serial.println(" Will try again in a few seconds");
+      delay(connectionDelay * 1000);
+    }
+  }
+}
+
+// Initialize serial data transfer, and set the MQTT broker details in the setup method.
+void setup() {
+  Serial.begin(115200);
+  // Delay to allow serial monitor to come up.
+  delay(3000);
+  // Connect to Wi-Fi network.
+  connectWifi();
+  // Configure the MQTT client
+  mqttClient.setServer(server, mqttPort);
+  // Set the MQTT message handler function.
+  mqttClient.setCallback(mqttSubscriptionCallback);
+  // Set the buffer to handle the returned JSON. NOTE: A buffer overflow of the message
+  // buffer will result in your callback not being invoked.
+  mqttClient.setBufferSize(2048);
+}
+
+// Maintain the MQTT connection, and publish data to the channel at regular time intervals in the loop method.
+void loop() {
+  // Reconnect to WiFi if it gets disconnected.
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWifi();
+  }
+  // Connect if MQTT client is not connected and resubscribe to channel updates.
+  if (!mqttClient.connected()) {
+    mqttConnect();
+    mqttSubscribe(channelID);
+  }
+  // Call the loop to maintain connection to the server.
+  mqttClient.loop();
+  // Update ThingSpeak channel periodically. The update results in the message to the subscriber.
+  if (abs(long(millis()) - lastPublishMillis) &gt; updateInterval * 1000) {
+    mqttPublish(channelID, (String("field1=") + String(HR) + String("&amp;field2=") + String(SPO2)));
+    lastPublishMillis = millis();
+    HR = 5 + HR;
+    SPO2 = 2 + SPO2;
+    if (HR &gt; 110) HR = 50;
+    if (SPO2 &gt; 100) SPO2 = 80;
+  }
+}</code></pre>
+<p>Une seule différence avec les diapositives : les lignes qui font monter HR et SPO2 sont placées dans le <code>if</code> de publication, pour que chaque envoi monte d'un cran. Dans la diapositive, elles sont juste après l'accolade et tournent à chaque passage de <code>loop()</code> : les valeurs envoyées sautent alors au hasard entre 50 et 110.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : mettre les identifiants</h2>
+<ul>
+<li><code>ssid</code>, <code>pass</code> : ton Wi-Fi (2,4 GHz) ;</li>
+<li><code>channelID</code> : l'ID de MQTTChannel ;</li>
+<li><code>mqttUserName</code>, <code>clientID</code>, <code>mqttPass</code> : ceux du device MQTT (lab 1). Ferme MQTTX avant : deux clients avec le même Client ID se déconnectent l'un l'autre.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : téléverser et regarder</h2>
+<p>Upload, Serial Monitor à 115200 bauds.</p>
+<p class="attendu">Tu dois voir : <code>Connected.</code>, puis <code>MQTT to mqtt3.thingspeak.com at port 1883 successful.</code> Toutes les 15 s, une ligne <code>Message arrived [channels/…/subscribe] {"channel_id":…,"field1":"50.00","field2":"80.00",…}</code>, et un point de plus sur chaque courbe.</p>
+<p class="attention">Si la carte affiche <code>MQTT connection failed, rc = 4</code> ou <code>5</code>, les identifiants du device sont faux ou le device n'a pas le droit sur ce channel. <code>rc = -2</code> : la carte n'atteint pas le broker (Wi-Fi).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : lire le message reçu</h2>
+<p>Le callback <code>mqttSubscriptionCallback</code> affiche le topic puis le message caractère par caractère. Le tampon est porté à 2048 octets (<code>setBufferSize</code>) parce que l'entrée JSON renvoyée par ThingSpeak est longue : avec le tampon par défaut, le callback ne serait jamais appelé.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

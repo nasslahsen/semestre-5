@@ -861,4 +861,53 @@ test("TD 1 robotique : 3R de Denavit–Hartenberg, sonde d'échographie 2R, rév
 const dossierBio = require("path").join(__dirname, "biomateriaux");
 if (require("fs").existsSync(dossierBio)) for (const f of require("fs").readdirSync(dossierBio).filter(f => f.endsWith(".test.js")).sort()) require("./biomateriaux/" + f)({ test, proche, assert });
 
+test("instrumentation connectée : réponses attendues des niveaux et valeurs des labs", () => {
+  const fs = require("fs"), path = require("path"), vm = require("vm");
+  // correspondance topic / filtre MQTT : la même fonction que modules/embarques/dessins.js
+  const bac = { window: {}, document: { createElementNS: () => ({}) } };
+  vm.createContext(bac); vm.runInContext(fs.readFileSync(path.join(__dirname, "../modules/embarques/dessins.js"), "utf8"), bac);
+  const corr = bac.window.EMB.correspond;
+  const nb = (filtres, t) => filtres.filter(f => corr(f, t)).length;
+  // cours (exemple ajouté) et figure : kitchen/temperature reçu par 3 écrans sur 4
+  assert.strictEqual(nb(["home/groundfloor/+/temperature", "home/groundfloor/#", "home/+/+/temperature", "office/#"], "home/groundfloor/kitchen/temperature"), 3);
+  assert.strictEqual(corr("home/+/temperature", "home/groundfloor/kitchen/temperature"), false);
+  // niveau mqtt : 3 écrans (A, B, D) ; filtre construit
+  assert.strictEqual(nb(["home/groundfloor/+/temperature", "home/groundfloor/#", "home/+/temperature", "home/#"], "home/groundfloor/kitchen/temperature"), 3);
+  assert.ok(corr("home/firstfloor/+/humidity", "home/firstfloor/bedroom/humidity") && !corr("home/firstfloor/+/humidity", "home/firstfloor/bedroom/temperature"));
+  // révision : anesthésiste et surveillance
+  assert.deepStrictEqual(["clinique/bloc2/salle3/#", "clinique/+/+/spo2", "clinique/pharmacie/#"].map(f => corr(f, "clinique/bloc2/salle3/spo2")), [true, true, false]);
+  // défi : 2 abonnés ; filtre du cadre
+  assert.strictEqual(nb(["hopital/etage2/+/appel", "hopital/etage2/chambre12/#", "hopital/+/+/temperature"], "hopital/etage2/chambre12/appel"), 2);
+  assert.ok(corr("hopital/+/+/appel", "hopital/etage5/chambre3/appel") && !corr("hopital/+/+/appel", "hopital/etage5/chambre3/temperature"));
+  // comptes d'envois et volumes
+  assert.strictEqual(24 * 60 / 15, 96);
+  assert.strictEqual(8 * 60 / 10, 48);
+  assert.strictEqual(250 * 2 * 60, 30000);
+  assert.strictEqual(5 * 60 / 3, 100);
+  assert.strictEqual(3600 / 15, 240);
+  // power meter du lab Node-RED : V * I (chaînes converties par JavaScript)
+  assert.strictEqual("220" * "20", 4400);
+  assert.deepStrictEqual([[230, 12], [215, 25]].map(([v, i]) => v * i), [2760, 5375]);
+  // val1 du lab ThingSpeak : +10, remis à 0 au-delà de 100
+  let v = 0; const suite = [];
+  for (let k = 0; k < 12; k++) { v += 10; if (v > 100) v = 0; suite.push(v); }
+  assert.strictEqual(suite[11], 10); assert.strictEqual(suite[10], 0);
+  // analyse MATLAB du cours : EPF < 80 -> 0, < 100 -> 1, sinon 2
+  const etat = e => e < 80 ? 0 : e < 100 ? 1 : 2;
+  assert.deepStrictEqual([70, 90, 110].map(etat), [0, 1, 2]);
+  // JSON : exemples du cours et des niveaux
+  const gps = JSON.parse('{"sensor":"gps","time":1351824120,"data":[48.756080,2.302038]}');
+  assert.strictEqual(gps.data[0], 48.75608); assert.strictEqual(typeof gps.time, "number");
+  assert.strictEqual(typeof JSON.parse('{"type":"Temperature", "Value":35, "position":"Zone1"}').Value, "number");
+  assert.doesNotThrow(() => JSON.parse('{"V": 220, "I": 20}'));
+  assert.throws(() => JSON.parse("{V: 220, I: 20}")); assert.throws(() => JSON.parse('{"V": 220; "I": 20}'));
+  assert.deepStrictEqual(JSON.parse('{"id": "01", "values": [20, 21, 22.5]}').values, [20, 21, 22.5]);
+  assert.strictEqual(JSON.parse('{"channel_id":1234567,"entry_id":42,"field1":"72","field2":"97"}').field2, "97");
+  // lab ECG : 350 échantillons recopiés en entier, entre 2 et 255 ; première ligne Bluetooth E24,224
+  const ecg = fs.readFileSync(path.join(__dirname, "../modules/embarques/cours/lab-ecg-code.html"), "utf8");
+  const tab = ecg.match(/EcgWaveForm\[\] = \{([\s\S]*?)\};/)[1].split(",").map(Number);
+  assert.strictEqual(tab.length, 350); assert.strictEqual(Math.max(...tab), 255); assert.strictEqual(Math.min(...tab), 2);
+  assert.strictEqual("E" + tab[0] / 2 + "," + (tab[0] / 2 + 200), "E24,224");
+});
+
 console.log(`${n} tests réussis`);

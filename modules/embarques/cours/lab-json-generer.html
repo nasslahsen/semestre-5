@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>JSON generator example · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>JSON generator example</h1>
+<p class="chapeau">L'ESP32 doit envoyer une mesure à un serveur : il faut l'emballer en JSON. La bibliothèque ArduinoJson construit le document clé par clé, puis l'écrit en texte (partie 4.1 du cours).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : coller le programme du cours</h2>
+<p>Crée un nouveau sketch (File, New Sketch), efface tout et colle :</p>
+<pre class="code long" data-titre="JSON generator (programme du cours)"><code>// ArduinoJson - https://arduinojson.org
+// Copyright Benoit Blanchon 2014-2021
+// MIT License
+//
+// This example shows how to generate a JSON document with ArduinoJson.
+//
+// https://arduinojson.org/v6/example/generator/
+
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  // Initialize Serial port
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  doc["sensor"] = "gps";
+  doc["time"] = 1351824120;
+
+  // Add an array.
+  JsonArray data = doc.createNestedArray("data");
+  data.add(48.756080);
+  data.add(2.302038);
+
+  // Generate the minified JSON and send it to the Serial port.
+  serializeJson(doc, Serial);
+  // The above line prints:
+  // {"sensor":"gps","time":1351824120,"data":[48.756080,2.302038]}
+
+  // Start a new line
+  Serial.println();
+
+  // Generate the prettified JSON and send it to the Serial port.
+  //
+  serializeJsonPretty(doc, Serial);
+  // The above line prints:
+  // {
+  //   "sensor": "gps",
+  //   "time": 1351824120,
+  //   "data": [
+  //     48.756080,
+  //     2.302038
+  //   ]
+  // }
+}
+
+void loop() {
+  // not used in this example
+}</code></pre>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : téléverser et lire le résultat</h2>
+<p>Upload, puis Serial Monitor à 9600 bauds. Appuie sur le bouton EN (reset) de la carte si rien ne s'affiche : <code>setup()</code> ne tourne qu'une fois.</p>
+<p class="attendu">Tu dois voir : la version compacte <code>{"sensor":"gps","time":1351824120,"data":[48.75608,2.302038]}</code>, puis la même en version lisible, une clé par ligne. Le nombre de décimales affichées peut différer un peu de celui des commentaires du cours.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : comprendre ce que fait chaque ligne</h2>
+<ul>
+<li><code>StaticJsonDocument&lt;200&gt; doc;</code> réserve 200 octets pour le document.</li>
+<li><code>doc["sensor"] = "gps";</code> ajoute une paire clé-valeur.</li>
+<li><code>createNestedArray("data")</code> ajoute un tableau, rempli avec <code>add</code>.</li>
+<li><code>serializeJson</code> écrit le texte compact (celui qu'on envoie sur le réseau) ; <code>serializeJsonPretty</code> l'écrit avec retours à la ligne, pour le lire.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : à toi (exercice ajouté)</h2>
+<p>Fais produire à l'ESP32 le message du power meter du lab 1, <code>{"V":220,"I":20}</code>. Essaie seul, puis compare :</p>
+<pre class="code" data-titre="Une solution"><code>// Exercice ajouté : le message du power meter (lab 1), produit par l'ESP32
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  doc["V"] = 220;
+  doc["I"] = 20;
+  serializeJson(doc, Serial);   // {"V":220,"I":20}
+  Serial.println();
+}
+
+void loop() {
+}</code></pre>
+<p class="attendu">Tu dois voir : <code>{"V":220,"I":20}</code> dans le moniteur série. C'est le message que Node-RED savait déjà découper.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>
