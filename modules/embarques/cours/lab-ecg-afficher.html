@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Recevoir et tracer l'ECG · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Recevoir et tracer l'ECG</h1>
+<p class="chapeau">Le cours reçoit et trace les données avec l'application mobile « Bluetooth Terminal/Graphics ». Cette partie connecte un appareil à la carte et affiche les deux courbes.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : choisir l'appareil qui reçoit</h2>
+<p>La liaison est un port série Bluetooth (profil SPP, Bluetooth classique). Un téléphone Android ou un PC Windows le gèrent. Un iPhone ou un iPad ne le gèrent pas : ils ne voient pas la carte comme port série. Avec un iPad, fais cette partie sur un PC ou un téléphone Android.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : appairer la carte</h2>
+<p>Dans les réglages Bluetooth du téléphone Android ou du PC, cherche les appareils, puis appaire <code>ESP32_ECG</code>.</p>
+<p class="attendu">Tu dois voir : ESP32_ECG dans la liste des appareils appairés. La LED de la carte reste éteinte tant qu'aucune application ne s'y connecte.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : se connecter et tracer</h2>
+<p>Sur Android : installe une application de terminal et de tracé Bluetooth (celle du cours : Bluetooth Terminal/Graphics), choisis ESP32_ECG, connecte-toi, puis ouvre le mode graphique.</p>
+<p class="attendu">Tu dois voir : la LED bleue de la carte s'allume, le moniteur série affiche <code>Client Connected</code>, et l'application trace deux ECG l'un au-dessus de l'autre (le deuxième décalé de 200). En mode terminal, des lignes comme <code>E24,224</code>.</p>
+<p class="attention">Quand l'application se déconnecte, la carte affiche <code>Client disconnected</code> et redémarre : c'est le <code>ESP.restart()</code> du callback, pas une panne.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : passer à un vrai capteur (pour aller plus loin)</h2>
+<p>La ligne en commentaire <code>// ESP_BT.println(analogRead(A0));</code> enverrait la vraie mesure de la broche A0 (GPIO36) à la place du tableau : c'est le point de départ pour brancher un module ECG analogique, comme dans le projet de polysomnographie.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

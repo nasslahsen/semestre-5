@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>ThingSpeak : channels, écriture et lecture · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>ThingSpeak : channels, écriture et lecture</h1>
+<p class="chapeau">L'ESP32 du lab mesure toutes les 5 secondes. Où ranger ces valeurs pour les retrouver, les tracer et les partager avec le médecin, sans monter son propre serveur ?</p>
+
+<h2>Intuition</h2>
+<p>ThingSpeak est une plateforme IoT en ligne (de MathWorks). On y crée un <b>channel</b>, une sorte de tableau à huit colonnes (les fields). Chaque écriture ajoute une ligne, datée, et ThingSpeak trace une courbe par colonne. Pour écrire ou lire, une simple requête HTTP suffit, avec une clé qui sert de mot de passe.</p>
+
+<div id="fig-thingspeak"></div>
+
+<h2>Formalisation</h2>
+<ul>
+<li>Un channel a un <b>Channel ID</b> et jusqu'à <b>8 fields</b> (champs), plus une position, un statut et la date de chaque entrée.</li>
+<li>Deux clés (onglet API Keys) : la <b>Write API Key</b> pour écrire, la <b>Read API Key</b> pour lire un channel privé.</li>
+<li>Écrire depuis un navigateur : une requête HTTP GET sur <code>https://api.thingspeak.com/update?api_key=&lt;Write API Key&gt;&amp;field5=70</code> (exemple du cours).</li>
+<li>Écrire depuis l'ESP32 (bibliothèque ThingSpeak) : <code>ThingSpeak.setField(1, val1)</code>, <code>setField(2, val2)</code>, puis <code>int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey)</code> ; <code>x == 200</code> veut dire « Channel update successful ». <code>writeField(…)</code> écrit un seul champ.</li>
+<li>Lire : <code>ThingSpeak.readLongField(channel, FieldNumber, myReadAPIKey)</code>, puis <code>getLastReadStatus()</code> qui vaut 200 si la lecture a réussi ; <code>readMultipleFields</code> lit tous les champs d'un coup, puis <code>getFieldAsInt</code>, <code>getFieldAsString</code>.</li>
+<li>Un graphique se règle aussi dans l'URL : <code>…/channels/&lt;ID&gt;/charts/1?title=Voltage&amp;color=FF69B4&amp;width=850&amp;xaxis=Time</code>.</li>
+<li>Apps : <b>MATLAB Analysis</b> exécute du code MATLAB sur les données (lire un channel, calculer, écrire dans un autre) ; <b>React</b> déclenche une action (MATLAB Analysis, ThingHTTP, ThingTweet) quand les données remplissent une condition.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p>Lab 1 du cours : l'ESP32 génère <code>val1</code> (de 10 en 10, remis à 0 au-delà de 100) et <code>val2</code> (de 20 en 20), et les écrit dans Field 1 et Field 2 toutes les 5 s. Exemple React du cours : une mesure EPF arrive dans le channel counterAcquisition ; une analyse MATLAB en tire un état (0 si EPF &lt; 80, 1 entre 80 et 100, 2 au-delà) et l'écrit dans le channel counterState.</p>
+
+<h2>Formules clés</h2>
+\[ \texttt{GET api.thingspeak.com/update?api\_key=CLE\&field1=v} \qquad \texttt{writeFields(...) == 200} \Rightarrow \text{écriture réussie} \qquad 8 \text{ fields par channel} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/thingspeak.js"></script>
+</body>
+</html>

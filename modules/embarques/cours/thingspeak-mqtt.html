@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>ThingSpeak et MQTT · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>ThingSpeak et MQTT</h1>
+<p class="chapeau">En HTTP, l'ESP32 doit ouvrir une requête à chaque envoi, et ne sait rien des nouvelles entrées du channel sans redemander. ThingSpeak a aussi un broker MQTT : on publie, et on peut s'abonner au channel.</p>
+
+<h2>Intuition</h2>
+<p>ThingSpeak joue le rôle de broker. Chaque channel a deux topics : un pour publier dedans, un pour être prévenu de chaque nouvelle entrée. L'accès ne passe plus par les API Keys, mais par un « device » MQTT qui a ses propres identifiants.</p>
+
+<div id="fig-ts-mqtt"></div>
+
+<h2>Formalisation</h2>
+<ul>
+<li>Broker ThingSpeak : <code>mqtt3.thingspeak.com</code>, port <code>1883</code>.</li>
+<li>Un <b>device MQTT</b> (menu Devices, MQTT, Add a new device) porte les identifiants du client : <b>Client ID</b>, <b>Username</b>, <b>Password</b>, et la liste des channels autorisés, avec Allow Publish et Allow Subscribe. Limites : 100 devices MQTT par utilisateur, 10 channels autorisés par device.</li>
+<li>Le broker répond à une connexion correcte (CONNECT) par CONNACK, et à un abonnement (SUBSCRIBE) par SUBACK.</li>
+<li>Publier tous les champs : topic <code>channels/&lt;channelID&gt;/publish</code>, message <code>field1=45&amp;field2=60&amp;status=MQTTPUBLISH</code>.</li>
+<li>Publier un seul champ : topic <code>channels/&lt;channelID&gt;/publish/fields/field1</code>, message <code>89</code>.</li>
+<li>S'abonner : topic <code>channels/&lt;channelID&gt;/subscribe</code>. À chaque entrée, le broker envoie toute l'entrée en JSON : <code>{"channel_id":…,"created_at":"…","entry_id":…,"field1":"60",…,"status":"MQTTPUBLISH"}</code>.</li>
+<li>Sur l'ESP32 (bibliothèque PubSubClient) : <code>mqttClient.setServer(server, 1883)</code>, <code>connect(clientID, mqttUserName, mqttPass)</code>, <code>publish(topic, message)</code>, <code>subscribe(topic)</code>, <code>setCallback(…)</code> pour traiter les messages reçus, et <code>loop()</code> pour garder la connexion.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p>Lab 2 du cours : l'ESP32 publie <code>field1=</code> HR <code>&amp;field2=</code> SPO2 toutes les 15 s sur <code>channels/&lt;ID&gt;/publish</code> ; HR va de 50 à 110 par pas de 5, SPO2 de 80 à 100 par pas de 2. Abonné à <code>channels/&lt;ID&gt;/subscribe</code>, il reçoit chaque entrée en retour dans son callback. Le tampon passe à 2048 octets (<code>setBufferSize(2048)</code>) : sinon le JSON reçu déborde et le callback n'est jamais appelé.</p>
+
+<h2>Formules clés</h2>
+\[ \texttt{channels/ID/publish} \quad \texttt{field1=..\&field2=..} \qquad \texttt{channels/ID/publish/fields/fieldN} \qquad \texttt{channels/ID/subscribe} \rightarrow \text{JSON de l'entrée} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/thingspeak-mqtt.js"></script>
+</body>
+</html>

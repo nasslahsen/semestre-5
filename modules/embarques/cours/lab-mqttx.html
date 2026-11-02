@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Lab 1 : ThingSpeak et MQTTX · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Lab 1 : ThingSpeak et MQTTX</h1>
+<p class="chapeau">ThingSpeak a son propre broker MQTT, <code>mqtt3.thingspeak.com</code>, port 1883. Avant de programmer une carte, on publie et on s'abonne à la main avec MQTTX, un client MQTT pour ordinateur (tâche du cours : use MQTTX tool to send and receive data from ThingSpeak).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : créer le channel</h2>
+<p>Channels, New Channel. Nom <code>MQTTChannel</code>, Field 1 <code>HR</code>, Field 2 <code>SPO2</code>. Save. Note le Channel ID.</p>
+<p class="attendu">Tu dois voir : la page MQTTChannel avec Field 1 Chart (HR) et Field 2 Chart (SPO2).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : créer le device MQTT</h2>
+<p>Avec MQTT, l'accès au channel ne passe pas par les API Keys mais par un <b>device</b> MQTT, qui porte les identifiants du client.</p>
+<ol>
+<li>Menu Devices, MQTT, puis Add a new device.</li>
+<li>Name : <code>MQTTDeviceTest</code>.</li>
+<li>Authorize channels to access : choisis MQTTChannel, Add Channel, coche Allow Publish et Allow Subscribe.</li>
+<li>Add Device.</li>
+</ol>
+<p>ThingSpeak affiche alors trois identifiants : <b>Client ID</b>, <b>Username</b> et <b>Password</b>. Télécharge-les (Download Credentials, en texte) et garde le fichier : le mot de passe n'est montré qu'à ce moment-là.</p>
+<p class="attendu">Tu dois voir : MQTTDeviceTest dans la liste des MQTT Devices, avec MQTTChannel et les coches publish et subscribe.</p>
+<p>Limites notées dans le cours : 100 devices MQTT au plus par utilisateur, 10 channels autorisés au plus par device.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : connecter MQTTX</h2>
+<p>Installe MQTTX : <a href="https://mqttx.app">mqttx.app</a>. New Connection, puis remplis :</p>
+<ul>
+<li>Name : ce que tu veux (le cours : myDevice2) ;</li>
+<li>Client ID, Username, Password : ceux du device ;</li>
+<li>Host : <code>mqtt://</code> et <code>mqtt3.thingspeak.com</code> ; Port : <code>1883</code> ;</li>
+<li>MQTT Version (dans Advanced) : 3.1, comme dans le cours.</li>
+</ul>
+<pre class="code" data-titre="Host"><code>mqtt3.thingspeak.com</code></pre>
+<p class="attendu">Tu dois voir : après Connect, la connexion passe au vert. Côté protocole, le broker a répondu CONNACK à la demande CONNECT.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 4 : publier les champs</h2>
+<p>En bas de la fenêtre, format Plaintext, QoS 0. Topic (remplace 0000000 par ton Channel ID) :</p>
+<pre class="code" data-titre="Topic de publication"><code>channels/0000000/publish</code></pre>
+<pre class="code" data-titre="Message"><code>field1=45&amp;field2=60&amp;status=MQTTPUBLISH</code></pre>
+<p>Envoie, attends 15 s, puis envoie <code>field1=60&amp;field2=70&amp;status=MQTTPUBLISH</code>.</p>
+<p class="attendu">Tu dois voir : sur ThingSpeak, Channel Stats passe à Entries : 2, et les deux courbes ont deux points (HR de 45 à 60, SPO2 de 60 à 70).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 5 : publier un seul champ</h2>
+<pre class="code" data-titre="Topic d&#x27;un seul champ"><code>channels/0000000/publish/fields/field1</code></pre>
+<pre class="code" data-titre="Message"><code>89</code></pre>
+<p class="attendu">Tu dois voir : un nouveau point à 89 sur la courbe HR seulement.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 6 : s'abonner au channel</h2>
+<p>New Subscription, topic :</p>
+<pre class="code" data-titre="Topic d&#x27;abonnement"><code>channels/0000000/subscribe</code></pre>
+<p>QoS 0, Confirm (le broker répond SUBACK). Publie à nouveau des champs (étape 4).</p>
+<p class="attendu">Tu dois voir : un message reçu sur <code>channels/…/subscribe</code>, en JSON : <code>{"channel_id":…,"created_at":"…","entry_id":…,"field1":"60","field2":"60",…,"status":"MQTTPUBLISH"}</code>. ThingSpeak renvoie toute l'entrée à chaque abonné.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

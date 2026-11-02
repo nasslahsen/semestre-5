@@ -86,6 +86,13 @@ for (const id of modules) {
     const slug = path.basename(f, ".html"), html = lire(f);
     if (!(P.cours || []).some(c => c.id === slug)) err(`${f} absente de la liste cours de module.js`);
     if (!html.includes(`data-module="${id}"`)) err(`${f} : <html data-module="${id}"> manquant`);
+    // page d'un lab (chapitre lab: true) : des étapes à suivre, pas la structure d'une notion
+    const c0 = (P.cours || []).find(c => c.id === slug), chLab = c0 && P.chapitres.find(ch => ch.id === c0.chapitre && ch.lab);
+    if (chLab) {
+      if (!/<div class="etape-lab">\s*<h2>/.test(html)) err(`${f} : page de lab sans étape (<div class="etape-lab"><h2>…)`);
+      for (const pre of html.matchAll(/<pre class="code"[^>]*>([\s\S]*?)<\/pre>/g)) if (/<(?!\/?code\b)/.test(pre[1])) err(`${f} : bloc de code avec un < non échappé`);
+      continue;
+    }
     for (const t of ["<h2>Intuition</h2>", "<h2>Formalisation</h2>", "<h2>Formules clés</h2>"]) if (!html.includes(t)) err(`${f} : section manquante ${t}`);
     if (!/<div id="fig-/.test(html)) err(`${f} : aucune figure`);
     if (!/<h2>Exemple/.test(html)) err(`${f} : section Exemple manquante`);

@@ -23,7 +23,7 @@
   var rang = null;
   if (!integre) {
     var barre = document.createElement("header");
-    P.barre(barre, { carte: P.urlPlan(MID, ch.sm, ch.td ? "td" : ""), droite: '<span class="rang-barre" aria-live="polite"></span>' });
+    P.barre(barre, { carte: P.urlPlan(MID, ch.sm, ch.espace === "cours" ? "" : ch.espace), droite: '<span class="rang-barre" aria-live="polite"></span>' });
     document.body.insertBefore(barre, document.body.firstChild);
     rang = barre.querySelector(".rang-barre");
   }
@@ -47,6 +47,28 @@
       t.parentNode.insertBefore(carte, t.nextSibling);
     });
   });
+
+  P.boutonsCopier(main);
+
+  // Labs : chaque étape (<div class="etape-lab">) se coche quand on l'a faite ; une partie est faite quand toutes ses étapes le sont.
+  if (ch.espace === "lab" && !integre) {
+    parties.forEach(function (partie, k) {
+      var sid = ch.sections[k].id, etapes = [].slice.call(partie.querySelectorAll(".etape-lab"));
+      P.cocherLab(MID, sid, null, false, etapes.length);
+      etapes.forEach(function (et, i) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "coche-lab";
+        function maj() {
+          var oui = !!P.etapesLab(MID, sid).coches[i];
+          b.setAttribute("aria-pressed", oui ? "true" : "false");
+          b.innerHTML = oui ? "Étape faite" : "J'ai fait cette étape";
+          et.classList.toggle("faite", oui);
+        }
+        b.addEventListener("click", function () { P.cocherLab(MID, sid, i, !P.etapesLab(MID, sid).coches[i]); maj(); });
+        et.appendChild(b); maj();
+      });
+    });
+  }
 
   if (!integre) {
     // Section en cours de lecture : celle dont le titre est passé sous la barre en dernier
@@ -106,14 +128,15 @@
     fin.innerHTML = "<h2>Fin du chapitre</h2><p>Pour tout mélanger, si tu en as envie : la révision, puis le défi final.</p>";
     var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
     if (finIds.length) bloc(finIds, "Fin du chapitre", "Révision et défi final", fin, null, true);
-    // la suite reste dans le même espace : le chapitre de cours suivant, ou le TD suivant
-    var sms = P.chapitresDe(MID, ch.sm, ch.td ? "td" : "cours"), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
+    // la suite reste dans le même espace : le chapitre de cours suivant, le TD suivant ou le lab suivant
+    var NOMS = { cours: ["Chapitre suivant", "Dernier chapitre", "Retour à la carte"], td: ["TD suivant", "Dernier TD", "Retour aux TD"], lab: ["Lab suivant", "Dernier lab", "Retour aux labs"] }[ch.espace];
+    var sms = P.chapitresDe(MID, ch.sm, ch.espace), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
     var bas = document.createElement("nav");
     bas.className = "fin-cours";
     bas.setAttribute("aria-label", "Suite");
     bas.innerHTML = suiv && suiv.sections.length
-      ? '<a class="aller" href="' + P.urlChapitre(MID, suiv.id) + '"><small>' + (ch.td ? "TD suivant" : "Chapitre suivant") + "</small>" + esc(suiv.titre) + "</a>"
-      : '<a class="aller" href="' + P.urlPlan(MID, ch.sm, ch.td ? "td" : "") + '"><small>' + (ch.td ? "Dernier TD" : "Dernier chapitre") + "</small>" + (ch.td ? "Retour aux TD" : "Retour à la carte") + "</a>";
+      ? '<a class="aller" href="' + P.urlChapitre(MID, suiv.id) + '"><small>' + NOMS[0] + "</small>" + esc(suiv.titre) + "</a>"
+      : '<a class="aller" href="' + P.urlPlan(MID, ch.sm, ch.espace === "cours" ? "" : ch.espace) + '"><small>' + NOMS[1] + "</small>" + NOMS[2] + "</a>";
     fin.appendChild(bas);
     main.appendChild(fin);
     function majBlocs() {

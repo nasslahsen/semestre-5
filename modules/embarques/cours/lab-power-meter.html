@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Power meter : MQTT et format JSON · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Power meter : MQTT et format JSON</h1>
+<p class="chapeau">Un compteur envoie sa tension et son courant dans un seul message JSON, <code>{"V": 220, "I": 20}</code>. Node-RED doit le découper et calculer la puissance (partie 3 du cours, Power meter).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : recevoir le message brut</h2>
+<p>Le format JSON : des paires clé-valeur entre accolades, <code>{"key1": "value1", "key2": "value2"}</code>. Exemple du cours : <code>{"V": 220, "I": 20}</code>.</p>
+<ol>
+<li>Glisse un nœud <b>mqtt in</b> : le broker 127.0.0.1:1883 de la partie précédente, Topic <code>sensors</code>, QoS 2, Output « auto-detect (string or buffer) ». Done.</li>
+<li>Relie-le à un nœud <b>debug</b>, puis Deploy.</li>
+</ol>
+<p>Publie le message JSON depuis la ligne de commande. Sous Windows, les guillemets intérieurs s'échappent avec <code>\</code> :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"220\",\"I\":\"20\"}"</code></pre>
+<pre class="code" data-titre="macOS ou Linux : Terminal"><code>mosquitto_pub -h localhost -t sensors -m '{"V":"220","I":"20"}'</code></pre>
+<p class="attendu">Tu dois voir : dans debug, <code>sensors : msg.payload : string[20]</code> et le texte <code>"{"V":"220","I":"20"}"</code> : pour l'instant, Node-RED ne voit qu'une chaîne de caractères.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : le nœud json</h2>
+<p>Ajoute un nœud <b>json</b> (catégorie parser) après mqtt in, et un deuxième debug à sa sortie. Deploy, puis renvoie la même commande.</p>
+<p class="attendu">Tu dois voir : dans le deuxième debug, <code>msg.payload : Object</code> avec <code>V: "220"</code> et <code>I: "20"</code>. Le nœud json a transformé le texte en objet : on peut maintenant lire chaque champ.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : extraire chaque champ</h2>
+<p>Ajoute trois nœuds <b>function</b> à la sortie du nœud json. Dans chacun, onglet On Message, colle le code :</p>
+<pre class="code" data-titre="function « current »"><code>msg.payload=msg.payload.I
+return msg;</code></pre>
+<pre class="code" data-titre="function « voltage »"><code>msg.payload=msg.payload.V
+return msg;</code></pre>
+<pre class="code" data-titre="function « power »"><code>msg.payload=msg.payload.V*msg.payload.I;
+return msg;</code></pre>
+<p>Relie current et voltage à un debug, power à un autre. Deploy, puis renvoie la commande.</p>
+<p class="attendu">Tu dois voir : la fenêtre de résultat du cours : la chaîne, l'objet, puis <code>"20"</code> (current), <code>"220"</code> (voltage) et <code>4400</code> (power, un nombre). JavaScript a converti les deux chaînes en nombres pour la multiplication : 220 × 20 = 4400.</p>
+<p>Le code de la fonction power n'est pas visible dans le cours, seulement son résultat (4400) : celui-ci donne bien ce résultat.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Raccourci : importer le flux complet</h2>
+<p>Raccourci ajouté : tout le flux de cette partie (mqtt in, json, current, voltage, power, debug), prêt à coller. Menu ≡, Import. S'il signale que le broker existe déjà, choisis de garder l'existant.</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "in_sensors",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 120,
+  "y": 120,
+  "wires": [
+   [
+    "dbg_brut",
+    "json_sensors"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_brut",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 560,
+  "y": 120,
+  "wires": []
+ },
+ {
+  "id": "json_sensors",
+  "type": "json",
+  "name": "json",
+  "property": "payload",
+  "action": "",
+  "pretty": false,
+  "x": 290,
+  "y": 200,
+  "wires": [
+   [
+    "dbg_json",
+    "fn_current",
+    "fn_voltage",
+    "fn_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_json",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 620,
+  "y": 200,
+  "wires": []
+ },
+ {
+  "id": "fn_current",
+  "type": "function",
+  "name": "current",
+  "func": "msg.payload=msg.payload.I\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 240,
+  "wires": [
+   [
+    "dbg_json"
+   ]
+  ]
+ },
+ {
+  "id": "fn_voltage",
+  "type": "function",
+  "name": "voltage",
+  "func": "msg.payload=msg.payload.V\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 280,
+  "wires": [
+   [
+    "dbg_json"
+   ]
+  ]
+ },
+ {
+  "id": "fn_power",
+  "type": "function",
+  "name": "power",
+  "func": "msg.payload=msg.payload.V*msg.payload.I;\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 340,
+  "wires": [
+   [
+    "dbg_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_power",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 640,
+  "y": 340,
+  "wires": []
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

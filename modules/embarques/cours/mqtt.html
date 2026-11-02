@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>MQTT : publish/subscribe, topics, QoS · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>MQTT : publish/subscribe, topics, QoS</h1>
+<p class="chapeau">Dix capteurs de température dans un bâtiment, trois écrans qui veulent chacun une partie des mesures. Avec MQTT, chaque capteur publie sur son propre topic, et chaque écran choisit ce qu'il reçoit grâce à un filtre.</p>
+
+<h2>Intuition</h2>
+<p>MQTT applique le modèle publish-subscribe. Le broker est la poste centrale : il reçoit chaque message avec son topic, une adresse en forme de chemin de fichier, et le transmet à tous ceux qui se sont abonnés à ce topic. Un abonné peut utiliser des jokers pour recevoir toute une famille de topics.</p>
+
+<div id="fig-mqtt"></div>
+
+<h2>Formalisation</h2>
+<p>MQTT est une architecture publish/subscribe conçue d'abord pour relier des appareils limités en bande passante et en énergie sur des réseaux sans fil. Protocole simple et léger, il fonctionne sur TCP/IP ou sur WebSockets. Le <b>broker</b> est le point central : il distribue tous les messages entre les émetteurs et les bons destinataires. Un <b>client</b> est tout appareil qui se connecte au broker pour publier ou s'abonner ; le broker confirme une connexion par CONNACK et un abonnement par SUBACK.</p>
+<p>Les <b>topics</b> fonctionnent comme des chemins de fichiers, et les messages peuvent être n'importe quoi (texte, images…). Exemples du cours : <code>home/groundfloor/kitchen/temperature</code>, <code>office/conferenceroom/luminance</code>. Deux jokers pour s'abonner :</p>
+<ul>
+<li><code>+</code>, un seul niveau : <code>home/groundfloor/+/temperature</code> reçoit les températures de toutes les pièces du rez-de-chaussée ;</li>
+<li><code>#</code>, plusieurs niveaux : <code>home/groundfloor/#</code> reçoit toutes les mesures de toutes les pièces du rez-de-chaussée, pas seulement la température.</li>
+</ul>
+<p>Exemple du cours, l'interrupteur hypothétique en MQTT : le téléphone publie <code>client.publish('lightSwitch/1', 'toggle')</code> ; le broker transmet <code>toggle</code> à l'interrupteur Wi-Fi, abonné à ce topic, qui bascule. Contrairement à HTTP, l'interrupteur n'a pas à demander sans cesse.</p>
+<p><b>Qualité de service (QoS)</b>, 0, 1 ou 2 :</p>
+<ul>
+<li>QoS 0, <i>at most once</i> (au plus une fois) : le moins fiable mais le plus rapide ; la publication est envoyée, sans confirmation.</li>
+<li>QoS 1, <i>at least once</i> (au moins une fois) : le message est livré au moins une fois, avec confirmation, mais il peut arriver en double.</li>
+<li>QoS 2, <i>exactly once</i> (exactement une fois) : le plus fiable et le plus gourmand en bande passante ; les doublons sont contrôlés par un échange en quatre étapes.</li>
+</ul>
+
+<div id="fig-qos"></div>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Messages publiés : <code>home/groundfloor/kitchen/temperature</code> et <code>home/groundfloor/living/humidity</code>. L'abonné à <code>home/groundfloor/+/temperature</code> ne reçoit que le premier ; l'abonné à <code>home/groundfloor/#</code> reçoit les deux ; l'abonné à <code>home/+/temperature</code> n'en reçoit aucun, car <code>+</code> ne remplace qu'un seul niveau et il en manque un.</p>
+
+<h2>Formules clés</h2>
+\[ \texttt{+} \text{ : un niveau} \qquad \texttt{\#} \text{ : tous les niveaux suivants} \qquad \text{QoS } 0 \le 1 \le 2 \text{ : fiabilité} \uparrow,\ \text{coût} \uparrow \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/mqtt.js"></script>
+</body>
+</html>

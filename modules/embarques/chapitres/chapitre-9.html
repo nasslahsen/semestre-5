@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Node-RED, Mosquitto et dashboard</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 9. -->
+<main class="cours-chapitre" data-chapitre="9">
+<p class="etiquette" data-etiquette></p>
+<h1>Node-RED, Mosquitto et dashboard</h1>
+
+<section class="partie" id="s-lab1-installer">
+<p class="rang-partie">1 / 4</p>
+<h2>Installer les outils</h2>
+
+<article class="notion" id="n-lab-installer">
+<h3>Installer Node.js, Node-RED, le dashboard et Mosquitto</h3>
+<p class="chapeau">Avant de câbler un flux, il te faut trois outils sur ton PC : Node.js, Node-RED (avec son dashboard) et le serveur MQTT Mosquitto. Liste du cours : Nodejs, Mosquitto Server, Arduino JSON Library, Proteus, Arduino IDE.</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : installer Node.js</h4>
+<p>Télécharge Node.js pour ton système : <a href="https://nodejs.org/en/download">nodejs.org/en/download</a>. Lance l'installateur, clique sur Run, puis Next jusqu'au bout.</p>
+<p>Le dossier de Node.js contient deux programmes : <code>node</code> et <code>npm</code> (node package manager). L'installateur ajoute ce dossier au PATH du système ; s'il ne le fait pas, ajoute-le à la main (le cours le demande).</p>
+<p>Ouvre une nouvelle invite de commandes (Windows : touche Windows, tape <kbd>cmd</kbd>) et vérifie les versions :</p>
+<pre class="code" data-titre="Vérifier l&#x27;installation"><code>node -v
+npm -v</code></pre>
+<p class="attendu">Tu dois voir : deux numéros de version, par exemple <code>v22.x</code> et <code>10.x</code> (le cours montre v13.14.0 et 6.14.4 : une version plus récente marche aussi).</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : installer Node-RED</h4>
+<p>Node-RED s'installe avec npm, la commande qui vient avec Node.js. Sous Windows, sans <code>sudo</code> :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>npm install -g --unsafe-perm node-red</code></pre>
+<p>Sous macOS ou Linux, la même commande précédée de <code>sudo</code> :</p>
+<pre class="code" data-titre="macOS ou Linux : Terminal"><code>sudo npm install -g --unsafe-perm node-red</code></pre>
+<p class="attendu">Tu dois voir : la fin de l'installation, avec une ligne <code>added … packages</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : lancer Node-RED</h4>
+<pre class="code" data-titre="Lancer Node-RED (laisse cette fenêtre ouverte)"><code>node-red</code></pre>
+<p>Ouvre ensuite l'éditeur dans le navigateur, à l'adresse <code>http://localhost:1880</code> (ou <code>http://127.0.0.1:1880</code>).</p>
+<p class="attendu">Tu dois voir : dans la fenêtre de commande, <code>Server now running at http://127.0.0.1:1880/</code> ; dans le navigateur, l'éditeur avec la palette des nœuds à gauche.</p>
+<p class="attention">Pour arrêter Node-RED : <kbd>Ctrl</kbd> + <kbd>C</kbd> dans cette fenêtre. Pour le relancer : <code>node-red</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 4 : installer le dashboard</h4>
+<p>Dans l'éditeur : menu ≡ en haut à droite, Manage palette, onglet Install, cherche <code>node-red-dashboard</code> et clique sur Install. Ou bien, dans le dossier utilisateur de Node-RED (en général <code>~/.node-red</code>) :</p>
+<pre class="code" data-titre="Installer le dashboard en ligne de commande"><code>cd ~/.node-red
+npm i node-red-dashboard</code></pre>
+<p>Redémarre Node-RED (<kbd>Ctrl</kbd> + <kbd>C</kbd>, puis <code>node-red</code>).</p>
+<p class="attendu">Tu dois voir : une catégorie dashboard dans la palette (button, gauge, chart…) et un onglet dashboard dans le panneau de droite. L'interface s'ouvrira à <code>http://localhost:1880/ui</code>.</p>
+<p class="attention">node-red-dashboard est le dashboard du cours. Node-RED le signale comme ancien (il propose aussi Dashboard 2.0), mais il s'installe et fonctionne toujours : garde celui du cours pour suivre le lab.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 5 : installer Mosquitto</h4>
+<p>Télécharge le serveur MQTT Mosquitto : <a href="https://mosquitto.org/download/">mosquitto.org/download</a>. Sous Windows, prends l'installateur 64 bits (<code>mosquitto-…-install-windows-x64.exe</code>) et installe-le dans <code>C:\Program Files\mosquitto</code>.</p>
+<p>Regarde ce qu'il contient :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+dir *.exe</code></pre>
+<p class="attendu">Tu dois voir : <code>mosquitto.exe</code> (le broker), <code>mosquitto_pub.exe</code> (publier), <code>mosquitto_sub.exe</code> (s'abonner), <code>mosquitto_passwd.exe</code> et <code>mosquitto_ctrl.exe</code>.</p>
+<p>L'installateur crée en général un service Windows, « Mosquitto Broker », qui tourne déjà. S'il ne tourne pas, lance le broker toi-même dans ce dossier et laisse la fenêtre ouverte :</p>
+<pre class="code" data-titre="Lancer le broker à la main (si le service ne tourne pas)"><code>mosquitto -v</code></pre>
+<p class="attendu">Tu dois voir : une ligne qui dit que le broker écoute sur le port 1883 (<code>Opening ipv4 listen socket on port 1883</code>). Si la commande répond que le port est déjà pris, c'est que le service tourne : tout va bien.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab1-installer"></div>
+</section>
+
+<section class="partie" id="s-lab1-flux">
+<p class="rang-partie">2 / 4</p>
+<h2>Un premier flux MQTT</h2>
+
+<article class="notion" id="n-lab-flux-mqtt">
+<h3>Un premier flux MQTT : sensors/voltage</h3>
+<p class="chapeau">Node-RED publie une tension sur le topic <code>sensors/voltage</code> et la reçoit aussitôt, en passant par le broker Mosquitto. C'est le premier aller-retour du lab (partie 2 du cours, MQTT communication on Node-RED and Mosquitto server).</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : préparer</h4>
+<p>Vérifie que Mosquitto tourne (service ou <code>mosquitto -v</code>), lance <code>node-red</code>, puis ouvre <code>http://127.0.0.1:1880</code>.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : construire le flux</h4>
+<p>Le flux du cours a deux lignes. Les nœuds sont dans les catégories common et network de la palette.</p>
+<ol>
+<li>Glisse un nœud <b>inject</b> (common). Double-clique : msg.payload de type number, valeur <code>25</code>. Done.</li>
+<li>Glisse un nœud <b>mqtt out</b> (network) et relie la sortie de inject à son entrée. Double-clique : Topic <code>sensors/voltage</code> ; laisse QoS et Retain vides.</li>
+<li>À côté de Server, clique sur le crayon pour créer le broker. Onglet Connection : Server <code>127.0.0.1</code>, Port <code>1883</code>, Protocol MQTT V3.1.1, Client ID vide, Keep Alive 60, Use clean session coché. Update, puis Done.</li>
+<li>Dessous, glisse un nœud <b>mqtt in</b> : Server le même broker, Topic <code>sensors/voltage</code>. Done.</li>
+<li>Glisse un nœud <b>debug</b>, nomme-le <code>Circuit_V1</code>, et relie mqtt in à debug.</li>
+</ol>
+<p class="attendu">Tu dois voir : deux lignes : inject → sensors/voltage, et sensors/voltage → Circuit_V1.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Raccourci : importer le flux</h4>
+<p>Raccourci ajouté, pas dans le cours : le même flux, prêt à coller. Menu ≡, Import, colle le texte, Import. Il crée aussi le broker <code>Mosquitto local</code> (127.0.0.1, port 1883).</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "inj_25",
+  "type": "inject",
+  "name": "",
+  "props": [
+   {
+    "p": "payload"
+   }
+  ],
+  "repeat": "",
+  "crontab": "",
+  "once": false,
+  "onceDelay": 0.1,
+  "topic": "",
+  "payload": "25",
+  "payloadType": "num",
+  "x": 130,
+  "y": 80,
+  "wires": [
+   [
+    "out_voltage"
+   ]
+  ]
+ },
+ {
+  "id": "out_voltage",
+  "type": "mqtt out",
+  "name": "",
+  "topic": "sensors/voltage",
+  "qos": "",
+  "retain": "",
+  "respTopic": "",
+  "contentType": "",
+  "userProps": "",
+  "correl": "",
+  "expiry": "",
+  "broker": "broker_local",
+  "x": 380,
+  "y": 80,
+  "wires": []
+ },
+ {
+  "id": "in_voltage",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors/voltage",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 140,
+  "y": 180,
+  "wires": [
+   [
+    "dbg_v1"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_v1",
+  "type": "debug",
+  "name": "Circuit_V1",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 380,
+  "y": 180,
+  "wires": []
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+<p>Si tu as déjà construit le flux à la main, tu peux sauter cette étape et la cocher.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : déployer et tester avec le bouton</h4>
+<p>Clique sur Deploy (en haut à droite). Ouvre le panneau debug (icône d'insecte, à droite). Clique sur le petit carré à gauche du nœud inject.</p>
+<p class="attendu">Tu dois voir : sous les deux nœuds MQTT, un point vert « connected » ; dans le panneau debug : <code>sensors/voltage : msg.payload : number</code> puis <code>25</code>.</p>
+<p class="attention">Si les nœuds MQTT restent sur « connecting », le broker ne tourne pas : relance Mosquitto (étape 5 de l'installation).</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 4 : publier depuis la ligne de commande</h4>
+<p>Ouvre une deuxième invite de commandes, place-toi dans le dossier de Mosquitto, et publie une valeur sur le même topic :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors/voltage -m 30</code></pre>
+<p class="attendu">Tu dois voir : dans le panneau debug de Node-RED, <code>"30"</code> (une chaîne, puisqu'elle vient du texte de la commande).</p>
+<p class="attention">Sans <code>-t</code> devant le topic, Mosquitto répond <code>Error: Unknown option 'sensors/voltage'</code>, comme dans la capture du cours : <code>-h</code> donne le broker, <code>-t</code> le topic, <code>-m</code> le message.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 5 : s'abonner depuis la ligne de commande</h4>
+<pre class="code" data-titre="S&#x27;abonner au topic (la fenêtre attend les messages)"><code>mosquitto_sub -h localhost -t sensors/voltage</code></pre>
+<p>Laisse cette fenêtre ouverte, puis clique à nouveau sur le bouton du nœud inject dans Node-RED.</p>
+<p class="attendu">Tu dois voir : <code>25</code> s'affiche dans la fenêtre de <code>mosquitto_sub</code> à chaque clic. Le broker distribue le message à tous les abonnés : Node-RED et la ligne de commande.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab1-flux"></div>
+</section>
+
+<section class="partie" id="s-lab1-json">
+<p class="rang-partie">3 / 4</p>
+<h2>Power meter : MQTT et JSON</h2>
+
+<article class="notion" id="n-lab-power-meter">
+<h3>Power meter : MQTT et format JSON</h3>
+<p class="chapeau">Un compteur envoie sa tension et son courant dans un seul message JSON, <code>{"V": 220, "I": 20}</code>. Node-RED doit le découper et calculer la puissance (partie 3 du cours, Power meter).</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : recevoir le message brut</h4>
+<p>Le format JSON : des paires clé-valeur entre accolades, <code>{"key1": "value1", "key2": "value2"}</code>. Exemple du cours : <code>{"V": 220, "I": 20}</code>.</p>
+<ol>
+<li>Glisse un nœud <b>mqtt in</b> : le broker 127.0.0.1:1883 de la partie précédente, Topic <code>sensors</code>, QoS 2, Output « auto-detect (string or buffer) ». Done.</li>
+<li>Relie-le à un nœud <b>debug</b>, puis Deploy.</li>
+</ol>
+<p>Publie le message JSON depuis la ligne de commande. Sous Windows, les guillemets intérieurs s'échappent avec <code>\</code> :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"220\",\"I\":\"20\"}"</code></pre>
+<pre class="code" data-titre="macOS ou Linux : Terminal"><code>mosquitto_pub -h localhost -t sensors -m '{"V":"220","I":"20"}'</code></pre>
+<p class="attendu">Tu dois voir : dans debug, <code>sensors : msg.payload : string[20]</code> et le texte <code>"{"V":"220","I":"20"}"</code> : pour l'instant, Node-RED ne voit qu'une chaîne de caractères.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : le nœud json</h4>
+<p>Ajoute un nœud <b>json</b> (catégorie parser) après mqtt in, et un deuxième debug à sa sortie. Deploy, puis renvoie la même commande.</p>
+<p class="attendu">Tu dois voir : dans le deuxième debug, <code>msg.payload : Object</code> avec <code>V: "220"</code> et <code>I: "20"</code>. Le nœud json a transformé le texte en objet : on peut maintenant lire chaque champ.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : extraire chaque champ</h4>
+<p>Ajoute trois nœuds <b>function</b> à la sortie du nœud json. Dans chacun, onglet On Message, colle le code :</p>
+<pre class="code" data-titre="function « current »"><code>msg.payload=msg.payload.I
+return msg;</code></pre>
+<pre class="code" data-titre="function « voltage »"><code>msg.payload=msg.payload.V
+return msg;</code></pre>
+<pre class="code" data-titre="function « power »"><code>msg.payload=msg.payload.V*msg.payload.I;
+return msg;</code></pre>
+<p>Relie current et voltage à un debug, power à un autre. Deploy, puis renvoie la commande.</p>
+<p class="attendu">Tu dois voir : la fenêtre de résultat du cours : la chaîne, l'objet, puis <code>"20"</code> (current), <code>"220"</code> (voltage) et <code>4400</code> (power, un nombre). JavaScript a converti les deux chaînes en nombres pour la multiplication : 220 × 20 = 4400.</p>
+<p>Le code de la fonction power n'est pas visible dans le cours, seulement son résultat (4400) : celui-ci donne bien ce résultat.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Raccourci : importer le flux complet</h4>
+<p>Raccourci ajouté : tout le flux de cette partie (mqtt in, json, current, voltage, power, debug), prêt à coller. Menu ≡, Import. S'il signale que le broker existe déjà, choisis de garder l'existant.</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "in_sensors",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 120,
+  "y": 120,
+  "wires": [
+   [
+    "dbg_brut",
+    "json_sensors"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_brut",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 560,
+  "y": 120,
+  "wires": []
+ },
+ {
+  "id": "json_sensors",
+  "type": "json",
+  "name": "json",
+  "property": "payload",
+  "action": "",
+  "pretty": false,
+  "x": 290,
+  "y": 200,
+  "wires": [
+   [
+    "dbg_json",
+    "fn_current",
+    "fn_voltage",
+    "fn_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_json",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 620,
+  "y": 200,
+  "wires": []
+ },
+ {
+  "id": "fn_current",
+  "type": "function",
+  "name": "current",
+  "func": "msg.payload=msg.payload.I\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 240,
+  "wires": [
+   [
+    "dbg_json"
+   ]
+  ]
+ },
+ {
+  "id": "fn_voltage",
+  "type": "function",
+  "name": "voltage",
+  "func": "msg.payload=msg.payload.V\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 280,
+  "wires": [
+   [
+    "dbg_json"
+   ]
+  ]
+ },
+ {
+  "id": "fn_power",
+  "type": "function",
+  "name": "power",
+  "func": "msg.payload=msg.payload.V*msg.payload.I;\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 460,
+  "y": 340,
+  "wires": [
+   [
+    "dbg_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_power",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 640,
+  "y": 340,
+  "wires": []
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab1-json"></div>
+</section>
+
+<section class="partie" id="s-lab1-dashboard">
+<p class="rang-partie">4 / 4</p>
+<h2>Le dashboard</h2>
+
+<article class="notion" id="n-lab-dashboard">
+<h3>Le dashboard Node-RED</h3>
+<p class="chapeau">Les valeurs défilent dans le panneau debug, mais un soignant veut des cadrans et des courbes. Le dashboard affiche le power meter dans une page web, sur le PC ou sur un téléphone du même réseau.</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : ajouter les cadrans et les courbes</h4>
+<p>Dans la palette, catégorie dashboard :</p>
+<ol>
+<li>Glisse trois nœuds <b>gauge</b> : Current (A), Voltage (V), Power (W). Relie chaque fonction (current, voltage, power) à son cadran.</li>
+<li>Glisse trois nœuds <b>chart</b> et relie aussi chaque fonction à sa courbe.</li>
+<li>Dans chaque cadran, Group : crée un groupe <code>Measurement</code> dans un onglet (tab) <code>IoT Lab</code>. Mets les courbes dans un deuxième groupe, <code>Group 2</code>.</li>
+<li>Règle Range (min, max) : par exemple 0 à 30 A, 0 à 250 V, 0 à 6000 W. Le cours garde 0 à 10, l'aiguille resterait alors collée au bout.</li>
+</ol>
+<p class="attention">Pour les courbes, mieux vaut des nombres : mets <code>Number(msg.payload.I)</code> et <code>Number(msg.payload.V)</code> dans current et voltage. Le flux à importer plus bas le fait déjà.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Raccourci : importer le flux avec le dashboard</h4>
+<p>Raccourci ajouté : le power meter avec ses trois cadrans et ses trois courbes, testé avec Node-RED 4 et node-red-dashboard 3.6. Il suffit qu'il soit seul dans l'onglet : supprime d'abord le flux de la partie précédente (ou importe-le dans un nouvel onglet).</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "in_sensors",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 120,
+  "y": 120,
+  "wires": [
+   [
+    "json_sensors"
+   ]
+  ]
+ },
+ {
+  "id": "json_sensors",
+  "type": "json",
+  "name": "json",
+  "property": "payload",
+  "action": "",
+  "pretty": false,
+  "x": 280,
+  "y": 120,
+  "wires": [
+   [
+    "fn_current",
+    "fn_voltage",
+    "fn_power"
+   ]
+  ]
+ },
+ {
+  "id": "fn_current",
+  "type": "function",
+  "name": "current",
+  "func": "msg.payload=Number(msg.payload.I);\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 80,
+  "wires": [
+   [
+    "g_current",
+    "c_current"
+   ]
+  ]
+ },
+ {
+  "id": "fn_voltage",
+  "type": "function",
+  "name": "voltage",
+  "func": "msg.payload=Number(msg.payload.V);\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 160,
+  "wires": [
+   [
+    "g_voltage",
+    "c_voltage"
+   ]
+  ]
+ },
+ {
+  "id": "fn_power",
+  "type": "function",
+  "name": "power",
+  "func": "msg.payload=msg.payload.V*msg.payload.I;\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 240,
+  "wires": [
+   [
+    "g_power",
+    "c_power",
+    "dbg_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_power",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 680,
+  "y": 300,
+  "wires": []
+ },
+ {
+  "id": "g_current",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 2,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Current (A)",
+  "label": "A",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "30",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 60,
+  "wires": []
+ },
+ {
+  "id": "c_current",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 1,
+  "width": 0,
+  "height": 0,
+  "label": "Current (A)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 100,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "g_voltage",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 3,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Voltage (V)",
+  "label": "V",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "250",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 140,
+  "wires": []
+ },
+ {
+  "id": "c_voltage",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 2,
+  "width": 0,
+  "height": 0,
+  "label": "Voltage (V)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 180,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "g_power",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 1,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Power (W)",
+  "label": "W",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "6000",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 220,
+  "wires": []
+ },
+ {
+  "id": "c_power",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 3,
+  "width": 0,
+  "height": 0,
+  "label": "Power (W)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 260,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "grp_mesure",
+  "type": "ui_group",
+  "name": "Measurement",
+  "tab": "tab_iot",
+  "order": 1,
+  "disp": true,
+  "width": "6",
+  "collapse": false,
+  "className": ""
+ },
+ {
+  "id": "grp_2",
+  "type": "ui_group",
+  "name": "Group 2",
+  "tab": "tab_iot",
+  "order": 2,
+  "disp": true,
+  "width": "6",
+  "collapse": false,
+  "className": ""
+ },
+ {
+  "id": "tab_iot",
+  "type": "ui_tab",
+  "name": "IoT Lab",
+  "icon": "dashboard",
+  "disabled": false,
+  "hidden": false
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : afficher le dashboard</h4>
+<p>Deploy, puis ouvre <code>http://127.0.0.1:1880/ui</code>. Publie quelques mesures :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"220\",\"I\":\"20\"}"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"230\",\"I\":\"12\"}"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"215\",\"I\":\"25\"}"</code></pre>
+<p class="attendu">Tu dois voir : la page IoT Lab : le groupe Measurement avec les cadrans (Power 4400 W, puis 2760, puis 5375) et le groupe 2 avec les courbes qui suivent chaque message.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : voir le dashboard sur un autre appareil</h4>
+<p>Le dashboard est une page web servie par ton PC. Sur un téléphone ou une tablette connecté au même Wi-Fi, ouvre <code>Ton_adresse_IP:1880/ui</code>. Pour trouver l'adresse IP du PC :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd) (ligne « Adresse IPv4 »)"><code>ipconfig</code></pre>
+<p class="attendu">Tu dois voir : par exemple <code>192.168.1.23:1880/ui</code> : le même dashboard, qui bouge en même temps que celui du PC.</p>
+<p class="attention">Si la page ne s'ouvre pas, le pare-feu de Windows bloque sans doute Node.js : autorise-le sur le réseau privé quand Windows le demande.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab1-dashboard"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+
+</body>
+</html>

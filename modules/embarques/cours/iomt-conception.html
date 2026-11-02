@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>IoT Design et technologies de communication · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>IoT Design et technologies de communication</h1>
+<p class="chapeau">Un capteur de chute pour personne âgée et un tensiomètre connecté n'envoient pas leurs données de la même façon : l'un attend l'événement, l'autre mesure à heure fixe. Et selon la distance et le débit, on ne choisit pas la même radio.</p>
+
+<h2>Intuition</h2>
+<p>Deux façons de décider quand transmettre. Soit à intervalle fixe, même si rien ne change : c'est simple et régulier. Soit seulement quand il se passe quelque chose : on économise la batterie et le réseau, mais il faut savoir détecter l'événement.</p>
+
+<div id="fig-temps"></div>
+
+<p>Puis il faut une radio. Plus elle porte loin et plus elle a de débit, plus elle consomme et plus elle coûte : on choisit la plus modeste qui suffit.</p>
+
+<div id="fig-technologies"></div>
+
+<h2>Formalisation</h2>
+<p>Le cours distingue deux architectures de gestion (IoT Design) :</p>
+<ul>
+<li><b>Event-driven</b> (pilotée par les événements) : les capteurs transmettent quand une activité est détectée, comme une alarme qui se déclenche quand une porte s'ouvre.</li>
+<li><b>Time-based</b> (pilotée par le temps) : les composants transmettent en continu, à un intervalle de temps fixé.</li>
+</ul>
+<p>Technologies de communication (graphique du cours, débit et consommation en fonction de la portée) :</p>
+<div class="tableau"><table>
+<tr><th>Technologie</th><th>Portée</th><th>Débit</th></tr>
+<tr><td>RFID</td><td>quelques mètres</td><td>vers 1 kbps</td></tr>
+<tr><td>BLE, Zigbee, Z-Wave</td><td>10 à 100 m</td><td>vers 100 kbps</td></tr>
+<tr><td>Bluetooth</td><td>vers 10 m</td><td>vers 1 Mbps</td></tr>
+<tr><td>Wi-Fi</td><td>vers 10 m</td><td>jusqu'à 100 Mbps</td></tr>
+<tr><td>Wi-Fi HaLow</td><td>vers 100 m</td><td>entre 1 et 100 Mbps</td></tr>
+<tr><td>Cellulaire (3G, 4G/LTE, 5G)</td><td>vers 1 km</td><td>entre 1 et 100 Mbps</td></tr>
+<tr><td>LPWAN sous licence (LTE-M, EC-GSM, NB-IoT)</td><td>100 m à plus de 1 km</td><td>100 kbps à 1 Mbps</td></tr>
+<tr><td>LPWAN sans licence (MYTHINGS, LoRa, Sigfox)</td><td>1 à 10 km</td><td>1 à 100 kbps</td></tr>
+</table></div>
+<p>Valeurs lues sur le graphique du cours, à un ordre de grandeur près. Son tableau d'usages coche, pour la santé connectée (<i>Connected Health</i>), le cellulaire et le BLE ; pour les objets portés (<i>Wearables</i>), surtout le BLE.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Un détecteur de chute porté au poignet : event-driven (il n'émet que s'il détecte une chute), en BLE vers le smartphone tout proche. Un pèse-personne connecté qui envoie le poids chaque matin à 7 h : time-based, en Wi-Fi vers la box de la maison.</p>
+
+<h2>Formules clés</h2>
+\[ \text{time-based : envoi tous les } \Delta t \qquad \text{event-driven : envoi à chaque événement} \qquad \text{portée} \uparrow,\ \text{débit} \uparrow \Rightarrow \text{consommation et coût} \uparrow \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/iomt-conception.js"></script>
+</body>
+</html>

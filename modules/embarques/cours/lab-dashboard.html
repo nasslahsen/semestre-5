@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le dashboard Node-RED · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le dashboard Node-RED</h1>
+<p class="chapeau">Les valeurs défilent dans le panneau debug, mais un soignant veut des cadrans et des courbes. Le dashboard affiche le power meter dans une page web, sur le PC ou sur un téléphone du même réseau.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : ajouter les cadrans et les courbes</h2>
+<p>Dans la palette, catégorie dashboard :</p>
+<ol>
+<li>Glisse trois nœuds <b>gauge</b> : Current (A), Voltage (V), Power (W). Relie chaque fonction (current, voltage, power) à son cadran.</li>
+<li>Glisse trois nœuds <b>chart</b> et relie aussi chaque fonction à sa courbe.</li>
+<li>Dans chaque cadran, Group : crée un groupe <code>Measurement</code> dans un onglet (tab) <code>IoT Lab</code>. Mets les courbes dans un deuxième groupe, <code>Group 2</code>.</li>
+<li>Règle Range (min, max) : par exemple 0 à 30 A, 0 à 250 V, 0 à 6000 W. Le cours garde 0 à 10, l'aiguille resterait alors collée au bout.</li>
+</ol>
+<p class="attention">Pour les courbes, mieux vaut des nombres : mets <code>Number(msg.payload.I)</code> et <code>Number(msg.payload.V)</code> dans current et voltage. Le flux à importer plus bas le fait déjà.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Raccourci : importer le flux avec le dashboard</h2>
+<p>Raccourci ajouté : le power meter avec ses trois cadrans et ses trois courbes, testé avec Node-RED 4 et node-red-dashboard 3.6. Il suffit qu'il soit seul dans l'onglet : supprime d'abord le flux de la partie précédente (ou importe-le dans un nouvel onglet).</p>
+<pre class="code long" data-titre="Flux à importer dans Node-RED"><code>[
+ {
+  "id": "in_sensors",
+  "type": "mqtt in",
+  "name": "",
+  "topic": "sensors",
+  "qos": "2",
+  "datatype": "auto",
+  "broker": "broker_local",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 120,
+  "y": 120,
+  "wires": [
+   [
+    "json_sensors"
+   ]
+  ]
+ },
+ {
+  "id": "json_sensors",
+  "type": "json",
+  "name": "json",
+  "property": "payload",
+  "action": "",
+  "pretty": false,
+  "x": 280,
+  "y": 120,
+  "wires": [
+   [
+    "fn_current",
+    "fn_voltage",
+    "fn_power"
+   ]
+  ]
+ },
+ {
+  "id": "fn_current",
+  "type": "function",
+  "name": "current",
+  "func": "msg.payload=Number(msg.payload.I);\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 80,
+  "wires": [
+   [
+    "g_current",
+    "c_current"
+   ]
+  ]
+ },
+ {
+  "id": "fn_voltage",
+  "type": "function",
+  "name": "voltage",
+  "func": "msg.payload=Number(msg.payload.V);\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 160,
+  "wires": [
+   [
+    "g_voltage",
+    "c_voltage"
+   ]
+  ]
+ },
+ {
+  "id": "fn_power",
+  "type": "function",
+  "name": "power",
+  "func": "msg.payload=msg.payload.V*msg.payload.I;\nreturn msg;",
+  "outputs": 1,
+  "timeout": 0,
+  "noerr": 0,
+  "initialize": "",
+  "finalize": "",
+  "libs": [],
+  "x": 440,
+  "y": 240,
+  "wires": [
+   [
+    "g_power",
+    "c_power",
+    "dbg_power"
+   ]
+  ]
+ },
+ {
+  "id": "dbg_power",
+  "type": "debug",
+  "name": "msg.payload",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "statusVal": "",
+  "statusType": "auto",
+  "x": 680,
+  "y": 300,
+  "wires": []
+ },
+ {
+  "id": "g_current",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 2,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Current (A)",
+  "label": "A",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "30",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 60,
+  "wires": []
+ },
+ {
+  "id": "c_current",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 1,
+  "width": 0,
+  "height": 0,
+  "label": "Current (A)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 100,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "g_voltage",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 3,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Voltage (V)",
+  "label": "V",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "250",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 140,
+  "wires": []
+ },
+ {
+  "id": "c_voltage",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 2,
+  "width": 0,
+  "height": 0,
+  "label": "Voltage (V)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 180,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "g_power",
+  "type": "ui_gauge",
+  "name": "",
+  "group": "grp_mesure",
+  "order": 1,
+  "width": 0,
+  "height": 0,
+  "gtype": "gage",
+  "title": "Power (W)",
+  "label": "W",
+  "format": "{{value}}",
+  "min": 0,
+  "max": "6000",
+  "colors": [
+   "#00b500",
+   "#e6e600",
+   "#ca3838"
+  ],
+  "seg1": "",
+  "seg2": "",
+  "diff": false,
+  "className": "",
+  "x": 680,
+  "y": 220,
+  "wires": []
+ },
+ {
+  "id": "c_power",
+  "type": "ui_chart",
+  "name": "",
+  "group": "grp_2",
+  "order": 3,
+  "width": 0,
+  "height": 0,
+  "label": "Power (W)",
+  "chartType": "line",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 660,
+  "y": 260,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "grp_mesure",
+  "type": "ui_group",
+  "name": "Measurement",
+  "tab": "tab_iot",
+  "order": 1,
+  "disp": true,
+  "width": "6",
+  "collapse": false,
+  "className": ""
+ },
+ {
+  "id": "grp_2",
+  "type": "ui_group",
+  "name": "Group 2",
+  "tab": "tab_iot",
+  "order": 2,
+  "disp": true,
+  "width": "6",
+  "collapse": false,
+  "className": ""
+ },
+ {
+  "id": "tab_iot",
+  "type": "ui_tab",
+  "name": "IoT Lab",
+  "icon": "dashboard",
+  "disabled": false,
+  "hidden": false
+ },
+ {
+  "id": "broker_local",
+  "type": "mqtt-broker",
+  "name": "Mosquitto local",
+  "broker": "127.0.0.1",
+  "port": "1883",
+  "clientid": "",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "",
+  "birthQos": "0",
+  "birthPayload": "",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "",
+  "willQos": "0",
+  "willPayload": "",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ }
+]</code></pre>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : afficher le dashboard</h2>
+<p>Deploy, puis ouvre <code>http://127.0.0.1:1880/ui</code>. Publie quelques mesures :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd)"><code>cd "C:\Program Files\mosquitto"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"220\",\"I\":\"20\"}"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"230\",\"I\":\"12\"}"
+mosquitto_pub -h localhost -t sensors -m "{\"V\":\"215\",\"I\":\"25\"}"</code></pre>
+<p class="attendu">Tu dois voir : la page IoT Lab : le groupe Measurement avec les cadrans (Power 4400 W, puis 2760, puis 5375) et le groupe 2 avec les courbes qui suivent chaque message.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : voir le dashboard sur un autre appareil</h2>
+<p>Le dashboard est une page web servie par ton PC. Sur un téléphone ou une tablette connecté au même Wi-Fi, ouvre <code>Ton_adresse_IP:1880/ui</code>. Pour trouver l'adresse IP du PC :</p>
+<pre class="code" data-titre="Windows : invite de commandes (cmd) (ligne « Adresse IPv4 »)"><code>ipconfig</code></pre>
+<p class="attendu">Tu dois voir : par exemple <code>192.168.1.23:1880/ui</code> : le même dashboard, qui bouge en même temps que celui du PC.</p>
+<p class="attention">Si la page ne s'ouvre pas, le pare-feu de Windows bloque sans doute Node.js : autorise-le sur le réseau privé quand Windows le demande.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

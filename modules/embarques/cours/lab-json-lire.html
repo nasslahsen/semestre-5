@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>JSON parser example · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>JSON parser example</h1>
+<p class="chapeau">Dans l'autre sens, l'ESP32 reçoit un texte JSON (par exemple d'un serveur) et doit en tirer chaque valeur. ArduinoJson le lit, le vérifie, puis donne accès aux champs (partie 4.2 du cours).</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : coller le programme du cours</h2>
+<pre class="code long" data-titre="JSON parser (programme du cours)"><code>// This example shows how to deserialize a JSON document with ArduinoJson.
+#include &lt;ArduinoJson.h&gt;
+
+void setup() {
+  // Initialize serial port
+  Serial.begin(9600);
+  while (!Serial) continue;
+  StaticJsonDocument&lt;200&gt; doc;
+  char json[] =
+      "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+
+  // Deserialize the JSON document
+  DeserializationError error = deserializeJson(doc, json);
+
+  // Test if parsing succeeds.
+  if (error) {
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.f_str());
+    return;
+  }
+
+  // Fetch values.
+  //
+  // Most of the time, you can rely on the implicit casts.
+  // In other case, you can do doc["time"].as&lt;long&gt;();
+  const char* sensor = doc["sensor"];
+  long time = doc["time"];
+  double latitude = doc["data"][0];
+  double longitude = doc["data"][1];
+
+  // Print values.
+  Serial.println(sensor);
+  Serial.println(time);
+  Serial.println(latitude, 6);
+  Serial.println(longitude, 6);
+}
+
+void loop() {
+  // not used in this example
+}</code></pre>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : téléverser et lire le résultat</h2>
+<p>Upload, Serial Monitor à 9600 bauds, puis bouton EN si besoin.</p>
+<p class="attendu">Tu dois voir : quatre lignes : <code>gps</code>, <code>1351824120</code>, <code>48.756080</code> et <code>2.302038</code> (6 décimales, demandées par <code>println(latitude, 6)</code>).</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : provoquer une erreur</h2>
+<p>Retire l'accolade finale du texte JSON (la dernière <code>}</code> avant le guillemet fermant) et téléverse à nouveau.</p>
+<p class="attendu">Tu dois voir : <code>deserializeJson() failed: IncompleteInput</code>. Le programme teste <code>error</code> avant de lire les champs : un message abîmé ne donne pas de fausses valeurs. Remets l'accolade.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

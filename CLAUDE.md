@@ -68,6 +68,15 @@ chapitre suivant.
   l'espace TD montre les séries reçues (ou dit qu'aucune n'est reçue), et « Chapitre suivant » reste dans le même espace
   (`PLATEFORME.chapitresDe(mid, sm, "cours" | "td")`). La page du TD dit où chercher chaque réponse dans le cours et
   signale ce que le cours reçu ne couvre pas ; ses sections comptent dans la progression comme les autres.
+- **Les labs ont aussi leur propre espace** : un chapitre de lab porte `lab: true` et `numero: "Lab 1"`. La carte ajoute
+  alors « Labs » au choix « Cours / TD » (`&vue=lab`). Une page de lab (`cours/<page>.html`, dans une section comme les
+  autres) n'a pas la structure d'une notion : des étapes `<div class="etape-lab"><h2>Étape 1 : …</h2> … </div>`, avec
+  le code à copier dans `<pre class="code" data-titre="…"><code>…</code></pre>` (le `<` échappé ; bouton « Copier »
+  ajouté par `PLATEFORME.boutonsCopier`), ce qu'on doit voir (`<p class="attendu">`), les pièges (`<p class="attention">`).
+  Sur la page de chapitre, chaque étape a un bouton « J'ai fait cette étape » ; une partie de lab est faite quand
+  toutes ses étapes sont cochées (`PLATEFORME.cocherLab`, `etapesLab`). Le code vient du cours, en entier, assemblé si
+  les diapositives le découpent ; jamais de vraie clé ni de vrai mot de passe (`TA_CLE_WRITE`, `TON_WIFI`) ; toute
+  correction du code du cours est dite sur la page.
 - **La page de chapitre** (`chapitres/chapitre-<n>.html`) : tout le cours du chapitre sur une seule page à faire
   défiler, découpé en 3 à 5 **sections** (moins seulement si le chapitre a moins de pages de cours). Chaque section
   regroupe une ou plusieurs notions (`sections` dans `module.js`) ; chaque notion garde intacte sa page de cours

@@ -6,7 +6,8 @@
  *
  * Progression (localStorage, clé "s5-progres", la même que le site publié : les étoiles sont partagées) :
  * { <module>: { niveaux: { <id>: { etoiles } }, lus: { <page de cours>: 1 }, dernier: { chemin, titre, quand },
- *   essais: { <niveau>: { quand, revoir: [{ k, nom, cause, erreurs }] } } } }
+ *   essais: { <niveau>: { quand, revoir: [{ k, nom, cause, erreurs }] } },
+ *   labs: { <section de lab>: { total, faites: { <étape>: 1 } } } } }
  * essais : le dernier passage de chaque niveau, avec les étapes à revoir (erreurs, réponse vue, passée) ; page « Mon suivi ».
  *
  * Carte d'un sous-module : chapitres dans l'ordre ; dans chaque chapitre, pour chaque notion,
@@ -28,7 +29,7 @@
 
   function lireTout() { try { return JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { return {}; } }
   function ecrireTout(p) { try { localStorage.setItem(CLE, JSON.stringify(p)); } catch (e) { /* stockage indisponible */ } }
-  function etat(mid) { var p = lireTout(), e = p[mid] || {}; e.niveaux = e.niveaux || {}; e.lus = e.lus || {}; e.sections = e.sections || {}; e.plan = e.plan || {}; e.essais = e.essais || {}; return e; }
+  function etat(mid) { var p = lireTout(), e = p[mid] || {}; e.niveaux = e.niveaux || {}; e.lus = e.lus || {}; e.sections = e.sections || {}; e.plan = e.plan || {}; e.essais = e.essais || {}; e.labs = e.labs || {}; return e; }
   function poser(mid, e) { var p = lireTout(); p[mid] = e; ecrireTout(p); }
 
   // Reprise des étoiles de l'ancien site (avant la plateforme), une seule fois.
@@ -87,7 +88,7 @@
     // Pages de cours lues jusqu'en bas.
     lu: function (mid, id) { return !!etat(mid).lus[id]; },
     marquerLu: function (mid, id) { var e = etat(mid); if (e.lus[id]) return; e.lus[id] = 1; poser(mid, e); },
-    effacer: function (mid) { var e = etat(mid); e.niveaux = {}; e.lus = {}; e.sections = {}; e.plan = {}; e.essais = {}; delete e.dernier; poser(mid, e); },
+    effacer: function (mid) { var e = etat(mid); e.niveaux = {}; e.lus = {}; e.sections = {}; e.plan = {}; e.essais = {}; e.labs = {}; delete e.dernier; poser(mid, e); },
     // Dernier passage d'un niveau : les étapes à revoir ({ k, nom, cause : "erreur" | "revelee" | "passee", erreurs }).
     noterEssai: function (mid, id, revoir) { var e = etat(mid); e.essais[id] = { quand: Date.now(), revoir: revoir || [] }; poser(mid, e); },
     essais: function (mid) { return etat(mid).essais; },
@@ -246,8 +247,51 @@
     return M.niveaux.filter(function (n) { return n.pret && !n.revision && !n.boss && s.notions.indexOf(n.id) >= 0; });
   };
   P.sectionFaite = function (mid, s) {
-    var e = etat(mid), nv = P.niveauxSection(mid, s);
+    var e = etat(mid), nv = P.niveauxSection(mid, s), lab = e.labs[s.id];
+    if (P.espace(mid, s.chapitre) === "lab") return !!lab && lab.total > 0 && P.etapesLab(mid, s.id).faites >= lab.total;
     return nv.length ? nv.every(function (n) { return !!e.niveaux[n.id]; }) : P.sectionLue(mid, s);
+  };
+  // Labs : chaque étape d'une partie de lab se coche (page de chapitre). La partie est faite quand toutes ses étapes le sont.
+  // total : le nombre d'étapes de la partie, noté à l'ouverture de la page.
+  P.etapesLab = function (mid, sid) {
+    var l = etat(mid).labs[sid] || { total: 0, faites: {} };
+    return { total: l.total || 0, faites: Object.keys(l.faites || {}).length, coches: l.faites || {} };
+  };
+  P.cocherLab = function (mid, sid, etape, oui, total) {
+    var e = etat(mid), l = e.labs[sid] = e.labs[sid] || { total: 0, faites: {} };
+    l.faites = l.faites || {};
+    if (total) l.total = total;
+    if (etape !== null) { if (oui) l.faites[etape] = 1; else delete l.faites[etape]; }
+    poser(mid, e);
+  };
+  // Blocs de code (<pre class="code">) : un bouton « Copier » sur chacun, pour coller le code tel quel (labs).
+  P.boutonsCopier = function (racineDom) {
+    [].forEach.call((racineDom || document).querySelectorAll("pre.code"), function (pre) {
+      if (pre.parentNode.classList.contains("code-bloc")) return;
+      var bloc = document.createElement("div"), b = document.createElement("button");
+      bloc.className = "code-bloc";
+      if (pre.getAttribute("data-titre")) { var t = document.createElement("p"); t.className = "code-titre"; t.textContent = pre.getAttribute("data-titre"); bloc.appendChild(t); }
+      pre.parentNode.insertBefore(bloc, pre); bloc.appendChild(pre);
+      b.type = "button"; b.className = "copier"; b.textContent = "Copier";
+      b.addEventListener("click", function () {
+        var texte = pre.textContent.replace(/\n$/, "");
+        function fait() { b.textContent = "Copié"; b.classList.add("ok"); setTimeout(function () { b.textContent = "Copier"; b.classList.remove("ok"); }, 1600); }
+        function secours() {
+          var z = document.createElement("textarea");
+          z.value = texte; z.setAttribute("readonly", ""); z.style.position = "fixed"; z.style.opacity = "0";
+          document.body.appendChild(z); z.select(); z.setSelectionRange(0, texte.length);
+          try { document.execCommand("copy"); fait(); } catch (e) { b.textContent = "Sélectionne le texte"; }
+          document.body.removeChild(z);
+        }
+        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texte).then(fait, secours); else secours();
+      });
+      bloc.appendChild(b);
+    });
+  };
+  // Espace d'un chapitre sur la carte : "cours", "td" (td: true) ou "lab" (lab: true).
+  P.espace = function (mid, chid) {
+    var ch = P.module(mid).chapitres.filter(function (c) { return c.id === chid; })[0];
+    return ch && ch.td ? "td" : ch && ch.lab ? "lab" : "cours";
   };
   // Section lue : les pages de cours qu'elle réunit le sont aussi.
   P.marquerSection = function (mid, sid) {
@@ -269,7 +313,7 @@
   P.urlPlan = function (mid, sm, vue) {
     var q = [];
     if (sm) q.push("sm=" + encodeURIComponent(sm));
-    if (vue === "td") q.push("vue=td");
+    if (vue === "td" || vue === "lab") q.push("vue=" + vue);
     return racine + "modules/" + mid + "/index.html" + (q.length ? "?" + q.join("&") : "");
   };
   // Un niveau ouvert depuis la page d'un chapitre, par-dessus elle : jouer.html?cadre=1#<niveau>.
@@ -294,14 +338,14 @@
     var exosFaits = niveaux.length > 0 && niveaux.every(function (n) { return n.fait; });
     var commence = sections.some(function (s) { return s.lue || s.notions.some(function (n) { return e.lus[n]; }); }) ||
       niveaux.some(function (n) { return n.fait; });
-    return { id: ch.id, titre: ch.titre, ligne: ch.ligne || ch.sous || "", sm: P.smDe(mid, ch.id), td: !!ch.td,
+    return { id: ch.id, titre: ch.titre, ligne: ch.ligne || ch.sous || "", sm: P.smDe(mid, ch.id), td: !!ch.td, lab: !!ch.lab, espace: P.espace(mid, ch.id),
       sections: sections, niveaux: niveaux, coursLu: coursLu, sectionsFaites: sectionsFaites, exosFaits: exosFaits,
       etat: sectionsFaites ? "fait" : commence ? "encours" : "" };
   };
-  // Chapitres d'un sous-module qui ont un cours. quoi : "cours" (sans les TD), "td" (les TD seulement), sinon tous.
-  // Les TD (td: true dans module.js) ont leur propre espace sur la carte : index.html?sm=…&vue=td.
+  // Chapitres d'un sous-module qui ont un cours. quoi : "cours" (sans les TD ni les labs), "td", "lab", sinon tous.
+  // Les TD (td: true dans module.js) et les labs (lab: true) ont leur propre espace sur la carte : index.html?sm=…&vue=td (ou lab).
   P.chapitresDe = function (mid, sm, quoi) {
-    return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm && (!quoi || !!c.td === (quoi === "td")); })
+    return P.module(mid).chapitres.filter(function (c) { return P.smDe(mid, c.id) === sm && (!quoi || P.espace(mid, c.id) === quoi); })
       .map(function (c) { return P.chapitre(mid, c.id); }).filter(function (c) { return c.sections.length; });
   };
   // Numéro affiché d'un chapitre : sa place dans son sous-module (un sous-module est un cours à part entière,
@@ -327,7 +371,7 @@
   P.reprendre = function (mid, sm) {
     var e = etat(mid), d = e.plan[sm], x;
     if (d && d.chemin && (x = d.chemin.match(/chapitre-(\d+)\.html/))) return { url: racine + d.chemin, titre: d.titre, deja: true, chapitre: +x[1] };
-    var chs = P.chapitresDe(mid, sm, "cours").concat(P.chapitresDe(mid, sm, "td"));
+    var chs = P.chapitresDe(mid, sm, "cours").concat(P.chapitresDe(mid, sm, "td"), P.chapitresDe(mid, sm, "lab"));
     for (var i = 0; i < chs.length; i++) {
       var s = chs[i].sections.filter(function (y) { return !y.faite; })[0];
       if (s) return { url: P.urlSection(mid, s.id), titre: s.titre === chs[i].titre ? s.titre : chs[i].titre + " · " + s.titre, deja: false, chapitre: chs[i].id };

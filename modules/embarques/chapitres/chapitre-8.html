@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>JSON et la plateforme ThingSpeak</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 8. -->
+<main class="cours-chapitre" data-chapitre="8">
+<p class="etiquette" data-etiquette></p>
+<h1>JSON et la plateforme ThingSpeak</h1>
+
+<section class="partie" id="s-json">
+<p class="rang-partie">1 / 3</p>
+<h2>Le format JSON</h2>
+
+<article class="notion" id="n-json">
+<h3>JSON (JavaScript Object Notation)</h3>
+<p class="chapeau">Le compteur du lab envoie sa tension et son courant dans un seul message. Le récepteur doit savoir sans ambiguïté quelle valeur est V et laquelle est I, que ce récepteur soit Node-RED, un ESP32 ou une page web.</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Ce chapitre réunit les deux outils des labs : le format JSON (cette page), dans lequel voyagent les mesures, et la plateforme ThingSpeak, où on les range, en HTTP puis en MQTT. Les labs 1 à 5 les mettent en pratique.</p>
+
+<h4>Intuition</h4>
+<p>Un message JSON étiquette chaque valeur avec son nom : <code>{"V": 220, "I": 20}</code>. Le récepteur lit les étiquettes, pas des positions : on peut ajouter un champ sans tout casser, et un humain comprend le message d'un coup d'œil.</p>
+
+<div id="fig-json"></div>
+
+<h4>Formalisation</h4>
+<p>JSON (JavaScript Object Notation) est un format léger d'échange de données, facile à lire et à écrire pour un humain, facile à analyser et à produire pour une machine. Il repose sur deux structures : une collection de paires nom/valeur, et une liste ordonnée de valeurs. Extension des fichiers : <code>.json</code>.</p>
+<p>Usages cités par le cours : les applications JavaScript (extensions de navigateur, sites web), la sérialisation et la transmission de données structurées sur une connexion réseau, surtout entre un serveur et des applications web, les services web et les API qui fournissent des données publiques. Il s'utilise avec les langages de programmation modernes.</p>
+<p>Syntaxe :</p>
+<ul>
+<li>les données sont des paires nom/valeur ;</li>
+<li>les accolades <code>{ }</code> contiennent les objets ; chaque nom est suivi de <code>:</code>, et les paires sont séparées par des virgules ;</li>
+<li>les crochets <code>[ ]</code> contiennent les tableaux, dont les valeurs sont séparées par des virgules.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Description (cours)</th></tr>
+<tr><td>Number</td><td>nombre à virgule flottante double précision, comme en JavaScript</td></tr>
+<tr><td>String</td><td>texte Unicode entre guillemets doubles, avec échappement par barre oblique inverse</td></tr>
+<tr><td>Boolean</td><td>true ou false</td></tr>
+<tr><td>Array</td><td>suite ordonnée de valeurs</td></tr>
+<tr><td>Value</td><td>une chaîne, un nombre, true ou false, null…</td></tr>
+<tr><td>Object</td><td>collection non ordonnée de paires clé:valeur</td></tr>
+<tr><td>Whitespace</td><td>des espaces peuvent séparer deux éléments</td></tr>
+<tr><td>Null</td><td>vide</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Exemples du cours. Un capteur et ses valeurs : <code>{"id": "01", "values": [20, 21, 22.5]}</code>. Une liste de capteurs : un objet dont la clé <code>"sensors"</code> contient un tableau de trois objets (<code>"id": "01"</code> de type temperature, <code>"02"</code> pressure, <code>"03"</code> humidity). En JavaScript, <code>JSON.parse</code> transforme le texte en objet :</p>
+<pre class="code" data-titre="Exemple du cours"><code>const txt = '{"type":"Temperature", "Value":35, "position":"Zone1"}'
+const obj = JSON.parse(txt);
+document.getElementById("demo").innerHTML = obj.type + ", " + obj.position;</code></pre>
+<p>La page affiche alors <code>Temperature, Zone1</code>.</p>
+
+<h4>Formules clés</h4>
+\[ \texttt{\{ "nom": valeur, ... \}} \text{ : objet} \qquad \texttt{[ v1, v2, ... ]} \text{ : tableau} \qquad \text{noms et chaînes entre guillemets doubles} \]
+</article>
+
+<div class="fin-partie" data-section="json"></div>
+</section>
+
+<section class="partie" id="s-thingspeak">
+<p class="rang-partie">2 / 3</p>
+<h2>ThingSpeak : channels, écrire, lire</h2>
+
+<article class="notion" id="n-thingspeak">
+<h3>ThingSpeak : channels, écriture et lecture</h3>
+<p class="chapeau">L'ESP32 du lab mesure toutes les 5 secondes. Où ranger ces valeurs pour les retrouver, les tracer et les partager avec le médecin, sans monter son propre serveur ?</p>
+
+<h4>Intuition</h4>
+<p>ThingSpeak est une plateforme IoT en ligne (de MathWorks). On y crée un <b>channel</b>, une sorte de tableau à huit colonnes (les fields). Chaque écriture ajoute une ligne, datée, et ThingSpeak trace une courbe par colonne. Pour écrire ou lire, une simple requête HTTP suffit, avec une clé qui sert de mot de passe.</p>
+
+<div id="fig-thingspeak"></div>
+
+<h4>Formalisation</h4>
+<ul>
+<li>Un channel a un <b>Channel ID</b> et jusqu'à <b>8 fields</b> (champs), plus une position, un statut et la date de chaque entrée.</li>
+<li>Deux clés (onglet API Keys) : la <b>Write API Key</b> pour écrire, la <b>Read API Key</b> pour lire un channel privé.</li>
+<li>Écrire depuis un navigateur : une requête HTTP GET sur <code>https://api.thingspeak.com/update?api_key=&lt;Write API Key&gt;&amp;field5=70</code> (exemple du cours).</li>
+<li>Écrire depuis l'ESP32 (bibliothèque ThingSpeak) : <code>ThingSpeak.setField(1, val1)</code>, <code>setField(2, val2)</code>, puis <code>int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey)</code> ; <code>x == 200</code> veut dire « Channel update successful ». <code>writeField(…)</code> écrit un seul champ.</li>
+<li>Lire : <code>ThingSpeak.readLongField(channel, FieldNumber, myReadAPIKey)</code>, puis <code>getLastReadStatus()</code> qui vaut 200 si la lecture a réussi ; <code>readMultipleFields</code> lit tous les champs d'un coup, puis <code>getFieldAsInt</code>, <code>getFieldAsString</code>.</li>
+<li>Un graphique se règle aussi dans l'URL : <code>…/channels/&lt;ID&gt;/charts/1?title=Voltage&amp;color=FF69B4&amp;width=850&amp;xaxis=Time</code>.</li>
+<li>Apps : <b>MATLAB Analysis</b> exécute du code MATLAB sur les données (lire un channel, calculer, écrire dans un autre) ; <b>React</b> déclenche une action (MATLAB Analysis, ThingHTTP, ThingTweet) quand les données remplissent une condition.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p>Lab 1 du cours : l'ESP32 génère <code>val1</code> (de 10 en 10, remis à 0 au-delà de 100) et <code>val2</code> (de 20 en 20), et les écrit dans Field 1 et Field 2 toutes les 5 s. Exemple React du cours : une mesure EPF arrive dans le channel counterAcquisition ; une analyse MATLAB en tire un état (0 si EPF &lt; 80, 1 entre 80 et 100, 2 au-delà) et l'écrit dans le channel counterState.</p>
+
+<h4>Formules clés</h4>
+\[ \texttt{GET api.thingspeak.com/update?api\_key=CLE\&field1=v} \qquad \texttt{writeFields(...) == 200} \Rightarrow \text{écriture réussie} \qquad 8 \text{ fields par channel} \]
+</article>
+
+<div class="fin-partie" data-section="thingspeak"></div>
+</section>
+
+<section class="partie" id="s-thingspeak-mqtt">
+<p class="rang-partie">3 / 3</p>
+<h2>ThingSpeak en MQTT</h2>
+
+<article class="notion" id="n-thingspeak-mqtt">
+<h3>ThingSpeak et MQTT</h3>
+<p class="chapeau">En HTTP, l'ESP32 doit ouvrir une requête à chaque envoi, et ne sait rien des nouvelles entrées du channel sans redemander. ThingSpeak a aussi un broker MQTT : on publie, et on peut s'abonner au channel.</p>
+
+<h4>Intuition</h4>
+<p>ThingSpeak joue le rôle de broker. Chaque channel a deux topics : un pour publier dedans, un pour être prévenu de chaque nouvelle entrée. L'accès ne passe plus par les API Keys, mais par un « device » MQTT qui a ses propres identifiants.</p>
+
+<div id="fig-ts-mqtt"></div>
+
+<h4>Formalisation</h4>
+<ul>
+<li>Broker ThingSpeak : <code>mqtt3.thingspeak.com</code>, port <code>1883</code>.</li>
+<li>Un <b>device MQTT</b> (menu Devices, MQTT, Add a new device) porte les identifiants du client : <b>Client ID</b>, <b>Username</b>, <b>Password</b>, et la liste des channels autorisés, avec Allow Publish et Allow Subscribe. Limites : 100 devices MQTT par utilisateur, 10 channels autorisés par device.</li>
+<li>Le broker répond à une connexion correcte (CONNECT) par CONNACK, et à un abonnement (SUBSCRIBE) par SUBACK.</li>
+<li>Publier tous les champs : topic <code>channels/&lt;channelID&gt;/publish</code>, message <code>field1=45&amp;field2=60&amp;status=MQTTPUBLISH</code>.</li>
+<li>Publier un seul champ : topic <code>channels/&lt;channelID&gt;/publish/fields/field1</code>, message <code>89</code>.</li>
+<li>S'abonner : topic <code>channels/&lt;channelID&gt;/subscribe</code>. À chaque entrée, le broker envoie toute l'entrée en JSON : <code>{"channel_id":…,"created_at":"…","entry_id":…,"field1":"60",…,"status":"MQTTPUBLISH"}</code>.</li>
+<li>Sur l'ESP32 (bibliothèque PubSubClient) : <code>mqttClient.setServer(server, 1883)</code>, <code>connect(clientID, mqttUserName, mqttPass)</code>, <code>publish(topic, message)</code>, <code>subscribe(topic)</code>, <code>setCallback(…)</code> pour traiter les messages reçus, et <code>loop()</code> pour garder la connexion.</li>
+</ul>
+
+<h4>Exemple</h4>
+<p>Lab 2 du cours : l'ESP32 publie <code>field1=</code> HR <code>&amp;field2=</code> SPO2 toutes les 15 s sur <code>channels/&lt;ID&gt;/publish</code> ; HR va de 50 à 110 par pas de 5, SPO2 de 80 à 100 par pas de 2. Abonné à <code>channels/&lt;ID&gt;/subscribe</code>, il reçoit chaque entrée en retour dans son callback. Le tampon passe à 2048 octets (<code>setBufferSize(2048)</code>) : sinon le JSON reçu déborde et le callback n'est jamais appelé.</p>
+
+<h4>Formules clés</h4>
+\[ \texttt{channels/ID/publish} \quad \texttt{field1=..\&field2=..} \qquad \texttt{channels/ID/publish/fields/fieldN} \qquad \texttt{channels/ID/subscribe} \rightarrow \text{JSON de l'entrée} \]
+</article>
+
+<div class="fin-partie" data-section="thingspeak-mqtt"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/json.js"></script>
+<script src="../figures/thingspeak.js"></script>
+<script src="../figures/thingspeak-mqtt.js"></script>
+</body>
+</html>

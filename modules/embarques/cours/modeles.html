@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modèles de communication · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Modèles de communication</h1>
+<p class="chapeau">Un moniteur de chevet mesure la SpO2. L'infirmière, le médecin de garde et le dossier du patient veulent tous la recevoir. Le moniteur doit-il connaître chacun d'eux, ou envoyer à un intermédiaire qui distribue ?</p>
+
+<h2>Le chapitre en bref</h2>
+<p>Ce chapitre suit la partie « IoT and Protocols » du cours : quatre modèles de communication (cette page), puis les protocoles HTTP, MQTT, WebSockets et RPC. Les labs s'en servent tout le temps : HTTP pour écrire dans ThingSpeak, MQTT avec Mosquitto, Node-RED et l'ESP32.</p>
+
+<h2>Intuition</h2>
+<p>Pour échanger des données, deux programmes peuvent se parler de quatre façons. Le client demande et le serveur répond. Ou bien un émetteur publie sur un sujet et un intermédiaire distribue à tous les intéressés. Ou bien l'émetteur dépose dans une file et chacun vient se servir. Ou bien les deux gardent une ligne ouverte et parlent quand ils veulent.</p>
+
+<div id="fig-modeles"></div>
+
+<h2>Formalisation</h2>
+<ul>
+<li><b>Request-Response</b> : le client envoie des requêtes au serveur, qui y répond. À chaque requête, le serveur décide comment répondre, va chercher les données, prépare la réponse et l'envoie au client.</li>
+<li><b>Publish-Subscribe</b> : il fait intervenir des publishers, des brokers et des consumers. Les publishers sont la source des données ; ils envoient les données sur des topics gérés par le broker, sans connaître les consumers. Les consumers s'abonnent aux topics ; quand le broker reçoit une donnée sur un topic, il l'envoie à tous les abonnés.</li>
+<li><b>Push-Pull</b> : les producteurs poussent les données dans des files (queues), les consommateurs viennent les tirer. Les producteurs n'ont pas à connaître les consommateurs. Les files découplent les deux côtés et servent de tampon quand le rythme des producteurs et celui des consommateurs diffèrent.</li>
+<li><b>Exclusive Pair</b> : modèle bidirectionnel, full duplex, avec une connexion persistante entre client et serveur. Une fois établie, elle reste ouverte jusqu'à ce que le client demande sa fermeture ; client et serveur peuvent alors s'envoyer des messages.</li>
+</ul>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté.</p>
+<p>Le moniteur de SpO2 du chapeau, en publish-subscribe : il publie sur le topic <code>chambre12/spo2</code> ; l'infirmière, le médecin et le dossier s'abonnent à ce topic auprès du broker. Un nouvel écran peut s'abonner demain sans que l'on touche au moniteur. En request-response, il faudrait au contraire que chaque écran vienne demander la valeur, encore et encore.</p>
+
+<h2>Formules clés</h2>
+\[ \text{Request-Response : client} \rightleftarrows \text{serveur} \qquad \text{Publish-Subscribe : publisher} \rightarrow \text{broker (topics)} \rightarrow \text{abonnés} \]
+\[ \text{Push-Pull : producteur} \rightarrow \text{file} \rightarrow \text{consommateur} \qquad \text{Exclusive Pair : connexion persistante, full duplex} \]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/modeles.js"></script>
+</body>
+</html>

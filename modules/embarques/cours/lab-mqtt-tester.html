@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Piloter la LED, lire la température · Instrumentation connectée</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Piloter la LED, lire la température</h1>
+<p class="chapeau">La carte publie et écoute ; il reste à jouer l'autre côté : un client qui lit la température et envoie on ou off. Le cours montre un téléphone qui publie « toggle » sur un topic : ici, MQTTX ou la ligne de commande de Mosquitto.</p>
+
+<div class="etape-lab">
+<h2>Étape 1 : lire la température</h2>
+<p>Avec Mosquitto (installé au lab 1), abonne-toi au topic de la carte :</p>
+<pre class="code" data-titre="S&#x27;abonner à la température"><code>mosquitto_sub -h test.mosquitto.org -t ensam/gbm/temperature</code></pre>
+<p>Ou dans MQTTX : nouvelle connexion, Host <code>test.mosquitto.org</code>, port 1883, sans identifiant ; New Subscription <code>ensam/gbm/temperature</code>.</p>
+<p class="attendu">Tu dois voir : une valeur toutes les 2 s, la même que dans le moniteur série de la carte. Si tu as changé les topics à l'étape 4 du programme, utilise les tiens.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 2 : allumer et éteindre la LED</h2>
+<pre class="code" data-titre="Allumer"><code>mosquitto_pub -h test.mosquitto.org -t ensam/gbm/light -m on</code></pre>
+<pre class="code" data-titre="Éteindre"><code>mosquitto_pub -h test.mosquitto.org -t ensam/gbm/light -m off</code></pre>
+<p class="attendu">Tu dois voir : la LED bleue s'allume puis s'éteint ; le moniteur série affiche <code>Message arrived on topic: ensam/gbm/light. Message: on</code> puis <code>Light: Changing output to on</code>.</p>
+<p class="attention">Le message doit être exactement <code>on</code> ou <code>off</code>, en minuscules : <code>ON</code> arrive bien (la carte l'affiche) mais ne change rien, car le callback compare les chaînes caractère par caractère.</p>
+</div>
+
+<div class="etape-lab">
+<h2>Étape 3 : relier au dashboard Node-RED (pour aller plus loin)</h2>
+<p>Idée ajoutée, qui réunit les labs : dans Node-RED, crée un broker <code>test.mosquitto.org</code> (port 1883), un nœud mqtt in sur <code>ensam/gbm/temperature</code> relié à une gauge, et un nœud <b>switch</b> du dashboard (on payload <code>on</code>, off payload <code>off</code>, en chaînes) relié à un mqtt out sur <code>ensam/gbm/light</code>.</p>
+<p class="attendu">Tu dois voir : la température de la carte sur un cadran, et un interrupteur à l'écran qui allume la LED.</p>
+</div>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

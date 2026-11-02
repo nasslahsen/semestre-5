@@ -18,10 +18,11 @@
   var NS = "http://www.w3.org/2000/svg";
   function s(tag, att, parent) { var e = document.createElementNS(NS, tag); for (var k in att) e.setAttribute(k, att[k]); if (parent) parent.appendChild(e); return e; }
 
-  var params = new URLSearchParams(location.search), demande = params.get("sm"), vueTD = params.get("vue") === "td";
+  var params = new URLSearchParams(location.search), demande = params.get("sm"), vue = params.get("vue") === "td" || params.get("vue") === "lab" ? params.get("vue") : "", vueTD = !!vue;
+  var NOM = { td: "TD", lab: "Labs" };
   var sms = P.sousModules(MID).filter(function (x) { return x.chapitres.length && P.avecChapitres(MID, x.id); });
   var sm = sms.filter(function (x) { return x.id === demande; })[0] || sms[0];
-  document.title = (vueTD ? "TD · " : "") + (sm.titre || MOD.titre) + " · " + REGISTRE.semestre;
+  document.title = (vueTD ? NOM[vue] + " · " : "") + (sm.titre || MOD.titre) + " · " + REGISTRE.semestre;
   P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm.id) });
 
   // En-tête : choix du sous-module, choix Cours / TD, titre, un seul bouton (côté cours)
@@ -29,17 +30,20 @@
   if (P.sousModules(MID).length > 1) {
     h += '<nav class="choix-sm" aria-label="Sous-modules">' + P.sousModules(MID).map(function (x) {
       if (!x.chapitres.length) return '<span class="sm-vide">' + esc(x.titre) + "</span>";
-      var url = P.avecChapitres(MID, x.id) ? P.urlPlan(MID, x.id, vueTD ? "td" : "") : P.urlCarte(MID, x.id);
+      var url = P.avecChapitres(MID, x.id) ? P.urlPlan(MID, x.id, vue) : P.urlCarte(MID, x.id);
       return '<a href="' + url + '"' + (x.id === sm.id ? ' aria-current="page"' : "") + ">" + esc(x.titre) + "</a>";
     }).join("") + "</nav>";
   }
-  h += '<nav class="onglets onglets-carte" aria-label="Cours ou TD"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + '>Cours</a>' +
-    '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vueTD ? ' aria-current="page"' : "") + ">TD</a></nav></div>";
-  var chs = P.chapitresDe(MID, sm.id, vueTD ? "td" : "cours");
-  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? "TD · " : "") + esc(sm.titre || MOD.titre) + "</h1></div>" +
+  // Cours, TD, et Labs quand le cours en a
+  var avecLabs = P.chapitresDe(MID, sm.id, "lab").length > 0;
+  h += '<nav class="onglets onglets-carte" aria-label="Cours, TD ou labs"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + '>Cours</a>' +
+    '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">TD</a>" +
+    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">Labs</a>" : "") + "</nav></div>";
+  var chs = P.chapitresDe(MID, sm.id, vue || "cours");
+  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(sm.titre || MOD.titre) + "</h1></div>" +
     (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + (r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
       : '<span class="tout-fait">Tout le cours est lu.</span>') + "</div>";
-  if (vueTD && !chs.length) h += '<p class="td-vide">Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.</p>';
+  if (vue === "td" && !chs.length) h += '<p class="td-vide">Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.</p>';
   document.getElementById("entete").innerHTML = h;
 
   // Les chapitres (ou les TD), en rangées de trois, reliés par le chemin pointillé

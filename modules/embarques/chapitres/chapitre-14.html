@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>MQTT sur l'ESP32 : LED et température</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 14. -->
+<main class="cours-chapitre" data-chapitre="14">
+<p class="etiquette" data-etiquette></p>
+<h1>MQTT sur l'ESP32 : LED et température</h1>
+
+<section class="partie" id="s-lab6-code">
+<p class="rang-partie">1 / 2</p>
+<h2>Le programme</h2>
+
+<article class="notion" id="n-lab-mqtt-led">
+<h3>MQTT Implementation on ESP32 board : le programme</h3>
+<p class="chapeau">Le modèle du cours : l'ESP32 lit une mesure sur A0 et la publie toutes les 2 s sur <code>ensam/gbm/temperature</code> ; il s'abonne à <code>ensam/gbm/light</code> pour allumer ou éteindre la LED de la broche 2. Le broker est public : <code>test.mosquitto.org</code>.</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : les étapes d'un programme IoT</h4>
+<p>Le cours découpe le programme en sept étapes, que tu retrouves dans l'ordre dans le code :</p>
+<ol>
+<li>déclaration des bibliothèques ;</li>
+<li>déclaration des paramètres : réseau Wi-Fi, serveur MQTT ;</li>
+<li>création des objets : <code>espClient</code>, <code>client</code> ;</li>
+<li>fonction <code>setup</code> ;</li>
+<li>fonction <code>callback</code> : lecture du message et décision ;</li>
+<li>fonction <code>reconnect</code> ;</li>
+<li><code>loop</code> : reconnexion, acquisition, publication des messages.</li>
+</ol>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : coller le programme</h4>
+<p>Le programme des diapositives, en un seul bloc. Bibliothèque nécessaire : PubSubClient.</p>
+<pre class="code long" data-titre="MQTT sur l&#x27;ESP32 : LED et température"><code>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+const char* ssid = "TON_WIFI";             // "REPLACE_WITH_YOUR_SSID"
+const char* password = "TON_MOT_DE_PASSE"; // "REPLACE_WITH_YOUR_PASSWORD"
+// Add your MQTT Broker IP address, example:
+const char* mqtt_server = "test.mosquitto.org"; // "YOUR_MQTT_BROKER_IP_ADDRESS"
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+long lastMsg = 0;
+char msg[50];
+int value = 0;
+float temp = 0;
+// LED Pin
+const int ledPin = 2;
+
+void setup_wifi() {
+  delay(10);
+  // We start by connecting to a WiFi network
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void callback(char* topic, byte* message, unsigned int length) {
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+  Serial.println();
+
+  // Changes the output state according to the message
+  if (String(topic) == "ensam/gbm/light") {
+    Serial.print("Light: Changing output to ");
+    if (messageTemp == "on") {
+      Serial.println("on");
+      digitalWrite(ledPin, HIGH);
+    }
+    else if (messageTemp == "off") {
+      Serial.println("off");
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}
+
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Attempt to connect
+    if (client.connect("ESP8266Client")) {
+      Serial.println("connected");
+      // Subscribe
+      client.subscribe("ensam/gbm/light");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  // default settings
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  long now = millis();
+  if (now - lastMsg &gt; 2000) {
+    lastMsg = now;
+    // Temperature in degC
+    temp = 1.5 * analogRead(A0) / 600;
+    // Convert the value to a char array
+    char tempString[8];
+    dtostrf(temp, 1, 2, tempString);
+    Serial.print(" Temperature : ");
+    Serial.println(tempString);
+    client.publish("ensam/gbm/temperature", tempString);
+  }
+}</code></pre>
+<p>Deux corrections par rapport aux diapositives, sinon le programme ne compile pas : la dernière ligne publie <code>tempString</code> (la diapositive écrit <code>currentString</code>, qui n'existe pas), et le test du topic utilise des guillemets droits (la diapositive a un guillemet typographique « “ » devant <code>ensam</code>).</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : régler le Wi-Fi et brancher la mesure</h4>
+<ul>
+<li><code>ssid</code> et <code>password</code> : ton Wi-Fi (2,4 GHz).</li>
+<li><code>A0</code> correspond à la broche GPIO36 (VP) de l'ESP32 DEV KIT V1. Branches-y le capteur, ou un potentiomètre entre 3,3 V et GND pour faire varier la valeur. Sans rien de branché, la mesure flotte au hasard.</li>
+<li>La LED de la broche 2 est la LED bleue de la carte : rien à câbler.</li>
+</ul>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 4 : éviter les collisions sur un broker public</h4>
+<p><code>test.mosquitto.org</code> est partagé par tout le monde. Si deux cartes de la classe utilisent le même Client ID <code>ESP8266Client</code>, elles se déconnectent l'une l'autre ; et quiconque publie <code>on</code> sur <code>ensam/gbm/light</code> allume ta LED. Pour tester seule, change le Client ID et ajoute ton prénom aux deux topics :</p>
+<pre class="code" data-titre="Dans reconnect()"><code>if (client.connect("ESP32-ton-prenom")) {
+  client.subscribe("ensam/gbm/ton-prenom/light");</code></pre>
+<p>et remplace aussi <code>ensam/gbm/light</code> dans le callback, et <code>ensam/gbm/temperature</code> dans <code>loop()</code>, par tes topics. Sinon, garde ceux du cours.</p>
+<p class="attendu">Tu dois voir : après le téléversement (Serial Monitor à 115200 bauds) : <code>WiFi connected</code>, l'adresse IP, <code>Attempting MQTT connection...connected</code>, puis une ligne <code> Temperature : …</code> toutes les 2 s.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab6-code"></div>
+</section>
+
+<section class="partie" id="s-lab6-tester">
+<p class="rang-partie">2 / 2</p>
+<h2>Piloter la LED, lire la température</h2>
+
+<article class="notion" id="n-lab-mqtt-tester">
+<h3>Piloter la LED, lire la température</h3>
+<p class="chapeau">La carte publie et écoute ; il reste à jouer l'autre côté : un client qui lit la température et envoie on ou off. Le cours montre un téléphone qui publie « toggle » sur un topic : ici, MQTTX ou la ligne de commande de Mosquitto.</p>
+
+<div class="etape-lab">
+<h4>Étape 1 : lire la température</h4>
+<p>Avec Mosquitto (installé au lab 1), abonne-toi au topic de la carte :</p>
+<pre class="code" data-titre="S&#x27;abonner à la température"><code>mosquitto_sub -h test.mosquitto.org -t ensam/gbm/temperature</code></pre>
+<p>Ou dans MQTTX : nouvelle connexion, Host <code>test.mosquitto.org</code>, port 1883, sans identifiant ; New Subscription <code>ensam/gbm/temperature</code>.</p>
+<p class="attendu">Tu dois voir : une valeur toutes les 2 s, la même que dans le moniteur série de la carte. Si tu as changé les topics à l'étape 4 du programme, utilise les tiens.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 2 : allumer et éteindre la LED</h4>
+<pre class="code" data-titre="Allumer"><code>mosquitto_pub -h test.mosquitto.org -t ensam/gbm/light -m on</code></pre>
+<pre class="code" data-titre="Éteindre"><code>mosquitto_pub -h test.mosquitto.org -t ensam/gbm/light -m off</code></pre>
+<p class="attendu">Tu dois voir : la LED bleue s'allume puis s'éteint ; le moniteur série affiche <code>Message arrived on topic: ensam/gbm/light. Message: on</code> puis <code>Light: Changing output to on</code>.</p>
+<p class="attention">Le message doit être exactement <code>on</code> ou <code>off</code>, en minuscules : <code>ON</code> arrive bien (la carte l'affiche) mais ne change rien, car le callback compare les chaînes caractère par caractère.</p>
+</div>
+
+<div class="etape-lab">
+<h4>Étape 3 : relier au dashboard Node-RED (pour aller plus loin)</h4>
+<p>Idée ajoutée, qui réunit les labs : dans Node-RED, crée un broker <code>test.mosquitto.org</code> (port 1883), un nœud mqtt in sur <code>ensam/gbm/temperature</code> relié à une gauge, et un nœud <b>switch</b> du dashboard (on payload <code>on</code>, off payload <code>off</code>, en chaînes) relié à un mqtt out sur <code>ensam/gbm/light</code>.</p>
+<p class="attendu">Tu dois voir : la température de la carte sur un cadran, et un interrupteur à l'écran qui allume la LED.</p>
+</div>
+</article>
+
+<div class="fin-partie" data-section="lab6-tester"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+
+</body>
+</html>
