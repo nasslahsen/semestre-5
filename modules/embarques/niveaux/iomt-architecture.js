@@ -57,7 +57,7 @@ NIVEAU({
     { nom: "Pourquoi chiffrer ?", jouer: function (j, n) {
       n.secu = true; n.dessin();
       j.fig.astuce("La sécurité entoure tout le chemin.");
-      j.titre("La glycémie part du capteur jusqu'au cloud. Pourquoi l'architecture IoMT impose-t-elle chiffrement, authentification et contrôle d'accès ?");
+      j.titre("Pourquoi l'architecture IoMT impose-t-elle chiffrement, authentification et contrôle d'accès ?");
       j.choix([
         { html: "Pour protéger des données de santé sensibles contre les accès non autorisés", juste: true },
         { html: "Pour que les données arrivent plus vite", aide: "Chiffrer ajoute du travail : ce n'est pas pour la vitesse. Pense à la nature des données." },

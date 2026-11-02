@@ -59,7 +59,7 @@ NIVEAU({
     { nom: "Ce qui revient", jouer: function (j, n) {
       n.sens = -1; n.topic = "channels/2285477/subscribe"; n.msg = '{"channel_id":2285477,"entry_id":16,"field1":"60",...}'; n.dessin();
       j.fig.astuce("L'abonnement renvoie l'entrée.");
-      j.titre("Abonné à channels/2285477/subscribe, l'ESP32 reçoit l'entrée en JSON. Pourquoi le programme fait-il mqttClient.setBufferSize(2048) ?");
+      j.titre("L'ESP32 abonné reçoit l'entrée en JSON. Pourquoi le programme fait-il setBufferSize(2048) ?");
       j.choix([
         { html: "Pour pouvoir publier 2048 valeurs", aide: "La taille du tampon concerne les messages qui transitent, pas un nombre de valeurs." },
         { html: "Le JSON reçu est long : avec le tampon par défaut, il déborde et le callback n'est jamais appelé", juste: true },

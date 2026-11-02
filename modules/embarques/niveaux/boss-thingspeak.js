@@ -5,7 +5,7 @@ NIVEAU({
     var g = E.s("g", null, fig.svg), C = EMB.C, n = { L: ["Oxymètre au doigt : HR = 72, SpO2 = 97", "Channel « Oxymetre », ID 1234567", "field1 : HR    field2 : SPO2"] };
     n.dessin = function () {
       EMB.vider(g);
-      EMB.lignesCode(g, n.L, { x: 10, y: 120, l: 660, pas: 60, taille: n.taille || 20, marques: n.marques });
+      EMB.lignesCode(g, n.L, { x: 10, y: 300 - n.L.length * 33, l: 660, pas: 66, taille: n.taille || 21, marques: n.marques });
     };
     n.dessin();
     return n;

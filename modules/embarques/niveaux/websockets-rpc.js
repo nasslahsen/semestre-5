@@ -21,7 +21,7 @@ NIVEAU({
   },
   etapes: [
     { nom: "Pousser l'alarme", jouer: function (j, n) {
-      j.titre("Le serveur doit afficher une alarme sur le tableau de bord dès qu'elle survient, sans attendre une question du navigateur. Que choisir ?");
+      j.titre("Le serveur doit afficher l'alarme dès qu'elle survient, sans attendre une question du navigateur. Que choisir ?");
       j.choix([
         { html: "Une WebSocket", juste: true },
         { html: "Des requêtes HTTP GET toutes les secondes", aide: "Ça marche, mais c'est le client qui redemande sans cesse : beaucoup de requêtes pour rien, et un retard d'une seconde." },

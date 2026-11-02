@@ -31,9 +31,9 @@ NIVEAU({
       n.sel = null; n.titre = "Trois messages du power meter"; n.L = ['A  {"V": 220, "I": 20}', "B  {V: 220, I: 20}", 'C  {"V": 220; "I": 20}']; n.taille = 23; n.dessin();
       j.titre("Un seul de ces trois messages est du JSON valide. Lequel ?");
       j.choix([
+        { html: "A", juste: true },
         { html: "B", aide: "En JSON, les noms sont des chaînes : entre guillemets doubles." },
-        { html: "C", aide: "Regarde ce qui sépare les deux paires : en JSON, c'est une virgule." },
-        { html: "A", juste: true }
+        { html: "C", aide: "Regarde ce qui sépare les deux paires : en JSON, c'est une virgule." }
       ], { colonnes: 3, ok: function () {
         n.sel = 0; n.coul = "#d9f2e6"; n.dessin();
         j.bravo("Noms entre guillemets, paires séparées par des virgules.");

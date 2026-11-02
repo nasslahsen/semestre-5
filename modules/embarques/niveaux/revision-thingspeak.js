@@ -56,7 +56,8 @@ NIVEAU({
       });
     } },
     { nom: "Deux channels", jouer: function (j, n) {
-      j.titre("Dans l'exemple React du cours, l'analyse MATLAB lit EPF = 90 dans counterAcquisition. Quel état écrit-elle dans counterState ? (EPF < 80 : 0 ; sinon EPF < 100 : 1 ; sinon 2)");
+      j.titre("Exemple React du cours : l'analyse MATLAB lit EPF = 90. Quel état écrit-elle ?");
+      j.texte("EPF &lt; 80 : état 0 ; sinon EPF &lt; 100 : état 1 ; sinon état 2.");
       j.nombre({ avant: "\\text{state} =", cases: [{ attendu: 1, tol: 0 }], ligne: true,
         aide: function () { return "90 est-il inférieur à 80 ? Puis à 100 ?"; },
         ok: function () {

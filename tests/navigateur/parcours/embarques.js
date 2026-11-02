@@ -493,7 +493,7 @@ tous['boss-protocoles'] = async (a) => {
 };
 tous.json = async (a) => {
   await a.choix(1); await a.suite();
-  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
   await a.jetons(['a', 'd', 'c', 'f']); await a.suite();
   await a.choix(0); await a.suite();
 };

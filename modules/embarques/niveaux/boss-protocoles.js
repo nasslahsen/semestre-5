@@ -17,7 +17,7 @@ NIVEAU({
   },
   etapes: [
     { nom: "Le bouton d'appel", jouer: function (j, n) {
-      j.titre("Le patient de la chambre 12 appuie sur le bouton d'appel : message « appel » sur hopital/etage2/chambre12/appel. Combien d'abonnés le reçoivent ?");
+      j.titre("Le patient de la chambre 12 appuie sur le bouton d'appel (topic écrit en haut). Combien d'abonnés reçoivent le message ?");
       j.nombre({ avant: "\\text{abonnés} =", cases: [{ attendu: 2, tol: 0 }], ligne: true,
         aide: function () { return "Compare chaque filtre niveau par niveau ; le dernier niveau du topic est appel."; },
         ok: function () {

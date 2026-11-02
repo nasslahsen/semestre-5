@@ -37,7 +37,7 @@ NIVEAU({
     } },
     { nom: "Le code 200", jouer: function (j, n) {
       n.champ = null; n.dessin();
-      j.titre("Sur l'ESP32, int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey); renvoie 200. Que signifie ce 200 ?");
+      j.titre("Sur l'ESP32, x = writeFields(…) renvoie 200. Que signifie ce 200 ?");
       j.choix([
         { html: "200 valeurs ont été écrites", aide: "Le programme n'écrit que deux fields. 200 est un code de réponse HTTP." },
         { html: "L'écriture a réussi : « Channel update successful. »", juste: true },

@@ -18,7 +18,7 @@ NIVEAU({
   etapes: [
     { nom: "Combien reçoivent ?", jouer: function (j, n) {
       j.fig.astuce("Le topic publié est en haut ; le filtre de chaque écran sous son nom.");
-      j.titre("Le capteur publie sur home/groundfloor/kitchen/temperature. Combien d'écrans reçoivent le message ?");
+      j.titre("Le capteur publie sur le topic écrit en haut de la figure. Combien d'écrans reçoivent le message ?");
       j.nombre({ avant: "\\text{écrans} =", cases: [{ attendu: 3, tol: 0 }], ligne: true,
         aide: function () { return "Compare niveau par niveau. + remplace exactement un niveau ; # remplace tous les niveaux qui suivent. Le filtre de C n'a que 3 niveaux."; },
         ok: function () {
