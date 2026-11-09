@@ -27,7 +27,7 @@
 <article class="notion" id="n-td1">
 <p class="etiquette" data-etiquette></p>
 <h3>TD 1 : les réponses dans le cours</h3>
-<p class="chapeau">La série 1 de TD reprend les chapitres 1, 4, 5 et 6 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation.</p>
+<p class="chapeau">La série 1 de TD reprend les chapitres 1, 4, 5 et 6 : classer un robot, puis passer de ses angles à la position de son outil. Cette page dit où chercher chaque réponse et pose la méthode des deux exercices de modélisation. L'énoncé complet et le corrigé détaillé sont dans la section suivante, « L'énoncé et le corrigé ».</p>
 
 <h4>Intuition</h4>
 <p>Le TD a deux parties. La partie 1 se répond avec les pages du chapitre 1 : critères de classement, précision et répétabilité, robots sériels et parallèles, boucle percevoir, traiter, agir. La partie 2 refait le calcul du bras 2R avec un segment de plus, puis l'applique à une sonde d'échographie. L'idée ne change pas : un repère par segment, une matrice par articulation, on multiplie, on lit la dernière colonne.</p>
@@ -95,114 +95,282 @@
 
 <section class="partie" id="s-td1-corrige">
 <p class="rang-partie">2 / 2</p>
-<h2>Le corrigé, question par question</h2>
+<h2>L'énoncé et le corrigé, question par question</h2>
 
 <article class="notion" id="n-td1-corrige">
-<h3>TD 1 : corrigé</h3>
-<p class="chapeau">Le corrigé de la série 1, question par question. Essaie d'abord, puis touche « Voir la correction ». Les réponses sont rédigées à partir du cours et calculées ici : ce n'est pas un corrigé donné par la professeure.</p>
+<h3>TD 1 : énoncé et corrigé</h3>
+<p class="chapeau">L'énoncé complet de la série 1, exercice par exercice, puis sa correction derrière « Voir la correction ». Pour chaque question : ce qu'on cherche, d'où vient chaque valeur, le calcul pas à pas, et l'idée à retenir. Les réponses sont rédigées à partir du cours et calculées ici : ce n'est pas un corrigé donné par la professeure.</p>
 
 <h4>Partie 1, exercice 1 : classer trois robots</h4>
-<p>Les cinq critères du cours : mobilité, architecture cinématique, interaction avec l'humain, niveau d'autonomie, domaine d'application. Un robot peut appartenir à plusieurs catégories selon le critère.</p>
+<h5>Énoncé</h5>
+<p>Classez les robots suivants selon les 5 critères de classification vus en cours (mobilité, structure cinématique, interaction humain-robot, autonomie, domaine d'application) :</p>
+<ol type="a">
+<li>Un bras robotisé Delta utilisé en conditionnement agroalimentaire</li>
+<li>Un drone de surveillance</li>
+<li>Un bras chirurgical téléopéré</li>
+</ol>
 <details class="corrige"><summary>Voir la correction</summary>
+<h5>D'où viennent les catégories</h5>
+<p>Du tableau « Classer un robot : cinq critères » du chapitre 1 (<a href="chapitre-1.html#n-robot-systeme">Le robot et le système robotisé</a>). Pour chaque critère, le cours donne une liste fermée de catégories : on choisit dans cette liste, rien d'autre. Un robot peut appartenir à plusieurs catégories selon le critère.</p>
 <div class="tableau"><table>
-<tr><th>Critère</th><th>a) Delta, conditionnement agroalimentaire</th><th>b) Drone de surveillance</th><th>c) Bras chirurgical téléopéré</th></tr>
-<tr><td>Mobilité</td><td>fixe (base immobile au-dessus du convoyeur)</td><td>mobile, aérien</td><td>fixe (base posée près de la table)</td></tr>
-<tr><td>Architecture cinématique</td><td>parallèle (chaîne fermée, 3 bras)</td><td>pas de bras manipulateur : le critère ne s'applique pas vraiment</td><td>sériel (chaîne ouverte)</td></tr>
-<tr><td>Interaction avec l'humain</td><td>industriel conventionnel (séparé des opérateurs)</td><td>de service</td><td>de service (il travaille pour le chirurgien, au contact du patient)</td></tr>
-<tr><td>Niveau d'autonomie</td><td>programmé (2)</td><td>téléopéré (1) s'il est piloté, programmé (2) ou adaptatif (3) s'il suit seul un parcours</td><td>téléopéré (1) : le chirurgien commande chaque geste</td></tr>
-<tr><td>Domaine d'application</td><td>industriel</td><td>militaire, ou service professionnel (surveillance civile)</td><td>médical et d'assistance</td></tr>
+<tr><th>Critère</th><th>a) Delta, conditionnement</th><th>b) Drone de surveillance</th><th>c) Bras chirurgical téléopéré</th></tr>
+<tr><td>Mobilité</td><td>fixe : sa base est accrochée au-dessus du convoyeur</td><td>mobile, aérien</td><td>fixe : sa base est posée près de la table d'opération</td></tr>
+<tr><td>Architecture cinématique</td><td>parallèle : trois bras qui se rejoignent sur la nacelle, chaîne fermée</td><td>pas de bras manipulateur : le critère ne s'applique pas vraiment</td><td>sériel : les segments s'enchaînent, chaîne ouverte</td></tr>
+<tr><td>Interaction avec l'humain</td><td>industriel conventionnel : il travaille séparé des opérateurs</td><td>de service</td><td>de service : il travaille pour le chirurgien, au contact du patient</td></tr>
+<tr><td>Niveau d'autonomie</td><td>programmé (2) : il répète le même cycle</td><td>téléopéré (1) s'il est piloté ; programmé (2) ou adaptatif (3) s'il suit seul un parcours</td><td>téléopéré (1) : le chirurgien commande chaque geste</td></tr>
+<tr><td>Domaine d'application</td><td>industriel</td><td>militaire, ou service professionnel en surveillance civile</td><td>médical et d'assistance</td></tr>
 </table></div>
-<p>Pour le drone, l'énoncé ne dit pas qui le pilote : justifie ton choix d'autonomie par le mode d'emploi que tu supposes. Page utile : <a href="chapitre-1.html#n-robot-systeme">Le robot et le système robotisé</a>.</p>
+<h5>L'idée à retenir</h5>
+<p>Chaque critère répond à une question différente : est-ce que ça se déplace ? comment les articulations sont-elles enchaînées ? qui est à côté ? qui décide ? pour quoi faire ? Pour le drone, l'énoncé ne dit pas qui le pilote : justifie ton choix d'autonomie par l'usage que tu supposes.</p>
 </details>
 
 <h4>Partie 1, exercice 2 : répétabilité et précision</h4>
+<h5>Énoncé</h5>
+<p>Expliquez la différence entre répétabilité et précision d'un robot. Pourquoi un robot peut-il avoir une bonne répétabilité mais une mauvaise précision ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
+<h5>D'où viennent les définitions</h5>
+<p>Du chapitre 1, <a href="chapitre-1.html#n-performances">Précision, répétabilité et temps de cycle</a>.</p>
 <p>La <b>précision</b> dit si le robot atteint le point demandé : c'est l'écart entre la position atteinte et la position demandée. La <b>répétabilité</b> dit s'il refait le même mouvement en regroupant ses positions autour d'un même point.</p>
-<p>Un robot peut être très répétable sans être précis : c'est le cas B du cours, positions regroupées mais décalées de la cible, avec un écart constant (le robot atteint toujours P' au lieu de P). Il refait toujours la même erreur. Explication d'ingénieur, ajoutée : une erreur constante vient d'un défaut lui aussi constant, par exemple un modèle du robot (longueurs des segments, zéro des codeurs) qui ne correspond pas exactement au robot réel. La dispersion, elle, viendrait de jeux et de vibrations qui changent d'un essai à l'autre.</p>
-<p>Image des fléchettes : précis, c'est viser juste ; répétable, c'est viser pareil. Page utile : <a href="chapitre-1.html#n-performances">Précision, répétabilité et temps de cycle</a>.</p>
+<h5>Pourquoi l'un sans l'autre</h5>
+<p>C'est le cas B du tableau du cours : positions regroupées, mais décalées de la cible, avec un écart constant. Le robot atteint toujours P' au lieu de P : il refait toujours la même erreur. Explication d'ingénieur, ajoutée : une erreur constante vient d'un défaut lui aussi constant, par exemple un modèle du robot (longueurs des segments, zéro des codeurs) qui ne correspond pas exactement au robot réel. La dispersion, elle, viendrait de jeux et de vibrations qui changent d'un essai à l'autre.</p>
+<h5>L'idée à retenir</h5>
+<p>Image des fléchettes : précis, c'est viser juste ; répétable, c'est viser pareil. Un robot répétable mais imprécis se corrige bien : on mesure le décalage une fois, et on le compense.</p>
 </details>
 
 <h4>Partie 1, exercice 3 : série ou parallèle ?</h4>
+<h5>Énoncé</h5>
+<p>Un robot série et un robot parallèle sont tous deux candidats pour une tâche nécessitant une grande rigidité et une précision élevée dans un espace de travail restreint. Lequel choisiriez-vous ? Justifiez votre réponse à partir des caractéristiques cinématiques de chaque structure.</p>
 <details class="corrige"><summary>Voir la correction</summary>
+<h5>D'où viennent les arguments</h5>
+<p>Du paragraphe « Sériels ou parallèles » du chapitre 1 (<a href="chapitre-1.html#n-architectures">Architectures et espace de travail</a>).</p>
 <p>On choisit le <b>robot parallèle</b>. Ses chaînes fermées partagent la charge : le cours lui donne une très grande précision et répétabilité, de la rigidité, une bonne capacité de charge par rapport à son poids, et peu d'inertie mobile (actionneurs fixés à la base). Son défaut, un espace de travail plus petit, ne gêne pas ici : la tâche se fait dans un espace restreint.</p>
-<p>Le robot série, en chaîne ouverte, a une grande enveloppe de travail et une excellente dextérité, mais ce n'est pas ce que demande la tâche, et ses erreurs s'additionnent d'un segment au suivant. Page utile : <a href="chapitre-1.html#n-architectures">Architectures et espace de travail</a>.</p>
+<p>Le robot série, en chaîne ouverte, a une grande enveloppe de travail et une excellente dextérité : ce n'est pas ce que demande la tâche.</p>
+<h5>L'idée à retenir</h5>
+<p>Dans une chaîne ouverte, chaque segment porte les suivants : les petites flexions et les petites erreurs s'additionnent jusqu'à l'outil. Dans une chaîne fermée, plusieurs bras tiennent l'outil ensemble : ils se rigidifient l'un l'autre.</p>
 </details>
 
 <h4>Partie 1, exercice 4 : la boucle sur un tapis roulant</h4>
+<h5>Énoncé</h5>
+<p>Schématisez (ou décrivez textuellement) la boucle « Percevoir – Traiter – Agir » avec rétroaction, appliquée à un robot qui doit saisir un objet sur un tapis roulant.</p>
 <details class="corrige"><summary>Voir la correction</summary>
+<h5>D'où vient la boucle</h5>
+<p>Du tableau « Principe de fonctionnement » du chapitre 1 (<a href="chapitre-1.html#n-robot-systeme">Le robot et le système robotisé</a>) : percevoir, traiter, décider, agir, et l'interaction avec l'environnement qui referme la boucle.</p>
 <ol>
 <li>Percevoir : une caméra et un capteur de présence détectent l'objet sur le tapis, sa position et sa vitesse ; les codeurs donnent la position du bras.</li>
 <li>Traiter : le contrôleur calcule où sera l'objet au moment de la prise, compte tenu de la vitesse du tapis.</li>
 <li>Décider : il choisit la trajectoire et l'instant de la saisie, selon le programme.</li>
 <li>Agir : les servomoteurs amènent la pince sur l'objet, la pince se ferme, le bras dépose l'objet.</li>
 </ol>
-<p>Rétroaction : les codeurs, le capteur de la pince (objet bien tenu) et la caméra (objet bien déposé) renvoient le résultat au contrôleur. Si la prise est ratée, la boucle recommence : l'action a modifié l'environnement, qui fournit de nouvelles informations. Schéma : capteurs → commande → décision → actionneurs → environnement → capteurs.</p>
+<p>Rétroaction : les codeurs, le capteur de la pince (objet bien tenu) et la caméra (objet bien déposé) renvoient le résultat au contrôleur. Si la prise est ratée, la boucle recommence. Schéma : capteurs → commande → décision → actionneurs → environnement → capteurs.</p>
+<h5>L'idée à retenir</h5>
+<p>Sans rétroaction, le robot agirait « les yeux fermés » : il ne saurait pas que l'objet a glissé. C'est le retour d'information qui transforme une suite d'ordres en boucle.</p>
 </details>
 
-<h4>Partie 2, exercice 1 : le robot plan 3R</h4>
-<p>Paramètres DH du TD : \(d_i = L_i\), \(\alpha_i = 0\), \(r_i = 0\), \(\theta_i\) variable.</p>
+<h4>Partie 2, exercice 1 : transformation homogène d'un robot plan 3R</h4>
+<h5>Énoncé</h5>
+<p>On considère le robot plan à trois articulations pivots représenté sur la figure (la figure interactive de la section 1 de cette page). Les segments ont pour longueurs constantes \(L_1\), \(L_2\) et \(L_3\) et les variables articulaires sont \(\theta_1\), \(\theta_2\) et \(\theta_3\).</p>
+<p>Le point terminal \(P\) coïncide avec l'origine du repère \(R_3\). Tous les axes \(z_i\) sont perpendiculaires au plan de la figure et dirigés vers l'observateur. Les angles positifs sont mesurés dans le sens antihoraire.</p>
+<p>On adopte la convention de Denavit–Hartenberg standard :</p>
+\[ T^{i-1,i} = R_z(\theta_i)\,T_z(d_i)\,T_x(a_i)\,R_x(\alpha_i) \qquad T^{i-1,i} = \begin{pmatrix} \cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\alpha_i\sin\theta_i & d_i\cos\theta_i \\ \sin\theta_i & \cos\theta_i\cos\alpha_i & -\sin\alpha_i\cos\theta_i & d_i\sin\theta_i \\ 0 & \sin\alpha_i & \cos\alpha_i & r_i \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>Le tableau des paramètres DH est donné ci-dessous :</p>
+<div class="tableau"><table>
+<tr><th>Articulation \(i\)</th><th>\(d_i\)</th><th>\(\alpha_i\)</th><th>\(r_i\)</th><th>\(\theta_i\)</th></tr>
+<tr><td>1</td><td>\(L_1\)</td><td>0</td><td>0</td><td>\(\theta_1\)</td></tr>
+<tr><td>2</td><td>\(L_2\)</td><td>0</td><td>0</td><td>\(\theta_2\)</td></tr>
+<tr><td>3</td><td>\(L_3\)</td><td>0</td><td>0</td><td>\(\theta_3\)</td></tr>
+</table></div>
+<p>Travail demandé :</p>
+<ol>
+<li>Établir les trois matrices de transformation homogène élémentaires : \(T^{0,1}\) ; \(T^{1,2}\) ; \(T^{2,3}\).</li>
+<li>Calculer et simplifier la matrice homogène 4×4 décrivant la pose du repère \(R_3\) par rapport au repère \(R_0\) : \(T^{0,3} = T^{0,1}\,T^{1,2}\,T^{2,3}\).</li>
+<li>En déduire les coordonnées \(p_x\), \(p_y\) du point \(P\), ainsi que l'angle d'orientation \(\varphi\) de l'outil par rapport à \(R_0\).</li>
+<li>Vérifier le résultat pour \(\theta_1 = \theta_2 = \theta_3 = 0\), puis interpréter géométriquement cette configuration.</li>
+</ol>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>1) Avec \(\alpha_i = 0\) et \(r_i = 0\), chaque matrice est une rotation \(\theta_i\) autour de \(z\) puis une translation \(L_i\) le long du nouvel axe \(x\) :</p>
+<h5>Question 1 : les trois matrices</h5>
+<p>Ce qu'on cherche : chaque \(T^{i-1,i}\), écrite avec les valeurs de sa ligne du tableau.</p>
+<p>D'où viennent les valeurs : la ligne \(i\) du tableau donne \(d_i = L_i\), \(\alpha_i = 0\), \(r_i = 0\). On remplace dans la matrice générale de l'énoncé. Avec \(\alpha_i = 0\) : \(\cos\alpha_i = 1\) et \(\sin\alpha_i = 0\), donc les termes en \(\sin\alpha_i\) disparaissent et \(\cos\theta_i\cos\alpha_i\) devient \(\cos\theta_i\). Avec \(r_i = 0\), la case \((3,4)\) vaut 0. On note \(c_i = \cos\theta_i\), \(s_i = \sin\theta_i\).</p>
 \[ T^{0,1} = \begin{pmatrix} c_1 & -s_1 & 0 & L_1 c_1 \\ s_1 & c_1 & 0 & L_1 s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{1,2} = \begin{pmatrix} c_2 & -s_2 & 0 & L_2 c_2 \\ s_2 & c_2 & 0 & L_2 s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{2,3} = \begin{pmatrix} c_3 & -s_3 & 0 & L_3 c_3 \\ s_3 & c_3 & 0 & L_3 s_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p>2) On multiplie d'abord \(T^{0,1}T^{1,2}\). Les formules d'addition (\(c_1c_2 - s_1s_2 = c_{12}\), \(s_1c_2 + c_1s_2 = s_{12}\)) donnent :</p>
+<p>Intuition : chaque matrice dit « je tourne de \(\theta_i\) autour de \(z\), puis j'avance de \(L_i\) le long du segment ». Le bloc 2×2 en haut à gauche est la rotation, la dernière colonne est le bout du segment.</p>
+
+<h5>Question 2 : le produit \(T^{0,3}\)</h5>
+<p>Ce qu'on cherche : la pose de \(R_3\) vue depuis \(R_0\).</p>
+<p>D'où viennent les étapes : on multiplie dans l'ordre de la base vers l'outil (chapitre 5, <a href="chapitre-10.html#n-mgd">Modélisation géométrique directe</a>), deux matrices à la fois. Pour \(T^{0,1}T^{1,2}\), la case \((1,1)\) vaut ligne 1 × colonne 1 : \(c_1c_2 - s_1s_2\), soit \(\cos(\theta_1 + \theta_2) = c_{12}\) par la formule d'addition. La case \((1,4)\) vaut \(c_1 \cdot L_2c_2 - s_1 \cdot L_2s_2 + L_1c_1 = L_1c_1 + L_2c_{12}\). De même pour les autres cases :</p>
 \[ T^{0,2} = \begin{pmatrix} c_{12} & -s_{12} & 0 & L_1 c_1 + L_2 c_{12} \\ s_{12} & c_{12} & 0 & L_1 s_1 + L_2 s_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p>puis \(T^{0,3} = T^{0,2}\,T^{2,3}\), de la même façon :</p>
+<p>On recommence avec \(T^{0,3} = T^{0,2}\,T^{2,3}\) : les angles s'ajoutent encore (\(c_{12}c_3 - s_{12}s_3 = c_{123}\)) et la translation gagne le terme \(L_3c_{123}\).</p>
 \[ T^{0,3} = \begin{pmatrix} c_{123} & -s_{123} & 0 & L_1 c_1 + L_2 c_{12} + L_3 c_{123} \\ s_{123} & c_{123} & 0 & L_1 s_1 + L_2 s_{12} + L_3 s_{123} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p>3) \(P\) est l'origine de \(R_3\) : sa position est la dernière colonne.</p>
+<p>Intuition : tous les axes \(z_i\) sont parallèles, donc les rotations s'empilent dans le même plan et leurs angles s'additionnent, comme on additionne des virages.</p>
+
+<h5>Question 3 : position et orientation de \(P\)</h5>
+<p>D'où viennent les valeurs : \(P\) est l'origine de \(R_3\), donc sa position est la dernière colonne de \(T^{0,3}\) ; l'orientation se lit dans le bloc de rotation, qui est une rotation d'angle \(\theta_1 + \theta_2 + \theta_3\).</p>
 \[ p_x = L_1 c_1 + L_2 c_{12} + L_3 c_{123} \qquad p_y = L_1 s_1 + L_2 s_{12} + L_3 s_{123} \qquad \varphi = \theta_1 + \theta_2 + \theta_3 \]
-<p>Le bloc de rotation est une rotation d'angle \(\theta_1 + \theta_2 + \theta_3\) autour de \(z_0\) : c'est l'orientation \(\varphi\) de l'outil.</p>
-<p>4) Pour \(\theta_1 = \theta_2 = \theta_3 = 0\) : \(p_x = L_1 + L_2 + L_3\), \(p_y = 0\), \(\varphi = 0\), et la rotation est l'identité. Le bras est tendu le long de \(x_0\) : c'est le point le plus loin qu'il atteigne, et l'outil regarde dans le sens de \(x_0\).</p>
+<p>Intuition : on part de la base et on ajoute les trois segments bout à bout ; chacun pointe dans la direction donnée par la somme des angles qui le précèdent.</p>
+
+<h5>Question 4 : la configuration zéro</h5>
+<p>D'où viennent les valeurs : \(\cos 0 = 1\) et \(\sin 0 = 0\), donc tous les \(c\) valent 1 et tous les \(s\) valent 0.</p>
+\[ T^{0,3} = \begin{pmatrix} 1 & 0 & 0 & L_1 + L_2 + L_3 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad p_x = L_1 + L_2 + L_3,\quad p_y = 0,\quad \varphi = 0 \]
+<p>Interprétation : le bras est tendu le long de \(x_0\). \(P\) est au point le plus loin qu'il puisse atteindre, et l'outil regarde dans le sens de \(x_0\). C'est aussi une bonne vérification : si ce cas donnait autre chose, il y aurait une erreur dans le produit. Bouton « Tout à zéro » sur la figure de la section 1.</p>
 </details>
 
-<h4>Partie 2, exercice 2 : le robot d'échographie 2R</h4>
-<p>\(L_1 = 40\) cm, \(L_2 = 35\) cm, \(\theta_1 = 30°\), \(\theta_2 = 45°\).</p>
+<h4>Partie 2, exercice 2 : robot 2R plan (prise en main)</h4>
+<h5>Énoncé</h5>
+<p>A. Le contexte clinique. Imaginez un service d'urgence où un patient arrive avec une suspicion d'hémorragie interne. Le médecin doit réaliser une échographie rapide (FAST echo) pour localiser le saignement. Cependant, le médecin est occupé à stabiliser le patient et ne peut pas tenir la sonde d'échographie lui-même. La solution : un robot médical à 2 articulations (type bras articulé) est installé au-dessus du lit. Il tient la sonde d'échographie et peut la positionner automatiquement sur le thorax du patient selon les instructions du logiciel d'imagerie.</p>
+<p>B. Description du robot. Le robot est un bras planaire simplifié à 2 articulations pivots :</p>
+<ul>
+<li>Segment 1 (bras supérieur) : longueur \(L_1 = 40\) cm</li>
+<li>Segment 2 (avant-bras) : longueur \(L_2 = 35\) cm</li>
+<li>Base : fixée au plafond au-dessus du lit</li>
+<li>Organe terminal : la sonde d'échographie</li>
+</ul>
+<p>Les deux moteurs articulaires donnent les angles \(\theta_1\) (premier moteur, épaule) et \(\theta_2\) (deuxième moteur, coude). Figure 1 de l'énoncé : robot d'échographie planaire à 2 articulations, positionnement d'une sonde sur le thorax du patient.</p>
+<p>C. Le problème : « Où est la sonde ? » Le système de contrôle du robot reçoit en permanence les valeurs des encodeurs des moteurs. À un instant donné, les capteurs indiquent \(\theta_1 = 30°\) (premier moteur tourné de 30°) et \(\theta_2 = 45°\) (deuxième moteur tourné de 45°). Formules de la MGD pour un robot 2R plan :</p>
+\[ x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \qquad y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \]
+<p>Questions :</p>
+<ol>
+<li>Avant d'aboutir aux équations \(x\) et \(y\) fournies dans l'énoncé, quelle est la procédure rigoureuse de la modélisation géométrique directe (MGD) ? Citez les 3 à 4 étapes fondamentales pour passer de la description physique du robot à ses équations mathématiques.</li>
+<li>On rappelle que le codeur du moteur « coude » mesure l'angle \(\theta_2\) entre le segment 1 et le segment 2 (angle relatif). Pourtant, dans la formule de la MGD, la contribution du segment 2 fait intervenir l'angle \(\theta_1 + \theta_2\) : \(y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2)\). Que représente géométriquement l'angle \(\theta_1 + \theta_2\) par rapport au repère fixe de la base ? Expliquez en une phrase pourquoi le mouvement de l'épaule \(\theta_1\) « entraîne » le coude \(\theta_2\) dans son calcul de position.</li>
+<li>Avec ces angles, où se trouve exactement la sonde d'échographie par rapport au patient ?</li>
+<li>L'interface logicielle indique que la zone cible pour le FAST echo sur le thorax du patient se trouve aux coordonnées \((x_{cible} = 45 \text{ cm} ; y_{cible} = 50 \text{ cm})\). Au vu de votre calcul de la question 3, la sonde est-elle exactement sur la cible ? Si non, calculez le vecteur erreur \((\Delta x, \Delta y)\) que le système de commande devra corriger.</li>
+<li>Le médecin demande au robot d'atteindre une zone située à 80 cm de la base pour examiner le bas de l'abdomen. En vous basant sur les paramètres du robot (\(L_1\) et \(L_2\)), le robot peut-il satisfaire cette demande ? Justifiez mathématiquement votre réponse en définissant la notion de « rayon maximal » ou « espace de travail accessible ».</li>
+</ol>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>1) Procédure de la MGD (chapitre 5) : placer un repère par segment selon Denavit–Hartenberg ; remplir le tableau DH ; écrire les matrices élémentaires \(T^{0,1}\), \(T^{1,2}\) ; les multiplier de la base vers l'outil, simplifier, et lire la position dans la dernière colonne de \(T^{0,2}\).</p>
-<p>2) \(\theta_1 + \theta_2\) est l'angle absolu du segment 2 par rapport à l'axe \(x_0\) du repère fixe. Le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle, et le coude ajoute \(\theta_2\) par-dessus.</p>
-<p>3) Avec \(\theta_1 + \theta_2 = 75°\) :</p>
-\[ x = 40\cos 30° + 35\cos 75° = 34{,}64 + 9{,}06 = 43{,}70 \text{ cm} \qquad y = 40\sin 30° + 35\sin 75° = 20{,}00 + 33{,}81 = 53{,}81 \text{ cm} \]
-<p>4) La sonde n'est pas sur la cible \((45 ; 50)\). Le vecteur erreur à corriger va de la sonde à la cible :</p>
+<h5>Question 1 : la procédure de la MGD</h5>
+<p>D'où vient la réponse : chapitre 5, <a href="chapitre-10.html#n-mgd">Modélisation géométrique directe</a>.</p>
+<ol>
+<li>Placer un repère par segment, selon la convention de Denavit–Hartenberg.</li>
+<li>Remplir le tableau DH : un jeu de paramètres par articulation.</li>
+<li>Écrire les matrices élémentaires \(T^{0,1}\) et \(T^{1,2}\) avec ces valeurs.</li>
+<li>Les multiplier de la base vers l'outil, simplifier, puis lire la position dans la dernière colonne de \(T^{0,2}\).</li>
+</ol>
+<p>Intuition : c'est exactement ce que tu as fait à l'exercice 1 avec trois segments ; ici il n'y en a que deux, et les formules de l'énoncé sont la dernière colonne de \(T^{0,2}\).</p>
+
+<h5>Question 2 : pourquoi \(\theta_1 + \theta_2\)</h5>
+<p>\(\theta_1 + \theta_2\) est l'angle absolu du segment 2, mesuré depuis l'axe \(x_0\) du repère fixe. Le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle, puis le coude ajoute \(\theta_2\) par-dessus.</p>
+<p>Intuition : lève le bras de 30° sans plier le coude, ta main monte aussi de 30°. Plie ensuite le coude de 45° : ta main est inclinée de 75° par rapport à l'horizontale, pas de 45°.</p>
+
+<h5>Question 3 : où est la sonde ?</h5>
+<p>D'où viennent les valeurs : \(L_1 = 40\) et \(L_2 = 35\) (description du robot), \(\theta_1 = 30°\) et \(\theta_2 = 45°\) (les capteurs), donc \(\theta_1 + \theta_2 = 75°\). On remplace dans les formules de l'énoncé :</p>
+\[ x = 40\cos 30° + 35\cos 75° = 40 \times 0{,}866 + 35 \times 0{,}259 = 34{,}64 + 9{,}06 = 43{,}70 \text{ cm} \]
+\[ y = 40\sin 30° + 35\sin 75° = 40 \times 0{,}5 + 35 \times 0{,}966 = 20{,}00 + 33{,}81 = 53{,}81 \text{ cm} \]
+<p>Intuition : le premier terme de chaque somme est le coude, le second ce que l'avant-bras ajoute. Le coude est en \((34{,}64 ; 20)\) ; l'avant-bras, très incliné (75°), ajoute surtout de la hauteur.</p>
+
+<h5>Question 4 : l'erreur à corriger</h5>
+<p>D'où viennent les valeurs : la cible \((45 ; 50)\) vient de l'énoncé, la position \((43{,}70 ; 53{,}81)\) de la question 3. Le vecteur erreur va de la sonde à la cible : cible moins position.</p>
 \[ \Delta x = 45 - 43{,}70 = 1{,}30 \text{ cm} \qquad \Delta y = 50 - 53{,}81 = -3{,}81 \text{ cm} \qquad \|\Delta\| = \sqrt{1{,}30^2 + 3{,}81^2} \approx 4{,}02 \text{ cm} \]
-<p>5) Bras tendu, la sonde est au plus à \(L_1 + L_2 = 75\) cm de la base : c'est le rayon maximal. L'espace de travail accessible est l'anneau \(|L_1 - L_2| = 5 \text{ cm} \le r \le 75 \text{ cm}\). Une zone à 80 cm est hors d'atteinte, quels que soient les angles : il faudrait rapprocher la base du patient ou allonger les segments.</p>
+<p>Non, la sonde n'est pas sur la cible : il faut la décaler de 1,30 cm vers les \(x\) positifs et de 3,81 cm vers les \(y\) négatifs, soit environ 4 cm en tout.</p>
+<p>Intuition : le signe dit dans quel sens bouger. \(\Delta y\) négatif : la sonde est trop « haute » par rapport à la cible.</p>
+
+<h5>Question 5 : 80 cm, est-ce possible ?</h5>
+<p>D'où vient le raisonnement : le point le plus loin est atteint bras tendu, segments alignés ; le plus proche, bras replié (chapitre 1, <a href="chapitre-1.html#n-architectures">Architectures et espace de travail</a>, et exemple du SCARA). Avec \(L_1 = 40\) et \(L_2 = 35\) :</p>
+\[ r_{max} = L_1 + L_2 = 75 \text{ cm} \qquad r_{min} = |L_1 - L_2| = 5 \text{ cm} \]
+<p>Le <b>rayon maximal</b> est la plus grande distance entre la base et l'organe terminal ; l'<b>espace de travail accessible</b> est l'ensemble des points que l'organe terminal peut atteindre, ici l'anneau \(5 \text{ cm} \le r \le 75 \text{ cm}\) si les pivots tournent librement. \(80 &gt; 75\) : la zone est hors d'atteinte, quels que soient les angles. Il faudrait rapprocher la base du patient ou un robot aux segments plus longs.</p>
 </details>
 
-<h4>Partie 2, exercice 2 : le modèle cinématique direct</h4>
-<p>Les longueurs ne sont pas redonnées : on garde \(L_1 = 40\) cm, \(L_2 = 35\) cm. Posture \(\theta_1 = 23{,}8°\), \(\theta_2 = 48{,}19°\), donc \(\theta_1 + \theta_2 = 71{,}99°\).</p>
+<h4>Partie 2, exercice 2 : modèle cinématique direct (MCD), analyse des vitesses</h4>
+<h5>Énoncé</h5>
+<p>Contexte médical. Lors d'une biopsie en temps réel, le robot doit suivre une trajectoire précise. Il faut analyser les vitesses pour garantir la sécurité du patient (vitesse maximale de l'aiguille limitée à 2 cm/s).</p>
+<ol>
+<li>Calculer la matrice jacobienne \(J(q)\).</li>
+<li>Pour la posture du robot correspondant à \(\theta_1 = 23{,}8°\) et \(\theta_2 = 48{,}19°\), déterminez la matrice jacobienne \(J(q)\) évaluée numériquement afin d'analyser le comportement cinématique de l'instrument à cet instant.</li>
+<li>Si les vitesses articulaires sont \(\dot\theta_1 = 0{,}1\) rad/s et \(\dot\theta_2 = -0{,}05\) rad/s, calculez la vitesse de l'aiguille.</li>
+<li>Cette vitesse respecte-t-elle la contrainte de sécurité (2 cm/s max) ?</li>
+<li>Calculez le facteur de réduction nécessaire.</li>
+<li>Que représentent physiquement les colonnes de la jacobienne ?</li>
+<li>Pourquoi est-il essentiel de maîtriser les vitesses en robotique médicale ?</li>
+</ol>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>1) On dérive \(x\) et \(y\) par rapport à \(\theta_1\) et \(\theta_2\) :</p>
+<p>L'énoncé ne redonne pas les longueurs : on garde celles du robot d'échographie, \(L_1 = 40\) cm et \(L_2 = 35\) cm.</p>
+<h5>Question 1 : la jacobienne</h5>
+<p>D'où vient la méthode : chapitre 6, <a href="chapitre-11.html#n-cinematique">Modélisation cinématique et matrice jacobienne</a> : \(V = J(q)\,\dot q\). Chaque case de \(J\) est la dérivée d'une coordonnée (\(x\) ou \(y\)) par rapport à un angle. On dérive les formules de la MGD ; la dérivée de \(\cos u\) est \(-\sin u\), celle de \(\sin u\) est \(\cos u\), et \(\theta_1 + \theta_2\) dépend des deux angles :</p>
+\[ \frac{\partial x}{\partial \theta_1} = -L_1 s_1 - L_2 s_{12} \qquad \frac{\partial x}{\partial \theta_2} = -L_2 s_{12} \qquad \frac{\partial y}{\partial \theta_1} = L_1 c_1 + L_2 c_{12} \qquad \frac{\partial y}{\partial \theta_2} = L_2 c_{12} \]
 \[ J(q) = \begin{pmatrix} -L_1 s_1 - L_2 s_{12} & -L_2 s_{12} \\ L_1 c_1 + L_2 c_{12} & L_2 c_{12} \end{pmatrix} \]
-<p>2) Avec \(L_1 s_1 = 16{,}14\), \(L_2 s_{12} = 33{,}29\), \(L_1 c_1 = 36{,}60\), \(L_2 c_{12} = 10{,}82\) :</p>
-\[ J = \begin{pmatrix} -49{,}43 & -33{,}29 \\ 47{,}42 & 10{,}82 \end{pmatrix} \ \text{cm/rad} \]
-<p>Remarque : la première colonne vaut \((-y ; x)\). L'aiguille est en \((47{,}42 ; 49{,}43)\) cm, tout près de la cible \((45 ; 50)\) de la question précédente.</p>
-<p>3) \(V = J\,\dot q\) avec \(\dot\theta_1 = 0{,}1\) rad/s et \(\dot\theta_2 = -0{,}05\) rad/s :</p>
-\[ v_x = -49{,}43 \times 0{,}1 + (-33{,}29) \times (-0{,}05) = -3{,}28 \text{ cm/s} \qquad v_y = 47{,}42 \times 0{,}1 + 10{,}82 \times (-0{,}05) = 4{,}20 \text{ cm/s} \]
-\[ \|V\| = \sqrt{3{,}28^2 + 4{,}20^2} \approx 5{,}33 \text{ cm/s} \]
-<p>4) Non : 5,33 cm/s dépasse la limite de 2 cm/s.</p>
-<p>5) Facteur de réduction \(5{,}33 / 2 \approx 2{,}66\). On divise les deux vitesses articulaires par 2,66 (\(\dot\theta_1 \approx 0{,}038\) rad/s, \(\dot\theta_2 \approx -0{,}019\) rad/s) : l'aiguille va alors à 2 cm/s, dans la même direction.</p>
-<p>6) La colonne \(i\) de \(J\) est la vitesse de l'aiguille quand seule l'articulation \(i\) tourne, à 1 rad/s : la première colonne pour l'épaule, la deuxième pour le coude.</p>
-<p>7) Une aiguille ou une sonde touche le patient : une vitesse trop grande peut blesser des tissus. Maîtriser les vitesses permet de respecter une limite de sécurité, de suivre une trajectoire précise et d'arrêter le geste à temps.</p>
+<p>Intuition : la deuxième colonne ne contient que \(L_2\), car bouger le coude ne fait tourner que l'avant-bras ; la première contient les deux segments, car l'épaule fait tourner tout le bras.</p>
+
+<h5>Question 2 : la jacobienne en nombres</h5>
+<p>D'où viennent les valeurs : \(\theta_1 = 23{,}8°\), \(\theta_2 = 48{,}19°\), donc \(\theta_1 + \theta_2 = 71{,}99°\). On calcule d'abord les quatre morceaux :</p>
+\[ L_1 s_1 = 40\sin 23{,}8° = 16{,}14 \quad L_2 s_{12} = 35\sin 71{,}99° = 33{,}29 \quad L_1 c_1 = 40\cos 23{,}8° = 36{,}60 \quad L_2 c_{12} = 35\cos 71{,}99° = 10{,}82 \]
+\[ J = \begin{pmatrix} -16{,}14 - 33{,}29 & -33{,}29 \\ 36{,}60 + 10{,}82 & 10{,}82 \end{pmatrix} = \begin{pmatrix} -49{,}43 & -33{,}29 \\ 47{,}42 & 10{,}82 \end{pmatrix} \ \text{cm/rad} \]
+<p>Remarque : la première colonne vaut \((-y ; x)\). Dans cette posture, l'aiguille est en \((47{,}42 ; 49{,}43)\) cm, tout près de la cible \((45 ; 50)\) de la partie précédente.</p>
+
+<h5>Question 3 : la vitesse de l'aiguille</h5>
+<p>D'où viennent les valeurs : \(J\) de la question 2, \(\dot\theta_1 = 0{,}1\) et \(\dot\theta_2 = -0{,}05\) rad/s de l'énoncé. Produit matrice × vecteur : chaque ligne de \(J\) multiplie le vecteur des vitesses articulaires.</p>
+\[ v_x = (-49{,}43)(0{,}1) + (-33{,}29)(-0{,}05) = -4{,}94 + 1{,}66 = -3{,}28 \text{ cm/s} \]
+\[ v_y = (47{,}42)(0{,}1) + (10{,}82)(-0{,}05) = 4{,}74 - 0{,}54 = 4{,}20 \text{ cm/s} \]
+\[ \|V\| = \sqrt{v_x^2 + v_y^2} = \sqrt{3{,}28^2 + 4{,}20^2} \approx 5{,}33 \text{ cm/s} \]
+<p>Intuition : l'épaule et le coude tournent en sens contraires ; leurs effets se compensent en partie sur \(v_x\) (-4,94 + 1,66).</p>
+
+<h5>Question 4 : la contrainte de sécurité</h5>
+<p>Non : \(5{,}33 &gt; 2\) cm/s. L'aiguille irait plus de deux fois et demie trop vite.</p>
+
+<h5>Question 5 : le facteur de réduction</h5>
+<p>D'où vient le calcul : on veut ramener \(\|V\|\) à 2 cm/s. \(V\) est proportionnel à \(\dot q\) : diviser les deux vitesses articulaires par un même nombre divise la vitesse de l'aiguille par ce nombre, sans changer sa direction.</p>
+\[ k = \frac{\|V\|}{v_{max}} = \frac{5{,}33}{2} \approx 2{,}66 \qquad \dot\theta_1' = \frac{0{,}1}{2{,}66} \approx 0{,}038 \text{ rad/s} \qquad \dot\theta_2' = \frac{-0{,}05}{2{,}66} \approx -0{,}019 \text{ rad/s} \]
+
+<h5>Question 6 : le sens des colonnes</h5>
+<p>D'où vient la réponse : la définition physique du cours. La colonne \(i\) de \(J\) est la vitesse de l'outil quand seule l'articulation \(i\) bouge, à vitesse 1. Ici, la première colonne \((-49{,}43 ; 47{,}42)\) est la vitesse de l'aiguille (en cm/s) si seule l'épaule tourne à 1 rad/s ; la deuxième, si seul le coude tourne.</p>
+
+<h5>Question 7 : pourquoi maîtriser les vitesses</h5>
+<p>Une aiguille ou une sonde touche le patient : trop vite, elle peut blesser des tissus ou dévier de sa trajectoire. Maîtriser les vitesses permet de respecter une limite de sécurité, de suivre une trajectoire précise, et de pouvoir arrêter le geste à temps.</p>
 </details>
 
-<h4>Partie 2, exercice 2 : MCI et singularités</h4>
+<h4>Partie 2, exercice 2 : modèle cinématique inverse (MCI) et singularités</h4>
+<h5>Énoncé</h5>
+<p>Contexte médical. Le système de contrôle doit calculer les vitesses articulaires pour suivre une trajectoire désirée de l'aiguille. Cependant, certaines configurations (singularités) peuvent rendre le robot incontrôlable.</p>
+<ol>
+<li>Exprimez le MCI.</li>
+<li>Calculez \(\det(J)\) pour la configuration \(\theta_1 = 23{,}8°\), \(\theta_2 = 48{,}19°\).</li>
+<li>Calculez \(J^{-1}\).</li>
+<li>Déterminez les configurations singulières du robot 2R.</li>
+<li>Interprétez physiquement ces singularités.</li>
+<li>Ces singularités sont-elles dans l'espace de travail utile ?</li>
+</ol>
 <p class="complement">Pas encore corrigé : le cours reçu n'a pas encore le modèle cinématique inverse ni les singularités. Envoie la suite du chapitre 3 et ces six questions seront corrigées ici.</p>
 
 <h4>Partie 2, exercice 3 : la lésion du foie</h4>
-<p>Robot 3R, \(L_1 = 35\) cm, \(L_2 = 25\) cm, \(L_3 = 10\) cm ; cible \((55 ; 35)\) cm.</p>
+<h5>Énoncé</h5>
+<p>Un patient présente une lésion suspecte dans le foie. Le système de robotique médicale doit :</p>
+<ol type="a">
+<li>Planifier la trajectoire de l'aiguille de biopsie</li>
+<li>Positionner le robot pour atteindre la cible</li>
+<li>Contrôler la vitesse d'insertion</li>
+<li>Éviter les singularités et les obstacles (vaisseaux sanguins)</li>
+</ol>
+<p>Données du cas. Robot : 3R plan, \(L_1 = 35\) cm, \(L_2 = 25\) cm, \(L_3 = 10\) cm. Position de la cible (tumeur) : \((55, 35)\) cm. Contraintes : vitesse maximale de l'aiguille 1,5 cm/s ; configuration « coude vers le bas » imposée ; éviter la zone interdite : cercle de rayon 15 cm centré en \((40, 50)\) cm (vaisseau sanguin). La figure de l'énoncé montre la mise en situation clinique et le modèle géométrique à l'échelle, avec son axe \(y_0\) vers le bas.</p>
+<p>Questions :</p>
+<ol>
+<li>La cible est-elle accessible ? Calculez la distance à la base.</li>
+<li>Calculez les angles articulaires (MGI) pour atteindre la cible avec un robot 2R simplifié (\(L_1 = 40\), \(L_2 = 30\)).</li>
+<li>Vérifiez que la trajectoire n'intersecte pas la zone interdite. Indication : paramétrez la trajectoire de l'effecteur et calculez la distance minimale au centre de la zone interdite.</li>
+<li>Calculez la jacobienne et vérifiez que la configuration n'est pas singulière.</li>
+<li>Le chirurgien demande une vitesse d'insertion de \(\dot x = 1\) cm/s, \(\dot y = 0{,}5\) cm/s. Calculez les vitesses articulaires nécessaires.</li>
+<li>Vérifiez que la vitesse résultante respecte la contrainte de 1,5 cm/s.</li>
+</ol>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>1) Distance de la cible à la base :</p>
-\[ r = \sqrt{55^2 + 35^2} = \sqrt{4250} \approx 65{,}19 \text{ cm} \]
-<p>La portée du 3R, bras tendu, est \(35 + 25 + 10 = 70\) cm, et \(65{,}19 &lt; 70\) : la cible est accessible.</p>
-<p>2) MGI du 2R simplifié (\(L_1 = 40\), \(L_2 = 30\)). Al-Kashi :</p>
-\[ \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2 L_1 L_2} = \frac{4250 - 1600 - 900}{2400} = 0{,}7292 \qquad \theta_2 = \pm 43{,}18° \]
-\[ \alpha = \operatorname{atan2}(35, 55) = 32{,}47° \qquad \beta = \operatorname{atan2}(L_2\sin|\theta_2|,\ L_1 + L_2\cos\theta_2) = \operatorname{atan2}(20{,}53,\ 61{,}88) = 18{,}36° \]
-<p>Avec le nom du tableau du cours, « coude bas » : \(\theta_2 = 43{,}18°\) et \(\theta_1 = \alpha - \beta = 14{,}12°\). L'autre solution est \(\theta_2 = -43{,}18°\), \(\theta_1 = \alpha + \beta = 50{,}83°\). Vérification (MGD) : \(40\cos 14{,}12° + 30\cos 57{,}30° = 55{,}0\) et \(40\sin 14{,}12° + 30\sin 57{,}30° = 35{,}0\).</p>
+<h5>Question 1 : la cible est-elle accessible ?</h5>
+<p>D'où viennent les valeurs : la cible \((55 ; 35)\) et les longueurs 35, 25 et 10 de l'énoncé. Distance à la base, par Pythagore :</p>
+\[ r = \sqrt{55^2 + 35^2} = \sqrt{3025 + 1225} = \sqrt{4250} \approx 65{,}19 \text{ cm} \]
+<p>Portée du 3R, bras tendu : \(35 + 25 + 10 = 70\) cm. \(65{,}19 &lt; 70\) : la cible est accessible, avec moins de 5 cm de marge.</p>
+<p>Intuition : comme pour la sonde, on compare la distance à atteindre au bras tendu.</p>
+
+<h5>Question 2 : les angles (MGI du 2R simplifié)</h5>
+<p>D'où vient la méthode : chapitre 6, <a href="chapitre-11.html#n-mgi-2r">le MGI du robot 2R</a>. Le triangle base, coude, cible a pour côtés \(L_1 = 40\), \(L_2 = 30\) et \(r\). Al-Kashi donne l'angle du coude :</p>
+\[ \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2 L_1 L_2} = \frac{4250 - 1600 - 900}{2 \times 40 \times 30} = \frac{1750}{2400} = 0{,}7292 \qquad \theta_2 = \pm 43{,}18° \]
+<p>Deux signes, car le coude peut se plier d'un côté ou de l'autre de la droite base-cible. Puis deux angles auxiliaires : \(\alpha\), la direction de la cible vue de la base, et \(\beta\), l'angle entre cette direction et le segment 1 :</p>
+\[ \alpha = \operatorname{atan2}(35, 55) = 32{,}47° \qquad \beta = \operatorname{atan2}(L_2\sin|\theta_2|,\ L_1 + L_2\cos\theta_2) = \operatorname{atan2}(30 \times 0{,}684,\ 40 + 30 \times 0{,}729) = \operatorname{atan2}(20{,}53,\ 61{,}88) = 18{,}36° \]
+<p>Avec le nom du tableau du cours, « coude bas » : \(\theta_2 = 43{,}18°\) et \(\theta_1 = \alpha - \beta = 14{,}12°\). L'autre solution : \(\theta_2 = -43{,}18°\), \(\theta_1 = \alpha + \beta = 50{,}83°\).</p>
+<p>Vérification par la MGD (toujours la faire) : \(40\cos 14{,}12° + 30\cos 57{,}30° = 38{,}79 + 16{,}21 = 55{,}0\) et \(40\sin 14{,}12° + 30\sin 57{,}30° = 9{,}76 + 25{,}24 = 35{,}0\).</p>
 <p>La figure de l'énoncé a son axe \(y_0\) vers le bas : demande à ton enseignante laquelle des deux solutions elle appelle « coude vers le bas ».</p>
-<p>3) L'énoncé ne donne pas le point de départ : on suppose ici une trajectoire rectiligne de la base vers la cible, \(M(t) = t\,(55 ; 35)\) pour \(0 \le t \le 1\). Le point le plus proche du centre \(C = (40 ; 50)\) est obtenu pour</p>
-\[ t^* = \frac{40 \times 55 + 50 \times 35}{55^2 + 35^2} = \frac{3950}{4250} = 0{,}929 \qquad M(t^*) = (51{,}12 ; 32{,}53) \qquad d_{min} = \|C - M(t^*)\| \approx 20{,}71 \text{ cm} \]
-<p>\(20{,}71 &gt; 15\) : la trajectoire ne coupe pas la zone interdite. En configuration \(\theta_1 = 14{,}12°\), le coude est en \((38{,}79 ; 9{,}76)\) ; le segment 1 passe à 40,26 cm du centre et le segment 2 à 21,21 cm : le bras lui-même reste aussi hors de la zone.</p>
-<p>4) Jacobienne en \(\theta_1 = 14{,}12°\), \(\theta_2 = 43{,}18°\) (première partie de la question) :</p>
-\[ J = \begin{pmatrix} -35{,}00 & -25{,}24 \\ 55{,}00 & 16{,}21 \end{pmatrix} \ \text{cm/rad} \]
-<p>Première colonne : \((-y_c ; x_c)\), comme toujours pour le 2R.</p>
+
+<h5>Question 3 : la zone interdite</h5>
+<p>D'où viennent les valeurs : le centre \(C = (40 ; 50)\) et le rayon 15 cm de l'énoncé. L'énoncé ne donne pas le point de départ de l'aiguille : on suppose ici une trajectoire rectiligne de la base vers la cible, \(M(t) = t\,(55 ; 35)\) pour \(0 \le t \le 1\). Le point le plus proche de \(C\) est la projection de \(C\) sur la droite :</p>
+\[ t^* = \frac{40 \times 55 + 50 \times 35}{55^2 + 35^2} = \frac{3950}{4250} = 0{,}929 \qquad M(t^*) = (51{,}12 ; 32{,}53) \qquad d_{min} = \sqrt{(40 - 51{,}12)^2 + (50 - 32{,}53)^2} \approx 20{,}71 \text{ cm} \]
+<p>\(20{,}71 &gt; 15\) : la trajectoire ne coupe pas la zone interdite (marge de 5,7 cm). En configuration \(\theta_1 = 14{,}12°\), le coude est en \((38{,}79 ; 9{,}76)\) ; le segment 1 passe à 40,26 cm du centre et le segment 2 à 21,21 cm : le bras lui-même reste aussi hors de la zone.</p>
+<p>Intuition : un cercle est évité si la distance de son centre à la trajectoire est plus grande que son rayon.</p>
+
+<h5>Question 4 : la jacobienne</h5>
+<p>D'où viennent les valeurs : la formule de \(J\) de l'exercice 2, avec \(L_1 = 40\), \(L_2 = 30\), \(\theta_1 = 14{,}12°\), \(\theta_1 + \theta_2 = 57{,}30°\). On réutilise les morceaux de la vérification : \(L_1s_1 = 9{,}76\), \(L_2s_{12} = 25{,}24\), \(L_1c_1 = 38{,}79\), \(L_2c_{12} = 16{,}21\).</p>
+\[ J = \begin{pmatrix} -9{,}76 - 25{,}24 & -25{,}24 \\ 38{,}79 + 16{,}21 & 16{,}21 \end{pmatrix} = \begin{pmatrix} -35{,}00 & -25{,}24 \\ 55{,}00 & 16{,}21 \end{pmatrix} \ \text{cm/rad} \]
+<p>Première colonne : \((-y_c ; x_c)\), comme toujours pour le 2R. La vérification de singularité attend la partie du cours sur les singularités.</p>
 </details>
 <p class="complement">Pas encore corrigées : la vérification de singularité de la question 4, et les questions 5 et 6. Elles attendent le modèle cinématique inverse et les singularités.</p>
 </article>
