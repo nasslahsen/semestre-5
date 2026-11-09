@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : corrigé · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : corrigé</h1>
+<p class="chapeau">Le corrigé de la série 1, question par question. Essaie d'abord, puis touche « Voir la correction ». Les réponses sont rédigées à partir du cours et calculées ici : ce n'est pas un corrigé donné par la professeure.</p>
+
+<h2>Partie 1, exercice 1 : classer trois robots</h2>
+<p>Les cinq critères du cours : mobilité, architecture cinématique, interaction avec l'humain, niveau d'autonomie, domaine d'application. Un robot peut appartenir à plusieurs catégories selon le critère.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>a) Delta, conditionnement agroalimentaire</th><th>b) Drone de surveillance</th><th>c) Bras chirurgical téléopéré</th></tr>
+<tr><td>Mobilité</td><td>fixe (base immobile au-dessus du convoyeur)</td><td>mobile, aérien</td><td>fixe (base posée près de la table)</td></tr>
+<tr><td>Architecture cinématique</td><td>parallèle (chaîne fermée, 3 bras)</td><td>pas de bras manipulateur : le critère ne s'applique pas vraiment</td><td>sériel (chaîne ouverte)</td></tr>
+<tr><td>Interaction avec l'humain</td><td>industriel conventionnel (séparé des opérateurs)</td><td>de service</td><td>de service (il travaille pour le chirurgien, au contact du patient)</td></tr>
+<tr><td>Niveau d'autonomie</td><td>programmé (2)</td><td>téléopéré (1) s'il est piloté, programmé (2) ou adaptatif (3) s'il suit seul un parcours</td><td>téléopéré (1) : le chirurgien commande chaque geste</td></tr>
+<tr><td>Domaine d'application</td><td>industriel</td><td>militaire, ou service professionnel (surveillance civile)</td><td>médical et d'assistance</td></tr>
+</table></div>
+<p>Pour le drone, l'énoncé ne dit pas qui le pilote : justifie ton choix d'autonomie par le mode d'emploi que tu supposes. Page utile : <a href="robot-systeme.html">Le robot et le système robotisé</a>.</p>
+</details>
+
+<h2>Partie 1, exercice 2 : répétabilité et précision</h2>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>La <b>précision</b> dit si le robot atteint le point demandé : c'est l'écart entre la position atteinte et la position demandée. La <b>répétabilité</b> dit s'il refait le même mouvement en regroupant ses positions autour d'un même point.</p>
+<p>Un robot peut être très répétable sans être précis : c'est le cas B du cours, positions regroupées mais décalées de la cible, avec un écart constant (le robot atteint toujours P' au lieu de P). Il refait toujours la même erreur. Explication d'ingénieur, ajoutée : une erreur constante vient d'un défaut lui aussi constant, par exemple un modèle du robot (longueurs des segments, zéro des codeurs) qui ne correspond pas exactement au robot réel. La dispersion, elle, viendrait de jeux et de vibrations qui changent d'un essai à l'autre.</p>
+<p>Image des fléchettes : précis, c'est viser juste ; répétable, c'est viser pareil. Page utile : <a href="performances.html">Précision, répétabilité et temps de cycle</a>.</p>
+</details>
+
+<h2>Partie 1, exercice 3 : série ou parallèle ?</h2>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>On choisit le <b>robot parallèle</b>. Ses chaînes fermées partagent la charge : le cours lui donne une très grande précision et répétabilité, de la rigidité, une bonne capacité de charge par rapport à son poids, et peu d'inertie mobile (actionneurs fixés à la base). Son défaut, un espace de travail plus petit, ne gêne pas ici : la tâche se fait dans un espace restreint.</p>
+<p>Le robot série, en chaîne ouverte, a une grande enveloppe de travail et une excellente dextérité, mais ce n'est pas ce que demande la tâche, et ses erreurs s'additionnent d'un segment au suivant. Page utile : <a href="architectures.html">Architectures et espace de travail</a>.</p>
+</details>
+
+<h2>Partie 1, exercice 4 : la boucle sur un tapis roulant</h2>
+<details class="corrige"><summary>Voir la correction</summary>
+<ol>
+<li>Percevoir : une caméra et un capteur de présence détectent l'objet sur le tapis, sa position et sa vitesse ; les codeurs donnent la position du bras.</li>
+<li>Traiter : le contrôleur calcule où sera l'objet au moment de la prise, compte tenu de la vitesse du tapis.</li>
+<li>Décider : il choisit la trajectoire et l'instant de la saisie, selon le programme.</li>
+<li>Agir : les servomoteurs amènent la pince sur l'objet, la pince se ferme, le bras dépose l'objet.</li>
+</ol>
+<p>Rétroaction : les codeurs, le capteur de la pince (objet bien tenu) et la caméra (objet bien déposé) renvoient le résultat au contrôleur. Si la prise est ratée, la boucle recommence : l'action a modifié l'environnement, qui fournit de nouvelles informations. Schéma : capteurs → commande → décision → actionneurs → environnement → capteurs.</p>
+</details>
+
+<h2>Partie 2, exercice 1 : le robot plan 3R</h2>
+<p>Paramètres DH du TD : \(d_i = L_i\), \(\alpha_i = 0\), \(r_i = 0\), \(\theta_i\) variable.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1) Avec \(\alpha_i = 0\) et \(r_i = 0\), chaque matrice est une rotation \(\theta_i\) autour de \(z\) puis une translation \(L_i\) le long du nouvel axe \(x\) :</p>
+\[ T^{0,1} = \begin{pmatrix} c_1 & -s_1 & 0 & L_1 c_1 \\ s_1 & c_1 & 0 & L_1 s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{1,2} = \begin{pmatrix} c_2 & -s_2 & 0 & L_2 c_2 \\ s_2 & c_2 & 0 & L_2 s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{2,3} = \begin{pmatrix} c_3 & -s_3 & 0 & L_3 c_3 \\ s_3 & c_3 & 0 & L_3 s_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>2) On multiplie d'abord \(T^{0,1}T^{1,2}\). Les formules d'addition (\(c_1c_2 - s_1s_2 = c_{12}\), \(s_1c_2 + c_1s_2 = s_{12}\)) donnent :</p>
+\[ T^{0,2} = \begin{pmatrix} c_{12} & -s_{12} & 0 & L_1 c_1 + L_2 c_{12} \\ s_{12} & c_{12} & 0 & L_1 s_1 + L_2 s_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>puis \(T^{0,3} = T^{0,2}\,T^{2,3}\), de la même façon :</p>
+\[ T^{0,3} = \begin{pmatrix} c_{123} & -s_{123} & 0 & L_1 c_1 + L_2 c_{12} + L_3 c_{123} \\ s_{123} & c_{123} & 0 & L_1 s_1 + L_2 s_{12} + L_3 s_{123} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
+<p>3) \(P\) est l'origine de \(R_3\) : sa position est la dernière colonne.</p>
+\[ p_x = L_1 c_1 + L_2 c_{12} + L_3 c_{123} \qquad p_y = L_1 s_1 + L_2 s_{12} + L_3 s_{123} \qquad \varphi = \theta_1 + \theta_2 + \theta_3 \]
+<p>Le bloc de rotation est une rotation d'angle \(\theta_1 + \theta_2 + \theta_3\) autour de \(z_0\) : c'est l'orientation \(\varphi\) de l'outil.</p>
+<p>4) Pour \(\theta_1 = \theta_2 = \theta_3 = 0\) : \(p_x = L_1 + L_2 + L_3\), \(p_y = 0\), \(\varphi = 0\), et la rotation est l'identité. Le bras est tendu le long de \(x_0\) : c'est le point le plus loin qu'il atteigne, et l'outil regarde dans le sens de \(x_0\).</p>
+</details>
+
+<h2>Partie 2, exercice 2 : le robot d'échographie 2R</h2>
+<p>\(L_1 = 40\) cm, \(L_2 = 35\) cm, \(\theta_1 = 30°\), \(\theta_2 = 45°\).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1) Procédure de la MGD (chapitre 5) : placer un repère par segment selon Denavit–Hartenberg ; remplir le tableau DH ; écrire les matrices élémentaires \(T^{0,1}\), \(T^{1,2}\) ; les multiplier de la base vers l'outil, simplifier, et lire la position dans la dernière colonne de \(T^{0,2}\).</p>
+<p>2) \(\theta_1 + \theta_2\) est l'angle absolu du segment 2 par rapport à l'axe \(x_0\) du repère fixe. Le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle, et le coude ajoute \(\theta_2\) par-dessus.</p>
+<p>3) Avec \(\theta_1 + \theta_2 = 75°\) :</p>
+\[ x = 40\cos 30° + 35\cos 75° = 34{,}64 + 9{,}06 = 43{,}70 \text{ cm} \qquad y = 40\sin 30° + 35\sin 75° = 20{,}00 + 33{,}81 = 53{,}81 \text{ cm} \]
+<p>4) La sonde n'est pas sur la cible \((45 ; 50)\). Le vecteur erreur à corriger va de la sonde à la cible :</p>
+\[ \Delta x = 45 - 43{,}70 = 1{,}30 \text{ cm} \qquad \Delta y = 50 - 53{,}81 = -3{,}81 \text{ cm} \qquad \|\Delta\| = \sqrt{1{,}30^2 + 3{,}81^2} \approx 4{,}02 \text{ cm} \]
+<p>5) Bras tendu, la sonde est au plus à \(L_1 + L_2 = 75\) cm de la base : c'est le rayon maximal. L'espace de travail accessible est l'anneau \(|L_1 - L_2| = 5 \text{ cm} \le r \le 75 \text{ cm}\). Une zone à 80 cm est hors d'atteinte, quels que soient les angles : il faudrait rapprocher la base du patient ou allonger les segments.</p>
+</details>
+
+<h2>Partie 2, exercice 2 : le modèle cinématique direct</h2>
+<p>Les longueurs ne sont pas redonnées : on garde \(L_1 = 40\) cm, \(L_2 = 35\) cm. Posture \(\theta_1 = 23{,}8°\), \(\theta_2 = 48{,}19°\), donc \(\theta_1 + \theta_2 = 71{,}99°\).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1) On dérive \(x\) et \(y\) par rapport à \(\theta_1\) et \(\theta_2\) :</p>
+\[ J(q) = \begin{pmatrix} -L_1 s_1 - L_2 s_{12} & -L_2 s_{12} \\ L_1 c_1 + L_2 c_{12} & L_2 c_{12} \end{pmatrix} \]
+<p>2) Avec \(L_1 s_1 = 16{,}14\), \(L_2 s_{12} = 33{,}29\), \(L_1 c_1 = 36{,}60\), \(L_2 c_{12} = 10{,}82\) :</p>
+\[ J = \begin{pmatrix} -49{,}43 & -33{,}29 \\ 47{,}42 & 10{,}82 \end{pmatrix} \ \text{cm/rad} \]
+<p>Remarque : la première colonne vaut \((-y ; x)\). L'aiguille est en \((47{,}42 ; 49{,}43)\) cm, tout près de la cible \((45 ; 50)\) de la question précédente.</p>
+<p>3) \(V = J\,\dot q\) avec \(\dot\theta_1 = 0{,}1\) rad/s et \(\dot\theta_2 = -0{,}05\) rad/s :</p>
+\[ v_x = -49{,}43 \times 0{,}1 + (-33{,}29) \times (-0{,}05) = -3{,}28 \text{ cm/s} \qquad v_y = 47{,}42 \times 0{,}1 + 10{,}82 \times (-0{,}05) = 4{,}20 \text{ cm/s} \]
+\[ \|V\| = \sqrt{3{,}28^2 + 4{,}20^2} \approx 5{,}33 \text{ cm/s} \]
+<p>4) Non : 5,33 cm/s dépasse la limite de 2 cm/s.</p>
+<p>5) Facteur de réduction \(5{,}33 / 2 \approx 2{,}66\). On divise les deux vitesses articulaires par 2,66 (\(\dot\theta_1 \approx 0{,}038\) rad/s, \(\dot\theta_2 \approx -0{,}019\) rad/s) : l'aiguille va alors à 2 cm/s, dans la même direction.</p>
+<p>6) La colonne \(i\) de \(J\) est la vitesse de l'aiguille quand seule l'articulation \(i\) tourne, à 1 rad/s : la première colonne pour l'épaule, la deuxième pour le coude.</p>
+<p>7) Une aiguille ou une sonde touche le patient : une vitesse trop grande peut blesser des tissus. Maîtriser les vitesses permet de respecter une limite de sécurité, de suivre une trajectoire précise et d'arrêter le geste à temps.</p>
+</details>
+
+<h2>Partie 2, exercice 2 : MCI et singularités</h2>
+<p class="complement">Pas encore corrigé : le cours reçu n'a pas encore le modèle cinématique inverse ni les singularités. Envoie la suite du chapitre 3 et ces six questions seront corrigées ici.</p>
+
+<h2>Partie 2, exercice 3 : la lésion du foie</h2>
+<p>Robot 3R, \(L_1 = 35\) cm, \(L_2 = 25\) cm, \(L_3 = 10\) cm ; cible \((55 ; 35)\) cm.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1) Distance de la cible à la base :</p>
+\[ r = \sqrt{55^2 + 35^2} = \sqrt{4250} \approx 65{,}19 \text{ cm} \]
+<p>La portée du 3R, bras tendu, est \(35 + 25 + 10 = 70\) cm, et \(65{,}19 &lt; 70\) : la cible est accessible.</p>
+<p>2) MGI du 2R simplifié (\(L_1 = 40\), \(L_2 = 30\)). Al-Kashi :</p>
+\[ \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2 L_1 L_2} = \frac{4250 - 1600 - 900}{2400} = 0{,}7292 \qquad \theta_2 = \pm 43{,}18° \]
+\[ \alpha = \operatorname{atan2}(35, 55) = 32{,}47° \qquad \beta = \operatorname{atan2}(L_2\sin|\theta_2|,\ L_1 + L_2\cos\theta_2) = \operatorname{atan2}(20{,}53,\ 61{,}88) = 18{,}36° \]
+<p>Avec le nom du tableau du cours, « coude bas » : \(\theta_2 = 43{,}18°\) et \(\theta_1 = \alpha - \beta = 14{,}12°\). L'autre solution est \(\theta_2 = -43{,}18°\), \(\theta_1 = \alpha + \beta = 50{,}83°\). Vérification (MGD) : \(40\cos 14{,}12° + 30\cos 57{,}30° = 55{,}0\) et \(40\sin 14{,}12° + 30\sin 57{,}30° = 35{,}0\).</p>
+<p>La figure de l'énoncé a son axe \(y_0\) vers le bas : demande à ton enseignante laquelle des deux solutions elle appelle « coude vers le bas ».</p>
+<p>3) L'énoncé ne donne pas le point de départ : on suppose ici une trajectoire rectiligne de la base vers la cible, \(M(t) = t\,(55 ; 35)\) pour \(0 \le t \le 1\). Le point le plus proche du centre \(C = (40 ; 50)\) est obtenu pour</p>
+\[ t^* = \frac{40 \times 55 + 50 \times 35}{55^2 + 35^2} = \frac{3950}{4250} = 0{,}929 \qquad M(t^*) = (51{,}12 ; 32{,}53) \qquad d_{min} = \|C - M(t^*)\| \approx 20{,}71 \text{ cm} \]
+<p>\(20{,}71 &gt; 15\) : la trajectoire ne coupe pas la zone interdite. En configuration \(\theta_1 = 14{,}12°\), le coude est en \((38{,}79 ; 9{,}76)\) ; le segment 1 passe à 40,26 cm du centre et le segment 2 à 21,21 cm : le bras lui-même reste aussi hors de la zone.</p>
+<p>4) Jacobienne en \(\theta_1 = 14{,}12°\), \(\theta_2 = 43{,}18°\) (première partie de la question) :</p>
+\[ J = \begin{pmatrix} -35{,}00 & -25{,}24 \\ 55{,}00 & 16{,}21 \end{pmatrix} \ \text{cm/rad} \]
+<p>Première colonne : \((-y_c ; x_c)\), comme toujours pour le 2R.</p>
+</details>
+<p class="complement">Pas encore corrigées : la vérification de singularité de la question 4, et les questions 5 et 6. Elles attendent le modèle cinématique inverse et les singularités.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+</body>
+</html>

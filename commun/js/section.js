@@ -117,9 +117,12 @@
     }
     var notions = [].map.call(main.querySelectorAll("article.notion"), function (art) { return art.id.replace(/^n-/, ""); });
     var sansPage = ch.niveaux.filter(function (n) { return !n.revision && !n.boss && notions.indexOf(n.id) < 0; }).map(function (n) { return n.id; });
+    // les exercices sans page vont avec la dernière section, avant un éventuel corrigé (section <id>-corrige, toujours en dernier)
+    var avecSansPage = parties.length - 1;
+    while (avecSansPage > 0 && /-corrige$/.test(ch.sections[avecSansPage].id)) avecSansPage--;
     parties.forEach(function (partie, k) {
       var s = ch.sections[k], ids = s.notions.filter(function (nid) { return parId[nid]; });
-      if (k === parties.length - 1) ids = ids.concat(sansPage);
+      if (k === avecSansPage) ids = ids.concat(sansPage);
       var fin = partie.querySelector(".fin-partie");
       if (ids.length) bloc(ids, "Exercices", s.titre, fin ? fin.parentNode : partie, fin);
     });
