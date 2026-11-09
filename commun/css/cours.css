@@ -248,3 +248,12 @@ pre.code.long { max-height: 60vh; overflow-y: auto; }
 .coche-lab[aria-pressed="true"] { border-color: var(--ok); color: var(--ok); background: #eefaf4; }
 .coche-lab[aria-pressed="true"]::before { background: var(--ok) linear-gradient(transparent, transparent); box-shadow: inset 0 0 0 3px #eefaf4; }
 kbd { font: 600 15px "JetBrains Mono", monospace; padding: 1px 7px; border: 1.5px solid var(--trait); border-radius: 6px; background: var(--fond-doux); }
+/* Corrigé de TD : la correction reste cachée jusqu'au toucher */
+details.corrige { margin: 14px 0 8px; border: 1.5px solid var(--trait); border-radius: 16px; background: #fff; }
+details.corrige > summary { list-style: none; cursor: pointer; min-height: 52px; display: flex; align-items: center; padding: 0 20px; font: 600 17px Inter, sans-serif; color: var(--lien); }
+details.corrige > summary::-webkit-details-marker { display: none; }
+details.corrige > summary::before { content: ""; width: 10px; height: 10px; margin-right: 12px; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+details.corrige[open] > summary::before { transform: rotate(45deg); }
+details.corrige[open] > summary { border-bottom: 1.5px solid var(--trait); color: var(--doux); }
+details.corrige > :not(summary) { margin-left: 20px; margin-right: 20px; }
+details.corrige > :last-child { margin-bottom: 18px; }

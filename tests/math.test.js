@@ -910,4 +910,28 @@ test("instrumentation connectée : réponses attendues des niveaux et valeurs de
   assert.strictEqual("E" + tab[0] / 2 + "," + (tab[0] / 2 + 200), "E24,224");
 });
 
+test("robotique, corrigé du TD 1 : valeurs de la page td1-corrige", () => {
+  const r = d => d * Math.PI / 180;
+  const mgd = (L1, L2, a, b) => [L1 * Math.cos(r(a)) + L2 * Math.cos(r(a + b)), L1 * Math.sin(r(a)) + L2 * Math.sin(r(a + b))];
+  const [x, y] = mgd(40, 35, 30, 45);
+  proche(x, 43.70, 0.005); proche(y, 53.81, 0.005);
+  proche(45 - x, 1.30, 0.005); proche(50 - y, -3.81, 0.005); proche(Math.hypot(45 - x, 50 - y), 4.02, 0.005);
+  // jacobienne et vitesse de l'aiguille
+  const a = r(23.8), b = r(48.19);
+  const J = [[-40 * Math.sin(a) - 35 * Math.sin(a + b), -35 * Math.sin(a + b)], [40 * Math.cos(a) + 35 * Math.cos(a + b), 35 * Math.cos(a + b)]];
+  proche(J[0][0], -49.43, 0.005); proche(J[0][1], -33.29, 0.005); proche(J[1][0], 47.42, 0.005); proche(J[1][1], 10.82, 0.005);
+  const vx = J[0][0] * 0.1 + J[0][1] * -0.05, vy = J[1][0] * 0.1 + J[1][1] * -0.05, V = Math.hypot(vx, vy);
+  proche(vx, -3.28, 0.005); proche(vy, 4.20, 0.005); proche(V, 5.33, 0.005); proche(V / 2, 2.66, 0.005);
+  // exercice 3 : distance, MGI 2R (40, 30) vers (55, 35), trajectoire rectiligne et zone interdite
+  proche(Math.hypot(55, 35), 65.19, 0.005);
+  const c2 = (55 * 55 + 35 * 35 - 1600 - 900) / 2400, t2 = Math.acos(c2);
+  const al = Math.atan2(35, 55), be = Math.atan2(30 * Math.sin(t2), 40 + 30 * Math.cos(t2));
+  proche(c2, 0.7292, 0.0001); proche(t2 * 180 / Math.PI, 43.18, 0.005);
+  proche((al - be) * 180 / Math.PI, 14.12, 0.005); proche((al + be) * 180 / Math.PI, 50.83, 0.005);
+  const [xc, yc] = mgd(40, 30, (al - be) * 180 / Math.PI, t2 * 180 / Math.PI); proche(xc, 55, 1e-9); proche(yc, 35, 1e-9);
+  const ts = (40 * 55 + 50 * 35) / 4250; proche(Math.hypot(40 - 55 * ts, 50 - 35 * ts), 20.71, 0.005);
+  const J3 = [[-40 * Math.sin(al - be) - 30 * Math.sin(al - be + t2), -30 * Math.sin(al - be + t2)], [40 * Math.cos(al - be) + 30 * Math.cos(al - be + t2), 30 * Math.cos(al - be + t2)]];
+  proche(J3[0][0], -35, 1e-9); proche(J3[1][0], 55, 1e-9); proche(J3[0][1], -25.24, 0.005); proche(J3[1][1], 16.21, 0.005);
+});
+
 console.log(`${n} tests réussis`);

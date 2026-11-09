@@ -93,6 +93,11 @@ for (const id of modules) {
       for (const pre of html.matchAll(/<pre class="code"[^>]*>([\s\S]*?)<\/pre>/g)) if (/<(?!\/?code\b)/.test(pre[1])) err(`${f} : bloc de code avec un < non échappé`);
       continue;
     }
+    // corrigé d'un TD (chapitre td: true, page <id>-corrige) : une question par titre, la correction cachée dans <details class="corrige">
+    if (c0 && slug.endsWith("-corrige") && P.chapitres.find(ch => ch.id === c0.chapitre && ch.td)) {
+      if (!/<details class="corrige">/.test(html)) err(`${f} : corrigé sans <details class="corrige">`);
+      continue;
+    }
     for (const t of ["<h2>Intuition</h2>", "<h2>Formalisation</h2>", "<h2>Formules clés</h2>"]) if (!html.includes(t)) err(`${f} : section manquante ${t}`);
     if (!/<div id="fig-/.test(html)) err(`${f} : aucune figure`);
     if (!/<h2>Exemple/.test(html)) err(`${f} : section Exemple manquante`);

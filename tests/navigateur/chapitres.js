@@ -81,7 +81,8 @@ const dc = `${BASE}modules/${mid}/`;
       if (v.vides) pb(`chapitre ${ch} : ${v.vides} figures pas dessinées`);
       // un bloc par section (ses exercices enchaînés ; les exercices sans page avec la dernière section), un en fin de chapitre
       const sansPage = niv.filter(n => !n.revision && !n.boss && !notions.includes(n.id)).map(n => n.id);
-      const parSection = ss.map((x, k) => x.notions.filter(n => niv.some(y => y.id === n)).concat(k === ss.length - 1 ? sansPage : []).join(" ")).filter(Boolean);
+      let kSans = ss.length - 1; while (kSans > 0 && /-corrige$/.test(ss[kSans].id)) kSans--;
+      const parSection = ss.map((x, k) => x.notions.filter(n => niv.some(y => y.id === n)).concat(k === kSans ? sansPage : []).join(" ")).filter(Boolean);
       const finCh = niv.filter(n => n.revision).concat(niv.filter(n => n.boss)).map(n => n.id).join(" ");
       const attendus = parSection.concat(finCh ? [finCh] : []);
       if (v.jouer.join("|") !== attendus.join("|")) pb(`chapitre ${ch} : blocs Jouer ${v.jouer.join("|")} au lieu de ${attendus.join("|")}`);
