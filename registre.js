@@ -55,10 +55,10 @@ window.REGISTRE = {
       sousModules: []
     },
     {
-      id: "langues", titre: "Langues étrangères 5", statut: "a-venir",
+      id: "langues", titre: "Langues étrangères 5", statut: "actif",
       couleur: "#C14C8A", clair: "#F5E0E9", texte: "#BD4A87",
       sousModules: [
-        { id: "francais", titre: "Français" },
+        { id: "francais", titre: "Français", statut: "a-venir" },
         { id: "anglais", titre: "Anglais" }
       ]
     }

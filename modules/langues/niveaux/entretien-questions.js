@@ -1,0 +1,42 @@
+/* Niveau : questions types et ce qui crée une mauvaise impression (diapositives 13 et 14). */
+NIVEAU(ANG.niveau({
+  id: "entretien-questions",
+  carte: { etiquette: "Typical questions", titre: "About you, about the job", texte: "Tell me about yourself. What interests you about this job? What do you know about this organisation?" },
+  etapes: [
+    { nom: "About you or the job", type: "trier",
+      titre: "Sort the typical questions: about you, or about the job?",
+      cartes: [{ t: "Tell me about yourself.", bac: 0 }, { t: "What interests you about this job?", bac: 1 }, { t: "Why did you choose that degree programme?", bac: 0 }, { t: "What do you know about this organisation?", bac: 1 },
+        { t: "What are your major achievements to date?", bac: 0 }, { t: "What experience is relevant to this post?", bac: 1 }],
+      bacs: [{ t: "About you" }, { t: "About the job" }],
+      aide: "La question porte-t-elle sur ton parcours à toi, ou sur le poste et l'entreprise ?",
+      bravo: "About you : toi, ton diplôme, tes réussites. About the job : le poste, l'organisation, l'expérience utile.",
+      expliquer: "<p>Le cours ajoute une troisième famille : <b>general knowledge</b>, d'où la technique « revise your subject knowledge ».</p>" },
+    { nom: "Bad impression", type: "trier",
+      titre: "What creates a bad impression? Sort the cards.",
+      cartes: [{ t: "Poor personal appearance", bac: 0 }, { t: "Concrete examples of skills", bac: 1 }, { t: "Negative attitude", bac: 0 }, { t: "Lack of interest and enthusiasm", bac: 0 },
+        { t: "Good knowledge of the role", bac: 1 }, { t: "Over emphasis on money/rewards", bac: 0 }, { t: "Lack of preparation", bac: 0 }, { t: "Smiling and being enthusiastic", bac: 1 }],
+      bacs: [{ t: "Bad impression" }, { t: "Good impression" }],
+      aide: "Les sept causes du cours : appearance, negative attitude, lack of interest, money, no concrete examples, poor knowledge of the role, lack of preparation.",
+      bravo: "Cinq mauvaises impressions, trois bonnes.",
+      expliquer: "<p>Les sept causes du cours : <i>poor personal appearance, negative attitude, lack of interest and enthusiasm, lack of preparation, poor knowledge of the expected role, failure to give concrete examples of skills, over emphasis on money/rewards</i>.</p>" },
+    { nom: "The first question", type: "choix",
+      titre: "At the start of the interview, a candidate asks: “What's the salary, and how many days of holiday do I get?” What impression does this create?",
+      carte: { etiquette: "Situation", titre: "The first minute", texte: "Before answering any question, the candidate asks: “What's the salary, and how many days of holiday do I get?”" },
+      options: [{ t: "Over emphasis on money/rewards", ok: true }, { t: "Poor personal appearance", aide: "On ne parle pas de sa tenue." }, { t: "Negative attitude", aide: "Il n'est pas négatif : il parle surtout d'argent et d'avantages." }],
+      bravo: "Over emphasis on money/rewards.",
+      expliquer: "<p>On peut parler du salaire, mais pas en premier ni seulement de ça.</p>" },
+    { nom: "Concrete example", type: "choix",
+      titre: "“What are your strengths?” Which answer avoids a bad impression?",
+      options: [
+        { t: "“I'm good at teamwork: last year I coordinated a team of four for our ECG project.”", ok: true },
+        { t: "“I'm good at teamwork.”", aide: "Sans exemple : c'est « failure to give concrete examples of skills »." },
+        { t: "“I don't really know, I'm not good at much.”", aide: "C'est une attitude négative." }],
+      bravo: "Une compétence et un exemple concret.",
+      expliquer: "<p>Règle simple : chaque qualité annoncée vient avec un exemple vécu (quand, quoi, résultat).</p>" },
+    { nom: "Which family?", type: "choix",
+      titre: "“How do you see your career developing in the next 5 years?” In the course, this question is…",
+      options: [{ t: "about the job", ok: true }, { t: "about you", aide: "Dans la diapositive, elle est rangée sous « About the job »." }, { t: "general knowledge", aide: "Ce n'est pas une question de culture générale." }],
+      bravo: "About the job, dans la diapositive.",
+      expliquer: "<p>Elle parle de ton avenir dans ce poste : le cours la range avec les questions sur le job.</p>" }
+  ]
+}));

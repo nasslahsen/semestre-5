@@ -1,0 +1,38 @@
+/* Niveau : l'acronyme OPEN UP et les quatre objectifs d'une présentation (Effective Presentation Skills, diapositives 3 à 5). */
+NIVEAU(ANG.niveau({
+  id: "presentation-openup",
+  carte: { etiquette: "Effective Presentation Skills", titre: "The exceptional presenter", texte: "The characteristics of an exceptional presenter are represented in the following acronym: OPEN UP." },
+  etapes: [
+    { nom: "OPEN UP", type: "trous",
+      titre: "Complete the acronym OPEN UP.",
+      phrases: ["O : [Organized]", "P : [Passionate]", "E : [Engaging]", "N : [Natural]", "U : [Understand your audience]", "P : [Practice]"],
+      jetons: ["Organized", "Passionate", "Engaging", "Natural", "Understand your audience", "Practice", "Polite", "Original"],
+      aide: "Deux mots en P : l'un dit ce que tu ressens pour ton sujet, l'autre ce que tu fais avant de présenter.",
+      bravo: "Organized, Passionate, Engaging, Natural, Understand your audience, Practice.",
+      expliquer: "<p>Moyen mnémotechnique : <b>OPEN UP</b>, « ouvre-toi » au public. Les deux P : <i>Passionate</i> (pendant) et <i>Practice</i> (avant).</p>" },
+    { nom: "Four objectives", type: "paires",
+      titre: "Match each situation with the main objective of the presentation.",
+      gauche: ["A nurse explains the new hygiene protocol", "A student opens a graduation speech with a funny story", "A video shows a child walking with a new prosthesis", "A doctor asks students to give blood today"],
+      droite: ["To touch emotions", "Move to action", "To inform", "To entertain"],
+      bon: [2, 3, 0, 1],
+      aides: ["Expliquer un protocole : transmettre une information.", "Une histoire drôle : divertir.", "Une image forte pour émouvoir.", "On demande d'agir, aujourd'hui."],
+      bravo: "Inform, entertain, touch emotions, move to action.",
+      expliquer: "<p>Les quatre objectifs du cours : <i>to inform, to entertain, to touch emotions, move to action</i>. Une même présentation peut en viser plusieurs.</p>" },
+    { nom: "The boring presenter", type: "choix",
+      titre: "A presenter reads his notes, never looks at the audience and speaks without any energy. Which OPEN UP qualities is he missing most?",
+      carte: { etiquette: "Situation", titre: "Twenty minutes of notes", texte: "The presenter reads his notes from beginning to end. He never looks up, never smiles and speaks without any energy." },
+      options: [{ t: "Engaging and Passionate", ok: true }, { t: "Organized", aide: "Ses notes sont peut-être très bien organisées : le problème est ailleurs." }, { t: "Practice only", aide: "Peut-être, mais ce qu'on voit d'abord : aucun lien avec le public, aucune énergie." }],
+      bravo: "Il n'est ni engaging (pas de lien avec le public) ni passionate (pas d'énergie).",
+      expliquer: "<p>La diapositive suivante demande : <i>Have you ever fallen asleep or felt bored during someone's speech?</i> Ce présentateur en est la raison typique.</p>" },
+    { nom: "Who is listening?", type: "choix",
+      titre: "Before preparing her talk on diabetes devices, Hiba asks: “Will I speak to doctors or to patients?” Which letter of OPEN UP is this?",
+      options: [{ t: "U : Understand your audience", ok: true }, { t: "N : Natural", aide: "Natural, c'est rester soi-même en parlant." }, { t: "O : Organized", aide: "Organized concerne le plan de la présentation." }],
+      bravo: "Understand your audience.",
+      expliquer: "<p>On ne présente pas le même contenu à des médecins et à des patients : vocabulaire, détails, exemples changent.</p>" },
+    { nom: "Move to action", type: "vf",
+      titre: "True or false: according to the course, one objective of a presentation can be to move the audience to action.",
+      vrai: true, aide: "Relis les quatre objectifs.",
+      bravo: "True : « Move to Action » est le quatrième objectif.",
+      expliquer: "<p>Inform, entertain, touch emotions, move to action.</p>" }
+  ]
+}));

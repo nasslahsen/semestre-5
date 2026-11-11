@@ -1,0 +1,46 @@
+/* Niveau : les cinq types d'entretien (diapositives 7 à 12). */
+NIVEAU(ANG.niveau({
+  id: "entretien-types",
+  carte: { etiquette: "Types of interviews", titre: "Five types", texte: "The screening interview\n\nThe selection interview\n\nThe group interview\n\nThe panel interview\n\nThe stress interview" },
+  etapes: [
+    { nom: "Five types", type: "paires",
+      titre: "Match each type of interview with its description.",
+      gauche: ["Screening", "Selection", "Group", "Panel", "Stress"],
+      droite: ["Several candidates at once: leaders or followers?", "Questions so fast you can't answer, weird questions", "Someone from HR checks the minimum qualifications", "Several interviewers question one candidate", "You are qualified: do you have the personality to fit in?"],
+      bon: [2, 4, 0, 3, 1],
+      aides: ["Screening : un premier tri, souvent par les ressources humaines, en personne ou au téléphone.", "Selection : l'employeur sait déjà que tu es qualifié(e).", "Group : plusieurs candidats en même temps.", "Panel : plusieurs personnes face à un seul candidat.", "Stress : on te met volontairement sous pression."],
+      bravo: "Screening, selection, group, panel, stress.",
+      expliquer: "<p>Ordre habituel : d'abord le <b>screening</b> (tri sur les qualifications minimales), puis la <b>selection</b> (la personnalité, <i>fit in</i>).</p>" },
+    { nom: "Panel interview", type: "choix",
+      titre: "In a panel interview, the candidate should…",
+      carte: { etiquette: "The panel interview", titre: "Three interviewers, one candidate", texte: "The candidate is interviewed by several individuals at once." },
+      options: [
+        { t: "build rapport with each member and keep eye contact with each one", ok: true },
+        { t: "look only at the most important person", aide: "Le cours dit : eye contact with each one of them." },
+        { t: "answer as fast as possible", aide: "Le cours conseille plutôt de rester calme." }],
+      bravo: "Rester calme, créer le lien avec chacun, regarder chacun.",
+      expliquer: "<p>Panel : <i>remain calm</i>, <i>build rapport with each member of the panel</i>, <i>keep eye contact with each one of them while answering his or her questions</i>.</p>" },
+    { nom: "Weird questions", type: "choix",
+      titre: "In a stress interview, why does the interviewer ask weird questions?",
+      carte: { etiquette: "The stress interview", titre: "“How many tennis balls fit in this room?”", texte: "A weird question, asked very quickly, in the middle of the interview." },
+      options: [
+        { t: "To see how the candidate answers, not what he or she answers", ok: true },
+        { t: "To test the candidate's general knowledge", aide: "La réponse elle-même compte peu, d'après le cours." },
+        { t: "To make the interview more relaxed", aide: "C'est un stress interview : l'idée est l'inverse." }],
+      bravo: "Not what the job candidate answers, but how.",
+      expliquer: "<p>But du stress interview : <i>to weed out the candidates that cannot handle adversity</i>, écarter ceux qui ne supportent pas la difficulté.</p>" },
+    { nom: "The most anxious step", type: "vf",
+      titre: "True or false: the screening interview is the step in the process which makes people the most anxious.",
+      vrai: false, aide: "Relis la diapositive du selection interview.",
+      bravo: "False : c'est le selection interview.",
+      expliquer: "<p><i>The selection interview is the step in the process which makes people the most anxious.</i> On sait que tu es qualifié(e) ; reste à savoir si tu <b>fit in</b>.</p>" },
+    { nom: "Group interview", type: "trous",
+      titre: "Complete the description of the group interview.",
+      carte: { etiquette: "The group interview", titre: "Several candidates at once", texte: "Six candidates sit around a table and must solve a problem together while two interviewers watch." },
+      phrases: ["The interviewers try to separate the [leaders] from the [followers].", "They may also try to find out if you are a [team player]."],
+      jetons: ["leaders", "followers", "team player", "managers", "winner"],
+      aide: "Deux rôles opposés dans un groupe, puis quelqu'un qui travaille bien avec les autres.",
+      bravo: "Leaders, followers, team player.",
+      expliquer: "<p>Le résultat dépend du profil cherché : <i>the type of personality the employer is looking for determines the outcome</i>.</p>" }
+  ]
+}));

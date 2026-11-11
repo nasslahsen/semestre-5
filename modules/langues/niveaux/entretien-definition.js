@@ -1,0 +1,45 @@
+/* Niveau : définitions d'un entretien d'embauche et ce dont dépend sa réussite (Job Interview Skills, diapositives 2 et 3). */
+NIVEAU(ANG.niveau({
+  id: "entretien-definition",
+  carte: { etiquette: "Job Interview Skills", titre: "A job interview is…", texte: "A formal conversation which occurs between a potential employer and a job applicant.\n\nA selection process used by organizations to help determine whether a job candidate has the necessary knowledge, skills, and abilities to do the job." },
+  etapes: [
+    { nom: "Definition", type: "trous",
+      titre: "Complete the first definition.",
+      phrases: ["A formal [conversation] which occurs between a potential [employer] and a job [applicant]."],
+      jetons: ["conversation", "employer", "applicant", "argument", "customer"],
+      aide: "Qui pose les questions, qui postule ? Et ce n'est pas une dispute.",
+      bravo: "A formal conversation between a potential employer and a job applicant.",
+      expliquer: "<p>Vocabulaire à retenir : <b>job applicant</b> ou <b>job candidate</b> (le candidat), <b>potential employer</b> (l'employeur possible).</p>" },
+    { nom: "Four definitions", type: "choix",
+      titre: "The course gives four definitions. Which one is NOT among them?",
+      options: [
+        { t: "A complex means of gathering relevant data about a candidate", aide: "C'est la troisième définition du cours." },
+        { t: "A mechanism for professional evaluation for employment", aide: "C'est la quatrième définition du cours." },
+        { t: "An informal chat between friends about their jobs", ok: true },
+        { t: "A selection process used by organizations", aide: "C'est la deuxième définition, celle de la carte." }],
+      bravo: "Un entretien est formal, pas informal.",
+      expliquer: "<p>Les quatre : <i>a formal conversation</i>, <i>a selection process</i>, <i>a complex means of gathering relevant data</i>, <i>a mechanism for professional evaluation for employment</i>.</p>" },
+    { nom: "Success depends on", type: "trier",
+      titre: "Success in a job interview depends on… Sort the factors as in the slide.",
+      carte: null,
+      cartes: [{ t: "Knowledge", bac: 0 }, { t: "Good speaking skills", bac: 1 }, { t: "Self confidence", bac: 1 }, { t: "A good use of non-verbal communication", bac: 1 }, { t: "Thorough preparation", bac: 2 }],
+      bacs: [{ t: "Hard skills" }, { t: "Soft skills" }, { t: "The third factor" }],
+      aide: "La diapositive : hard skills (knowledge), soft skills (trois exemples), puis un dernier point à part.",
+      bravo: "Hard skills : knowledge. Soft skills : speaking, confidence, non-verbal. Et thorough preparation.",
+      expliquer: "<p>Trois piliers : <b>hard skills</b>, <b>soft skills</b>, <b>thorough preparation</b>. La préparation est le sujet de la section suivante.</p>" },
+    { nom: "What went wrong?", type: "choix",
+      titre: "Amine knows his subject perfectly, but he looks at the floor, crosses his arms and never smiles. Which factor is weak?",
+      carte: { etiquette: "Situation", titre: "Amine's interview", texte: "Amine answers every technical question correctly. But he looks at the floor, crosses his arms and never smiles." },
+      options: [
+        { t: "A good use of non-verbal communication", ok: true },
+        { t: "Hard skills: knowledge", aide: "Il répond juste à toutes les questions techniques." },
+        { t: "Thorough preparation", aide: "Il connaît parfaitement son sujet : il s'est préparé." }],
+      bravo: "Son langage non verbal : regard, bras croisés, pas de sourire.",
+      expliquer: "<p><b>Non-verbal communication</b> : tout ce qu'on dit sans mots (regard, posture, gestes, sourire). Elle fait partie des soft skills.</p>" },
+    { nom: "Selection process", type: "vf",
+      titre: "True or false: a job interview helps determine whether a candidate has the necessary knowledge, skills, and abilities to do the job.",
+      vrai: true, aide: "Relis la deuxième définition sur la carte.",
+      bravo: "True : c'est la définition « a selection process ».",
+      expliquer: "<p>Knowledge, skills and abilities : savoir, savoir-faire, aptitudes. L'entretien sert à vérifier les trois.</p>" }
+  ]
+}));

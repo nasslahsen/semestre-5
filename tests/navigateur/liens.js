@@ -23,6 +23,15 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
+  langues: {
+    // exercices de situation : vers la liste ou le tableau du cours plutôt que vers un exemple voisin
+    "soft-exemples": { 3: ["soft-exemples", "formalisation", "Formalisation"], 5: ["soft-exemples", "formalisation", "Formalisation"] },
+    "presentation-openup": { 4: ["presentation-openup", "formalisation", "Formalisation"] },
+    "boss-presentation": { 2: ["presentation-openup", "formalisation", "Formalisation"], 3: ["presentation-corps", "formalisation", "Formalisation"] },
+    "revision-presentation": { 1: ["presentation-corps", "formalisation", "Formalisation"] },
+    "boss-entretien": { 2: ["entretien-preparation", "formalisation", "Formalisation"], 3: ["entretien-questions", "formalisation", "Formalisation"] },
+    "td2-synonymes": { 3: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5 : use the vocabulary in context"], 4: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5 : use the vocabulary in context"] }
+  },
   biomateriaux: {
     // chapitres affichés 2 et 4 : vers le tableau ou l'exemple qui répond, plutôt que l'intuition
     "exigences": { 2: ["exigences", "formalisation", "Formalisation"] },

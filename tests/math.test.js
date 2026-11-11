@@ -934,4 +934,62 @@ test("robotique, corrigé du TD 1 : valeurs de la page td1-corrige", () => {
   proche(J3[0][0], -35, 1e-9); proche(J3[1][0], 55, 1e-9); proche(J3[0][1], -25.24, 0.005); proche(J3[1][1], 16.21, 0.005);
 });
 
+// Module Langues (anglais) : pas de calculs, mais chaque niveau est construit à partir de données (ANG.niveau).
+// On vérifie que chaque étape a une réponse possible, et que les réponses suivent les corrigés des documents.
+test("langues : chaque étape a une bonne réponse jouable", () => {
+  const fs = require("fs"), path = require("path"), vm = require("vm");
+  const ANG = require("../modules/langues/anglais.js"), dir = path.join(__dirname, "../modules/langues/niveaux");
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith(".js"))) {
+    let def = null; const bac = { ANG, NIVEAU: (d) => { def = d.donnees; } };
+    vm.createContext(bac); vm.runInContext(fs.readFileSync(path.join(dir, f), "utf8"), bac);
+    assert.ok(def && def.id + ".js" === f, f + " : id");
+    assert.ok(def.etapes.length >= 3 && def.etapes.length <=6, f + " : 3 à 6 étapes");
+    def.etapes.forEach((e, k) => {
+      const ou = f + " étape " + (k + 1);
+      if (e.type === "choix") assert.strictEqual(e.options.filter(o => o.ok).length, 1, ou + " : une seule bonne option");
+      if (e.type === "choix") e.options.filter(o => !o.ok).forEach(o => assert.ok(o.aide, ou + " : aide manquante"));
+      if (e.type === "vf") assert.strictEqual(typeof e.vrai, "boolean", ou);
+      if (e.type === "trous") {
+        const mots = e.phrases.flatMap(p => [...p.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]));
+        assert.ok(mots.length, ou + " : aucun trou");
+        mots.forEach(m => assert.ok(e.jetons.includes(m), ou + " : « " + m + " » absent des jetons"));
+        assert.strictEqual(new Set(mots).size, mots.length, ou + " : deux trous attendent le même jeton");
+        assert.strictEqual(new Set(e.jetons).size, e.jetons.length, ou + " : jeton en double");
+        assert.ok(e.jetons.length > mots.length, ou + " : pas de jeton en trop (on devinerait par élimination)");
+      }
+      if (e.type === "trier") { e.cartes.forEach(c => assert.ok(c.bac >= 0 && c.bac < e.bacs.length, ou)); assert.ok(e.cartes.length <= 12, ou); }
+      if (e.type === "paires") {
+        assert.strictEqual(e.bon.length, e.gauche.length, ou); assert.strictEqual(e.droite.length, e.gauche.length, ou);
+        assert.strictEqual(new Set(e.bon).size, e.bon.length, ou + " : deux éléments vers la même case");
+        assert.ok(e.bon.some((b, i) => b !== i), ou + " : paires dans l'ordre, rien à chercher");
+      }
+      if (e.type === "options") e.items.forEach((it, i) => [].concat(it.bon).forEach(b => assert.ok(b >= 0 && b < it.o.length, ou + " phrase " + (i + 1))));
+    });
+  }
+});
+test("langues : réponses des TD conformes aux corrigés reçus (key de Q004, answer key de The Skills of the Future)", () => {
+  const fs = require("fs"), path = require("path"), vm = require("vm");
+  const ANG = require("../modules/langues/anglais.js"), dir = path.join(__dirname, "../modules/langues/niveaux");
+  const memes = (x, y) => assert.strictEqual(JSON.stringify(x), JSON.stringify(y));
+  const lire = (id) => { let def = null; const bac = { ANG, NIVEAU: (d) => { def = d.donnees; } }; vm.createContext(bac); vm.runInContext(fs.readFileSync(path.join(dir, id + ".js"), "utf8"), bac); return def; };
+  // Q004 : key de la fiche, phrase par phrase (la 15 accepte few et a few)
+  const key = ["little", "a few", "few", "a little", "a little", "little", "little", "few", "a little", "a little", "few", "little", "a few", "a little", "few|a few", "little", "a few", "a little", "few", "little … a few"];
+  const items = lire("td5").etapes.filter(e => e.type === "options").flatMap(e => e.items);
+  assert.strictEqual(items.length, 20);
+  items.forEach((it, i) => assert.strictEqual([].concat(it.bon).map(b => it.o[b]).join("|"), key[i], "Q004 phrase " + (i + 1)));
+  // The Skills of the Future, Exercise 3 : 1 c, 2 b, 3 c, 4 c, 5 b, 6 b
+  const qcm = lire("td2-qcm").etapes.map(e => e.options.find(o => o.ok).t.charAt(0));
+  memes(qcm, ["c", "b", "c", "c", "b", "b"]);
+  // Exercise 2 : True 2, 4, 5, 8 ; False 1, 3, 6, 7
+  memes(lire("td2-vrai-faux").etapes[0].cartes.map(c => c.bac), [1, 0, 1, 0, 0, 1, 1, 0]);
+  // Vocabulary, Exercise 2 : 1-e, 2-c, 3-d, 4-f, 5-b, 6-a, 7-g, 8-h
+  const m2 = lire("td2-vocabulaire").etapes[2];
+  memes(m2.bon.map(b => m2.droite[b].charAt(0)), ["e", "c", "d", "f", "b", "a", "g", "h"]);
+  // Word formation : innovation, adaptability, critical, communication, intelligence, development, abilities, collaboration
+  const wf = lire("td2-formation").etapes.filter(e => e.type === "options").flatMap(e => e.items).map(it => it.o[it.bon].toLowerCase());
+  memes(wf, ["innovation", "adaptability", "critical", "communication", "intelligence", "development", "abilities", "collaboration"]);
+  // Make or Do : autant de phrases que sur la fiche (16, 17, 15)
+  memes(["a", "b", "c"].map(x => lire("td5-make-do-" + x).etapes.flatMap(e => e.items).length), [16, 17, 15]);
+});
+
 console.log(`${n} tests réussis`);

@@ -1,0 +1,46 @@
+/* Niveau : hard skills et soft skills, définitions et autres noms (Soft Skills for Engineers, diapositives 4 et 5). */
+NIVEAU(ANG.niveau({
+  id: "soft-hard",
+  carte: { etiquette: "Soft Skills for Engineers", titre: "Hard skills, soft skills", texte: "Hard skills are teachable abilities, skill sets that are easy to quantify. They can be learnt in the classroom, through books or other training materials, or on the job.\n\nThe concept 'soft skills' is a sociological term referring to EQ, the Emotional intelligence quotient of a person." },
+  etapes: [
+    { nom: "Hard or soft", type: "trier",
+      titre: "Sort each skill of a biomedical engineer: hard skill or soft skill?",
+      cartes: [{ t: "Calibrating an ECG monitor", bac: 0 }, { t: "Teamwork", bac: 1 }, { t: "Programming in C", bac: 0 }, { t: "Empathy", bac: 1 },
+        { t: "Reading a technical drawing", bac: 0 }, { t: "Time management", bac: 1 }, { t: "Using MATLAB", bac: 0 }, { t: "Negotiation", bac: 1 }],
+      bacs: [{ t: "Hard skills", sous: "teachable, easy to quantify" }, { t: "Soft skills", sous: "EQ, people skills" }],
+      aides: ["Ça s'apprend dans un manuel et ça se mesure : on sait ou on ne sait pas calibrer.", "C'est une façon de travailler avec les autres, pas une connaissance technique.", "Un cours de programmation l'enseigne, et on peut le tester.", "Comprendre ce que ressent l'autre : c'est de l'intelligence émotionnelle.", "Ça s'apprend en classe et se vérifie facilement.", "C'est une façon de s'organiser : elle ne se mesure pas comme une compétence technique.", "Un logiciel s'apprend avec un manuel : compétence enseignable.", "Négocier, c'est savoir parler aux autres : people skill."],
+      bravo: "Hard skills : calibrer, programmer, lire un plan, MATLAB. Soft skills : teamwork, empathy, time management, negotiation.",
+      expliquer: "<p>Les <b>hard skills</b> sont des <i>teachable abilities</i>, <i>easy to quantify</i>, apprises en classe, dans les livres ou sur le terrain. Les <b>soft skills</b> touchent à la façon de travailler avec les autres et avec soi-même.</p>" },
+    { nom: "Not about hard skills", type: "choix",
+      titre: "Which description is NOT about hard skills?",
+      options: [
+        { t: "Teachable abilities" , aide: "Relis la carte : c'est le premier point de la définition des hard skills." },
+        { t: "Skill sets that are easy to quantify", aide: "C'est bien dans la définition des hard skills." },
+        { t: "A sociological term referring to EQ", ok: true },
+        { t: "Can be learnt through books or on the job", aide: "C'est le dernier point de la définition des hard skills." }],
+      bravo: "« A sociological term referring to EQ » définit les soft skills.",
+      expliquer: "<p>EQ = <i>Emotional intelligence quotient</i>. Le cours oppose les deux : hard skills, ce qu'on sait faire et qu'on mesure ; soft skills, l'intelligence émotionnelle.</p>" },
+    { nom: "The definition", type: "trous",
+      titre: "Complete the definition from the slide.",
+      phrases: ["The concept 'soft skills' is a [sociological] term referring to [EQ], the Emotional [intelligence] quotient of a person."],
+      jetons: ["sociological", "EQ", "intelligence", "technical", "IQ", "physical"],
+      aide: "Regarde la deuxième partie de la carte : quel quotient, et de quelle intelligence ?",
+      bravo: "A sociological term referring to EQ, the Emotional intelligence quotient.",
+      expliquer: "<p>Piège classique : <b>IQ</b> mesure l'intelligence logique ; <b>EQ</b> l'intelligence émotionnelle. Les soft skills renvoient à l'EQ.</p>" },
+    { nom: "Other names", type: "choix",
+      titre: "Soft skills are also known as… Which one is NOT in the list?",
+      carte: { etiquette: "Soft Skills for Engineers", titre: "Soft skills are also known as", texte: "People skills · Interpersonal skills · Transferable skills · Life skills · Employable skills · Personality development skills · Behavioral competencies" },
+      options: [
+        { t: "Transferable skills", aide: "Il est bien dans la liste : une compétence qu'on emporte d'un poste à l'autre." },
+        { t: "Behavioral competencies", aide: "C'est le dernier nom de la liste." },
+        { t: "Technical skills", ok: true },
+        { t: "Life skills", aide: "Il est dans la liste, au milieu." }],
+      bravo: "Technical skills, ce sont des hard skills.",
+      expliquer: "<p>Sept autres noms : <i>people, interpersonal, transferable, life, employable, personality development skills</i> et <i>behavioral competencies</i>. Retiens-en au moins quatre pour l'examen.</p>" },
+    { nom: "Easy to quantify", type: "vf",
+      titre: "True or false: hard skills are easy to quantify.",
+      vrai: true, aide: "Relis la deuxième ligne de la définition des hard skills.",
+      bravo: "True : « skill sets that are easy to quantify ».",
+      expliquer: "<p>On peut noter un hard skill (un test de programmation, un diplôme). Un soft skill comme l'empathie se mesure beaucoup moins facilement.</p>" }
+  ]
+}));
