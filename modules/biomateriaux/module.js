@@ -22,6 +22,7 @@ PLATEFORME.parcours("biomateriaux", {
   },
   // Ordre d'affichage : celui de ce tableau ; numero : le numéro affiché (les id restent ceux des pages chapitre-<id>.html).
   chapitres: [
+    { id: 13, numero: 0, titre: "Vue d'ensemble", sous: "Le module en une page, et ce qu'il faut retenir de chaque chapitre", ligne: "Le module en une page, ce qu'il faut retenir", sousModule: "biomateriaux" },
     { id: 1, numero: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
     { id: 8, numero: 2, titre: "Histoire, exigences et applications", sous: "Des Égyptiens au titane, ce qu'on exige d'un biomatériau, comment on le choisit, où on l'utilise", ligne: "Historique, exigences, choix, domaines d'application", sousModule: "biomateriaux" },
     { id: 0, numero: 3, titre: "Les bases de mécanique", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut pour comparer les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
@@ -183,7 +184,9 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "polymeres-medicaux", chapitre: 11, titre: "Les polymères des dispositifs médicaux", notions: ["polymeres-medicaux"] },
     { id: "biomateriaux-naturels", chapitre: 11, titre: "Les biomatériaux naturels", notions: ["biomateriaux-naturels"] },
     { id: "td1", chapitre: 12, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
-    { id: "td1-corrige", chapitre: 12, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
+    { id: "td1-corrige", chapitre: 12, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] },
+    { id: "vue-ensemble", chapitre: 13, titre: "Le module en une page", notions: ["vue-ensemble"] },
+    { id: "a-retenir", chapitre: 13, titre: "Ce qu'il faut retenir", notions: ["a-retenir"] }
   ],
   cours: [
     { chapitre: 0, id: "contrainte-deformation", titre: "Contrainte, déformation et module" },
@@ -246,6 +249,8 @@ PLATEFORME.parcours("biomateriaux", {
     { chapitre: 11, id: "polymeres-medicaux", titre: "Les polymères des dispositifs médicaux" },
     { chapitre: 11, id: "biomateriaux-naturels", titre: "Les biomatériaux naturels" },
     { chapitre: 12, id: "td1", titre: "TD 1 : les réponses dans le cours" },
-    { chapitre: 12, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
+    { chapitre: 12, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" },
+    { chapitre: 13, id: "vue-ensemble", titre: "Le module en une page" },
+    { chapitre: 13, id: "a-retenir", titre: "Ce qu'il faut retenir" }
   ]
 });

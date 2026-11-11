@@ -121,7 +121,9 @@ const dc = `${BASE}modules/${mid}/`;
   }
 
   // Un exercice par-dessus la page : la page ne bouge pas, « Revenir au cours » la retrouve ; un bloc de section enchaîne ses exercices
-  const ch0 = chs[0], ss0 = P.sections.filter(x => x.chapitre === ch0);
+  // premier chapitre qui a des exercices (une vue d'ensemble peut n'avoir que de la lecture)
+  const aExos = ch => P.sections.some(x => x.chapitre === ch && x.notions.some(n => P.niveaux.some(y => y.id === n && y.pret)));
+  const ch0 = chs.find(aExos), ss0 = P.sections.filter(x => x.chapitre === ch0);
   const ids0 = ss0.map(x => x.notions.filter(n => P.niveaux.some(y => y.id === n && y.pret))).find(l => l.length);
   const n0 = { id: ids0[0] };
   await pg.goto(dc + `chapitres/chapitre-${ch0}.html`, { waitUntil: "networkidle" }); await pg.waitForTimeout(300);
