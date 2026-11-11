@@ -1,10 +1,10 @@
-/* Figure : Cinq types d'entretien (cases à toucher, ANG.explorer). */
+/* Figure : Five types of interview (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-types", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Cinq types d'entretien",
-    essai: "<strong>Essaie</strong> : touche chaque type d'entretien. <strong>Observe</strong> : qui est en face de toi, et ce qu'on teste."
+  var f = R.figure("fig-entretien-types", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "Five types of interview",
+    essai: "<strong>Try</strong>: tap each type of interview. <strong>Notice</strong>: who is in front of you, and what is being tested."
   });
   A.explorer(f, [
    {
@@ -41,7 +41,7 @@
     "w": 445.0,
     "h": 154.7,
     "t": "Group",
-    "texte": "Several job candidates at once. Separate the leaders from the followers ; find out if you are a “team player”.",
+    "texte": "Several job candidates at once. Separate the leaders from the followers; find out if you are a “team player”.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "several candidates",
@@ -69,7 +69,7 @@
     "w": 445.0,
     "h": 239.0,
     "t": "Stress",
-    "texte": "Questions so fast you can't answer each one ; weird questions, to see how you answer. Weeds out those who cannot handle adversity.",
+    "texte": "Questions so fast you can't answer each one; weird questions, to see how you answer. Weeds out those who cannot handle adversity.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "pressure on purpose",
@@ -77,5 +77,5 @@
     "pale": C.brunPale,
     "bord": C.brun
    }
-  ], { invite: "Touche une case du dessin." });
+  ], { invite: "Tap a box in the picture." });
 })();

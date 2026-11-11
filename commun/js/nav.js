@@ -21,8 +21,8 @@
   if (exos && !(exos.type === "exos" && exos.id === slug)) exos = null;
   var apres = etape ? trouve.liste[trouve.rang + 1] || null : null;
   function boutonSuite(cls) {
-    if (exos) return '<a class="' + cls + '" href="../jouer.html#' + encodeURIComponent(slug) + '">Passer aux exercices</a>';
-    if (apres) return '<a class="' + cls + '" href="' + P.urlEtape(apres) + '">Étape suivante</a>';
+    if (exos) return '<a class="' + cls + '" href="../jouer.html#' + encodeURIComponent(slug) + '">' + P.t("Passer aux exercices") + "</a>";
+    if (apres) return '<a class="' + cls + '" href="' + P.urlEtape(apres) + '">' + P.t("Étape suivante") + "</a>";
     return "";
   }
 
@@ -39,7 +39,7 @@
 
   // Chapitre en tête de page
   var etiquette = document.querySelector("[data-etiquette]");
-  if (etiquette && chapitre) etiquette.textContent = P.nomChapitre(MID, chapitre.id) + " · " + chapitre.titre + " · Cours";
+  if (etiquette && chapitre) etiquette.textContent = P.nomChapitre(MID, chapitre.id) + " · " + chapitre.titre + " · " + P.t("Cours");
 
   // Ancres des sections (h2, h3) : les liens « Revoir dans le cours » du jeu y mènent.
   var vus = {};
@@ -64,9 +64,9 @@
   if (main && etape && !integre) {
     var bas = document.createElement("nav");
     bas.className = "suite";
-    bas.setAttribute("aria-label", "Suite du parcours");
-    var ex = exos ? '<small>Exercices · ' + esc(exos.titre) + "</small>Passer aux exercices" : apres ? "<small>" + P.genre(apres) + " · " + esc(apres.titre) + "</small>Étape suivante" : "";
-    bas.innerHTML = '<a class="retour" href="' + P.urlCarte(MID, etape.sm, etape.chapitre) + '"><small>Carte</small>Retour à la carte</a>' +
+    bas.setAttribute("aria-label", P.t("Suite"));
+    var ex = exos ? "<small>" + P.t("Exercices") + " · " + esc(exos.titre) + "</small>" + P.t("Passer aux exercices") : apres ? "<small>" + P.genre(apres) + " · " + esc(apres.titre) + "</small>" + P.t("Étape suivante") : "";
+    bas.innerHTML = '<a class="retour" href="' + P.urlCarte(MID, etape.sm, etape.chapitre) + '"><small>' + P.t("Carte") + "</small>" + P.t("Retour à la carte") + "</a>" +
       (ex ? '<a class="aller" href="' + (exos ? "../jouer.html#" + encodeURIComponent(slug) : P.urlEtape(apres)) + '">' + ex + "</a>" : "");
     main.appendChild(bas);
     // Page lue : quand le bas de page apparaît à l'écran
@@ -108,14 +108,14 @@
     var b = document.querySelector(".site-module");
     if (b) b.href = P.urlCarte(MID, sm.id);
     var h1 = document.querySelector("main h1");
-    if (h1 && sm.titre) h1.insertAdjacentHTML("beforebegin", '<p class="etiquette">' + esc(sm.titre) + "</p>");
+    if (h1 && sm.titre) h1.insertAdjacentHTML("beforebegin", '<p class="etiquette">' + esc(P.nomSm(MID, sm.id) || sm.titre) + "</p>");
     var hp = "", pages = P.etapes(MID, sm.id).filter(function (x) { return x.type === "cours"; });
     sm.chapitres.forEach(function (ch) {
       var siennes = pages.filter(function (x) { return x.chapitre === ch.id; });
       if (!siennes.length) return;
-      hp += '<h2 class="partie-titre">Chapitre ' + ch.id + " · " + esc(ch.titre) + '</h2><ol class="liste-cours">';
+      hp += '<h2 class="partie-titre">' + P.nomChapitre(MID, ch.id) + " · " + esc(ch.titre) + '</h2><ol class="liste-cours">';
       siennes.forEach(function (x) {
-        hp += '<li><a href="' + x.id + '.html"><span class="nom">' + esc(x.titreLong) + "</span>" + (x.fait ? '<span class="lu">lu</span>' : "") + "</a></li>";
+        hp += '<li><a href="' + x.id + '.html"><span class="nom">' + esc(x.titreLong) + "</span>" + (x.fait ? '<span class="lu">' + P.t("lu") + "</span>" : "") + "</a></li>";
       });
       hp += "</ol>";
     });

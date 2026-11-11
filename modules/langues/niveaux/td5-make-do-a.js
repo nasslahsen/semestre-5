@@ -20,7 +20,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make (an) effort : collocation avec make."
+     "aide": "make (an) effort: a collocation with make."
     },
     {
      "n": 2,
@@ -54,7 +54,7 @@ NIVEAU(ANG.niveau({
     }
    ],
    "bravo": "1 make, 2 make, 3 make, 4 do.",
-   "expliquer": "<p>Correction proposée. Repère simple : <b>make</b> pour créer, produire, fabriquer (a decision, a complaint, an effort) ; <b>do</b> pour une activité, une tâche, un travail (business, the cleaning).</p>"
+   "expliquer": "<p>Suggested answers. Simple guide: <b>make</b> to create, produce, build (a decision, a complaint, an effort); <b>do</b> for an activity, a task, a job (business, the cleaning).</p>"
   },
   {
    "nom": "Sentences 5 to 8",
@@ -69,7 +69,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "Les tâches ménagères en -ing : do the cleaning."
+     "aide": "Housework in -ing: do the cleaning."
     },
     {
      "n": 6,
@@ -79,7 +79,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make a deal (do a deal existe aussi en anglais britannique familier)."
+     "aide": "make a deal (“do a deal” also exists in informal British English)."
     },
     {
      "n": 7,
@@ -89,7 +89,7 @@ NIVEAU(ANG.niveau({
       "did"
      ],
      "bon": 0,
-     "aide": "make an appointment, ici au prétérit."
+     "aide": "make an appointment, here in the past simple."
     },
     {
      "n": 8,
@@ -99,11 +99,11 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make your bed : expression figée."
+     "aide": "make your bed: a fixed expression."
     }
    ],
    "bravo": "5 do, 6 make, 7 made, 8 make.",
-   "expliquer": "<p>Tâches de la maison : <b>do</b> the dishes, the cleaning, the washing. Mais <b>make</b> your bed, make a mess : à apprendre par cœur.</p>"
+   "expliquer": "<p>Housework: <b>do</b> the dishes, the cleaning, the washing. But <b>make</b> your bed, make a mess: learn them by heart.</p>"
   },
   {
    "nom": "Sentences 9 to 12",
@@ -118,7 +118,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "do the dishes : faire la vaisselle."
+     "aide": "do the dishes: wash the plates and cups."
     },
     {
      "n": 10,
@@ -128,7 +128,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make a date : fixer un rendez-vous."
+     "aide": "make a date: arrange to meet."
     },
     {
      "n": 11,
@@ -148,11 +148,11 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make a mess : mettre le désordre."
+     "aide": "make a mess: make a place untidy."
     }
    ],
    "bravo": "9 do, 10 make, 11 making, 12 make.",
-   "expliquer": "<p>Communication et organisation : <b>make</b> a phone call, a date, an appointment.</p>"
+   "expliquer": "<p>Communication and organisation: <b>make</b> a phone call, a date, an appointment.</p>"
   },
   {
    "nom": "Sentences 13 to 16",
@@ -177,7 +177,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make money : gagner de l'argent."
+     "aide": "make money: earn money."
     },
     {
      "n": 15,
@@ -187,7 +187,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "What do you do? : quel est ton métier ?"
+     "aide": "What do you do?: what is your job?"
     },
     {
      "n": 16,
@@ -197,11 +197,11 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "do the accounts : un travail, une tâche."
+     "aide": "do the accounts: a job, a task."
     }
    ],
    "bravo": "13 do, 14 make, 15 do, 16 do.",
-   "expliquer": "<p>Métier et argent : <b>What do you do?</b> (ton métier) ; <b>make money</b> (gagner de l'argent).</p>"
+   "expliquer": "<p>Jobs and money: <b>What do you do?</b> (your job); <b>make money</b> (earn money).</p>"
   }
  ]
 }));

@@ -8,6 +8,7 @@
  * texte : même teinte assombrie, pour le petit texte et les boutons sur fond blanc (contraste lisible).
  * statut : "actif" (dossier modules/<id>/ prêt) ou "a-venir" (carte visible mais pas cliquable).
  * sousModules[].statut : "a-venir" pour un sous-module sans contenu encore.
+ * sousModules[].lang : "en" pour un cours entièrement en anglais (interface comprise) ; titreEn : son nom en anglais.
  */
 window.REGISTRE = {
   semestre: "Semestre 5",
@@ -55,11 +56,11 @@ window.REGISTRE = {
       sousModules: []
     },
     {
-      id: "langues", titre: "Langues étrangères 5", statut: "actif",
+      id: "langues", titre: "Langues étrangères 5", titreEn: "Foreign languages 5", statut: "actif",
       couleur: "#C14C8A", clair: "#F5E0E9", texte: "#BD4A87",
       sousModules: [
-        { id: "francais", titre: "Français", statut: "a-venir" },
-        { id: "anglais", titre: "Anglais" }
+        { id: "francais", titre: "Français", titreEn: "French", statut: "a-venir" },
+        { id: "anglais", titre: "Anglais", titreEn: "English", lang: "en" }
       ]
     }
   ]

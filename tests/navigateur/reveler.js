@@ -27,11 +27,11 @@ const prets = [...src.matchAll(/\{ id: "([^"]+)"[^}]*pret: true/g)].map(m => m[1
     const sansReponse = [];
     for (let k = 0; k < nEtapes; k++) {
       await pg.waitForTimeout(600);
-      if (MODE === "passer") { await pg.click('.etape:not(.sortie) .aide-q button >> text="Passer"'); continue; }
-      await pg.click('.etape:not(.sortie) .aide-q button >> text="Voir la réponse"');
+      if (MODE === "passer") { await pg.click('.etape:not(.sortie) .aide-q button.passer'); continue; }
+      await pg.click('.etape:not(.sortie) .aide-q button.voir-reponse');
       // la réponse arrive avec « Continuer » (au plus quelques secondes pour les questions en plusieurs temps)
       const ok = await pg.waitForSelector(".etape:not(.sortie) .btn.suite", { timeout: 6000 }).then(() => true, () => false);
-      if (!ok) { sansReponse.push(k + 1); await pg.click('.etape:not(.sortie) .aide-q button >> text="Passer"'); continue; }
+      if (!ok) { sansReponse.push(k + 1); await pg.click('.etape:not(.sortie) .aide-q button.passer'); continue; }
       await pg.waitForTimeout(300);
       await pg.click(".etape:not(.sortie) .btn.suite");
     }
@@ -48,8 +48,8 @@ const prets = [...src.matchAll(/\{ id: "([^"]+)"[^}]*pret: true/g)].map(m => m[1
       const titre = await pg.$eval(".etape:not(.sortie) h2", h => h.textContent.length).catch(() => 0);
       if (!titre) rejeu = "rejeu sans question";
       else if (MODE === "reveler" && !sansReponse.includes(1)) {
-        await pg.click('.etape:not(.sortie) .aide-q button >> text="Voir la réponse"');
-        await pg.waitForSelector('.etape:not(.sortie) .btn.suite >> text="Revenir au bilan"', { timeout: 6000 }).then(() => pg.click(".etape:not(.sortie) .btn.suite"), () => { rejeu = "pas de « Revenir au bilan »"; });
+        await pg.click('.etape:not(.sortie) .aide-q button.voir-reponse');
+        await pg.waitForSelector('.etape:not(.sortie) .btn.suite', { timeout: 6000 }).then(() => pg.click(".etape:not(.sortie) .btn.suite"), () => { rejeu = "pas de « Revenir au bilan »"; });
         await pg.waitForTimeout(900);
         const de = await pg.evaluate(() => document.getElementById("resultat").classList.contains("on"));
         if (!de && !rejeu) rejeu = "pas de retour au bilan";

@@ -30,7 +30,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make a good wife / husband : être un bon…"
+     "aide": "make a good wife / husband: be a good…"
     },
     {
      "n": 3,
@@ -50,11 +50,11 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make up for : rattraper."
+     "aide": "make up for: compensate for, catch up on."
     }
    ],
    "bravo": "1 do, 2 make, 3 do, 4 make.",
-   "expliquer": "<p>Correction proposée. <b>Do you good</b> (faire du bien), <b>make a good wife</b> (faire une bonne épouse), <b>make up for</b> (rattraper).</p>"
+   "expliquer": "<p>Suggested answers. <b>Do you good</b> (be good for you), <b>make a good wife</b> (be a good wife), <b>make up for</b> (catch up on).</p>"
   },
   {
    "nom": "Sentences 5 to 7",
@@ -71,7 +71,7 @@ NIVEAU(ANG.niveau({
       "do … do"
      ],
      "bon": 0,
-     "aide": "make up your mind (se décider), puis do what is right."
+     "aide": "make up your mind (decide), then do what is right."
     },
     {
      "n": 6,
@@ -81,7 +81,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "will it do? : est-ce que ça ira ?"
+     "aide": "will it do?: will it be suitable?"
     },
     {
      "n": 7,
@@ -97,7 +97,7 @@ NIVEAU(ANG.niveau({
     }
    ],
    "bravo": "5 make … do, 6 do, 7 make … do.",
-   "expliquer": "<p>Phrasal verbs avec make : <b>make up your mind</b>, <b>make out</b>. Et <b>will it do?</b> : est-ce que ça convient ?</p>"
+   "expliquer": "<p>Phrasal verbs with make: <b>make up your mind</b>, <b>make out</b>. And <b>will it do?</b>: is it suitable?</p>"
   },
   {
    "nom": "Sentences 8 to 11",
@@ -112,7 +112,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make use of : se servir de."
+     "aide": "make use of: use."
     },
     {
      "n": 9,
@@ -124,7 +124,7 @@ NIVEAU(ANG.niveau({
       "Make … Make"
      ],
      "bon": 0,
-     "aide": "do your best ; make someone proud."
+     "aide": "do your best; make someone proud."
     },
     {
      "n": 10,
@@ -136,7 +136,7 @@ NIVEAU(ANG.niveau({
       "did … doing"
      ],
      "bon": 0,
-     "aide": "make a mistake ; do business (après in : -ing)."
+     "aide": "make a mistake; do business (after in: -ing)."
     },
     {
      "n": 11,
@@ -148,11 +148,11 @@ NIVEAU(ANG.niveau({
       "do … do"
      ],
      "bon": 0,
-     "aide": "make someone do something ; do your work."
+     "aide": "make someone do something; do your work."
     }
    ],
    "bravo": "8 make, 9 Do … Make, 10 made … doing, 11 make … do.",
-   "expliquer": "<p><b>Make someone do something</b> : obliger quelqu'un à faire quelque chose (make + base verbale).</p>"
+   "expliquer": "<p><b>Make someone do something</b>: force someone to do something (make + base form).</p>"
   },
   {
    "nom": "Sentences 12 to 15",
@@ -177,7 +177,7 @@ NIVEAU(ANG.niveau({
       "does"
      ],
      "bon": 0,
-     "aide": "Proverbe : make, au présent avec he / she."
+     "aide": "A proverb: make, present simple with he / she."
     },
     {
      "n": 14,
@@ -187,7 +187,7 @@ NIVEAU(ANG.niveau({
       "done"
      ],
      "bon": 0,
-     "aide": "make a name for yourself : se faire un nom."
+     "aide": "make a name for yourself: become known."
     },
     {
      "n": 15,
@@ -197,11 +197,11 @@ NIVEAU(ANG.niveau({
       "doing"
      ],
      "bon": 0,
-     "aide": "make enquiries : se renseigner."
+     "aide": "make enquiries: ask for information."
     }
    ],
    "bravo": "12 do, 13 makes, 14 made, 15 making.",
-   "expliquer": "<p><b>Make a name for yourself</b>, <b>make enquiries</b>. La phrase 13 est un proverbe : « A good husband makes a good wife ».</p>"
+   "expliquer": "<p><b>Make a name for yourself</b>, <b>make enquiries</b>. Sentence 13 is a proverb: “A good husband makes a good wife”.</p>"
   }
  ]
 }));

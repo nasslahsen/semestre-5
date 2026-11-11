@@ -21,20 +21,22 @@
 
   window.NIVEAU = function (def) {
     var liste = MOD.niveaux, rang = liste.findIndex(function (n) { return n.id === def.id; }), info = liste[rang] || { titre: def.id, chapitre: 0 };
-    document.title = info.titre + " · " + MOD.titre;
+    P.reglerLangue(MID, P.smDe(MID, info.chapitre)); // le cours d'anglais : tout l'écran en anglais
+    document.title = info.titre + " · " + (P.lang === "en" && MOD.titreEn ? MOD.titreEn : MOD.titre);
     var plan = PLAN && P.avecChapitres(MID, P.smDe(MID, info.chapitre));
     if (!plan) P.noterDernier(MID, info.titre);
     // dans le cadre de la page du chapitre : fermer l'exercice
     function revenir(e) { if (e) e.preventDefault(); if (window.parent !== window) window.parent.postMessage({ s5: "fermer-exercice" }, "*"); }
     var nom = document.getElementById("nom-niveau"), ici = P.trouver(MID, "exos", def.id);
-    nom.innerHTML = "<small>" + (info.boss ? "BOSS · " : info.revision ? "RÉVISION · " : "EXERCICES · ") + P.nomChapitre(MID, info.chapitre).toUpperCase() + "</small><h1>" + info.titre + "</h1>";
+    nom.innerHTML = "<small>" + P.t(info.boss ? "BOSS · " : info.revision ? "RÉVISION · " : "EXERCICES · ") + P.nomChapitre(MID, info.chapitre).toUpperCase() + "</small><h1>" + info.titre + "</h1>";
     var lienCarte = document.querySelector(".barre .carte-lien");
+    if (lienCarte) lienCarte.textContent = P.t("Carte");
     if (lienCarte) lienCarte.href = P.urlCarte(MID, ici ? ici.etape.sm : undefined, info.chapitre);
-    if (lienCarte && plan) { lienCarte.href = P.urlChapitre(MID, info.chapitre); lienCarte.textContent = "Revenir au cours"; lienCarte.addEventListener("click", revenir); }
+    if (lienCarte && plan) { lienCarte.href = P.urlChapitre(MID, info.chapitre); lienCarte.textContent = P.t("Revenir au cours"); lienCarte.addEventListener("click", revenir); }
     // lien vers la page de cours de la même notion, à côté du lien Carte (inutile dans le cadre : le cours est derrière)
     if (info.cours && !plan) {
       var lc = document.createElement("a");
-      lc.className = "carte-lien"; lc.href = "cours/" + info.id + ".html"; lc.textContent = "Cours";
+      lc.className = "carte-lien"; lc.href = "cours/" + info.id + ".html"; lc.textContent = P.t("Cours");
       nom.parentNode.insertBefore(lc, nom);
     }
 
@@ -73,7 +75,7 @@
       var ancien = panneau.querySelector(".etape:not(.sortie)");
       if (ancien) { ancien.classList.add("sortie"); setTimeout(function () { ancien.remove(); }, 450); }
       var el = E.h("div", "etape entree", "", panneau);
-      E.h("span", "kicker" + (info.boss ? " boss" : ""), (info.boss ? "BOSS · " : "") + "ÉTAPE " + (i + 1) + " / " + def.etapes.length, el);
+      E.h("span", "kicker" + (info.boss ? " boss" : ""), (info.boss ? "BOSS · " : "") + P.t("ÉTAPE") + " " + (i + 1) + " / " + def.etapes.length, el);
       var j = contexte(el, i);
       def.etapes[i].jouer(j, n);
       aideQuestion(el, i, j);
@@ -84,8 +86,8 @@
     // « Voir la réponse » et « Passer », sous la question, tant que l'étape n'est pas finie
     function aideQuestion(el, i, j) {
       var z = E.h("div", "aide-q", "", el);
-      var bR = E.h("button", "", "Voir la réponse", z); bR.type = "button";
-      var bP = E.h("button", "", "Passer", z); bP.type = "button";
+      var bR = E.h("button", "voir-reponse", P.t("Voir la réponse"), z); bR.type = "button";
+      var bP = E.h("button", "passer", P.t("Passer"), z); bP.type = "button";
       bR.addEventListener("click", function () { j.reveler(); });
       bP.addEventListener("click", function () {
         if (!etats[i]) etats[i] = "passee";
@@ -122,7 +124,7 @@
           if ((attente += 250) < 5000) { setTimeout(pas, 250); return; }
           revelation = false;
           if (z) z.style.visibility = "";
-          j.info("Cette question n'a pas de réponse toute prête : passe-la.");
+          j.info(P.t("Cette question n'a pas de réponse toute prête : passe-la."));
         })();
       };
       function ligneMsg() { if (!msg || !msg.parentNode) msg = E.h("div", "retour-msg", "", el); return msg; }
@@ -143,8 +145,8 @@
       j.efface = function () { if (msg) { msg.innerHTML = ""; msg.className = "retour-msg"; } };
       j.bravo = function (html, point) {
         // réponse montrée : on donne la réponse, sans féliciter
-        if (etats[i] === "revelee") { var mr = ligneMsg(); mr.className = "retour-msg info"; mr.innerHTML = "<span>Réponse : " + (html || "") + "</span>"; E.rendre(mr); lienCours(el, i, mr); return; }
-        var m = ligneMsg(); m.className = "retour-msg ok"; m.innerHTML = COCHE + "<span>" + (html || "Bravo.") + "</span>"; E.rendre(m);
+        if (etats[i] === "revelee") { var mr = ligneMsg(); mr.className = "retour-msg info"; mr.innerHTML = "<span>" + P.t("Réponse : ") + (html || "") + "</span>"; E.rendre(mr); lienCours(el, i, mr); return; }
+        var m = ligneMsg(); m.className = "retour-msg ok"; m.innerHTML = COCHE + "<span>" + (html || P.t("Bravo.")) + "</span>"; E.rendre(m);
         var r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
         var p = point ? [r.left + point[0] / vb.width * r.width, r.top + point[1] / vb.height * r.height] : [r.left + r.width / 2, r.top + r.height / 2];
         var o = E.h("div", "onde", "", document.body); o.style.left = p[0] + "px"; o.style.top = p[1] + "px";
@@ -156,7 +158,7 @@
         return x;
       };
       j.suite = function (label, parent) {
-        var b = E.h("button", "btn suite", rejeu ? "Revenir au bilan" : label || (i + 1 < def.etapes.length ? "Continuer" : "Terminer le niveau"), parent || el); b.type = "button";
+        var b = E.h("button", "btn suite", rejeu ? P.t("Revenir au bilan") : label || P.t(i + 1 < def.etapes.length ? "Continuer" : "Terminer le niveau"), parent || el); b.type = "button";
         b.addEventListener("click", function () { b.disabled = true; if (!etats[i]) etats[i] = "resolue"; apres(i); });
         setTimeout(function () { b.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 400);
         return b;
@@ -178,7 +180,7 @@
               if (cfg.ok) cfg.ok(b);
             } else {
               b.classList.add("faux"); b.classList.remove("secoue"); void b.offsetWidth; b.classList.add("secoue");
-              j.erreur(o.aide || "Pas tout à fait. Regarde la figure.");
+              j.erreur(o.aide || P.t("Pas tout à fait. Regarde la figure."));
             }
           });
         });
@@ -205,9 +207,9 @@
             val[active] = s; cases[active].classList.remove("bon", "faux"); maj();
           });
         });
-        var bE = E.h("button", "touche large", "Effacer", clav); bE.type = "button";
+        var bE = E.h("button", "touche large", P.t("Effacer"), clav); bE.type = "button";
         bE.addEventListener("click", function () { val[active] = ""; cases[active].classList.remove("bon", "faux"); maj(); });
-        var bV = E.h("button", "touche large ok", "Vérifier", clav); bV.type = "button";
+        var bV = E.h("button", "touche large ok", P.t("Vérifier"), clav); bV.type = "button";
         var r = j.reponse(function () {
           cfg.cases.forEach(function (c, k) { val[k] = String(c.attendu).replace(".", ","); });
           maj(); bV.click();
@@ -219,7 +221,7 @@
             cases[k].classList.toggle("bon", bon); cases[k].classList.toggle("faux", !bon);
             if (!bon) faux.push(k);
           });
-          if (faux.length) { j.erreur(cfg.aide ? cfg.aide(faux[0], val) : "Une valeur ne va pas : elle est en rouge."); return; }
+          if (faux.length) { j.erreur(cfg.aide ? cfg.aide(faux[0], val) : P.t("Une valeur ne va pas : elle est en rouge.")); return; }
           r.fait = true; clav.style.display = "none";
           if (cfg.ok) cfg.ok();
         });
@@ -230,7 +232,7 @@
       j.jetons = function (cfg) {
         var reserve = E.h("div", "jetons", "", cfg.reserve || el);
         var trous = cfg.trous, place = trous.map(function () { return null; });
-        var bVerif = E.h("button", "btn bleu", "Vérifier", el); bVerif.type = "button"; bVerif.disabled = true;
+        var bVerif = E.h("button", "btn bleu", P.t("Vérifier"), el); bVerif.type = "button"; bVerif.disabled = true;
         var siens = [], r = j.reponse(function () {
           place.forEach(function (t) { if (t) poser(t, null); });
           trous.forEach(function (x, k) {
@@ -278,7 +280,7 @@
           if (faux.length) {
             faux.forEach(function (k) { trous[k].classList.add("faux"); });
             setTimeout(function () { faux.forEach(function (k) { poser(place[k], null); }); }, 700);
-            j.erreur(cfg.aide || "Les cases en rouge ne sont pas à leur place.");
+            j.erreur(cfg.aide || P.t("Les cases en rouge ne sont pas à leur place."));
             return;
           }
           r.fait = true; bVerif.remove(); reserve.remove();
@@ -322,20 +324,20 @@
       var r = document.getElementById("resultat");
       var et = ""; for (var s = 0; s < 3; s++) et += '<span class="' + (s < nb ? "pleine" : "vide") + '">' + ETOILE + "</span>";
       var texte = restantes.length
-        ? (restantes.length > 1 ? restantes.length + " questions passées ou vues : elles ne comptent pas pour les étoiles. Réessaie-les." : "Une question passée ou vue : elle ne compte pas pour les étoiles. Réessaie-la.")
-        : erreurs === 0 ? "Aucune erreur. Parfait." : erreurs + (erreurs > 1 ? " erreurs" : " erreur") + ". Rejoue sans erreur pour avoir les trois étoiles.";
-      r.innerHTML = '<div class="carte"><span class="kicker' + (info.boss ? " boss" : "") + '">' + (info.boss && !restantes.length ? "BOSS VAINCU" : "NIVEAU TERMINÉ") + '</span><div class="etoiles">' + et + "</div><h2>" + info.titre + "</h2><p>" +
+        ? (restantes.length > 1 ? P.t("{n} questions passées ou vues : elles ne comptent pas pour les étoiles. Réessaie-les.", restantes.length) : P.t("Une question passée ou vue : elle ne compte pas pour les étoiles. Réessaie-la."))
+        : erreurs === 0 ? P.t("Aucune erreur. Parfait.") : P.t(erreurs > 1 ? "{n} erreurs. Rejoue sans erreur pour avoir les trois étoiles." : "{n} erreur. Rejoue sans erreur pour avoir les trois étoiles.", erreurs);
+      r.innerHTML = '<div class="carte"><span class="kicker' + (info.boss ? " boss" : "") + '">' + P.t(info.boss && !restantes.length ? "BOSS VAINCU" : "NIVEAU TERMINÉ") + '</span><div class="etoiles">' + et + "</div><h2>" + info.titre + "</h2><p>" +
         texte + '</p><div class="a-revoir"></div><div class="actions"></div></div>';
       var liste2 = r.querySelector(".a-revoir");
       restantes.forEach(function (k) {
-        var l = E.h("div", "", '<span><b>Étape ' + (k + 1) + "</b> · " + def.etapes[k].nom + "<small>" + (etats[k] === "revelee" ? "réponse vue" : "passée") + "</small></span>", liste2);
-        var b = E.h("button", "btn clair", "Réessayer", l); b.type = "button";
+        var l = E.h("div", "", '<span><b>' + P.t("Étape") + " " + (k + 1) + "</b> · " + def.etapes[k].nom + "<small>" + P.t(etats[k] === "revelee" ? "réponse vue" : "passée") + "</small></span>", liste2);
+        var b = E.h("button", "btn clair", P.t("Réessayer"), l); b.type = "button";
         b.addEventListener("click", function () { r.classList.remove("on"); rejeu = true; etats[k] = undefined; errEtape[k] = 0; aller(k); });
       });
       var act = r.querySelector(".actions");
       var b1 = null;
       if (suivant) {
-        var lib = suivant.type === "cours" ? "Cours suivant" : suivant.boss ? "Le boss du chapitre" : suivant.revision ? "Révision du chapitre" : "Exercices suivants";
+        var lib = P.t(suivant.type === "cours" ? "Cours suivant" : suivant.boss ? "Le boss du chapitre" : suivant.revision ? "Révision du chapitre" : "Exercices suivants");
         b1 = E.h("a", "btn btn-suivant", lib + "<small>" + suivant.titre + "</small>", act); b1.href = P.urlEtape(suivant);
       }
       // dans le cadre : on revient au cours, à l'endroit où on l'avait laissé
@@ -343,12 +345,12 @@
       var suite = plan ? (new URLSearchParams(location.search).get("suite") || "").split(",").filter(Boolean) : [];
       var prochain = suite.length ? (MOD.niveaux || []).filter(function (x) { return x.id === suite[0]; })[0] : null;
       if (prochain) {
-        b1 = E.h("a", "btn btn-suivant", "Exercice suivant<small>" + prochain.titre + "</small>", act); b1.href = P.urlExercice(MID, prochain.id, suite.slice(1));
-        var b0 = E.h("a", "btn clair", "Revenir au cours", act); b0.href = P.urlChapitre(MID, info.chapitre); b0.addEventListener("click", revenir);
+        b1 = E.h("a", "btn btn-suivant", P.t("Exercice suivant") + "<small>" + prochain.titre + "</small>", act); b1.href = P.urlExercice(MID, prochain.id, suite.slice(1));
+        var b0 = E.h("a", "btn clair", P.t("Revenir au cours"), act); b0.href = P.urlChapitre(MID, info.chapitre); b0.addEventListener("click", revenir);
         b0.style.cssText = "display:inline-flex;align-items:center;text-decoration:none";
-      } else if (plan) { b1 = E.h("a", "btn btn-suivant", "Revenir au cours", act); b1.href = P.urlChapitre(MID, info.chapitre); b1.addEventListener("click", revenir); }
-      var b2 = E.h("a", "btn clair", "Rejouer", act); b2.href = "jouer.html#" + def.id; b2.addEventListener("click", function (e) { e.preventDefault(); location.reload(); });
-      var b3 = plan ? null : E.h("a", "btn clair", "Carte", act); if (b3) b3.href = P.urlCarte(MID, ici ? ici.etape.sm : undefined, info.chapitre);
+      } else if (plan) { b1 = E.h("a", "btn btn-suivant", P.t("Revenir au cours"), act); b1.href = P.urlChapitre(MID, info.chapitre); b1.addEventListener("click", revenir); }
+      var b2 = E.h("a", "btn clair", P.t("Rejouer"), act); b2.href = "jouer.html#" + def.id; b2.addEventListener("click", function (e) { e.preventDefault(); location.reload(); });
+      var b3 = plan ? null : E.h("a", "btn clair", P.t("Carte"), act); if (b3) b3.href = P.urlCarte(MID, ici ? ici.etape.sm : undefined, info.chapitre);
       [b2, b3].forEach(function (b) { if (b) b.style.cssText = "display:inline-flex;align-items:center;text-decoration:none"; });
       r.classList.add("on");
     }
@@ -363,7 +365,7 @@
       if (!c) return;
       var page = (MOD.cours || []).filter(function (x) { return x.id === c[0]; })[0];
       var titre = (page ? page.titre : c[0]) + (c[2] ? " · " + c[2] : "");
-      var a = E.h("a", "revoir", "<span>Revoir dans le cours</span><b>" + titre + "</b>", el);
+      var a = E.h("a", "revoir", "<span>" + P.t("Revoir dans le cours") + "</span><b>" + titre + "</b>", el);
       a.href = urlCours(c[0], c[1], false);
       if (apresEl && apresEl.nextSibling) el.insertBefore(a, apresEl.nextSibling);
       a.addEventListener("click", function (e) { e.preventDefault(); ouvrirCours(c[0], c[1], page ? page.titre : ""); });
@@ -371,7 +373,7 @@
     function ouvrirCours(page, ancre, titre) {
       var f = document.getElementById("fenetre-cours");
       if (!f) {
-        f = E.h("div", "fenetre-cours", '<div class="fc-carte"><div class="fc-tete"><span></span><button type="button" class="btn">Revenir à l\'exercice</button></div><iframe title="Cours"></iframe></div>', document.body);
+        f = E.h("div", "fenetre-cours", '<div class="fc-carte"><div class="fc-tete"><span></span><button type="button" class="btn">' + P.t("Revenir à l'exercice") + '</button></div><iframe title="' + P.t("Cours") + '"></iframe></div>', document.body);
         f.id = "fenetre-cours";
         f.querySelector("button").addEventListener("click", function () { f.classList.remove("on"); });
         f.addEventListener("click", function (e) { if (e.target === f) f.classList.remove("on"); });

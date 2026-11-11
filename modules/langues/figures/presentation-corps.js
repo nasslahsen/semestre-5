@@ -1,10 +1,10 @@
-/* Figure : Langage du corps, supports visuels, derniers conseils (cases à toucher, ANG.explorer). */
+/* Figure : Body language, visual aids, final tips (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-corps", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Langage du corps, supports visuels, derniers conseils",
-    essai: "<strong>Essaie</strong> : touche les cases des trois colonnes. <strong>Observe</strong> : le corps, les diapositives et la durée parlent autant que les mots."
+  var f = R.figure("fig-presentation-corps", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "Body language, visual aids, final tips",
+    essai: "<strong>Try</strong>: tap the boxes in the three columns. <strong>Notice</strong>: your body, your slides and your timing speak as much as your words."
   });
   A.explorer(f, [
    {
@@ -91,7 +91,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Technology",
-    "texte": "Avoid complete dependence on technology : savoir présenter sans projecteur.",
+    "texte": "Avoid complete dependence on technology: be able to present without a projector.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
@@ -150,5 +150,5 @@
     "pale": C.okPale,
     "bord": C.ok
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Body language", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Visual aids", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Final tips", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Body language", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Visual aids", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Final tips", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

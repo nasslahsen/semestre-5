@@ -39,11 +39,11 @@ const prets = [...src.matchAll(/\{ id: "([^"]+)"[^}]*pret: true/g)].map(m => m[1
       });
       if (v.chev.length) pbs.push(`étape ${k + 1} : ` + v.chev.slice(0, 3).join(", "));
       if (v.coupe.length) pbs.push(`étape ${k + 1} : texte coupé au bord (${v.coupe.slice(0, 3).join(", ")})`);
-      await pg.click('.etape:not(.sortie) .aide-q button >> text="Voir la réponse"').catch(() => {});
+      await pg.click('.etape:not(.sortie) .aide-q button.voir-reponse').catch(() => {});
       const ok = await pg.waitForSelector(".etape:not(.sortie) .btn.suite", { timeout: 6000 }).then(() => true, () => false);
       await pg.waitForTimeout(500);
       await pg.screenshot({ path: `${out}/${id}-${k + 1}.png` });
-      if (ok) await pg.click(".etape:not(.sortie) .btn.suite"); else await pg.click('.etape:not(.sortie) .aide-q button >> text="Passer"').catch(() => {});
+      if (ok) await pg.click(".etape:not(.sortie) .btn.suite"); else await pg.click('.etape:not(.sortie) .aide-q button.passer').catch(() => {});
     }
     if (errs.length) pbs.push("JS : " + errs.join(" | "));
     if (pbs.length) { ko++; console.log("ÉCHEC " + id + " : " + pbs.join(" ; ")); } else console.log("ok     " + id);

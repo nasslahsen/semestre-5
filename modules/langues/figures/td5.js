@@ -1,10 +1,10 @@
-/* Figure : Little, a little, few, a few ; make ou do (cases à toucher, ANG.explorer). */
+/* Figure : Little, a little, few, a few; make or do (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
   var f = R.figure("fig-td5", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Little, a little, few, a few ; make ou do",
-    essai: "<strong>Essaie</strong> : touche chaque case. <strong>Observe</strong> : le nom (dénombrable ou non) et le sens (négatif ou positif) décident ; make produit, do accomplit."
+    largeur: 960, hauteur: 540, directCote: true, titre: "Little, a little, few, a few; make or do",
+    essai: "<strong>Try</strong>: tap each box. <strong>Notice</strong>: the noun (countable or not) and the meaning (negative or positive) decide; make produces, do performs."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "little",
-    "texte": "Pas assez, presque pas : We have little time left.",
+    "texte": "Not enough, almost none: We have little time left.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "uncountable, negative",
@@ -27,7 +27,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "a little",
-    "texte": "Un peu : Would you like a little water?",
+    "texte": "Some: Would you like a little water?",
     "taille": 25,
     "tailleSous": 17,
     "sous": "uncountable, positive",
@@ -41,7 +41,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "few",
-    "texte": "Peu, presque pas : I have very few friends.",
+    "texte": "Not many, almost none: I have very few friends.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "countable, negative",
@@ -55,7 +55,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "a few",
-    "texte": "Quelques-uns : We stayed for a few days.",
+    "texte": "Some, several: We stayed for a few days.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "countable, positive",
@@ -69,7 +69,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "make",
-    "texte": "Make a decision, a mistake, money, a phone call, a speech ; make sure, make fun of. Et : make your bed, make a mess.",
+    "texte": "Make a decision, a mistake, money, a phone call, a speech; make sure, make fun of. Also: make your bed, make a mess.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "create, produce",
@@ -83,7 +83,7 @@
     "w": 289.3,
     "h": 219.0,
     "t": "do",
-    "texte": "Do homework, the dishes, business, your best, a favour ; What do you do? How do you do?",
+    "texte": "Do homework, the dishes, business, your best, a favour; What do you do? How do you do?",
     "taille": 44,
     "tailleSous": 17,
     "sous": "activity, task",
@@ -91,5 +91,5 @@
     "pale": C.turqPale,
     "bord": C.turq
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Uncountable", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Countable", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Make or do", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Uncountable", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Countable", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Make or do", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

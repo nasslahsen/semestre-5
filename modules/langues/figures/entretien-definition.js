@@ -1,10 +1,10 @@
-/* Figure : Un entretien d'embauche et ce dont dépend sa réussite (cases à toucher, ANG.explorer). */
+/* Figure : A job interview and what success depends on (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-definition", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Un entretien d'embauche et ce dont dépend sa réussite",
-    essai: "<strong>Essaie</strong> : touche les définitions, puis les trois piliers. <strong>Observe</strong> : l'entretien est un outil de sélection ; la réussite tient aux hard skills, aux soft skills et à la préparation."
+  var f = R.figure("fig-entretien-definition", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "A job interview and what success depends on",
+    essai: "<strong>Try</strong>: tap the definitions, then the three pillars. <strong>Notice</strong>: an interview is a selection tool; success comes from hard skills, soft skills and preparation."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "A formal conversation",
-    "texte": "« A formal conversation which occurs between a potential employer and a job applicant. »",
+    "texte": "“A formal conversation which occurs between a potential employer and a job applicant.”",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.acc,
@@ -26,7 +26,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "A selection process",
-    "texte": "« Used by organizations to help determine whether a job candidate has the necessary knowledge, skills, and abilities to do the job. »",
+    "texte": "“Used by organizations to help determine whether a job candidate has the necessary knowledge, skills, and abilities to do the job.”",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.acc,
@@ -39,7 +39,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "Gathering relevant data",
-    "texte": "« A complex means of gathering relevant data about a candidate for a particular job position. »",
+    "texte": "“A complex means of gathering relevant data about a candidate for a particular job position.”",
     "taille": 22,
     "tailleSous": 17,
     "coul": C.acc,
@@ -52,7 +52,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "Professional evaluation",
-    "texte": "« A mechanism for professional evaluation for employment. »",
+    "texte": "“A mechanism for professional evaluation for employment.”",
     "taille": 22,
     "tailleSous": 17,
     "coul": C.acc,
@@ -65,7 +65,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Hard skills",
-    "texte": "Tes connaissances techniques.",
+    "texte": "Your technical knowledge.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "knowledge",
@@ -93,7 +93,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Thorough preparation",
-    "texte": "La préparation détaillée : sujet de la section suivante.",
+    "texte": "Careful, complete preparation: the next section.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "six techniques",
@@ -101,5 +101,5 @@
     "pale": C.okPale,
     "bord": C.ok
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "A job interview is\u2026", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Success depends on", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "A job interview is\u2026", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Success depends on", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

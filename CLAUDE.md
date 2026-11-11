@@ -99,6 +99,13 @@ chapitre suivant.
 - Après une erreur ou une réponse vue, « Revoir dans le cours » ouvre la page de chapitre à la section ou au passage
   qui l'explique (`liens-cours.js`, `#<ancre>` ou `#<ancre>~<bloc>`, ancres calculées par `PLATEFORME.ancre`).
 
+**Cours de langue (anglais)** : le sous-module porte `lang: "en"` et `titreEn` dans `registre.js` ; tout y est en anglais,
+interface comprise (carte, page de chapitre, écran de niveau : `PLATEFORME.t`, `reglerLangue`, dictionnaire `EN` de
+`plateforme.js`), pages de cours en `<html lang="en">`. Son `module.js` porte `pagesLibres: true` : les pages de cours suivent
+leur propre plan (key points, useful language, exam tips…), sans la structure Intuition / Formalisation / Formules clés ni
+figure obligatoire. Un module n'a pas à ressembler aux autres : sa forme suit sa matière. Les niveaux sont construits par
+`ANG.niveau` (`modules/langues/anglais.js`) à partir de données.
+
 Les pages de chapitre sont **générées** : on écrit et on corrige toujours `cours/<page>.html` et
 `figures/<page>.js`, puis on lance `node outils/regrouper.js <id>` (ou `--tous`). `tests/static-check.js` vérifie que
 chaque page de chapitre est identique à ce que produit le générateur.

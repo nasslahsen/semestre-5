@@ -1,10 +1,10 @@
-/* Figure : Six techniques de préparation (cases à toucher, ANG.explorer). */
+/* Figure : Six preparation techniques (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-preparation", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Six techniques de préparation",
-    essai: "<strong>Essaie</strong> : touche chaque technique, dans l'ordre. <strong>Observe</strong> : on part de soi, puis l'entreprise et le poste, puis ses connaissances, puis ses papiers."
+  var f = R.figure("fig-entretien-preparation", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "Six preparation techniques",
+    essai: "<strong>Try</strong>: tap each technique, in order. <strong>Notice</strong>: you start with yourself, then the company and the job, then your knowledge, then your papers."
   });
   A.explorer(f, [
    {
@@ -91,5 +91,5 @@
     "pale": C.turqPale,
     "bord": C.turq
    }
-  ], { invite: "Touche une case du dessin." });
+  ], { invite: "Tap a box in the picture." });
 })();

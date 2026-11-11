@@ -1,10 +1,10 @@
-/* Figure : Les chiffres du cours (cases à toucher, ANG.explorer). */
+/* Figure : The figures in the course (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-chiffres", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Les chiffres du cours",
-    essai: "<strong>Essaie</strong> : touche chaque chiffre. <strong>Observe</strong> : toutes les données disent que les soft skills comptent plus que les hard skills pour l'emploi."
+  var f = R.figure("fig-soft-enquete", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "The figures in the course",
+    essai: "<strong>Try</strong>: tap each figure. <strong>Notice</strong>: all the data say soft skills count more than hard skills for employment."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "70 %",
-    "texte": "70 % des étudiants qui ont suivi une formation aux soft skills pendant leurs études d'ingénieur ont trouvé de meilleurs emplois.",
+    "texte": "70 % of the students who had soft-skills training while studying engineering found better employment opportunities.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "survey in India",
@@ -27,7 +27,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "96 %",
-    "texte": "96 % des personnes interrogées voient la communication et les interpersonal skills comme « the gateways to achieve career success ».",
+    "texte": "96 % of respondents said communication and interpersonal skills are “the gateways to achieve career success”.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "survey in India",
@@ -41,7 +41,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "30 %",
-    "texte": "Les hard skills ne comptent que pour 30 % du succès pour être embauché dans une multinationale.",
+    "texte": "Hard skills contributed to only 30 % of success in getting employment in multi-national companies.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "survey in India",
@@ -55,7 +55,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "75 %",
-    "texte": "« 75 percent of long-term job success depends on people skills… »",
+    "texte": "“75 percent of long-term job success depends on people skills…”",
     "taille": 25,
     "tailleSous": 17,
     "sous": "Peggy Klaus",
@@ -69,7 +69,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "25 %",
-    "texte": "« …while only 25 percent on technical knowledge. »",
+    "texte": "“…while only 25 percent on technical knowledge.”",
     "taille": 25,
     "tailleSous": 17,
     "sous": "Peggy Klaus",
@@ -83,7 +83,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Communication",
-    "texte": "Bret Morrison : « Of all the life skills available to us, communication is perhaps the most empowering. » Jim Rohn : pratique ta communication à chaque occasion.",
+    "texte": "Bret Morrison: “Of all the life skills available to us, communication is perhaps the most empowering.” Jim Rohn: practise your communication skills at every opportunity.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "Morrison, Rohn",
@@ -91,5 +91,5 @@
     "pale": C.vPale,
     "bord": C.v
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Enqu\u00eate en Inde", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Conclusion", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Survey in India", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Conclusion", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();
