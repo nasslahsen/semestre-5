@@ -13,10 +13,12 @@ function pageChapitre(mid, d, P, ch) {
   const ss = P.sections.filter(s => s.chapitre === ch.id);
   let corps = "";
   const scripts = [];
+  let lang = "fr"; // la langue des pages de cours réunies (le cours d'anglais : en)
   ss.forEach((s, k) => {
     corps += `<section class="partie" id="s-${s.id}">\n<p class="rang-partie">${k + 1} / ${ss.length}</p>\n<h2>${s.titre}</h2>\n\n`;
     for (const nid of s.notions) {
       const html = fs.readFileSync(path.join(d, "cours", nid + ".html"), "utf8");
+      lang = (html.match(/<html lang="([a-z]+)"/) || [0, lang])[1];
       let m = html.match(/<main>([\s\S]*?)<\/main>/)[1];
       // liens vers d'autres pages de cours : vers la page du chapitre qui les réunit, au même passage
       m = m.replace(/href="([a-z0-9-]+)\.html(?:#([^"]*))?"/g, (tout, page, ancre) => {
@@ -32,7 +34,7 @@ function pageChapitre(mid, d, P, ch) {
     corps += `<div class="fin-partie" data-section="${s.id}"></div>\n</section>\n\n`;
   });
   return `<!doctype html>
-<html lang="fr" data-module="${mid}">
+<html lang="${lang}" data-module="${mid}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
