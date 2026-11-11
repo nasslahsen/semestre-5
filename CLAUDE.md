@@ -38,6 +38,7 @@ modules/<id>/              un dossier par module actif
   niveaux/<niveau>.js      un fichier par niveau
   cours/<page>.html        une page de cours par notion : la source des pages de chapitre
   figures/<page>.js        les figures interactives d'une page de cours
+  images/                  photos réelles sous licence libre (voir section 8)
   liens-cours.js           pour chaque étape de chaque niveau, la section du cours qui l'explique (généré)
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
 modules/_modele/           modèle à copier pour un nouveau module (non publié)
@@ -250,7 +251,11 @@ pas de compteurs ni de badges sur chaque élément, aucune animation qui pulse o
 - Tout en français, tutoiement, phrases courtes, comme un bon étudiant ingénieur, pas comme une IA.
 - La notation du professeur, telle quelle. Ne jamais inventer de contenu de cours, de résultat ou de citation.
   Un exemple ajouté pour s'entraîner est marqué « Exemple ajouté » quand il pourrait passer pour celui du cours.
-- Jamais d'image de diapositive, jamais de PDF dans le dépôt, pas d'emoji, pas de tiret cadratin (—),
+- Photos réelles bienvenues quand elles montrent l'objet du cours (prothèse, valve, stent, implant…) : sous licence
+  libre seulement (Wikimedia Commons : CC0, domaine public, CC BY, CC BY-SA), le site étant public ; JPEG de 1000 px
+  au plus dans `modules/<id>/images/`, dans `<figure class="photo"><img src="../images/x.jpg" alt="…"><figcaption>…`
+  avec l'auteur, la licence et « Wikimedia Commons » (vérifié par `tests/static-check.js`). Jamais de copie de
+  diapositive ni d'image sans licence libre, jamais de PDF dans le dépôt, pas d'emoji, pas de tiret cadratin (—),
   pas d'encadré (callout). Tiret demi-cadratin seulement pour les intervalles (2026–2027).
 - Virgule décimale (`0{,}5` dans les formules) ; espace insécable avant `:` `;` `?` `!` ; guillemets « ».
 - Formules en KaTeX : `\( … \)` en ligne, `\[ … \]` isolées (dans une chaîne JavaScript : `\\( … \\)`).

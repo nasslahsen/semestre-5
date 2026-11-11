@@ -178,6 +178,13 @@ html.integre main { padding-top: 22px; }
 .liste-cours a:active { background: var(--fond-doux); }
 .liste-cours .nom { flex: 1; min-width: 0; }
 .liste-cours .lu { flex: none; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .05em; color: var(--ok); }
+/* photo réelle (licence libre) : tient dans l'écran, légende discrète avec la source */
+figure.photo { margin: 20px 0 28px; }
+figure.photo img { display: block; max-width: 100%; max-height: min(60vh, 520px); margin: 0 auto; border-radius: 16px; border: 1.5px solid var(--trait); background: #fff; }
+figure.photo.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: end; }
+figure.photo.duo figcaption { grid-column: 1 / -1; }
+figure.photo figcaption { margin-top: 8px; color: var(--doux); font-size: 14px; text-align: center; }
+figure.photo figcaption small { display: block; font-size: 12.5px; margin-top: 2px; }
 .note-cours { margin-top: 40px; color: var(--doux); font-size: 15px; }
 
 /* ---------- Structure par chapitres : le cours d'un chapitre sur une page qui défile ---------- */
