@@ -12,7 +12,8 @@ PLATEFORME.parcours("biomateriaux", {
   documents: {
     recus: [
       { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1, 3, 6, 8, 9, 10 et 11" },
-      { sousModule: "biomateriaux", titre: "TD 1, exercices 1.1 à 1.6", couvre: "repris dans les exercices des chapitres" },
+      { sousModule: "biomateriaux", titre: "TD 1 : Applications Matériaux Polymères/Plastiques (applications 1.1 à 1.6)", couvre: "espace TD, TD 1 (l'application 1.6 est rayée)" },
+      { sousModule: "biomateriaux", titre: "Solution TD1 (avec le devoir n° 1)", couvre: "corrigé du TD 1" },
       { sousModule: "biomateriaux", titre: "Cours : Historique et Applications", couvre: "chapitre 2" },
       { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux", couvre: "chapitre 4" },
       { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux, Céramiques et Polymères", couvre: "chapitres 5 et 7" },
@@ -32,7 +33,8 @@ PLATEFORME.parcours("biomateriaux", {
     { id: 4, numero: 8, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
     { id: 5, numero: 9, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
     { id: 6, numero: 10, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
-    { id: 7, numero: 11, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" }
+    { id: 7, numero: 11, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" },
+    { id: 12, td: true, numero: "TD 1", titre: "TD 1 : applications matériaux polymères", sous: "Tg, Tf et taux de cristallinité, adjuvants du PVC, devoir 1", ligne: "Tg, Tf, cristallinité, adjuvants, devoir 1", sousModule: "biomateriaux" }
   ],
   niveaux: [
     { id: "contrainte-deformation", chapitre: 0, titre: "Contrainte et déformation", cours: true, pret: true },
@@ -128,7 +130,13 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "polymeres-medicaux", chapitre: 11, titre: "Le bon polymère médical", cours: true, pret: true },
     { id: "biomateriaux-naturels", chapitre: 11, titre: "Collagène, chitine, corail", cours: true, pret: true },
     { id: "revision-polymeres-medicaux", chapitre: 11, titre: "Révision : polymères et matériaux naturels", revision: true, pret: true },
-    { id: "boss-polymeres-medicaux", chapitre: 11, titre: "Le genou artificiel", boss: true, pret: true }
+    { id: "boss-polymeres-medicaux", chapitre: 11, titre: "Le genou artificiel", boss: true, pret: true },
+
+    { id: "td1", chapitre: 12, titre: "Application 1.1 : la plaque semi-cristalline", cours: true, pret: true },
+    { id: "td1-vrai-faux", chapitre: 12, titre: "Application 1.2 : vrai ou faux", pret: true },
+    { id: "td1-polyethylene", chapitre: 12, titre: "Applications 1.3 et 1.4 : très cristallin", pret: true },
+    { id: "td1-pvc", chapitre: 12, titre: "Application 1.5 : les adjuvants du PVC", pret: true },
+    { id: "td1-devoir", chapitre: 12, titre: "Devoir 1 : polymères possibles et nylon", pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -173,7 +181,9 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "ceramiques-resorbables", chapitre: 10, titre: "Les céramiques résorbables", notions: ["ceramiques-resorbables"] },
     { id: "viscoelasticite", chapitre: 11, titre: "La viscoélasticité", notions: ["viscoelasticite"] },
     { id: "polymeres-medicaux", chapitre: 11, titre: "Les polymères des dispositifs médicaux", notions: ["polymeres-medicaux"] },
-    { id: "biomateriaux-naturels", chapitre: 11, titre: "Les biomatériaux naturels", notions: ["biomateriaux-naturels"] }
+    { id: "biomateriaux-naturels", chapitre: 11, titre: "Les biomatériaux naturels", notions: ["biomateriaux-naturels"] },
+    { id: "td1", chapitre: 12, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
+    { id: "td1-corrige", chapitre: 12, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
   ],
   cours: [
     { chapitre: 0, id: "contrainte-deformation", titre: "Contrainte, déformation et module" },
@@ -234,6 +244,8 @@ PLATEFORME.parcours("biomateriaux", {
     { chapitre: 10, id: "ceramiques-resorbables", titre: "Les céramiques résorbables" },
     { chapitre: 11, id: "viscoelasticite", titre: "Polymères biomédicaux : la viscoélasticité" },
     { chapitre: 11, id: "polymeres-medicaux", titre: "Les polymères des dispositifs médicaux" },
-    { chapitre: 11, id: "biomateriaux-naturels", titre: "Les biomatériaux naturels" }
+    { chapitre: 11, id: "biomateriaux-naturels", titre: "Les biomatériaux naturels" },
+    { chapitre: 12, id: "td1", titre: "TD 1 : les réponses dans le cours" },
+    { chapitre: 12, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
   ]
 });

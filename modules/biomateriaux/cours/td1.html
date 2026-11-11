@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : les réponses dans le cours · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : les réponses dans le cours</h1>
+<p class="chapeau">Le TD 1 « Applications matériaux polymères / plastiques » tourne autour de trois nombres : la température de transition vitreuse \(T_g\), la température de fusion \(T_f\) et le taux de cristallinité \(X\). Avec eux, on sait dire si un polymère est rigide ou souple, transparent ou opaque, et combien il pèse. Cette page te dit où chercher chaque réponse.</p>
+
+<h2>Intuition</h2>
+<p>Pour un polymère semi-cristallin, place la température de la question sur l'axe, par rapport à \(T_g\) et \(T_f\). En dessous de \(T_g\), la phase amorphe est vitreuse : module élevé. Entre \(T_g\) et \(T_f\), elle est caoutchouteuse mais les cristaux tiennent encore : le module baisse un peu, le polymère reste translucide ou opaque. Au-dessus de \(T_f\), les cristaux ont fondu : \(X = 0\), le module chute vers 1 MPa et le polymère devient transparent.</p>
+<div id="fig-td1"></div>
+
+<h2>Formalisation</h2>
+<div class="tableau"><table>
+<tr><th>Application</th><th>Ce qu'on demande</th><th>Où chercher</th></tr>
+<tr><td>1.1</td><td>courbe du module, masse de la plaque, volume après chauffage et trempe</td><td><a href="etats-amorphe.html">États d'un polymère amorphe</a>, <a href="semi-cristallins.html">Polymères semi-cristallins</a>, <a href="taux-cristallinite.html">Taux de cristallinité</a></td></tr>
+<tr><td>1.2</td><td>vrai ou faux : transparence, module, vitesse de cristallisation</td><td><a href="semi-cristallins.html">Polymères semi-cristallins</a> (transparence et vitesse de cristallisation)</td></tr>
+<tr><td>1.3</td><td>pourquoi le polyéthylène n'est pas caoutchouteux à l'ambiante</td><td><a href="semi-cristallins.html">Polymères semi-cristallins</a>, <a href="taux-cristallinite.html">Taux de cristallinité</a></td></tr>
+<tr><td>1.4</td><td>vrai ou faux, même polymère que 1.2 mais \(X = 0{,}9\) et \(T_f = 165\) °C</td><td><a href="semi-cristallins.html">Polymères semi-cristallins</a></td></tr>
+<tr><td>1.5</td><td>adjuvants du PVC : alléger, rigidifier, baisser \(T_g\)</td><td><a href="adjuvants.html">Les adjuvants</a>, <a href="plastifiants.html">Les plastifiants</a>, <a href="charges-renforts.html">Charges et renforts</a></td></tr>
+<tr><td>1.6</td><td>composite polypropylène-verre</td><td>rayée sur l'énoncé reçu ; la méthode est au chapitre 10, <a href="loi-melanges.html">La loi des mélanges</a></td></tr>
+<tr><td>devoir 1</td><td>polymères possibles ou non, fibre pour un ressort ; densité du nylon cristallin</td><td><a href="semi-cristallins.html">Polymères semi-cristallins</a>, <a href="taux-cristallinite.html">Taux de cristallinité</a></td></tr>
+</table></div>
+<p>Trois règles suffisent pour presque tout le TD :</p>
+<ul>
+<li>un polymère possible a toujours \(T_f > T_g\), et au-dessus de \(T_f\) son taux de cristallinité est nul ;</li>
+<li>cristaux présents : translucide ou opaque ; \(X = 0\) au-dessus de \(T_f\) : transparent ;</li>
+<li>la vitesse de cristallisation est la plus élevée vers \((T_f + T_g)/2\).</li>
+</ul>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté, sur un polymère qui n'est pas celui du TD : \(T_g = 0\) °C, \(T_f = 120\) °C, \(X = 0{,}6\) à 25 °C. À 25 °C, on est entre \(T_g\) et \(T_f\) : phase amorphe caoutchouteuse, cristaux présents, donc translucide ou opaque. À 130 °C, au-dessus de \(T_f\) : \(X = 0\), transparent, module de l'ordre du MPa. En le refroidissant depuis l'état fondu, il cristallise le plus vite vers \((120 + 0)/2 = 60\) °C.</p>
+
+<h2>Formules clés</h2>
+<p>\[\rho = \rho_c\,X + \rho_a\,(1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a} \qquad T_{cristallisation\ max} \approx \frac{T_f + T_g}{2}\]</p>
+<p>\(T < T_g\) : vitreux ; \(T_g < T < T_f\) : amorphe caoutchouteux et cristaux ; \(T > T_f\) : fondu, \(X = 0\), transparent.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/td1.js"></script>
+</body>
+</html>
