@@ -20,6 +20,35 @@ PLATEFORME.parcours("biomateriaux", {
       { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 12 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
     ]
   },
+  // Arbre du module (arbre.html et chapitre 0) : parties, chapitres (id de la page de chapitre), notions [libellé, page de cours], à retenir.
+  arbre: {
+    biomateriaux: {
+      racine: "Biomatériaux",
+      parties: [
+        { titre: ["Le", "biomatériau"], question: "Qu'est-ce qu'un biomatériau, que lui demande-t-on, où le trouve-t-on ? Sans calcul." },
+        { titre: ["Comparer des", "matériaux"], question: "Comment mesurer la rigidité et la résistance, et d'où viennent les propriétés des matériaux ?" },
+        { titre: ["Matériaux", "d'implant"], question: "Quel matériau pour quelle pièce d'un implant, et pourquoi ?" },
+        { titre: ["Travailler les", "polymères"], question: "Comment modifier, renforcer et mettre en forme un plastique ?" },
+        { titre: ["Les", "TD"], question: "S'entraîner sur les exercices du professeur, avec le corrigé." }
+      ],
+      chapitres: [
+        { id: 13, partie: -1, court: "Vue d'ensemble", notions: [["la carte du module", "carte-mentale"], ["le module en une page", "vue-ensemble"], ["ce qu'il faut retenir", "a-retenir"]], retenir: "Le module en une page et, pour chaque chapitre, les idées à retenir, avec des cartes de révision." },
+        { id: 1, partie: 0, court: "Biomatériaux et DM", notions: [["définitions", "definitions-biomateriau"], ["4 générations", "generations"], ["dispositif médical", "dispositif-medical"], ["classes I à III", "classes-risque"], ["implant, prothèse, greffe", "vocabulaire"], ["ingénierie tissulaire", "ingenierie-tissulaire"], ["nanomédecine", "nanomedecine"], ["marché", "marche"]], retenir: "Un dispositif médical agit sans voie pharmacologique. Classes I à III selon le caractère invasif, la durée, la partie du corps. Une greffe est vivante, un implant non." },
+        { id: 8, partie: 0, court: "Histoire et exigences", notions: [["historique", "historique"], ["critères de Chester", "exigences"], ["choisir et valider", "choisir-valider"], ["domaines d'application", "domaines-application"]], retenir: "Trois critères : contact avec le vivant, plus de quelques heures, non vivant. On exige biocompatibilité et biofonctionnalité." },
+        { id: 0, partie: 1, court: "Bases de mécanique", notions: [["contrainte, déformation", "contrainte-deformation"], ["courbe de traction", "courbe-traction"], ["échelle log des modules", "echelle-log"], ["masse volumique", "masse-volumique"]], retenir: "σ = F/S₀, ε = Δl/l₀, σ = E ε : le module E est la rigidité. La ténacité est l'aire sous la courbe." },
+        { id: 2, partie: 1, court: "Familles de matériaux", notions: [["liaisons", "liaisons"], ["métaux", "metaux"], ["céramiques", "ceramiques"], ["polymères", "polymeres-organiques"], ["comparer les familles", "comparer-familles"]], retenir: "Les propriétés viennent des liaisons : métal ductile et conducteur, céramique dure et fragile, polymère souple." },
+        { id: 9, partie: 2, court: "Métaux d'implant", notions: [["problèmes des métaux", "classes-biomateriaux"], ["inox 316L", "aciers-inox"], ["cobalt-chrome", "cobalt-chrome"], ["titane", "titane"], ["NiTi et tantale", "nitinol-tantale"], ["comparaison, surfaces", "comparer-metaux"]], retenir: "Inox 316L : temporaire. Cobalt-chrome : dur, s'use peu. Titane : proche de l'os, moins de stress-shielding." },
+        { id: 10, partie: 2, court: "Biocéramiques", notions: [["inertes ou résorbables", "bioceramiques"], ["alumine et zircone", "alumine-zircone"], ["carbone pyrolytique", "carbone-pyrolytique"], ["céramiques résorbables", "ceramiques-resorbables"]], retenir: "Dures et inusables mais fragiles. Alumine, zircone : têtes de hanche. Hydroxyapatite : remplacée par l'os." },
+        { id: 3, partie: 2, court: "Structure des polymères", notions: [["macromolécules", "macromolecules"], ["masse moléculaire", "masse-moleculaire"], ["états amorphes, Tg", "etats-amorphe"], ["semi-cristallins, Tf", "semi-cristallins"], ["taux de cristallinité", "taux-cristallinite"], ["historique", "historique-polymeres"]], retenir: "Sous Tg : vitreux, rigide ; au-dessus : caoutchouteux. Un semi-cristallin reste opaque jusqu'à Tf. ρ = ρc X + ρa (1 − X)." },
+        { id: 11, partie: 2, court: "Polymères biomédicaux", notions: [["viscoélasticité", "viscoelasticite"], ["polymères médicaux", "polymeres-medicaux"], ["matériaux naturels", "biomateriaux-naturels"]], retenir: "Un polymère est ressort et amortisseur à la fois. UHMWPE : inserts. PEEK : rachis. Collagène : hémostatique." },
+        { id: 4, partie: 3, court: "Élastomères", notions: [["élastomères", "elastomeres"], ["élasticité caoutchoutique", "elastomere-plastomere"], ["vulcanisation", "vulcanisation"], ["formulation", "formulation"]], retenir: "Un élastomère s'étire beaucoup et revient. La vulcanisation crée des ponts entre les chaînes." },
+        { id: 5, partie: 3, court: "Additifs et renforts", notions: [["adjuvants", "adjuvants"], ["plastifiants", "plastifiants"], ["charges et renforts", "charges-renforts"], ["verre, carbone, aramide", "fibres-renfort"]], retenir: "Plastifiant : plus souple, Tg plus basse. Plus une charge est allongée, plus elle rigidifie." },
+        { id: 6, partie: 3, court: "Composites", notions: [["renfort et matrice", "composites"], ["isotrope, orthotrope", "isotrope-orthotrope"], ["loi des mélanges", "loi-melanges"], ["module transversal", "module-transversal"], ["orientation des fibres", "orientation-fibres"]], retenir: "Dans le sens des fibres, les fibres travaillent : E_CL = E_f φ_f + E_m φ_m. Toujours E_CL > E_CT." },
+        { id: 7, partie: 3, court: "Procédés", notions: [["extrusion", "extrusion"], ["injection", "injection"], ["soufflage", "soufflage"], ["rotomoulage, thermoformage", "rotomoulage-thermoformage"], ["compression", "compression"], ["choisir le procédé", "choisir-procede"]], retenir: "Chaque procédé a son indice : section constante, point d'injection, découpe au pourtour, bavure." },
+        { id: 12, partie: 4, court: "TD 1", notions: [["où chercher chaque réponse", "td1"], ["énoncé et corrigé", "td1-corrige"]], retenir: "Tg, Tf, taux de cristallinité, adjuvants du PVC : à faire après les chapitres 7 et 10." }
+      ]
+    }
+  },
   // Ordre d'affichage : celui de ce tableau ; numero : le numéro affiché (les id restent ceux des pages chapitre-<id>.html).
   chapitres: [
     { id: 13, numero: 0, titre: "Vue d'ensemble", sous: "La carte du module, le module en une page, et ce qu'il faut retenir de chaque chapitre", ligne: "La carte du module, ce qu'il faut retenir", sousModule: "biomateriaux" },

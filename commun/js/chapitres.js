@@ -38,7 +38,9 @@
   var avecLabs = P.chapitresDe(MID, sm.id, "lab").length > 0;
   h += '<nav class="onglets onglets-carte" aria-label="Cours, TD ou labs"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + '>Cours</a>' +
     '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">TD</a>" +
-    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">Labs</a>" : "") + "</nav></div>";
+    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">Labs</a>" : "") +
+    // l'arbre du module (arbre.html), quand module.js en décrit un pour ce sous-module
+    (MOD.arbre && MOD.arbre[sm.id] ? '<a href="arbre.html?sm=' + encodeURIComponent(sm.id) + '">Arbre</a>' : "") + "</nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
   h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(sm.titre || MOD.titre) + "</h1></div>" +
     (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + (r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
