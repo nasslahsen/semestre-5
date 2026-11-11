@@ -1,0 +1,41 @@
+/* Niveau : une introduction attrayante et la voix (diapositives 7 et 8). */
+NIVEAU(ANG.niveau({
+  id: "presentation-debut",
+  carte: { etiquette: "Effective Presentation Skills", titre: "How to make your introduction attractive?", texte: "Be in time. Smile and look at the audience. Start slowly. Use a genuine opening. Look organized. State the main objective(s) of your presentation. Dress nicely." },
+  etapes: [
+    { nom: "Good start, bad start", type: "trier",
+      titre: "Which of these follow the course's advice for an introduction?",
+      cartes: [{ t: "Arrive in time", bac: 0 }, { t: "Start very fast to save time", bac: 1 }, { t: "Smile and look at the audience", bac: 0 }, { t: "Apologise for being badly prepared", bac: 1 },
+        { t: "State the main objective", bac: 0 }, { t: "Dress nicely", bac: 0 }, { t: "Arrive ten minutes late", bac: 1 }, { t: "Start slowly", bac: 0 }],
+      bacs: [{ t: "Good introduction" }, { t: "Bad introduction" }],
+      aide: "Relis les sept conseils de la carte : start slowly, be in time, look organized…",
+      bravo: "Bonne introduction : in time, smile, objective, dress nicely, start slowly.",
+      expliquer: "<p>S'excuser d'être mal préparé(e), c'est l'inverse de <i>look organized</i>.</p>" },
+    { nom: "Your voice", type: "trous",
+      titre: "How about your voice? Complete the three points.",
+      carte: { etiquette: "How about your voice?", titre: "Three points", texte: "The slide gives three points: be heard, breathe well, and do not keep the same voice all the time." },
+      phrases: ["1. Be [heard].", "2. Air [intake].", "3. Vary your voice: speed, [pitch] and [volume]."],
+      jetons: ["heard", "intake", "pitch", "volume", "colour", "seen"],
+      aide: "Pitch = la hauteur de la voix (aiguë ou grave) ; volume = fort ou faible ; air intake = la respiration.",
+      bravo: "Be heard, air intake, vary speed, pitch and volume.",
+      expliquer: "<p><b>Pitch</b> : hauteur (aigu, grave). <b>Volume</b> : fort ou doux. <b>Speed</b> : vitesse. <b>Air intake</b> : prendre assez d'air pour finir ses phrases.</p>" },
+    { nom: "A genuine opening", type: "choix",
+      titre: "Which opening follows the advice “Use a genuine opening”?",
+      options: [
+        { t: "“Last month, my grandmother waited three hours for a scan. Today I'll show you how to cut that waiting time.”", ok: true },
+        { t: "“Er… so… I'm going to talk about stuff.”", aide: "Ni organisé, ni objectif annoncé." },
+        { t: "“Sorry, I didn't really have time to prepare.”", aide: "Mauvaise première impression : tu ne parais pas organisé(e)." }],
+      bravo: "Une ouverture sincère et concrète, puis l'objectif.",
+      expliquer: "<p><b>Genuine</b> : sincère, authentique. Cette ouverture annonce aussi l'objectif (<i>state the main objective</i>).</p>" },
+    { nom: "At the back", type: "choix",
+      titre: "People at the back of the room cannot hear you. Which advice about the voice is this?",
+      options: [{ t: "Be heard", ok: true }, { t: "Vary your voice", aide: "Varier, c'est changer de ton. Ici, on ne t'entend pas du tout." }, { t: "Start slowly", aide: "C'est un conseil pour l'introduction, pas pour la voix." }],
+      bravo: "Be heard : parler assez fort pour tout le monde.",
+      expliquer: "<p>Respirer (<i>air intake</i>) aide à parler plus fort sans forcer.</p>" },
+    { nom: "Monotone", type: "choix",
+      titre: "Omar speaks at the same speed and on the same note for fifteen minutes. The audience gets bored. What should he do?",
+      options: [{ t: "Vary his voice: speed, pitch and volume", ok: true }, { t: "Speak faster to finish sooner", aide: "Le problème n'est pas la durée, c'est l'uniformité." }, { t: "Dress nicely", aide: "Sa tenue n'explique pas l'ennui ici." }],
+      bravo: "Varier vitesse, hauteur et volume.",
+      expliquer: "<p>Une voix monotone (<i>monotonous</i>) endort le public, même avec un bon contenu.</p>" }
+  ]
+}));

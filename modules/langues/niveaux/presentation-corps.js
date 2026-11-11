@@ -1,0 +1,46 @@
+/* Niveau : langage du corps, supports visuels et derniers conseils (diapositives 9 à 11). */
+NIVEAU(ANG.niveau({
+  id: "presentation-corps",
+  carte: { etiquette: "Body language", titre: "Five points", texte: "1. Smile\n\n2. Maintain eye contact\n\n3. Smooth and natural gestures\n\n4. Keep your hands out of your pockets\n\n5. Keep your shoulders straight" },
+  etapes: [
+    { nom: "Body language", type: "trier",
+      titre: "Good or bad body language?",
+      cartes: [{ t: "Smiling", bac: 0 }, { t: "Hands in your pockets", bac: 1 }, { t: "Maintaining eye contact", bac: 0 }, { t: "Looking at the floor", bac: 1 },
+        { t: "Smooth and natural gestures", bac: 0 }, { t: "Turning your back to read the slides", bac: 1 }, { t: "Shoulders straight", bac: 0 }, { t: "Shoulders down, arms crossed", bac: 1 }],
+      bacs: [{ t: "Good body language" }, { t: "Bad body language" }],
+      aide: "Compare avec les cinq points de la carte.",
+      bravo: "Sourire, regard, gestes naturels, épaules droites.",
+      expliquer: "<p>Lire ses diapositives dos au public casse le <i>eye contact</i>.</p>" },
+    { nom: "Visual aids", type: "choix",
+      titre: "Which slide follows the advice on visual aids?",
+      carte: { etiquette: "Visual aids", titre: "Five points", texte: "Keep them simple. Minimize. Use large fonts. Use colors. Avoid complete dependence on technology." },
+      options: [
+        { t: "Three short points, large font, one colour for the key word", ok: true },
+        { t: "Twelve full sentences in small black font", aide: "Ni simple, ni minimal, ni en gros caractères." },
+        { t: "A full page of text copied from a book", aide: "Minimize : peu de texte sur une diapositive." }],
+      bravo: "Simple, minimal, gros caractères, couleur.",
+      expliquer: "<p><b>Minimize</b> : peu d'éléments par diapositive. Le public doit t'écouter, pas lire.</p>" },
+    { nom: "Keep it…", type: "trous",
+      titre: "Complete the last final tip.",
+      carte: { etiquette: "Final tips", titre: "Six tips", texte: "Prepare well and know your topic. Use humor. Don't lecture. Get enthusiastic. Keep time for questions." },
+      phrases: ["Keep it [short]. Keep it [focused]. Keep it [relevant]."],
+      jetons: ["short", "focused", "relevant", "long", "complicated"],
+      aide: "Trois qualités d'une bonne présentation : pas trop longue, centrée sur le sujet, utile pour le public.",
+      bravo: "Short, focused, relevant.",
+      expliquer: "<p><b>Relevant</b> : pertinent, en rapport avec le sujet et le public. Faux ami : ce n'est pas « relevé ».</p>" },
+    { nom: "The projector", type: "choix",
+      titre: "Five minutes before your talk, the projector breaks. Which advice would have saved you?",
+      options: [{ t: "Avoid complete dependence on technology", ok: true }, { t: "Use colors", aide: "Les couleurs ne servent à rien sans projecteur." }, { t: "Use large fonts", aide: "Même problème : il n'y a plus d'écran." }],
+      bravo: "Avoid complete dependence on technology.",
+      expliquer: "<p>Prévois de pouvoir présenter sans diapositives : tes idées principales doivent être dans ta tête.</p>" },
+    { nom: "Not a final tip", type: "choix",
+      titre: "Which one is NOT a final tip from the course?",
+      options: [
+        { t: "Read your slides word for word", ok: true },
+        { t: "Don't lecture", aide: "C'est bien un conseil : ne pas faire un cours magistral." },
+        { t: "Keep time for questions", aide: "C'est bien un conseil du cours." },
+        { t: "Use humor", aide: "C'est bien un conseil du cours." }],
+      bravo: "Lire ses diapositives mot à mot n'est pas un conseil.",
+      expliquer: "<p>Les six : <i>prepare well and know your topic, use humor, don't lecture, get enthusiastic, keep time for questions, keep it short, focused, relevant</i>.</p>" }
+  ]
+}));

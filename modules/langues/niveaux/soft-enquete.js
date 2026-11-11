@@ -1,0 +1,47 @@
+/* Niveau : pourquoi les entreprises veulent des soft skills (objectifs, introduction, enquête, conclusion ; diapositives 2, 3, 8, 9). */
+NIVEAU(ANG.niveau({
+  id: "soft-enquete",
+  carte: { etiquette: "Introduction", titre: "Demand for soft skills in multi-national companies", texte: "In most of the engineering institutions, more attention is on technical education related to a particular discipline.\n\nMulti-national companies around the globe are looking for more than the academic knowledge." },
+  etapes: [
+    { nom: "Engineering schools", type: "choix",
+      titre: "According to the introduction, most engineering institutions focus on…",
+      options: [
+        { t: "technical education related to a particular discipline", ok: true },
+        { t: "communication and teamwork", aide: "C'est justement ce qui manque, d'après l'introduction." },
+        { t: "negotiation and time management", aide: "Ce sont des compétences que les entreprises attendent en plus." }],
+      bravo: "More attention is on technical education related to a particular discipline.",
+      expliquer: "<p>Le problème posé par le cours : l'école forme surtout aux hard skills, alors que les entreprises veulent <b>more than the academic knowledge</b>.</p>" },
+    { nom: "The numbers", type: "paires",
+      titre: "Match each figure with what it measures.",
+      gauche: ["70 %", "96 %", "30 %", "75 %", "25 %"],
+      droite: ["long-term job success due to people skills (Klaus)", "students with soft-skills training who found better jobs", "long-term job success due to technical knowledge (Klaus)", "respondents: communication is a gateway to career success", "part of hard skills in getting a job in a multi-national"],
+      bon: [1, 3, 4, 0, 2],
+      aides: ["70 % : les étudiants formés aux soft skills pendant leurs études.", "96 % : presque tout le monde, sur la communication.", "30 % : la petite part des hard skills dans l'embauche.", "75 % : la grosse part, chez Peggy Klaus.", "25 % : la petite part, chez Peggy Klaus."],
+      bravo: "70, 96, 30 pour l'enquête en Inde ; 75 et 25 pour Peggy Klaus.",
+      expliquer: "<p>Enquête menée en Inde : 70 % ont trouvé de meilleurs emplois, 96 % voient la communication comme <i>the gateway</i> du succès, hard skills = seulement 30 %. Peggy Klaus : 75 % people skills, 25 % technical knowledge.</p>" },
+    { nom: "The objectives", type: "trous",
+      titre: "Complete the three objectives of the lesson.",
+      carte: { etiquette: "Objectives", titre: "Why this lesson?", texte: "The lesson starts with three objectives: one about awareness, one about improving, one about the difference between two kinds of skills." },
+      phrases: ["[Raise] students' awareness of the importance of soft skills.", "To [encourage] students to improve their soft skills.", "[Clarify] the difference between soft skills and hard skills."],
+      jetons: ["Raise", "encourage", "Clarify", "Reduce", "forbid"],
+      aide: "Les objectifs sont positifs : rien n'est réduit ni interdit.",
+      bravo: "Raise awareness, encourage, clarify.",
+      expliquer: "<p>Utile pour une question de rédaction : <i>to raise awareness of</i> (sensibiliser à), <i>to clarify the difference between</i> (clarifier la différence entre).</p>" },
+    { nom: "Bret Morrison", type: "trous",
+      titre: "Complete the quote by Bret Morrison, actor.",
+      carte: { etiquette: "Conclusion", titre: "Three quotes", texte: "Peggy Klaus gives figures. Bret Morrison and Jim Rohn talk about one skill above all the others." },
+      phrases: ["“Of all the life skills available to us, [communication] is perhaps the most [empowering].”"],
+      jetons: ["communication", "empowering", "leadership", "boring"],
+      aide: "Les deux citations de la conclusion parlent de la même compétence ; « empowering » veut dire « qui donne du pouvoir ».",
+      bravo: "Communication is perhaps the most empowering.",
+      expliquer: "<p>Jim Rohn ajoute : <i>take advantage of every opportunity to practice your communication skills</i>. La conclusion insiste donc sur la communication.</p>" },
+    { nom: "Beyond hard skills", type: "choix",
+      titre: "Besides hard skills, what do organizations expect, according to the introduction?",
+      options: [
+        { t: "Thinking, presentation, negotiation and time management skills", ok: true },
+        { t: "More academic and technical knowledge", aide: "Ça, ce sont les hard skills eux-mêmes." },
+        { t: "Only a higher degree", aide: "Le cours dit le contraire : le diplôme ne suffit pas." }],
+      bravo: "Thinking, presentation, negotiation and time management skills.",
+      expliquer: "<p>Phrase du cours : <i>Organizations expect not just hard skills which include academic and technical knowledge but also Thinking skills, Presentation skills, Negotiation skills and Time management skills.</i></p>" }
+  ]
+}));
