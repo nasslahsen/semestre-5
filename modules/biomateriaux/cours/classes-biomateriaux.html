@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Classes de biomatériaux et métaux implantables · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Classes de biomatériaux et métaux implantables</h1>
+<p class="chapeau">Une prothèse de hanche doit frotter sans s'user, porter le poids du corps à chaque pas, et cohabiter avec l'os pendant des années. Aucun matériau ne fait tout cela à la fois. Alors on en combine plusieurs. Lesquels, et pourquoi commence-t-on par les métaux ?</p>
+
+<h2>Le chapitre en bref</h2>
+<p>Le chapitre 3 a comparé les grandes familles de matériaux d'après leurs liaisons. Ici, on regarde celles qui servent d'implants, en commençant par les plus anciennes : les métaux.</p>
+<ul>
+<li>Classes de biomatériaux et métaux implantables (cette page) : pourquoi des métaux, et leurs problèmes.</li>
+<li>Les aciers inoxydables : 316 et 316L.</li>
+<li>Les alliages cobalt-chrome : rigides, résistants à l'usure et à la fatigue.</li>
+<li>Le titane et ses alliages : le plus proche de l'os.</li>
+<li>NiTi et tantale : la mémoire de forme et le métal poreux.</li>
+<li>L'étude comparative : modules, densités, couples de frottement, traitements de surface.</li>
+</ul>
+
+<h2>Intuition</h2>
+<p>Chaque zone d'une prothèse a son exigence. La surface de contact doit résister à l'usure. La tige doit être rigide et résister à la fatigue. La partie au contact de l'os doit être compatible avec le tissu et résister à la corrosion. Un matériau plus rigide peut être moins résilient, un autre plus résistant à l'usure peut être moins résistant à la fatigue : le concepteur choisit, ou met plusieurs matériaux dans le même implant.</p>
+<div id="fig-classes"></div>
+
+<h2>Formalisation</h2>
+<p>Les matériaux à vocation de biomatériaux forment quatre grandes catégories :</p>
+<div class="tableau"><table>
+<tr><th>Catégorie</th><th>Exemples du cours</th></tr>
+<tr><td>métaux et alliages métalliques</td><td>aciers, chrome, cobalt, NiTi</td></tr>
+<tr><td>céramiques</td><td>alumine, zircone, phosphates tricalciques, verres</td></tr>
+<tr><td>polymères</td><td>Téflon, polyéthylènes, polyuréthanes, silicones</td></tr>
+<tr><td>matériaux d'origine naturelle</td><td>collagène, corail, nacre, os modifiés</td></tr>
+</table></div>
+<p>Le cours propose aussi un classement plus détaillé : métalliques ; inorganiques non métalliques ; polymères synthétiques ; composites biomédicaux ; origine biologique ; nano-biomatériaux ; céramiques.</p>
+
+<h3>Les biomatériaux métalliques</h3>
+<p>Ce sont en quelque sorte les « ancêtres » des biomatériaux : les premiers utilisés pour faire des implants. Les métaux des implants sont en fait des <strong>alliages</strong> : combinaison de plusieurs constituants, deux au minimum, dont un au moins est métallique. La <strong>liaison métallique</strong> est l'attraction électrostatique forte entre les cations métalliques et les électrons délocalisés (voir chapitre 3) ; elle donne l'arrangement compact des atomes, d'où la grande densité et la température de fusion élevée de la plupart des métaux.</p>
+<p>Par rapport aux céramiques et aux polymères, les biomatériaux métalliques peuvent supporter des contraintes élevées, et aussi cycliques. Ceux qui résistent assez à la fatigue en flexion servent de substituts passifs des tissus durs (prothèses totales de hanche et de genou), d'aides à la guérison des fractures (plaques, vis), de dispositifs de fixation vertébrale, d'implants dentaires. Certains ont un rôle plus actif : endoprothèses vasculaires, guides de cathéter, arcs orthodontiques.</p>
+
+<h3>Les problèmes mal résolus</h3>
+<ul>
+<li>corrosion électrochimique et durabilité ;</li>
+<li>dégradation non électrochimique, dont les interactions protéine / métal ;</li>
+<li>réactions immunitaires et d'hypersensibilité ;</li>
+<li>adaptation des propriétés mécaniques ;</li>
+<li>frottements et débris.</li>
+</ul>
+<p>Fe, Cr, Co, Ni, Ti, Ta, Nb, Mo, W, largement utilisés dans les alliages d'implants, ne sont tolérés par le corps qu'en petites quantités. Or un implant peut se corroder in vivo : il s'affaiblit mécaniquement, et ses produits de corrosion nuisent aux tissus et aux organes voisins.</p>
+<p><strong>Relargage</strong> : un implant métallique libère des ions par dissolution, d'autant plus qu'il se corrode. Les ions dissous forment des complexes métallo-protéiques qui empêchent le transport des nutriments et entraînent la lyse des cellules voisines, avec dégradation de la matrice extracellulaire. Cela peut aboutir au <strong>descellement</strong> de l'implant : la prothèse n'a plus un contact optimal avec l'os, sa fixation est défaillante. La rate accumule Cr, Co, Ti, Ni, Fe et Al ; les poumons et les reins accumulent Co et Ni.</p>
+<p><strong>Hypersensibilité aux métaux</strong> : environ 10 à 15 % de la population présente une hypersensibilité cutanée aux métaux. Le nickel est le plus allergène, suivi du chrome et du cobalt. On estime que 20 à 25 % des patients présentent une sensibilité aux métaux après arthroplastie, mais peu développent des symptômes. Les implants en titane sont considérés comme hypoallergéniques.</p>
+<p><strong>Corrosion galvanique</strong> : quand deux métaux humides sont en contact, l'un des deux se corrode plus vite que s'ils étaient séparés.</p>
+<div id="fig-ions"></div>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Sur une consultation de 200 patients avant une prothèse, la fourchette du cours (10 à 15 %) donne entre \(0{,}10 \times 200 = 20\) et \(0{,}15 \times 200 = 30\) patients avec une hypersensibilité cutanée aux métaux. Pour eux, on évite les alliages riches en nickel, chrome ou cobalt, et on pense au titane, hypoallergénique.</p>
+
+<h2>Formules clés</h2>
+<p>Quatre catégories : métaux et alliages ; céramiques ; polymères ; matériaux naturels.</p>
+<p>Métaux : les premiers implants ; des alliages ; contraintes élevées et cycliques (fatigue).</p>
+<p>Problèmes : corrosion, relargage d'ions (jusqu'au descellement), hypersensibilité (Ni, puis Cr, puis Co ; 10 à 15 % de la population), usure et débris, corrosion galvanique entre deux métaux en contact.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/classes-biomateriaux.js"></script>
+</body>
+</html>

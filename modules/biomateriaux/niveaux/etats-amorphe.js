@@ -141,7 +141,7 @@ NIVEAU({
         aide: "Compare 20 °C à Tv : en dessous, vitreux ; au-dessus, la chute est passée.",
         ok: function () {
           j.bravo("Polystyrène vitreux, caoutchouc naturel caoutchouteux.");
-          j.expliquer("<p>La même courbe, décalée en température : c'est la position de Tv par rapport à l'ambiante qui décide de l'état d'usage (chapitre 4).</p>");
+          j.expliquer("<p>La même courbe, décalée en température : c'est la position de Tv par rapport à l'ambiante qui décide de l'état d'usage (chapitre 8).</p>");
           j.suite();
         }
       });

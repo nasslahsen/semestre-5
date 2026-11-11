@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les aciers inoxydables · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les aciers inoxydables</h1>
+<p class="chapeau">Plaques, vis, clous de hanche : le métal le plus utilisé en volume dans les implants est l'acier inoxydable. Il est bon marché et facile à travailler. Mais pourquoi le réserve-t-on aux implants temporaires ?</p>
+
+<h2>Intuition</h2>
+<p>Un acier « inoxydable » ne rouille pas parce que le chrome forme à sa surface une couche d'oxyde très fine qui le protège. Le corps humain est pourtant un milieu salé, à 37 °C. Là où cette couche manque d'oxygène pour se reformer, sous la tête d'une vis par exemple, l'acier peut se corroder. Toute l'histoire du 316L, c'est d'améliorer cette tenue en milieu salé.</p>
+<div id="fig-nuances"></div>
+
+<h2>Formalisation</h2>
+<p>Parmi les biomatériaux métalliques, le plus important par les volumes est l'acier inoxydable, encore largement utilisé en chirurgie orthopédique.</p>
+<div class="tableau"><table>
+<tr><th>Nuance</th><th>Ce qui change</th></tr>
+<tr><td>inox au vanadium</td><td>n'est plus utilisé : résistance à la corrosion in vivo inappropriée</td></tr>
+<tr><td>18-8 (inox 302)</td><td>18 % de chrome, 8 % de nickel en masse ; plus dur et plus résistant à la corrosion que l'inox au vanadium ; premier inox des implants</td></tr>
+<tr><td>316</td><td>le 18-8 avec un petit pourcentage de molybdène : meilleure résistance à la corrosion en milieu salé</td></tr>
+<tr><td>316L</td><td>en 1950, carbone réduit de 0,08 % à 0,03 % au maximum : meilleure résistance en milieu salé, moins d'hypersensibilité ; « L » pour faible teneur en carbone</td></tr>
+</table></div>
+<p>La concentration minimale efficace de <strong>chrome</strong> est de 11 % pour conférer la résistance à la corrosion. Le chrome et ses alliages peuvent être passivés par de l'acide nitrique à 30 %. La <strong>passivation</strong> traite le métal avec des acides pour éliminer le fer libre de la surface et la recouvrir d'une couche d'oxyde anti-corrosion.</p>
+<p>Composition du 316L (désignations : 1.4404, UNS S31603, X2CrNiMo17-12-2 ; normes ISO 7153-1, ASTM F899) : C &lt; 0,03 ; Mn &lt; 2,0 ; 16,5 &lt; Cr &lt; 18,0 ; 10,5 &lt; Ni &lt; 13,0 ; 2,0 &lt; Mo &lt; 2,5 ; N &lt; 0,11 ; Fe pour le reste (en %). C'est un acier inoxydable austénitique : la structure contient du chrome et du nickel.</p>
+
+<h3>Propriétés et précautions</h3>
+<ul>
+<li>Les types 316 et 316L sont les plus utilisés dans les implants et prothèses ; le 316L est le plus recommandé.</li>
+<li>Ils ne sont pas durcis par traitement thermique mais par <strong>écrouissage</strong> (déformation à froid).</li>
+<li>Ils sont non magnétiques et résistent bien à la corrosion par piqûres dans l'eau salée.</li>
+<li>Ils produisent des artefacts d'IRM.</li>
+<li>Le 316L peut se corroder in vivo quand les contraintes mécaniques sont importantes et l'oxygène déficient, comme au contact sous les vis d'une plaque de fixation d'un os fracturé. Il ne convient donc qu'aux <strong>implants temporaires</strong> : plaques de fixation, vis, clous de hanche.</li>
+<li>Anodisation, passivation et nitruration améliorent sa résistance à la corrosion, à l'usure et à la fatigue.</li>
+<li>Il faut éviter le contact direct entre un implant en inox et un implant en titane, en alliage de titane ou en alliage de cobalt : corrosion galvanique. Plusieurs métaux dans le même os ne posent aucun problème tant qu'ils ne se touchent pas.</li>
+</ul>
+<p>Applications du cours : clous, vis orthopédiques, tige fémorale et tête en inox, prothèse d'épaule, arc dentaire en acier.</p>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Une plaque de 316L pèse 60 g. Avec 17 % de chrome et 12 % de nickel (des valeurs dans les fourchettes du cours), elle contient \(0{,}17 \times 60 = 10{,}2\) g de chrome et \(0{,}12 \times 60 = 7{,}2\) g de nickel, et au plus \(0{,}0003 \times 60 = 0{,}018\) g de carbone. Le chrome dépasse largement le seuil de 11 % : la couche protectrice peut se former.</p>
+
+<h2>Formules clés</h2>
+<p>18-8 (302) → 316 (+ Mo, milieu salé) → 316L (C ≤ 0,03 %, 1950).</p>
+<p>Chrome ≥ 11 % pour l'inoxydabilité ; passivation à l'acide nitrique.</p>
+<p>316L : austénitique, non magnétique, durci par écrouissage, artefacts d'IRM ; corrosion possible sous contrainte et sans oxygène, donc implants temporaires.</p>
+<p>Jamais en contact direct avec le titane ou le cobalt : corrosion galvanique.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/aciers-inox.js"></script>
+</body>
+</html>

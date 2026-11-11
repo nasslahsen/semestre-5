@@ -113,7 +113,7 @@ NIVEAU({
         { html: "Il cristallise", aide: "Au-dessus de la fusion, il n'y a justement plus de cristaux." }
       ], { colonnes: 1, ok: function () {
         j.bravo("Il se dégrade avant.");
-        j.expliquer("<p>Les macromolécules sont trop grandes pour passer à l'état gazeux. Les thermoplastiques sont livrés en granules, en feuilles ou en poudre, puis transformés (chapitre 7).</p>");
+        j.expliquer("<p>Les macromolécules sont trop grandes pour passer à l'état gazeux. Les thermoplastiques sont livrés en granules, en feuilles ou en poudre, puis transformés (chapitre 11).</p>");
         j.suite();
       } });
     } },

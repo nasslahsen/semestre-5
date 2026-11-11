@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les céramiques résorbables · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les céramiques résorbables</h1>
+<p class="chapeau">Après l'ablation d'une tumeur osseuse, il reste un trou. On peut le combler avec une céramique qui ressemble tant à l'os que le corps la dissout peu à peu et la remplace par de l'os neuf. Comment fonctionne ce « faux os » qui disparaît ?</p>
+
+<h2>Intuition</h2>
+<p>La partie minérale de l'os est un phosphate de calcium. Si on implante une céramique de même famille, les cellules osseuses la reconnaissent : elles la grignotent et déposent de l'os à la place. Plus la céramique est poreuse, plus l'os peut s'y installer. Le prix à payer : un matériau peu résistant, qu'on garde pour les zones peu chargées.</p>
+<div id="fig-resorption"></div>
+
+<h2>Formalisation</h2>
+<p>Une céramique <strong>résorbable</strong> se dégrade pendant son implantation et est remplacée progressivement par les tissus endogènes (ceux du patient). La vitesse de dégradation varie d'un matériau à l'autre. La majorité des céramiques résorbables sont des variantes du <strong>phosphate de calcium</strong>, utilisé comme os artificiel, pour fabriquer des implants, et en revêtements solides ou poreux d'autres implants.</p>
+<div class="tableau"><table>
+<tr><th>Céramique</th><th>Formule</th><th>Ce qu'en dit le cours</th></tr>
+<tr><td>hydroxyapatite (HAP)</td><td>\(\mathrm{Ca_{10}(PO_4)_6(OH)_2}\)</td><td>la principale biocéramique résorbable ; composition très proche de l'os ; très dure ; un des composants des os et des dents ; l'ion OH⁻ peut être remplacé par le fluor, le chlore ou le carbonate</td></tr>
+<tr><td>phosphate tricalcique (TCP)</td><td>\(\mathrm{Ca_3(PO_4)_2}\), écrit aussi 3CaO·P₂O₅</td><td>sel de calcium de l'acide phosphorique, dit aussi phosphate de chaux osseuse ; dégradable en quelques semaines, comme le sulfate de calcium</td></tr>
+<tr><td>composites hydroxyapatite-whitlockite</td><td></td><td>la whitlockite est un minéral rare, \(\mathrm{Ca_9(Mg,Fe)(PO_4)_6PO_3OH}\) ; le cours rapproche le TCP de la whitlockite</td></tr>
+</table></div>
+
+<h3>Revêtements et substituts osseux</h3>
+<ul>
+<li>On réalise des revêtements par <strong>projection plasma</strong> sur les tiges fémorales et les cupules acétabulaires : une poudre métallique ou céramique est projetée sur l'implant avec une torche plasma. Ce revêtement améliore durablement l'intégration et la fixation de l'implant.</li>
+<li>La surface de ces revêtements est microporeuse et l'os y repousse par <strong>épitaxie</strong> (croissance couche par couche, organisée par le réseau cristallin du support).</li>
+<li>Le taux de réussite est estimé à 90 %, dix ans après la pose de la prothèse.</li>
+<li>Leurs propriétés mécaniques sont encore peu maîtrisées et faibles : on les limite aux parties du corps peu sollicitées, par exemple en chirurgie maxillo-faciale.</li>
+<li>Les ciments phosphocalciques injectables servent aussi de substituts osseux : résorbables et <strong>ostéoconducteurs</strong>, ils peuvent remplacer les greffes.</li>
+</ul>
+<p>Le cours insiste sur l'interface biodynamique os / biocéramique : à mesure que la céramique se résorbe, l'os la remplace. Problèmes propres aux céramiques résorbables : mesurer et contrôler la biorésorption et son effet sur le tissu local, et la calcification.</p>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Un chirurgien pose 50 prothèses de hanche avec une tige revêtue d'hydroxyapatite par projection plasma. Avec un taux de réussite de 90 % à dix ans, il peut s'attendre à \(0{,}90 \times 50 = 45\) prothèses en place, et \(50 - 45 = 5\) échecs.</p>
+<p>Dans \(\mathrm{Ca_3(PO_4)_2}\), il y a 3 atomes de calcium pour 2 groupes phosphate ; dans l'hydroxyapatite, 10 pour 6. Le rapport Ca/P vaut \(3/2 = 1{,}5\) pour le TCP et \(10/6 \approx 1{,}67\) pour l'hydroxyapatite.</p>
+
+<h2>Formules clés</h2>
+<p>Résorbable : se dégrade et est remplacée par les tissus endogènes ; vitesse variable.</p>
+<p>\[\text{HAP} : \mathrm{Ca_{10}(PO_4)_6(OH)_2} \qquad \text{TCP} : \mathrm{Ca_3(PO_4)_2}\]</p>
+<p>Projection plasma sur tiges et cupules ; surface microporeuse ; repousse osseuse par épitaxie ; 90 % de réussite à 10 ans.</p>
+<p>Mécaniquement faibles : zones peu sollicitées (maxillo-facial) ; ciments phosphocalciques injectables, ostéoconducteurs.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/ceramiques-resorbables.js"></script>
+</body>
+</html>

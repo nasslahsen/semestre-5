@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Choisir et valider un biomatériau · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Choisir et valider un biomatériau</h1>
+<p class="chapeau">Un nouveau matériau semble parfait sur le papier. Avant qu'un chirurgien l'implante, il faut prouver qu'il tiendra, qu'il ne fera pas de mal, et qu'on pourra le fabriquer et le stériliser. Par quelles étapes passe-t-on ?</p>
+
+<h2>Intuition</h2>
+<p>On avance du plus sûr au plus risqué. D'abord on calcule et on simule, sans rien fabriquer. Puis on teste des éprouvettes et des prototypes sur des machines. Puis on passe au vivant : des cellules, des animaux, et seulement à la fin l'être humain. Même après, on continue à suivre les patients, parce que la seule vraie preuve vient de l'implantation chez l'homme, sur des années.</p>
+<div id="fig-chemin"></div>
+
+<h2>Formalisation</h2>
+<h3>Les outils de choix</h3>
+<div class="tableau"><table>
+<tr><th>Outil</th><th>Ce qu'on fait</th></tr>
+<tr><td>1. Calculs et simulations</td><td>des contraintes, des déformations, des interfaces ; simulation des milieux vivants</td></tr>
+<tr><td>2. Essais mécaniques</td><td>tests à la rupture ; bancs d'essais (usure, écoulements) ; simulateurs articulaires, vasculaires</td></tr>
+<tr><td>3. Essais biologiques</td><td>cultures cellulaires (fibroblastes, ostéoblastes, cellules endothéliales) ; modèles animaux ; études chez l'homme (suivi clinique, radiologique)</td></tr>
+</table></div>
+<p>Les cellules utilisées : le <strong>fibroblaste</strong>, cellule du tissu conjonctif, parfois appelée cellule de soutien (dans le derme, il assure cohérence et souplesse) ; l'<strong>ostéoblaste</strong>, qui synthétise et minéralise la matrice osseuse (croissance, renouvellement, réparation) ; les <strong>cellules endothéliales</strong>, qui jouent un rôle actif dans le contrôle du tonus vasculaire, donc du débit sanguin local.</p>
+
+<h3>Une seule vraie sécurité</h3>
+<p>L'implantation chez l'homme, avec le suivi à long terme et le recueil des données : résultats, échecs, survie. On compare avec un produit équivalent plus ancien.</p>
+
+<h3>Le cahier des charges d'un biomatériau</h3>
+<ul>
+<li>stérilisable ;</li>
+<li>absence de risque de transmission de maladie infectieuse ou parasitaire ;</li>
+<li>absence de réaction immunitaire ;</li>
+<li>pas de toxicité du produit d'origine et de ses produits de dégradation ;</li>
+<li>fabrication et stockage faciles ;</li>
+<li>moindre coût.</li>
+</ul>
+
+<h3>Aspects législatifs</h3>
+<p>Le <strong>marquage</strong> passe par un organisme notifié : tests sur bancs d'essais, in vitro, in vivo ; puis passage à l'homme selon un protocole très strict ; puis commercialisation ; avec une procédure qualité et une procédure de suivi.</p>
+<p>C'est un domaine en expansion, de haute technicité et de haute responsabilité, pluridisciplinaire (chirurgiens, cliniciens, mécaniciens, biologistes, biochimistes, électroniciens, informaticiens), qui demande une collaboration chercheurs – chirurgiens.</p>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. On veut valider un nouveau revêtement de cupule de hanche. On simule d'abord les contraintes à l'interface os / cupule (outil 1). On fait tourner un simulateur articulaire pour mesurer l'usure (outil 2). On cultive des ostéoblastes sur le revêtement pour voir s'ils minéralisent la matrice (outil 3, in vitro), puis on passe à l'animal (in vivo). Ensuite seulement, l'organisme notifié autorise le passage à l'homme selon un protocole strict, et on suit les patients en comparant avec une cupule plus ancienne.</p>
+
+<h2>Formules clés</h2>
+<p>Outils de choix : 1. calculs et simulations ; 2. essais mécaniques (rupture, bancs, simulateurs) ; 3. biologiques (cellules, animaux, homme).</p>
+<p>Fibroblaste : soutien du tissu conjonctif. Ostéoblaste : fabrique et minéralise l'os. Cellule endothéliale : tonus vasculaire.</p>
+<p>Seule vraie sécurité : implantation chez l'homme, suivi à long terme, recueil des données (résultats, échecs, survie).</p>
+<p>Cahier des charges : stérilisable ; pas de transmission infectieuse ; pas de réaction immunitaire ; pas de toxicité ; fabrication et stockage faciles ; moindre coût.</p>
+<p>Marquage par un organisme notifié : bancs, in vitro, in vivo, homme, commercialisation, qualité, suivi.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/choisir-valider.js"></script>
+</body>
+</html>

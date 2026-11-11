@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les alliages cobalt-chrome · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les alliages cobalt-chrome</h1>
+<p class="chapeau">La tige d'une prothèse de genou ou de hanche est chargée des millions de fois, et on ne peut pas la remplacer facilement. Il faut un alliage qui ne casse pas en fatigue et qui s'use très peu. C'est le terrain des alliages cobalt-chrome.</p>
+
+<h2>Intuition</h2>
+<p>Le cobalt donne la base, le chrome forme une couche d'oxyde compacte qui protège de la corrosion et renforce l'alliage, le molybdène affine les grains. Résultat : un alliage plus rigide et plus résistant que l'inox, très dur, qui s'use peu. Le revers : il est très difficile à façonner à froid, et il est encore plus rigide que l'os qu'il remplace.</p>
+<div id="fig-usure"></div>
+
+<h2>Formalisation</h2>
+<p>Deux types d'alliages cobalt-chrome :</p>
+<ul>
+<li>l'alliage <strong>Co-Cr-Mo</strong>, destiné à être coulé : utilisé depuis des décennies en médecine dentaire, et récemment pour les implants articulaires ;</li>
+<li>l'alliage <strong>Co-Ni-Cr-Mo</strong>, façonné par forgeage à chaud : relativement nouveau, pour les tiges de prothèses des articulations lourdement chargées (genou, hanche).</li>
+</ul>
+<p>Quatre alliages sont recommandés pour les implants chirurgicaux : coulable Co-Cr-Mo (F75), forgeable Co-Cr-W-Ni (F90), forgeable Co-Ni-Cr-Mo (F562), forgeable Co-Ni-Cr-Mo-W-Fe (F563). Seuls deux sont fréquents : le coulable <strong>F75</strong> et le forgeable <strong>F562</strong>. Le cobalt dépasse 60 % ; le molybdène forme des grains fins, d'où une meilleure résistance après coulée et forgeage ; le chrome améliore la résistance à la corrosion (couche d'oxyde compacte) et la résistance mécanique.</p>
+<p>L'excellente résistance à la fatigue du forgeable Co-Ni-Cr-Mo le rend très approprié aux applications qui exigent une longue durée de vie sans rupture sous charge statique ou cyclique, comme les tiges de hanche, surtout quand l'implant est difficile à remplacer.</p>
+<div class="tableau"><table>
+<tr><th>Co20Cr35Ni10Mo</th><th>module de Young (MPa)</th><th>rupture min. (MPa)</th><th>limite élastique min. (MPa)</th><th>déformation min. (%)</th></tr>
+<tr><td>recuit</td><td>\(2{,}35 \cdot 10^5\)</td><td>800</td><td>300</td><td>40</td></tr>
+<tr><td>écroui à froid</td><td>\(2{,}35 \cdot 10^5\)</td><td>1000</td><td>650</td><td>20</td></tr>
+</table></div>
+<p>L'écrouissage à froid augmente nettement la résistance (le module ne change pas, la déformation possible diminue). Mais il est très difficile de façonner cet alliage à froid pour une grande pièce comme une tige de hanche : seul le forgeage à chaud est possible. Il résiste très bien à la corrosion sous contrainte dans l'eau de mer (ions chlore).</p>
+
+<h3>Usure et frottement</h3>
+<ul>
+<li>Usure du forgeable Co-Ni-Cr-Mo semblable à celle du coulable : à peu près 0,14 mm/an contre un cotyle en polyéthylène.</li>
+<li>Le Co-Ni-Cr-Mo n'est pas recommandé pour les surfaces de frottement : mauvais coefficient de frottement avec lui-même ou un autre matériau.</li>
+<li>Prothèses métal sur métal en CoCrMo : faible usure grâce à la dureté et la ténacité ; usure linéaire moyenne de la prothèse McKee-Farrar de 4,2 µm/an.</li>
+<li>Couple métal-polyéthylène conventionnel (têtes de 22 à 32 mm), « standard » pendant près de quatre décennies : usure linéaire de 100 à 400 µm/an.</li>
+</ul>
+<p>Le module de Young du Co-Cr est de 220 à 234 GPa, plus que l'inox : cela peut changer le transfert des efforts vers l'os, même si l'effet sur la fixation et la longévité n'est pas encore bien connu.</p>
+
+<h3>Ions libérés</h3>
+<p>Dans une solution de Ringer à 37 °C, le Co-Ni-Cr-Mo libère d'abord plus de nickel que l'inox 316L, puis la vitesse devient presque la même, alors qu'il contient environ trois fois plus de nickel. In vitro, les particules de cobalt et de nickel sont toxiques pour les cellules ; celles de Cr et de Co-Cr sont bien acceptées. Un implant en CoCr est une cause d'artefact en IRM.</p>
+<p>Applications : prothèse totale de hanche, pièce fémorale, stents très fins grâce aux propriétés mécaniques, filtre cave (qui filtre le sang remontant des membres inférieurs), implants dentaires.</p>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. En 5 ans, une tête métal sur métal McKee-Farrar s'use de \(4{,}2 \times 5 = 21\) µm. Un couple métal-polyéthylène à 200 µm/an (milieu de la fourchette du cours) perd \(200 \times 5 = 1000\) µm, soit 1 mm : environ 48 fois plus.</p>
+
+<h2>Formules clés</h2>
+<p>F75 coulable (Co-Cr-Mo) et F562 forgeable (Co-Ni-Cr-Mo) ; Co &gt; 60 % ; Mo : grains fins ; Cr : oxyde protecteur.</p>
+<p>E = 220 à 234 GPa ; écroui : rupture 1000 MPa, limite 650 MPa (recuit : 800 et 300).</p>
+<p>Usure : métal sur métal 4,2 µm/an ; métal-PE 100 à 400 µm/an ; Co-Ni-Cr-Mo contre PE 0,14 mm/an.</p>
+<p>Forgeage à chaud seulement pour les grandes pièces ; artefacts d'IRM ; Co et Ni toxiques pour les cellules in vitro.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/cobalt-chrome.js"></script>
+</body>
+</html>

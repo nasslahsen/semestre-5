@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Étude comparative et surfaces · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Étude comparative et surfaces</h1>
+<p class="chapeau">Inox, cobalt-chrome, titane, NiTi, tantale : chaque métal a ses atouts. Pour choisir, il faut les voir côte à côte, chiffres en main : rigidité, résistance, masse, et comportement des surfaces qui frottent.</p>
+
+<h2>Intuition</h2>
+<p>Trois questions guident le choix d'un métal d'implant. Est-il proche de l'os en rigidité (pour limiter le stress-shielding) ? Est-il assez résistant (limite élastique) ? Est-il lourd ? Et pour les surfaces qui frottent, une quatrième : combien de matière perd-on chaque année ? La surface compte autant que le cœur du métal : c'est elle que le corps touche.</p>
+<div id="fig-comparer"></div>
+
+<h2>Formalisation</h2>
+<div class="tableau"><table>
+<tr><th>Matériau</th><th>densité (g/cm³)</th><th>module (GPa)</th><th>résistance en traction (MPa)</th><th>allongement (%)</th><th>applications</th></tr>
+<tr><td>Ti-Cp (titane non allié)</td><td>4,5</td><td>100</td><td>240 à 550</td><td>15 à 25</td><td>boîtiers de pacemaker, implants dentaires, vis et agrafes du rachis</td></tr>
+<tr><td>Ti-6Al-4V</td><td>4,4</td><td>110</td><td>860 à 985</td><td>10 à 15</td><td>composants articulaires, vis</td></tr>
+<tr><td>Nitinol</td><td>6,5</td><td>≥ 48</td><td>690 à 1380</td><td>13 à 40</td><td>stents, agrafes, plaques à mémoire de forme, guides</td></tr>
+<tr><td>Co-Cr-Mo</td><td>8,3</td><td>230</td><td>655 à 1277</td><td>10 à 30</td><td>plaques de fracture, valves cardiaques, composants articulaires, vis, coulées dentaires</td></tr>
+<tr><td>Inox 316L</td><td>7,9</td><td>200</td><td>490 à 1350</td><td>5 à 40</td><td>plaques de fracture, broches, sutures, fils, prothèses articulaires totales</td></tr>
+<tr><td>Tantale</td><td>16,6</td><td>190</td><td>285 à 650</td><td>5 à 30</td><td>fils de suture, clips de ligature, agrafes, feuilles et plaques</td></tr>
+</table></div>
+<p>Sur le graphique du cours, l'os est vers 20 GPa, le ciment encore plus bas ; les alliages de titane β sans vanadium (Ti-13Nb-13Zr, Ti-35Nb-5Ta-7Zr...) descendent entre 50 et 80 GPa ; le Co-Cr-Mo est le plus rigide. Limites élastiques : titane et alliages d'environ 500 à 1000 MPa, CoCr d'environ 300 à 700 MPa, inox 316L d'environ 200 à 700 MPa. Densités : Ti 4,5 ; 316L 7,9 ; CoCrMo 8,3 ; CoNiCrMo 9,2 ; NiTi 6,7.</p>
+
+<h3>Couples de frottement (d'après S. Terver, CHU de Clermont-Ferrand)</h3>
+<div class="tableau"><table>
+<tr><th>Couple</th><th>coefficient de frottement</th><th>pénétration</th><th>usure</th></tr>
+<tr><td>CoCr / PEhd</td><td>0,03 à 0,05</td><td>0,15 mm/an</td><td>20 mg/an (20 à 40 millions de particules &lt; 10 µm)</td></tr>
+<tr><td>inox / PEhd</td><td>0,04 à 0,06</td><td>0,15 mm/an</td><td>selon préparation</td></tr>
+<tr><td>alumine / PEhd</td><td>0,01 à 0,04</td><td>0,1 mm/an</td><td>30 mg/an</td></tr>
+<tr><td>zircone / PEhd</td><td>0,01 à 0,04</td><td>0,05 mm/an</td><td>&lt; 10 mg/an</td></tr>
+<tr><td>alumine / alumine</td><td>0,04 à 0,1</td><td>non mesurable</td><td>0,5 à 1 mm³/an</td></tr>
+<tr><td>métal / métal</td><td>0,02 à 0,04</td><td>non mesurable</td><td>1 à 2 mm³ par million de cycles</td></tr>
+</table></div>
+<p>Aucun consensus sur le choix du couple : les États-Unis utilisent dans 62 % des cas un PE très hautement réticulé, associé dans 87 % des cas à une tête métallique ; la France associe dans 65 % des cas un PE conventionnel et dans 52 % des cas une tête céramique ; en Corée, 70 % des poses sont céramique-céramique.</p>
+
+<h3>Revêtement et finition de surface</h3>
+<p>La surface joue un rôle majeur dans la réponse biologique. Une surface métallique n'a pas de fonction qui favorise la bioactivité, et sa composition diffère de celle de la masse. Les métaux ont une énergie de surface élevée : des matières organiques s'y adsorbent facilement, d'où une couche oxydée et contaminée. D'où les modifications de surface :</p>
+<div class="tableau"><table>
+<tr><th>Traitement</th><th>Exemples</th><th>But</th></tr>
+<tr><td>finition mécanique</td><td>polissage, meulage, sablage</td><td>nettoyer, dépolir pour améliorer l'adhérence</td></tr>
+<tr><td>finition chimique</td><td>traitement alcalin, acide ou au peroxyde d'hydrogène, oxydation anodique</td><td>éliminer calamines et oxydes, résistance à la corrosion, biocompatibilité, bioactivité</td></tr>
+<tr><td>finition physique</td><td>dépôt physique en phase vapeur, implantation et dépôt d'ions</td><td>changer la composition de surface, usure et corrosion</td></tr>
+<tr><td>revêtement physique</td><td>flamme ou projection plasma</td><td>usure, corrosion, propriétés biologiques</td></tr>
+<tr><td>enrobage chimique</td><td>silanisation, photochimie</td><td>immobiliser polymères bioactifs, peptides, protéines, facteurs de croissance</td></tr>
+</table></div>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Une tige de 40 cm³ pèse \(4{,}4 \times 40 = 176\) g en Ti-6Al-4V, \(7{,}9 \times 40 = 316\) g en 316L et \(8{,}3 \times 40 = 332\) g en Co-Cr-Mo. Contre une tête en zircone, un insert en PEhd est pénétré de \(0{,}05 \times 10 = 0{,}5\) mm en 10 ans ; contre une tête CoCr, de \(0{,}15 \times 10 = 1{,}5\) mm.</p>
+
+<h2>Formules clés</h2>
+<p>Modules : os 20 ; Nitinol ≥ 48 ; Ti 100 à 110 ; tantale 190 ; 316L 200 ; Co-Cr-Mo 230 GPa.</p>
+<p>Densités : Ti 4,4 à 4,5 ; NiTi 6,5 à 6,7 ; 316L 7,9 ; CoCrMo 8,3 ; tantale 16,6 g/cm³.</p>
+<p>Pénétration du PEhd : CoCr et inox 0,15 ; alumine 0,1 ; zircone 0,05 mm/an.</p>
+<p>Surfaces : finitions mécanique, chimique, physique ; revêtement physique (plasma) ; enrobage chimique (molécules bioactives).</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/comparer-metaux.js"></script>
+</body>
+</html>
