@@ -161,14 +161,14 @@ const dc = `${BASE}modules/${mid}/`;
     const b1 = await fr.$eval("#resultat .btn-suivant", a => a.textContent).catch(() => "");
     await pg.screenshot({ path: path.join(out, "fin-exercice.png") });
     if (ids0.length > 1) {
-      if (!/Exercice suivant/.test(b1)) pb("fin de l'exercice : pas de « Exercice suivant » dans un bloc de plusieurs exercices : " + b1);
+      if (!/Exercice suivant|Next exercise/.test(b1)) pb("fin de l'exercice : pas de « Exercice suivant » dans un bloc de plusieurs exercices : " + b1);
       await fr.click("#resultat .btn-suivant"); await pg.waitForTimeout(1200);
       const fr2 = pg.frames().find(f => f.url().includes("jouer.html"));
       if (!fr2 || !fr2.url().endsWith("#" + ids0[1])) pb("Exercice suivant n'ouvre pas le deuxième exercice de la section");
       else await fr2.evaluate(() => window.parent.postMessage({ s5: "fermer-exercice" }, "*"));
       await pg.waitForTimeout(500);
     } else {
-      if (!/Revenir au cours/.test(b1)) pb("fin de l'exercice : pas de « Revenir au cours » : " + b1);
+      if (!/Revenir au cours|Back to the lesson/.test(b1)) pb("fin de l'exercice : pas de « Revenir au cours » : " + b1);
       await fr.click("#resultat .btn-suivant"); await pg.waitForTimeout(500);
     }
     const etat = await pg.evaluate(() => ({ ouvert: document.querySelector(".fenetre-jeu.on") !== null, y: scrollY }));
