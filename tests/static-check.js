@@ -102,7 +102,12 @@ for (const id of modules) {
     }
     // corrigé d'un TD (chapitre td: true, page <id>-corrige) : une question par titre, la correction cachée dans <details class="corrige">
     if (c0 && slug.endsWith("-corrige") && P.chapitres.find(ch => ch.id === c0.chapitre && ch.td)) {
-      if (!/<details class="corrige">/.test(html)) err(`${f} : corrigé sans <details class="corrige">`);
+      if (!/<details class="corrige">|class="rep/.test(html)) err(`${f} : corrigé sans <details class="corrige"> ni réponses à toucher (class="rep")`);
+      continue;
+    }
+    // module aux pages libres (module.js, pagesLibres : le cours d'anglais) : un titre et un chapeau suffisent
+    if (P.pagesLibres) {
+      if (!/<h1>[^<]+<\/h1>/.test(html) || !/<p class="chapeau">/.test(html)) err(`${f} : page sans titre ou sans chapeau`);
       continue;
     }
     for (const t of ["<h2>Intuition</h2>", "<h2>Formalisation</h2>", "<h2>Formules clés</h2>"]) if (!html.includes(t)) err(`${f} : section manquante ${t}`);

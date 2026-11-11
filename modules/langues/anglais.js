@@ -180,8 +180,8 @@
     p.toucher = function (k) {
       if (fini) return;
       if (lie.indexOf(k) >= 0) return;
-      if (sel < 0) { if (cfg.info) cfg.info("Touche d'abord un élément à gauche."); return; }
-      if (cfg.bon[sel] !== k) { faux = k; var i = sel; sel = -1; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, k) : "Ces deux-là ne vont pas ensemble."); return; }
+      if (sel < 0) { if (cfg.info) cfg.info("First tap an item on the left."); return; }
+      if (cfg.bon[sel] !== k) { faux = k; var i = sel; sel = -1; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, k) : "These two don't go together."); return; }
       lie[sel] = k; sel = -1; faux = -1; p.dessiner();
       if (lie.every(function (x) { return x >= 0; })) { fini = true; if (cfg.fin) cfg.fin(); }
     };
@@ -212,7 +212,7 @@
     p.toucher = function (i) {
       if (fini || pris.indexOf(i) >= 0) return;
       var attendu = cfg.ordre[pris.length];
-      if (i !== attendu) { faux = i; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, attendu, pris.length) : "Pas encore cette étape."); return; }
+      if (i !== attendu) { faux = i; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, attendu, pris.length) : "Not this step yet."); return; }
       faux = -1; pris.push(i);
       if (pris.length === cfg.ordre.length) fini = true;
       p.dessiner();
@@ -247,9 +247,9 @@
     };
     p.toucher = function (k) {
       if (fini) return;
-      if (sel < 0) { if (cfg.info) cfg.info("Touche d'abord une carte, puis le bac qui lui correspond."); return; }
+      if (sel < 0) { if (cfg.info) cfg.info("First tap a card, then the box it belongs to."); return; }
       var i = sel;
-      if (cfg.cartes[i].bac !== k) { faux = k; sel = -1; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, k) : "Pas dans ce bac."); return; }
+      if (cfg.cartes[i].bac !== k) { faux = k; sel = -1; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i, k) : "Not in this box."); return; }
       dans[i] = k; sel = -1; faux = -1; p.dessiner();
       if (dans.every(function (x) { return x >= 0; })) { fini = true; if (cfg.fin) cfg.fin(); }
     };
@@ -272,7 +272,7 @@
     p.toucher = function (i) {
       if (fini || etat.trouve[i]) return;
       var z = cfg.zones[i];
-      if (!z.bon) { etat.faux = i; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i) : "Pas ici."); return; }
+      if (!z.bon) { etat.faux = i; p.dessiner(); if (cfg.erreur) cfg.erreur(cfg.aide ? cfg.aide(i) : "Not here."); return; }
       etat.trouve[i] = true; etat.faux = -1; p.dessiner();
       if (cfg.trouve) cfg.trouve(i);
       if (etat.trouve.filter(Boolean).length === nbBons) { fini = true; if (cfg.fin) cfg.fin(); }
@@ -312,7 +312,7 @@
       });
       if (o.devant) o.devant(g, choisi);
       items.forEach(function (it, i) { cible(g, it.x, it.y, it.w, it.h, function () { choisi = i; dessiner(); }); });
-      f.direct.innerHTML = choisi >= 0 ? "<strong>" + items[choisi].t + "</strong> : " + items[choisi].texte : (o.invite || "Touche un élément de la figure.");
+      f.direct.innerHTML = choisi >= 0 ? "<strong>" + items[choisi].t + "</strong> : " + items[choisi].texte : (o.invite || "Tap a box in the picture.");
     }
     dessiner();
     return { choisir: function (i) { choisi = i; dessiner(); }, g: g };
@@ -334,7 +334,7 @@
         if (on) { s("circle", { cx: nd.x + 6, cy: nd.y + 6, r: 15, fill: coul }, g); texte(g, String(i + 1), [nd.x + 6, nd.y + 6], { taille: 15, coul: "#fff", halo: false, gras: 800 }); }
       });
       if (o.devant) o.devant(g, k);
-      f.direct.innerHTML = k === 0 ? (o.depart || "Avance étape par étape.") : textes[k - 1];
+      f.direct.innerHTML = k === 0 ? (o.depart || "Go step by step.") : textes[k - 1];
     }
     var et = R.etapes(f.reglages, noeuds.length, [""].concat(o.noms || noeuds.map(function (nd) { return nd.t; })), dessiner);
     et.aller(o.debut === undefined ? 0 : o.debut);
@@ -460,7 +460,7 @@
           pos: function (i) { return disposition.carte(i, e.cartes.length); },
           bacsPos: function (k) { return disposition.bac(k, e.bacs.length); },
           erreur: j.erreur, info: j.info,
-          aide: function (i, k) { return e.aides ? e.aides[i] : e.aide || "Relis la carte : à quoi sert-elle ?"; },
+          aide: function (i, k) { return e.aides ? e.aides[i] : e.aide || "Read the card again: what is it about?"; },
           fin: fin
         });
         j.reponse(function () { t.resoudre(); });
@@ -471,7 +471,7 @@
           g: n.g, gauche: e.gauche, droite: e.droite, bon: e.bon, taille: e.taille || 17, tailleD: e.tailleD || 16,
           xg: 20, wg: 250, xd: 330, wd: 330, y0: 20, h: pas - 14, pas: pas,
           erreur: j.erreur, info: j.info,
-          aide: function (i) { return e.aides ? e.aides[i] : e.aide || "Ces deux-là ne vont pas ensemble."; },
+          aide: function (i) { return e.aides ? e.aides[i] : e.aide || "These two don't go together."; },
           fin: fin
         });
         j.reponse(function () { t.resoudre(); });
@@ -500,7 +500,7 @@
       d.appendChild(bs); z.appendChild(d);
       return { d: d, p: p, boutons: boutons };
     });
-    var v = document.createElement("button"); v.type = "button"; v.className = "btn bleu verifier-options"; v.textContent = "Vérifier"; z.appendChild(v);
+    var v = document.createElement("button"); v.type = "button"; v.className = "btn bleu verifier-options"; v.textContent = "Check"; z.appendChild(v);
     function maj() {
       lignes.forEach(function (l, i) {
         var it = e.items[i], k = etat[i];
@@ -516,7 +516,7 @@
     v.addEventListener("click", function () {
       faux = [];
       e.items.forEach(function (it, i) { if (bonnes(it).indexOf(etat[i]) < 0) faux.push(i); });
-      if (faux.length) { maj(); j.erreur(e.items[faux[0]].aide || e.aide || "Les phrases en rouge ne vont pas : change ton choix."); return; }
+      if (faux.length) { maj(); j.erreur(e.items[faux[0]].aide || e.aide || "The sentences in red are wrong: change your choice."); return; }
       fini = true; r.fait = true; v.remove(); maj(); fin();
     });
     maj();
@@ -530,6 +530,21 @@
     });
     r.donnees = def; // lu par les parcours de test et tests/math.test.js
     return r;
+  }
+
+  /* ---------- Pages de réponses : chaque réponse cachée à sa place, un toucher la montre ----------
+     <button class="rep">mot</button> dans un trou ou après une question ; class="rep bloc" pour une réponse longue. */
+  if (typeof document !== "undefined") {
+    var css = ".rep{display:inline-block;min-width:76px;min-height:38px;margin:2px 3px;padding:4px 12px;border:2px dashed var(--jeu);border-radius:10px;background:var(--jeu-pale);font:inherit;font-weight:600;color:inherit;cursor:pointer;vertical-align:middle;text-align:left}" +
+      ".rep:not(.vu){color:transparent}.rep:not(.vu) *{visibility:hidden}.rep.vu{border-style:solid;border-color:#12a26b;background:#e3f7ee;cursor:default}" +
+      ".rep.bloc{display:block;width:100%;margin:8px 0 4px;padding:10px 14px;font-weight:500}.rep.bloc:not(.vu){color:var(--jeu-texte);font-weight:600;text-align:center}" +
+      ".rep.bloc:not(.vu)>span{display:none}.rep.bloc:not(.vu)::before{content:'Tap to see the answer'}" +
+      "ol.questions>li{margin:0 0 14px;line-height:1.9}";
+    var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest(".rep");
+      if (b) b.classList.add("vu");
+    });
   }
 
   var A = { rejouable: rejouable, C: C, BACS: BACS, s: s, vider: vider, couper: couper, texte: texte, boite: boite, fleche: fleche, chemin: chemin, toucher: toucher, cible: cible, tableau: tableau, paires: paires, trace: trace, trier: trier, reperer: reperer, relier: relier, bord: bord, animer: animer, grille: grille, explorer: explorer, etapesFig: etapesFig, carte: carte, disposition: disposition, centre: centre, niveau: niveau, htmlTrous: htmlTrous };

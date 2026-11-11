@@ -22,7 +22,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 0,
-     "aide": "Nom indénombrable (time, water…) et sens négatif : pas assez."
+     "aide": "Uncountable noun (time, water…) and negative meaning: not enough."
     },
     {
      "n": 2,
@@ -34,7 +34,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 3,
-     "aide": "Nom dénombrable au pluriel, sens positif : quelques-uns."
+     "aide": "Countable plural noun, positive meaning: some."
     },
     {
      "n": 3,
@@ -46,7 +46,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 2,
-     "aide": "Nom dénombrable au pluriel et sens négatif : presque pas."
+     "aide": "Countable plural noun and negative meaning: almost none."
     },
     {
      "n": 4,
@@ -58,7 +58,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "Nom indénombrable (ou « a little » + nom), sens positif : un peu, ça suffit."
+     "aide": "Uncountable noun (or “a little” + noun), positive meaning: some, enough."
     },
     {
      "n": 5,
@@ -70,11 +70,11 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "Nom indénombrable (ou « a little » + nom), sens positif : un peu, ça suffit."
+     "aide": "Uncountable noun (or “a little” + noun), positive meaning: some, enough."
     }
    ],
    "bravo": "1 little, 2 a few, 3 few, 4 a little, 5 a little.",
-   "expliquer": "<p>Key de la fiche. <b>Little / a little</b> : avec un indénombrable (time, water, self-confidence). <b>Few / a few</b> : avec un pluriel dénombrable (ideas, friends).</p>"
+   "expliquer": "<p>Key of the sheet. <b>Little / a little</b>: with an uncountable noun (time, water, self-confidence). <b>Few / a few</b>: with a countable plural (ideas, friends).</p>"
   },
   {
    "nom": "Sentences 6 to 10",
@@ -91,7 +91,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 0,
-     "aide": "Nom indénombrable (time, water…) et sens négatif : pas assez."
+     "aide": "Uncountable noun (time, water…) and negative meaning: not enough."
     },
     {
      "n": 7,
@@ -103,7 +103,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 0,
-     "aide": "Nom indénombrable (time, water…) et sens négatif : pas assez."
+     "aide": "Uncountable noun (time, water…) and negative meaning: not enough."
     },
     {
      "n": 8,
@@ -115,7 +115,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 2,
-     "aide": "Nom dénombrable au pluriel et sens négatif : presque pas."
+     "aide": "Countable plural noun and negative meaning: almost none."
     },
     {
      "n": 9,
@@ -127,7 +127,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "Ici « little » est un adjectif : a little piece = un petit morceau. Il faut l'article."
+     "aide": "Here “little” is an adjective: a little piece = a small piece. You need the article."
     },
     {
      "n": 10,
@@ -139,11 +139,11 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "Nom indénombrable (ou « a little » + nom), sens positif : un peu, ça suffit."
+     "aide": "Uncountable noun (or “a little” + noun), positive meaning: some, enough."
     }
    ],
    "bravo": "6 Little, 7 little, 8 few, 9 a little, 10 a little.",
-   "expliquer": "<p>Sans « a », le sens est négatif (presque pas) : <i>very few people</i>, <i>little is known</i>. Avec « a », positif (un peu, quelques-uns).</p>"
+   "expliquer": "<p>Without “a”, the meaning is negative (almost none): <i>very few people</i>, <i>little is known</i>. With “a”, it is positive (some).</p>"
   },
   {
    "nom": "Sentences 11 to 15",
@@ -160,7 +160,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 2,
-     "aide": "Nom dénombrable au pluriel et sens négatif : presque pas."
+     "aide": "Countable plural noun and negative meaning: almost none."
     },
     {
      "n": 12,
@@ -172,7 +172,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 0,
-     "aide": "Nom indénombrable (time, water…) et sens négatif : pas assez."
+     "aide": "Uncountable noun (time, water…) and negative meaning: not enough."
     },
     {
      "n": 13,
@@ -184,7 +184,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 3,
-     "aide": "Nom dénombrable au pluriel, sens positif : quelques-uns."
+     "aide": "Countable plural noun, positive meaning: some."
     },
     {
      "n": 14,
@@ -196,7 +196,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "« I have … » remplace « money », indénombrable ; « but not very much » : il en reste un peu."
+     "aide": "“I have …” replaces “money”, uncountable; “but not very much”: there is some left."
     },
     {
      "n": 15,
@@ -211,11 +211,11 @@ NIVEAU(ANG.niveau({
       2,
       3
      ],
-     "aide": "Nom dénombrable au pluriel et sens négatif : presque pas."
+     "aide": "Countable plural noun and negative meaning: almost none."
     }
    ],
    "bravo": "11 few, 12 little, 13 a few, 14 a little, 15 few / a few.",
-   "expliquer": "<p>Phrase 15 : la key accepte <i>few</i> et <i>a few</i> ; le sens change (peu de villes, ou quelques villes).</p>"
+   "expliquer": "<p>Sentence 15: the key accepts <i>few</i> and <i>a few</i>; the meaning changes (not many cities, or some cities).</p>"
   },
   {
    "nom": "Sentences 16 to 20",
@@ -232,7 +232,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 0,
-     "aide": "Nom indénombrable (time, water…) et sens négatif : pas assez."
+     "aide": "Uncountable noun (time, water…) and negative meaning: not enough."
     },
     {
      "n": 17,
@@ -244,7 +244,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 3,
-     "aide": "Nom dénombrable au pluriel, sens positif : quelques-uns."
+     "aide": "Countable plural noun, positive meaning: some."
     },
     {
      "n": 18,
@@ -256,7 +256,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 1,
-     "aide": "Nom indénombrable (ou « a little » + nom), sens positif : un peu, ça suffit."
+     "aide": "Uncountable noun (or “a little” + noun), positive meaning: some, enough."
     },
     {
      "n": 19,
@@ -268,7 +268,7 @@ NIVEAU(ANG.niveau({
       "a few"
      ],
      "bon": 2,
-     "aide": "Nom dénombrable au pluriel et sens négatif : presque pas."
+     "aide": "Countable plural noun and negative meaning: almost none."
     },
     {
      "n": 20,
@@ -280,11 +280,11 @@ NIVEAU(ANG.niveau({
       "a few … little"
      ],
      "bon": 0,
-     "aide": "« reason » est ici indénombrable et négatif ; « days » est dénombrable et positif."
+     "aide": "“reason” is uncountable and negative here; “days” is countable and positive."
     }
    ],
    "bravo": "16 little, 17 a few, 18 a little, 19 few, 20 little … a few.",
-   "expliquer": "<p>Phrase 20 : deux trous, deux noms différents. <i>Little reason</i> (indénombrable, négatif) ; <i>a few days</i> (dénombrable, positif).</p>"
+   "expliquer": "<p>Sentence 20: two gaps, two different nouns. <i>Little reason</i> (uncountable, negative); <i>a few days</i> (countable, positive).</p>"
   },
   {
    "nom": "The rule",
@@ -297,15 +297,15 @@ NIVEAU(ANG.niveau({
     },
     {
      "t": "little friends / few time",
-     "aide": "Friends se compte (un ami, deux amis) ; time ne se compte pas ici."
+     "aide": "Friends can be counted (one friend, two friends); time can't be counted here."
     },
     {
      "t": "few water / little ideas",
-     "aide": "Water ne se compte pas ; ideas se compte."
+     "aide": "Water can't be counted; ideas can."
     }
    ],
-   "bravo": "Few + pluriel dénombrable ; little + indénombrable.",
-   "expliquer": "<p>Test rapide : peux-tu dire « two … » ? Two friends, oui : <b>few</b>. Two waters, non : <b>little</b>.</p>"
+   "bravo": "Few + countable plural; little + uncountable.",
+   "expliquer": "<p>Quick test: can you say “two …”? Two friends, yes: <b>few</b>. Two waters, no: <b>little</b>.</p>"
   }
  ]
 }));

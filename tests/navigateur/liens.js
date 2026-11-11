@@ -24,13 +24,12 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
   langues: {
-    // exercices de situation : vers la liste ou le tableau du cours plutôt que vers un exemple voisin
-    "soft-exemples": { 3: ["soft-exemples", "formalisation", "Formalisation"], 5: ["soft-exemples", "formalisation", "Formalisation"] },
-    "presentation-openup": { 4: ["presentation-openup", "formalisation", "Formalisation"] },
-    "boss-presentation": { 2: ["presentation-openup", "formalisation", "Formalisation"], 3: ["presentation-corps", "formalisation", "Formalisation"] },
-    "revision-presentation": { 1: ["presentation-corps", "formalisation", "Formalisation"] },
-    "boss-entretien": { 2: ["entretien-preparation", "formalisation", "Formalisation"], 3: ["entretien-questions", "formalisation", "Formalisation"] },
-    "td2-synonymes": { 3: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5 : use the vocabulary in context"], 4: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5 : use the vocabulary in context"] }
+    // exercices de situation et TD : vers la liste du cours ou l'exercice du corrigé
+    "soft-exemples": { 3: ["soft-exemples", "a-long-list", "A long list"] },
+    "revision-presentation": { 1: ["presentation-corps", "body-language", "Body language"] },
+    "td4-vrai-faux": { 1: ["td4-corrige", "ii-true-or-false-6-points", "II. True or false (6 points)"] },
+    "td3": { 1: ["td3-corrige", "exercise-1-true-or-false-with-evidence", "Exercise 1: true or false, with evidence"] },
+    "td2-synonymes": { 1: ["td2-corrige", "b-exercise-6-synonyms-and-antonyms", "B. Exercise 6: synonyms and antonyms"], 2: ["td2-corrige", "b-exercise-6-synonyms-and-antonyms", "B. Exercise 6: synonyms and antonyms"], 3: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5: use the vocabulary in context"], 4: ["td2-corrige", "b-exercise-5-use-the-vocabulary-in-context", "B. Exercise 5: use the vocabulary in context"] }
   },
   biomateriaux: {
     // chapitres affichés 2 et 4 : vers le tableau ou l'exemple qui répond, plutôt que l'intuition
@@ -137,7 +136,7 @@ function mots(t) {
     const textes = [];
     for (let k = 0; k < nb; k++) {
       await pg.waitForTimeout(500);
-      await pg.click('.etape:not(.sortie) .aide-q button >> text="Voir la réponse"').catch(() => {});
+      await pg.click('.etape:not(.sortie) .aide-q button.voir-reponse').catch(() => {});
       const ok = await pg.waitForSelector(".etape:not(.sortie) .btn.suite", { timeout: 6000 }).then(() => true, () => false);
       await pg.waitForTimeout(250);
       textes.push(await pg.evaluate(() => {
@@ -145,7 +144,7 @@ function mots(t) {
         k.querySelectorAll(".katex-mathml, .kicker, .aide-q, .revoir, .clavier, .btn").forEach(x => x.remove());
         return k.textContent.replace(/\s+/g, " ").trim() + " " + (document.getElementById("astuce").textContent || "");
       }));
-      if (ok) await pg.click(".etape:not(.sortie) .btn.suite"); else await pg.click('.etape:not(.sortie) .aide-q button >> text="Passer"').catch(() => {});
+      if (ok) await pg.click(".etape:not(.sortie) .btn.suite"); else await pg.click('.etape:not(.sortie) .aide-q button.passer').catch(() => {});
     }
     // pages candidates
     const chapitreCours = (MOD.cours || []).filter(c => c.chapitre === n.chapitre).map(c => c.id);

@@ -1,10 +1,10 @@
-/* Figure : Hard skills et soft skills (cases à toucher, ANG.explorer). */
+/* Figure : Hard skills and soft skills (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-hard-soft", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Hard skills et soft skills",
-    essai: "<strong>Essaie</strong> : touche chaque case, à gauche puis à droite. <strong>Observe</strong> : les hard skills se mesurent et s'apprennent ; les soft skills renvoient à l'EQ et ont sept autres noms."
+  var f = R.figure("fig-soft-hard", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "Hard skills and soft skills",
+    essai: "<strong>Try</strong>: tap each box, left then right. <strong>Notice</strong>: hard skills can be taught and measured; soft skills are about EQ and have seven other names."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Teachable abilities",
-    "texte": "Les hard skills s'enseignent : un cours, un manuel, une formation.",
+    "texte": "Hard skills can be taught: a course, a textbook, a training.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "can be taught",
@@ -27,7 +27,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Easy to quantify",
-    "texte": "On peut les mesurer : un test, une note, un certificat (programmer en C, utiliser MATLAB).",
+    "texte": "You can measure them: a test, a mark, a certificate (programming in C, using MATLAB).",
     "taille": 25,
     "tailleSous": 17,
     "sous": "can be measured",
@@ -41,7 +41,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Classroom, books, on the job",
-    "texte": "« Can be learnt in the classroom, through books or other training materials, or on the job. »",
+    "texte": "“Can be learnt in the classroom, through books or other training materials, or on the job.”",
     "taille": 22,
     "tailleSous": 17,
     "sous": "where you learn them",
@@ -55,7 +55,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "EQ",
-    "texte": "« The concept ‘soft skills’ is a sociological term referring EQ, the Emotional intelligence quotient of a person. » À ne pas confondre avec IQ.",
+    "texte": "“The concept ‘soft skills’ is a sociological term referring to EQ, the Emotional intelligence quotient of a person.” Not IQ.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Emotional intelligence quotient",
@@ -69,7 +69,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "People, interpersonal skills",
-    "texte": "Autres noms : people skills, interpersonal skills, transferable skills, life skills.",
+    "texte": "Other names: people skills, interpersonal skills, transferable skills, life skills.",
     "taille": 22,
     "tailleSous": 17,
     "sous": "other names",
@@ -83,7 +83,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "Employable skills",
-    "texte": "Et aussi : employable skills, personality development skills, behavioral competencies.",
+    "texte": "And also: employable skills, personality development skills, behavioral competencies.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "other names",
@@ -91,5 +91,5 @@
     "pale": C.vPale,
     "bord": C.v
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Hard skills", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Soft skills", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Hard skills", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Soft skills", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

@@ -64,7 +64,7 @@ NIVEAU(ANG.niveau({
     }
    ],
    "bravo": "1 make, 2 made, 3 do, 4 make, 5 do.",
-   "expliquer": "<p>Correction proposée. <b>Do someone a favour</b>, <b>make arrangements</b>, <b>make peace</b>.</p>"
+   "expliquer": "<p>Suggested answers. <b>Do someone a favour</b>, <b>make arrangements</b>, <b>make peace</b>.</p>"
   },
   {
    "nom": "Sentences 6 to 9",
@@ -89,7 +89,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "do without : se passer de."
+     "aide": "do without: manage without something."
     },
     {
      "n": 8,
@@ -109,11 +109,11 @@ NIVEAU(ANG.niveau({
       "does"
      ],
      "bon": 0,
-     "aide": "make fun of : se moquer de."
+     "aide": "make fun of: laugh at someone unkindly."
     }
    ],
    "bravo": "6 do, 7 do, 8 made, 9 makes.",
-   "expliquer": "<p>Expressions avec do : <b>nothing to do with</b>, <b>do without</b>, <b>do business</b>.</p>"
+   "expliquer": "<p>Expressions with do: <b>nothing to do with</b>, <b>do without</b>, <b>do business</b>.</p>"
   },
   {
    "nom": "Sentences 10 to 13",
@@ -148,7 +148,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "nothing to do : rien à faire."
+     "aide": "nothing to do: no activity planned."
     },
     {
      "n": 13,
@@ -177,7 +177,7 @@ NIVEAU(ANG.niveau({
       "done"
      ],
      "bon": 1,
-     "aide": "do your homework, au participe passé : done."
+     "aide": "do your homework, past participle: done."
     },
     {
      "n": 15,
@@ -187,7 +187,7 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 1,
-     "aide": "How do you do? : formule de politesse figée."
+     "aide": "How do you do?: a fixed polite greeting."
     },
     {
      "n": 16,
@@ -197,7 +197,7 @@ NIVEAU(ANG.niveau({
       "did"
      ],
      "bon": 0,
-     "aide": "make : fabriquer, créer un objet."
+     "aide": "make: build, create an object."
     },
     {
      "n": 17,
@@ -207,11 +207,11 @@ NIVEAU(ANG.niveau({
       "do"
      ],
      "bon": 0,
-     "aide": "make something of yourself : réussir dans la vie."
+     "aide": "make something of yourself: succeed in life."
     }
    ],
    "bravo": "14 done, 15 do, 16 made, 17 make.",
-   "expliquer": "<p>Formes : make, makes, made, making ; do, does, did, done, doing. <b>Have you done…?</b> : participe passé de do.</p>"
+   "expliquer": "<p>Forms: make, makes, made, making; do, does, did, done, doing. <b>Have you done…?</b>: past participle of do.</p>"
   }
  ]
 }));

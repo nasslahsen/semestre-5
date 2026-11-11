@@ -140,7 +140,7 @@ const dc = `${BASE}modules/${mid}/`;
     for (let i = 0; i < 10; i++) {
       if (await fr.evaluate(() => document.getElementById("resultat").classList.contains("on"))) break;
       const bs = await fr.$$eval(".etape:not(.sortie) button", l => l.map(x => x.textContent.trim()));
-      let k = bs.findIndex(t => /Voir la réponse/.test(t));
+      let k = bs.findIndex(t => /Voir la réponse|Show the answer/.test(t));
       if (k >= 0) {
         await (await fr.$$(".etape:not(.sortie) button"))[k].click(); await fr.waitForTimeout(500);
         if (i === 0) {
@@ -155,7 +155,7 @@ const dc = `${BASE}modules/${mid}/`;
           }
         }
       }
-      k = (await fr.$$eval(".etape:not(.sortie) button", l => l.map(x => x.textContent.trim()))).findIndex(t => /Continuer|Terminer/.test(t));
+      k = (await fr.$$eval(".etape:not(.sortie) button", l => l.map(x => x.textContent.trim()))).findIndex(t => /Continuer|Terminer|Continue|Finish/.test(t));
       if (k >= 0) { await (await fr.$$(".etape:not(.sortie) button"))[k].click(); await fr.waitForTimeout(400); }
     }
     const b1 = await fr.$eval("#resultat .btn-suivant", a => a.textContent).catch(() => "");

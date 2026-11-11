@@ -180,17 +180,17 @@
         return s.id !== sm && P.avecChapitres(mid, s.id) && P.chapitresDe(mid, s.id).some(function (c) { return !c.sectionsFaites; });
       })[0];
       if (autreCh) return P.continuer(mid, autreCh.id);
-      return { url: P.urlPlan(mid, sm), titre: "Toutes les sections sont faites. Revois la carte.", phrase: "la carte", etape: null };
+      return { url: P.urlPlan(mid, sm), titre: P.t("Toutes les sections sont faites. Revois la carte."), phrase: "la carte", etape: null };
     }
     var liste = P.etapes(mid, sm), suivante = liste.filter(function (x) { return !x.fait; })[0];
     if (suivante) return { url: racine + suivante.url, titre: P.genre(suivante) + " : " + suivante.titre, phrase: P.phrase(suivante), etape: suivante };
     // sous-module terminé : le suivant qui a encore des étapes, sinon la carte
     var autre = P.sousModules(mid).filter(function (s) { return s.id !== sm && P.etapes(mid, s.id).some(function (x) { return !x.fait; }); })[0];
     if (autre) return P.continuer(mid, autre.id);
-    return { url: P.urlCarte(mid, sm), titre: "Tout est fait. Revois la carte.", phrase: "la carte", etape: null };
+    return { url: P.urlCarte(mid, sm), titre: P.t("Tout est fait. Revois la carte."), phrase: "la carte", etape: null };
   };
   // Nature d'une étape, pour les boutons : « Cours », « Exercices », « Révision », « Boss ».
-  P.genre = function (x) { return x.type === "cours" ? "Cours" : x.boss ? "Boss" : x.revision ? "Révision" : "Exercices"; };
+  P.genre = function (x) { return P.t(x.type === "cours" ? "Cours" : x.boss ? "Boss" : x.revision ? "Révision" : "Exercices"); };
   P.phrase = function (x) {
     return (x.type === "cours" ? "le cours" : x.boss ? "le boss" : x.revision ? "la révision" : "les exercices") + " « " + x.titre + " »";
   };
@@ -218,9 +218,9 @@
     var m = P.module(P.courant), carte = o.carte || P.urlCarte(P.courant, o.sm, o.chapitre);
     el.className = "site-barre";
     el.innerHTML = '<div class="site-barre-int">' +
-      (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="Tableau de bord">' + window.REGISTRE.semestre + "</a>"
-                 : '<a class="site-retour" href="' + carte + '" aria-label="Carte du module">Carte</a>') +
-      '<a class="site-module" href="' + carte + '"><i></i><span>' + m.titre + "</span></a>" +
+      (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t(window.REGISTRE.semestre) + "</a>"
+                 : '<a class="site-retour" href="' + carte + '" aria-label="' + P.t("Carte du module") + '">' + P.t("Carte") + "</a>") +
+      '<a class="site-module" href="' + carte + '"><i></i><span>' + (P.lang === "en" && m.titreEn ? m.titreEn : m.titre) + "</span></a>" +
       '<div class="droite">' + (o.droite || "") + "</div></div>";
     return el;
   };
@@ -362,7 +362,7 @@
   // Nom court d'un chapitre : « Chapitre 3 », ou son numéro propre s'il en a un (« TD 1 »).
   P.nomChapitre = function (mid, chid) {
     var x = P.numero(mid, chid);
-    return typeof x === "string" ? x : "Chapitre " + x;
+    return typeof x === "string" ? x : P.t("Chapitre") + " " + x;
   };
   // Dernière section lue d'un chapitre, par sous-module (pour Reprendre).
   P.noterPlan = function (mid, sm, titre, chemin) {
@@ -379,6 +379,63 @@
       if (s) return { url: P.urlSection(mid, s.id), titre: s.titre === chs[i].titre ? s.titre : chs[i].titre + " · " + s.titre, deja: false, chapitre: chs[i].id };
     }
     return null;
+  };
+
+
+  /* ---------------- Langue de l'interface ----------------
+     Français partout, sauf pour un sous-module marqué lang: "en" dans le registre (le cours d'anglais) : tout y est en anglais.
+     La langue vient de <html lang> (pages de cours et de chapitre), ou du sous-module (carte, écran de niveau : P.reglerLangue).
+     P.t(texte français) rend le texte anglais correspondant quand la page est en anglais. */
+  var EN = {
+    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Semestre 5": "Semester 5",
+    "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
+    "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Exercices": "Exercises", "Chapitre": "Chapter",
+    // carte
+    "TD": "Practice", "Labs": "Labs", "Cours, TD ou labs": "Lessons or practice", "Sous-modules": "Courses", "Reprendre": "Resume", "Commencer": "Start",
+    "Tout le cours est lu.": "You have read the whole course.", "Effacer ma progression": "Reset my progress",
+    "Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.": "No practice sheet yet for this course.",
+    "Effacer toutes tes étoiles et ta progression dans ce module ?": "Delete all your stars and progress in this module?",
+    "Vue d'ensemble du module": "Module overview", " (fait)": " (done)",
+    // page de chapitre
+    "Fin du chapitre": "End of the chapter", "Révision et défi final": "Review and final challenge",
+    "Pour tout mélanger, si tu en as envie : la révision, puis le défi final.": "To mix everything up, if you feel like it: the review, then the final challenge.",
+    "Chapitre suivant": "Next chapter", "Dernier chapitre": "Last chapter", "Retour à la carte": "Back to the map",
+    "TD suivant": "Next practice", "Dernier TD": "Last practice", "Retour aux TD": "Back to practice",
+    "Suite": "Next", "Jouer": "Play", "Rejouer": "Play again", "Étape faite": "Step done", "J'ai fait cette étape": "I did this step",
+    // écran de niveau
+    "BOSS · ": "BOSS · ", "RÉVISION · ": "REVIEW · ", "EXERCICES · ": "EXERCISES · ", "Revenir au cours": "Back to the lesson",
+    "ÉTAPE": "STEP", "Étape": "Step", "Voir la réponse": "Show the answer", "Passer": "Skip",
+    "Cette question n'a pas de réponse toute prête : passe-la.": "This question has no ready-made answer: skip it.",
+    "Réponse : ": "Answer: ", "Revenir au bilan": "Back to the results", "Continuer": "Continue", "Terminer le niveau": "Finish the level",
+    "Pas tout à fait. Regarde la figure.": "Not quite. Look at the picture.", "Effacer": "Clear", "Vérifier": "Check",
+    "Une valeur ne va pas : elle est en rouge.": "One value is wrong: it is in red.", "Les cases en rouge ne sont pas à leur place.": "The boxes in red are not in the right place.",
+    "{n} questions passées ou vues : elles ne comptent pas pour les étoiles. Réessaie-les.": "{n} questions skipped or shown: they don't count for the stars. Try them again.",
+    "Une question passée ou vue : elle ne compte pas pour les étoiles. Réessaie-la.": "One question skipped or shown: it doesn't count for the stars. Try it again.",
+    "Aucune erreur. Parfait.": "No mistakes. Perfect.", "{n} erreur. Rejoue sans erreur pour avoir les trois étoiles.": "{n} mistake. Play again without mistakes to get three stars.",
+    "{n} erreurs. Rejoue sans erreur pour avoir les trois étoiles.": "{n} mistakes. Play again without mistakes to get three stars.",
+    "BOSS VAINCU": "BOSS DEFEATED", "NIVEAU TERMINÉ": "LEVEL COMPLETE", "réponse vue": "answer shown", "passée": "skipped", "Réessayer": "Try again",
+    "Cours suivant": "Next lesson", "Le boss du chapitre": "The chapter boss", "Révision du chapitre": "Chapter review", "Exercices suivants": "Next exercises",
+    "Exercice suivant": "Next exercise", "Revenir à l'exercice": "Back to the exercise", "Revoir dans le cours": "Review in the lesson",
+    "Étape suivante": "Next step", "Passer aux exercices": "Go to the exercises", "lu": "read", "Bravo.": "Well done.",
+    "Touche d'abord un élément à gauche.": "First tap an item on the left.", "Ces deux-là ne vont pas ensemble.": "These two don't go together.",
+    "Touche d'abord une carte, puis le bac qui lui correspond.": "First tap a card, then the box it belongs to.", "Pas dans ce bac.": "Not in this box.",
+    "Touche une case du dessin.": "Tap a box in the picture.", "Les phrases en rouge ne vont pas : change ton choix.": "The sentences in red are wrong: change your choice."
+  };
+  P.lang = (document.documentElement.getAttribute("lang") || "fr").slice(0, 2);
+  P.t = function (fr, n) {
+    var cle = String(fr).replace(/\u00a0/g, " "), x = P.lang === "en" && EN[cle] !== undefined ? EN[cle] : fr;
+    return n === undefined ? x : x.replace("{n}", n);
+  };
+  // Langue d'un sous-module (registre, lang) ; P.reglerLangue l'applique à la page.
+  P.langueSm = function (mid, sm) {
+    var m = P.module(mid), x = m && (m.sousModules || []).filter(function (y) { return y.id === sm; })[0];
+    return (x && x.lang) || "fr";
+  };
+  P.reglerLangue = function (mid, sm) { P.lang = P.langueSm(mid, sm); document.documentElement.setAttribute("lang", P.lang); };
+  // Nom d'un sous-module dans la langue de la page (titreEn dans le registre).
+  P.nomSm = function (mid, sm) {
+    var m = P.module(mid), x = m && (m.sousModules || []).filter(function (y) { return y.id === sm; })[0];
+    return x ? (P.lang === "en" && x.titreEn ? x.titreEn : x.titre) : "";
   };
 
   // Couleur du module courant, appliquée avant l'affichage.

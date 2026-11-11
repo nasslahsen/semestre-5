@@ -18,7 +18,8 @@
   var parties = [].slice.call(main.querySelectorAll("section.partie"));
   function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
   if (integre) document.documentElement.classList.add("integre");
-  document.title = ch.titre + " · " + MOD.titre;
+  P.reglerLangue(MID, ch.sm); // le cours d'anglais : toute la page en anglais
+  document.title = ch.titre + " · " + (P.lang === "en" && P.module(MID).titreEn ? P.module(MID).titreEn : MOD.titre);
 
   var rang = null;
   if (!integre) {
@@ -61,7 +62,7 @@
         function maj() {
           var oui = !!P.etapesLab(MID, sid).coches[i];
           b.setAttribute("aria-pressed", oui ? "true" : "false");
-          b.innerHTML = oui ? "Étape faite" : "J'ai fait cette étape";
+          b.innerHTML = P.t(oui ? "Étape faite" : "J'ai fait cette étape");
           et.classList.toggle("faite", oui);
         }
         b.addEventListener("click", function () { P.cocherLab(MID, sid, i, !P.etapesLab(MID, sid).coches[i]); maj(); });
@@ -124,19 +125,19 @@
       var s = ch.sections[k], ids = s.notions.filter(function (nid) { return parId[nid]; });
       if (k === avecSansPage) ids = ids.concat(sansPage);
       var fin = partie.querySelector(".fin-partie");
-      if (ids.length) bloc(ids, "Exercices", s.titre, fin ? fin.parentNode : partie, fin);
+      if (ids.length) bloc(ids, P.t("Exercices"), s.titre, fin ? fin.parentNode : partie, fin);
     });
     var fin = document.createElement("section");
     fin.className = "fin-chapitre";
-    fin.innerHTML = "<h2>Fin du chapitre</h2><p>Pour tout mélanger, si tu en as envie : la révision, puis le défi final.</p>";
+    fin.innerHTML = "<h2>" + P.t("Fin du chapitre") + "</h2><p>" + P.t("Pour tout mélanger, si tu en as envie : la révision, puis le défi final.") + "</p>";
     var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
-    if (finIds.length) bloc(finIds, "Fin du chapitre", "Révision et défi final", fin, null, true);
+    if (finIds.length) bloc(finIds, P.t("Fin du chapitre"), P.t("Révision et défi final"), fin, null, true);
     // la suite reste dans le même espace : le chapitre de cours suivant, le TD suivant ou le lab suivant
-    var NOMS = { cours: ["Chapitre suivant", "Dernier chapitre", "Retour à la carte"], td: ["TD suivant", "Dernier TD", "Retour aux TD"], lab: ["Lab suivant", "Dernier lab", "Retour aux labs"] }[ch.espace];
+    var NOMS = { cours: ["Chapitre suivant", "Dernier chapitre", "Retour à la carte"], td: ["TD suivant", "Dernier TD", "Retour aux TD"], lab: ["Lab suivant", "Dernier lab", "Retour aux labs"] }[ch.espace].map(function (x) { return P.t(x); });
     var sms = P.chapitresDe(MID, ch.sm, ch.espace), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
     var bas = document.createElement("nav");
     bas.className = "fin-cours";
-    bas.setAttribute("aria-label", "Suite");
+    bas.setAttribute("aria-label", P.t("Suite"));
     bas.innerHTML = suiv && suiv.sections.length
       ? '<a class="aller" href="' + P.urlChapitre(MID, suiv.id) + '"><small>' + NOMS[0] + "</small>" + esc(suiv.titre) + "</a>"
       : '<a class="aller" href="' + P.urlPlan(MID, ch.sm, ch.espace === "cours" ? "" : ch.espace) + '"><small>' + NOMS[1] + "</small>" + NOMS[2] + "</a>";
@@ -148,7 +149,7 @@
       [].forEach.call(document.querySelectorAll(".jouer"), function (b) {
         var tous = b.dataset.niveaux.split(" ").every(function (id) { return fait[id]; });
         b.classList.toggle("fait", tous);
-        b.querySelector("button").textContent = tous ? "Rejouer" : "Jouer";
+        b.querySelector("button").textContent = P.t(tous ? "Rejouer" : "Jouer");
       });
     }
     majBlocs();
@@ -159,7 +160,7 @@
       if (!fenetre) {
         fenetre = document.createElement("div");
         fenetre.className = "fenetre-jeu";
-        fenetre.innerHTML = '<iframe title="Exercices"></iframe>';
+        fenetre.innerHTML = '<iframe title="' + P.t("Exercices") + '"></iframe>';
         document.body.appendChild(fenetre);
       }
       fenetre.querySelector("iframe").src = P.urlExercice(MID, ids[k], ids.slice(k + 1));

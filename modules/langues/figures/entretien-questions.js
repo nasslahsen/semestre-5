@@ -1,10 +1,10 @@
-/* Figure : Questions types et mauvaises impressions (cases à toucher, ANG.explorer). */
+/* Figure : Typical questions and bad impressions (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-impressions", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Questions types et mauvaises impressions",
-    essai: "<strong>Essaie</strong> : touche les familles de questions, puis les causes d'une mauvaise impression. <strong>Observe</strong> : chaque cause est l'inverse d'un conseil de préparation."
+  var f = R.figure("fig-entretien-questions", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "Typical questions and bad impressions",
+    essai: "<strong>Try</strong>: tap the families of questions, then the causes of a bad impression. <strong>Notice</strong>: each cause is the opposite of a preparation tip."
   });
   A.explorer(f, [
    {
@@ -39,7 +39,7 @@
     "w": 445.0,
     "h": 141.3,
     "t": "General knowledge",
-    "texte": "Seulement le titre dans la diapositive : l'actualité et ton domaine. D'où « revise your subject knowledge ».",
+    "texte": "Only the title is on the slide: the news and your field. Hence “revise your subject knowledge”.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.turq,
@@ -52,7 +52,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "Appearance, attitude",
-    "texte": "Poor personal appearance ; negative attitude.",
+    "texte": "Poor personal appearance; negative attitude.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ko,
@@ -65,7 +65,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "Interest, preparation",
-    "texte": "Lack of interest and enthusiasm ; lack of preparation.",
+    "texte": "Lack of interest and enthusiasm; lack of preparation.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ko,
@@ -78,7 +78,7 @@
     "w": 445.0,
     "h": 102.5,
     "t": "Role, examples",
-    "texte": "Poor knowledge of the expected role ; failure to give concrete examples of skills.",
+    "texte": "Poor knowledge of the expected role; failure to give concrete examples of skills.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ko,
@@ -98,5 +98,5 @@
     "pale": C.koPale,
     "bord": C.ko
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Typical questions", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Bad impression", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Typical questions", [246.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Bad impression", [713.5, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

@@ -1,10 +1,10 @@
-/* Figure : OPEN UP et les quatre objectifs (cases à toucher, ANG.explorer). */
+/* Figure : OPEN UP and the four objectives (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-openup", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "OPEN UP et les quatre objectifs",
-    essai: "<strong>Essaie</strong> : touche chaque lettre de OPEN UP, puis les objectifs. <strong>Observe</strong> : six qualités d'un présentateur exceptionnel, quatre raisons de présenter."
+  var f = R.figure("fig-presentation-openup", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "OPEN UP and the four objectives",
+    essai: "<strong>Try</strong>: tap each letter of OPEN UP, then the objectives. <strong>Notice</strong>: six qualities of an exceptional presenter, four reasons to present."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "O",
-    "texte": "Organized : un plan clair, une présentation organisée.",
+    "texte": "Organized: a clear plan, a well-organised talk.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Organized",
@@ -27,7 +27,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "P",
-    "texte": "Passionate : aimer son sujet, le montrer.",
+    "texte": "Passionate: love your topic and show it.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Passionate",
@@ -41,7 +41,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "E",
-    "texte": "Engaging : capter le public, l'impliquer.",
+    "texte": "Engaging: catch and involve the audience.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Engaging",
@@ -55,7 +55,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "N",
-    "texte": "Natural : rester soi-même.",
+    "texte": "Natural: stay yourself.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Natural",
@@ -69,7 +69,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "U",
-    "texte": "Understand your audience : savoir à qui on parle (médecins, patients, jury…).",
+    "texte": "Understand your audience: know who you are talking to (doctors, patients, a jury…).",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Understand your audience",
@@ -83,7 +83,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "P",
-    "texte": "Practice : s'entraîner avant.",
+    "texte": "Practice: rehearse before.",
     "taille": 44,
     "tailleSous": 17,
     "sous": "Practice",
@@ -97,7 +97,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "To inform",
-    "texte": "Transmettre une information (un protocole, un résultat).",
+    "texte": "Give information (a protocol, a result).",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
@@ -110,7 +110,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "To entertain",
-    "texte": "Divertir (une anecdote, de l'humour).",
+    "texte": "Amuse the audience (a story, some humour).",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
@@ -123,7 +123,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "To touch emotions",
-    "texte": "Émouvoir (un témoignage).",
+    "texte": "Move the audience (a personal story).",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
@@ -136,12 +136,12 @@
     "w": 289.3,
     "h": 102.5,
     "t": "Move to action",
-    "texte": "Faire agir (s'inscrire, donner, signer).",
+    "texte": "Make people act (sign up, give, sign).",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
     "pale": C.vPale,
     "bord": C.v
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "OPEN", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "UP", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Objectives", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "OPEN", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "UP", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Objectives", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

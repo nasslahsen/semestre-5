@@ -1,10 +1,10 @@
-/* Figure : Une introduction attrayante et la voix (cases à toucher, ANG.explorer). */
+/* Figure : An attractive introduction and your voice (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
-  var f = R.figure("fig-debut", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "Une introduction attrayante et la voix",
-    essai: "<strong>Essaie</strong> : touche les conseils pour l'introduction, puis pour la voix. <strong>Observe</strong> : les premières secondes et la voix gardent le public attentif."
+  var f = R.figure("fig-presentation-debut", {
+    largeur: 960, hauteur: 540, directCote: true, titre: "An attractive introduction and your voice",
+    essai: "<strong>Try</strong>: tap the tips for the introduction, then for the voice. <strong>Notice</strong>: the first seconds and your voice keep the audience listening."
   });
   A.explorer(f, [
    {
@@ -13,7 +13,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "Be in time",
-    "texte": "Arriver à l'heure.",
+    "texte": "Arrive on time.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ok,
@@ -26,7 +26,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "Smile, look at the audience",
-    "texte": "Sourire et regarder le public.",
+    "texte": "Smile and look at the people in front of you.",
     "taille": 22,
     "tailleSous": 17,
     "coul": C.ok,
@@ -39,7 +39,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "Start slowly",
-    "texte": "Commencer lentement, sans se précipiter.",
+    "texte": "Start slowly, don't rush.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ok,
@@ -52,7 +52,7 @@
     "w": 289.3,
     "h": 102.5,
     "t": "Genuine opening",
-    "texte": "Une ouverture sincère, authentique.",
+    "texte": "A sincere, real opening.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ok,
@@ -65,7 +65,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Look organized",
-    "texte": "Avoir l'air organisé(e).",
+    "texte": "Look organised and ready.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ok,
@@ -78,7 +78,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "State the objective(s)",
-    "texte": "Annoncer le ou les objectifs de la présentation.",
+    "texte": "Say what the presentation is for.",
     "taille": 22,
     "tailleSous": 17,
     "coul": C.ok,
@@ -91,7 +91,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Dress nicely",
-    "texte": "Une tenue soignée.",
+    "texte": "Neat, suitable clothes.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.ok,
@@ -104,7 +104,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Be heard",
-    "texte": "Parler assez fort pour tout le monde, jusqu'au fond de la salle.",
+    "texte": "Speak loudly enough for everyone, even at the back.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.turq,
@@ -117,7 +117,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Air intake",
-    "texte": "Bien respirer : assez d'air pour finir ses phrases.",
+    "texte": "Breathe well: enough air to finish your sentences.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.turq,
@@ -130,7 +130,7 @@
     "w": 289.3,
     "h": 141.3,
     "t": "Vary your voice",
-    "texte": "Varier la vitesse, la hauteur (pitch) et le volume.",
+    "texte": "Change your speed, pitch (high or low) and volume.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "speed, pitch, volume",
@@ -138,5 +138,5 @@
     "pale": C.turqPale,
     "bord": C.turq
    }
-  ], { invite: "Touche une case du dessin.", fond: function (g) { A.texte(g, "Introduction", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Introduction", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Your voice", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
+  ], { invite: "Tap a box in the picture.", fond: function (g) { A.texte(g, "Introduction", [168.7, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Introduction", [480.0, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); A.texte(g, "Your voice", [791.3, 34], { taille: 21, gras: 800, coul: C.jeuTexte, halo: false }); } });
 })();

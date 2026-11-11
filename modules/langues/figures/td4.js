@@ -1,10 +1,10 @@
-/* Figure : When Employees Give Something Extra : le plan du texte (cases à toucher, ANG.explorer). */
+/* Figure : When Employees Give Something Extra: the plan of the text (cases à toucher, ANG.explorer). */
 (function () {
   "use strict";
   var R = RM, A = ANG, C = A.C;
   var f = R.figure("fig-td4", {
-    largeur: 960, hauteur: 540, directCote: true, titre: "When Employees Give Something Extra : le plan du texte",
-    essai: "<strong>Essaie</strong> : touche chaque paragraphe. <strong>Observe</strong> : une question, trois entreprises, une conclusion."
+    largeur: 960, hauteur: 540, directCote: true, titre: "When Employees Give Something Extra: the plan of the text",
+    essai: "<strong>Try</strong>: tap each paragraph. <strong>Notice</strong>: one question, three companies, one conclusion."
   });
   A.explorer(f, [
    {
@@ -26,7 +26,7 @@
     "w": 445.0,
     "h": 112.5,
     "t": "§2 Piggly-Wiggly",
-    "texte": "A large corporation offers to buy the company ; the owners turn it down.",
+    "texte": "A large corporation offers to buy the company; the owners turn it down.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "the offer",
@@ -40,7 +40,7 @@
     "w": 445.0,
     "h": 112.5,
     "t": "§3 Piggly-Wiggly",
-    "texte": "Relieved employees raise $40,000, buy a truck and throw a party ; never a layoff.",
+    "texte": "Relieved employees raise $40,000, buy a truck and throw a party; never a layoff.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "the gift",
@@ -54,7 +54,7 @@
     "w": 445.0,
     "h": 112.5,
     "t": "§4 Delta Airlines",
-    "texte": "A loss but an 8 % raise ; no layoffs, workers shifted to other jobs ; managers listen.",
+    "texte": "A loss but an 8 % raise; no layoffs, workers shifted to other jobs; managers listen.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "the raise",
@@ -68,7 +68,7 @@
     "w": 445.0,
     "h": 154.7,
     "t": "§5 Delta Airlines",
-    "texte": "An open-door policy ; employees give “The Spirit of Delta” to the company.",
+    "texte": "An open-door policy; employees give “The Spirit of Delta” to the company.",
     "taille": 25,
     "tailleSous": 17,
     "sous": "the plane",
@@ -82,7 +82,7 @@
     "w": 445.0,
     "h": 154.7,
     "t": "§6 Control Data",
-    "texte": "Involvement teams like quality circles ; counseling, day care, fitness, flexible schedules.",
+    "texte": "Involvement teams like quality circles; counseling, day care, fitness, flexible schedules.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
@@ -95,12 +95,12 @@
     "w": 445.0,
     "h": 154.7,
     "t": "§7 Conclusion",
-    "texte": "Committed workers = a stable and productive work force ; happy employees, successful businesses.",
+    "texte": "Committed workers = a stable and productive work force; happy employees, successful businesses.",
     "taille": 25,
     "tailleSous": 17,
     "coul": C.v,
     "pale": C.vPale,
     "bord": C.v
    }
-  ], { invite: "Touche une case du dessin." });
+  ], { invite: "Tap a box in the picture." });
 })();

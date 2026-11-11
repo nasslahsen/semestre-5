@@ -19,33 +19,34 @@
   function s(tag, att, parent) { var e = document.createElementNS(NS, tag); for (var k in att) e.setAttribute(k, att[k]); if (parent) parent.appendChild(e); return e; }
 
   var params = new URLSearchParams(location.search), demande = params.get("sm"), vue = params.get("vue") === "td" || params.get("vue") === "lab" ? params.get("vue") : "", vueTD = !!vue;
-  var NOM = { td: "TD", lab: "Labs" };
   var sms = P.sousModules(MID).filter(function (x) { return x.chapitres.length && P.avecChapitres(MID, x.id); });
   var sm = sms.filter(function (x) { return x.id === demande; })[0] || sms[0];
-  document.title = (vueTD ? NOM[vue] + " · " : "") + (sm.titre || MOD.titre) + " · " + REGISTRE.semestre;
+  P.reglerLangue(MID, sm.id); // le cours d'anglais : toute la carte en anglais
+  var NOM = { td: P.t("TD"), lab: P.t("Labs") }, nomSm = function (x) { return P.nomSm(MID, x.id) || x.titre; };
+  document.title = (vueTD ? NOM[vue] + " · " : "") + (nomSm(sm) || MOD.titre) + " · " + P.t(REGISTRE.semestre);
   P.barre(document.getElementById("barre"), { accueil: true, carte: P.urlPlan(MID, sm.id) });
 
   // En-tête : choix du sous-module, choix Cours / TD, titre, un seul bouton (côté cours)
   var r = vueTD ? null : P.reprendre(MID, sm.id), h = '<div class="choix-ligne">';
   if (P.sousModules(MID).length > 1) {
-    h += '<nav class="choix-sm" aria-label="Sous-modules">' + P.sousModules(MID).map(function (x) {
-      if (!x.chapitres.length) return '<span class="sm-vide">' + esc(x.titre) + "</span>";
+    h += '<nav class="choix-sm" aria-label="' + P.t("Sous-modules") + '">' + P.sousModules(MID).map(function (x) {
+      if (!x.chapitres.length) return '<span class="sm-vide">' + esc(nomSm(x)) + "</span>";
       var url = P.avecChapitres(MID, x.id) ? P.urlPlan(MID, x.id, vue) : P.urlCarte(MID, x.id);
-      return '<a href="' + url + '"' + (x.id === sm.id ? ' aria-current="page"' : "") + ">" + esc(x.titre) + "</a>";
+      return '<a href="' + url + '"' + (x.id === sm.id ? ' aria-current="page"' : "") + ">" + esc(nomSm(x)) + "</a>";
     }).join("") + "</nav>";
   }
   // Cours, TD, et Labs quand le cours en a
   var avecLabs = P.chapitresDe(MID, sm.id, "lab").length > 0;
-  h += '<nav class="onglets onglets-carte" aria-label="Cours, TD ou labs"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + '>Cours</a>' +
-    '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">TD</a>" +
-    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">Labs</a>" : "") + "</nav></div>";
+  h += '<nav class="onglets onglets-carte" aria-label="' + P.t("Cours, TD ou labs") + '"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + ">" + P.t("Cours") + "</a>" +
+    '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>" +
+    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") + "</nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
   // vue d'ensemble du module (vue-ensemble.html), quand module.js décrit un arbre pour ce sous-module : un lien discret sous le titre
-  var lienVue = !vueTD && MOD.arbre && MOD.arbre[sm.id] ? '<a class="lien-vue" href="vue-ensemble.html?sm=' + encodeURIComponent(sm.id) + '">Vue d\'ensemble du module</a>' : "";
-  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(sm.titre || MOD.titre) + "</h1>" + lienVue + "</div>" +
-    (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + (r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
-      : '<span class="tout-fait">Tout le cours est lu.</span>') + "</div>";
-  if (vue === "td" && !chs.length) h += '<p class="td-vide">Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.</p>';
+  var lienVue = !vueTD && MOD.arbre && MOD.arbre[sm.id] ? '<a class="lien-vue" href="vue-ensemble.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Vue d'ensemble du module") + "</a>" : "";
+  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1>" + lienVue + "</div>" +
+    (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + P.t(r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
+      : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>") + "</div>";
+  if (vue === "td" && !chs.length) h += '<p class="td-vide">' + P.t("Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.") + "</p>";
   document.getElementById("entete").innerHTML = h;
 
   // Les chapitres (ou les TD), en rangées de trois, reliés par le chemin pointillé
@@ -56,7 +57,7 @@
     var u = el("div", "unite", "", grille);
     var a = el("a", "noeud-exos noeud-chapitre" + (c.etat === "fait" ? " fait" : r && r.chapitre === c.id ? " suivant" : ""), '<span class="forme' + (typeof P.numero(MID, c.id) === "string" ? " texte" : "") + '">' + P.numero(MID, c.id) + "</span>", u);
     a.href = P.urlChapitre(MID, c.id);
-    a.setAttribute("aria-label", P.nomChapitre(MID, c.id) + " : " + c.titre + (c.etat === "fait" ? " (fait)" : ""));
+    a.setAttribute("aria-label", P.nomChapitre(MID, c.id) + " : " + c.titre + (c.etat === "fait" ? P.t(" (fait)") : ""));
     el("div", "nomn", esc(c.titre) + "<small>" + esc(c.ligne) + "</small>", u);
   });
 
@@ -79,8 +80,9 @@
     if (d) s("path", { d: d, fill: "none", stroke: "#d9dde6", "stroke-width": 7, "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-dasharray": "1 15" }, trace);
   }
   var effacer = document.getElementById("effacer");
+  if (effacer) effacer.textContent = P.t("Effacer ma progression");
   if (effacer) effacer.addEventListener("click", function () {
-    if (!confirm("Effacer toutes tes étoiles et ta progression dans ce module ?")) return;
+    if (!confirm(P.t("Effacer toutes tes étoiles et ta progression dans ce module ?"))) return;
     P.effacer(MID);
     location.reload();
   });
