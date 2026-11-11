@@ -47,6 +47,7 @@ modules/<id>/              un dossier par module actif
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
 modules/_modele/           modèle à copier pour un nouveau module (non publié)
 outils/regrouper.js        assemble les pages de cours d'un chapitre en une page de chapitre
+outils/textes-podcast.js   le cours de chaque chapitre en texte, pour générer des podcasts (textes-podcast/, pas commité)
 jouer.html, cours.html, concepts/   redirections des anciennes adresses du site de robotique
 tests/math.test.js         calculs et réponses attendues de chaque niveau
 tests/static-check.js      registre, module.js, fichiers, équations, liens, règles d'écriture
@@ -244,6 +245,8 @@ M4A ou WAV. Jamais d'enregistrement d'un professeur sans son accord (le site est
   titre de la page de chapitre, ou en tête de la section `section`. Rien à régénérer : `commun/js/section.js` l'ajoute
   au chargement. Il reprend où l'on s'était arrêté (`PLATEFORME.ecoute`, `noterEcoute`), vitesse de 1× à 2×, sauts de 15 s.
   Facultatif : ne compte pas dans la progression. `tests/static-check.js` vérifie fichiers, chapitres et sections.
+- Sources pour NotebookLM : `node outils/textes-podcast.js <id>` (ou `--tous`) écrit le cours de chaque chapitre en texte
+  dans `textes-podcast/<id>/` (pas commité), avec `consignes.md`, la consigne déjà remplie pour chaque chapitre.
 - Consigne à donner à NotebookLM (champ de personnalisation du résumé audio, langue de sortie : français), adaptée au
   chapitre (titre, notions, notation du cours) :
 

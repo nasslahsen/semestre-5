@@ -5,3 +5,5 @@ node_modules/
 modules/*/sources/*
 !modules/*/sources/LISEZ-MOI.md
 tests/navigateur/captures/
+# Textes pour les podcasts (outils/textes-podcast.js) : générés, jamais commités.
+textes-podcast/
