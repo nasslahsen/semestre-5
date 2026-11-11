@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Vue d'ensemble · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<link rel="stylesheet" href="../../commun/css/arbre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+</head>
+<body class="page-arbre">
+<header id="barre"></header>
+<div class="arbre-dessin"><svg id="arbre" viewBox="0 0 1120 640" role="img" aria-label="Vue d'ensemble du module : parties, chapitres et notions"></svg></div>
+<div class="arbre-bande"><p class="txt" id="txt" aria-live="polite"></p><button type="button" class="btn-second" id="reviser" hidden>Réviser</button><a class="btn-ouvrir" id="ouvrir" hidden>Ouvrir</a></div>
+<script src="../../commun/js/arbre.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, MID = "biomateriaux";
+  var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm) });
+  function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+  var txt = document.getElementById("txt"), ouvrir = document.getElementById("ouvrir"), reviser = document.getElementById("reviser");
+  // bande du bas : ce qu'il faut retenir du chapitre touché ; « Réviser » montre ses cartes, une à une
+  var info = null, k = -1, vue = false;
+  function afficher() {
+    if (k < 0) {
+      txt.innerHTML = "<b>" + esc(info.titre) + "</b>" + esc(info.texte);
+      reviser.hidden = !(info.cartes && info.cartes.length); reviser.textContent = "Réviser";
+      if (info.url) { ouvrir.hidden = false; ouvrir.href = info.url; ouvrir.textContent = info.libelle; } else ouvrir.hidden = true;
+      return;
+    }
+    var c = info.cartes[k];
+    txt.innerHTML = "<b>" + (vue ? "Réponse" : "Question " + (k + 1) + " / " + info.cartes.length) + "</b>" + esc(vue ? c[1] : c[0]);
+    reviser.hidden = false; reviser.textContent = vue ? (k + 1 < info.cartes.length ? "Carte suivante" : "Terminer") : "Voir la réponse";
+  }
+  reviser.addEventListener("click", function () {
+    if (k < 0) { k = 0; vue = false; }
+    else if (!vue) vue = true;
+    else if (k + 1 < info.cartes.length) { k++; vue = false; }
+    else k = -1;
+    afficher();
+  });
+  ARBRE.dessiner(document.getElementById("arbre"), { mid: MID, sm: sm, base: "", largeur: 1120, hauteur: 640, surChoix: function (i) { info = i; k = -1; afficher(); } });
+})();
+</script>
+</body>
+</html>

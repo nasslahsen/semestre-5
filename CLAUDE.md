@@ -17,10 +17,11 @@ commun/                    système de design partagé (ne pas copier dans les m
   css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
   css/chapitres.css        carte des chapitres d'un module
   css/cours.css            pages de cours et pages de chapitre (sections, blocs « Jouer », fenêtre d'exercice)
-  css/barre.css            barre du site (retour au semestre, nom du module vers sa carte, action à droite)
+  css/barre.css            barre du site (retour d'un cran : la carte du module, ou le semestre depuis la carte ; nom du module vers sa carte)
   css/tableau.css          tableau de bord
   js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
   js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »
+  js/arbre.js, css/arbre.css   arbre d'un module (parties, chapitres, notions qui ouvrent le cours, à retenir, cartes), données `arbre` de module.js
   js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, un bloc « Jouer » par section, fin de chapitre
   js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
   js/lib.js                figures des pages de cours (RM) : calculs, SVG 2D/3D, curseurs, étapes, mise en page sur un écran
@@ -33,6 +34,8 @@ commun/                    système de design partagé (ne pas copier dans les m
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
+  vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la carte ;
+                           pas un chapitre, ne compte pas dans la progression)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
   niveaux/<niveau>.js      un fichier par niveau
