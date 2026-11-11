@@ -220,6 +220,25 @@ main h4, main h5, main article.notion { scroll-margin-top: calc(var(--barre) + 1
 .btn-jouer { flex: none; min-width: 112px; height: 50px; padding: 0 22px; border: 2.5px solid var(--encre); border-radius: 14px; background: #fff; color: var(--encre);
   font: 600 17px Inter, sans-serif; cursor: pointer; box-shadow: 3px 3px 0 var(--encre); transition: transform .1s, box-shadow .1s; }
 .btn-jouer:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--encre); }
+/* Podcast du chapitre : même ligne calme que « Jouer », un gros bouton lecture, les réglages discrets */
+.ecouter { display: flex; align-items: center; gap: 18px; margin: 22px 0 8px; padding: 14px 18px 14px 16px;
+  border: 1.5px solid var(--trait); border-radius: 18px; background: #fff; }
+.ecouter.fait { background: var(--fond-doux); }
+.ecouter.fait small { color: var(--ok); }
+.btn-ecouter { flex: none; width: 60px; height: 60px; border: 2.5px solid var(--encre); border-radius: 50%; background: #fff; color: var(--encre);
+  display: grid; place-items: center; cursor: pointer; box-shadow: 3px 3px 0 var(--jeu); transition: transform .1s, box-shadow .1s; }
+.btn-ecouter:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--jeu); }
+.btn-ecouter svg { width: 26px; height: 26px; fill: currentColor; }
+.ecouter-corps { flex: 1; min-width: 0; }
+.ecouter-titre { display: block; font-weight: 600; font-size: 18px; line-height: 1.35; }
+.ecouter small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
+.ecouter-ligne { display: none; align-items: center; gap: 10px; margin-top: 8px; }
+.ecouter.lance .ecouter-ligne { display: flex; }
+.ecouter-ligne input[type="range"] { flex: 1; min-width: 0; height: 48px; margin: 0; accent-color: var(--jeu); }
+.ecouter-ligne button { flex: none; min-width: 52px; height: 48px; padding: 0 10px; border: 1.5px solid var(--trait); border-radius: 12px; background: #fff;
+  color: var(--encre); font: 700 15px "JetBrains Mono", monospace; cursor: pointer; }
+.ecouter-ligne button:active { background: var(--fond-doux); }
+.ecouter-temps { flex: none; min-width: 96px; text-align: right; font: 500 14px "JetBrains Mono", monospace; color: var(--doux); }
 .fin-chapitre { margin-top: 112px; padding-top: 26px; border-top: 3px solid var(--encre); }
 .fin-chapitre p { color: var(--doux); }
 .fenetre-jeu { position: fixed; inset: 0; z-index: 100; background: #fff; display: none; }

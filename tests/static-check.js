@@ -175,6 +175,20 @@ for (const id of modules) {
       if (!html.includes(`data-module="${id}"`)) err(`${f} : <html data-module="${id}"> manquant`);
     }
   }
+  // podcasts : fichier dans audio/ (m4a ou mp3, 50 Mo au plus) ou adresse https, chapitre et section connus, aucun fichier oublié
+  const audios = P.audios || [], vusA = {};
+  for (const a of audios) {
+    if (!a.id || vusA[a.id]) err(`${d} : podcast sans id ou en double (${a.id})`); vusA[a.id] = 1;
+    if (!a.titre) err(`${d} : podcast ${a.id} sans titre`);
+    if (!P.chapitres.some(c => c.id === a.chapitre)) err(`${d} : podcast ${a.id}, chapitre inconnu`);
+    if (a.section && !(P.sections || []).some(s => s.id === a.section && s.chapitre === a.chapitre)) err(`${d} : podcast ${a.id}, section ${a.section} absente du chapitre ${a.chapitre}`);
+    if (/^https:\/\//.test(a.fichier || "")) continue;
+    if (!/^[a-z0-9-]+\.(m4a|mp3)$/.test(a.fichier || "")) { err(`${d} : podcast ${a.id}, fichier « ${a.fichier} » (nom en minuscules, .m4a ou .mp3)`); continue; }
+    const f = `${d}/audio/${a.fichier}`;
+    if (!existe(f)) err(`${d} : podcast ${a.id}, fichier manquant ${f}`);
+    else if (fs.statSync(path.join(racine, f)).size > 50e6) err(`${f} : plus de 50 Mo, à recompresser`);
+  }
+  for (const f of liste(d + "/audio", /./)) if (!audios.some(a => `${d}/audio/${a.fichier}` === f)) err(`${f} absent de audios dans module.js`);
   for (const f of liste(d + "/figures", /\.js$/)) { verifierEcriture(f, lire(f)); verifierMaths(f, lire(f), true); }
 }
 

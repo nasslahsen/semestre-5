@@ -42,6 +42,7 @@ modules/<id>/              un dossier par module actif
   cours/<page>.html        une page de cours par notion : la source des pages de chapitre
   figures/<page>.js        les figures interactives d'une page de cours
   images/                  photos réelles : du cours ou sous licence libre (voir section 8)
+  audio/                   podcasts générés par l'utilisatrice (voir « Podcasts », section 6)
   liens-cours.js           pour chaque étape de chaque niveau, la section du cours qui l'explique (généré)
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
 modules/_modele/           modèle à copier pour un nouveau module (non publié)
@@ -229,6 +230,28 @@ réduit). Les nombres en direct (`f.direct`) vont sous le dessin (`directCote: t
 ligne trop large est réduite, au plus de 30 % : au-delà, la couper en plusieurs lignes. Peu de commandes, noms de
 curseur courts (sur une ligne), étiquettes du dessin d'au moins 16 dans le viewBox. Vérifier avec
 `node tests/navigateur/ecran.js <id>` aux deux tailles d'écran.
+
+### Podcasts
+
+L'utilisatrice génère elle-même des podcasts (NotebookLM par exemple) à partir de ses documents et les envoie en MP3,
+M4A ou WAV. Jamais d'enregistrement d'un professeur sans son accord (le site est public).
+
+- Fichier : `modules/<id>/audio/<nom>.m4a`, recompressé en mono 64 kbit/s (environ 0,5 Mo par minute) :
+  `ffmpeg -i entree.wav -ac 1 -c:a aac -b:a 64k -map_metadata -1 modules/<id>/audio/<nom>.m4a`. 50 Mo au plus par fichier ;
+  ne pas remplacer un épisode sans raison (git garde chaque version). Au-delà d'une cinquantaine d'épisodes, les mettre
+  en pièces jointes d'une release GitHub et donner l'adresse `https://…` dans `fichier`.
+- `module.js` : `audios: [{ id, chapitre, titre, fichier, duree: "14 min", section? }]`. Le lecteur se place sous le
+  titre de la page de chapitre, ou en tête de la section `section`. Rien à régénérer : `commun/js/section.js` l'ajoute
+  au chargement. Il reprend où l'on s'était arrêté (`PLATEFORME.ecoute`, `noterEcoute`), vitesse de 1× à 2×, sauts de 15 s.
+  Facultatif : ne compte pas dans la progression. `tests/static-check.js` vérifie fichiers, chapitres et sections.
+- Consigne à donner à NotebookLM (champ de personnalisation du résumé audio, langue de sortie : français), adaptée au
+  chapitre (titre, notions, notation du cours) :
+
+  > Podcast en français pour une étudiante ingénieure en génie biomédical qui révise le chapitre « <titre> ».
+  > Suivez l'ordre du cours : <notions>. Pour chaque notion, partez d'une situation concrète, puis donnez la définition
+  > exacte et la formule avec la notation du cours, en lisant les symboles à voix haute. Faites un exemple chiffré pas à pas.
+  > Signalez les pièges et confusions fréquentes. N'inventez rien qui ne soit pas dans les sources. Terminez par un
+  > résumé de ce qu'il faut retenir et trois questions pour se tester, avec leurs réponses.
 
 ## 7. Design
 
