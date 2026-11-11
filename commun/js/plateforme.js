@@ -210,15 +210,17 @@
   };
   P.urlEtape = function (x) { return x ? racine + x.url : null; };
 
-  // Barre du site dans un module : retour au tableau de bord, nom du module (vers la carte), action à droite.
-  // o : { sm, chapitre, droite (HTML) }
+  // Barre du site dans un module : un retour d'un seul cran, nom du module (vers la carte), action à droite.
+  // Sur la carte du module (o.accueil), le retour mène au tableau de bord ; partout ailleurs dans le module, à la carte.
+  // o : { accueil, carte, sm, chapitre, droite (HTML) }
   P.barre = function (el, o) {
     o = o || {};
-    var m = P.module(P.courant);
+    var m = P.module(P.courant), carte = o.carte || P.urlCarte(P.courant, o.sm, o.chapitre);
     el.className = "site-barre";
     el.innerHTML = '<div class="site-barre-int">' +
-      '<a class="site-retour" href="' + racine + 'index.html" aria-label="Tableau de bord">' + window.REGISTRE.semestre + "</a>" +
-      '<a class="site-module" href="' + (o.carte || P.urlCarte(P.courant, o.sm, o.chapitre)) + '"><i></i><span>' + m.titre + "</span></a>" +
+      (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="Tableau de bord">' + window.REGISTRE.semestre + "</a>"
+                 : '<a class="site-retour" href="' + carte + '" aria-label="Carte du module">Carte</a>') +
+      '<a class="site-module" href="' + carte + '"><i></i><span>' + m.titre + "</span></a>" +
       '<div class="droite">' + (o.droite || "") + "</div></div>";
     return el;
   };

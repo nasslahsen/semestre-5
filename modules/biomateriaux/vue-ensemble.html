@@ -22,7 +22,7 @@
 (function () {
   var P = PLATEFORME, MID = "biomateriaux";
   var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm), droite: '<a class="site-retour" href="' + P.urlPlan(MID, sm) + '">Carte du module</a>' });
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm) });
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
   var txt = document.getElementById("txt"), ouvrir = document.getElementById("ouvrir"), reviser = document.getElementById("reviser");
   // bande du bas : ce qu'il faut retenir du chapitre touché ; « Réviser » montre ses cartes, une à une

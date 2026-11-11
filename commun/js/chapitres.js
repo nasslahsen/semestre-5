@@ -23,7 +23,7 @@
   var sms = P.sousModules(MID).filter(function (x) { return x.chapitres.length && P.avecChapitres(MID, x.id); });
   var sm = sms.filter(function (x) { return x.id === demande; })[0] || sms[0];
   document.title = (vueTD ? NOM[vue] + " · " : "") + (sm.titre || MOD.titre) + " · " + REGISTRE.semestre;
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm.id) });
+  P.barre(document.getElementById("barre"), { accueil: true, carte: P.urlPlan(MID, sm.id) });
 
   // En-tête : choix du sous-module, choix Cours / TD, titre, un seul bouton (côté cours)
   var r = vueTD ? null : P.reprendre(MID, sm.id), h = '<div class="choix-ligne">';
