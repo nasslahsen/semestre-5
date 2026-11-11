@@ -88,7 +88,7 @@ NIVEAU({
         if (Math.abs(v - 0.75) > 1e-6) return;
         n.libre = false;
         j.bravo("75 % de phase 2 : 0,25 × 1,0 + 0,75 × 1,2 = 1,15.");
-        j.expliquer("<p>La masse volumique d'un mélange est la <b>moyenne des masses volumiques pondérée par les fractions de volume</b> : \\(\\rho = \\rho_1 v_1 + \\rho_2 v_2\\) avec \\(v_1 + v_2 = 1\\). Au chapitre 3, cela donne \\(\\rho = \\rho_c X + \\rho_a (1 - X)\\).</p>");
+        j.expliquer("<p>La masse volumique d'un mélange est la <b>moyenne des masses volumiques pondérée par les fractions de volume</b> : \\(\\rho = \\rho_1 v_1 + \\rho_2 v_2\\) avec \\(v_1 + v_2 = 1\\). Au chapitre 7, cela donne \\(\\rho = \\rho_c X + \\rho_a (1 - X)\\).</p>");
         j.suite();
       }
       j.reponse(function () { c.regler(0.75); n.x2 = 0.75; n.dessin(); verif(0.75); });

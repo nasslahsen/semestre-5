@@ -42,7 +42,14 @@ function verifierLiens(fichier, html) {
 function verifierEcriture(fichier, s) {
   if (s.includes("—")) err(`${fichier} : tiret cadratin`);
   if (/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(s)) err(`${fichier} : emoji`);
-  if (/\.(png|jpe?g|pdf)\b/i.test(s)) err(`${fichier} : référence à une image ou un PDF`);
+  // photos réelles : seulement dans <figure class="photo">, fichier sous images/, légende avec la source et la licence
+  const photos = [...s.matchAll(/<figure class="photo(?: duo)?">([\s\S]*?)<\/figure>/g)];
+  for (const ph of photos) {
+    if (!/<img src="(\.\.\/)+images\/[a-z0-9-]+\.jpg" alt="[^"]{8,}"/.test(ph[1])) err(`${fichier} : photo hors de images/ ou sans texte alternatif`);
+    if (!/<figcaption>[\s\S]*(Wikimedia Commons|cours)[\s\S]*<\/figcaption>/.test(ph[1])) err(`${fichier} : photo sans légende ni source (Wikimedia Commons, licence, auteur)`);
+  }
+  const reste = s.replace(/<figure class="photo(?: duo)?">[\s\S]*?<\/figure>/g, "");
+  if (/\.(png|jpe?g|pdf)\b/i.test(reste)) err(`${fichier} : référence à une image ou un PDF (photos : <figure class="photo"> seulement)`);
 }
 
 // Registre : couleurs et statut

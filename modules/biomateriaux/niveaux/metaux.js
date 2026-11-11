@@ -129,7 +129,7 @@ NIVEAU({
         aide: "Un fil de cuivre qu'on étire est l'image de l'un ; une pointe qui ne s'enfonce pas, de l'autre.",
         ok: function () {
           j.bravo("Ductile s'étire, dur résiste à la pénétration.");
-          j.expliquer("<p>Sur la courbe de traction (chapitre 0), un métal ductile a un long domaine de déformation permanente avant la rupture. Un même métal peut être ductile et dur à la fois.</p>");
+          j.expliquer("<p>Sur la courbe de traction (chapitre 3), un métal ductile a un long domaine de déformation permanente avant la rupture. Un même métal peut être ductile et dur à la fois.</p>");
           j.suite();
         }
       });

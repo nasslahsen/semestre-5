@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Alumine et zircone · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Alumine et zircone</h1>
+<p class="chapeau">Dans une prothèse totale de hanche, la tête frotte contre l'insert à chaque pas. Les couples céramique ont montré de meilleures performances que le couple métal-polyéthylène. Quelles céramiques, et comment les fabrique-t-on assez solides ?</p>
+
+<h2>Intuition</h2>
+<p>Une prothèse totale de hanche, c'est quatre pièces. Une cupule métallique enfoncée dans le bassin ; un insert posé dans la cupule ; une tête posée sur la tige ; une tige dans le canal du fémur. La tête et l'insert frottent : on veut là des matériaux très durs, lisses, qui ne relarguent rien. L'alumine et la zircone, deux oxydes, cochent ces cases.</p>
+<div id="fig-pth"></div>
+
+<h2>Formalisation</h2>
+<p>Les biocéramiques bio-inertes conservent leurs propriétés physiques et mécaniques tout au long de l'implantation. Elles résistent à la corrosion et à l'usure, et sont très biocompatibles.</p>
+<h3>L'alumine \(\mathrm{Al_2O_3}\)</h3>
+<ul>
+<li>Minerai : la bauxite, roche à forte teneur en alumine et en oxydes de fer.</li>
+<li>L'oxyde d'aluminium pur est <strong>monophasique</strong> et stable : une seule forme cristallographique.</li>
+<li>L'ASTM recommande, pour les implants, au moins 99,5 % d'alumine pure et moins de 0,1 % de mélange de SiO₂ et d'oxydes alcalins (souvent Na₂O).</li>
+<li>Fabrication par frittage ; technique <strong>HIP</strong> (Hot Isostatic Pressing) : chauffage entre 1400 et 1500 °C, sous atmosphère neutre, sous forte pression (au moins 1000 bars). Le HIP donne une bonne résistance à la flexion : limite élastique de 580 MPa.</li>
+<li>Grande dureté, faible coefficient de frottement, bonne résistance à l'usure, inertie in vivo : un biomatériau idéal pour les couples de friction des implants articulaires.</li>
+<li>Application la plus populaire : la prothèse totale de hanche (PTH). Les couples alumine-alumine et alumine-UHMWPE (polyéthylène de très haute masse moléculaire) ont montré de meilleures performances que le couple métal (CoCr ou inox)-UHMWPE.</li>
+</ul>
+<h3>La zircone \(\mathrm{ZrO_2}\) (oxyde de zirconium)</h3>
+<ul>
+<li>Structure <strong>triphasique</strong> : trois mailles cristallines possibles, cubique (propriétés modestes), tétragonale ou quadratique (propriétés satisfaisantes), monoclinique (plus de cohésion des grains, plus dense).</li>
+</ul>
+<div id="fig-mailles"></div>
+<ul>
+<li>Obtenue par transformation chimique du zircon \(\mathrm{ZrSiO_4}\), très abondant ; fabrication par frittage.</li>
+<li>Température de fusion très élevée (2953 K) et grande stabilité chimique.</li>
+<li>Ses propriétés sont relativement inférieures à celles de l'alumine. La zircone à haute densité est très biocompatible, très résistante à l'usure, et a un faible coefficient de frottement contre le polyéthylène UHMWPE.</li>
+<li>Usages : résistance à l'usure, aux chocs thermiques, aux hautes températures. En médecine : têtes de prothèses de hanche (pour remplacer les têtes métalliques), implants dentaires et couronnes d'aspect naturel. Exemple : la zircone 3Y-TZP (voir chapitre 4).</li>
+</ul>
+<p>Rappel : la <strong>structure cristalline</strong> d'un matériau décrit l'arrangement ordonné des atomes, ions ou molécules qui se répète périodiquement dans les trois dimensions.</p>
+
+<figure class="photo duo"><img src="../images/tete-ceramique.jpg" alt="Tête fémorale en céramique montée sur le cône d'une tige"><img src="../images/zircone-couronnes.jpg" alt="Couronnes dentaires en zircone"><figcaption>Une tête de hanche en céramique sur sa tige ; des couronnes en zircone d'aspect naturel.<small>Photos du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Un lot de 2000 g de poudre d'alumine pour têtes de hanche doit contenir au moins \(0{,}995 \times 2000 = 1990\) g d'alumine pure, et moins de \(0{,}001 \times 2000 = 2\) g de SiO₂ et d'oxydes alcalins. La zircone fond à 2953 K, soit \(2953 - 273 = 2680\) °C.</p>
+
+<h2>Formules clés</h2>
+<p>PTH : cupule métallique (bassin), insert (métal, céramique ou polyéthylène), tête (céramique ou métal), tige (canal fémoral).</p>
+<p>Alumine : monophasique ; ≥ 99,5 % pure, &lt; 0,1 % de SiO₂ + oxydes alcalins ; HIP à 1400–1500 °C, ≥ 1000 bars, 580 MPa ; couples alumine-alumine et alumine-UHMWPE meilleurs que métal-UHMWPE.</p>
+<p>Zircone : cubique, tétragonale, monoclinique ; issue de ZrSiO₄ ; fusion à 2953 K ; un peu moins bonne que l'alumine ; faible frottement contre l'UHMWPE.</p>
+<p>\[T(^\circ\mathrm{C}) = T(\mathrm{K}) - 273\]</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/alumine-zircone.js"></script>
+</body>
+</html>

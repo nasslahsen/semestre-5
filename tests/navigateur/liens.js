@@ -23,6 +23,13 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
+  biomateriaux: {
+    // chapitres affichés 2 et 4 : vers le tableau ou l'exemple qui répond, plutôt que l'intuition
+    "exigences": { 2: ["exigences", "formalisation", "Formalisation"] },
+    "historique": { 2: ["historique", "formalisation", "Formalisation"] },
+    "domaines-application": { 2: ["domaines-application", "formalisation", "Formalisation"] },
+    "comparer-metaux": { 2: ["comparer-metaux", "exemple", "Exemple"] }
+  },
   robotique: {
     "boss-transformations": { 3: ["bras-2r", "calcul~10", "Calcul"], 4: ["bras-2r", "calcul~10", "Calcul"] }, // espace de travail du bras 2R
     // TD 1 : classement (cinq critères), calculs de la sonde (exemple du bras 2R de la page du TD)

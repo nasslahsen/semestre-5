@@ -78,7 +78,7 @@ NIVEAU({
         ok: function () {
           n.fiche.G = "41 GPa"; n.dessin();
           j.bravo("G = 110 / 2,68 ≈ 41 GPa.");
-          j.expliquer("<p>Pour un matériau isotrope, deux constantes suffisent parmi \\(E\\), \\(\\nu\\) et \\(G\\) : la troisième s'en déduit par \\(G = E / (2(1+\\nu))\\). Ce ne sera plus vrai pour un composite (chapitre 6).</p>");
+          j.expliquer("<p>Pour un matériau isotrope, deux constantes suffisent parmi \\(E\\), \\(\\nu\\) et \\(G\\) : la troisième s'en déduit par \\(G = E / (2(1+\\nu))\\). Ce ne sera plus vrai pour un composite (chapitre 11).</p>");
           j.suite();
         } });
     } }

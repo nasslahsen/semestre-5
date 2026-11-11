@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<title>Les bases</title>
+<title>Les bases de mécanique</title>
 <link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../commun/css/cours.css">
 <link rel="stylesheet" href="../../../commun/css/barre.css">
@@ -18,7 +18,7 @@
 <!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 0. -->
 <main class="cours-chapitre" data-chapitre="0">
 <p class="etiquette" data-etiquette></p>
-<h1>Les bases</h1>
+<h1>Les bases de mécanique</h1>
 
 <section class="partie" id="s-traction">
 <p class="rang-partie">1 / 3</p>
@@ -29,12 +29,12 @@
 <p class="chapeau">Le cours compare des matériaux par leur module (0,001 à 3 GPa pour un polymère, 200 GPa pour une céramique), lit des courbes de traction et calcule des masses volumiques de mélanges. Ces outils ne sont pas rappelés dans les diapositives : les voici, sur l'exemple d'une tige de prothèse de hanche.</p>
 
 <h4>Le chapitre en bref</h4>
-<p>Ce chapitre 0 rassemble les prérequis de mécanique et de calcul dont le cours se sert sans les redéfinir. Pourquoi c'est utile : choisir le matériau d'un implant, c'est comparer des rigidités, des résistances et des densités. Comment les notions s'enchaînent :</p>
+<p>Les deux premiers chapitres disaient ce qu'est un biomatériau et ce qu'on lui demande. Avant de comparer les familles de matériaux (chapitre 4), ce chapitre rassemble les prérequis de mécanique et de calcul dont le cours se sert sans les redéfinir. Pourquoi c'est utile : choisir le matériau d'un implant, c'est comparer des rigidités, des résistances et des densités. Comment les notions s'enchaînent :</p>
 <ul>
 <li><strong>Contrainte et déformation</strong> (cette page) : on ramène la force à la section (\(\sigma\)) et l'allongement à la longueur (\(\varepsilon\)) pour comparer des pièces de tailles différentes.</li>
 <li><strong>La courbe de traction</strong> : la relation \(\sigma(\varepsilon)\) d'un matériau, avec sa pente (le module), ses seuils (\(R_e\), \(R_{max}\), \(R_r\)) et son aire (la ténacité).</li>
-<li><strong>Modules et échelle logarithmique</strong> : les modules vont du MPa à la centaine de GPa ; on les compare sur un axe en \(\log E\), comme les courbes \(\log E_r(T)\) des chapitres 3 et 4.</li>
-<li><strong>Masse volumique et mélanges</strong> : \(\rho = m/V\) et la moyenne pondérée par les volumes, qui deviendra \(\rho = \rho_c X + \rho_a(1-X)\) (chapitre 3) et la loi des mélanges des composites (chapitre 6).</li>
+<li><strong>Modules et échelle logarithmique</strong> : les modules vont du MPa à la centaine de GPa ; on les compare sur un axe en \(\log E\), comme les courbes \(\log E_r(T)\) des chapitres 7 et 9.</li>
+<li><strong>Masse volumique et mélanges</strong> : \(\rho = m/V\) et la moyenne pondérée par les volumes, qui deviendra \(\rho = \rho_c X + \rho_a(1-X)\) (chapitre 7) et la loi des mélanges des composites (chapitre 11).</li>
 </ul>
 
 <h4>Intuition</h4>
@@ -50,8 +50,10 @@
 <li><strong>Déformation</strong> : \(\varepsilon = \dfrac{\Delta l}{l_0}\), sans unité (souvent en %).</li>
 <li><strong>Module d'Young</strong> : dans le domaine élastique, \(\sigma\) est proportionnelle à \(\varepsilon\) (droite de Hooke) : \(\sigma = E\,\varepsilon\). \(E\) est la rigidité du matériau, en MPa ou GPa.</li>
 </ul>
-<p>Pour un matériau <strong>isotrope</strong> (alliages métalliques, céramiques, polymères), il suffit de deux constantes élastiques indépendantes parmi le module d'Young \(E\), le coefficient de Poisson \(\nu\) et le module de cisaillement \(G\), reliées par \(G = \dfrac{E}{2(1+\nu)}\). Un composite n'est pas isotrope : il en faut davantage (chapitre 6).</p>
+<p>Pour un matériau <strong>isotrope</strong> (alliages métalliques, céramiques, polymères), il suffit de deux constantes élastiques indépendantes parmi le module d'Young \(E\), le coefficient de Poisson \(\nu\) et le module de cisaillement \(G\), reliées par \(G = \dfrac{E}{2(1+\nu)}\). Un composite n'est pas isotrope : il en faut davantage (chapitre 11).</p>
 
+
+<figure class="photo"><img src="../images/essai-flexion.jpg" alt="Barre posée sur deux appuis et chargée en son milieu par un poinçon : essai de flexion trois points"><figcaption>Un essai mécanique : on charge une éprouvette et on mesure comment elle se déforme (ici, en flexion trois points).<small>Photo du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
 
 <h4>Exemple</h4>
 
@@ -167,7 +169,7 @@
 
 <h4>Formules clés</h4>
 <p>\[\rho = \frac{m}{V} \qquad \rho = \rho_1 v_1 + \rho_2 v_2 \quad (v_1 + v_2 = 1)\]</p>
-<p>Au chapitre 3 : \(\rho = \rho_c X + \rho_a (1 - X)\).</p>
+<p>Au chapitre 7 : \(\rho = \rho_c X + \rho_a (1 - X)\).</p>
 </article>
 
 <div class="fin-partie" data-section="masse-volumique"></div>

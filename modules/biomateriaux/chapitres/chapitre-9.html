@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les biomatériaux métalliques</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 9. -->
+<main class="cours-chapitre" data-chapitre="9">
+<p class="etiquette" data-etiquette></p>
+<h1>Les biomatériaux métalliques</h1>
+
+<section class="partie" id="s-classes-metaux">
+<p class="rang-partie">1 / 5</p>
+<h2>Classes de biomatériaux et métaux implantables</h2>
+
+<article class="notion" id="n-classes-biomateriaux">
+<h3>Classes de biomatériaux et métaux implantables</h3>
+<p class="chapeau">Une prothèse de hanche doit frotter sans s'user, porter le poids du corps à chaque pas, et cohabiter avec l'os pendant des années. Aucun matériau ne fait tout cela à la fois. Alors on en combine plusieurs. Lesquels, et pourquoi commence-t-on par les métaux ?</p>
+
+<h4>Le chapitre en bref</h4>
+<p>Le chapitre 4 a comparé les grandes familles de matériaux d'après leurs liaisons. Ici, on regarde celles qui servent d'implants, en commençant par les plus anciennes : les métaux.</p>
+<ul>
+<li>Classes de biomatériaux et métaux implantables (cette page) : pourquoi des métaux, et leurs problèmes.</li>
+<li>Les aciers inoxydables : 316 et 316L.</li>
+<li>Les alliages cobalt-chrome : rigides, résistants à l'usure et à la fatigue.</li>
+<li>Le titane et ses alliages : le plus proche de l'os.</li>
+<li>NiTi et tantale : la mémoire de forme et le métal poreux.</li>
+<li>L'étude comparative : modules, densités, couples de frottement, traitements de surface.</li>
+</ul>
+
+<h4>Intuition</h4>
+<p>Chaque zone d'une prothèse a son exigence. La surface de contact doit résister à l'usure. La tige doit être rigide et résister à la fatigue. La partie au contact de l'os doit être compatible avec le tissu et résister à la corrosion. Un matériau plus rigide peut être moins résilient, un autre plus résistant à l'usure peut être moins résistant à la fatigue : le concepteur choisit, ou met plusieurs matériaux dans le même implant.</p>
+<div id="fig-classes"></div>
+
+<h4>Formalisation</h4>
+<p>Les matériaux à vocation de biomatériaux forment quatre grandes catégories :</p>
+<div class="tableau"><table>
+<tr><th>Catégorie</th><th>Exemples du cours</th></tr>
+<tr><td>métaux et alliages métalliques</td><td>aciers, chrome, cobalt, NiTi</td></tr>
+<tr><td>céramiques</td><td>alumine, zircone, phosphates tricalciques, verres</td></tr>
+<tr><td>polymères</td><td>Téflon, polyéthylènes, polyuréthanes, silicones</td></tr>
+<tr><td>matériaux d'origine naturelle</td><td>collagène, corail, nacre, os modifiés</td></tr>
+</table></div>
+<p>Le cours propose aussi un classement plus détaillé : métalliques ; inorganiques non métalliques ; polymères synthétiques ; composites biomédicaux ; origine biologique ; nano-biomatériaux ; céramiques.</p>
+
+<h5>Les biomatériaux métalliques</h5>
+<p>Ce sont en quelque sorte les « ancêtres » des biomatériaux : les premiers utilisés pour faire des implants. Les métaux des implants sont en fait des <strong>alliages</strong> : combinaison de plusieurs constituants, deux au minimum, dont un au moins est métallique. La <strong>liaison métallique</strong> est l'attraction électrostatique forte entre les cations métalliques et les électrons délocalisés (voir chapitre 4) ; elle donne l'arrangement compact des atomes, d'où la grande densité et la température de fusion élevée de la plupart des métaux.</p>
+<p>Par rapport aux céramiques et aux polymères, les biomatériaux métalliques peuvent supporter des contraintes élevées, et aussi cycliques. Ceux qui résistent assez à la fatigue en flexion servent de substituts passifs des tissus durs (prothèses totales de hanche et de genou), d'aides à la guérison des fractures (plaques, vis), de dispositifs de fixation vertébrale, d'implants dentaires. Certains ont un rôle plus actif : endoprothèses vasculaires, guides de cathéter, arcs orthodontiques.</p>
+
+<h5>Les problèmes mal résolus</h5>
+<ul>
+<li>corrosion électrochimique et durabilité ;</li>
+<li>dégradation non électrochimique, dont les interactions protéine / métal ;</li>
+<li>réactions immunitaires et d'hypersensibilité ;</li>
+<li>adaptation des propriétés mécaniques ;</li>
+<li>frottements et débris.</li>
+</ul>
+<p>Fe, Cr, Co, Ni, Ti, Ta, Nb, Mo, W, largement utilisés dans les alliages d'implants, ne sont tolérés par le corps qu'en petites quantités. Or un implant peut se corroder in vivo : il s'affaiblit mécaniquement, et ses produits de corrosion nuisent aux tissus et aux organes voisins.</p>
+<p><strong>Relargage</strong> : un implant métallique libère des ions par dissolution, d'autant plus qu'il se corrode. Les ions dissous forment des complexes métallo-protéiques qui empêchent le transport des nutriments et entraînent la lyse des cellules voisines, avec dégradation de la matrice extracellulaire. Cela peut aboutir au <strong>descellement</strong> de l'implant : la prothèse n'a plus un contact optimal avec l'os, sa fixation est défaillante. La rate accumule Cr, Co, Ti, Ni, Fe et Al ; les poumons et les reins accumulent Co et Ni.</p>
+<p><strong>Hypersensibilité aux métaux</strong> : environ 10 à 15 % de la population présente une hypersensibilité cutanée aux métaux. Le nickel est le plus allergène, suivi du chrome et du cobalt. On estime que 20 à 25 % des patients présentent une sensibilité aux métaux après arthroplastie, mais peu développent des symptômes. Les implants en titane sont considérés comme hypoallergéniques.</p>
+<p><strong>Corrosion galvanique</strong> : quand deux métaux humides sont en contact, l'un des deux se corrode plus vite que s'ils étaient séparés.</p>
+<div id="fig-ions"></div>
+
+<figure class="photo"><img src="../images/pth-radio.jpg" alt="Radiographie et vue éclatée d'une prothèse totale de hanche"><figcaption>Une prothèse totale de hanche, en radiographie et en pièces : plusieurs matériaux dans le même implant.<small>Photos du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. Sur une consultation de 200 patients avant une prothèse, la fourchette du cours (10 à 15 %) donne entre \(0{,}10 \times 200 = 20\) et \(0{,}15 \times 200 = 30\) patients avec une hypersensibilité cutanée aux métaux. Pour eux, on évite les alliages riches en nickel, chrome ou cobalt, et on pense au titane, hypoallergénique.</p>
+
+<h4>Formules clés</h4>
+<p>Quatre catégories : métaux et alliages ; céramiques ; polymères ; matériaux naturels.</p>
+<p>Métaux : les premiers implants ; des alliages ; contraintes élevées et cycliques (fatigue).</p>
+<p>Problèmes : corrosion, relargage d'ions (jusqu'au descellement), hypersensibilité (Ni, puis Cr, puis Co ; 10 à 15 % de la population), usure et débris, corrosion galvanique entre deux métaux en contact.</p>
+</article>
+
+<div class="fin-partie" data-section="classes-metaux"></div>
+</section>
+
+<section class="partie" id="s-aciers-inox">
+<p class="rang-partie">2 / 5</p>
+<h2>Les aciers inoxydables</h2>
+
+<article class="notion" id="n-aciers-inox">
+<h3>Les aciers inoxydables</h3>
+<p class="chapeau">Plaques, vis, clous de hanche : le métal le plus utilisé en volume dans les implants est l'acier inoxydable. Il est bon marché et facile à travailler. Mais pourquoi le réserve-t-on aux implants temporaires ?</p>
+
+<h4>Intuition</h4>
+<p>Un acier « inoxydable » ne rouille pas parce que le chrome forme à sa surface une couche d'oxyde très fine qui le protège. Le corps humain est pourtant un milieu salé, à 37 °C. Là où cette couche manque d'oxygène pour se reformer, sous la tête d'une vis par exemple, l'acier peut se corroder. Toute l'histoire du 316L, c'est d'améliorer cette tenue en milieu salé.</p>
+<div id="fig-nuances"></div>
+
+<h4>Formalisation</h4>
+<p>Parmi les biomatériaux métalliques, le plus important par les volumes est l'acier inoxydable, encore largement utilisé en chirurgie orthopédique.</p>
+<div class="tableau"><table>
+<tr><th>Nuance</th><th>Ce qui change</th></tr>
+<tr><td>inox au vanadium</td><td>n'est plus utilisé : résistance à la corrosion in vivo inappropriée</td></tr>
+<tr><td>18-8 (inox 302)</td><td>18 % de chrome, 8 % de nickel en masse ; plus dur et plus résistant à la corrosion que l'inox au vanadium ; premier inox des implants</td></tr>
+<tr><td>316</td><td>le 18-8 avec un petit pourcentage de molybdène : meilleure résistance à la corrosion en milieu salé</td></tr>
+<tr><td>316L</td><td>en 1950, carbone réduit de 0,08 % à 0,03 % au maximum : meilleure résistance en milieu salé, moins d'hypersensibilité ; « L » pour faible teneur en carbone</td></tr>
+</table></div>
+<p>La concentration minimale efficace de <strong>chrome</strong> est de 11 % pour conférer la résistance à la corrosion. Le chrome et ses alliages peuvent être passivés par de l'acide nitrique à 30 %. La <strong>passivation</strong> traite le métal avec des acides pour éliminer le fer libre de la surface et la recouvrir d'une couche d'oxyde anti-corrosion.</p>
+<p>Composition du 316L (désignations : 1.4404, UNS S31603, X2CrNiMo17-12-2 ; normes ISO 7153-1, ASTM F899) : C &lt; 0,03 ; Mn &lt; 2,0 ; 16,5 &lt; Cr &lt; 18,0 ; 10,5 &lt; Ni &lt; 13,0 ; 2,0 &lt; Mo &lt; 2,5 ; N &lt; 0,11 ; Fe pour le reste (en %). C'est un acier inoxydable austénitique : la structure contient du chrome et du nickel.</p>
+
+<h5>Propriétés et précautions</h5>
+<ul>
+<li>Les types 316 et 316L sont les plus utilisés dans les implants et prothèses ; le 316L est le plus recommandé.</li>
+<li>Ils ne sont pas durcis par traitement thermique mais par <strong>écrouissage</strong> (déformation à froid).</li>
+<li>Ils sont non magnétiques et résistent bien à la corrosion par piqûres dans l'eau salée.</li>
+<li>Ils produisent des artefacts d'IRM.</li>
+<li>Le 316L peut se corroder in vivo quand les contraintes mécaniques sont importantes et l'oxygène déficient, comme au contact sous les vis d'une plaque de fixation d'un os fracturé. Il ne convient donc qu'aux <strong>implants temporaires</strong> : plaques de fixation, vis, clous de hanche.</li>
+<li>Anodisation, passivation et nitruration améliorent sa résistance à la corrosion, à l'usure et à la fatigue.</li>
+<li>Il faut éviter le contact direct entre un implant en inox et un implant en titane, en alliage de titane ou en alliage de cobalt : corrosion galvanique. Plusieurs métaux dans le même os ne posent aucun problème tant qu'ils ne se touchent pas.</li>
+</ul>
+<p>Applications du cours : clous, vis orthopédiques, tige fémorale et tête en inox, prothèse d'épaule, arc dentaire en acier.</p>
+
+<figure class="photo duo"><img src="../images/inox-hanche.jpg" alt="Tige fémorale, tête et cupule en acier inoxydable"><img src="../images/inox-arc-dentaire.jpg" alt="Arcs dentaires en acier"><figcaption>Applications de l'inox : prothèse de hanche, arcs dentaires.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. Une plaque de 316L pèse 60 g. Avec 17 % de chrome et 12 % de nickel (des valeurs dans les fourchettes du cours), elle contient \(0{,}17 \times 60 = 10{,}2\) g de chrome et \(0{,}12 \times 60 = 7{,}2\) g de nickel, et au plus \(0{,}0003 \times 60 = 0{,}018\) g de carbone. Le chrome dépasse largement le seuil de 11 % : la couche protectrice peut se former.</p>
+
+<h4>Formules clés</h4>
+<p>18-8 (302) → 316 (+ Mo, milieu salé) → 316L (C ≤ 0,03 %, 1950).</p>
+<p>Chrome ≥ 11 % pour l'inoxydabilité ; passivation à l'acide nitrique.</p>
+<p>316L : austénitique, non magnétique, durci par écrouissage, artefacts d'IRM ; corrosion possible sous contrainte et sans oxygène, donc implants temporaires.</p>
+<p>Jamais en contact direct avec le titane ou le cobalt : corrosion galvanique.</p>
+</article>
+
+<div class="fin-partie" data-section="aciers-inox"></div>
+</section>
+
+<section class="partie" id="s-cobalt-titane">
+<p class="rang-partie">3 / 5</p>
+<h2>Cobalt-chrome et titane</h2>
+
+<article class="notion" id="n-cobalt-chrome">
+<h3>Les alliages cobalt-chrome</h3>
+<p class="chapeau">La tige d'une prothèse de genou ou de hanche est chargée des millions de fois, et on ne peut pas la remplacer facilement. Il faut un alliage qui ne casse pas en fatigue et qui s'use très peu. C'est le terrain des alliages cobalt-chrome.</p>
+
+<h4>Intuition</h4>
+<p>Le cobalt donne la base, le chrome forme une couche d'oxyde compacte qui protège de la corrosion et renforce l'alliage, le molybdène affine les grains. Résultat : un alliage plus rigide et plus résistant que l'inox, très dur, qui s'use peu. Le revers : il est très difficile à façonner à froid, et il est encore plus rigide que l'os qu'il remplace.</p>
+<div id="fig-usure"></div>
+
+<h4>Formalisation</h4>
+<p>Deux types d'alliages cobalt-chrome :</p>
+<ul>
+<li>l'alliage <strong>Co-Cr-Mo</strong>, destiné à être coulé : utilisé depuis des décennies en médecine dentaire, et récemment pour les implants articulaires ;</li>
+<li>l'alliage <strong>Co-Ni-Cr-Mo</strong>, façonné par forgeage à chaud : relativement nouveau, pour les tiges de prothèses des articulations lourdement chargées (genou, hanche).</li>
+</ul>
+<p>Quatre alliages sont recommandés pour les implants chirurgicaux : coulable Co-Cr-Mo (F75), forgeable Co-Cr-W-Ni (F90), forgeable Co-Ni-Cr-Mo (F562), forgeable Co-Ni-Cr-Mo-W-Fe (F563). Seuls deux sont fréquents : le coulable <strong>F75</strong> et le forgeable <strong>F562</strong>. Le cobalt dépasse 60 % ; le molybdène forme des grains fins, d'où une meilleure résistance après coulée et forgeage ; le chrome améliore la résistance à la corrosion (couche d'oxyde compacte) et la résistance mécanique.</p>
+<p>L'excellente résistance à la fatigue du forgeable Co-Ni-Cr-Mo le rend très approprié aux applications qui exigent une longue durée de vie sans rupture sous charge statique ou cyclique, comme les tiges de hanche, surtout quand l'implant est difficile à remplacer.</p>
+<div class="tableau"><table>
+<tr><th>Co20Cr35Ni10Mo</th><th>module de Young (MPa)</th><th>rupture min. (MPa)</th><th>limite élastique min. (MPa)</th><th>déformation min. (%)</th></tr>
+<tr><td>recuit</td><td>\(2{,}35 \cdot 10^5\)</td><td>800</td><td>300</td><td>40</td></tr>
+<tr><td>écroui à froid</td><td>\(2{,}35 \cdot 10^5\)</td><td>1000</td><td>650</td><td>20</td></tr>
+</table></div>
+<p>L'écrouissage à froid augmente nettement la résistance (le module ne change pas, la déformation possible diminue). Mais il est très difficile de façonner cet alliage à froid pour une grande pièce comme une tige de hanche : seul le forgeage à chaud est possible. Il résiste très bien à la corrosion sous contrainte dans l'eau de mer (ions chlore).</p>
+
+<h5>Usure et frottement</h5>
+<ul>
+<li>Usure du forgeable Co-Ni-Cr-Mo semblable à celle du coulable : à peu près 0,14 mm/an contre un cotyle en polyéthylène.</li>
+<li>Le Co-Ni-Cr-Mo n'est pas recommandé pour les surfaces de frottement : mauvais coefficient de frottement avec lui-même ou un autre matériau.</li>
+<li>Prothèses métal sur métal en CoCrMo : faible usure grâce à la dureté et la ténacité ; usure linéaire moyenne de la prothèse McKee-Farrar de 4,2 µm/an.</li>
+<li>Couple métal-polyéthylène conventionnel (têtes de 22 à 32 mm), « standard » pendant près de quatre décennies : usure linéaire de 100 à 400 µm/an.</li>
+</ul>
+<p>Le module de Young du Co-Cr est de 220 à 234 GPa, plus que l'inox : cela peut changer le transfert des efforts vers l'os, même si l'effet sur la fixation et la longévité n'est pas encore bien connu.</p>
+
+<h5>Ions libérés</h5>
+<p>Dans une solution de Ringer à 37 °C, le Co-Ni-Cr-Mo libère d'abord plus de nickel que l'inox 316L, puis la vitesse devient presque la même, alors qu'il contient environ trois fois plus de nickel. In vitro, les particules de cobalt et de nickel sont toxiques pour les cellules ; celles de Cr et de Co-Cr sont bien acceptées. Un implant en CoCr est une cause d'artefact en IRM.</p>
+<p>Applications : prothèse totale de hanche, pièce fémorale, stents très fins grâce aux propriétés mécaniques, filtre cave (qui filtre le sang remontant des membres inférieurs), implants dentaires.</p>
+
+<figure class="photo duo"><img src="../images/cocr-hanche-38-ans.jpg" alt="Prothèse de hanche en alliage cobalt-chrome retirée après 38 ans d'implantation"><img src="../images/cocr-stent.jpg" alt="Stent en alliage cobalt-chrome à mailles fines"><figcaption>Une prothèse totale de hanche en CoCr retirée après 38 ans ; un stent très fin grâce aux propriétés de l'alliage.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. En 5 ans, une tête métal sur métal McKee-Farrar s'use de \(4{,}2 \times 5 = 21\) µm. Un couple métal-polyéthylène à 200 µm/an (milieu de la fourchette du cours) perd \(200 \times 5 = 1000\) µm, soit 1 mm : environ 48 fois plus.</p>
+
+<h4>Formules clés</h4>
+<p>F75 coulable (Co-Cr-Mo) et F562 forgeable (Co-Ni-Cr-Mo) ; Co &gt; 60 % ; Mo : grains fins ; Cr : oxyde protecteur.</p>
+<p>E = 220 à 234 GPa ; écroui : rupture 1000 MPa, limite 650 MPa (recuit : 800 et 300).</p>
+<p>Usure : métal sur métal 4,2 µm/an ; métal-PE 100 à 400 µm/an ; Co-Ni-Cr-Mo contre PE 0,14 mm/an.</p>
+<p>Forgeage à chaud seulement pour les grandes pièces ; artefacts d'IRM ; Co et Ni toxiques pour les cellules in vitro.</p>
+</article>
+
+<article class="notion" id="n-titane">
+<h3>Le titane et ses alliages</h3>
+<p class="chapeau">Une tige de hanche trop rigide porte le poids du corps à la place de l'os. L'os, qui n'est plus sollicité, s'affaiblit autour d'elle. Il faudrait un métal solide, mais le plus souple possible. C'est la place du titane.</p>
+
+<h4>Intuition</h4>
+<p>Un os travaille comme un muscle : sollicité, il se densifie ; au repos, il perd de sa densité. Quand on met une tige métallique dans le fémur, l'os et la tige se partagent la charge, et c'est le plus rigide qui en prend le plus. Avec un module trois fois plus proche de celui de l'os que l'acier, le titane laisse davantage travailler l'os.</p>
+<div id="fig-stress"></div>
+
+<h4>Formalisation</h4>
+<p>Le titane est l'un des métaux les plus biocompatibles, avec l'or et le platine : il résiste totalement aux fluides corporels. Il a une haute résistance mécanique et un module d'élasticité très bas, de 100 à 110 GPa, plus proche de celui de l'os (20 GPa) que l'acier inox (210 GPa). Il est plus léger mais moins rigide que l'alliage CoCr et l'inox. Il n'est pas source d'artefact d'IRM.</p>
+<p>Le <strong>stress-shielding</strong> (saut de contrainte) : la prothèse absorbe les contraintes, ce qui provoque une ostéoporose (diminution de la densité de l'os) localisée autour d'elle. Le faible module du titane permet une meilleure diffusion des contraintes dans l'os et diminue les risques de fragilisation de l'os. Remarque : la diapositive écrit « un os sous contrainte va se densifier (diminution de sa densité) » ; il faut lire qu'un os sous contrainte se densifie, et qu'un os privé de contrainte perd de sa densité.</p>
+<figure class="photo"><img src="../images/stress-shielding.jpg" alt="Schéma du stress-shielding : le poids du corps passe par la tige et non plus par l'os du fémur"><figcaption>Le poids du corps (en bleu) descend par la tige ; la zone du fémur autour d'elle n'est plus sollicitée (« stress shielded zone »).<small>Schéma du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+
+<h5>Les alliages</h5>
+<div class="tableau"><table>
+<tr><th>Alliage</th><th>Intérêt</th></tr>
+<tr><td>TiAl6V4 (TA6V)</td><td>le plus utilisé en biomédical (tiges de hanche, prothèse tibiale) ; peut relarguer du vanadium, toxique</td></tr>
+<tr><td>Ti-6Al-7Nb</td><td>propriétés semblables au TA6V, meilleure résistance à la corrosion</td></tr>
+<tr><td>Ti-5Al-2,5Fe</td><td>électrodes de pacemakers, grâce à la qualité du signal</td></tr>
+<tr><td>Ti-13Nb-13Zr</td><td>implants orthopédiques : module plus faible que le TA6V</td></tr>
+<tr><td>Ti-15Mo-3Nb</td><td>implants orthopédiques : grande résistance, faible module, sans Al ni V</td></tr>
+</table></div>
+<p>Propriétés chimiques : excellente résistance à la corrosion, assurée par une couche de passivation de <strong>\(\mathrm{TiO_2}\)</strong> ; inertie chimique. Cette couche résiste très bien aux ions chlorure et isole le métal du milieu ; en partie détruite par des attaques chimiques ou mécaniques, elle se reforme de façon dynamique. Propriétés biologiques : biocompatible, <strong>ostéo-intégration</strong> (aptitude à être colonisé par les cellules vivantes). Propriétés mécaniques : module et densité plus proches de l'os que le 316L et le CoCr, très résistant, propriétés qui dépendent des éléments d'alliage et des traitements thermomécaniques.</p>
+<figure class="photo"><img src="../images/titane-couche-tio2.jpg" alt="Coupe de l'interface entre un alliage de titane et l'os, avec la couche d'oxyde et son évolution sur un an"><figcaption>L'interface alliage de titane / os : une couche d'oxyde de 20 à 100 Å, puis des couches qui évoluent sur un an.<small>Schéma du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<p>Point faible : à cause de sa mauvaise résistance à l'usure, le titane n'est plus utilisé en couple de friction.</p>
+<p>Traitements de surface : anodisation, dépôts d'hydroxyapatite et de titane, implantation ionique (on implante les ions d'un matériau dans un autre). Ils visent à accroître la résistance à l'usure, à la fatigue, à la corrosion, prévenir l'infection, favoriser l'intégration biologique, accroître la tenue en service et la biocompatibilité. (La diapositive développe « HAP » en hydrocarbures aromatiques polycycliques ; pour un implant, HAP désigne l'hydroxyapatite.)</p>
+<p>Applications : implants dentaires, prothèse de côtes expansible, tiges de hanche en TiAl6V4, prothèse tibiale en Ti6Al4V, systèmes de fixation (tiges, plaques, vis, clous).</p>
+
+<figure class="photo duo"><img src="../images/titane-cotes.jpg" alt="Prothèse de côtes expansible en titane sur une cage thoracique"><img src="../images/titane-clous.jpg" alt="Clous et tiges de fixation en titane"><figcaption>Applications du titane : prothèse de côtes expansible, systèmes de fixation.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<h4>Exemple</h4>
+<p>Modèle ajouté, très simplifié : l'os et la tige, de même section, s'allongent de la même quantité (comme deux ressorts en parallèle). La part de la charge portée par l'os vaut alors \(E_{os} / (E_{os} + E_{tige})\). Avec une tige en inox (210 GPa) : \(20 / 230 \approx 8{,}7\) %. Avec une tige en titane (110 GPa) : \(20 / 130 \approx 15{,}4\) %. L'os porte presque deux fois plus avec le titane : moins de stress-shielding.</p>
+
+<h4>Formules clés</h4>
+<p>E du titane : 100 à 110 GPa ; os : 20 GPa ; inox : 210 GPa.</p>
+<p>\[\text{part portée par l'os} = \frac{E_{os}}{E_{os} + E_{tige}} \quad \text{(modèle ajouté, même section, même allongement)}\]</p>
+<p>Couche de \(\mathrm{TiO_2}\) qui se reforme ; ostéo-intégration ; pas d'artefact IRM ; mauvaise usure, donc pas de couple de friction.</p>
+<p>TA6V le plus courant (risque de vanadium) ; Ti-6Al-7Nb, Ti-13Nb-13Zr, Ti-15Mo-3Nb sans vanadium.</p>
+</article>
+
+<div class="fin-partie" data-section="cobalt-titane"></div>
+</section>
+
+<section class="partie" id="s-nitinol-tantale">
+<p class="rang-partie">4 / 5</p>
+<h2>NiTi à mémoire de forme et tantale</h2>
+
+<article class="notion" id="n-nitinol-tantale">
+<h3>NiTi à mémoire de forme et tantale</h3>
+<p class="chapeau">Une agrafe qu'on pose ouverte et qui se referme toute seule à la chaleur du corps. Un stent plié dans un cathéter qui reprend sa forme dans l'artère. Une pièce métallique aussi poreuse que l'os spongieux. Deux métaux étonnants : le NiTi et le tantale.</p>
+
+<h4>Intuition</h4>
+<p>Le NiTi peut exister sous deux arrangements d'atomes. À chaud, l'austénite, rigide et bien ordonnée, qui garde « en mémoire » la forme de départ. À froid, la martensite, dont les atomes peuvent basculer d'une orientation à l'autre : on la déforme facilement, et la déformation reste. Réchauffe-la au-dessus d'une certaine température, elle redevient austénite et reprend sa forme.</p>
+<div id="fig-memoire"></div>
+
+<h4>Formalisation</h4>
+<h5>Les alliages à mémoire de forme NiTi (Nitinol)</h5>
+<p>Alliage nickel-titane à presque 50 % - 50 %, biocompatible. Sa microstructure a deux états de phase solide : l'<strong>austénite</strong> et la <strong>martensite</strong>. Remarque : la diapositive écrit que la martensite est la phase de haute température et l'austénite celle de basse température ; c'est l'inverse, comme le montre la suite du même cours (on retrouve l'austénite en chauffant au-dessus de \(A_f\)). Par refroidissement, l'austénite donne une martensite non orientée (maclée) ; sous chargement, on obtient une martensite orientée.</p>
+<p>L'<strong>effet mémoire de forme</strong> : l'aptitude d'un échantillon déformé à l'état martensitique à retrouver sa forme initiale à l'état austénitique, par chauffage au-dessus de la température « austénite finish » \(A_f\). Les étapes :</p>
+<ol>
+<li>martensite auto-accommodante au départ ;</li>
+<li>une contrainte fait progresser les variantes de martensite qui accommodent le mieux la déformation ;</li>
+<li>jusqu'à une déformation maximum ;</li>
+<li>la contrainte cesse : une faible partie seulement de la déformation est recouvrée, il reste une déformation permanente (la martensite est stable à cette température) ;</li>
+<li>chauffage à contrainte nulle au-dessus de \(A_f\) : transformation inverse complète, retour en austénite, la forme initiale revient ;</li>
+<li>retour à température ambiante sans contrainte : la martensite se reforme, sans changer la forme. C'est l'effet <strong>simple sens</strong>.</li>
+</ol>
+<figure class="photo"><img src="../images/nitinol-memoire-demo.jpg" alt="Quatre photos d'un fil de NiTi : forme initiale, fil déformé, chauffage à la flamme, forme retrouvée"><figcaption>L'effet mémoire de forme simple sens, de gauche à droite : forme initiale, déformation, chauffage, retour à la forme mémorisée.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<p>L'effet <strong>double sens</strong> : l'austénite se transforme en martensite orientée par simple refroidissement, sans chargement ; la pièce change de forme dans les deux sens avec la température. L'effet <strong>superélastique</strong> : à température constante, une grande déformation sous contrainte disparaît quand on relâche (la monture de lunettes qu'on tord et qui revient).</p>
+<figure class="photo duo"><img src="../images/lunettes-nitinol-1.jpg" alt="Monture de lunettes en NiTi tordue entre deux mains"><img src="../images/lunettes-nitinol-2.jpg" alt="La même monture relâchée, revenue à sa forme"><figcaption>L'effet superélastique : la monture tordue revient dès qu'on la lâche.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<p>Quatre catégories de fonctions : mémoire de forme libre (mouvements ou déformations jusqu'à 8 %) ; mémoire de forme sous contrainte (la déformation est empêchée, d'où des efforts importants) ; actionneurs (mouvement avec effort, jusqu'à 5 J par gramme) ; applications superélastiques (isothermes, stockage d'énergie).</p>
+<p>Applications : plaques de fixation et agrafes d'ostéotomie, agrafes de correction de la scoliose, tige de Harrington, stents, pinces et pinces-paniers, arcs d'appareils dentaires.</p>
+
+<h5>Le tantale (Ta)</h5>
+<ul>
+<li>biocompatible : faible cytotoxicité, excellente résistance à la corrosion grâce à l'oxyde \(\mathrm{Ta_2O_5}\) stable formé en surface ; ne réagit pas avec les fluides corporels ;</li>
+<li>métal réfractaire, fusion à 3017 °C ; très dur et très ductile (phase α cubique à faces centrées) ;</li>
+<li>densité élevée (16,4 à 16,69 g/cm³), ce qui le limite à quelques applications : fils de suture, clips, agrafes ;</li>
+<li>le tantale <strong>poreux</strong> ressemble à l'os spongieux : porosité de 75 à 85 %, faible rigidité (module de 2,5 à 3,9 GPa), coefficient de frottement élevé (0,82 à 1,75) ; cela réduit le stress-shielding et permet une mise en charge immédiate ; testé comme substitut de greffe osseuse et en arthroplastie sans ciment de la hanche et du genou ;</li>
+<li>ostéocompatibilité semblable à celle des dispositifs en titane.</li>
+</ul>
+
+<figure class="photo duo"><img src="../images/nitinol-pince-panier.jpg" alt="Pince-panier en Nitinol qui saisit un calcul"><img src="../images/tantale-poreux.jpg" alt="Cupule et cales en tantale poreux"><figcaption>Une pince-panier en Nitinol ; des pièces en tantale poreux pour l'arthroplastie.<small>Photos du cours « Classes des biomatériaux ».</small></figcaption></figure>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. Un fil de NiTi de 50 mm utilisé en mémoire de forme libre peut changer de longueur de \(0{,}08 \times 50 = 4\) mm au plus. Un actionneur de 2 g peut fournir jusqu'à \(5 \times 2 = 10\) J. Une cale en tantale poreux à 80 % : seuls 20 % de son volume sont du métal, ce qui explique sa faible rigidité malgré la densité du tantale.</p>
+
+<h4>Formules clés</h4>
+<p>NiTi ≈ 50/50 ; austénite (chaud, forme mémorisée) et martensite (froid, déformable).</p>
+<p>Simple sens : déformer en martensite, chauffer au-dessus de \(A_f\), la forme revient. Double sens : change de forme au chauffage et au refroidissement. Superélastique : revient au relâchement, à température constante.</p>
+<p>Mémoire libre jusqu'à 8 % ; actionneur jusqu'à 5 J/g.</p>
+<p>Tantale : \(\mathrm{Ta_2O_5}\), 3017 °C, 16,4 à 16,69 g/cm³ ; poreux 75 à 85 %, E = 2,5 à 3,9 GPa.</p>
+</article>
+
+<div class="fin-partie" data-section="nitinol-tantale"></div>
+</section>
+
+<section class="partie" id="s-comparer-metaux">
+<p class="rang-partie">5 / 5</p>
+<h2>Étude comparative et surfaces</h2>
+
+<article class="notion" id="n-comparer-metaux">
+<h3>Étude comparative et surfaces</h3>
+<p class="chapeau">Inox, cobalt-chrome, titane, NiTi, tantale : chaque métal a ses atouts. Pour choisir, il faut les voir côte à côte, chiffres en main : rigidité, résistance, masse, et comportement des surfaces qui frottent.</p>
+
+<h4>Intuition</h4>
+<p>Trois questions guident le choix d'un métal d'implant. Est-il proche de l'os en rigidité (pour limiter le stress-shielding) ? Est-il assez résistant (limite élastique) ? Est-il lourd ? Et pour les surfaces qui frottent, une quatrième : combien de matière perd-on chaque année ? La surface compte autant que le cœur du métal : c'est elle que le corps touche.</p>
+<div id="fig-comparer"></div>
+
+<h4>Formalisation</h4>
+<div class="tableau"><table>
+<tr><th>Matériau</th><th>densité (g/cm³)</th><th>module (GPa)</th><th>résistance en traction (MPa)</th><th>allongement (%)</th><th>applications</th></tr>
+<tr><td>Ti-Cp (titane non allié)</td><td>4,5</td><td>100</td><td>240 à 550</td><td>15 à 25</td><td>boîtiers de pacemaker, implants dentaires, vis et agrafes du rachis</td></tr>
+<tr><td>Ti-6Al-4V</td><td>4,4</td><td>110</td><td>860 à 985</td><td>10 à 15</td><td>composants articulaires, vis</td></tr>
+<tr><td>Nitinol</td><td>6,5</td><td>≥ 48</td><td>690 à 1380</td><td>13 à 40</td><td>stents, agrafes, plaques à mémoire de forme, guides</td></tr>
+<tr><td>Co-Cr-Mo</td><td>8,3</td><td>230</td><td>655 à 1277</td><td>10 à 30</td><td>plaques de fracture, valves cardiaques, composants articulaires, vis, coulées dentaires</td></tr>
+<tr><td>Inox 316L</td><td>7,9</td><td>200</td><td>490 à 1350</td><td>5 à 40</td><td>plaques de fracture, broches, sutures, fils, prothèses articulaires totales</td></tr>
+<tr><td>Tantale</td><td>16,6</td><td>190</td><td>285 à 650</td><td>5 à 30</td><td>fils de suture, clips de ligature, agrafes, feuilles et plaques</td></tr>
+</table></div>
+<p>Sur le graphique du cours, l'os est vers 20 GPa, le ciment encore plus bas ; les alliages de titane β sans vanadium (Ti-13Nb-13Zr, Ti-35Nb-5Ta-7Zr...) descendent entre 50 et 80 GPa ; le Co-Cr-Mo est le plus rigide. Limites élastiques : titane et alliages d'environ 500 à 1000 MPa, CoCr d'environ 300 à 700 MPa, inox 316L d'environ 200 à 700 MPa. Densités : Ti 4,5 ; 316L 7,9 ; CoCrMo 8,3 ; CoNiCrMo 9,2 ; NiTi 6,7.</p>
+
+<h5>Couples de frottement (d'après S. Terver, CHU de Clermont-Ferrand)</h5>
+<div class="tableau"><table>
+<tr><th>Couple</th><th>coefficient de frottement</th><th>pénétration</th><th>usure</th></tr>
+<tr><td>CoCr / PEhd</td><td>0,03 à 0,05</td><td>0,15 mm/an</td><td>20 mg/an (20 à 40 millions de particules &lt; 10 µm)</td></tr>
+<tr><td>inox / PEhd</td><td>0,04 à 0,06</td><td>0,15 mm/an</td><td>selon préparation</td></tr>
+<tr><td>alumine / PEhd</td><td>0,01 à 0,04</td><td>0,1 mm/an</td><td>30 mg/an</td></tr>
+<tr><td>zircone / PEhd</td><td>0,01 à 0,04</td><td>0,05 mm/an</td><td>&lt; 10 mg/an</td></tr>
+<tr><td>alumine / alumine</td><td>0,04 à 0,1</td><td>non mesurable</td><td>0,5 à 1 mm³/an</td></tr>
+<tr><td>métal / métal</td><td>0,02 à 0,04</td><td>non mesurable</td><td>1 à 2 mm³ par million de cycles</td></tr>
+</table></div>
+<p>Aucun consensus sur le choix du couple : les États-Unis utilisent dans 62 % des cas un PE très hautement réticulé, associé dans 87 % des cas à une tête métallique ; la France associe dans 65 % des cas un PE conventionnel et dans 52 % des cas une tête céramique ; en Corée, 70 % des poses sont céramique-céramique.</p>
+
+<h5>Revêtement et finition de surface</h5>
+<p>La surface joue un rôle majeur dans la réponse biologique. Une surface métallique n'a pas de fonction qui favorise la bioactivité, et sa composition diffère de celle de la masse. Les métaux ont une énergie de surface élevée : des matières organiques s'y adsorbent facilement, d'où une couche oxydée et contaminée. D'où les modifications de surface :</p>
+<div class="tableau"><table>
+<tr><th>Traitement</th><th>Exemples</th><th>But</th></tr>
+<tr><td>finition mécanique</td><td>polissage, meulage, sablage</td><td>nettoyer, dépolir pour améliorer l'adhérence</td></tr>
+<tr><td>finition chimique</td><td>traitement alcalin, acide ou au peroxyde d'hydrogène, oxydation anodique</td><td>éliminer calamines et oxydes, résistance à la corrosion, biocompatibilité, bioactivité</td></tr>
+<tr><td>finition physique</td><td>dépôt physique en phase vapeur, implantation et dépôt d'ions</td><td>changer la composition de surface, usure et corrosion</td></tr>
+<tr><td>revêtement physique</td><td>flamme ou projection plasma</td><td>usure, corrosion, propriétés biologiques</td></tr>
+<tr><td>enrobage chimique</td><td>silanisation, photochimie</td><td>immobiliser polymères bioactifs, peptides, protéines, facteurs de croissance</td></tr>
+</table></div>
+
+<h4>Exemple</h4>
+<p>Exemple ajouté. Une tige de 40 cm³ pèse \(4{,}4 \times 40 = 176\) g en Ti-6Al-4V, \(7{,}9 \times 40 = 316\) g en 316L et \(8{,}3 \times 40 = 332\) g en Co-Cr-Mo. Contre une tête en zircone, un insert en PEhd est pénétré de \(0{,}05 \times 10 = 0{,}5\) mm en 10 ans ; contre une tête CoCr, de \(0{,}15 \times 10 = 1{,}5\) mm.</p>
+
+<h4>Formules clés</h4>
+<p>Modules : os 20 ; Nitinol ≥ 48 ; Ti 100 à 110 ; tantale 190 ; 316L 200 ; Co-Cr-Mo 230 GPa.</p>
+<p>Densités : Ti 4,4 à 4,5 ; NiTi 6,5 à 6,7 ; 316L 7,9 ; CoCrMo 8,3 ; tantale 16,6 g/cm³.</p>
+<p>Pénétration du PEhd : CoCr et inox 0,15 ; alumine 0,1 ; zircone 0,05 mm/an.</p>
+<p>Surfaces : finitions mécanique, chimique, physique ; revêtement physique (plasma) ; enrobage chimique (molécules bioactives).</p>
+</article>
+
+<div class="fin-partie" data-section="comparer-metaux"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/classes-biomateriaux.js"></script>
+<script src="../figures/aciers-inox.js"></script>
+<script src="../figures/cobalt-chrome.js"></script>
+<script src="../figures/titane.js"></script>
+<script src="../figures/nitinol-tantale.js"></script>
+<script src="../figures/comparer-metaux.js"></script>
+</body>
+</html>

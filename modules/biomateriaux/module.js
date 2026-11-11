@@ -11,19 +11,30 @@ PLATEFORME.parcours("biomateriaux", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1 à 7" },
-      { sousModule: "biomateriaux", titre: "TD 1, exercices 1.1 à 1.6", couvre: "repris dans les exercices des chapitres" }
+      { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1, 4, 7, 9, 10, 11 et 12" },
+      { sousModule: "biomateriaux", titre: "TD 1 : Applications Matériaux Polymères/Plastiques (applications 1.1 à 1.6)", couvre: "espace TD, TD 1 (l'application 1.6 est rayée)" },
+      { sousModule: "biomateriaux", titre: "Solution TD1 (avec le devoir n° 1)", couvre: "corrigé du TD 1" },
+      { sousModule: "biomateriaux", titre: "Cours : Historique et Applications", couvre: "chapitre 2" },
+      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux", couvre: "chapitre 5" },
+      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux, Céramiques et Polymères", couvre: "chapitres 6 et 8" },
+      { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 12 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
     ]
   },
+  // Ordre d'affichage : celui de ce tableau ; numero : le numéro affiché (les id restent ceux des pages chapitre-<id>.html).
   chapitres: [
-    { id: 0, titre: "Les bases", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut avant les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
-    { id: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
-    { id: 2, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", ligne: "Liaisons, métaux, céramiques, polymères", sousModule: "biomateriaux" },
-    { id: 3, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", ligne: "Masse moléculaire, Tg, cristallinité", sousModule: "biomateriaux" },
-    { id: 4, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
-    { id: 5, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
-    { id: 6, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
-    { id: 7, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" }
+    { id: 1, numero: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
+    { id: 8, numero: 2, titre: "Histoire, exigences et applications", sous: "Des Égyptiens au titane, ce qu'on exige d'un biomatériau, comment on le choisit, où on l'utilise", ligne: "Historique, exigences, choix, domaines d'application", sousModule: "biomateriaux" },
+    { id: 0, numero: 3, titre: "Les bases de mécanique", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut pour comparer les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
+    { id: 2, numero: 4, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", ligne: "Liaisons, métaux, céramiques, polymères", sousModule: "biomateriaux" },
+    { id: 9, numero: 5, titre: "Les biomatériaux métalliques", sous: "Classes de biomatériaux, aciers 316L, cobalt-chrome, titane, NiTi, tantale", ligne: "Inox 316L, cobalt-chrome, titane, NiTi, tantale", sousModule: "biomateriaux" },
+    { id: 10, numero: 6, titre: "Les biocéramiques", sous: "Bio-inertes et résorbables : alumine, zircone, carbone pyrolytique, phosphates de calcium", ligne: "Alumine, zircone, carbone pyrolytique, hydroxyapatite", sousModule: "biomateriaux" },
+    { id: 3, numero: 7, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", ligne: "Masse moléculaire, Tg, cristallinité", sousModule: "biomateriaux" },
+    { id: 11, numero: 8, titre: "Polymères biomédicaux et matériaux naturels", sous: "Viscoélasticité, polymères des dispositifs médicaux, collagène et autres matériaux naturels", ligne: "Viscoélasticité, PEEK, UHMWPE, silicone, collagène", sousModule: "biomateriaux" },
+    { id: 4, numero: 9, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
+    { id: 5, numero: 10, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
+    { id: 6, numero: 11, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
+    { id: 7, numero: 12, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" },
+    { id: 12, td: true, numero: "TD 1", titre: "TD 1 : applications matériaux polymères", sous: "Tg, Tf et taux de cristallinité, adjuvants du PVC, devoir 1", ligne: "Tg, Tf, cristallinité, adjuvants, devoir 1", sousModule: "biomateriaux" }
   ],
   niveaux: [
     { id: "contrainte-deformation", chapitre: 0, titre: "Contrainte et déformation", cours: true, pret: true },
@@ -90,7 +101,42 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "compression", chapitre: 7, titre: "Compression et compression-transfert", cours: true, pret: true },
     { id: "choisir-procede", chapitre: 7, titre: "Choisir le procédé", cours: true, pret: true },
     { id: "revision-procedes", chapitre: 7, titre: "Révision : les procédés", revision: true, pret: true },
-    { id: "boss-procedes", chapitre: 7, titre: "L'atelier du dispositif médical", boss: true, pret: true }
+    { id: "boss-procedes", chapitre: 7, titre: "L'atelier du dispositif médical", boss: true, pret: true },
+
+    { id: "historique", chapitre: 8, titre: "Des Égyptiens au titane", cours: true, pret: true },
+    { id: "exigences", chapitre: 8, titre: "Ce qu'on exige d'un biomatériau", cours: true, pret: true },
+    { id: "choisir-valider", chapitre: 8, titre: "Du calcul au patient", cours: true, pret: true },
+    { id: "domaines-application", chapitre: 8, titre: "Les biomatériaux dans le corps", cours: true, pret: true },
+    { id: "revision-histoire", chapitre: 8, titre: "Révision : histoire, exigences, applications", revision: true, pret: true },
+    { id: "boss-histoire", chapitre: 8, titre: "Le dossier de la nouvelle cupule", boss: true, pret: true },
+
+    { id: "classes-biomateriaux", chapitre: 9, titre: "Classes et métaux implantables", cours: true, pret: true },
+    { id: "aciers-inox", chapitre: 9, titre: "Les aciers inoxydables", cours: true, pret: true },
+    { id: "cobalt-chrome", chapitre: 9, titre: "Les alliages cobalt-chrome", cours: true, pret: true },
+    { id: "titane", chapitre: 9, titre: "Le titane et ses alliages", cours: true, pret: true },
+    { id: "nitinol-tantale", chapitre: 9, titre: "Mémoire de forme et tantale", cours: true, pret: true },
+    { id: "comparer-metaux", chapitre: 9, titre: "Les métaux côte à côte", cours: true, pret: true },
+    { id: "revision-metalliques", chapitre: 9, titre: "Révision : les métaux d'implant", revision: true, pret: true },
+    { id: "boss-metalliques", chapitre: 9, titre: "La hanche tout métal", boss: true, pret: true },
+
+    { id: "bioceramiques", chapitre: 10, titre: "Inertes ou résorbables", cours: true, pret: true },
+    { id: "alumine-zircone", chapitre: 10, titre: "Alumine et zircone", cours: true, pret: true },
+    { id: "carbone-pyrolytique", chapitre: 10, titre: "Le carbone pyrolytique", cours: true, pret: true },
+    { id: "ceramiques-resorbables", chapitre: 10, titre: "Le faux os qui disparaît", cours: true, pret: true },
+    { id: "revision-bioceramiques", chapitre: 10, titre: "Révision : les biocéramiques", revision: true, pret: true },
+    { id: "boss-bioceramiques", chapitre: 10, titre: "L'atelier céramique", boss: true, pret: true },
+
+    { id: "viscoelasticite", chapitre: 11, titre: "Ressort et amortisseur", cours: true, pret: true },
+    { id: "polymeres-medicaux", chapitre: 11, titre: "Le bon polymère médical", cours: true, pret: true },
+    { id: "biomateriaux-naturels", chapitre: 11, titre: "Collagène, chitine, corail", cours: true, pret: true },
+    { id: "revision-polymeres-medicaux", chapitre: 11, titre: "Révision : polymères et matériaux naturels", revision: true, pret: true },
+    { id: "boss-polymeres-medicaux", chapitre: 11, titre: "Le genou artificiel", boss: true, pret: true },
+
+    { id: "td1", chapitre: 12, titre: "Application 1.1 : la plaque semi-cristalline", cours: true, pret: true },
+    { id: "td1-vrai-faux", chapitre: 12, titre: "Application 1.2 : vrai ou faux", pret: true },
+    { id: "td1-polyethylene", chapitre: 12, titre: "Applications 1.3 et 1.4 : très cristallin", pret: true },
+    { id: "td1-pvc", chapitre: 12, titre: "Application 1.5 : les adjuvants du PVC", pret: true },
+    { id: "td1-devoir", chapitre: 12, titre: "Devoir 1 : polymères possibles et nylon", pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -119,7 +165,25 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "orientation", chapitre: 6, titre: "Orientation des fibres", notions: ["orientation-fibres"] },
     { id: "extrusion-injection", chapitre: 7, titre: "Extrusion et injection", notions: ["extrusion", "injection"] },
     { id: "soufflage-moulage", chapitre: 7, titre: "Soufflage, rotomoulage et thermoformage", notions: ["soufflage", "rotomoulage-thermoformage"] },
-    { id: "compression-choix", chapitre: 7, titre: "Compression et choix du procédé", notions: ["compression", "choisir-procede"] }
+    { id: "compression-choix", chapitre: 7, titre: "Compression et choix du procédé", notions: ["compression", "choisir-procede"] },
+    { id: "historique", chapitre: 8, titre: "Historique des biomatériaux", notions: ["historique"] },
+    { id: "exigences", chapitre: 8, titre: "Exigences pour un biomatériau", notions: ["exigences"] },
+    { id: "choisir-valider", chapitre: 8, titre: "Choisir et valider", notions: ["choisir-valider"] },
+    { id: "domaines-application", chapitre: 8, titre: "Domaines d'application", notions: ["domaines-application"] },
+    { id: "classes-metaux", chapitre: 9, titre: "Classes de biomatériaux et métaux implantables", notions: ["classes-biomateriaux"] },
+    { id: "aciers-inox", chapitre: 9, titre: "Les aciers inoxydables", notions: ["aciers-inox"] },
+    { id: "cobalt-titane", chapitre: 9, titre: "Cobalt-chrome et titane", notions: ["cobalt-chrome", "titane"] },
+    { id: "nitinol-tantale", chapitre: 9, titre: "NiTi à mémoire de forme et tantale", notions: ["nitinol-tantale"] },
+    { id: "comparer-metaux", chapitre: 9, titre: "Étude comparative et surfaces", notions: ["comparer-metaux"] },
+    { id: "bioceramiques", chapitre: 10, titre: "Les biocéramiques : inertes ou résorbables", notions: ["bioceramiques"] },
+    { id: "alumine-zircone", chapitre: 10, titre: "Alumine et zircone", notions: ["alumine-zircone"] },
+    { id: "carbone-pyrolytique", chapitre: 10, titre: "Le carbone pyrolytique", notions: ["carbone-pyrolytique"] },
+    { id: "ceramiques-resorbables", chapitre: 10, titre: "Les céramiques résorbables", notions: ["ceramiques-resorbables"] },
+    { id: "viscoelasticite", chapitre: 11, titre: "La viscoélasticité", notions: ["viscoelasticite"] },
+    { id: "polymeres-medicaux", chapitre: 11, titre: "Les polymères des dispositifs médicaux", notions: ["polymeres-medicaux"] },
+    { id: "biomateriaux-naturels", chapitre: 11, titre: "Les biomatériaux naturels", notions: ["biomateriaux-naturels"] },
+    { id: "td1", chapitre: 12, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
+    { id: "td1-corrige", chapitre: 12, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
   ],
   cours: [
     { chapitre: 0, id: "contrainte-deformation", titre: "Contrainte, déformation et module" },
@@ -163,6 +227,25 @@ PLATEFORME.parcours("biomateriaux", {
     { chapitre: 7, id: "soufflage", titre: "Injection-soufflage et extrusion-soufflage" },
     { chapitre: 7, id: "rotomoulage-thermoformage", titre: "Rotomoulage et thermoformage" },
     { chapitre: 7, id: "compression", titre: "Compression et compression-transfert" },
-    { chapitre: 7, id: "choisir-procede", titre: "Choisir le procédé" }
+    { chapitre: 7, id: "choisir-procede", titre: "Choisir le procédé" },
+    { chapitre: 8, id: "historique", titre: "Historique des biomatériaux" },
+    { chapitre: 8, id: "exigences", titre: "Exigences pour un biomatériau" },
+    { chapitre: 8, id: "choisir-valider", titre: "Choisir et valider un biomatériau" },
+    { chapitre: 8, id: "domaines-application", titre: "Domaines d'application" },
+    { chapitre: 9, id: "classes-biomateriaux", titre: "Classes de biomatériaux et métaux implantables" },
+    { chapitre: 9, id: "aciers-inox", titre: "Les aciers inoxydables" },
+    { chapitre: 9, id: "cobalt-chrome", titre: "Les alliages cobalt-chrome" },
+    { chapitre: 9, id: "titane", titre: "Le titane et ses alliages" },
+    { chapitre: 9, id: "nitinol-tantale", titre: "NiTi à mémoire de forme et tantale" },
+    { chapitre: 9, id: "comparer-metaux", titre: "Étude comparative et surfaces" },
+    { chapitre: 10, id: "bioceramiques", titre: "Les biocéramiques : inertes ou résorbables" },
+    { chapitre: 10, id: "alumine-zircone", titre: "Alumine et zircone" },
+    { chapitre: 10, id: "carbone-pyrolytique", titre: "Le carbone pyrolytique" },
+    { chapitre: 10, id: "ceramiques-resorbables", titre: "Les céramiques résorbables" },
+    { chapitre: 11, id: "viscoelasticite", titre: "Polymères biomédicaux : la viscoélasticité" },
+    { chapitre: 11, id: "polymeres-medicaux", titre: "Les polymères des dispositifs médicaux" },
+    { chapitre: 11, id: "biomateriaux-naturels", titre: "Les biomatériaux naturels" },
+    { chapitre: 12, id: "td1", titre: "TD 1 : les réponses dans le cours" },
+    { chapitre: 12, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
   ]
 });

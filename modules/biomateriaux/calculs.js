@@ -133,6 +133,27 @@
     return d + " L" + z[0].toFixed(1) + " " + z[1].toFixed(1);
   }
 
+  /* ---------- Biomatériaux métalliques, céramiques, polymères (chapitres affichés 2, 4, 5, 7) ---------- */
+  // taux de survie (%) d'une série suivie : (n − échecs) / n × 100
+  function survie(n, echecs) { return (n - echecs) / n * 100; }
+  // modèle ajouté du stress-shielding : os et tige de même section, même allongement (ressorts en parallèle)
+  function partOs(Eos, Etige) { return Eos / (Eos + Etige); }
+  // lecture des courbes LTI Pyrolite du cours (densité en g/cm³) : module (GPa, axe gradué « MPa » sur la diapositive)
+  function pyroModule(d) { return 17 + (27.5 - 17) * (d - 1.42) / (1.85 - 1.42); }
+  // limite de rupture (MPa) : points lus sur la courbe, interpolés linéairement
+  var PYRO_R = [[1.3, 340], [1.45, 345], [1.5, 350], [1.6, 375], [1.7, 430], [1.8, 490], [1.9, 545]];
+  function pyroRupture(d) {
+    var P = PYRO_R;
+    if (d <= P[0][0]) return P[0][1];
+    for (var i = 1; i < P.length; i++) if (d <= P[i][0]) return P[i - 1][1] + (P[i][1] - P[i - 1][1]) * (d - P[i - 1][0]) / (P[i][0] - P[i - 1][0]);
+    return P[P.length - 1][1];
+  }
+  // viscoélasticité : ressort (loi de Hooke σ = E ε) et amortisseur (loi de Newton σ = η dε/dt)
+  function ressort(E, eps) { return E * eps; }
+  function amortisseur(eta, vitesse) { return eta * vitesse; }
+  // amortisseur sous contrainte constante : ε(t) = σ t / η
+  function fluageAmortisseur(sigma, eta, t) { return sigma * t / eta; }
+
   var BIO = {
     DEG: DEG, contrainte: contrainte, deformation: deformation, moduleElastique: moduleElastique, moduleCisaillement: moduleCisaillement, masseVolumique: masseVolumique,
     densiteSemiCristallin: densiteSemiCristallin, tauxCristallinite: tauxCristallinite, densiteCristalline: densiteCristalline,
@@ -140,7 +161,8 @@
     moduleLongitudinal: moduleLongitudinal, moduleTransversal: moduleTransversal, contraintesLongitudinales: contraintesLongitudinales,
     repartitionSousCharge: repartitionSousCharge, fractionFibres: fractionFibres, coefOrientation: coefOrientation, moduleOriente: moduleOriente,
     croissanceAnnuelle: croissanceAnnuelle, projection: projection, masseFil: masseFil, rapportForme: rapportForme, groupeRenfort: groupeRenfort,
-    logModule: logModule, zoneAmorphe: zoneAmorphe, hasard: hasard, chaine: chaine, cheminLisse: cheminLisse
+    logModule: logModule, zoneAmorphe: zoneAmorphe, hasard: hasard, chaine: chaine, cheminLisse: cheminLisse,
+    survie: survie, partOs: partOs, pyroModule: pyroModule, pyroRupture: pyroRupture, ressort: ressort, amortisseur: amortisseur, fluageAmortisseur: fluageAmortisseur
   };
   if (typeof module !== "undefined" && module.exports) module.exports = BIO;
   global.BIO = BIO;

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Polymères biomédicaux : la viscoélasticité · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Polymères biomédicaux : la viscoélasticité</h1>
+<p class="chapeau">Appuie sur un insert en polyéthylène : il s'enfonce un peu tout de suite, puis continue à s'enfoncer lentement si tu maintiens l'effort. Un polymère est à la fois un peu ressort et un peu pâte. Comment décrire ce double comportement ?</p>
+
+<h2>Le chapitre en bref</h2>
+<p>Le chapitre 7 a décrit la structure des polymères (macromolécules, masse moléculaire, Tg, cristallinité). Celui-ci regarde ceux qu'on implante et ceux qu'on tire du vivant :</p>
+<ul>
+<li>La viscoélasticité (cette page) : ressort, amortisseur, et pourquoi les polymères sont les deux à la fois.</li>
+<li>Les polymères des dispositifs médicaux : UHMWPE, PEEK, PC, PEI, PSU, silicone, PTFE..., leurs applications et leurs problèmes.</li>
+<li>Les biomatériaux naturels : collagène, chitine, fucanes, cellulose, corail.</li>
+</ul>
+
+<h2>Intuition</h2>
+<p>Un ressort répond tout de suite : tu tires, il s'allonge ; tu lâches, il revient. Un amortisseur (un piston dans de l'huile) répond avec le temps : plus tu pousses vite, plus il résiste ; si tu maintiens l'effort, il continue d'avancer. Les chaînes d'un polymère font les deux : elles se déforment comme des ressorts, et glissent les unes sur les autres comme un liquide visqueux. Selon la température et la vitesse, l'un ou l'autre domine.</p>
+<div id="fig-modeles"></div>
+
+<h2>Formalisation</h2>
+<p>Un <strong>polymère</strong> est un matériau formé par un ensemble de macromolécules de même nature chimique, issu de l'enchaînement covalent d'un grand nombre de motifs (unités) monomères identiques ou différents. Les biomatériaux polymériques sont des polymères organiques (chaînes de carbone et d'hydrogène). L'enchaînement peut être linéaire (polymères linéaires), présenter des ramifications aléatoires (polymères branchés) ou systématiques et régulières (dendrimères). Les polyoléfines, surtout le polyéthylène (PE) et le polypropylène (PP), forment la plus importante famille de polymères.</p>
+<p>Avantages des biomatériaux polymériques sur les métalliques et les céramiques : simplicité de fabrication, coût raisonnable, possibilité d'adapter les propriétés mécaniques et physiques.</p>
+
+<h3>Trois comportements mécaniques</h3>
+<div class="tableau"><table>
+<tr><th>Comportement</th><th>Ce qui se passe</th></tr>
+<tr><td>élastique</td><td>après une déformation sous sollicitation, il reprend instantanément sa forme dès que celle-ci cesse</td></tr>
+<tr><td>plastique</td><td>il se déforme de façon permanente, même si les sollicitations cessent</td></tr>
+<tr><td>visqueux</td><td>les déformations varient en fonction du temps, même si les sollicitations restent constantes</td></tr>
+</table></div>
+<p>Les polymères ont un comportement <strong>viscoélastique</strong> : ils montrent simultanément des propriétés élastiques et un caractère visqueux.</p>
+<ul>
+<li>Comportement élastique dominant aux basses températures (état vitreux) ou aux vitesses de sollicitation élevées, avec un module \(E\) et la loi de Hooke.</li>
+<li>Comportement visqueux prépondérant aux températures élevées (état fluide) ou aux vitesses très lentes : la contrainte est liée à la vitesse de déformation. Cela concerne surtout les polymères non réticulés chimiquement, pour que l'écoulement puisse avoir lieu.</li>
+</ul>
+
+<h3>Deux modèles élémentaires</h3>
+<p><strong>Le ressort</strong> (solide élastique) : \(F = K\,(L - L_0) = K\,X\). En divisant par la section \(A\) et en rapportant l'allongement à la longueur : loi de Hooke,</p>
+<p>\[\sigma = E\,\varepsilon\]</p>
+<p><strong>L'amortisseur</strong> (comportement visqueux) : la force est proportionnelle à la vitesse de déplacement, \(F = K\,\dfrac{dX}{dt}\). En contraintes : loi de Newton,</p>
+<p>\[\sigma = \eta\,\frac{d\varepsilon}{dt}\]</p>
+<p>où \(\eta\) est la viscosité. Sous une contrainte constante \(\sigma\), l'amortisseur se déforme à vitesse constante : \(\varepsilon(t) = \sigma\,t / \eta\).</p>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Un polymère de module \(E = 2\) GPa, sollicité à basse température (comportement élastique), déformé de \(\varepsilon = 0{,}005\) : \(\sigma = 2000 \times 0{,}005 = 10\) MPa. À haute température, modélisé par un amortisseur de viscosité \(\eta = 500\) MPa·s sous \(\sigma = 1\) MPa constant : la vitesse de déformation vaut \(1/500 = 0{,}002\) s⁻¹, et après 60 s, \(\varepsilon = 0{,}002 \times 60 = 0{,}12\).</p>
+
+<h2>Formules clés</h2>
+<p>Polymère : macromolécules issues de l'enchaînement covalent de monomères ; linéaire, branché ou dendrimère.</p>
+<p>Élastique : revient tout de suite. Plastique : déformation permanente. Visqueux : déformation qui évolue avec le temps sous charge constante.</p>
+<p>\[\text{ressort (Hooke)} : \sigma = E\,\varepsilon \qquad \text{amortisseur (Newton)} : \sigma = \eta\,\frac{d\varepsilon}{dt}\]</p>
+<p>Basse température ou sollicitation rapide : élastique domine. Haute température ou sollicitation lente : visqueux domine.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/viscoelasticite.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les polymères des dispositifs médicaux · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les polymères des dispositifs médicaux</h1>
+<p class="chapeau">Un cotyle de hanche, une poignée d'instrument passée mille fois à l'autoclave, un boîtier où l'on doit voir circuler le sang, une prothèse mammaire : tous en polymère, mais jamais le même. Comment choisir le bon ?</p>
+
+<h2>Intuition</h2>
+<p>On part de l'usage. Faut-il voir à travers ? Passer à l'autoclave encore et encore ? Frotter sans s'user ? Être visible aux rayons X ? Rester souple ? Chaque polymère du cours répond à quelques-unes de ces questions, et c'est son profil qui décide de sa place.</p>
+<div id="fig-fiches"></div>
+
+<h2>Formalisation</h2>
+<h3>Ce qu'on exige d'un polymère médical</h3>
+<p>Les fabricants de dispositifs médicaux doivent respecter la norme <strong>ISO 10993</strong> (près de 20 parties, dont quatre sur la sélection des matières ; la partie 10993-13 est la plus pertinente pour les polymères). Les polymères choisis doivent : résister à la corrosion, aux attaques chimiques et aux températures élevées ; être non absorbants et inertes ; résister à des cycles de stérilisation répétés en autoclave ; ne pas réagir avec les fluides corporels et les tissus ; ne pas provoquer d'irritation ou de sensibilité cutanée.</p>
+
+<h3>Le polyéthylène et l'UHMWPE</h3>
+<p>Le polyéthylène (PE) est une paraffine (hydrocarbure saturé à chaîne droite, \(\mathrm{C_nH_{2n+2}}\)) inerte et biocompatible. Il se caractérise par sa masse moléculaire (motif de 28 g/mol, répété \(n\) fois : \(M = 28 \times n\)) et sa cristallinité (50 % en moyenne, proportionnelle à la densité) ; masse moléculaire et cristallinité donnent les propriétés mécaniques. Le PE de très haute masse moléculaire, <strong>UHMWPE</strong> : un poids moléculaire élevé donne la résistance à la friction et peu d'oxydation ; une densité élevée, une meilleure résistance aux chocs et au cisaillement. Dense, au plus faible coefficient de frottement de la famille des PE, résistant à l'usure, aux chocs, à l'abrasion, éminemment biocompatible : c'est le polymère à retenir pour les implants orthopédiques (genou, hanche). Dans les prothèses totales de hanche, le PE est réservé au versant cotyloïdien.</p>
+
+<h3>Les polymères techniques</h3>
+<div class="tableau"><table>
+<tr><th>Polymère</th><th>Profil</th><th>Applications</th></tr>
+<tr><td>PC (polycarbonate)</td><td>optiquement transparent, robuste, stable, résiste à la chaleur, aux produits chimiques et de stérilisation ; pas à l'intérieur du corps</td><td>voir le sang, les médicaments et les fluides qui circulent dans un appareil</td></tr>
+<tr><td>PEEK (polyétheréthercétone)</td><td>léger et solide, radio-opaque (visible aux rayons X), stable à haute température, biocompatible et stérilisable, longtemps présent dans le corps ; usinable, injectable</td><td>réparation de traumatismes, implants rachidiens, articulations de remplacement, couronnes et bridges amovibles</td></tr>
+<tr><td>PEI (polyétherimide, Ultem)</td><td>rigide, semi-transparent ambré, résiste à 180 °C, grande résistance à la traction, diélectrique, résiste à la flamme ; stérilisable à l'autoclave et aux rayons gamma</td><td>poignées d'instruments chirurgicaux, boîtiers d'appareils, isolateurs, connecteurs électriques</td></tr>
+<tr><td>PSU (polysulfone)</td><td>ambré, robuste et rigide à chaud, moins solide que le PEI mais plus résistant aux chocs ; un des rares polymères à supporter plus de 1000 cycles de stérilisation à la vapeur</td><td>boîtiers de filtres, orifices de cathéters, plateaux d'instruments, calibreurs pour valves cardiaques</td></tr>
+<tr><td>silicone</td><td>de souple à rigide ; de −55 °C à 210 °C ; hydrophobe ; résiste aux solvants et aux acides ; perméable à la vapeur ; existe en version optique (OSLR) et liquide (LSR)</td><td>prothèses dentaires, lentilles, nombreux composants moulés ou imprimés en 3D</td></tr>
+</table></div>
+<p>Autres : le <strong>PTFE</strong> (Téflon), superlubrifiant, des cathéters aux stents et aux machines cœur-poumon ; l'ABS, résistant aux chocs et aux produits chimiques, qui remplace des pièces structurelles métalliques ; l'acétal (Delrin) ; le PVC, version flexible du PC dans certains usages ; le PET, résistant aux micro-organismes ; le PP, plastique de base des flacons, récipients et seringues jetables (excellent pour les charnières intégrées).</p>
+
+<h3>Applications des polymères implantés</h3>
+<div class="tableau"><table>
+<tr><th>Polymère</th><th>Applications</th></tr>
+<tr><td>polytétrafluoroéthylène (PTFE)</td><td>implants vasculaires, chirurgie faciale</td></tr>
+<tr><td>polyuréthane</td><td>urologie, implants mammaires, valves cardiaques, pacemaker (isolant)</td></tr>
+<tr><td>silicone</td><td>implants mammaires, urologie, implants testiculaires, pacemaker (isolant), chirurgie faciale, chirurgie de la main</td></tr>
+<tr><td>polyéthylène</td><td>sutures, implants vasculaires</td></tr>
+<tr><td>Dacron</td><td>implants vasculaires, ligaments, chirurgie du tube digestif</td></tr>
+<tr><td>polyméthacrylate de méthyle (PMMA)</td><td>lentilles intraoculaires, ciment orthopédique</td></tr>
+<tr><td>polyester</td><td>sutures, implants vasculaires</td></tr>
+<tr><td>polypropylène</td><td>sutures, ligaments</td></tr>
+<tr><td>polyamide</td><td>sutures</td></tr>
+<tr><td>acides polylactiques et polyglycoliques</td><td>sutures, implants biodégradables, supports de médicaments implantables</td></tr>
+</table></div>
+<p>Exemples de prothèses : tige en titane, tête fémorale en céramique et cotyle en polyéthylène ; bouclier fémoral en CoCr qui glisse sur un plateau tibial en polyéthylène. On trouve aussi souvent les polymères dans les implants qui remplacent les tissus mous.</p>
+
+<h3>Problèmes mal résolus</h3>
+<p>Pour les polymères non résorbables : instabilité au rayonnement gamma (stérilisation) ; réactivité à certains médicaments ; variabilité d'un lot à l'autre ; stabilité hydrolytique ; calcification ; risques liés aux additifs, aux composants de bas poids moléculaire, aux produits de dégradation in vivo et aux résidus de stérilisation ; manque de bases de données et de standards.</p>
+
+<figure class="photo duo"><img src="../images/hanche-pe.jpg" alt="Tige en titane, tête fémorale en céramique et cotyle en polyéthylène"><img src="../images/genou-pe.jpg" alt="Bouclier fémoral en CoCr glissant sur un plateau tibial en polyéthylène"><figcaption>Le polyéthylène dans deux prothèses : le cotyle d'une hanche, le plateau tibial d'un genou.<small>Photos du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté. Une chaîne de polyéthylène de \(n = 50\,000\) motifs a une masse moléculaire \(M = 28 \times 50\,000 = 1{,}4 \cdot 10^6\) g/mol. Un plateau d'instruments stérilisé deux fois par jour, 300 jours par an, subit 600 cycles par an : en PSU (plus de 1000 cycles), il tient plus d'un an et demi ; \(1000 / 600 \approx 1{,}7\) an au minimum.</p>
+
+<h2>Formules clés</h2>
+<p>ISO 10993 (10993-13 pour les polymères) : inertes, non absorbants, stérilisables à répétition, sans réaction avec les tissus.</p>
+<p>\[M_{PE} = 28 \times n \ \ \text{g/mol}\]</p>
+<p>UHMWPE : frottement faible, usure, chocs ; cotyles et plateaux tibiaux. PEEK : radio-opaque, rachis. PC : transparent, hors du corps. PEI : 180 °C, poignées. PSU : plus de 1000 cycles de vapeur. Silicone : −55 à 210 °C, souple, implants mammaires. PTFE : superlubrifiant, vasculaire. PMMA : lentilles, ciment. PLA/PGA : biodégradables.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../calculs.js"></script>
+<script src="../figures/polymeres-medicaux.js"></script>
+</body>
+</html>
