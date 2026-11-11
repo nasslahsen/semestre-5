@@ -15,7 +15,6 @@
 </head>
 <body class="page-arbre">
 <header id="barre"></header>
-<div class="arbre-haut"><nav class="onglets" id="onglets" aria-label="Cours, TD ou arbre"></nav></div>
 <div class="arbre-dessin"><svg id="arbre" viewBox="0 0 1120 640" role="img" aria-label="Arbre du module : parties, chapitres et notions"></svg></div>
 <div class="arbre-bande"><p class="txt" id="txt" aria-live="polite"></p><a class="btn-ouvrir" id="ouvrir" hidden>Ouvrir</a></div>
 <script src="../../commun/js/arbre.js"></script>
@@ -23,8 +22,7 @@
 (function () {
   var P = PLATEFORME, MID = "biomateriaux";
   var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm) });
-  document.getElementById("onglets").innerHTML = '<a href="' + P.urlPlan(MID, sm) + '">Cours</a><a href="' + P.urlPlan(MID, sm, "td") + '">TD</a><a href="arbre.html?sm=' + encodeURIComponent(sm) + '" aria-current="page">Arbre</a>';
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan(MID, sm), droite: '<a class="site-retour" href="chapitres/chapitre-13.html">Vue d\'ensemble</a>' });
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
   var txt = document.getElementById("txt"), ouvrir = document.getElementById("ouvrir");
   ARBRE.dessiner(document.getElementById("arbre"), { mid: MID, sm: sm, base: "", largeur: 1120, hauteur: 640, surChoix: function (i) {

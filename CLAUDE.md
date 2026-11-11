@@ -20,7 +20,7 @@ commun/                    système de design partagé (ne pas copier dans les m
   css/barre.css            barre du site (retour au semestre, nom du module vers sa carte, action à droite)
   css/tableau.css          tableau de bord
   js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
-  js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre » (onglet « Arbre » si le module en a un)
+  js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »
   js/arbre.js, css/arbre.css   arbre d'un module (parties, chapitres, notions qui ouvrent le cours), données `arbre` de module.js
   js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, un bloc « Jouer » par section, fin de chapitre
   js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
@@ -34,7 +34,7 @@ commun/                    système de design partagé (ne pas copier dans les m
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
-  arbre.html               l'arbre du module en plein écran (si `arbre` est décrit dans module.js)
+  arbre.html               l'arbre du module en plein écran, ouvert depuis la vue d'ensemble (chapitre 0)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
   niveaux/<niveau>.js      un fichier par niveau
