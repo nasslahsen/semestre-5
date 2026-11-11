@@ -3,7 +3,7 @@
  * ARBRE.dessiner(svg, { mid, sm, base, largeur, hauteur, surChoix }) : dessine dans un <svg> (viewBox largeur × hauteur).
  * base : chemin vers le dossier du module depuis la page (« » à la racine du module, « ../ » depuis cours/ ou chapitres/).
  * Toucher un chapitre l'allume et montre ses notions ; le toucher encore ouvre sa page ; toucher une notion ouvre son passage.
- * surChoix(info) : { titre, texte, url, libelle } pour la bande sous l'arbre (texte à retenir, bouton d'ouverture).
+ * surChoix(info) : { titre, texte, url, libelle, cartes } pour la bande sous l'arbre (à retenir, ouverture, cartes de révision).
  */
 (function () {
   "use strict";
@@ -36,9 +36,9 @@
     function etat(c) { try { return P.chapitre(o.mid, c.id).etat; } catch (e) { return ""; } }
     function informer() {
       if (!o.surChoix) return;
-      if (selC >= 0) { var c = CH[selC]; o.surChoix({ titre: (c.partie < 0 ? "" : P.nomChapitre(o.mid, c.id) + " · ") + c.court, texte: c.retenir, url: url(c), libelle: "Ouvrir le chapitre" }); }
+      if (selC >= 0) { var c = CH[selC]; o.surChoix({ titre: (c.partie < 0 ? "" : P.nomChapitre(o.mid, c.id) + " · ") + c.court, texte: c.retenir, url: url(c), libelle: "Ouvrir le chapitre", cartes: c.cartes || [] }); }
       else if (selP >= 0) o.surChoix({ titre: (selP + 1) + ". " + A.parties[selP].titre.join(" "), texte: A.parties[selP].question, url: null });
-      else o.surChoix({ titre: A.racine, texte: "Touche une partie ou un chapitre pour l'allumer, puis une notion pour l'ouvrir. Les chapitres faits sont en vert, le conseillé en bleu.", url: null });
+      else o.surChoix({ titre: A.racine, texte: "Tout le module sur une image. Touche un chapitre pour voir ce qu'il faut en retenir, puis une notion pour l'ouvrir. Faits en vert, conseillé en bleu.", url: null });
     }
     function dessin() {
       while (g.firstChild) g.removeChild(g.firstChild);

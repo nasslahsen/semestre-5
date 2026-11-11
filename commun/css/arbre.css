@@ -1,4 +1,4 @@
-/* Page « Arbre » d'un module : l'arbre seul, en plein écran, une bande en bas pour ce qu'il faut retenir. */
+/* Page « Vue d'ensemble » d'un module : l'arbre seul, en plein écran, une bande en bas pour ce qu'il faut retenir et les cartes de révision. */
 body.page-arbre { margin: 0; background: #fff; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; font-family: Inter, sans-serif; color: #15171f; }
 .arbre-dessin { flex: 1; min-height: 0; padding: 4px 16px; display: flex; justify-content: center; }
 .arbre-dessin svg { width: 100%; height: 100%; display: block; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
@@ -7,3 +7,5 @@ body.page-arbre { margin: 0; background: #fff; height: 100dvh; display: flex; fl
 .arbre-bande .txt b { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; margin-right: 6px; }
 .arbre-bande .btn-ouvrir { flex: none; display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border: 2px solid #15171f; border-radius: 14px; background: #15171f; color: #fff; font: 600 17px Inter, sans-serif; text-decoration: none; box-shadow: 3px 3px 0 var(--jeu, #D44C47); }
 .arbre-bande .btn-ouvrir[hidden] { display: none; }
+.arbre-bande .btn-second { flex: none; min-height: 52px; padding: 0 20px; border: 2px solid #15171f; border-radius: 14px; background: #fff; color: #15171f; font: 600 17px Inter, sans-serif; }
+.arbre-bande .btn-second[hidden] { display: none; }
