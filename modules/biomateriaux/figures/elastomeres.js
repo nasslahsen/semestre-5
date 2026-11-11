@@ -6,7 +6,7 @@
   /* ---------- Figure 1 : carte du chapitre 4 ---------- */
   (function () {
     var f = R.figure("fig-chapitre", {
-      largeur: 960, hauteur: 220, titre: "Les quatre pages du chapitre 8",
+      largeur: 960, hauteur: 220, titre: "Les quatre pages du chapitre 9",
       essai: "<strong>Essaie</strong> : touche une étape du chemin. <strong>Observe</strong> : chaque page répond à la question laissée par la précédente, du latex brut au caoutchouc prêt pour une application."
     });
     var g = R.el("g", null, f.svg), choisi = 0, zone = R.h("div", null, "", f.direct);

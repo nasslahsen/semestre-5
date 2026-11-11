@@ -11,29 +11,29 @@ PLATEFORME.parcours("biomateriaux", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1, 3, 6, 8, 9, 10 et 11" },
+      { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1, 4, 7, 9, 10, 11 et 12" },
       { sousModule: "biomateriaux", titre: "TD 1 : Applications Matériaux Polymères/Plastiques (applications 1.1 à 1.6)", couvre: "espace TD, TD 1 (l'application 1.6 est rayée)" },
       { sousModule: "biomateriaux", titre: "Solution TD1 (avec le devoir n° 1)", couvre: "corrigé du TD 1" },
       { sousModule: "biomateriaux", titre: "Cours : Historique et Applications", couvre: "chapitre 2" },
-      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux", couvre: "chapitre 4" },
-      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux, Céramiques et Polymères", couvre: "chapitres 5 et 7" },
-      { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 11 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
+      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux", couvre: "chapitre 5" },
+      { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux, Céramiques et Polymères", couvre: "chapitres 6 et 8" },
+      { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 12 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
     ]
   },
   // Ordre d'affichage : celui de ce tableau ; numero : le numéro affiché (les id restent ceux des pages chapitre-<id>.html).
   chapitres: [
-    { id: 0, numero: 0, titre: "Les bases", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut avant les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
     { id: 1, numero: 1, titre: "Biomatériaux et dispositifs médicaux", sous: "Définitions, classes de risque, vocabulaire, nouvelles générations, marché", ligne: "Définitions, classes de risque, vocabulaire, marché", sousModule: "biomateriaux" },
     { id: 8, numero: 2, titre: "Histoire, exigences et applications", sous: "Des Égyptiens au titane, ce qu'on exige d'un biomatériau, comment on le choisit, où on l'utilise", ligne: "Historique, exigences, choix, domaines d'application", sousModule: "biomateriaux" },
-    { id: 2, numero: 3, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", ligne: "Liaisons, métaux, céramiques, polymères", sousModule: "biomateriaux" },
-    { id: 9, numero: 4, titre: "Les biomatériaux métalliques", sous: "Classes de biomatériaux, aciers 316L, cobalt-chrome, titane, NiTi, tantale", ligne: "Inox 316L, cobalt-chrome, titane, NiTi, tantale", sousModule: "biomateriaux" },
-    { id: 10, numero: 5, titre: "Les biocéramiques", sous: "Bio-inertes et résorbables : alumine, zircone, carbone pyrolytique, phosphates de calcium", ligne: "Alumine, zircone, carbone pyrolytique, hydroxyapatite", sousModule: "biomateriaux" },
-    { id: 3, numero: 6, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", ligne: "Masse moléculaire, Tg, cristallinité", sousModule: "biomateriaux" },
-    { id: 11, numero: 7, titre: "Polymères biomédicaux et matériaux naturels", sous: "Viscoélasticité, polymères des dispositifs médicaux, collagène et autres matériaux naturels", ligne: "Viscoélasticité, PEEK, UHMWPE, silicone, collagène", sousModule: "biomateriaux" },
-    { id: 4, numero: 8, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
-    { id: 5, numero: 9, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
-    { id: 6, numero: 10, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
-    { id: 7, numero: 11, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" },
+    { id: 0, numero: 3, titre: "Les bases de mécanique", sous: "Contrainte, déformation, module, masse volumique : ce qu'il faut pour comparer les matériaux", ligne: "Contrainte, déformation, module, masse volumique", sousModule: "biomateriaux" },
+    { id: 2, numero: 4, titre: "Les familles de matériaux", sous: "Liaisons, métaux, céramiques, polymères organiques et composites", ligne: "Liaisons, métaux, céramiques, polymères", sousModule: "biomateriaux" },
+    { id: 9, numero: 5, titre: "Les biomatériaux métalliques", sous: "Classes de biomatériaux, aciers 316L, cobalt-chrome, titane, NiTi, tantale", ligne: "Inox 316L, cobalt-chrome, titane, NiTi, tantale", sousModule: "biomateriaux" },
+    { id: 10, numero: 6, titre: "Les biocéramiques", sous: "Bio-inertes et résorbables : alumine, zircone, carbone pyrolytique, phosphates de calcium", ligne: "Alumine, zircone, carbone pyrolytique, hydroxyapatite", sousModule: "biomateriaux" },
+    { id: 3, numero: 7, titre: "Structure et états des polymères", sous: "Macromolécules, masse moléculaire, Tg, cristallinité, histoire des plastiques", ligne: "Masse moléculaire, Tg, cristallinité", sousModule: "biomateriaux" },
+    { id: 11, numero: 8, titre: "Polymères biomédicaux et matériaux naturels", sous: "Viscoélasticité, polymères des dispositifs médicaux, collagène et autres matériaux naturels", ligne: "Viscoélasticité, PEEK, UHMWPE, silicone, collagène", sousModule: "biomateriaux" },
+    { id: 4, numero: 9, titre: "Élastomères et caoutchoucs", sous: "Caoutchouc naturel, élasticité caoutchoutique, vulcanisation, formulation", ligne: "Élasticité caoutchoutique, vulcanisation", sousModule: "biomateriaux" },
+    { id: 5, numero: 10, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
+    { id: 6, numero: 11, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
+    { id: 7, numero: 12, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" },
     { id: 12, td: true, numero: "TD 1", titre: "TD 1 : applications matériaux polymères", sous: "Tg, Tf et taux de cristallinité, adjuvants du PVC, devoir 1", ligne: "Tg, Tf, cristallinité, adjuvants, devoir 1", sousModule: "biomateriaux" }
   ],
   niveaux: [

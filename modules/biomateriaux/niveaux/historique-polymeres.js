@@ -61,7 +61,7 @@ NIVEAU({
       j.titre("1869 : les frères Hyatt inventent le celluloïd (nitration de la cellulose du bois, avec du camphre, à chaud). Quel besoin cherchaient-ils à combler ?");
       j.choix([
         { html: "Remplacer l'ivoire des boules de billard, sous embargo pendant la guerre de Sécession", juste: true },
-        { html: "Fabriquer des pneus", aide: "Les pneus viennent du caoutchouc (chapitre 8)." },
+        { html: "Fabriquer des pneus", aide: "Les pneus viennent du caoutchouc (chapitre 9)." },
         { html: "Isoler les câbles électriques", aide: "Pense à la matière rare qu'on voulait imiter à l'époque : une matière animale." }
       ], { colonnes: 1, ok: function () {
         j.bravo("Le premier plastique remplace l'ivoire.");

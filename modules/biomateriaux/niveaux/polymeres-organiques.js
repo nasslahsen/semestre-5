@@ -100,7 +100,7 @@ NIVEAU({
         { html: "conductivité thermique faible", aide: "Juste : un manche en plastique ne brûle pas les doigts." },
         { html: "conductivité électrique élevée", juste: true },
         { html: "résistent à la corrosion", aide: "C'est dans la liste du cours." },
-        { html: "faciles à mettre en forme", aide: "C'est même un de leurs gros avantages (chapitre 11)." }
+        { html: "faciles à mettre en forme", aide: "C'est même un de leurs gros avantages (chapitre 12)." }
       ], { colonnes: 2, ok: function () {
         j.bravo("Conductivité électrique presque nulle.");
         j.expliquer("<p>Pas d'électrons libres dans les liaisons covalentes : les polymères sont des isolants électriques. C'est pourquoi on gaine les câbles et les sondes avec des polymères.</p>");

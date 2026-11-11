@@ -103,7 +103,7 @@ NIVEAU({
         aide: "Le verre est une céramique, l'acier un métal, le caoutchouc un polymère, le béton un minéral.",
         ok: function () {
           j.bravo("Céramique-polymère, métal-polymère, céramique-métal.");
-          j.expliquer("<p>Fibre + matrice = composite. Le chapitre 10 en fait le calcul (loi des mélanges).</p>");
+          j.expliquer("<p>Fibre + matrice = composite. Le chapitre 11 en fait le calcul (loi des mélanges).</p>");
           j.suite();
         }
       });

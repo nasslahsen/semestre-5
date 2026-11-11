@@ -32,7 +32,7 @@
         if (ok) { F.p.forEach(function (t, k) { T(g, t, [x + 140, 180 + k * 30], { taille: 15, couleur: C.doux }); }); if (demandes.length) T(g, "convient", [x + 140, 290], { taille: 22, gras: true, couleur: C.y }); }
         else manque.slice(0, 3).forEach(function (m, k) { T(g, POURQUOI[m], [x + 140, 190 + k * 32], { taille: 15, couleur: C.x }); });
       });
-      zone.innerHTML = !demandes.length ? "Coche une ou plusieurs exigences." : restent.length ? "Famille(s) possible(s) : <strong>" + restent.join(", ") + "</strong>." : "Aucune famille seule ne convient : c'est le moment de penser à un <strong>composite</strong> (chapitre 10).";
+      zone.innerHTML = !demandes.length ? "Coche une ou plusieurs exigences." : restent.length ? "Famille(s) possible(s) : <strong>" + restent.join(", ") + "</strong>." : "Aucune famille seule ne convient : c'est le moment de penser à un <strong>composite</strong> (chapitre 11).";
     }
     dessin();
   })();
