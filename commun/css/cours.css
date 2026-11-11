@@ -183,6 +183,7 @@ figure.photo { margin: 20px 0 28px; }
 figure.photo img { display: block; max-width: 100%; max-height: min(60vh, 520px); margin: 0 auto; border-radius: 16px; border: 1.5px solid var(--trait); background: #fff; }
 figure.photo.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: end; }
 figure.photo.duo figcaption { grid-column: 1 / -1; }
+figure.photo.duo:has(img:nth-of-type(3)) { grid-template-columns: 1fr 1fr 1fr; }
 figure.photo figcaption { margin-top: 8px; color: var(--doux); font-size: 14px; text-align: center; }
 figure.photo figcaption small { display: block; font-size: 12.5px; margin-top: 2px; }
 .note-cours { margin-top: 40px; color: var(--doux); font-size: 15px; }
