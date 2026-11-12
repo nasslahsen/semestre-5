@@ -51,6 +51,61 @@
 
   P.boutonsCopier(main);
 
+  // Podcasts (audios de module.js) : un lecteur discret sous le titre du chapitre, ou en tête d'une section (a.section).
+  // Il reprend où l'on s'était arrêté ; vitesse et sauts de 15 s ; un seul joue à la fois. Facultatif, hors progression.
+  if (!integre) P.audios(MID, ch.id).forEach(function (a) {
+    var ICONES = {
+      lire: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+      pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+    };
+    var VITESSES = [1, 1.25, 1.5, 1.75, 2];
+    var b = document.createElement("div");
+    b.className = "ecouter"; b.id = "audio-" + a.id;
+    b.innerHTML = '<button type="button" class="btn-ecouter" aria-label="Écouter">' + ICONES.lire + "</button>" +
+      '<div class="ecouter-corps"><span class="ecouter-titre"><small>Podcast' + (a.duree ? " · " + esc(a.duree) : "") + "</small>" + esc(a.titre) + "</span>" +
+      '<div class="ecouter-ligne"><button type="button" class="saut" data-saut="-15" aria-label="Reculer de 15 secondes">−15</button>' +
+      '<input type="range" min="0" max="1" step="1" value="0" aria-label="Position"><button type="button" class="saut" data-saut="15" aria-label="Avancer de 15 secondes">+15</button>' +
+      '<span class="ecouter-temps">0:00</span><button type="button" class="vitesse" aria-label="Vitesse">1×</button></div></div>';
+    var son = new Audio(); son.preload = "metadata"; son.src = P.urlAudio(MID, a);
+    var bouton = b.querySelector(".btn-ecouter"), barre = b.querySelector("input"), temps = b.querySelector(".ecouter-temps"), vit = b.querySelector(".vitesse");
+    var etat = P.ecoute(MID, a.id), note = 0, glisse = false;
+    function mmss(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ":" + ("0" + s % 60).slice(-2); }
+    function maj() {
+      if (!glisse) barre.value = son.currentTime;
+      temps.textContent = son.duration ? mmss(son.currentTime) + " / " + mmss(son.duration) : mmss(son.currentTime);
+    }
+    function noter(fini) { P.noterEcoute(MID, a.id, fini ? 0 : son.currentTime, fini); b.classList.toggle("fait", P.ecoute(MID, a.id).fini); }
+    b.classList.toggle("fait", etat.fini);
+    if (etat.pos > 5) b.classList.add("lance");
+    son.addEventListener("loadedmetadata", function () {
+      barre.max = Math.floor(son.duration);
+      if (etat.pos > 5 && etat.pos < son.duration - 10) son.currentTime = etat.pos;
+      maj();
+    });
+    son.addEventListener("timeupdate", function () { maj(); if (Date.now() - note > 5000) { note = Date.now(); noter(false); } });
+    son.addEventListener("play", function () {
+      [].forEach.call(document.querySelectorAll(".ecouter.joue"), function (x) { if (x !== b && x.son) x.son.pause(); });
+      b.classList.add("joue", "lance"); bouton.innerHTML = ICONES.pause; bouton.setAttribute("aria-label", "Pause");
+      if ("mediaSession" in navigator && window.MediaMetadata) navigator.mediaSession.metadata = new MediaMetadata({ title: a.titre, artist: MOD.titre, album: ch.titre });
+    });
+    son.addEventListener("pause", function () { b.classList.remove("joue"); bouton.innerHTML = ICONES.lire; bouton.setAttribute("aria-label", "Écouter"); noter(false); });
+    son.addEventListener("ended", function () { noter(true); });
+    bouton.addEventListener("click", function () { if (son.paused) son.play(); else son.pause(); });
+    [].forEach.call(b.querySelectorAll(".saut"), function (s) {
+      s.addEventListener("click", function () { son.currentTime = Math.max(0, Math.min((son.duration || 0), son.currentTime + +s.dataset.saut)); maj(); });
+    });
+    barre.addEventListener("input", function () { glisse = true; temps.textContent = mmss(+barre.value) + (son.duration ? " / " + mmss(son.duration) : ""); });
+    barre.addEventListener("change", function () { son.currentTime = +barre.value; glisse = false; noter(false); });
+    vit.addEventListener("click", function () {
+      var v = VITESSES[(VITESSES.indexOf(son.playbackRate) + 1) % VITESSES.length];
+      son.playbackRate = v; vit.textContent = String(v).replace(".", ",") + "×";
+    });
+    b.son = son;
+    var partie = a.section && document.getElementById("s-" + a.section);
+    if (partie) partie.insertBefore(b, partie.querySelector("h2").nextSibling);
+    else { var h1 = main.querySelector("h1"); h1.parentNode.insertBefore(b, h1.nextSibling); }
+  });
+
   // Labs : chaque étape (<div class="etape-lab">) se coche quand on l'a faite ; une partie est faite quand toutes ses étapes le sont.
   if (ch.espace === "lab" && !integre) {
     parties.forEach(function (partie, k) {

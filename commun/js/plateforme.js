@@ -96,7 +96,20 @@
     noterDernier: function (mid, titre, chemin) {
       var e = etat(mid); e.dernier = { chemin: chemin || location.href.replace(racine, ""), titre: titre, quand: Date.now() }; poser(mid, e);
     },
-    dernier: function (mid) { return etat(mid).dernier || null; }
+    dernier: function (mid) { return etat(mid).dernier || null; },
+    // Podcasts (audios de module.js) : où l'on s'est arrêté (secondes) et s'il a été écouté jusqu'au bout. Ne compte pas dans la progression.
+    ecoute: function (mid, aid) { var e = etat(mid); return (e.ecoutes || {})[aid] || { pos: 0, fini: false }; },
+    noterEcoute: function (mid, aid, pos, fini) {
+      var e = etat(mid); e.ecoutes = e.ecoutes || {};
+      var a = e.ecoutes[aid] || {};
+      e.ecoutes[aid] = { pos: Math.max(0, Math.round(pos || 0)), fini: !!(fini || a.fini) };
+      poser(mid, e);
+    },
+    audios: function (mid, chapitre) {
+      var M = P.module(mid);
+      return ((M && M.audios) || []).filter(function (a) { return chapitre === undefined || a.chapitre === chapitre; });
+    },
+    urlAudio: function (mid, a) { return /^https:\/\//.test(a.fichier) ? a.fichier : racine + "modules/" + mid + "/audio/" + a.fichier; }
   };
 
   /* ---------------- Carte : sous-modules, chapitres, étapes ---------------- */

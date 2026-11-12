@@ -10,6 +10,7 @@
  *           Chaque chapitre finit par un niveau revision: true puis un niveau boss: true.
  * sections : le cours de chaque chapitre en 3 à 5 sections (une idée chacune) ; chaque section réunit des pages de cours.
  * cours : pages de cours (une par notion), sources des pages de chapitre.
+ * audios : podcasts (facultatif), fichiers dans audio/ ; voir CLAUDE.md, « Podcasts ».
  */
 PLATEFORME.parcours("_modele", {
   titre: "Module modèle",
@@ -25,5 +26,6 @@ PLATEFORME.parcours("_modele", {
   ],
   cours: [
     { chapitre: 1, id: "exemple", titre: "Page de cours exemple" }
-  ]
+  ],
+  audios: []
 });
