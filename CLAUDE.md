@@ -73,8 +73,10 @@ chapitre suivant.
   (`PLATEFORME.chapitresDe(mid, sm, "cours" | "td")`). La page du TD dit où chercher chaque réponse dans le cours et
   signale ce que le cours reçu ne couvre pas ; ses sections comptent dans la progression comme les autres.
   Un corrigé de TD est une page `cours/<td>-corrige.html`, dans la dernière section du TD (`<id>-corrige`) : un titre
-  par exercice, la correction cachée dans `<details class="corrige"><summary>Voir la correction</summary>…</details>`,
-  et ce qui attend une partie du cours pas encore reçue, signalé. Les exercices du TD restent dans la section d'avant.
+  par exercice, puis **chaque question suivie de sa propre réponse**, cachée juste dessous dans
+  `<details class="corrige"><summary>Voir la réponse</summary>…</details>` (jamais toutes les questions puis toutes les
+  réponses), et ce qui attend une partie du cours pas encore reçue, signalé. Réponse courte (un mot, une lettre, vrai ou faux) :
+  le mot caché dans le trou ou à côté de la question, un toucher le montre (cours d'anglais, `class="rep"`). Les exercices du TD restent dans la section d'avant.
 - **Les labs ont aussi leur propre espace** : un chapitre de lab porte `lab: true` et `numero: "Lab 1"`. La carte ajoute
   alors « Labs » au choix « Cours / TD » (`&vue=lab`). Une page de lab (`cours/<page>.html`, dans une section comme les
   autres) n'a pas la structure d'une notion : des étapes `<div class="etape-lab"><h2>Étape 1 : …</h2> … </div>`, avec
