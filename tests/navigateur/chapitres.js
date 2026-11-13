@@ -74,7 +74,7 @@ const dc = `${BASE}modules/${mid}/`;
       const v = await pg.evaluate(() => ({ parties: [...document.querySelectorAll("section.partie")].map(x => x.id), notions: [...document.querySelectorAll("article.notion")].map(a => a.id),
         katexErr: document.querySelectorAll(".katex-error").length, figs: document.querySelectorAll(".fig .dessin").length, vides: [...document.querySelectorAll(".fig")].filter(f => !f.querySelector(".dessin")).length,
         jouer: [...document.querySelectorAll(".jouer")].map(j => j.dataset.niveaux), suite: (document.querySelector(".fin-cours a.aller") || {}).href || "",
-        finSection: [...document.querySelectorAll(".jouer + .fin-partie")].length }));
+        finSection: [...document.querySelectorAll(".jouer + .fin-partie, .jouer + .jouer-cartes + .fin-partie")].length }));
       if (v.parties.join() !== ss.map(x => "s-" + x.id).join()) pb(`chapitre ${ch} : sections ${v.parties}`);
       if (v.notions.join() !== notions.map(n => "n-" + n).join()) pb(`chapitre ${ch} : notions ${v.notions}`);
       if (v.katexErr) pb(`chapitre ${ch} : ${v.katexErr} formules en erreur`);

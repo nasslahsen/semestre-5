@@ -126,13 +126,20 @@
       if (k === avecSansPage) ids = ids.concat(sansPage);
       var fin = partie.querySelector(".fin-partie");
       if (ids.length) bloc(ids, P.t("Exercices"), s.titre, fin ? fin.parentNode : partie, fin);
+      var cs = cartesDe(s.id);
+      if (cs.length) cartesRevision(fin ? fin.parentNode : partie, fin, cs, "s/" + s.id, s.titre);
     });
     var fin = document.createElement("section");
     fin.className = "fin-chapitre";
     fin.innerHTML = "<h2>" + P.t("Fin du chapitre") + "</h2><p>" + P.t("Pour tout mélanger, si tu en as envie : la révision, puis le défi final.") + "</p>";
     var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
     if (finIds.length) bloc(finIds, P.t("Fin du chapitre"), P.t("Révision et défi final"), fin, null, true);
-    cartesRevision(fin);
+    var toutes = ch.sections.reduce(function (t, x) { return t.concat(cartesDe(x.id)); }, []);
+    if (!toutes.length && MOD.cartesFinChapitre && MOD.arbre && MOD.arbre[ch.sm]) {
+      var ca = MOD.arbre[ch.sm].chapitres.filter(function (x) { return x.id === ch.id; })[0];
+      toutes = ca && ca.cartes || [];
+    }
+    if (toutes.length && (MOD.cartesFinChapitre || MOD.cartesSections)) cartesRevision(fin, null, toutes, "c/" + ch.id, P.t("Toutes les cartes du chapitre"));
     // la suite reste dans le même espace : le chapitre de cours suivant, le TD suivant ou le lab suivant
     var NOMS = { cours: ["Chapitre suivant", "Dernier chapitre", "Retour à la carte"], td: ["TD suivant", "Dernier TD", "Retour aux TD"], lab: ["Lab suivant", "Dernier lab", "Retour aux labs"] }[ch.espace].map(function (x) { return P.t(x); });
     var sms = P.chapitresDe(MID, ch.sm, ch.espace), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
@@ -155,24 +162,22 @@
     }
     majBlocs();
 
-    // Cartes de révision (questions de cours, rappel actif) : quand module.js le demande (cartesFinChapitre: true),
-    // les cartes du chapitre (arbre.<sm>.chapitres[].cartes, [question, réponse]) en fin de chapitre, une à une, par-dessus la page.
-    // « À revoir » remet la carte au bout du paquet ; les cartes ratées passent en premier la fois suivante (localStorage « s5-cartes »).
-    function cartesRevision(ou) {
-      if (!MOD.cartesFinChapitre || !MOD.arbre || !MOD.arbre[ch.sm]) return;
-      var c = MOD.arbre[ch.sm].chapitres.filter(function (x) { return x.id === ch.id; })[0];
-      var cartes = c && c.cartes || [];
-      if (!cartes.length) return;
+    // Cartes de révision (questions de cours, rappel actif) : un paquet à la fin de chaque section (module.js, cartesSections[<section>],
+    // [question, réponse]) et, en fin de chapitre, toutes les cartes du chapitre (à défaut, celles de l'arbre si cartesFinChapitre: true).
+    // Une carte à deux faces ; « Je ne savais pas » la remet au bout du paquet ; les ratées passent en premier la fois suivante
+    // (localStorage « s5-cartes », par question).
+    function cartesDe(sid) { return MOD.cartesSections && MOD.cartesSections[sid] || []; }
+    function cartesRevision(ou, avant, cartes, cleDeck, titre) {
       var CLE = "s5-cartes", memo = {};
       try { memo = JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { memo = {}; }
-      var cle = MID + "/" + ch.id;
-      function ratees() { return (memo[cle] || []).filter(function (i) { return i < cartes.length; }); }
-      function garder(liste) { memo[cle] = liste; try { localStorage.setItem(CLE, JSON.stringify(memo)); } catch (e) {} }
+      var cle = MID + "/" + cleDeck;
+      function ratees() { var q = memo[cle] || []; return cartes.map(function (x, i) { return i; }).filter(function (i) { return q.indexOf(cartes[i][0]) >= 0; }); }
+      function garder(liste) { memo[cle] = liste.map(function (i) { return cartes[i][0]; }); try { localStorage.setItem(CLE, JSON.stringify(memo)); } catch (e) {} }
       var b = document.createElement("div");
       b.className = "jouer-cartes";
-      b.innerHTML = "<span><small>" + P.t("Questions de cours") + "</small>" + P.t("Cartes de révision") + " (" + cartes.length + ")</span>" +
+      b.innerHTML = "<span><small>" + P.t("Cartes de révision") + " · " + cartes.length + "</small>" + esc(titre) + "</span>" +
         '<button type="button" class="btn-jouer">' + P.t("Réviser") + "</button>";
-      ou.insertBefore(b, ou.querySelector(".fin-cours"));
+      ou.insertBefore(b, avant || null);
       var fond = null, file = [], ratesCetteFois = {}, vus = 0, total = 0;
       function rendre(html) { var z = fond.querySelector(".carte-zone"); z.innerHTML = html; if (window.renderMathInElement) renderMathInElement(z, { delimiters: [{ left: "\\(", right: "\\)", display: false }], throwOnError: false }); return z; }
       function suivante() {
