@@ -132,6 +132,7 @@
     fin.innerHTML = "<h2>" + P.t("Fin du chapitre") + "</h2><p>" + P.t("Pour tout mélanger, si tu en as envie : la révision, puis le défi final.") + "</p>";
     var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
     if (finIds.length) bloc(finIds, P.t("Fin du chapitre"), P.t("Révision et défi final"), fin, null, true);
+    cartesRevision(fin);
     // la suite reste dans le même espace : le chapitre de cours suivant, le TD suivant ou le lab suivant
     var NOMS = { cours: ["Chapitre suivant", "Dernier chapitre", "Retour à la carte"], td: ["TD suivant", "Dernier TD", "Retour aux TD"], lab: ["Lab suivant", "Dernier lab", "Retour aux labs"] }[ch.espace].map(function (x) { return P.t(x); });
     var sms = P.chapitresDe(MID, ch.sm, ch.espace), suiv = sms[sms.map(function (c) { return c.id; }).indexOf(ch.id) + 1];
@@ -153,6 +154,68 @@
       });
     }
     majBlocs();
+
+    // Cartes de révision (questions de cours, rappel actif) : quand module.js le demande (cartesFinChapitre: true),
+    // les cartes du chapitre (arbre.<sm>.chapitres[].cartes, [question, réponse]) en fin de chapitre, une à une, par-dessus la page.
+    // « À revoir » remet la carte au bout du paquet ; les cartes ratées passent en premier la fois suivante (localStorage « s5-cartes »).
+    function cartesRevision(ou) {
+      if (!MOD.cartesFinChapitre || !MOD.arbre || !MOD.arbre[ch.sm]) return;
+      var c = MOD.arbre[ch.sm].chapitres.filter(function (x) { return x.id === ch.id; })[0];
+      var cartes = c && c.cartes || [];
+      if (!cartes.length) return;
+      var CLE = "s5-cartes", memo = {};
+      try { memo = JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { memo = {}; }
+      var cle = MID + "/" + ch.id;
+      function ratees() { return (memo[cle] || []).filter(function (i) { return i < cartes.length; }); }
+      function garder(liste) { memo[cle] = liste; try { localStorage.setItem(CLE, JSON.stringify(memo)); } catch (e) {} }
+      var b = document.createElement("div");
+      b.className = "jouer-cartes";
+      b.innerHTML = "<span><small>" + P.t("Questions de cours") + "</small>" + P.t("Cartes de révision") + " (" + cartes.length + ")</span>" +
+        '<button type="button" class="btn-jouer">' + P.t("Réviser") + "</button>";
+      ou.insertBefore(b, ou.querySelector(".fin-cours"));
+      var fond = null, file = [], ratesCetteFois = {}, vus = 0, total = 0;
+      function rendre(html) { var z = fond.querySelector(".carte-zone"); z.innerHTML = html; if (window.renderMathInElement) renderMathInElement(z, { delimiters: [{ left: "\\(", right: "\\)", display: false }], throwOnError: false }); return z; }
+      function suivante() {
+        if (!file.length) {
+          var r = Object.keys(ratesCetteFois).map(Number);
+          garder(r);
+          var z = rendre("<p class=\"carte-petit\">" + P.t("Fini") + "</p><p class=\"carte-q\">" + P.t("Tu en savais") + " " + (total - r.length) + " " + P.t("sur") + " " + total + " " + P.t("du premier coup.") + "</p>" +
+            '<div class="carte-actions">' + (r.length ? '<button type="button" class="carte-btn second" data-a="ratees">' + P.t("Refaire les ratées") + " (" + r.length + ")</button>" : "") +
+            '<button type="button" class="carte-btn" data-a="fermer">' + P.t("Revenir au cours") + "</button></div>");
+          z.querySelector('[data-a="fermer"]').onclick = fermerCartes;
+          var bR = z.querySelector('[data-a="ratees"]'); if (bR) bR.onclick = function () { lancer(r); };
+          return;
+        }
+        var i = file[0], q = cartes[i];
+        var z = rendre('<p class="carte-petit">' + (vus + 1) + " / " + total + '</p><p class="carte-q">' + esc(q[0]) + "</p>" +
+          '<div class="carte-actions"><button type="button" class="carte-btn" data-a="voir">' + P.t("Voir la réponse") + "</button></div>");
+        z.querySelector('[data-a="voir"]').onclick = function () {
+          var act = z.querySelector(".carte-actions");
+          act.insertAdjacentHTML("beforebegin", '<p class="carte-r">' + esc(q[1]) + "</p>");
+          act.innerHTML = '<button type="button" class="carte-btn second" data-a="non">' + P.t("À revoir") + '</button><button type="button" class="carte-btn" data-a="oui">' + P.t("Je savais") + "</button>";
+          act.querySelector('[data-a="oui"]').onclick = function () { file.shift(); vus = Math.min(vus + 1, total); suivante(); };
+          act.querySelector('[data-a="non"]').onclick = function () { file.push(file.shift()); ratesCetteFois[i] = true; suivante(); };
+        };
+      }
+      function lancer(ordre) {
+        if (!fond) {
+          fond = document.createElement("div");
+          fond.className = "fenetre-cartes";
+          fond.innerHTML = '<div class="carte-boite" role="dialog" aria-label="' + P.t("Cartes de révision") + '"><button type="button" class="carte-fermer">' + P.t("Fermer") + '</button><div class="carte-zone"></div></div>';
+          fond.querySelector(".carte-fermer").onclick = fermerCartes;
+          document.body.appendChild(fond);
+        }
+        file = ordre.slice(); ratesCetteFois = {}; vus = 0; total = file.length;
+        fond.classList.add("on");
+        document.documentElement.classList.add("jeu-ouvert");
+        suivante();
+      }
+      function fermerCartes() { fond.classList.remove("on"); document.documentElement.classList.remove("jeu-ouvert"); }
+      b.querySelector("button").addEventListener("click", function () {
+        var r = ratees(), reste = cartes.map(function (x, i) { return i; }).filter(function (i) { return r.indexOf(i) < 0; });
+        lancer(r.concat(reste));
+      });
+    }
 
     // L'exercice s'ouvre par-dessus la page ; « Revenir au cours » le ferme et la page n'a pas bougé
     var fenetre = null;
