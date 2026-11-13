@@ -115,7 +115,7 @@ for (const id of modules) {
     if (!/<h2>Exemple/.test(html)) err(`${f} : section Exemple manquante`);
     if (html.includes("<h2>Questions</h2>")) err(`${f} : les questions sont dans le jeu, pas dans les pages de cours`);
   }
-  for (const f of [d + "/index.html", d + "/jouer.html", d + "/cours/index.html"].concat(existe(d + "/examen.html") ? [d + "/examen.html"] : [], pagesCours)) {
+  for (const f of [d + "/index.html", d + "/jouer.html", d + "/cours/index.html"].concat(["examen.html", "essentiel.html"].map(x => d + "/" + x).filter(existe), pagesCours)) {
     if (!existe(f)) continue;
     const html = lire(f); nbPages++;
     verifierLiens(f, html); verifierMaths(f, html, false); verifierEcriture(f, html);

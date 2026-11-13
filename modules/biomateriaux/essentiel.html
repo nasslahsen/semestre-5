@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'essentiel en schémas · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../commun/css/cours.css">
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+<style>
+  .schema { margin: 22px 0 10px; padding: 18px 14px; border: 1.5px solid var(--trait); border-radius: 18px; background: #fff; }
+  .schema svg { display: block; width: 100%; height: auto; }
+  .schema svg text { font-family: Inter, sans-serif; }
+  .schema-titre { margin: 0 0 6px 8px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }
+  .retenir { margin: 8px 0 26px; }
+  .retenir li { margin: 4px 0; }
+  .lien-chapitre { font-size: 16px; }
+</style>
+</head>
+<body>
+<header id="barre"></header>
+<main>
+<p class="etiquette">Biomatériaux et biocompatibilité</p>
+<h1>L'essentiel en schémas</h1>
+<p class="chapeau">Tout ce qu'il faut savoir avant l'examen, chapitre par chapitre, en schémas. Lis un schéma de gauche à droite, puis les quelques lignes à retenir dessous. Pour le détail, le lien du chapitre ouvre le cours.</p>
+
+<h2>Biomatériaux et dispositifs médicaux</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-1.html">Ouvrir le chapitre 1</a></p>
+<div class="schema" id="sc-dm"></div>
+<div class="schema" id="sc-classes"></div>
+<div class="schema" id="sc-vocabulaire"></div>
+<div class="schema" id="sc-generations"></div>
+<ul class="retenir">
+<li>Définition actuelle : matériau destiné à alimenter ou remplacer tout ou partie d'un organe déficient, au contact du vivant sans réponse hostile de l'hôte.</li>
+<li>Prothèse = biomatériaux + mécanisme + fonction.</li>
+<li>Ingénierie tissulaire = échafaudage biodégradable + cellules vivantes + facteurs bioactifs.</li>
+<li>Nanotechnologies : de 1 à 100 nm. Usages : prévenir, diagnostiquer, traiter.</li>
+<li>Marché : 43,50 → 69,86 milliards de $ (2023 → 2030), soit 7 % par an. Moteur : vieillissement de la population.</li>
+</ul>
+
+<h2>Histoire, exigences et applications</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-8.html">Ouvrir le chapitre 2</a></p>
+<div class="schema" id="sc-chester"></div>
+<div class="schema" id="sc-histoire"></div>
+<div class="schema" id="sc-valider"></div>
+<ul class="retenir">
+<li>Biocompatibilité : ne pas nuire (pas d'inflammation ni de toxicité). Biofonctionnalité : faire le travail prévu.</li>
+<li>Bio-inerte : remplace une fonction (valve). Bioactif : interagit avec le tissu (revêtement d'hydroxyapatite).</li>
+<li>Cahier des charges : stérilisable, pas de transmission infectieuse, pas de réaction immunitaire, pas de toxicité, fabrication facile, moindre coût.</li>
+<li>Huit domaines : orthopédie, odontologie, cardiovasculaire, ophtalmologie, urologie-néphrologie, endocrinologie, chirurgie générale, esthétique.</li>
+</ul>
+
+<h2>Bases de mécanique et familles de matériaux</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-0.html">Ouvrir le chapitre 3</a> · <a href="chapitres/chapitre-2.html">Ouvrir le chapitre 4</a></p>
+<div class="schema" id="sc-traction"></div>
+<div class="schema" id="sc-familles"></div>
+<ul class="retenir">
+<li>Re : fin du domaine élastique. Rmax : contrainte la plus haute. Rr : rupture. Ténacité : aire sous la courbe.</li>
+<li>Une unité de log E en plus : module × 10. 1 MPa = 10⁶ Pa, 1 GPa = 10⁹ Pa.</li>
+<li>Composite : au moins deux matériaux qui ne se mélangent pas (fibre + matrice).</li>
+</ul>
+
+<h2>Les métaux d'implant</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-9.html">Ouvrir le chapitre 5</a></p>
+<div class="schema" id="sc-pth"></div>
+<div class="schema" id="sc-metaux"></div>
+<div class="schema" id="sc-modules"></div>
+<div class="schema" id="sc-corrosion"></div>
+<ul class="retenir">
+<li>Allergies : nickel, puis chrome, puis cobalt (10 à 15 % de la population). Titane : hypoallergénique.</li>
+<li>Corrosion galvanique : deux métaux en contact. Jamais d'inox au contact du titane ou du cobalt.</li>
+<li>316L : C ≤ 0,03 %, chrome ≥ 11 % pour l'inoxydabilité, passivation à l'acide nitrique.</li>
+<li>NiTi : austénite à chaud (forme mémorisée), martensite à froid (déformable). Chauffé au-dessus de Af, il reprend sa forme.</li>
+</ul>
+
+<h2>Les biocéramiques</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-10.html">Ouvrir le chapitre 6</a></p>
+<div class="schema" id="sc-ceramiques"></div>
+<ul class="retenir">
+<li>Céramiques : frittage, très dures, résistantes en compression et à l'usure, mais fragiles et non ductiles.</li>
+<li>Alumine : ≥ 99,5 % pure, HIP à 1 400–1 500 °C et 1 000 bars. Meilleure que la zircone.</li>
+<li>Pénétration du PEhd : CoCr 0,15, alumine 0,1, zircone 0,05 mm/an.</li>
+</ul>
+
+<h2>Les polymères</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-3.html">Ouvrir le chapitre 7</a> · <a href="chapitres/chapitre-11.html">Ouvrir le chapitre 8</a></p>
+<div class="schema" id="sc-polymeres"></div>
+<div class="schema" id="sc-courbe"></div>
+<div class="schema" id="sc-trempe"></div>
+<div class="schema" id="sc-medicaux"></div>
+<ul class="retenir">
+<li>Masse moléculaire plus grande : plus d'enchevêtrement, plus résistant ; masse infinie : jamais liquide.</li>
+<li>Semi-cristallin : opaque sous Tf, transparent au-dessus. Cristallisation la plus rapide vers (Tf + Tg)/2.</li>
+<li>Viscoélastique : ressort (σ = E ε) et amortisseur (σ = η dε/dt). À froid ou vite : élastique ; à chaud ou lentement : visqueux.</li>
+<li>Naturels : collagène (hémostatique, biodégradable), chitine (sutures), cellulose (dialyse), corail (os recolonisable).</li>
+</ul>
+
+<h2>Élastomères, additifs et renforts</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-4.html">Ouvrir le chapitre 9</a> · <a href="chapitres/chapitre-5.html">Ouvrir le chapitre 10</a></p>
+<div class="schema" id="sc-elastomere"></div>
+<div class="schema" id="sc-vulcanisation"></div>
+<div class="schema" id="sc-pvc"></div>
+<div class="schema" id="sc-forme"></div>
+<ul class="retenir">
+<li>Formulation : élastomère + charges + plastifiants + accélérateurs + additifs. Noir de carbone : pigment, renfort, stabilisant, conducteur.</li>
+<li>Plastifiant : plus de plastifiant, rigidité et Tv plus basses. PVC rigide fragile à 0 °C, plastifié de −5 à −60 °C.</li>
+<li>Fibres de carbone : rigides comme l'acier, 4 fois plus légères. Kevlar : très bon en traction, faible en compression.</li>
+</ul>
+
+<h2>Les composites</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-6.html">Ouvrir le chapitre 11</a></p>
+<div class="schema" id="sc-composites"></div>
+<div class="schema" id="sc-ko"></div>
+<ul class="retenir">
+<li>Toujours E_CL > E_CT. Le module longitudinal dépend des fibres, le transversal de la matrice.</li>
+<li>Module spécifique E/ρ : environ 25 pour les métaux, 89 à 132 pour le carbone-époxy unidirectionnel.</li>
+</ul>
+
+<h2>Les procédés</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-7.html">Ouvrir le chapitre 12</a></p>
+<div class="schema" id="sc-procedes"></div>
+<ul class="retenir">
+<li>Décrire un procédé : principe, matière adaptée, produit représentatif (et l'indice).</li>
+</ul>
+
+<h2>Toutes les formules</h2>
+<p>Contrainte, déformation, module :</p>
+\[\sigma = \frac{F}{S_0} \qquad \varepsilon = \frac{\Delta l}{l_0} \qquad \sigma = E\,\varepsilon \qquad G = \frac{E}{2(1+\nu)}\]
+<p>Masse volumique et taux de cristallinité :</p>
+\[\rho = \frac{m}{V} \qquad \rho = \rho_c\,X + \rho_a\,(1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]
+<p>Cristallisation la plus rapide :</p>
+\[T = \frac{T_f + T_g}{2}\]
+<p>Composites :</p>
+\[E_{CL} = E_f\,\phi_f + E_m\,\phi_m \qquad \frac{1}{E_{CT}} = \frac{\phi_f}{E_f} + \frac{\phi_m}{E_m} \qquad E_{CL} = K_o\,E_f\,\phi_f + E_m\,\phi_m \qquad K_o = \sum a_n (\cos\theta_n)^4\]
+<p>Viscoélasticité :</p>
+\[\sigma = E\,\varepsilon \ \ \text{(ressort)} \qquad \sigma = \eta\,\frac{d\varepsilon}{dt} \ \ \text{(amortisseur)}\]
+<p>Marché et polyéthylène :</p>
+\[t = \left(\frac{V_n}{V_0}\right)^{1/n} - 1 \qquad M_{PE} = 28 \times n\ \text{g/mol}\]
+</main>
+<script src="../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME;
+  var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", sm) });
+  // retour d'un cran : la page « Préparer l'examen », d'où l'on vient
+  var r = document.querySelector("#barre .site-retour"); if (r) { r.href = "examen.html?sm=" + encodeURIComponent(sm); r.textContent = "Examen"; }
+  var b = String.fromCharCode(92);
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }], throwOnError: false });
+
+  var NS = "http://www.w3.org/2000/svg", W = 1000;
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  // coupe un texte en lignes d'au plus « max » caractères (les \n forcent un retour)
+  function couper(t, max) {
+    var out = [];
+    String(t || "").split("\n").forEach(function (par) {
+      var l = "";
+      par.split(" ").forEach(function (m) { if (l && (l + " " + m).length > max) { out.push(l); l = m; } else l = l ? l + " " + m : m; });
+      if (l) out.push(l);
+    });
+    return out;
+  }
+  var STYLE = {
+    "":     { fond: "#f5f6fa", bord: "var(--jeu-texte)", titre: "#15171f", sous: "#3d4250" },
+    doux:   { fond: "var(--jeu-pale)", bord: "var(--jeu-texte)", titre: "#15171f", sous: "#3d4250" },
+    fort:   { fond: "var(--jeu-texte)", bord: "var(--jeu-texte)", titre: "#ffffff", sous: "#ffffff" },
+    neutre: { fond: "#ffffff", bord: "#b6bac4", titre: "#4a4f5c", sous: "#5b6172" }
+  };
+
+  // Schéma en colonnes : chaque colonne est une liste de blocs { id, t, s, k, note } ; liens [de, vers, étiquette].
+  // Les blocs d'une colonne sont centrés ; les colonnes de même longueur (la plus longue) partagent leurs hauteurs de rangée.
+  function schema(id, d) {
+    var boite = document.getElementById(id);
+    if (d.titre) { var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = d.titre; boite.appendChild(tt); }
+    var n = d.cols.length, gap = d.gap || (n >= 5 ? 44 : 60), haut = d.haut || 0;
+    var cw = (W - 20 - gap * (n - 1)) / n;
+    var maxT = Math.floor((cw - 22) / 9.6), maxS = Math.floor((cw - 22) / 7.9);
+    var blocs = {}, maxN = 0;
+    d.cols.forEach(function (c) { maxN = Math.max(maxN, c.length); });
+    d.cols.forEach(function (c, i) {
+      c.forEach(function (bl, j) {
+        bl.lt = couper(bl.t, maxT); bl.ls = couper(bl.s, maxS);
+        bl.h = 18 + bl.lt.length * 22 + bl.ls.length * 20 + (bl.ls.length ? 4 : 0) + 6;
+        bl.col = i; bl.rang = j; bl.x = 10 + i * (cw + gap); bl.w = cw;
+        if (bl.id) blocs[bl.id] = bl;
+      });
+    });
+    var rangs = [];
+    d.cols.forEach(function (c) { if (c.length === maxN) c.forEach(function (bl, j) { rangs[j] = Math.max(rangs[j] || 0, bl.h); }); });
+    var vg = d.vgap || 22, notes = 0;
+    d.cols.forEach(function (c) { c.forEach(function (bl) { if (bl.note) notes = 24; }); });
+    function hauteurCol(c) { return c.reduce(function (s, bl, j) { return s + (c.length === maxN ? rangs[j] : bl.h); }, 0) + vg * (c.length - 1); }
+    var H = 0; d.cols.forEach(function (c) { H = Math.max(H, hauteurCol(c)); });
+    d.cols.forEach(function (c) {
+      var y = haut + 8 + (H - hauteurCol(c)) / 2;
+      c.forEach(function (bl, j) { if (c.length === maxN) bl.h = rangs[j]; bl.y = y; y += bl.h + vg; });
+    });
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + (H + haut + 18 + notes), role: "img", "aria-label": d.titre || "schéma" }, boite);
+    var defs = el("defs", {}, svg), mk = el("marker", { id: "fl-" + id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 9, markerHeight: 9, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 L3,5 z", style: "fill:var(--jeu-texte)" }, mk);
+    (d.liens || []).forEach(function (l) {
+      var a = blocs[l[0]], c = blocs[l[1]];
+      var x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = c.x - 2, y2 = c.y + c.h / 2, mx = x1 + (c.x - x1) / 2;
+      var dd = Math.abs(y1 - y2) < 1 ? "M" + x1 + "," + y1 + " H" + x2 : "M" + x1 + "," + y1 + " H" + mx + " V" + y2 + " H" + x2;
+      el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)", "marker-end": "url(#fl-" + id + ")" }, svg);
+      if (l[2]) { var tx = el("text", { x: x1 + 6, y: y1 - 8, "font-size": 14, fill: "#5b6172" }, svg); tx.textContent = l[2]; }
+    });
+    d.cols.forEach(function (c) {
+      c.forEach(function (bl) {
+        var st = STYLE[bl.k || ""];
+        el("rect", { x: bl.x, y: bl.y, width: bl.w, height: bl.h, rx: 10, "stroke-width": 2.2, style: "fill:" + st.fond + ";stroke:" + st.bord }, svg);
+        var tot = bl.lt.length * 22 + bl.ls.length * 20 + (bl.ls.length ? 4 : 0), y = bl.y + (bl.h - tot) / 2 + 16;
+        bl.lt.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y, "text-anchor": "middle", "font-size": 17, "font-weight": 700, style: "fill:" + st.titre }, svg); t.textContent = l; y += 22; });
+        if (bl.ls.length) y += 4;
+        bl.ls.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y - 2, "text-anchor": "middle", "font-size": 15, style: "fill:" + st.sous }, svg); t.textContent = l; y += 20; });
+        if (bl.note) { var t = el("text", { x: bl.x + bl.w / 2, y: bl.y + bl.h + 19, "text-anchor": "middle", "font-size": 14, fill: "#5b6172" }, svg); t.textContent = bl.note; }
+      });
+    });
+    return svg;
+  }
+
+  /* ---------- Chapitre 1 ---------- */
+  schema("sc-dm", { titre: "Dispositif médical ou médicament ?",
+    cols: [[{ id: "p", t: "Produit de santé", s: "usage médical, logiciels compris" }],
+           [{ id: "m", t: "Mode d'action principal voulu", s: "art. R5211-2 du CSP" }],
+           [{ id: "a", t: "Pharmacologique, immunologique ou métabolique", k: "neutre" }, { id: "b", t: "Ni l'un ni l'autre", s: "mécanique, physique" }],
+           [{ id: "med", t: "Médicament", s: "antibiotique, vaccin, insuline", k: "neutre" }, { id: "dm", t: "Dispositif médical", s: "seringue, pansement, prothèse, logiciel", k: "fort" }]],
+    liens: [["p", "m"], ["m", "a"], ["m", "b"], ["a", "med"], ["b", "dm"]] });
+
+  schema("sc-classes", { titre: "Classes de risque : invasif ? combien de temps ? où ? Plus de tests à chaque marche",
+    cols: [[{ id: "i", t: "Classe I", s: "non invasif, ou court au contact de la peau\nbas de contention, fauteuil roulant", note: "risque faible" }],
+           [{ id: "a", t: "Classe IIa", s: "invasif de courte durée\nlentilles, poches de sang", note: "risque moyen" }],
+           [{ id: "b", t: "Classe IIb", s: "invasif prolongé\nimplants chirurgicaux, pompes à perfusion", k: "doux", note: "risque élevé" }],
+           [{ id: "t", t: "Classe III", s: "cœur, SCC, SNC, effet biologique, biodégradable\nstent, prothèse de hanche", k: "fort", note: "risque le plus élevé" }]],
+    liens: [["i", "a"], ["a", "b"], ["b", "t"]] });
+
+  schema("sc-vocabulaire", { titre: "Implant, prothèse, bioprothèse, greffe",
+    cols: [[{ id: "c", t: "Ce qu'on met dans le corps" }],
+           [{ id: "bm", t: "Biomatériaux", s: "non vivant" }, { id: "tn", t: "Tissu non vivant traité", s: "venu d'un donneur" }, { id: "v", t: "Vivant", s: "cellules, tissus, organes" }],
+           [{ id: "im", t: "Implant", s: "temporaire ou permanent" }, { id: "pr", t: "Prothèse", s: "supplée un organe, restaure une fonction" }, { id: "oa", t: "Organe artificiel", s: "hybride s'il a des cellules vivantes" }, { id: "bp", t: "Bioprothèse", s: "valve de porc traitée", k: "doux" }, { id: "gr", t: "Greffe", k: "doux" }],
+           [{ id: "au", t: "Autogreffe", s: "même personne", k: "fort" }, { id: "al", t: "Allogreffe", s: "même espèce", k: "fort" }, { id: "xe", t: "Xénogreffe", s: "autre espèce", k: "fort" }]],
+    liens: [["c", "bm"], ["c", "tn"], ["c", "v"], ["bm", "im"], ["bm", "pr"], ["bm", "oa"], ["tn", "bp"], ["v", "gr"], ["gr", "au"], ["gr", "al"], ["gr", "xe"]] });
+
+  schema("sc-generations", { titre: "Quatre générations, toutes biocompatibles",
+    cols: [[{ id: "g1", t: "1re génération", s: "non contrôlés\nbois, verre, or" }],
+           [{ id: "g2", t: "2e génération", s: "début du XXe siècle\nmétaux, céramiques, polymères choisis" }],
+           [{ id: "g3", t: "3e génération", s: "modification de surface, échafaudages biodégradables, nanomatériaux", k: "doux" }],
+           [{ id: "g4", t: "4e génération", s: "ingénierie tissulaire, nanomédecine, médecine régénérative", k: "fort" }]],
+    liens: [["g1", "g2"], ["g2", "g3"], ["g3", "g4"]] });
+
+  /* ---------- Chapitre 2 ---------- */
+  schema("sc-chester", { titre: "Reconnaître un biomatériau : les trois critères de Chester (1991)",
+    cols: [[{ id: "m", t: "Matériau", s: "dans un dispositif médical" }],
+           [{ id: "c1", t: "Contact avec le vivant ?", s: "tissus ou fluides : d'où la biocompatibilité" }, { id: "c2", t: "Plus de quelques heures ?", s: "exclut les médicaments" }, { id: "c3", t: "Non vivant ?", s: "exclut les greffes" }],
+           [{ id: "b", t: "Biomatériau", s: "trois oui", k: "fort" }]],
+    liens: [["m", "c1"], ["m", "c2"], ["m", "c3"], ["c1", "b"], ["c2", "b"], ["c3", "b"]] });
+
+  schema("sc-histoire", { titre: "Des Égyptiens au titane",
+    cols: [[{ id: "a", t: "Égyptiens", s: "fer, cuivre, plomb, bois, plâtre" }],
+           [{ id: "b", t: "Guerre", s: "PMMA des cockpits : lentilles intraoculaires" }],
+           [{ id: "c", t: "Années 50", s: "inox pour la hanche, polyesters vasculaires" }],
+           [{ id: "d", t: "1969", s: "titane (Brånemark), venu de l'aéronautique", k: "doux" }],
+           [{ id: "e", t: "Années 70", s: "études de toxicité : les alliages de titane gagnent", k: "fort" }]],
+    liens: [["a", "b"], ["b", "c"], ["c", "d"], ["d", "e"]] });
+
+  schema("sc-valider", { titre: "Valider un biomatériau : du plus sûr au plus risqué",
+    cols: [[{ id: "a", t: "Calculs", s: "contraintes, simulations" }],
+           [{ id: "b", t: "Essais mécaniques", s: "rupture, bancs, simulateurs" }],
+           [{ id: "c", t: "Essais biologiques", s: "cellules, animaux, homme" }],
+           [{ id: "d", t: "Organisme notifié", s: "marquage, protocole strict" }],
+           [{ id: "e", t: "Suivi à long terme", s: "la seule vraie sécurité", k: "fort" }]],
+    liens: [["a", "b"], ["b", "c"], ["c", "d"], ["d", "e"]] });
+
+  /* ---------- Chapitres 3 et 4 ---------- */
+  // courbe de traction dessinée
+  (function () {
+    var boite = document.getElementById("sc-traction");
+    var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = "La courbe de traction"; boite.appendChild(tt);
+    var svg = el("svg", { viewBox: "0 0 1000 330", role: "img", "aria-label": "courbe de traction" }, boite);
+    var O = [90, 290];
+    el("path", { d: "M" + O[0] + "," + O[1] + " H960 M" + O[0] + "," + O[1] + " V20", stroke: "#15171f", "stroke-width": 2.5, fill: "none" }, svg);
+    function T(x, y, s, o) { var t = el("text", Object.assign({ x: x, y: y, "font-size": 17, fill: "#15171f" }, o || {}), svg); t.textContent = s; return t; }
+    T(940, 318, "ε", { "font-size": 20, "font-style": "italic" }); T(60, 34, "σ", { "font-size": 20, "font-style": "italic" });
+    el("path", { d: "M90,290 L250,110 C330,80 420,62 520,58 C600,56 650,70 700,110", fill: "none", "stroke-width": 4, style: "stroke:var(--jeu-texte)" }, svg);
+    el("path", { d: "M380,72 L520,230", fill: "none", stroke: "#8a8f9c", "stroke-width": 2, "stroke-dasharray": "7 6" }, svg);
+    [[250, 110, "A : Re", -30, -14], [520, 58, "C : Rmax", -40, -16], [700, 110, "D : Rr (rupture)", 12, 6]].forEach(function (p) {
+      el("circle", { cx: p[0], cy: p[1], r: 7, style: "fill:var(--jeu-texte)" }, svg); T(p[0] + p[3], p[1] + p[4], p[2], { "font-weight": 700 });
+    });
+    T(200, 250, "O → A : droite de Hooke, σ = E ε", { "font-size": 15 });
+    T(200, 272, "on relâche : elle revient", { "font-size": 15, fill: "#5b6172" });
+    T(560, 250, "après A : déformation permanente", { "font-size": 15 });
+    T(560, 272, "décharge parallèle à Hooke", { "font-size": 15, fill: "#5b6172" });
+    T(760, 170, "Aire sous la courbe :", { "font-size": 15, "font-weight": 700 });
+    T(760, 192, "la ténacité", { "font-size": 15 });
+  })();
+
+  schema("sc-familles", { titre: "Les liaisons font les propriétés",
+    cols: [[{ id: "l1", t: "Liaison métallique", s: "cations + électrons libres" }, { id: "l2", t: "Ioniques et covalentes", s: "pas d'électrons libres" }, { id: "l3", t: "Covalentes + liaisons faibles", s: "fortes dans la chaîne, faibles entre chaînes" }],
+           [{ id: "f1", t: "Métaux", s: "conducteurs, ductiles, E élevé", k: "doux" }, { id: "f2", t: "Céramiques", s: "dures, fragiles, isolantes, réfractaires, E ≈ 200 GPa", k: "doux" }, { id: "f3", t: "Polymères", s: "souples, isolants, E de 0,001 à 3 GPa, rien au-delà de 200 °C", k: "doux" }],
+           [{ id: "u1", t: "Tige de hanche", s: "alliage de titane", k: "fort" }, { id: "u2", t: "Tête de hanche", s: "alumine, zircone", k: "fort" }, { id: "u3", t: "Insert", s: "polyéthylène", k: "fort" }]],
+    liens: [["l1", "f1"], ["l2", "f2"], ["l3", "f3"], ["f1", "u1"], ["f2", "u2"], ["f3", "u3"]] });
+
+  /* ---------- Chapitre 5 ---------- */
+  schema("sc-pth", { titre: "Une prothèse totale de hanche : quatre pièces, quatre exigences",
+    cols: [[{ id: "a", t: "Cupule", s: "dans le bassin\nmétal" }],
+           [{ id: "b", t: "Insert", s: "UHMWPE, céramique ou métal\nfrotte contre la tête", k: "doux" }],
+           [{ id: "c", t: "Tête", s: "alumine, zircone ou métal", k: "doux" }],
+           [{ id: "d", t: "Tige", s: "dans le fémur\nalliage de titane", k: "fort" }]],
+    liens: [["a", "b"], ["b", "c"], ["c", "d"]] });
+
+  schema("sc-metaux", { titre: "Quel métal pour quel besoin ?",
+    cols: [[{ id: "b1", t: "Implant temporaire", s: "plaques, vis, clous" }, { id: "b2", t: "Très chargé, s'use peu", s: "tiges de genou et de hanche" }, { id: "b3", t: "Proche de l'os", s: "limiter le stress-shielding" }, { id: "b4", t: "Se referme à la chaleur", s: "agrafes, stents" }, { id: "b5", t: "Poreux comme l'os spongieux", s: "arthroplastie sans ciment" }],
+           [{ id: "m1", t: "Inox 316L", s: "corrosion sous contrainte sans O₂, artefacts IRM", k: "fort" }, { id: "m2", t: "Cobalt-chrome", s: "E 230 GPa, fatigue, métal-métal 4,2 µm/an", k: "fort" }, { id: "m3", t: "Titane", s: "E 110 GPa, TiO₂, pas d'IRM, mais s'use mal", k: "fort" }, { id: "m4", t: "NiTi", s: "mémoire de forme, superélastique", k: "fort" }, { id: "m5", t: "Tantale poreux", s: "75 à 85 % de pores, E 2,5 à 3,9 GPa", k: "fort" }]],
+    liens: [["b1", "m1"], ["b2", "m2"], ["b3", "m3"], ["b4", "m4"], ["b5", "m5"]] });
+
+  // échelle des modules
+  (function () {
+    var boite = document.getElementById("sc-modules");
+    var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = "Modules d'Young (GPa) : plus la tige est rigide, moins l'os travaille"; boite.appendChild(tt);
+    var data = [["Os", 20], ["Nitinol", 48], ["Titane", 110], ["Tantale", 190], ["Inox 316L", 200], ["Cobalt-chrome", 230]];
+    var svg = el("svg", { viewBox: "0 0 1000 " + (data.length * 46 + 20), role: "img", "aria-label": "échelle des modules" }, boite);
+    data.forEach(function (d, i) {
+      var y = 10 + i * 46, w = d[1] / 230 * 700;
+      var t = el("text", { x: 170, y: y + 25, "text-anchor": "end", "font-size": 17, "font-weight": 700, fill: "#15171f" }, svg); t.textContent = d[0];
+      el("rect", { x: 186, y: y + 6, width: w, height: 28, rx: 6, style: "fill:" + (i === 0 ? "var(--jeu-pale);stroke:var(--jeu-texte);stroke-width:2" : "var(--jeu-texte)") }, svg);
+      var v = el("text", { x: 196 + w, y: y + 26, "font-size": 16, "font-family": "JetBrains Mono, monospace", fill: "#15171f" }, svg); v.textContent = (d[0] === "Nitinol" ? "≥ " : "") + d[1];
+    });
+  })();
+
+  schema("sc-corrosion", { titre: "Pourquoi un implant métallique peut se desceller",
+    cols: [[{ id: "a", t: "Corrosion in vivo", s: "milieu salé à 37 °C" }],
+           [{ id: "b", t: "Relargage d'ions", s: "Cr, Co, Ni, Ti… dans les tissus" }],
+           [{ id: "c", t: "Complexes métallo-protéiques", s: "nutriments bloqués, cellules détruites", k: "doux" }],
+           [{ id: "d", t: "Descellement", s: "la prothèse ne tient plus dans l'os", k: "fort" }]],
+    liens: [["a", "b"], ["b", "c"], ["c", "d"]] });
+
+  /* ---------- Chapitre 6 ---------- */
+  schema("sc-ceramiques", { titre: "Biocéramiques : rester ou disparaître",
+    cols: [[{ id: "c", t: "Biocéramiques", s: "frittage ; dures, fragiles" }],
+           [{ id: "i", t: "Bio-inertes", s: "gardent leurs propriétés", k: "doux" }, { id: "r", t: "Résorbables", s: "remplacées par l'os", k: "doux" }],
+           [{ id: "al", t: "Alumine Al₂O₃", s: "≥ 99,5 %, HIP" }, { id: "zr", t: "Zircone ZrO₂", s: "Y-TZP, fond à 2 953 K" }, { id: "cp", t: "Carbone pyrolytique", s: "graphène empilé, conducteur" }, { id: "ha", t: "Hydroxyapatite", s: "Ca₁₀(PO₄)₆(OH)₂" }, { id: "tc", t: "Phosphate tricalcique", s: "Ca₃(PO₄)₂" }],
+           [{ id: "u1", t: "Têtes et inserts de hanche", k: "fort" }, { id: "u2", t: "Têtes, couronnes dentaires", k: "fort" }, { id: "u3", t: "Valves cardiaques", s: "toléré par le sang", k: "fort" }, { id: "u4", t: "Revêtements plasma", s: "90 % de réussite à 10 ans", k: "fort" }, { id: "u5", t: "Comblement osseux", s: "zones peu chargées", k: "fort" }]],
+    liens: [["c", "i"], ["c", "r"], ["i", "al"], ["i", "zr"], ["i", "cp"], ["r", "ha"], ["r", "tc"], ["al", "u1"], ["zr", "u2"], ["cp", "u3"], ["ha", "u4"], ["tc", "u5"]] });
+
+  /* ---------- Chapitres 7 et 8 ---------- */
+  schema("sc-polymeres", { titre: "Trois familles de polymères",
+    cols: [[{ id: "p", t: "Polymères", s: "macromolécules" }],
+           [{ id: "tp", t: "Thermoplastique", s: "chaînes linéaires ou ramifiées" }, { id: "el", t: "Élastomère", s: "réseau à mailles larges" }, { id: "td", t: "Thermodurcissable", s: "réseau à mailles serrées" }],
+           [{ id: "c1", t: "Se ramollit, remoulable", s: "œuf en chocolat ; amorphe ou semi-cristallin", k: "doux" }, { id: "c2", t: "Élastique", s: "amorphe", k: "doux" }, { id: "c3", t: "Ne se reforme plus", s: "œuf cuit ; amorphe", k: "doux" }],
+           [{ id: "e1", t: "PE, PC, PS, PVC", s: "seringues, tubes, poches", k: "fort" }, { id: "e2", t: "Caoutchouc, silicone", s: "joints, gants", k: "fort" }, { id: "e3", t: "Époxy, polyester UP, phénolique", s: "moulés par compression", k: "fort" }]],
+    liens: [["p", "tp"], ["p", "el"], ["p", "td"], ["tp", "c1"], ["el", "c2"], ["td", "c3"], ["c1", "e1"], ["c2", "e2"], ["c3", "e3"]] });
+
+  // courbe du module en fonction de la température
+  (function () {
+    var boite = document.getElementById("sc-courbe");
+    var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = "Le module en fonction de la température (log E)"; boite.appendChild(tt);
+    var svg = el("svg", { viewBox: "0 0 1000 380", role: "img", "aria-label": "courbe du module" }, boite);
+    function T(x, y, s, o) { var t = el("text", Object.assign({ x: x, y: y, "font-size": 16, fill: "#15171f" }, o || {}), svg); t.textContent = s; return t; }
+    el("path", { d: "M90,330 H960 M90,330 V20", stroke: "#15171f", "stroke-width": 2.5, fill: "none" }, svg);
+    T(925, 360, "T", { "font-size": 20, "font-style": "italic" }); T(30, 36, "log E", { "font-size": 16, "font-weight": 700 });
+    T(20, 76, "10⁹ Pa", { "font-family": "JetBrains Mono, monospace", "font-size": 15 }); T(20, 236, "10⁶ Pa", { "font-family": "JetBrains Mono, monospace", "font-size": 15 });
+    var xg = 330, xf = 690;
+    [[xg, "Tg"], [xf, "Tf"]].forEach(function (p) { el("path", { d: "M" + p[0] + ",330 V40", stroke: "#b6bac4", "stroke-width": 2, "stroke-dasharray": "6 6" }, svg); T(p[0] - 12, 356, p[1], { "font-weight": 700, "font-size": 18 }); });
+    // amorphe : plateau vitreux, chute à Tg, plateau caoutchouteux, écoulement
+    el("path", { d: "M100,72 H280 C320,72 340,232 380,232 H500 C550,232 570,320 600,326", fill: "none", stroke: "#8a8f9c", "stroke-width": 3.5, "stroke-dasharray": "10 6" }, svg);
+    // semi-cristallin : petite chute à Tg, baisse lente, chute à Tf
+    el("path", { d: "M100,66 H290 C320,66 340,128 380,132 C480,142 600,150 650,152 C690,154 700,235 740,236 H950", fill: "none", "stroke-width": 4.5, style: "stroke:var(--jeu-texte)" }, svg);
+    T(110, 56, "vitreux, rigide", { "font-weight": 700 });
+    T(420, 122, "semi-cristallin (opaque)", { "font-size": 15, style: "fill:var(--jeu-texte)", "font-weight": 700 });
+    T(390, 222, "amorphe : plateau caoutchouteux", { "font-size": 15, fill: "#5b6172" });
+    T(730, 222, "au-dessus de Tf : X = 0, transparent", { "font-size": 15, style: "fill:var(--jeu-texte)" });
+    T(612, 322, "liquide", { "font-size": 14, fill: "#5b6172" });
+  })();
+
+  schema("sc-trempe", { titre: "TD 1 : la pièce chauffée puis refroidie d'un coup",
+    cols: [[{ id: "p", t: "Plaque", s: "ρ = ρc X + ρa (1 − X)\nm = ρ V (ne change jamais)" }],
+           [{ id: "a", t: "Chauffée sous Tf" }, { id: "b", t: "Chauffée au-dessus de Tf, puis trempée" }],
+           [{ id: "a2", t: "Les cristaux restent", s: "X et ρ inchangés", k: "doux" }, { id: "b2", t: "Tout fond, pas le temps de cristalliser", s: "X = 0, ρ = ρa", k: "doux" }],
+           [{ id: "a3", t: "Même volume", k: "fort" }, { id: "b3", t: "V = m / ρa", s: "plus grand", k: "fort" }]],
+    liens: [["p", "a"], ["p", "b"], ["a", "a2"], ["b", "b2"], ["a2", "a3"], ["b2", "b3"]] });
+
+  schema("sc-medicaux", { titre: "Le bon polymère médical",
+    cols: [[{ id: "b1", t: "Insert de hanche, plateau tibial" }, { id: "b2", t: "Rachis, visible aux rayons X" }, { id: "b3", t: "Voir le sang circuler, hors du corps" }, { id: "b4", t: "Poignée à 180 °C, autoclave" }, { id: "b5", t: "Plus de 1 000 stérilisations vapeur" }, { id: "b6", t: "Implant mammaire, souple" }, { id: "b7", t: "Prothèse vasculaire" }, { id: "b8", t: "Lentille, ciment osseux" }, { id: "b9", t: "Doit disparaître" }],
+           [{ id: "p1", t: "UHMWPE", k: "fort" }, { id: "p2", t: "PEEK", k: "fort" }, { id: "p3", t: "PC", k: "fort" }, { id: "p4", t: "PEI", k: "fort" }, { id: "p5", t: "PSU", k: "fort" }, { id: "p6", t: "Silicone", k: "fort" }, { id: "p7", t: "PTFE, Dacron", k: "fort" }, { id: "p8", t: "PMMA", k: "fort" }, { id: "p9", t: "PLA, PGA", k: "fort" }]],
+    liens: [["b1", "p1"], ["b2", "p2"], ["b3", "p3"], ["b4", "p4"], ["b5", "p5"], ["b6", "p6"], ["b7", "p7"], ["b8", "p8"], ["b9", "p9"]], vgap: 12 });
+
+  /* ---------- Chapitres 9 et 10 ---------- */
+  schema("sc-elastomere", { titre: "Élastomère ou plastomère : où est Tv ?",
+    cols: [[{ id: "p", t: "Polymère amorphe" }],
+           [{ id: "a", t: "Tv sous l'ambiante", s: "caoutchouc naturel : −60 °C" }, { id: "b", t: "Tv au-dessus", s: "polystyrène : 100 °C" }],
+           [{ id: "e", t: "Élastomère", s: "E ≈ 1 MPa, jusqu'à 1 000 %, seulement élastique", k: "fort" }, { id: "f", t: "Plastomère", s: "E ≈ 1 GPa, élastique puis plastique", k: "doux" }]],
+    liens: [["p", "a"], ["p", "b"], ["a", "e"], ["b", "f"]] });
+
+  schema("sc-vulcanisation", { titre: "La vulcanisation : relier les chaînes",
+    cols: [[{ id: "b", t: "Élastomère brut", s: "coule à chaud" }],
+           [{ id: "s", t: "Soufre" }, { id: "p", t: "Peroxyde" }, { id: "o", t: "MgO / ZnO" }],
+           [{ id: "s2", t: "Ponts S–S", s: "élastomère insaturé", k: "doux" }, { id: "p2", t: "Ponts C–C", s: "presque tous", k: "doux" }, { id: "o2", t: "Ponts éther", s: "élastomère halogéné", k: "doux" }],
+           [{ id: "v", t: "Caoutchouc vulcanisé", s: "garde son plateau ; plus de soufre : Tg et E montent", k: "fort" }]],
+    liens: [["b", "s"], ["b", "p"], ["b", "o"], ["s", "s2"], ["p", "p2"], ["o", "o2"], ["s2", "v"], ["p2", "v"], ["o2", "v"]] });
+
+  schema("sc-pvc", { titre: "TD 1.5 : adapter le PVC (ρ = 1,45, Tg = 90 °C)",
+    cols: [[{ id: "p", t: "PVC" }],
+           [{ id: "a", t: "Plus léger", s: "ρ = 0,3" }, { id: "b", t: "Beaucoup plus rigide" }, { id: "c", t: "Plus souple", s: "Tg plus basse" }],
+           [{ id: "a2", t: "Le gonfler", s: "même masse, 4,8 fois le volume", k: "fort" }, { id: "b2", t: "Le renforcer", s: "fibres, charges", k: "fort" }, { id: "c2", t: "Un plastifiant", k: "fort" }]],
+    liens: [["p", "a"], ["p", "b"], ["p", "c"], ["a", "a2"], ["b", "b2"], ["c", "c2"]] });
+
+  schema("sc-forme", { titre: "Rapport de forme : plus le renfort est allongé, plus E et HDT montent",
+    cols: [[{ id: "g", t: "Granulaire", s: "1\nbilles, CaCO₃" }],
+           [{ id: "l", t: "Lamellaire", s: "10 à 40\ntalc, mica" }],
+           [{ id: "a", t: "Aciculaire", s: "10 à 100\nwollastonite", k: "doux" }],
+           [{ id: "f", t: "Fibrillaire", s: "100 à l'infini\nfibres longues", k: "fort", note: "PP + 30 % verre : 6,5 GPa" }]],
+    liens: [["g", "l"], ["l", "a"], ["a", "f"]] });
+
+  /* ---------- Chapitre 11 ---------- */
+  schema("sc-composites", { titre: "Un pli de fibres alignées, tiré dans deux sens",
+    cols: [[{ id: "p", t: "Pli unidirectionnel", s: "fibres + matrice" }],
+           [{ id: "l", t: "Le long des fibres" }, { id: "t", t: "En travers" }],
+           [{ id: "l2", t: "Même déformation", s: "ressorts côte à côte", k: "doux" }, { id: "t2", t: "Même contrainte", s: "ressorts en série", k: "doux" }],
+           [{ id: "l3", t: "E_CL = E_f φ_f + E_m φ_m", s: "les fibres travaillent", k: "fort" }, { id: "t3", t: "1/E_CT = φ_f/E_f + φ_m/E_m", s: "la matrice travaille", k: "fort" }]],
+    liens: [["p", "l"], ["p", "t"], ["l", "l2"], ["t", "t2"], ["l2", "l3"], ["t2", "t3"]] });
+
+  schema("sc-ko", { titre: "Fibres orientées : E_CL = K_o E_f φ_f + E_m φ_m",
+    cols: [[{ id: "a", t: "Toutes alignées", s: "K_o = 1", k: "fort" }],
+           [{ id: "b", t: "Tissu 0 / 90", s: "K_o = 0,5", k: "doux" }],
+           [{ id: "c", t: "0 / 90 / ±45 ou mat aléatoire", s: "K_o = 0,375" }],
+           [{ id: "d", t: "±45", s: "K_o = 0,25" }],
+           [{ id: "e", t: "Toutes à 90°", s: "K_o = 0", k: "neutre" }]],
+    liens: [["a", "b"], ["b", "c"], ["c", "d"], ["d", "e"]] });
+
+  /* ---------- Chapitre 12 ---------- */
+  schema("sc-procedes", { titre: "Reconnaître le procédé à l'indice",
+    cols: [[{ id: "p", t: "Pièce en plastique" }],
+           [{ id: "td", t: "Thermodurcissable", s: "cuit dans le moule" }, { id: "tp", t: "Thermoplastique", s: "se ramollit à chaud" }],
+           [{ id: "i1", t: "Bavure autour" }, { id: "i2", t: "Matière poussée d'un pot par un poinçon" }, { id: "i3", t: "Section constante, en continu" }, { id: "i4", t: "Petit point d'injection" }, { id: "i5", t: "Point au fond d'un flacon" }, { id: "i6", t: "Ligne de soudure au fond" }, { id: "i7", t: "Creuse, sans soudure" }, { id: "i8", t: "Mince, découpe au pourtour" }],
+           [{ id: "r1", t: "Compression", k: "fort" }, { id: "r2", t: "Compression-transfert", k: "fort" }, { id: "r3", t: "Extrusion", k: "fort" }, { id: "r4", t: "Injection", k: "fort" }, { id: "r5", t: "Injection-soufflage", k: "fort" }, { id: "r6", t: "Extrusion-soufflage", k: "fort" }, { id: "r7", t: "Rotomoulage", k: "fort" }, { id: "r8", t: "Thermoformage", k: "fort" }]],
+    liens: [["p", "td"], ["p", "tp"], ["td", "i1"], ["td", "i2"], ["tp", "i3"], ["tp", "i4"], ["tp", "i5"], ["tp", "i6"], ["tp", "i7"], ["tp", "i8"],
+            ["i1", "r1"], ["i2", "r2"], ["i3", "r3"], ["i4", "r4"], ["i5", "r5"], ["i6", "r6"], ["i7", "r7"], ["i8", "r8"]], vgap: 12 });
+})();
+</script>
+</body>
+</html>
