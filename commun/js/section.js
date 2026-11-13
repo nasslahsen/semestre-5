@@ -186,16 +186,20 @@
           var bR = z.querySelector('[data-a="ratees"]'); if (bR) bR.onclick = function () { lancer(r); };
           return;
         }
+        // une carte à deux faces : la question devant ; toucher la carte la retourne (la réponse au dos), puis on dit si on savait
         var i = file[0], q = cartes[i];
-        var z = rendre('<p class="carte-petit">' + (vus + 1) + " / " + total + '</p><p class="carte-q">' + esc(q[0]) + "</p>" +
-          '<div class="carte-actions"><button type="button" class="carte-btn" data-a="voir">' + P.t("Voir la réponse") + "</button></div>");
-        z.querySelector('[data-a="voir"]').onclick = function () {
-          var act = z.querySelector(".carte-actions");
-          act.insertAdjacentHTML("beforebegin", '<p class="carte-r">' + esc(q[1]) + "</p>");
-          act.innerHTML = '<button type="button" class="carte-btn second" data-a="non">' + P.t("À revoir") + '</button><button type="button" class="carte-btn" data-a="oui">' + P.t("Je savais") + "</button>";
-          act.querySelector('[data-a="oui"]').onclick = function () { file.shift(); vus = Math.min(vus + 1, total); suivante(); };
-          act.querySelector('[data-a="non"]').onclick = function () { file.push(file.shift()); ratesCetteFois[i] = true; suivante(); };
+        var z = rendre('<p class="carte-petit">' + (vus + 1) + " / " + total + "</p>" +
+          '<button type="button" class="carte-flip" aria-label="' + P.t("Retourner la carte") + '">' +
+          '<span class="carte-face avant"><span class="carte-q">' + esc(q[0]) + '</span><span class="carte-indice">' + P.t("Touche la carte pour la retourner") + "</span></span>" +
+          '<span class="carte-face dos"><span class="carte-r">' + esc(q[1]) + "</span></span></button>" +
+          '<div class="carte-actions" hidden><button type="button" class="carte-btn non" data-a="non">' + P.t("Je ne savais pas") + '</button><button type="button" class="carte-btn oui" data-a="oui">' + P.t("Je savais") + "</button></div>");
+        var flip = z.querySelector(".carte-flip"), act = z.querySelector(".carte-actions");
+        flip.onclick = function () {
+          var dos = flip.classList.toggle("retournee");
+          if (dos) act.hidden = false;
         };
+        act.querySelector('[data-a="oui"]').onclick = function () { file.shift(); vus = Math.min(vus + 1, total); suivante(); };
+        act.querySelector('[data-a="non"]').onclick = function () { file.push(file.shift()); ratesCetteFois[i] = true; suivante(); };
       }
       function lancer(ordre) {
         if (!fond) {

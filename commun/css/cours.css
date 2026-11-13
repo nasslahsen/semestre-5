@@ -272,13 +272,25 @@ details.corrige > :last-child { margin-bottom: 18px; }
 .jouer-cartes small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
 .fenetre-cartes { position: fixed; inset: 0; z-index: 100; background: rgba(21, 23, 31, .45); display: none; align-items: center; justify-content: center; padding: 24px; }
 .fenetre-cartes.on { display: flex; }
-.carte-boite { position: relative; width: min(760px, 100%); min-height: 420px; max-height: calc(100vh - 48px); overflow: auto; background: #fff; border: 2px solid var(--encre); border-radius: 22px; box-shadow: 6px 6px 0 var(--jeu); padding: 34px 40px 32px; display: flex; flex-direction: column; }
-.carte-zone { flex: 1; display: flex; flex-direction: column; }
-.carte-fermer { position: absolute; top: 14px; right: 14px; min-height: 48px; padding: 0 16px; border: 0; background: none; color: var(--doux); font: 600 16px Inter, sans-serif; cursor: pointer; }
-.carte-petit { margin: 0 0 18px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }
-.carte-q { margin: 0; font: 700 26px/1.3 "Bricolage Grotesque", sans-serif; color: var(--encre); }
-.carte-r { margin: 22px 0 0; padding-top: 20px; border-top: 1.5px solid var(--trait); font-size: 20px; line-height: 1.5; color: var(--encre); }
-.carte-actions { margin-top: auto; padding-top: 28px; display: flex; gap: 14px; justify-content: flex-end; }
-.carte-btn { min-height: 56px; padding: 0 26px; border: 2px solid var(--encre); border-radius: 14px; background: var(--encre); color: #fff; font: 700 17px Inter, sans-serif; cursor: pointer; box-shadow: 4px 4px 0 var(--jeu); }
-.carte-btn.second { background: #fff; color: var(--encre); box-shadow: none; }
-.carte-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--jeu); }
+.carte-boite { position: relative; width: min(780px, 100%); max-height: calc(100vh - 48px); overflow: auto; background: #fff; border: 2px solid var(--encre); border-radius: 22px; box-shadow: 6px 6px 0 var(--jeu); padding: 26px 32px 28px; display: flex; flex-direction: column; }
+.carte-zone { display: flex; flex-direction: column; }
+.carte-fermer { position: absolute; top: 12px; right: 12px; min-height: 48px; padding: 0 16px; border: 0; background: none; color: var(--doux); font: 600 16px Inter, sans-serif; cursor: pointer; }
+.carte-petit { margin: 6px 0 16px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }
+.carte-q { font: 700 26px/1.3 "Bricolage Grotesque", sans-serif; color: var(--encre); }
+.carte-r { font-size: 21px; line-height: 1.5; color: var(--encre); white-space: pre-line; }
+.carte-flip { display: grid; width: 100%; min-height: 300px; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1600px; text-align: left; font: inherit; }
+.carte-face { grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 34px 36px; border: 1.5px solid var(--trait); border-radius: 18px; background: var(--fond-doux, #f6f7fa); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform .45s ease; }
+.carte-face.avant { transform: rotateY(0deg); }
+.carte-face.dos { transform: rotateY(180deg); background: #fff; border-color: var(--jeu); }
+.carte-flip.retournee .carte-face.avant { transform: rotateY(-180deg); }
+.carte-flip.retournee .carte-face.dos { transform: rotateY(0deg); }
+.carte-indice { font: 500 15px Inter, sans-serif; color: var(--doux); }
+.carte-actions { margin-top: 22px; display: flex; gap: 14px; justify-content: center; }
+.carte-actions[hidden] { display: none; }
+.carte-btn { flex: 0 1 260px; min-height: 60px; padding: 0 24px; border: 2px solid var(--encre); border-radius: 14px; background: #fff; color: var(--encre); font: 700 17px Inter, sans-serif; cursor: pointer; box-shadow: 4px 4px 0 var(--encre); }
+.carte-btn.oui { border-color: #12a26b; color: #0c7a50; box-shadow: 4px 4px 0 #12a26b; }
+.carte-btn.non { border-color: #e5484d; color: #c22f34; box-shadow: 4px 4px 0 #e5484d; }
+.carte-btn:active { transform: translate(3px, 3px); box-shadow: none; }
+/* Biomatériaux : corrections de calcul en lignes courtes (formule, application numérique, résultat), équations resserrées */
+html[data-module="biomateriaux"] details.corrige .katex-display { margin: 4px 0 10px; padding: 0; }
+html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bottom: 4px; }

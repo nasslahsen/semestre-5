@@ -271,6 +271,8 @@ pas de compteurs ni de badges sur chaque élément, aucune animation qui pulse o
 - Virgule décimale (`0{,}5` dans les formules) ; espace insécable avant `:` `;` `?` `!` ; guillemets « ».
 - Formules en KaTeX : `\( … \)` en ligne, `\[ … \]` isolées (dans une chaîne JavaScript : `\\( … \\)`).
 - Pas de gras dans le texte courant, sauf le terme défini.
+- Corrections et réponses : une idée par ligne, jamais une suite d'éléments enchaînés par des « ; » (une liste ou des lignes séparées).
+  Un calcul s'écrit dans l'ordre : la formule littérale, puis l'application numérique, puis le résultat avec son unité, chacun sur sa ligne.
 
 ## 9. Vérifier
 
