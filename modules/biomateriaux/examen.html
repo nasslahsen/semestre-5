@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Préparer l'examen · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../commun/css/cours.css">
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+<style>
+  .priorite { display: inline-block; min-width: 108px; font: 600 15px Inter, sans-serif; }
+  .priorite.p1 { color: var(--jeu-texte); }
+  .priorite.p3 { color: #6b7080; font-weight: 500; }
+  ol.jours { list-style: none; padding: 0; margin: 18px 0; }
+  ol.jours > li { display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-top: 1.5px solid var(--trait); }
+  ol.jours > li:last-child { border-bottom: 1.5px solid var(--trait); }
+  .jour-texte { flex: 1; }
+  .jour-texte h3 { margin: 0 0 6px; }
+  .jour-texte p { margin: 4px 0; }
+  .jour-fait { flex: none; min-width: 150px; min-height: 48px; padding: 0 16px; border: 1.5px solid #c9cdd6; border-radius: 12px; background: #fff; color: #15171f; font: 600 16px Inter, sans-serif; cursor: pointer; }
+  .jour-fait[aria-pressed="true"] { border-color: #12a26b; color: #12a26b; }
+  .methode { margin: 26px 0 8px; }
+  .methode-quand { color: #4a4f5c; }
+</style>
+</head>
+<body>
+<header id="barre"></header>
+<main>
+<p class="etiquette">Biomatériaux et biocompatibilité</p>
+<h1>Préparer l'examen</h1>
+<p class="chapeau">L'examen est dans moins d'une semaine et le cours fait douze chapitres. Pas besoin de tout lire. Cette page dit quoi apprendre en premier, comment répartir six jours, toutes les méthodes de calcul sur une seule page, et les questions de cours à savoir faire.</p>
+
+<h2>Comment travailler cette semaine</h2>
+<ul>
+<li>Ne lis pas tout le cours d'un trait. Pour chaque chapitre, lis d'abord le bloc Formules clés en bas de chaque notion : c'est l'essentiel en trois lignes. Tu ne descends dans la page que pour ce que tu ne comprends pas.</li>
+<li>Ensuite, joue les révisions (RÉV) en fin de chapitre plutôt que chaque niveau : elles mélangent tout le chapitre.</li>
+<li>Pour les calculs, refais le TD 1 sans regarder la correction, puis les exemples de cette page.</li>
+<li>Le soir, ouvre <a href="../../suivi.html">Mon suivi</a> : la liste « À revoir » te redonne seulement tes erreurs.</li>
+</ul>
+<p>Le tri ci-dessous est fait à partir du cours et du TD reçus : le professeur n'a pas donné le programme de l'examen. S'il annonce ce qui tombe, adapte.</p>
+
+<h2>Ce qui compte vraiment</h2>
+<div class="tableau"><table>
+<tr><th>Chapitre</th><th>Priorité</th><th>Ce qu'il faut savoir</th></tr>
+<tr><td><a href="chapitres/chapitre-1.html">1. Biomatériaux et DM</a></td><td><span class="priorite p1">Indispensable</span></td><td>Définition d'un biomatériau, dispositif médical contre médicament, classes I, IIa, IIb, III et leurs trois critères, implant, prothèse, greffe (auto, allo, xéno), les quatre générations.</td></tr>
+<tr><td><a href="chapitres/chapitre-8.html">2. Histoire et exigences</a></td><td><span class="priorite p1">Indispensable</span></td><td>Les trois critères de Chester, biocompatibilité et biofonctionnalité, bio-inerte et bioactif, cahier des charges, les huit domaines d'application. Les dates : survol.</td></tr>
+<tr><td><a href="chapitres/chapitre-0.html">3. Bases de mécanique</a></td><td><span class="priorite">À connaître</span></td><td>\(\sigma = F/S_0\), \(\varepsilon = \Delta l / l_0\), \(\sigma = E\varepsilon\), les unités (MPa, GPa). Rien de plus.</td></tr>
+<tr><td><a href="chapitres/chapitre-2.html">4. Familles de matériaux</a></td><td><span class="priorite">À connaître</span></td><td>Liaison et propriétés de chaque famille : métal, céramique, polymère, composite. Les énergies de liaison : survol.</td></tr>
+<tr><td><a href="chapitres/chapitre-9.html">5. Métaux d'implant</a></td><td><span class="priorite p1">Indispensable</span></td><td>Les cinq problèmes des métaux, 316L (temporaire), cobalt-chrome (usure, fatigue), titane (module proche de l'os, stress-shielding), NiTi (mémoire de forme), tantale (poreux). Les modules dans l'ordre.</td></tr>
+<tr><td><a href="chapitres/chapitre-10.html">6. Biocéramiques</a></td><td><span class="priorite p1">Indispensable</span></td><td>Bio-inertes (alumine, zircone, carbone) contre résorbables (hydroxyapatite, TCP), où on les met, pourquoi elles cassent.</td></tr>
+<tr><td><a href="chapitres/chapitre-3.html">7. Structure des polymères</a></td><td><span class="priorite p1">Indispensable</span></td><td>Tg, Tf, amorphe et semi-cristallin, la courbe du module, le taux de cristallinité. C'est tout le TD 1 : questions et calculs.</td></tr>
+<tr><td><a href="chapitres/chapitre-11.html">8. Polymères biomédicaux</a></td><td><span class="priorite p1">Indispensable</span></td><td>Viscoélasticité (ressort et amortisseur), quel polymère pour quel dispositif (UHMWPE, PEEK, silicone, PTFE, PMMA, PLA/PGA), collagène.</td></tr>
+<tr><td><a href="chapitres/chapitre-4.html">9. Élastomères</a></td><td><span class="priorite">À connaître</span></td><td>Élastomère contre plastomère (Tv et ambiante), vulcanisation. Le reste : survol.</td></tr>
+<tr><td><a href="chapitres/chapitre-5.html">10. Additifs et renforts</a></td><td><span class="priorite">À connaître</span></td><td>Plastifiant baisse Tg, charge allongée rigidifie plus. C'est la question 1.5 du TD.</td></tr>
+<tr><td><a href="chapitres/chapitre-6.html">11. Composites</a></td><td><span class="priorite p1">Indispensable</span></td><td>Loi des mélanges, module transversal, coefficient d'orientation. Les calculs les plus probables après le TD.</td></tr>
+<tr><td><a href="chapitres/chapitre-7.html">12. Procédés</a></td><td><span class="priorite">À connaître</span></td><td>Seulement le tableau des indices : quel procédé pour quelle pièce, et thermodurcissable donne compression.</td></tr>
+<tr><td>Nanomédecine, marché, historique des polymères</td><td><span class="priorite p3">Survol</span></td><td>Lire les Formules clés une fois. Ne pas y passer de temps.</td></tr>
+</table></div>
+
+<h2>Le plan sur six jours</h2>
+<p>Environ trois heures par jour. Touche « Marquer fait » quand la journée est finie.</p>
+<ol class="jours">
+<li><div class="jour-texte"><h3>Jour 1 : le vocabulaire</h3><p><a href="chapitres/chapitre-1.html">Chapitre 1</a> et <a href="chapitres/chapitre-8.html">chapitre 2</a> : lis les Formules clés, puis la révision de chaque chapitre. Termine par les questions de cours A à C plus bas.</p></div><button type="button" class="jour-fait" data-jour="1" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 2 : les polymères et le TD 1</h3><p><a href="chapitres/chapitre-3.html">Chapitre 7</a> : états amorphe et semi-cristallin, taux de cristallinité. Puis le <a href="chapitres/chapitre-12.html">TD 1</a> entier sans regarder, et les méthodes 1 et 2 de cette page.</p></div><button type="button" class="jour-fait" data-jour="2" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 3 : métaux et céramiques</h3><p><a href="chapitres/chapitre-9.html">Chapitre 5</a> et <a href="chapitres/chapitre-10.html">chapitre 6</a>. Apprends l'ordre des modules (os 20, Ti 110, 316L 200, CoCrMo 230 GPa) et à quoi sert chaque matériau. Questions D et E.</p></div><button type="button" class="jour-fait" data-jour="3" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 4 : composites et polymères médicaux</h3><p><a href="chapitres/chapitre-6.html">Chapitre 11</a> (méthodes 3 et 4) et <a href="chapitres/chapitre-11.html">chapitre 8</a>. Questions F.</p></div><button type="button" class="jour-fait" data-jour="4" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 5 : le reste, en version courte</h3><p>Formules clés seulement : <a href="chapitres/chapitre-0.html">bases de mécanique</a>, <a href="chapitres/chapitre-2.html">familles</a>, <a href="chapitres/chapitre-4.html">élastomères</a>, <a href="chapitres/chapitre-5.html">additifs</a>, <a href="chapitres/chapitre-7.html">procédés</a> (le tableau des indices). Questions G.</p></div><button type="button" class="jour-fait" data-jour="5" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 6 : l'examen blanc</h3><p>Toutes les questions de cours de cette page sans ouvrir les réponses, puis les six méthodes sur feuille. Corrige, et repasse sur <a href="../../suivi.html">Mon suivi</a> pour ce qui reste à revoir.</p></div><button type="button" class="jour-fait" data-jour="6" aria-pressed="false">Marquer fait</button></li>
+</ol>
+
+<h2>Les calculs : six méthodes</h2>
+<p>Les exemples sont ajoutés pour t'entraîner : ce ne sont pas ceux du cours. Fais-les sur papier avant d'ouvrir la correction.</p>
+
+<h3 class="methode">Méthode 1 : taux de cristallinité et densité</h3>
+<p class="methode-quand">Quand : on te donne des densités (amorphe, cristalline, de la pièce) et on demande X, une densité ou une masse.</p>
+\[\rho = \rho_c\,X + \rho_a\,(1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]
+<p>Exemple ajouté : un polyéthylène a \(\rho_a = 0{,}85\) g/cm³, \(\rho_c = 1{,}00\) g/cm³, et une pièce mesure \(\rho = 0{,}94\) g/cm³. Quel est X ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>\(X = (0{,}94 - 0{,}85)/(1{,}00 - 0{,}85) = 0{,}09/0{,}15 = 0{,}6\), soit 60 %. Vérifie toujours : \(\rho\) est entre \(\rho_a\) et \(\rho_c\), donc X est entre 0 et 1. Au dénominateur, c'est \(\rho_c - \rho_a\) (la solution du TD s'y trompe).</p>
+</details>
+
+<h3 class="methode">Méthode 2 : la pièce chauffée puis refroidie</h3>
+<p class="methode-quand">Quand : une plaque est chauffée à une température puis trempée (refroidie instantanément), et on demande son volume.</p>
+<p>Trois étapes. 1. La masse ne change jamais : \(m = \rho V\) avec la densité de départ. 2. Compare la température à \(T_f\) : en dessous, les cristaux restent, X ne change pas, le volume non plus ; au-dessus, tout fond et la trempe ne laisse pas le temps de cristalliser : \(X = 0\), \(\rho = \rho_a\). 3. \(V = m/\rho\).</p>
+<p>Exemple ajouté : plaque de 20 × 10 × 0,5 cm, \(X = 0{,}4\), \(\rho_a = 1{,}1\) et \(\rho_c = 1{,}3\) g/cm³, \(T_g = 60\) °C, \(T_f = 180\) °C. Masse ? Volume après 120 °C puis trempe ? Après 220 °C puis trempe ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>\(V = 20 \times 10 \times 0{,}5 = 100\) cm³ ; \(\rho = 1{,}3 \times 0{,}4 + 1{,}1 \times 0{,}6 = 0{,}52 + 0{,}66 = 1{,}18\) g/cm³ ; \(m = 118\) g.</p>
+<p>120 °C : sous \(T_f\), rien ne fond, le volume reste 100 cm³.</p>
+<p>220 °C : au-dessus de \(T_f\), tout fond ; trempé, \(\rho = \rho_a = 1{,}1\) g/cm³, donc \(V = 118/1{,}1 \approx 107{,}3\) cm³. Le volume augmente : l'amorphe est moins dense que le cristal.</p>
+<p>Si on demande à quelle température la cristallisation est la plus rapide : \((T_f + T_g)/2 = (180 + 60)/2 = 120\) °C.</p>
+</details>
+
+<h3 class="methode">Méthode 3 : loi des mélanges (sens des fibres)</h3>
+<p class="methode-quand">Quand : composite à fibres alignées, chargé dans le sens des fibres. Même déformation dans la fibre et la matrice.</p>
+\[E_{CL} = E_f\,\phi_f + E_m\,\phi_m \qquad \phi_m = 1 - \phi_f \qquad \sigma_f = E_f\,\varepsilon,\ \sigma_m = E_m\,\varepsilon\]
+<p>Si on ne te donne pas \(\phi_f\) mais des densités : \(\phi_f = (\rho - \rho_m)/(\rho_f - \rho_m)\), le même calcul qu'à la méthode 1.</p>
+<p>Exemple ajouté : fibres de carbone \(E_f = 230\) GPa, époxy \(E_m = 4\) GPa, \(\phi_f = 0{,}6\). Calcule \(E_{CL}\), puis les contraintes dans la fibre et la matrice sous 200 MPa dans le sens des fibres.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>\(E_{CL} = 230 \times 0{,}6 + 4 \times 0{,}4 = 138 + 1{,}6 = 139{,}6\) GPa.</p>
+<p>\(\varepsilon = \sigma/E_{CL} = 200/139\,600 \approx 1{,}43 \times 10^{-3}\). Puis \(\sigma_f = 230\,000 \times 1{,}43 \times 10^{-3} \approx 330\) MPa et \(\sigma_m = 4\,000 \times 1{,}43 \times 10^{-3} \approx 5{,}7\) MPa : ce sont les fibres qui portent.</p>
+<p>Piège : les modules en GPa et la contrainte en MPa. Passe tout en MPa (1 GPa = 1000 MPa) avant de diviser.</p>
+</details>
+
+<h3 class="methode">Méthode 4 : module transversal et orientation</h3>
+<p class="methode-quand">Quand : charge en travers des fibres, ou plis orientés à plusieurs angles.</p>
+\[\frac{1}{E_{CT}} = \frac{\phi_f}{E_f} + \frac{\phi_m}{E_m} \qquad E_{CL} = K_o\,E_f\,\phi_f + E_m\,\phi_m \qquad K_o = \sum a_n (\cos\theta_n)^4\]
+<p>Valeurs de \(K_o\) à connaître : 1 (alignées), 0,5 (0/90), 0,25 (±45), 0,375 (0/90/±45 ou aléatoire dans le plan).</p>
+<p>Exemple ajouté : même composite (230 et 4 GPa, \(\phi_f = 0{,}6\)). Calcule \(E_{CT}\), puis \(E_{CL}\) avec des plis à 0 et 90°.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>\(1/E_{CT} = 0{,}6/230 + 0{,}4/4 = 0{,}0026 + 0{,}1 = 0{,}1026\), donc \(E_{CT} \approx 9{,}7\) GPa. En travers, c'est la matrice qui travaille : \(E_{CT}\) reste proche de \(E_m/\phi_m = 10\) GPa. Toujours \(E_{CL} > E_{CT}\).</p>
+<p>0/90 : \(K_o = 0{,}5\), \(E_{CL} = 0{,}5 \times 230 \times 0{,}6 + 4 \times 0{,}4 = 69 + 1{,}6 = 70{,}6\) GPa : la moitié des fibres seulement travaille.</p>
+</details>
+
+<h3 class="methode">Méthode 5 : contrainte, déformation, module</h3>
+<p class="methode-quand">Quand : une tige, une vis ou une éprouvette sous une force.</p>
+\[\sigma = \frac{F}{S_0} \qquad \varepsilon = \frac{\Delta l}{l_0} \qquad \sigma = E\,\varepsilon\]
+<p>Exemple ajouté : une tige en titane (\(E = 110\) GPa) de 10 mm de diamètre et 150 mm de long porte 15 700 N. Contrainte ? Allongement ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>\(S_0 = \pi \times 5^2 \approx 78{,}5\) mm² ; \(\sigma = 15\,700/78{,}5 \approx 200\) MPa (N/mm² donne des MPa).</p>
+<p>\(\varepsilon = 200/110\,000 \approx 1{,}8 \times 10^{-3}\), soit 0,18 % ; \(\Delta l = 1{,}8 \times 10^{-3} \times 150 \approx 0{,}27\) mm.</p>
+<p>Piège : le rayon, pas le diamètre, dans \(\pi r^2\).</p>
+</details>
+
+<h3 class="methode">Méthode 6 : lire la courbe du module (sans calcul)</h3>
+<p class="methode-quand">Quand : vrai ou faux sur l'état d'un polymère à une température donnée (TD 1.2 et 1.4).</p>
+<div class="tableau"><table>
+<tr><th>Température</th><th>Amorphe</th><th>Semi-cristallin</th></tr>
+<tr><td>Sous \(T_g\)</td><td>Vitreux, environ \(10^9\) Pa</td><td>Vitreux, opaque ou translucide</td></tr>
+<tr><td>Entre \(T_g\) et \(T_f\)</td><td>Caoutchouteux, environ \(10^6\) Pa</td><td>Cristaux encore là : opaque, module qui baisse lentement</td></tr>
+<tr><td>Au-dessus de \(T_f\)</td><td>(pas de \(T_f\))</td><td>\(X = 0\) : transparent, caoutchouteux ou liquide</td></tr>
+</table></div>
+<p>Deux réflexes. Passer \(T_g\) ne fait pas fondre les cristaux : X ne change qu'à \(T_f\). Un module qui tombe de 1 GPa à 1 MPa en passant \(T_f\) veut dire que tous les cristaux ont fondu.</p>
+
+<h2>Questions de cours à savoir faire</h2>
+<p>Réponds à voix haute ou sur papier, puis ouvre. Si tu bloques, le lien du chapitre est dans le tableau plus haut.</p>
+
+<h3>A. Biomatériau et dispositif médical</h3>
+<p>1. Donne la définition actuelle d'un biomatériau.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Un matériau destiné à alimenter ou à remplacer tout ou partie d'un organe déficient, capable d'exister au contact du vivant sans défense inacceptable ni réponse hostile de l'hôte.</p>
+</details>
+<p>2. Qu'est-ce qui distingue un dispositif médical d'un médicament ? Donne un exemple.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>L'action principale voulue d'un DM n'est ni pharmacologique, ni immunologique, ni métabolique (art. R5211-2 du CSP). La seringue est un DM, l'insuline qu'elle contient est un médicament.</p>
+</details>
+<p>3. Sur quels critères classe-t-on un DM en I, IIa, IIb ou III ? Donne ce que contient chaque classe.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Trois critères : le caractère invasif, la durée du contact, la partie du corps concernée. I : non invasif (bas de contention). IIa : invasif de courte durée. IIb : invasif prolongé. III : au contact du cœur, du système circulatoire central ou du système nerveux central, ou à effet biologique, ou biodégradable (stent coronaire). Plus la classe monte, plus on demande de tests. Europe : marquage CE ; États-Unis : FDA.</p>
+</details>
+<p>4. Implant, prothèse, organe artificiel, bioprothèse, greffe : définis chacun.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Implant : DM fait de biomatériaux introduit dans le corps, temporaire ou permanent. Prothèse : supplée un organe manquant ou restaure une fonction. Organe artificiel : remplace tout ou partie des fonctions d'un organe (hybride s'il contient des cellules vivantes). Bioprothèse : tissu non vivant traité. Greffe : vivant ; autogreffe (même personne), allogreffe (même espèce), xénogreffe (autre espèce).</p>
+</details>
+<p>5. Cite les quatre générations de biomatériaux avec un exemple chacune.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>1re : matériaux non contrôlés (bois, verre, or). 2e : métaux, céramiques, polymères aux propriétés choisies. 3e : modification de surface, échafaudages biodégradables, nanomatériaux. 4e : ingénierie tissulaire, nanomédecine, médecine régénérative. Toutes doivent être biocompatibles.</p>
+</details>
+
+<h3>B. Exigences</h3>
+<p>6. Quels sont les trois critères de Chester, et que chacun exclut-il ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Contact avec le vivant (d'où la biocompatibilité) ; contact de plus de quelques heures (exclut les médicaments) ; matériau non vivant (exclut les greffes).</p>
+</details>
+<p>7. Biocompatibilité et biofonctionnalité : quelle différence ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Biocompatibilité : ne pas nuire, tolérance au produit, à ses constituants et à ses produits de dégradation (pas d'inflammation ni de toxicité), et au sens large une réponse de l'hôte appropriée. Biofonctionnalité : remplir la fonction prévue (porter, frotter, conduire le sang…).</p>
+</details>
+<p>8. Bio-inerte ou bioactif : donne la différence et un exemple de chaque.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Bio-inerte : remplace une fonction sans interagir avec le tissu (valve, tête en alumine). Bioactif : interagit fortement avec le tissu (revêtement d'hydroxyapatite où l'os se lie).</p>
+</details>
+
+<h3>C. Choisir et valider</h3>
+<p>9. Cite le cahier des charges d'un biomatériau.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Stérilisable ; pas de transmission infectieuse ; pas de réaction immunitaire ; pas de toxicité ; fabrication et stockage faciles ; coût le plus bas possible.</p>
+</details>
+<p>10. Par quels outils passe-t-on pour choisir et valider un biomatériau ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Calculs et simulations ; essais mécaniques (rupture, bancs, simulateurs) ; essais biologiques (cellules, animaux, homme). La seule vraie sécurité est l'implantation chez l'homme avec un suivi à long terme.</p>
+</details>
+
+<h3>D. Métaux</h3>
+<p>11. Quels sont les problèmes des métaux implantés ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Corrosion, relargage d'ions (jusqu'au descellement), hypersensibilité (nickel, puis chrome, puis cobalt ; 10 à 15 % de la population), usure et débris, corrosion galvanique entre deux métaux en contact.</p>
+</details>
+<p>12. Pourquoi le 316L est-il réservé aux implants temporaires ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Il peut se corroder sous contrainte et sans oxygène. Il donne aussi des artefacts d'IRM. Il est bon marché et facile à travailler, d'où son usage pour plaques, vis, clous.</p>
+</details>
+<p>13. Pourquoi le titane pour une tige de hanche, et pourquoi pas pour la tête ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Son module (100 à 110 GPa) est le plus proche de l'os (20 GPa) parmi les métaux courants : la tige laisse l'os travailler, moins de stress-shielding. Couche de \(\mathrm{TiO_2}\) qui se reforme, ostéo-intégration, pas d'artefact d'IRM. Mais il s'use mal : jamais en couple de frottement, donc pas pour la tête.</p>
+</details>
+<p>14. Quand choisir le cobalt-chrome ? Le NiTi ? Le tantale ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Cobalt-chrome : pièces très chargées en fatigue qui doivent peu s'user (tiges de genou, de hanche). NiTi : mémoire de forme ou superélasticité (agrafes qui se referment à la chaleur du corps, stents). Tantale : pièces poreuses à 75 à 85 %, comme l'os spongieux, avec un module bas (2,5 à 3,9 GPa).</p>
+</details>
+
+<h3>E. Céramiques</h3>
+<p>15. Céramiques bio-inertes et résorbables : cite-les et dis où on les met.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Bio-inertes : alumine et zircone (têtes et inserts de prothèse de hanche), carbone pyrolytique (valves cardiaques, compatible avec le sang). Résorbables : hydroxyapatite \(\mathrm{Ca_{10}(PO_4)_6(OH)_2}\) et phosphate tricalcique \(\mathrm{Ca_3(PO_4)_2}\), remplacées peu à peu par l'os (revêtements de tiges, comblements osseux, zones peu chargées).</p>
+</details>
+<p>16. Points forts et point faible des céramiques ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Dures, résistantes à l'usure et en compression, isolantes, réfractaires, biocompatibles. Point faible : fragiles, non ductiles, elles cassent net au choc (liaisons ioniques et covalentes, pas de déformation plastique).</p>
+</details>
+
+<h3>F. Polymères</h3>
+<p>17. Que se passe-t-il pour un polymère amorphe en passant \(T_g\) ? Pour un semi-cristallin en passant \(T_f\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Amorphe à \(T_g\) : il passe de vitreux (environ \(10^9\) Pa) à caoutchouteux (environ \(10^6\) Pa). Semi-cristallin à \(T_f\) : les cristaux fondent, X tombe à 0, il devient transparent et perd sa tenue.</p>
+</details>
+<p>18. Pourquoi dit-on qu'un polymère est viscoélastique ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Il est à la fois ressort, \(\sigma = E\varepsilon\) (Hooke), et amortisseur, \(\sigma = \eta\,d\varepsilon/dt\) (Newton). À basse température ou en sollicitation rapide, l'élastique domine ; à haute température ou en sollicitation lente, le visqueux domine.</p>
+</details>
+<p>19. Quel polymère pour : un insert de hanche, une cage de rachis, une prothèse mammaire, une prothèse vasculaire, une lentille, une vis qui disparaît ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>UHMWPE ; PEEK ; silicone ; PTFE ; PMMA ; PLA ou PGA.</p>
+</details>
+<p>20. Thermoplastique, thermodurcissable, élastomère : quelle différence de structure ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Thermoplastique : chaînes linéaires ou ramifiées, se ramollit à chaud, remoulable. Élastomère : réseau à mailles larges, élastique. Thermodurcissable : réseau à mailles serrées, ne se reforme plus.</p>
+</details>
+
+<h3>G. En version courte</h3>
+<p>21. Qu'est-ce que la vulcanisation ? Comment savoir si un polymère est élastomère ou plastomère à l'ambiante ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Vulcanisation : réticulation chimique, des ponts covalents entre les chaînes (souvent au soufre). Élastomère si sa \(T_v\) est sous l'ambiante (caoutchouc naturel, vers −60 °C) ; plastomère si elle est au-dessus (polystyrène, vers 100 °C).</p>
+</details>
+<p>22. Comment rendre le PVC plus léger, plus rigide, plus souple (Tg plus basse) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Plus léger : le gonfler (augmenter le volume à masse égale). Plus rigide : le renforcer avec des fibres ou des charges, d'autant plus efficaces qu'elles sont allongées. Tg plus basse : un plastifiant.</p>
+</details>
+<p>23. Quel procédé pour : un tube en continu, une pièce avec un petit point d'injection, une bouteille avec une ligne de soudure au fond, une citerne creuse sans soudure, une barquette découpée au pourtour, une pièce thermodurcissable avec bavure ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Extrusion ; injection ; extrusion-soufflage ; rotomoulage ; thermoformage ; compression.</p>
+</details>
+<p>24. Qu'est-ce qu'un composite, et pourquoi \(E_{CL} > E_{CT}\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Au moins deux constituants qui ne se mélangent pas, un renfort (fibres) et une matrice, avec des propriétés que chacun n'a pas seul. Dans le sens des fibres, ce sont les fibres qui travaillent ; en travers, c'est la matrice, bien moins rigide.</p>
+</details>
+
+<h2>Les pièges du TD</h2>
+<ul>
+<li>Le dénominateur de X est \(\rho_c - \rho_a\), pas \(\rho - \rho_c\).</li>
+<li>Chauffer sous \(T_f\) ne change rien à X : le volume reste le même.</li>
+<li>Fondu puis trempé : \(X = 0\), on prend \(\rho_a\). La masse, elle, ne change jamais.</li>
+<li>Un polyéthylène reste rigide à l'ambiante grâce à ses cristaux, pas à sa masse moléculaire.</li>
+<li>Un polymère ne peut pas avoir \(T_f \le T_g\), ni des cristaux au-dessus de \(T_f\).</li>
+<li>Les étiquettes de log : 9 et 6 sont des logarithmes de pascals (\(10^9\) Pa = 1 GPa, \(10^6\) Pa = 1 MPa).</li>
+</ul>
+</main>
+<script src="../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME;
+  var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", sm) });
+  var b = String.fromCharCode(92);
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+  // jours faits : une commodité sur cet iPad seulement (le vrai suivi reste dans « Mon suivi »)
+  var CLE = "s5-examen-biomateriaux", faits = {};
+  try { faits = JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { faits = {}; }
+  Array.prototype.forEach.call(document.querySelectorAll(".jour-fait"), function (b) {
+    function montrer() { var f = !!faits[b.dataset.jour]; b.setAttribute("aria-pressed", f ? "true" : "false"); b.textContent = f ? "Fait" : "Marquer fait"; }
+    montrer();
+    b.addEventListener("click", function () {
+      faits[b.dataset.jour] = !faits[b.dataset.jour]; montrer();
+      try { localStorage.setItem(CLE, JSON.stringify(faits)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -20,6 +20,8 @@ PLATEFORME.parcours("biomateriaux", {
       { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 12 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
     ]
   },
+  // Page « Préparer l'examen » (examen.html, lien sur la carte) : priorités, plan de six jours, méthodes de calcul, questions de cours.
+  examen: { biomateriaux: true },
   // Vue d'ensemble du module (vue-ensemble.html, lien sur la carte) : parties, chapitres (id de la page de chapitre), notions [libellé, page de cours], à retenir, cartes de révision [question, réponse].
   arbre: {
     biomateriaux: {

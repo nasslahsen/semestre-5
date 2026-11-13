@@ -43,6 +43,8 @@
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
   // vue d'ensemble du module (vue-ensemble.html), quand module.js décrit un arbre pour ce sous-module : un lien discret sous le titre
   var lienVue = !vueTD && MOD.arbre && MOD.arbre[sm.id] ? '<a class="lien-vue" href="vue-ensemble.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Vue d'ensemble du module") + "</a>" : "";
+  // page « Préparer l'examen » (examen.html), quand module.js l'annonce pour ce sous-module (examen: { <sm>: true })
+  if (!vueTD && MOD.examen && MOD.examen[sm.id]) lienVue += '<a class="lien-vue" href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a>";
   h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1>" + lienVue + "</div>" +
     (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + P.t(r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
       : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>") + "</div>";
