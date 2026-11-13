@@ -294,3 +294,9 @@ details.corrige > :last-child { margin-bottom: 18px; }
 /* Biomatériaux : corrections de calcul en lignes courtes (formule, application numérique, résultat), équations resserrées */
 html[data-module="biomateriaux"] details.corrige .katex-display { margin: 4px 0 10px; padding: 0; }
 html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bottom: 4px; }
+
+/* Schémas en blocs (commun/js/schema.js) : arbres, classements, enchaînements */
+.schema { margin: 22px 0 10px; padding: 18px 14px; border: 1.5px solid var(--trait); border-radius: 18px; background: #fff; }
+.schema svg { display: block; width: 100%; height: auto; }
+.schema svg text { font-family: Inter, sans-serif; }
+.schema-titre { margin: 0 0 6px 8px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }

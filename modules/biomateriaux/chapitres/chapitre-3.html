@@ -56,6 +56,8 @@
 <p>Les thermoplastiques sont livrés en granules, en feuilles ou en poudre. Les thermodurcissables sont moulés sous forme de semi-produits : une résine et un catalyseur. L'image du cours : un thermoplastique est un œuf en chocolat (on le refond et on le remoule), un thermodurcissable est un œuf cuit (impossible de revenir en arrière).</p>
 <p>Historiquement, on distingue deux familles de plastiques, thermoplastiques et thermodurcissables, plus les élastomères.</p>
 
+<div class="schema" id="sc-polymeres"></div>
+
 <h4>Exemple</h4>
 <p>Recyclage à l'hôpital : les seringues et tubes en PE ou PS (thermoplastiques) peuvent être broyés, refondus et remoulés. Une pièce en époxy (thermodurcissable) ne peut pas l'être : chauffée, elle brunit et se dégrade.</p>
 
@@ -84,6 +86,8 @@
 <p>La <strong>ténacité</strong> est la capacité d'un matériau à absorber de l'énergie et à se déformer plastiquement sans se fracturer. L'énergie absorbée est l'aire sous la courbe contrainte-déformation : petite pour un matériau fragile, grande pour un matériau ductile.</p>
 <p>La masse moléculaire décale aussi l'état liquide. Sur la courbe du module de relaxation, une augmentation de la masse décale l'apparition de l'état liquide vers les températures plus élevées (M₂ > M₁). Un polymère de masse moléculaire infinie (M₃ → ∞) n'atteint jamais l'état liquide.</p>
 <div id="fig-masse"></div>
+
+<div class="schema" id="sc-masse-mol"></div>
 
 <h4>Exemple</h4>
 <p>TD : un polymère de masse moléculaire extrêmement élevée, Tg = 100 °C, reste sur son plateau caoutchouteux (environ 1 MPa) au-dessus de Tg et de Tf, au lieu de couler. Et à l'inverse, une cire de chaînes courtes fond à quelques dizaines de degrés.</p>
@@ -123,6 +127,8 @@
 <p><strong>Relaxation</strong> : après une déformation, les chaînes veulent retourner à leur équilibre. Elles le font par désenchevêtrement et réenchevêtrement. À déformation maintenue, la contrainte σ décroît donc avec le temps. Le temps nécessaire varie avec la longueur des chaînes.</p>
 <div id="fig-relaxation"></div>
 
+<div class="schema" id="sc-etats"></div>
+
 <h4>Exemple</h4>
 <p>Courbe du cours : polystyrène (Tv ≈ 100 °C) et caoutchouc naturel (Tv ≈ −60 °C à −70 °C). À 20 °C, le polystyrène est dans sa zone 0-1, vitreux ; le caoutchouc naturel est sur son plateau, caoutchouteux. La même courbe décalée en température donne deux usages opposés.</p>
 
@@ -154,6 +160,8 @@
 <p>D'après les solutions du TD : un semi-cristallin est translucide ou opaque ; au-dessus de Tf, la phase cristalline a fondu et il devient transparent. En refroidissant depuis l'état fondu, la vitesse de cristallisation est la plus élevée vers \(T = (T_f + T_g)/2\) : trop chaud, les cristaux se défont ; trop froid, les chaînes ne bougent plus.</p>
 
 <figure class="photo"><img src="../images/polymere-lamelles.jpg" alt="Micrographie d'un polymère et schéma de chaînes repliées en lamelles cristallines dans une phase amorphe"><figcaption>Dans un semi-cristallin, des chaînes repliées en lamelles ordonnées, entourées de chaînes en désordre (phase amorphe).<small>Images du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
+
+<div class="schema" id="sc-courbe"></div>
 
 <h4>Exemple</h4>
 <p>TD, application 1.2 : Tg = −10 °C, Tf = 150 °C, X = 0,5 à 25 °C.</p>
@@ -195,6 +203,8 @@
 <p>\[X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]</p>
 <p>La solution du TD écrit \(X = (\rho - \rho_a)/(\rho - \rho_c)\) : c'est une coquille. Avec \(\rho = \rho_c\), le dénominateur s'annulerait ; la bonne forme, celle du cours, donne bien X = 0 pour \(\rho = \rho_a\) et X = 1 pour \(\rho = \rho_c\).</p>
 
+<div class="schema" id="sc-trempe"></div>
+
 <h4>Exemple : la plaque du TD 1.1</h4>
 <p>Polymère de masse moléculaire extrêmement élevée, Tg = 100 °C, Tf = 200 °C, \(\rho_a = 1\) et \(\rho_c = 1{,}2\) g/cm³. Plaque de 10 cm × 10 cm × 0,1 cm moulée avec X = 50 %.</p>
 <ul>
@@ -232,6 +242,8 @@
 </table></div>
 <p>Aujourd'hui, les polymères sont utilisés presque partout : automobile, laboratoire, poches de perfusion, inhalateurs.</p>
 
+<div class="schema" id="sc-histoire-polymeres"></div>
+
 <h4>Exemple</h4>
 <p>Un flacon de sérum en HDPE réunit trois idées de ce chapitre : un thermoplastique (on le moule à chaud), semi-cristallin (il est laiteux), mis en forme par extrusion-soufflage, le procédé né avec le HDPE en 1953 (chapitre 12). Exemple ajouté.</p>
 
@@ -248,8 +260,10 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../calculs.js"></script>
 <script src="../figures/macromolecules.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/masse-moleculaire.js"></script>
 <script src="../figures/etats-amorphe.js"></script>
 <script src="../figures/semi-cristallins.js"></script>
