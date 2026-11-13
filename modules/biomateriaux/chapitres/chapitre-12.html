@@ -74,15 +74,33 @@
 <p>a. Trace la courbe du module de relaxation en fonction de la température ; place \(T_g\), \(T_f\) et les zones vitreux, amorphe, cristallin, caoutchouteux. b. Quelle est la masse de la pièce à température ambiante ? c. Chauffée à 150 °C puis refroidie instantanément, quel est son volume ? d. Chauffée à 250 °C puis refroidie instantanément, quel est son volume ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
 <p>a. Sous \(T_g\) (100 °C) : plateau vitreux, \(\log E_r \approx 9{,}48\), soit environ 3 GPa. Entre 100 et 200 °C : la phase amorphe devient caoutchouteuse mais la phase cristalline tient ; le module diminue lentement, comme un composite à deux phases (cristaux dispersés dans une matrice caoutchouteuse). Au-dessus de \(T_f\) (200 °C) : les cristaux fondent, tout le polymère est amorphe caoutchouteux, et comme la masse moléculaire est très élevée, il reste sur un plateau vers 1 MPa (\(\log E_r = 6\)). La solution gradue l'axe « log Er en MPa » ; les valeurs 9,48 et 6 sont des logarithmes de pascals.</p>
-<p>b. \(V_T = 10 \times 10 \times 0{,}1 = 10\) cm³ ; \(\rho = \rho_c X + \rho_a (1 - X) = 1{,}2 \times 0{,}5 + 1 \times 0{,}5 = 1{,}1\) g/cm³ ; masse \(= 10 \times 1{,}1 = 11\) g. La solution écrit \(X = (\rho - \rho_a)/(\rho - \rho_c)\) : le dénominateur juste est \(\rho_c - \rho_a\).</p>
+<p>b. Volume de la plaque.</p>
+\[V_T = L \times l \times e\]
+\[V_T = 10 \times 10 \times 0{,}1 = 10\ \text{cm}^3\]
+<p>Densité de la plaque.</p>
+\[\rho = \rho_c\,X + \rho_a\,(1 - X)\]
+\[\rho = 1{,}2 \times 0{,}5 + 1 \times 0{,}5 = 1{,}1\ \text{g/cm}^3\]
+<p>Masse.</p>
+\[m = \rho\,V_T\]
+\[m = 1{,}1 \times 10 = 11\ \text{g}\]
+<p>La solution écrit \(X = (\rho - \rho_a)/(\rho - \rho_c)\) : le dénominateur juste est \(\rho_c - \rho_a\).</p>
 <p>c. À 150 °C, on reste sous \(T_f\) : les cristaux ne fondent pas, l'état ne change pas, le volume reste 10 cm³.</p>
-<p>d. À 250 °C, le polymère fond ; refroidi instantanément, il n'a pas le temps de cristalliser : \(\rho = \rho_a = 1\) g/cm³. La masse ne change pas (11 g), donc \(V = 11 / 1 = 11\) cm³.</p>
+<p>d. À 250 °C, au-dessus de \(T_f\), le polymère fond. Refroidi instantanément, il n'a pas le temps de cristalliser : \(\rho = \rho_a = 1\) g/cm³. La masse ne change pas (11 g).</p>
+\[V = \frac{m}{\rho_a}\]
+\[V = \frac{11}{1} = 11\ \text{cm}^3\]
 </details>
 
 <h4>Application 1.2 : vrai ou faux</h4>
 <p>Un polymère a \(T_g = -10\) °C et \(T_f = 150\) °C ; à 25 °C, \(X = 0{,}5\). a. À 50 °C, il est translucide ou opaque. b. À 30 °C, il est transparent. c. À 160 °C, il est transparent. d. Chauffé de −20 à 20 °C, si son module diminue légèrement, c'est que son taux de cristallinité a baissé. e. Chauffé de 20 à 160 °C, si son module passe de 1 GPa à 1 MPa, c'est que le taux de cristallinité est passé à 0. f. En le refroidissant depuis l'état fondu, à quelle température la vitesse de cristallisation est-elle la plus élevée : 160, 150, 70, −10, −20 ou −30 °C ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>a. Vrai : entre \(T_g\) et \(T_f\), les cristaux sont présents. b. Faux : même raison. c. Vrai : au-dessus de \(T_f\), \(X = 0\). d. Faux : en passant \(T_g\), c'est la phase amorphe qui devient caoutchouteuse ; les cristaux ne fondent qu'à \(T_f\). e. Vrai : au-dessus de \(T_f\), les cristaux ont fondu. f. \(T = (T_f + T_g)/2 = (150 - 10)/2 = 70\) °C.</p>
+<p>a. Vrai : entre \(T_g\) et \(T_f\), les cristaux sont présents.</p>
+<p>b. Faux : même raison.</p>
+<p>c. Vrai : au-dessus de \(T_f\), \(X = 0\).</p>
+<p>d. Faux : en passant \(T_g\), c'est la phase amorphe qui devient caoutchouteuse. Les cristaux ne fondent qu'à \(T_f\).</p>
+<p>e. Vrai : au-dessus de \(T_f\), les cristaux ont fondu.</p>
+<p>f. Formule :</p>
+\[T = \frac{T_f + T_g}{2}\]
+\[T = \frac{150 + (-10)}{2} = 70\ ^\circ\text{C}\]
 </details>
 
 <h4>Application 1.3 : le polyéthylène</h4>
@@ -94,13 +112,22 @@
 <h4>Application 1.4 : vrai ou faux, très cristallin</h4>
 <p>Un polymère a \(T_g = -10\) °C et \(T_f = 165\) °C ; à 25 °C, \(X = 0{,}9\). a) À −10 °C, il devient transparent. b) À 30 °C, il est transparent. c) À 180 °C, il est transparent. d) Chauffé de −20 à 20 °C, si son module diminue légèrement, c'est que son taux de cristallinité a baissé. e) Chauffé de 20 à 180 °C, si son module passe de \(10^9\) Pa à \(10^6\) Pa, c'est que le taux de cristallinité est passé à 0.</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>a) Faux. b) Faux. c) Vrai. d) Faux. e) La solution ne donne pas la réponse ; le même raisonnement qu'en 1.2 e donne vrai : au-dessus de 165 °C, les cristaux ont fondu. Sur le graphique de la solution, les étiquettes « \(10^9\) GPa » et « \(10^6\) MPa » sont à lire \(10^9\) Pa et \(10^6\) Pa.</p>
+<p>a) Faux.</p>
+<p>b) Faux.</p>
+<p>c) Vrai.</p>
+<p>d) Faux.</p>
+<p>e) La solution ne donne pas la réponse. Le même raisonnement qu'en 1.2 e donne vrai : au-dessus de 165 °C, les cristaux ont fondu. Sur le graphique de la solution, les étiquettes « \(10^9\) GPa » et « \(10^6\) MPa » sont à lire \(10^9\) Pa et \(10^6\) Pa.</p>
 </details>
 
 <h4>Application 1.5 : les adjuvants du PVC</h4>
 <p>Le PVC a une densité de 1,45 g/cm³ et \(T_g = 90\) °C. Quels adjuvants utiliser : a) pour obtenir une densité de 0,3 g/cm³ ? b) pour augmenter fortement la rigidité ? c) pour diminuer sa \(T_g\) ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>a) \(\rho = m/V\) : la masse ne pouvant pas changer, on augmente le volume, on le gonfle (environ \(1{,}45 / 0{,}3 \approx 4{,}8\) fois le volume). b) On le renforce : fibres ou autres charges. c) On ajoute un plastifiant.</p>
+<p>a) La masse ne peut pas changer : on augmente le volume, on le gonfle.</p>
+\[\rho = \frac{m}{V} \quad\Rightarrow\quad \frac{V_{\text{après}}}{V_{\text{avant}}} = \frac{\rho_{\text{avant}}}{\rho_{\text{après}}}\]
+\[\frac{V_{\text{après}}}{V_{\text{avant}}} = \frac{1{,}45}{0{,}3} \approx 4{,}8\]
+<p>Il faut environ 4,8 fois le volume.</p>
+<p>b) On le renforce : fibres ou autres charges.</p>
+<p>c) On ajoute un plastifiant.</p>
 </details>
 
 <h4>Application 1.6 : composite polypropylène-verre</h4>
@@ -117,7 +144,11 @@
 <h4>Devoir 1, exercice 2 : le nylon cristallin</h4>
 <p>Un nylon de taux de cristallinité \(X = 0{,}33\) a une densité de 1,11 g/cm³. La phase amorphe a une densité de 1,07 g/cm³. Quelle serait la densité du nylon cristallin à 100 % ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<p>\(\rho = \rho_c X + (1 - X)\rho_a\), donc \(1{,}11 = 0{,}33\,\rho_c + 0{,}67 \times 1{,}07\), d'où \(\rho_c = (1{,}11 - 0{,}7169)/0{,}33 \approx 1{,}19\) g/cm³.</p>
+<p>Formule :</p>
+\[\rho = \rho_c\,X + \rho_a\,(1 - X) \quad\Rightarrow\quad \rho_c = \frac{\rho - \rho_a\,(1 - X)}{X}\]
+<p>Application numérique :</p>
+\[\rho_c = \frac{1{,}11 - 1{,}07 \times 0{,}67}{0{,}33} = \frac{1{,}11 - 0{,}7169}{0{,}33}\]
+<p>Résultat : \(\rho_c \approx 1{,}19\) g/cm³.</p>
 </details>
 </article>
 

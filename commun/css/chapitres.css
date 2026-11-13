@@ -17,3 +17,4 @@
 .carte-chapitres .onglets-carte a { height: 44px; padding: 0 26px; }
 .carte-chapitres .td-vide { margin: 18px 0 0; color: var(--doux); font-size: 17px; }
 .carte-chapitres .lien-vue { display: inline-flex; align-items: center; min-height: 48px; margin-top: 6px; padding: 0 16px; border: 1.5px solid #c9cdd6; border-radius: 12px; color: #15171f; font: 600 16px Inter, sans-serif; text-decoration: none; }
+.carte-chapitres .lien-vue + .lien-vue { margin-left: 10px; }
