@@ -98,6 +98,9 @@
 
 <p>Tous les métaux ont un module spécifique voisin de 25 ; le carbone-époxy unidirectionnel monte à 89 ou 132. D'où l'usage croissant des composites en aéronautique : quelques % de la masse de structure des avions de 1970, 50 % pour le Boeing 787 (composites 50 %, aluminium 20 %, titane 15 %, acier 10 %, autres 5 %), environ 60 % pour l'A350. Le cours montre aussi des usages médicaux : bloc opératoire, prothèse dentaire, composite dentaire à la place de l'amalgame, main prothétique en carbone, IRM. Le carbone-époxy quasi isotrope (29,4) perd beaucoup par rapport à l'unidirectionnel : c'est l'effet de l'orientation des fibres, vu à la dernière page du chapitre.</p>
 
+<div class="schema" id="sc-composites-familles"></div>
+<div class="schema" id="sc-gd-hp"></div>
+
 <h4>Exemple</h4>
 <p>Comparer une main prothétique en Ti-6Al-4V et en carbone haute résistance-époxy, à rigidité égale (exemple ajouté, valeurs du tableau du cours). Le rapport des modules spécifiques vaut \(88{,}9 / 24{,}8 \approx 3{,}6\) : pour la même rigidité dans le sens des fibres, la pièce en composite peut être environ 3,6 fois plus légère. Attention : ce gain ne vaut que dans le sens des fibres ; en travers, le pli unidirectionnel est bien moins rigide (page suivante).</p>
 
@@ -145,6 +148,8 @@
 <li>absence de contraintes résiduelles ;</li>
 <li>fibres et matrice ont chacune un comportement élastique.</li>
 </ul>
+
+<div class="schema" id="sc-constantes"></div>
 
 <h4>Exemple</h4>
 <p>Isotrope : un alliage avec \(E = 200\) GPa et \(G = 80\) GPa a \(1 + \nu = E/(2G) = 1{,}25\), donc \(\nu = 0{,}25\) ; pas besoin de le mesurer. Orthotrope (exemple ajouté) : un pli carbone-époxy a typiquement \(E_L = 140\) GPa, \(E_T = 10\) GPa, \(G_{LT} = 5\) GPa, \(\nu_{LT} = 0{,}3\). Ces quatre valeurs sont indépendantes : connaître \(E_L\) et \(\nu_{LT}\) ne donne ni \(E_T\) ni \(G_{LT}\). Dans la figure du haut, la rigidité dans une direction θ se déduit de ces quatre constantes : 140 GPa à 0°, environ 13 GPa à 45°, 10 GPa à 90°.</p>
@@ -228,6 +233,8 @@
 
 <div id="fig-courbes"></div>
 
+<div class="schema" id="sc-composites"></div>
+
 <h4>Exemple</h4>
 <p>Exemple du cours : \(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\).</p>
 <p>\[E_{CT} = \frac{70 \times 3}{0{,}4 \times 3 + 0{,}6 \times 70} = \frac{210}{43{,}2} = 4{,}86\ \text{GPa}\]</p>
@@ -272,6 +279,8 @@
 
 <div id="fig-stratifie-ko"></div>
 
+<div class="schema" id="sc-ko"></div>
+
 <h4>Exemple</h4>
 <p>Avec le verre et la résine de l'exemple du cours (\(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\)) :</p>
 <ul>
@@ -294,8 +303,10 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../calculs.js"></script>
 <script src="../figures/composites.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/isotrope-orthotrope.js"></script>
 <script src="../figures/loi-melanges.js"></script>
 <script src="../figures/module-transversal.js"></script>

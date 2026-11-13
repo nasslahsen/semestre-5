@@ -104,6 +104,8 @@
 <p>Le caoutchouc se comporte à l'opposé d'un métal quand on le chauffe. Le cours le montre par deux dessins : lorsqu'on augmente la température de l'échantillon (sans le charger), il s'allonge ; si on le soumet à une contrainte constante, il se déforme, puis, si on augmente ensuite sa température, <strong>il se contracte</strong>. Ses chaînes étirées tendent à retrouver leur pelote désordonnée, et la chaleur renforce cette tendance.</p>
 <div id="fig-chauffe"></div>
 
+<div class="schema" id="sc-elastomere"></div>
+
 <h4>Exemple</h4>
 <p>Une bande d'élastomère de \(l_0 = 5\) cm supporte 1000 % de déformation : \(\varepsilon = \Delta l / l_0 = 10\), donc \(\Delta l = 50\) cm et la bande atteint 55 cm. Relâchée, elle revient à 5 cm. Sous la même contrainte de 0,5 MPa, un élastomère de module 1 MPa se déforme de \(\varepsilon = \sigma/E = 0{,}5\), soit 50 %, alors qu'un plastique de 1 GPa ne bouge que de 0,05 % (calcul linéaire, exemple ajouté).</p>
 
@@ -145,6 +147,8 @@
 <h4>Temps de vulcanisation et réversion</h4>
 <p>Pendant la cuisson, on suit le module du mélange. Le <strong>temps de vulcanisation</strong> est le temps entre le début de l'augmentation du module et le moment où il atteint son maximum. Le <strong>temps de plateau</strong> est la durée pendant laquelle le module reste presque constant à son maximum. Une diminution éventuelle du module ensuite s'appelle la <strong>réversion</strong> ; elle est sensible avec les mélanges à base de caoutchouc naturel.</p>
 <div id="fig-cuisson"></div>
+
+<div class="schema" id="sc-vulcanisation"></div>
 
 <h4>Exemple</h4>
 <p>Exemple ajouté. On veut un joint de seringue en caoutchouc naturel (\(T_g \approx -60\) °C), caoutchouteux et le plus rigide possible à 20 °C. Avec 0 % de soufre, il coulera à chaud. Avec 30 %, sa \(T_g\) est trop haute : à 20 °C il n'a pas encore quitté l'état vitreux. Un taux intermédiaire (ici 10 % dans le modèle des courbes) garde le plateau caoutchouteux à 20 °C avec un module plus élevé qu'à 2 %. On arrête la cuisson pendant le temps de plateau, avant la réversion.</p>
@@ -188,6 +192,8 @@
 </table></div>
 <div id="fig-frise"></div>
 
+<div class="schema" id="sc-formulation"></div>
+
 <h4>Exemple</h4>
 <p>Exemple ajouté. Formuler le joint du piston d'une seringue à partir d'un élastomère insaturé : du soufre pour réticuler, un accélérateur pour vulcaniser plus vite, du noir de carbone pour rigidifier sans changer \(T_g\), un antioxydant contre le dioxygène et l'ozone. Si l'élastomère choisi était saturé, on remplacerait le soufre par un peroxyde organique.</p>
 
@@ -205,9 +211,11 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../calculs.js"></script>
 <script src="../figures/elastomeres.js"></script>
 <script src="../figures/elastomere-plastomere.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/vulcanisation.js"></script>
 <script src="../figures/formulation.js"></script>
 </body>

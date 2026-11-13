@@ -225,6 +225,14 @@ titre, `chapeau` (la situation qui rend la notion nécessaire), **Intuition**, a
 (`<div id="fig-...">`), **Formalisation**, **Exemple**, **Formules clés**. Un rappel de prérequis va sur la page,
 sous « Rappel : ... ». Pas de section de questions : l'entraînement est dans le jeu.
 
+**Schémas en blocs, partout où ils aident.** Dès qu'il y a des types et des sous-types, un classement, un choix
+(« si … alors … »), un enchaînement d'étapes ou une chronologie, la page de cours a son schéma : des blocs reliés par des
+flèches, de gauche à droite (`commun/js/schema.js`). La page pose `<div class="schema" id="sc-…"></div>` (juste avant
+« Exemple ») et charge `../../../commun/js/schema.js` puis `../schemas.js` ; le module décrit ses schémas dans
+`modules/<id>/schemas.js` (`SCHEMAS["sc-…"] = { titre, cols: [[{ id, t, s, k }]], liens: [[de, vers]] }`, `k` : `doux`, `fort`,
+`neutre` ; ou une fonction pour une courbe). Les couleurs suivent le module. Pas de texte qui déborde ni qui se chevauche :
+vérifier en capture. Ces schémas s'ajoutent aux figures interactives, ils ne les remplacent pas.
+
 Figures (`figures/<page>.js`, bibliothèque `RM` de `commun/js/lib.js`) : `R.figure(id, {largeur, hauteur, titre, essai})`
 crée le dessin et ses panneaux ; `R.plan`, `R.grille` (quadrillage plein), `R.vue3D` avec `R.orbite` et
 `R.basculeOrbite`, `R.curseur`, `R.bouton`, `R.bascule`, `R.etapes`, `R.poignee`, `R.rendre(zone, tex)` pour les

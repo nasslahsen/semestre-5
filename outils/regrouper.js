@@ -13,6 +13,7 @@ function pageChapitre(mid, d, P, ch) {
   const ss = P.sections.filter(s => s.chapitre === ch.id);
   let corps = "";
   const scripts = [];
+  let avecSchemas = false; // une page de cours au moins a des schémas en blocs (commun/js/schema.js)
   let lang = "fr"; // la langue des pages de cours réunies (le cours d'anglais : en)
   ss.forEach((s, k) => {
     corps += `<section class="partie" id="s-${s.id}">\n<p class="rang-partie">${k + 1} / ${ss.length}</p>\n<h2>${s.titre}</h2>\n\n`;
@@ -30,6 +31,7 @@ function pageChapitre(mid, d, P, ch) {
         .replace(/<(\/?)h3>/g, "<$1h5>").replace(/<(\/?)h2>/g, "<$1h4>").replace(/<(\/?)h1>/g, "<$1h3>");
       corps += '<article class="notion" id="n-' + nid + '">' + m.replace(/\s+$/, "\n") + "</article>\n\n";
       for (const f of html.matchAll(/<script src="\.\.\/([^"]+)"><\/script>/g)) if (f[1] !== "module.js" && !f[1].startsWith("../") && !scripts.includes(f[1])) scripts.push(f[1]);
+      if (html.includes('<script src="../../../commun/js/schema.js"></script>')) avecSchemas = true;
     }
     corps += `<div class="fin-partie" data-section="${s.id}"></div>\n</section>\n\n`;
   });
@@ -60,7 +62,7 @@ ${corps}</main>
 <script src="${profond}commun/vendor/katex/auto-render.min.js"></script>
 <script src="${profond}commun/js/lib.js"></script>
 <script src="${profond}commun/js/section.js"></script>
-${scripts.map(f => `<script src="${local}${f}"></script>`).join("\n")}
+${avecSchemas ? `<script src="${profond}commun/js/schema.js"></script>\n` : ""}${scripts.map(f => `<script src="${local}${f}"></script>`).join("\n")}
 </body>
 </html>
 `;
