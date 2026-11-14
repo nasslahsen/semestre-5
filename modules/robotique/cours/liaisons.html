@@ -49,6 +49,8 @@
 <p>Liaison hélicoïdale : translation et rotation couplées, une seule mobilité indépendante.</p>
 <p><strong>Pivot (R) et glissière (P).</strong> La très grande majorité des manipulateurs (environ 95 %) repose exclusivement sur ces deux liaisons à un degré de liberté : la liaison pivot, une rotation autour d'un axe fixe (\(q = \theta\), par exemple l'articulation d'un bras robotisé, ou le poignet articulé d'un robot chirurgical), et la liaison glissière, une translation le long d'un axe fixe (\(q = d\), par exemple l'axe linéaire d'un robot cartésien, ou le plateau d'IRM qui translate le patient). Pourquoi : une commande simple (1 DDL, 1 actionneur, un seul paramètre à piloter) et une bonne rigidité et précision. Les autres liaisons (rotule, contact ponctuel) servent aux contacts, aux appuis, aux mécanismes complexes, et peuvent être passives, comme les rotules d'un robot parallèle.</p>
 
+<div class="schema" id="sc-liaisons"></div>
+
 <h2>Exemple</h2>
 <p>Exemple du cours : une liaison pivot d'axe \(z\) entre un solide \(A\) fixe et un solide \(B\) impose 5 contraintes. Autorisé : \(R_z\). Bloqués : \(T_x, T_y, T_z, R_x, R_y\). DDL relatif restant : \(6 - 5 = 1\). Sur la figure, choisissez « Pivot » : un seul curseur reste actif.</p>
 
@@ -61,5 +63,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../figures/liaisons.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 </body>
 </html>

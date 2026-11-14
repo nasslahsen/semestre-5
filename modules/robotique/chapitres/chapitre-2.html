@@ -46,6 +46,8 @@
 <p><strong>Application : le robot cartésien (PPP).</strong> Trois glissières orthogonales, une translation par articulation, axes alignés sur le repère et décalages nuls : \(x = q_1\), \(y = q_2\), \(z = q_3\). Les trois curseurs de la figure sont exactement les trois variables articulaires de ce robot, et son espace de travail est un parallélépipède rectangle.</p>
 <p>Avantages des coordonnées cartésiennes : intuitives, distances faciles à calculer. Limites : elles ne décrivent pas l'orientation à elles seules, et pour un robot à pivots les angles articulaires sont plus naturels.</p>
 
+<div class="schema" id="sc-reperes"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté (les diapositives ne donnent pas de valeurs numériques ici).</p>
 <p>La pointe d'une aiguille est en \(P_1(10;\ 20;\ 5)\) mm et la cible en \(P_2(13;\ 24;\ 5)\) mm, dans le même repère patient.</p>
@@ -160,6 +162,8 @@
 <tr><td>\(\vec{x}_1 \wedge \vec{y}_2\)</td><td>\(\cos\alpha\ \vec{z}_1\)</td><td></td><td></td></tr>
 </table></div>
 
+<div class="schema" id="sc-produits"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>\(\vec{u} = (1;\ 2;\ 0)^T\) et \(\vec{v} = (0;\ 1;\ 3)^T\) :</p>
@@ -200,6 +204,8 @@
 <tr><td>cartésien \((x, y, z)\)</td><td>cylindrique</td><td>\(r = \sqrt{x^2 + y^2},\quad \theta = \operatorname{atan2}(y, x),\quad z = z\)</td></tr>
 </table></div>
 
+<div class="schema" id="sc-coordonnees"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>\(P = (-1;\ 1;\ 2)\).</p>
@@ -233,6 +239,8 @@
 \[ \overrightarrow{O_0 M} = \overrightarrow{O_0 O_s} + \overrightarrow{O_s M} \qquad (1.1) \]
 <p><strong>De la position à l'orientation.</strong> La position seule ne suffit pas : une aiguille peut changer d'orientation tout en gardant la même position de pointe, et l'orientation détermine le trajet dans les tissus. Règle fondamentale du cours : la position d'un point est décrite par un vecteur \(\vec{P}\) ; l'orientation d'un corps est décrite par un repère attaché \(\{B\}\). Sur la figure, tournez le solide sans bouger \(O_s\) : la position \(\vec{p}\) ne change pas, mais \(M\) se déplace.</p>
 
+<div class="schema" id="sc-chasles"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Le solide a son origine en \(O_s = (2;\ 1)\) dans \(R_0\), et le point \(M\) est à \(1{,}5\) unité sur l'axe \(\vec{x}_s\) : \(\overrightarrow{O_s M} = 1{,}5\,\vec{x}_s\).</p>
@@ -255,7 +263,9 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../figures/repere.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/produit-scalaire.js"></script>
 <script src="../figures/produit-vectoriel.js"></script>
 <script src="../figures/coordonnees-cylindriques.js"></script>

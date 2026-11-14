@@ -58,6 +58,8 @@
 </ul>
 <p>Le MGI traduit la cible en configurations (la cible issue de l'imagerie est exprimée dans le repère du robot), permet de choisir une configuration compatible avec les limites et les obstacles, et, avec des solutions successives cohérentes, des gestes continus sans changement brusque de configuration.</p>
 
+<div class="schema" id="sc-mgi"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Le robot de biopsie du cours a \(L_1 = 40\) cm et \(L_2 = 30\) cm. Une cible à 75 cm de la base : 75 &gt; 70 = \(L_1 + L_2\), aucune solution, quels que soient les angles. Une cible à 5 cm : 5 &lt; 10 = \(|L_1 - L_2|\), aucune solution non plus. Une cible à 40 cm : deux solutions, coude haut et coude bas.</p>
@@ -114,6 +116,8 @@
 \[ x = 40\cos(18{,}22°) + 30\cos(18{,}22° + 48{,}19°) \approx 50 \text{ cm} \qquad y = 40\sin(18{,}22°) + 30\sin(18{,}22° + 48{,}19°) \approx 40 \text{ cm} \]
 <p>La configuration retenue atteint bien la cible \(P_c = (50, 40)\) cm.</p>
 
+<div class="schema" id="sc-mgi-2r"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Même robot, cible \((40, 30)\) cm. \(r = 50\) cm, accessible. \(\cos\theta_2 = (2500 - 1600 - 900)/2400 = 0\), donc \(\theta_2 = \pm 90°\). \(\alpha = \arctan(30/40) = 36{,}87°\) ; \(\cos\beta = (1600 + 2500 - 900)/(2 \times 40 \times 50) = 0{,}8\), donc \(\beta = 36{,}87°\). Coude bas : \(\theta_1 = \alpha - \beta = 0°\), \(\theta_2 = 90°\) : bras 1 à l'horizontale, bras 2 vertical. Vérification : \(x = 40 + 0 = 40\), \(y = 0 + 30 = 30\).</p>
@@ -157,6 +161,8 @@
 \[ J(q) = \begin{pmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} & \cdots & \frac{\partial x}{\partial q_n} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} & \cdots & \frac{\partial y}{\partial q_n} \\ \frac{\partial z}{\partial q_1} & \frac{\partial z}{\partial q_2} & \cdots & \frac{\partial z}{\partial q_n} \\ \frac{\partial \omega_x}{\partial q_1} & \frac{\partial \omega_x}{\partial q_2} & \cdots & \frac{\partial \omega_x}{\partial q_n} \\ \frac{\partial \omega_y}{\partial q_1} & \frac{\partial \omega_y}{\partial q_2} & \cdots & \frac{\partial \omega_y}{\partial q_n} \\ \frac{\partial \omega_z}{\partial q_1} & \frac{\partial \omega_z}{\partial q_2} & \cdots & \frac{\partial \omega_z}{\partial q_n} \end{pmatrix} \]
 <p>Chaque colonne correspond à une articulation, chaque ligne à une direction de mouvement (x, y, z ou une rotation). Chaque case dit : « si je fais bouger l'articulation \(j\), combien ça affecte le mouvement dans la direction \(i\) ».</p>
 
+<div class="schema" id="sc-modeles"></div>
+
 <h4>Exemple</h4>
 <p>Exemple du cours : un robot posé sur une table, deux articulations pivots dans le plan \((x_0, y_0)\), \(L_1 = L_2 = 1\) m, \(q_1 = 30°\), \(q_2 = 60°\) (\(q_2\) mesuré par rapport au prolongement du premier segment).</p>
 <p class="complement">Les diapositives reçues s'arrêtent à ces données. Le calcul ci-dessous applique la forme générale aux deux lignes de position de la MGD.</p>
@@ -177,7 +183,9 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../figures/mgi.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/mgi-2r.js"></script>
 <script src="../figures/cinematique.js"></script>
 </body>

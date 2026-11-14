@@ -43,6 +43,8 @@
 \[ J(q) = \begin{pmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} & \cdots & \frac{\partial x}{\partial q_n} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} & \cdots & \frac{\partial y}{\partial q_n} \\ \frac{\partial z}{\partial q_1} & \frac{\partial z}{\partial q_2} & \cdots & \frac{\partial z}{\partial q_n} \\ \frac{\partial \omega_x}{\partial q_1} & \frac{\partial \omega_x}{\partial q_2} & \cdots & \frac{\partial \omega_x}{\partial q_n} \\ \frac{\partial \omega_y}{\partial q_1} & \frac{\partial \omega_y}{\partial q_2} & \cdots & \frac{\partial \omega_y}{\partial q_n} \\ \frac{\partial \omega_z}{\partial q_1} & \frac{\partial \omega_z}{\partial q_2} & \cdots & \frac{\partial \omega_z}{\partial q_n} \end{pmatrix} \]
 <p>Chaque colonne correspond à une articulation, chaque ligne à une direction de mouvement (x, y, z ou une rotation). Chaque case dit : « si je fais bouger l'articulation \(j\), combien ça affecte le mouvement dans la direction \(i\) ».</p>
 
+<div class="schema" id="sc-modeles"></div>
+
 <h2>Exemple</h2>
 <p>Exemple du cours : un robot posé sur une table, deux articulations pivots dans le plan \((x_0, y_0)\), \(L_1 = L_2 = 1\) m, \(q_1 = 30°\), \(q_2 = 60°\) (\(q_2\) mesuré par rapport au prolongement du premier segment).</p>
 <p class="complement">Les diapositives reçues s'arrêtent à ces données. Le calcul ci-dessous applique la forme générale aux deux lignes de position de la MGD.</p>
@@ -60,5 +62,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../figures/cinematique.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 </body>
 </html>

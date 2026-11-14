@@ -50,6 +50,8 @@
 </ul>
 <p>Le MGI traduit la cible en configurations (la cible issue de l'imagerie est exprimée dans le repère du robot), permet de choisir une configuration compatible avec les limites et les obstacles, et, avec des solutions successives cohérentes, des gestes continus sans changement brusque de configuration.</p>
 
+<div class="schema" id="sc-mgi"></div>
+
 <h2>Exemple</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Le robot de biopsie du cours a \(L_1 = 40\) cm et \(L_2 = 30\) cm. Une cible à 75 cm de la base : 75 &gt; 70 = \(L_1 + L_2\), aucune solution, quels que soient les angles. Une cible à 5 cm : 5 &lt; 10 = \(|L_1 - L_2|\), aucune solution non plus. Une cible à 40 cm : deux solutions, coude haut et coude bas.</p>
@@ -64,5 +66,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../figures/mgi.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 </body>
 </html>

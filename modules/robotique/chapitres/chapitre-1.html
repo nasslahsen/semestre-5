@@ -75,6 +75,10 @@
 <figure class="photo duo"><img src="../images/cellule-carrosserie.jpg" alt="Ligne de robots industriels orange qui assemblent des carrosseries"><img src="../images/cobot.jpg" alt="Cobot à six axes posé sur un chariot avec son écran"><img src="../images/manipulateur-mobile.jpg" alt="Manipulateur mobile : un bras collaboratif sur une base à roues"><figcaption>Trois catégories : robots industriels conventionnels dans une cellule de carrosserie, séparés de l'humain ; un cobot, fait pour partager l'espace ; un manipulateur mobile (base mobile + bras), robot hybride.<small>Photos Wikimedia Commons : BMW Werk Leipzig (CC BY-SA 2.0 DE), GrowSkills Robotics (CC BY-SA 4.0), Auledas (CC BY 4.0).</small></figcaption></figure>
 <p>Historique en bref : 1920, le mot « robot » (R.U.R., Karel Čapek) ; 1942, Asimov popularise « robotique » ; 1954, brevet de George Devol ; 1961, Unimate chez General Motors ; 1970–1980, robots articulés et SCARA ; 1990–2000, vision industrielle ; 2000–2010, robots mobiles et cobots ; depuis 2010, robots autonomes, IA, industrie 4.0.</p>
 
+<div class="schema" id="sc-boucle"></div>
+<div class="schema" id="sc-systeme"></div>
+<div class="schema" id="sc-classement"></div>
+
 <h4>Exemple</h4>
 <p>Exemple de fonctionnement d'une cellule du cours (figure ci-dessus) : détection (la caméra détecte la pièce entrante), autorisation (l'API autorise le cycle), approche, préhension, déplacement selon la trajectoire programmée, dépose sur le convoyeur de sortie. Chaque étape mobilise la chaîne d'information, la chaîne d'énergie, la chaîne d'action et la sécurité. L'étape de détection relève surtout de « percevoir » et de la chaîne d'information ; la préhension relève d'« agir » et de la chaîne d'action.</p>
 
@@ -110,6 +114,8 @@
 <div id="fig-rp"></div>
 
 <p>Exemples selon la nature du mouvement : robot articulé R-R-R-R-R-R (rotations successives), robot cartésien P-P-P (translations selon X, Y, Z), robot SCARA ou cylindrique R + P (rotation et translation combinées). Le type de mouvement dépend de la nature des articulations utilisées.</p>
+
+<div class="schema" id="sc-articulations"></div>
 
 <h4>Exemple</h4>
 <p>Le choix de l'effecteur dépend de la tâche, de la pièce et du procédé. Effecteurs industriels : pince de préhension, ventouse, torche de soudage, pistolet de peinture, outil de vissage, caméra d'inspection. En médecine, l'effecteur est un instrument adapté à un geste clinique : pince chirurgicale (préhension de tissus), ciseaux (section contrôlée), porte-aiguille (suture), caméra endoscopique (visualisation), instrument de biopsie (prélèvement), électrode de coagulation. Ces outils sont interchangeables au poignet robotique.</p>
@@ -152,6 +158,8 @@
 <p><strong>Configuration opérationnelle</strong> : position et orientation de l'effecteur par rapport au corps de base, indépendamment de la configuration des articulations,</p>
 \[ X = [\,x,\ y,\ z,\ \alpha,\ \beta,\ \gamma\,]^T \qquad p = [\,x,\ y,\ z\,]^T \qquad R = R(\alpha, \beta, \gamma) \]
 <p>Le passage de \(q\) à \(X\) est le modèle géométrique direct, \(p = f(q)\), traité en fin de parcours avec le bras 2R.</p>
+
+<div class="schema" id="sc-configurations"></div>
 
 <h4>Exemple</h4>
 <p>Exemples du cours :</p>
@@ -200,6 +208,8 @@
 <p>Liaison hélicoïdale : translation et rotation couplées, une seule mobilité indépendante.</p>
 <p><strong>Pivot (R) et glissière (P).</strong> La très grande majorité des manipulateurs (environ 95 %) repose exclusivement sur ces deux liaisons à un degré de liberté : la liaison pivot, une rotation autour d'un axe fixe (\(q = \theta\), par exemple l'articulation d'un bras robotisé, ou le poignet articulé d'un robot chirurgical), et la liaison glissière, une translation le long d'un axe fixe (\(q = d\), par exemple l'axe linéaire d'un robot cartésien, ou le plateau d'IRM qui translate le patient). Pourquoi : une commande simple (1 DDL, 1 actionneur, un seul paramètre à piloter) et une bonne rigidité et précision. Les autres liaisons (rotule, contact ponctuel) servent aux contacts, aux appuis, aux mécanismes complexes, et peuvent être passives, comme les rotules d'un robot parallèle.</p>
 
+<div class="schema" id="sc-liaisons"></div>
+
 <h4>Exemple</h4>
 <p>Exemple du cours : une liaison pivot d'axe \(z\) entre un solide \(A\) fixe et un solide \(B\) impose 5 contraintes. Autorisé : \(R_z\). Bloqués : \(T_x, T_y, T_z, R_x, R_y\). DDL relatif restant : \(6 - 5 = 1\). Sur la figure, choisissez « Pivot » : un seul curseur reste actif.</p>
 
@@ -240,6 +250,8 @@
 <tr><td>Hybride</td><td>association de sous-chaînes série et parallèles ; peut comporter des boucles fermées</td><td>plateforme parallèle portant un bras série</td></tr>
 </table></div>
 
+<div class="schema" id="sc-topologies"></div>
+
 <h4>Exemple</h4>
 <p>Les trois constructions de schéma du cours. Méthode : repérer chaque mouvement indépendant du robot réel, lui associer une liaison (R ou P) et son axe, puis relier les liaisons de la base vers l'effecteur.</p>
 <ul>
@@ -278,6 +290,9 @@
 <p><strong>Espace de travail</strong> : ensemble des positions que peut atteindre l'effecteur, pour au moins une configuration de ses articulations, dans le respect des limites articulaires. Il dépend de l'architecture cinématique, de la longueur des segments, des limites articulaires, de la présence d'obstacles et de l'orientation imposée à l'effecteur. Il se caractérise par les positions accessibles, la frontière de la zone atteignable et le volume accessible. Les formes du tableau sont idéalisées : les limites articulaires et les obstacles réduisent la zone accessible (curseur « limites articulaires » de la figure).</p>
 <p><strong>Sériels ou parallèles.</strong> Sériels : grande flexibilité et grande enveloppe de travail, excellente dextérité, polyvalence, programmation plus simple, coût souvent inférieur, maintenance aisée. Parallèles : très grande précision et répétabilité, rigidité, vitesse et accélération élevées, bonne capacité de charge par rapport au poids propre, moins d'inertie mobile (actionneurs fixés à la base). Le choix dépend de l'application : précision, charge utile, vitesse, espace de travail, coût.</p>
 <p><strong>Charge utile</strong> : masse maximale que le robot peut transporter avec son effecteur, tout en conservant ses performances spécifiées. Il faut compter la masse totale transportée : effecteur + pièce + accessoires.</p>
+
+<div class="schema" id="sc-architectures"></div>
+<div class="schema" id="sc-serie-parallele"></div>
 
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
@@ -320,6 +335,9 @@
 <p>Relation entre vitesse et temps de cycle : \(T_{cycle} = T_{mouvement} + T_{prise} + T_{dépose} + T_{attente}\). Si \(v\) augmente, \(T_{mouvement}\) diminue, donc \(T_{cycle}\) diminue ; la vitesse ne supprime pas les temps de prise, de dépose et d'attente.</p>
 
 <div id="fig-cycle"></div>
+
+<div class="schema" id="sc-precision"></div>
+<div class="schema" id="sc-cycle"></div>
 
 <h4>Exemple du cours</h4>
 <p>Robot pick and place : approche 0,30 s, prise 0,20 s, transfert 0,55 s, dépose 0,15 s, retour 0,45 s, synchronisation 0,35 s.</p>
@@ -389,6 +407,9 @@
 <figure class="photo duo"><img src="../images/rosa-one.jpg" alt="Bras robotique ROSA One, blanc, avec son guide d'instrument"><img src="../images/exosquelette-ekso.jpg" alt="Patient debout dans un exosquelette Ekso, aidé d'un kinésithérapeute"><img src="../images/cyberknife.jpg" alt="CyberKnife : bras robotique qui porte un accélérateur de radiothérapie"><figcaption>ROSA, cité dans le cours (chirurgie guidée) ; un exosquelette Ekso (rééducation de la marche) ; le CyberKnife, exemple ajouté (radiothérapie : un bras robotique déplace la source autour du patient).<small>Photos Wikimedia Commons : LucileBssg (CC BY-SA 4.0), AriceEB (CC BY-SA 4.0), St. Mary's of Michigan (CC BY 2.0).</small></figcaption></figure>
 <p>Historique : 1985, PUMA 200 pour une biopsie cérébrale guidée par scanner ; 1992, ROBODOC (prothèse de hanche) ; 1994–1996, AESOP (porte-endoscope, commande vocale) ; 1997–2000, da Vinci ; 1998–2001, ZEUS ; 2001, opération Lindbergh (téléchirurgie New York – Strasbourg) ; depuis 2010, Mako, ROSA, Lokomat, exosquelettes, micro-robots, IA. Écosystème : marché de plus de 16 milliards de dollars ; acteurs : patients et soignants, ingénieurs, fabricants, hôpitaux, autorités (au Maroc, l'AMMPS pour les dispositifs médicaux).</p>
 
+<div class="schema" id="sc-ruptures"></div>
+<div class="schema" id="sc-ihm"></div>
+
 <h4>Exemple</h4>
 <p>Mise à l'échelle du cours : avec un rapport 1 cm → 3 mm, un mouvement de la main de 2 cm donne un mouvement de l'instrument de \(2 \times 3 = 6\) mm, et un tremblement de la main de 1 mm n'en fait plus que \(0{,}3\) mm à l'instrument, avant même tout filtrage. Sur la figure, réglez le rapport sur 0,3 et activez le tremblement pour le constater.</p>
 
@@ -404,7 +425,9 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../figures/robot-systeme.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/anatomie.js"></script>
 <script src="../figures/articulations-ddl.js"></script>
 <script src="../figures/liaisons.js"></script>

@@ -182,8 +182,8 @@ window.SCHEMAS = {
            [{ id: "v", t: "Caoutchouc vulcanisé", s: "garde son plateau ; plus de soufre : Tg et E montent", k: "fort" }]],
     liens: [["b", "s"], ["b", "p"], ["b", "o"], ["s", "s2"], ["p", "p2"], ["o", "o2"], ["s2", "v"], ["p2", "v"], ["o2", "v"]] },
 
-  "sc-pvc": { titre: "TD 1.5 : adapter le PVC (ρ = 1,45, Tg = 90 °C)",
-    cols: [[{ id: "p", t: "PVC" }],
+  "sc-pvc": { titre: "TD 1.5 : adapter le PVC",
+    cols: [[{ id: "p", t: "PVC", s: "ρ = 1,45 ; Tg = 90 °C" }],
            [{ id: "a", t: "Plus léger", s: "ρ = 0,3" }, { id: "b", t: "Beaucoup plus rigide" }, { id: "c", t: "Plus souple", s: "Tg plus basse" }],
            [{ id: "a2", t: "Le gonfler", s: "même masse, 4,8 fois le volume", k: "fort" }, { id: "b2", t: "Le renforcer", s: "fibres, charges", k: "fort" }, { id: "c2", t: "Un plastifiant", k: "fort" }]],
     liens: [["p", "a"], ["p", "b"], ["p", "c"], ["a", "a2"], ["b", "b2"], ["c", "c2"]] },
@@ -203,7 +203,7 @@ window.SCHEMAS = {
            [{ id: "l3", t: "E_CL = E_f φ_f + E_m φ_m", s: "les fibres travaillent", k: "fort" }, { id: "t3", t: "1/E_CT = φ_f/E_f + φ_m/E_m", s: "la matrice travaille", k: "fort" }]],
     liens: [["p", "l"], ["p", "t"], ["l", "l2"], ["t", "t2"], ["l2", "l3"], ["t2", "t3"]] },
 
-  "sc-ko": { titre: "Fibres orientées : E_CL = K_o E_f φ_f + E_m φ_m",
+  "sc-ko": { titre: "Fibres orientées : le coefficient d'orientation",
     cols: [[{ id: "a", t: "Toutes alignées", s: "K_o = 1", k: "fort" }],
            [{ id: "b", t: "Tissu 0 / 90", s: "K_o = 0,5", k: "doux" }],
            [{ id: "c", t: "0 / 90 / ±45 ou mat aléatoire", s: "K_o = 0,375" }],

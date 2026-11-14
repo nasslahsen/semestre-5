@@ -53,6 +53,8 @@
 <li>Robots de rééducation (post-AVC, motrice) : mesurer le mouvement du bras, le comparer à l'exercice, retour visuel au patient.</li>
 </ul>
 
+<div class="schema" id="sc-mgd"></div>
+
 <h2>Exemple</h2>
 <p>Exemple clinique du cours : robot de biopsie du sein, 2R plan. Segment 1 : \(L_1 = 40\) cm, relié à la base par l'articulation 1 (angle \(\theta_1\)) ; segment 2 : \(L_2 = 30\) cm, relié au segment 1 par l'articulation 2 (angle \(\theta_2\)). Le repère de base \(\{0\}\) est fixé au point d'ancrage du robot sur la table d'examen.</p>
 \[ {}^0_2T = {}^0_1T\;{}^1_2T = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
@@ -72,5 +74,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../figures/mgd.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 </body>
 </html>
