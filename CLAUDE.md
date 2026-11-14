@@ -231,7 +231,7 @@ flèches, de gauche à droite (`commun/js/schema.js`). La page pose `<div class=
 « Exemple ») et charge `../../../commun/js/schema.js` puis `../schemas.js` ; le module décrit ses schémas dans
 `modules/<id>/schemas.js` (`SCHEMAS["sc-…"] = { titre, cols: [[{ id, t, s, k }]], liens: [[de, vers]] }`, `k` : `doux`, `fort`,
 `neutre` ; ou une fonction pour une courbe). Les couleurs suivent le module. Pas de texte qui déborde ni qui se chevauche :
-vérifier en capture. Ces schémas s'ajoutent aux figures interactives, ils ne les remplacent pas.
+vérifier en capture. Un classement (une racine, un parent par bloc) devient de lui-même un arbre qui se déplie : on touche un bloc pour voir ses types, un bloc par type (une feuille « Fixe, mobile, hybride » est coupée), traits simples sans pointe de flèche ; `deplier: false` le garde fixe. Ces schémas s'ajoutent aux figures interactives, ils ne les remplacent pas.
 
 Figures (`figures/<page>.js`, bibliothèque `RM` de `commun/js/lib.js`) : `R.figure(id, {largeur, hauteur, titre, essai})`
 crée le dessin et ses panneaux ; `R.plan`, `R.grille` (quadrillage plein), `R.vue3D` avec `R.orbite` et

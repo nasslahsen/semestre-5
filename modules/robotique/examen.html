@@ -37,19 +37,21 @@
 <main>
 <p class="etiquette">Robotique médicale</p>
 <h1>Préparer l'examen</h1>
-<p class="chapeau">Deux cours dans ce module : la robotique biomédicale (description, repères, matrices, modèles du robot) et les éléments mécaniques (axe, assemblages, roulements, engrenages). Cette page dit quoi apprendre en premier, comment répartir six jours, toutes les méthodes de calcul, et les questions de cours à savoir faire.</p>
+<p class="chapeau">Deux cours dans ce module : la robotique biomédicale (description, repères, matrices, modèles du robot) et les éléments mécaniques (axe, assemblages, roulements, engrenages). Cette page dit quoi apprendre en premier, comment répartir trois jours, toutes les méthodes de calcul, et les questions de cours à savoir faire.</p>
 
 <div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : les schémas et les lignes à retenir des deux cours, et toutes les formules</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
 
-<div class="schema" id="sc-structure"></div>
+<div class="schema" id="sc-structure-bio"></div>
+<div class="schema" id="sc-structure-meca"></div>
 
-<h2>Comment travailler cette semaine</h2>
+<h2>Comment travailler ces trois jours</h2>
 <ul>
 <li>Ne lis pas tout d'un trait. Pour chaque chapitre, lis d'abord les schémas et le bloc Formules clés en bas de chaque notion. Tu ne descends dans le cours que pour ce que tu ne comprends pas.</li>
 <li>Après chaque section, fais ses cartes de révision : la question d'abord, tu réponds dans ta tête, puis tu retournes la carte. En fin de chapitre, refais toutes les cartes du chapitre.</li>
 <li>Pour les calculs, refais le TD 1 sans regarder la correction, puis les méthodes de cette page sur papier.</li>
 <li>Le soir, ouvre <a href="../../suivi.html">Mon suivi</a> : la liste « À revoir » te redonne seulement tes erreurs.</li>
 </ul>
+<p>Si le temps manque : saute <a href="chapitres/chapitre-0.html">Les bases</a> (sauf si un calcul bloque), la nomenclature de l'axe, et ne garde des assemblages que la précharge et la clavette.</p>
 <p>Le tri ci-dessous est fait à partir du cours et du TD reçus : le programme exact de l'examen n'a pas été donné. Si l'enseignante annonce ce qui tombe, adapte.</p>
 
 <h2>Ce qui compte vraiment</h2>
@@ -74,15 +76,13 @@
 <tr><td><a href="chapitres/chapitre-8.html">Transmissions</a></td><td><span class="priorite p1">Indispensable</span></td><td>Couple d'un arbre, diamètre en torsion, types d'engrenages, module, rapport et entraxe, trains.</td></tr>
 </table></div>
 
-<h2>Le plan sur six jours</h2>
-<p>Environ trois heures par jour. Touche « Marquer fait » quand la journée est finie.</p>
+<h2>Le plan sur trois jours</h2>
+<p>Environ quatre heures par jour. Touche « Marquer fait » quand la journée est finie.</p>
 <ol class="jours">
-<li><div class="jour-texte"><h3>Jour 1 : le robot</h3><p><a href="chapitres/chapitre-1.html">Le robot et sa description</a> : schémas, Formules clés, cartes de chaque section. Questions A et B plus bas.</p></div><button type="button" class="jour-fait" data-jour="1" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 2 : repères et rotations</h3><p><a href="chapitres/chapitre-2.html">Repères</a> et <a href="chapitres/chapitre-3.html">orientations</a>. Refais l'exercice des deux repères à la main. Questions C.</p></div><button type="button" class="jour-fait" data-jour="2" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 3 : transformations et MGD</h3><p><a href="chapitres/chapitre-4.html">Transformations</a> et <a href="chapitres/chapitre-10.html">modélisation DH</a>. Méthodes 1 et 4. Questions D.</p></div><button type="button" class="jour-fait" data-jour="3" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 4 : MGI, jacobienne et TD 1</h3><p><a href="chapitres/chapitre-11.html">Modèle inverse et cinématique</a>, puis le <a href="chapitres/chapitre-9.html">TD 1</a> entier sans regarder. Méthodes 2, 3 et 5.</p></div><button type="button" class="jour-fait" data-jour="4" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 5 : la mécanique</h3><p><a href="chapitres/chapitre-5.html">Axe</a>, <a href="chapitres/chapitre-6.html">assemblages</a>, <a href="chapitres/chapitre-7.html">roulements</a>, <a href="chapitres/chapitre-8.html">engrenages</a>. Méthodes 6 à 10. Questions E et F.</p></div><button type="button" class="jour-fait" data-jour="5" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 6 : l'examen blanc</h3><p>Toutes les questions de cours sans ouvrir les réponses, puis les dix méthodes sur feuille. Termine par <a href="essentiel.html">L'essentiel en schémas</a> et <a href="../../suivi.html">Mon suivi</a>.</p></div><button type="button" class="jour-fait" data-jour="6" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 1 : le robot, les repères, les rotations</h3><p><a href="chapitres/chapitre-1.html">Le robot et sa description</a> : schémas, Formules clés, cartes de chaque section. Questions A et B, méthode 5.</p><p><a href="chapitres/chapitre-2.html">Repères</a> (seulement l'exercice des deux repères et atan2) puis <a href="chapitres/chapitre-3.html">orientations</a>. Questions C.</p></div><button type="button" class="jour-fait" data-jour="j1" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 2 : transformations, MGD, MGI et TD 1</h3><p><a href="chapitres/chapitre-4.html">Transformations</a>, <a href="chapitres/chapitre-10.html">modélisation DH</a>, <a href="chapitres/chapitre-11.html">modèle inverse et cinématique</a>. Méthodes 1 à 4 sur feuille. Questions D.</p><p>Puis le <a href="chapitres/chapitre-9.html">TD 1</a> entier sans regarder la correction.</p></div><button type="button" class="jour-fait" data-jour="j2" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 3 : la mécanique, puis l'examen blanc</h3><p>Le matin : <a href="chapitres/chapitre-5.html">axe</a>, <a href="chapitres/chapitre-7.html">roulements</a>, <a href="chapitres/chapitre-8.html">engrenages</a>, puis <a href="chapitres/chapitre-6.html">assemblages</a> en survol. Méthodes 6 à 10. Questions E et F.</p><p>L'après-midi : toutes les questions de cours sans ouvrir les réponses, puis la liste « À revoir » de <a href="../../suivi.html">Mon suivi</a>.</p></div><button type="button" class="jour-fait" data-jour="j3" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Le matin de l'examen</h3><p>Rien de nouveau. <a href="essentiel.html">L'essentiel en schémas</a> et ses formules, une seule fois, puis les cartes que tu as ratées.</p></div><button type="button" class="jour-fait" data-jour="j4" aria-pressed="false">Marquer fait</button></li>
 </ol>
 
 <h2>Les calculs : dix méthodes</h2>
