@@ -240,10 +240,13 @@
         suivante();
       }
       function fermerCartes() { fond.classList.remove("on"); document.documentElement.classList.remove("jeu-ouvert"); }
-      b.querySelector("button").addEventListener("click", function () {
+      function toutes() {
         var r = ratees(), reste = cartes.map(function (x, i) { return i; }).filter(function (i) { return r.indexOf(i) < 0; });
         lancer(r.concat(reste));
-      });
+      }
+      b.querySelector("button").addEventListener("click", toutes);
+      // depuis « Mon suivi » : la page s'ouvre avec ?cartes=<paquet> et ce paquet démarre aussitôt (les ratées seulement s'il y en a)
+      if (new URLSearchParams(location.search).get("cartes") === cleDeck) setTimeout(function () { var r = ratees(); if (r.length) lancer(r); else toutes(); }, 300);
     }
 
     // L'exercice s'ouvre par-dessus la page ; « Revenir au cours » le ferme et la page n'a pas bougé

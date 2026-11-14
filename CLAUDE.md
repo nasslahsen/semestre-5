@@ -279,7 +279,7 @@ pas de compteurs ni de badges sur chaque élément, aucune animation qui pulse o
   cadratin (—), pas d'encadré (callout). Tiret demi-cadratin seulement pour les intervalles (2026–2027).
 - Virgule décimale (`0{,}5` dans les formules) ; espace insécable avant `:` `;` `?` `!` ; guillemets « ».
 - Formules en KaTeX : `\( … \)` en ligne, `\[ … \]` isolées (dans une chaîne JavaScript : `\\( … \\)`).
-- Pas de gras dans le texte courant, sauf le terme défini.
+- Gras dans le texte courant pour ce qui doit se repérer d'un coup d'œil (demandé par l'utilisatrice) : le terme défini, les éléments d'une énumération rédigée en phrase (les trois critères, les types) et le vocabulaire propre au cours, à leur première apparition sur la page ; pas dans le chapeau, les titres ni les tableaux, et pas de phrases entières en gras.
 - Corrections et réponses : une idée par ligne, jamais une suite d'éléments enchaînés par des « ; » (une liste ou des lignes séparées).
   Un calcul s'écrit dans l'ordre : la formule littérale, puis l'application numérique, puis le résultat avec son unité, chacun sur sa ligne.
 
