@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Transmissions de puissance (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 8 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Transmissions de puissance</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-8.html">Lire le cours complet</a></p>
+<h2>Arbres : couple et torsion</h2>
+\[C = \frac{60\,P}{2\pi n} \quad (4.1)\]
+<ul>
+<li>C en N·m, P en W, n en tr/min. C'est \(P = C\omega\) avec \(\omega = 2\pi n / 60\).</li>
+<li>Même puissance : vite avec peu de couple, ou lentement avec beaucoup de couple.</li>
+</ul>
+<p>En <strong>torsion</strong>, chaque section tourne en bloc par rapport à sa voisine ; le glissement est nul sur l'axe et <strong>maximal à la surface</strong> : la rupture commence là. Condition de résistance :</p>
+\[\tau_{max} \le R_{pg} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}}\]
+<ul>
+<li>d en mm, <strong>M_t en N·mm</strong> (1 N·m = 1000 N·mm), R_pg (<strong>résistance pratique au glissement</strong>) en N/mm².</li>
+<li>d varie comme la racine cubique de M_t : doubler M_t multiplie d par ≈ 1,26.</li>
+<li>On prend ensuite un diamètre normalisé au-dessus.</li>
+</ul>
+<div class="schema" id="sc-arbre"></div>
+
+<h2>Engrenages : vocabulaire et familles</h2>
+<p>Un <strong>engrenage</strong> : deux roues dentées en prise qui transmettent une rotation et une puissance selon un <strong>rapport de vitesse constant</strong>. Une combinaison d'engrenages : un <strong>train d'engrenages</strong>.</p>
+<ul>
+<li><strong>Pignon</strong> : la petite roue. <strong>Roue</strong> : celle qui engrène avec le pignon, en général la plus grande. <strong>Couronne</strong> : dents sur sa face intérieure. <strong>Crémaillère</strong> : barre dentée, transforme la rotation en translation.</li>
+<li>Position des axes : engrenages <strong>parallèles</strong>, <strong>concourants</strong>, <strong>gauches</strong> (axes pas dans un même plan).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Ce qu'il apporte</th></tr>
+<tr><td>Droit à denture droite</td><td>le cas de base, dents parallèles à l'axe</td></tr>
+<tr><td>Droit à denture hélicoïdale</td><td>dents inclinées : plus progressif et silencieux</td></tr>
+<tr><td>Coniques</td><td>arbres qui se croisent (souvent à 90°), cônes de même sommet</td></tr>
+<tr><td>Roue et vis sans fin</td><td>grand rapport de réduction, arbres non concourants perpendiculaires, souvent <strong>irréversible</strong></td></tr>
+</table></div>
+<p>Dans un bras chirurgical, des réducteurs à engrenages rendent la rotation rapide du moteur lente, précise et assez puissante.</p>
+<div class="schema" id="sc-engrenages"></div>
+
+<h2>Géométrie d'une denture : le module</h2>
+<p>Le <strong>module</strong> m = p/π : le pas divisé par π. Deux roues qui engrènent ont le même module. Tout se déduit de m :</p>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Valeur</th></tr>
+<tr><td>Diamètre primitif (cercles primitifs tangents)</td><td>d = mZ</td></tr>
+<tr><td>Diamètre de tête</td><td>d_a = d + 2m</td></tr>
+<tr><td>Diamètre de pied</td><td>d_f = d − 2,5m</td></tr>
+<tr><td>Saillie / creux / hauteur</td><td>h_a = m, h_f = 1,25m, h = 2,25m</td></tr>
+<tr><td>Pas primitif</td><td>p = πm</td></tr>
+</table></div>
+<ul>
+<li>Série normalisée principale : 0,3 ; 0,5 ; 0,8 ; 1 ; 1,25 ; 1,5 ; 2 ; 2,5 ; 3 ; 4 ; 5 ; 6 ; 8 ; 10.</li>
+<li>Première approximation : \(m = 2{,}34\sqrt{\dfrac{F_t}{k\,Rp_e}}\), k entre 6 et 10, puis le module normalisé immédiatement supérieur.</li>
+<li><strong>Nombre minimal de dents</strong> pour éviter l'<strong>interférence</strong> : un pignon de 13 dents engrène avec une roue de 13 à 16 dents ; 17 dents, avec une roue de 13 à l'infini.</li>
+</ul>
+<div class="schema" id="sc-denture"></div>
+
+<h2>Rapport et entraxe</h2>
+\[i_{12} = \left|\frac{\omega_2}{\omega_1}\right| = \frac{d_1}{d_2} = \frac{Z_1}{Z_2} \quad (4.2) \qquad a = \frac{d_1 + d_2}{2} = \frac{m\,(Z_1 + Z_2)}{2} \quad (4.4)\]
+<ul>
+<li>La roue qui a le plus de dents tourne le moins vite. Deux roues <strong>extérieures</strong> tournent en <strong>sens inverses</strong>.</li>
+<li>Ici le rapport est <strong>sortie sur entrée</strong> : < 1 pour un réducteur. En (1.3) et (4.7), i = ω_e/ω_s, > 1. Vérifier avant chaque calcul : dans un réducteur, la vitesse baisse et le couple monte.</li>
+</ul>
+<div class="schema" id="sc-conventions"></div>
+
+<h2>Trains d'engrenages</h2>
+\[i_{tot} = \prod_{k=1}^N i_k \quad (4.5) \qquad \eta_{tot} = \prod_{k=1}^N \eta_k \quad (4.6) \qquad C_s \simeq C_m\,i_{tot}\,\eta_{tot} \quad (4.7)\]
+<ul>
+<li>Rapports et rendements se <strong>multiplient</strong> : plus d'étages, plus de pertes.</li>
+<li>Deux trains extérieurs (2 et 3 sur le même arbre) : \(R_{4/1} = \dfrac{n_4}{n_1} = \dfrac{Z_1 Z_3}{Z_2 Z_4}\). La roue 4 tourne dans le même sens que la roue 1.</li>
+<li>Avec une roue <strong>inverseuse</strong> 5 : \(R_{4/1} = -\dfrac{Z_1 Z_3}{Z_2 Z_4}\). Elle change le sens, pas la valeur ; Z₅ se simplifie.</li>
+</ul>
+<div class="schema" id="sc-trains"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Écris le couple transmis par un arbre en fonction de P et n.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(C = \dfrac{60\,P}{2\pi n}\)</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> P = 100 W à 3000 tr/min. Couple ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(C = 60P / (2\pi n)\)</p><p>\(C = 6000 / (2\pi \times 3000)\)</p><p>\(C \approx 0{,}318\) N·m</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Où la contrainte de torsion est-elle maximale dans un arbre ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À la surface : le glissement est nul sur l'axe et maximal à la surface.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Donne la condition de résistance en torsion et le diamètre minimal.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\tau_{max} \le R_{pg}\)</p><p>\(d > \sqrt[3]{16\,M_t / (\pi R_{pg})}\), avec M_t en N·mm.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> M_t = 20 N·m, R_pg = 40 N/mm². Diamètre minimal ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(d > \sqrt[3]{16 \times 20\,000 / (\pi \times 40)}\)</p><p>\(d > \sqrt[3]{2546}\)</p><p>\(d \approx 13{,}66\) mm, puis le diamètre normalisé au-dessus.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Définis un engrenage.</p><details class="corrige"><summary>Voir la réponse</summary><p>Deux roues dentées en prise qui transmettent une rotation et une puissance avec un rapport de vitesse constant.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pignon, roue, couronne, crémaillère : définis-les.</p><details class="corrige"><summary>Voir la réponse</summary><p>Pignon : la petite roue.</p><p>Roue : celle qui engrène avec le pignon, en général la plus grande.</p><p>Couronne : dents sur sa face intérieure.</p><p>Crémaillère : barre dentée, rotation en translation.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quelles sont les trois positions relatives des axes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Parallèles, concourants, gauches.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Qu'apporte la denture hélicoïdale ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un fonctionnement plus progressif et silencieux.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quand utilise-t-on une roue et vis sans fin ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour un grand rapport de réduction entre arbres perpendiculaires non concourants ; souvent irréversible.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Définis le module.</p><details class="corrige"><summary>Voir la réponse</summary><p>Le pas divisé par π : \(m = p / \pi\).</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> m = 2 mm, Z = 17. Diamètres primitif, de tête et de pied ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(d = mZ = 34\) mm</p><p>\(d_a = d + 2m = 38\) mm</p><p>\(d_f = d - 2{,}5m = 29\) mm</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Donne la saillie, le creux et la hauteur de dent.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(h_a = m\), \(h_f = 1{,}25m\), \(h = 2{,}25m\).</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Pourquoi un nombre minimal de dents ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour éviter l'interférence entre les dents du pignon et de la roue.</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Écris le rapport de transmission d'un engrenage.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(i_{12} = |\omega_2 / \omega_1| = d_1 / d_2 = Z_1 / Z_2\)</p></details></div>
+<div class="question-court"><p class="q"><span>16.</span> m = 2 mm, Z₁ = 17, Z₂ = 20. Rapport et entraxe ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(i = 17 / 20 = 0{,}85\)</p><p>\(a = m(Z_1 + Z_2)/2 = 2 \times 37 / 2 = 37\) mm</p></details></div>
+<div class="question-court"><p class="q"><span>17.</span> Dans quel sens tournent deux roues extérieures ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En sens inverses.</p></details></div>
+<div class="question-court"><p class="q"><span>18.</span> Comment se combinent rapports et rendements dans un train ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ils se multiplient : \(i_{tot} = \prod i_k\), \(\eta_{tot} = \prod \eta_k\).</p></details></div>
+<div class="question-court"><p class="q"><span>19.</span> Écris le couple de sortie d'un train.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(C_s \simeq C_m\,i_{tot}\,\eta_{tot}\), avec i = ω_e/ω_s.</p></details></div>
+<div class="question-court"><p class="q"><span>20.</span> Écris le rapport d'un train à deux étages extérieurs.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(R_{4/1} = n_4 / n_1 = \dfrac{Z_1 Z_3}{Z_2 Z_4}\)</p></details></div>
+<div class="question-court"><p class="q"><span>21.</span> À quoi sert une roue inverseuse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À changer le sens de rotation sans changer la valeur du rapport.</p></details></div>
+<div class="question-court"><p class="q"><span>22.</span> Z₁ = 15, Z₂ = 45, Z₃ = 12, Z₄ = 36, n₁ = 900 tr/min. Vitesse de sortie ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(R_{4/1} = (15 \times 12) / (45 \times 36) = 1/9\)</p><p>\(n_4 = 900 / 9 = 100\) tr/min</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Dernier chapitre</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "meca") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 8) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

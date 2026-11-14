@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Orientations (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Orientations</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>La matrice de rotation</h2>
+<p>Pour dire comment un objet est tourné, on donne les directions des axes de son repère, vues depuis le repère fixe. Rangées en colonnes, elles forment la <strong>matrice de rotation</strong>.</p>
+\[R^{0,S} = \big[\, [\vec{x}_S]_{R_0} \ \ [\vec{y}_S]_{R_0} \ \ [\vec{z}_S]_{R_0} \,\big]\]
+<ul>
+<li>Colonne 1 : l'axe x⃗_S exprimé dans R₀. Colonne 2 : y⃗_S. Colonne 3 : z⃗_S.</li>
+<li>Chaque coefficient est un <strong>produit scalaire</strong> entre un axe de R₀ et un axe de R_S (par exemple \(r_{21} = \vec{y}_0 \cdot \vec{x}_S\)) : ce sont les valeurs de l'exercice des deux repères.</li>
+<li>Notations équivalentes : \(R^{i,j} = {}^iR_j = R_{ij}\).</li>
+<li>Usage : un vecteur connu dans R₁ s'exprime dans R₀ par \(V^0 = R^{0,1} V^1\) (1.2).</li>
+</ul>
+
+<h2>Les propriétés : le groupe SO(3)</h2>
+<ul>
+<li><strong>Orthogonalité</strong> : \(R^T R = I\), les colonnes sont orthonormées.</li>
+<li><strong>Inverse = transposée</strong> : \(R^{-1} = R^T\). Défaire une rotation ne coûte qu'une transposition.</li>
+<li><strong>Déterminant</strong> : \(\det R = +1\), pas de miroir. Un déterminant −1 correspond à un repère indirect.</li>
+<li>Colonnes de norme 1.</li>
+<li>9 coefficients − 6 contraintes = <strong>3 paramètres</strong> indépendants pour décrire une orientation : d'où les angles d'Euler.</li>
+</ul>
+<div class="schema" id="sc-so3"></div>
+
+<h2>Les trois rotations élémentaires</h2>
+<p>Une rotation autour d'un seul axe : cet axe ne bouge pas, les deux autres tournent dans le plan perpendiculaire. Sens positif : main droite autour de l'axe.</p>
+\[R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \quad R_y(\beta) = \begin{pmatrix} \cos\beta & 0 & \sin\beta \\ 0 & 1 & 0 \\ -\sin\beta & 0 & \cos\beta \end{pmatrix} \quad R_x(\gamma) = \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos\gamma & -\sin\gamma \\ 0 & \sin\gamma & \cos\gamma \end{pmatrix}\]
+<ul>
+<li>Autour de z : <strong>lacet</strong> (yaw). Autour de y : <strong>tangage</strong> (pitch). Autour de x : <strong>roulis</strong> (roll).</li>
+<li>La ligne et la colonne de l'axe conservé valent (0, 1, 0) au bon endroit.</li>
+<li>Pourquoi le −sin β de R_y est en bas à gauche : l'ordre cyclique est x → y → z → x, donc autour de y le plan qui tourne va de z vers x.</li>
+<li>L'<strong>ordre des rotations compte</strong> : \(R_z R_x \neq R_x R_z\).</li>
+</ul>
+<div class="schema" id="sc-elementaires"></div>
+
+<h2>Les angles d'Euler</h2>
+<p>Décrire n'importe quelle orientation par <strong>3 rotations successives</strong>. 12 conventions existent ; en robotique, surtout <strong>ZYX</strong> (angles RPY) et ZYZ.</p>
+<p>Convention <strong>ZYX</strong>, par défaut dans la plupart des logiciels (ROS, MATLAB, KUKA, ABB), en <strong>axes mobiles</strong> (intrinsèques) :</p>
+<ol>
+<li><strong>Lacet</strong> α autour de z₀ : R₁. \(R^{0,1} = R_z(\alpha)\).</li>
+<li><strong>Tangage</strong> β autour du nouvel axe y₁ : R₂. \(R^{1,2} = R_y(\beta)\).</li>
+<li><strong>Roulis</strong> γ autour du nouvel axe x₂ : R_s. \(R^{2,s} = R_x(\gamma)\).</li>
+</ol>
+\[R^{0,s} = R_z(\alpha)\,R_y(\beta)\,R_x(\gamma)\]
+<ul>
+<li>Les matrices se multiplient <strong>à droite</strong>, dans l'ordre des rotations : chaque rotation est décrite dans le repère obtenu juste avant.</li>
+<li>Convention XYZ (le téléphone du cours) : \({}^0R_3 = R_x(\varphi)\,R_y(\theta)\,R_z(\psi)\).</li>
+<li><strong>Singularité</strong> : quand l'angle du milieu vaut ±90°, le premier et le dernier axe sont alignés. Les deux rotations font le même mouvement : on perd un degré de liberté dans la description. En ZYX, pour β = ±90°.</li>
+</ul>
+<div class="schema" id="sc-euler"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Que contiennent les colonnes d'une matrice de rotation R⁰,¹ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les axes x₁, y₁, z₁ du repère tourné, exprimés dans le repère fixe R₀.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Écris la matrice Rz(α).</p><details class="corrige"><summary>Voir la réponse</summary><p>\(R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix}\)</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Un vecteur V¹ est connu dans R₁. Comment l'exprimer dans R₀ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(V^0 = R^{0,1}\,V^1\)</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quelles sont les propriétés d'une matrice de rotation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(R^T R = I\) (colonnes orthonormées).</p><p>\(R^{-1} = R^T\).</p><p>\(\det R = +1\).</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Combien de paramètres indépendants pour décrire une orientation, et pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>3 : les 9 coefficients sont liés par 6 contraintes (3 normes, 3 orthogonalités).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Une matrice a des colonnes orthonormées et un déterminant −1. Est-ce une rotation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : c'est un miroir (un repère indirect).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Lacet, tangage, roulis : autour de quels axes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Lacet : z. Tangage : y. Roulis : x.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Pourquoi le signe moins de Ry est-il en bas à gauche ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Autour de y, le plan qui tourne va de z vers x (ordre cyclique x → y → z → x).</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Écris la matrice d'orientation en angles d'Euler ZYX.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(R^{0,s} = R_z(\alpha)\,R_y(\beta)\,R_x(\gamma)\)</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Pourquoi multiplie-t-on les matrices à droite ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En axes mobiles, chaque rotation est décrite dans le repère obtenu juste avant.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Quand y a-t-il singularité des angles d'Euler, et que se passe-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Quand l'angle du milieu vaut ±90°.</p><p>Le premier et le dernier axe s'alignent : on perd un degré de liberté dans la description.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Les rotations Rz puis Rx donnent-elles le même résultat que Rx puis Rz ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : le produit de matrices n'est pas commutatif, l'ordre des rotations compte.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-4.html"><small>Version courte suivante</small>Transformations</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modèle inverse et cinématique (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 11 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Modèle inverse et cinématique</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-11.html">Lire le cours complet</a></p>
+<h2>Le modèle géométrique inverse (MGI)</h2>
+<p>Le chirurgien choisit une cible sur l'image ; le robot ne sait régler que ses moteurs. Le <strong>MGI</strong> donne les variables articulaires qui placent l'organe terminal à une posture désirée :</p>
+\[q = f^{-1}(X)\]
+<p>Les quatre <strong>défis</strong> :</p>
+<ul>
+<li><strong>Non-linéarité</strong> : inverser les équations en cos et sin n'est pas trivial ; une forme fermée n'existe pas toujours.</li>
+<li><strong>Existence</strong> : une cible hors de portée n'a aucune solution ; l'orientation doit aussi être réalisable.</li>
+<li><strong>Multiplicité</strong> : même position, plusieurs configurations (<strong>coude haut</strong>, <strong>coude bas</strong>) ; il faut choisir.</li>
+<li><strong>Singularités</strong> : par exemple bras tendu, θ₂ = 0 ; la mobilité de l'outil est réduite (perte de rang de la jacobienne).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th></th><th>Méthode analytique (géométrique)</th><th>Méthode numérique (Newton-Raphson)</th></tr>
+<tr><td>Principe</td><td>géométrie et trigonométrie, résolution exacte</td><td>estimation initiale, puis itérations</td></tr>
+<tr><td>Avantages</td><td>exacte, rapide (temps réel), toutes les solutions</td><td>générale (tout robot), facile à programmer</td></tr>
+<tr><td>Inconvénients</td><td>pas de méthode générale, difficile pour les robots complexes</td><td>convergence non garantie, lente, une seule solution</td></tr>
+</table></div>
+\[q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big)\]
+<ul>
+<li>Applications : <strong>planification chirurgicale pré-opératoire</strong> (le chirurgien choisit les cibles, le logiciel calcule les trajectoires, le chirurgien valide) et <strong>radiothérapie adaptative</strong> (suivi respiratoire d'une tumeur du poumon ou du foie, angles recalculés).</li>
+<li>Le MGI permet de choisir une configuration compatible avec les limites et les obstacles, et des gestes continus sans changement brusque de configuration.</li>
+</ul>
+<div class="schema" id="sc-mgi"></div>
+
+<h2>Le MGI du robot 2R, en cinq étapes</h2>
+<p>Le triangle base O, coude A, cible P a trois côtés connus (L₁, L₂, r) : la <strong>loi des cosinus</strong> (Al-Kashi) donne les angles.</p>
+<ol>
+<li><strong>Accessibilité</strong> : \(r = \sqrt{x_c^2 + y_c^2}\), accessible si \(|L_1 - L_2| \le r \le L_1 + L_2\).</li>
+<li><strong>θ₂</strong> : \(\cos\theta_2 = \dfrac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2}\), \(\theta_2 = \pm\arccos(\ldots)\) : deux solutions.</li>
+<li><strong>θ₁</strong> : \(\alpha = \arctan(y_c / x_c)\), \(\beta = \arccos\dfrac{L_1^2 + r^2 - L_2^2}{2L_1 r}\) ; coude bas \(\theta_1 = \alpha - \beta\), coude haut \(\theta_1 = \alpha + \beta\).</li>
+<li><strong>Choisir</strong> la configuration selon l'environnement (moteurs loin de la zone stérile, équipement fixe).</li>
+<li><strong>Vérifier</strong> avec la MGD.</li>
+</ol>
+<p>Exemple du cours : L₁ = 40 cm, L₂ = 30 cm, cible (50, 40) cm.</p>
+<div class="tableau"><table>
+<tr><th>Configuration</th><th>θ₁</th><th>θ₂</th><th>Contrainte</th></tr>
+<tr><td>Coude bas</td><td>18,22°</td><td>+48,19°</td><td>dégage l'équipement</td></tr>
+<tr><td>Coude haut</td><td>59,10°</td><td>−48,19°</td><td>rencontre l'équipement fixe</td></tr>
+</table></div>
+<p>Le cours appelle « coude bas » la solution θ₂ = +48,19° (tableau), alors qu'une ligne plus haut associe le coude bas à θ₂ &lt; 0. On suit le tableau.</p>
+<div class="schema" id="sc-mgi-2r"></div>
+
+<h2>Cinématique et matrice jacobienne</h2>
+<p>La géométrie dit où placer l'outil ; la <strong>cinématique</strong> dit comment le déplacer. Elle relie les vitesses des articulations à celle de l'outil, sans considérer les forces. Usages : <strong>commande en temps réel</strong>, <strong>planification de trajectoires</strong>, <strong>détection de singularités</strong>, <strong>dimensionnement des actionneurs</strong>.</p>
+<ul>
+<li><strong>Espace articulaire</strong> : positions q (rad ou m), vitesses q̇ (rad/s ou m/s).</li>
+<li><strong>Espace cartésien</strong> : position p et orientation R de l'outil ; vitesse (<strong>twist</strong>) V = (v_x, v_y, v_z, ω_x, ω_y, ω_z)^T, 3 linéaires (m/s) et 3 angulaires (rad/s).</li>
+<li><strong>Modèle cinématique direct</strong> (MCD) : \(V = J(q)\,\dot{q}\).</li>
+<li>La <strong>jacobienne</strong> J(q) : 6 lignes, n colonnes, \(J_{ij} = \partial X_i / \partial q_j\). La colonne i est la vitesse de l'outil quand seule l'articulation i bouge à vitesse 1.</li>
+</ul>
+\[J_{2R} = \begin{pmatrix} -L_1\sin q_1 - L_2\sin(q_1 + q_2) & -L_2\sin(q_1 + q_2) \\ L_1\cos q_1 + L_2\cos(q_1 + q_2) & L_2\cos(q_1 + q_2) \end{pmatrix}\]
+<div class="schema" id="sc-modeles"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis le modèle géométrique inverse.</p><details class="corrige"><summary>Voir la réponse</summary><p>Les variables articulaires qui placent l'organe terminal à une posture désirée : \(q = f^{-1}(X)\).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quels sont les quatre défis du MGI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La non-linéarité.</p><p>L'existence des solutions.</p><p>La multiplicité des solutions.</p><p>Les singularités.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Combien de solutions peut avoir le MGI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Aucune (cible hors de portée), une, ou plusieurs (coude haut, coude bas).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Compare les méthodes analytique et numérique.</p><details class="corrige"><summary>Voir la réponse</summary><p>Analytique : exacte, rapide, toutes les solutions, mais pas de méthode générale.</p><p>Numérique : générale et facile à programmer, mais lente, une seule solution, convergence non garantie.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Écris l'itération de Newton-Raphson.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big)\)</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Cite deux applications du MGI.</p><details class="corrige"><summary>Voir la réponse</summary><p>La planification chirurgicale pré-opératoire.</p><p>La radiothérapie adaptative (suivi respiratoire d'une tumeur).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Donne la condition d'accessibilité d'une cible pour le 2R.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(|L_1 - L_2| \le r \le L_1 + L_2\), avec \(r = \sqrt{x_c^2 + y_c^2}\).</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> L₁ = 40 cm, L₂ = 30 cm. Une cible à 75 cm, puis à 5 cm, est-elle accessible ?</p><details class="corrige"><summary>Voir la réponse</summary><p>75 > 70 = L₁ + L₂ : non.</p><p>5 &lt; 10 = |L₁ − L₂| : non.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Donne la formule de cos θ₂ pour le 2R.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\cos\theta_2 = \dfrac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2}\)</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Comment obtient-on θ₁ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\alpha = \arctan(y_c / x_c)\)</p><p>\(\beta = \arccos\dfrac{L_1^2 + r^2 - L_2^2}{2L_1 r}\)</p><p>Coude bas : \(\theta_1 = \alpha - \beta\). Coude haut : \(\theta_1 = \alpha + \beta\).</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> L₁ = 40 cm, L₂ = 30 cm, cible (50, 40) cm. Calcule θ₂ et θ₁ (coude bas).</p><details class="corrige"><summary>Voir la réponse</summary><p>\(r = \sqrt{2500 + 1600} \approx 64{,}03\) cm, accessible.</p><p>\(\cos\theta_2 = (4100 - 1600 - 900) / 2400 = 2/3\), donc \(\theta_2 \approx 48{,}19°\).</p><p>\(\alpha = \arctan(40/50) = 38{,}66°\)</p><p>\(\beta = 20{,}44°\)</p><p>\(\theta_1 = \alpha - \beta = 18{,}22°\)</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Comment vérifie-t-on une solution du MGI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En remplaçant les angles dans la MGD : on doit retrouver la cible.</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Que relie la cinématique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les vitesses des articulations (q̇) et la vitesse de l'outil (V), sans considérer les forces.</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Écris le modèle cinématique direct.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(V = J(q)\,\dot{q}\)</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Que représente une colonne de la jacobienne ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La colonne i : la vitesse de l'outil quand seule l'articulation i bouge à vitesse 1, les autres immobiles.</p></details></div>
+<div class="question-court"><p class="q"><span>16.</span> Quelles sont les dimensions de la jacobienne d'un robot à n articulations dans l'espace ?</p><details class="corrige"><summary>Voir la réponse</summary><p>6 lignes (3 vitesses linéaires, 3 angulaires) et n colonnes.</p></details></div>
+<div class="question-court"><p class="q"><span>17.</span> Écris la jacobienne du 2R plan.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(J = \begin{pmatrix} -L_1\sin q_1 - L_2\sin(q_1 + q_2) & -L_2\sin(q_1 + q_2) \\ L_1\cos q_1 + L_2\cos(q_1 + q_2) & L_2\cos(q_1 + q_2) \end{pmatrix}\)</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Dernier chapitre</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 11) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Assemblages et fixations (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 6 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Assemblages et fixations</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-6.html">Lire le cours complet</a></p>
+<h2>Les fonctions d'une liaison</h2>
+<p>Une bonne liaison <strong>sépare les fonctions</strong> : un élément par fonction. Une vis seule serre, mais passe avec du jeu : la pièce se décale à chaque remontage.</p>
+<div class="tableau"><table>
+<tr><th>Fonction</th><th>Éléments à utiliser</th></tr>
+<tr><td>Serrer (précharge, surfaces en contact)</td><td>les vis</td></tr>
+<tr><td>Positionner de façon répétable</td><td>goupilles, épaulements, centrages</td></tr>
+<tr><td>Transmettre un couple</td><td>clavette, cannelures, moyeu de serrage</td></tr>
+<tr><td>Maintenir axialement</td><td>écrou, anneau élastique</td></tr>
+<tr><td>Prévenir le desserrage (vibrations, cycles)</td><td>rondelle frein</td></tr>
+</table></div>
+<p>Trois liaisons complètes du cours :</p>
+<ul>
+<li><strong>Écrou à encoches et rondelle frein</strong> : fixe un roulement sur un arbre, démontable. Une languette de la rondelle frein est rabattue dans une encoche de l'écrou pour éviter le desserrage ; serrage avec une clé à ergots.</li>
+<li><strong>Vis sur méplat</strong> : la vis, vissée dans le moyeu, appuie sur un méplat de l'arbre et le plaque contre l'alésage. Elle immobilise la roue et transmet le couple ; le méplat limite le glissement en rotation. Pas de positionnement axial précis.</li>
+<li><strong>Goupille transversale</strong> : traverse l'arbre et le moyeu ; elle transmet le couple par <strong>cisaillement</strong> et contribue au maintien axial ; les surfaces cylindriques assurent le centrage.</li>
+</ul>
+<div class="schema" id="sc-fonctions"></div>
+
+<h2>Assemblage vissé et précharge</h2>
+<ul>
+<li>Quatre éléments : <strong>vis d'assemblage</strong>, <strong>vis de pression</strong>, <strong>boulon</strong> (vis et écrou), <strong>goujon</strong>.</li>
+<li>La <strong>précharge</strong> F₀ : force de serrage présente avant toute charge. La vis travaille en <strong>traction</strong>, les pièces en <strong>compression</strong>. Si elle suffit, le frottement reprend une partie des efforts transversaux.</li>
+</ul>
+\[T \simeq K\,F_0\,d \quad (2.1)\]
+<ul>
+<li>T en N·m, F₀ en N, d en m. <strong>K</strong> : coefficient empirique sans dimension, dépend du frottement, du revêtement et de la lubrification. Ce n'est pas une constante universelle.</li>
+<li>Limite : un même couple donne des précharges différentes si l'état de surface change. Liaison critique : méthode validée et documentation technique.</li>
+<li>Carter en aluminium, polymère ou imprimé en 3D : le taraudage est le point faible. Démontages fréquents : un <strong>insert fileté</strong> métallique.</li>
+</ul>
+<div class="schema" id="sc-precharge-vis"></div>
+
+<h2>Clavettes</h2>
+<p>La <strong>clavette</strong> transmet un couple entre deux pièces en liaison cylindre-cylindre, logée dans une rainure de l'arbre et une du moyeu. Elle casse par cisaillement dans le <strong>plan de joint</strong>.</p>
+\[F_t = \frac{2C}{d} \quad (2.2) \qquad \tau \simeq \frac{F_t}{bL} \quad (2.3)\]
+<ul>
+<li>Dans F_t, C en N·m et d en m. Dans τ, b et L en mm : on obtient des MPa (1 N/mm² = 1 MPa).</li>
+<li>Le calcul complet vérifie aussi le matage, les dimensions normalisées, les concentrations de contraintes et le cycle de charge.</li>
+<li>Acier C45 : limite élastique en cisaillement d'environ 200 MPa.</li>
+<li>Bouts d'arbres : tolérance j6 pour d ≤ 30 mm, k6 pour d ≥ 32 mm.</li>
+</ul>
+<div class="schema" id="sc-clavette"></div>
+
+<h2>Anneaux élastiques et goupilles</h2>
+<ul>
+<li><strong>Anneau élastique</strong> (circlip) : dans une gorge, empêche le déplacement axial, démontable. <strong>Extérieur</strong> : gorge sur l'arbre (NF E 22-163). <strong>Intérieur</strong> : gorge dans l'alésage (NF E 22-165). <strong>En E</strong> : montage radial sur l'arbre (NF L 23-203).</li>
+<li><strong>Goupille</strong> : tige cylindrique ou conique qui immobilise deux pièces ou les positionne avec précision.</li>
+<li><strong>Goupille d'arrêt</strong> : traverse arbre et moyeu, d ≈ D/3, ajustement H7/m6.</li>
+<li><strong>Goupilles de positionnement</strong> avec une vis : la vis serre, les goupilles positionnent.</li>
+</ul>
+<div class="schema" id="sc-retenue"></div>
+
+<h2>Ressorts</h2>
+<p>Un <strong>ressort</strong> emmagasine de l'énergie quand il est déformé et la rend en reprenant sa forme.</p>
+\[F = k\,x \quad (2.4) \qquad k = \frac{\Delta F}{\Delta x}\]
+<ul>
+<li>Quatre usages : <strong>rappel</strong>, <strong>maintien d'un contact</strong>, <strong>application d'un effort</strong>, <strong>absorption de chocs</strong>.</li>
+<li>Types : compression (bases dressées), traction (crochets). Décrits par le pas, le diamètre du fil, le diamètre D et la longueur.</li>
+<li>Applications du cours : vérin à rappel par ressort, ressort de soupape.</li>
+</ul>
+<div class="schema" id="sc-ressorts"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelles sont les cinq fonctions d'une liaison ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Serrer.</p><p>Positionner.</p><p>Transmettre.</p><p>Maintenir axialement.</p><p>Prévenir le desserrage.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quel élément pour chaque fonction ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Serrer : vis.</p><p>Positionner : goupilles, épaulements, centrages.</p><p>Transmettre un couple : clavette, cannelures, moyeu de serrage.</p><p>Maintenir axialement : écrou, anneau élastique.</p><p>Prévenir le desserrage : rondelle frein.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi ne pas tout confier à une vis ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle passe avec du jeu dans son trou : la pièce se décale à chaque remontage, et le couple ne passe que par frottement.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Comment la rondelle frein empêche-t-elle le desserrage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une languette est rabattue dans une encoche de l'écrou à encoches.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Comment une goupille transversale transmet-elle le couple ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par cisaillement. Elle contribue aussi au maintien axial.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce que la précharge d'une vis ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La force de serrage présente avant toute charge extérieure. La vis est en traction, les pièces en compression.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Écris le couple de serrage et dis de quoi dépend K.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(T \simeq K\,F_0\,d\)</p><p>K dépend du frottement, du revêtement et de la lubrification.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Vis M6, F₀ = 4 kN, K = 0,20. Couple de serrage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(T \simeq K F_0 d\)</p><p>\(T \simeq 0{,}20 \times 4000 \times 0{,}006\)</p><p>\(T \simeq 4{,}8\) N·m</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi un même couple ne donne-t-il pas toujours la même précharge ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une partie du couple part en frottement : si l'état de surface ou la lubrification change, K change.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Que faire dans un carter en aluminium souvent démonté ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un insert fileté métallique : le taraudage est le point faible.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Écris les deux formules de vérification d'une clavette.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(F_t = 2C / d\)</p><p>\(\tau \simeq F_t / (bL)\)</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> C = 8 N·m, d = 12 mm, b = 4 mm, L = 20 mm. Contrainte dans la clavette ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(F_t = 2 \times 8 / 0{,}012 \approx 1333\) N</p><p>\(\tau \simeq 1333 / (4 \times 20)\)</p><p>\(\tau \approx 16{,}7\) MPa</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Que faut-il vérifier en plus du cisaillement d'une clavette ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le matage, les dimensions normalisées, les concentrations de contraintes et le cycle de charge.</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> À quoi sert un anneau élastique ? Où est la gorge ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À empêcher le déplacement axial, démontable.</p><p>Extérieur : gorge sur l'arbre. Intérieur : gorge dans l'alésage.</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Diamètre d'une goupille d'arrêt sur un arbre de 24 mm ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(d \approx D / 3 = 8\) mm, ajustement H7/m6.</p></details></div>
+<div class="question-court"><p class="q"><span>16.</span> Vis et goupilles de positionnement : qui fait quoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La vis serre, les goupilles positionnent.</p></details></div>
+<div class="question-court"><p class="q"><span>17.</span> Quels sont les quatre usages d'un ressort ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rappel.</p><p>Maintien d'un contact.</p><p>Application d'un effort.</p><p>Absorption de chocs.</p></details></div>
+<div class="question-court"><p class="q"><span>18.</span> ΔF = 12 N sur Δx = 12 mm. Raideur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(k = \Delta F / \Delta x = 12 / 12 = 1\) N/mm</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-7.html"><small>Version courte suivante</small>Guidages rotatifs et linéaires</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "meca") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 6) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
