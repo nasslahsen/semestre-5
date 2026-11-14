@@ -306,3 +306,19 @@ html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bo
 .podcast p { margin: 0 0 10px; font-weight: 600; font-size: 18px; line-height: 1.35; }
 .podcast small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
 .podcast audio { display: block; width: 100%; height: 54px; }
+
+/* Version courte d'un chapitre (modules/<id>/court/) : l'essentiel, puis les questions à réponse cachée */
+.court-lien { margin: 4px 0 28px; color: #4a4f5c; font-size: 17px; }
+.court-lien a { font-weight: 600; margin-left: 6px; }
+.court-note { color: #4a4f5c; margin: 0 0 6px; }
+.question-court { margin: 22px 0 0; }
+.question-court .q { margin: 0 0 2px; font-weight: 600; font-size: 18px; line-height: 1.4; }
+.question-court .q span { font: 700 16px "JetBrains Mono", monospace; color: var(--jeu-texte); margin-right: 4px; }
+.question-court details.corrige > div, .question-court details.corrige > p { padding: 0 20px; }
+.question-court details.corrige p { margin: 6px 20px; }
+.question-court details.corrige[open] { padding-bottom: 10px; }
+/* lien vers la version courte, sous le titre de la page du chapitre */
+.court-acces { display: flex; align-items: center; gap: 20px; margin: 14px 0 18px; padding: 14px 16px 14px 22px; border: 1.5px solid var(--trait); border-radius: 18px; background: #fff; }
+.court-acces > span { flex: 1; min-width: 0; font-weight: 600; font-size: 18px; line-height: 1.35; }
+.court-acces small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
+.court-acces a.btn-jouer { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }

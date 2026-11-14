@@ -31,6 +31,15 @@
   var etiquette = document.querySelector("[data-etiquette]");
   if (etiquette) etiquette.textContent = P.nomChapitre(MID, ch.id);
 
+  // Version courte du chapitre (module.js, court: [ids] ; page court/chapitre-<id>.html) : un accès sous le titre
+  if (MOD.court && MOD.court.indexOf(ch.id) >= 0 && main.querySelector("h1")) {
+    var bc = document.createElement("div");
+    bc.className = "court-acces";
+    bc.innerHTML = '<span><small>' + P.t("Version courte") + "</small>" + P.t("L'essentiel du chapitre, puis les questions d'examen") + "</span>" +
+      '<a class="btn-jouer" href="../court/chapitre-' + ch.id + '.html">' + P.t("Lire") + "</a>";
+    var t1 = main.querySelector("h1"); t1.parentNode.insertBefore(bc, t1.nextSibling);
+  }
+
   // Podcast du chapitre (module.js, podcasts[<id>]) : un lecteur discret sous le titre, qui reprend où l'on s'était arrêté
   var pod = MOD.podcasts && MOD.podcasts[ch.id], titre1 = main.querySelector("h1");
   if (pod && titre1) {

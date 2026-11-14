@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Biomatériaux et dispositifs médicaux (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 1 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Biomatériaux et dispositifs médicaux</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-1.html">Lire le cours complet</a></p>
+<h2>Le biomatériau</h2>
+<p><strong>Définition actuelle</strong> : un biomatériau est un « matériau destiné à alimenter ou à remplacer tout ou partie d'un organe déficient ». Alimenter veut dire ici suppléer une fonction.</p>
+<ul>
+<li>Il travaille au contact du vivant : sang, os, cellules. Tout se joue à l'<strong>interface hôte / biomatériau</strong>.</li>
+<li>Il doit exister au contact des tissus sans provoquer de défense inacceptable ni de réponse hostile de l'hôte : c'est la <strong>biocompatibilité</strong>.</li>
+<li>Un bon matériau mécanique peut être un mauvais biomatériau, s'il déclenche une réaction hostile ou s'il se dégrade en service.</li>
+<li>Une <strong>prothèse</strong> = des <strong>biomatériaux</strong> + un <strong>mécanisme</strong> + une <strong>fonction</strong> qui remplace un organe ou une partie d'organe.</li>
+<li>Un greffon peut être un biomatériau : la définition intermédiaire dit « tout matériau, naturel ou non, incluant tout ou partie d'une structure vivante ».</li>
+<li>Pour vendre un dispositif : le <strong>marquage CE</strong> en Europe, la <strong>FDA</strong> aux États-Unis.</li>
+</ul>
+
+<h2>Les quatre générations</h2>
+<div class="tableau"><table>
+<tr><th>Génération</th><th>Idée</th><th>Exemples</th></tr>
+<tr><td>1re</td><td>matériaux « non contrôlés », sans rien connaître de la réponse de l'hôte</td><td>bois, verre, or</td></tr>
+<tr><td>2e</td><td>début du XXe siècle : matériaux choisis pour leurs propriétés</td><td>métaux et alliages, puis plastiques et céramiques</td></tr>
+<tr><td>3e</td><td>remplacer durablement sans réponse hostile</td><td>nouveaux matériaux, modification de surface, échafaudages biodégradables, nanomatériaux</td></tr>
+<tr><td>4e</td><td>avancées récentes</td><td>ingénierie tissulaire, nanomédecine, médecine régénérative</td></tr>
+</table></div>
+<p>Toutes les générations doivent être biocompatibles. La 3e modifie la surface d'implants existants (enduction, deep-coating, physisorption, greffage chimique) pour améliorer la réponse de l'hôte : rendre hydrophile une surface hydrophobe, la rendre spécifique ou bioactive.</p>
+<div class="schema" id="sc-generations"></div>
+
+<h2>Biomatériau ou dispositif médical ?</h2>
+<p>Les biomatériaux sont rarement utilisés seuls : ils sont intégrés dans des <strong>dispositifs médicaux</strong> (DM).</p>
+<p><strong>Dispositif médical</strong> : produit de santé, logiciels compris, à usage médical, dont le <strong>mode d'action principal voulu</strong> n'est ni <strong>pharmacologique</strong>, ni <strong>immunologique</strong>, ni <strong>métabolique</strong>. Sinon, c'est un <strong>médicament</strong> (article R5211-2 du Code de la santé publique).</p>
+<ul>
+<li>Seringue, pansement, prothèse, logiciel d'aide au diagnostic : DM.</li>
+<li>Antibiotique (pharmacologique), vaccin (immunologique), insuline (métabolisme) : médicaments.</li>
+</ul>
+<div class="schema" id="sc-dm"></div>
+<p>Ses finalités : une <strong>maladie</strong> (diagnostic, prévention, contrôle, traitement), une <strong>blessure ou un handicap</strong> (diagnostic, contrôle, traitement, réparation), l'<strong>anatomie ou un processus physiologique</strong> (étude, remplacement, modification).</p>
+
+<h2>Les quatre classes de risque</h2>
+<p>Trois critères classent un DM : le <strong>caractère invasif</strong>, la <strong>durée du contact</strong> et la <strong>partie du corps</strong> concernée. Plus la classe est élevée, plus le risque est grand et plus il y a de tests avant l'approbation.</p>
+<div class="tableau"><table>
+<tr><th>Classe</th><th>Risque</th><th>Ce qu'elle regroupe</th><th>Exemples</th></tr>
+<tr><td>I</td><td>faible</td><td>non invasif, ou invasif court au contact de la peau</td><td>fauteuil roulant, bas de contention, scalpel</td></tr>
+<tr><td>IIa</td><td>moyen</td><td>invasif de courte durée</td><td>lentilles de contact, poches de sang, couronnes dentaires</td></tr>
+<tr><td>IIb</td><td>élevé</td><td>invasif prolongé</td><td>implants chirurgicaux, pompes à perfusion, hémodialyse</td></tr>
+<tr><td>III</td><td>le plus élevé</td><td>contact avec le cœur, le système circulatoire central ou nerveux ; effet biologique ; modifié chimiquement dans le corps</td><td>stent, prothèse de hanche, dispositif biodégradable</td></tr>
+</table></div>
+<ul>
+<li>La classe III demande une approbation préalable et des évaluations précliniques et cliniques.</li>
+<li>Dix-huit règles aident à fixer la classe. En Europe : Directive 93/42/CEE et marquage CE. Aux États-Unis : FDA.</li>
+</ul>
+<div class="schema" id="sc-classes"></div>
+
+<h2>Le vocabulaire</h2>
+<div class="tableau"><table>
+<tr><th>Terme</th><th>Ce que c'est</th></tr>
+<tr><td>Implant</td><td>DM fait de biomatériaux, introduit dans le corps ; temporaire (implant contraceptif) ou permanent (implant dentaire)</td></tr>
+<tr><td>Prothèse</td><td>supplée un organe manquant ou restaure une fonction déficiente</td></tr>
+<tr><td>Organe artificiel</td><td>biomatériaux qui remplacent une partie ou toutes les fonctions d'un organe ; hybride s'il contient des cellules vivantes</td></tr>
+<tr><td>Bioprothèse</td><td>prothèse faite d'un tissu non vivant traité, venu d'un donneur</td></tr>
+<tr><td>Greffe</td><td>cellules, tissus ou organes vivants : autogreffe (même personne), allogreffe (même espèce), xénogreffe (autre espèce)</td></tr>
+</table></div>
+<p>Le piège classique : une valve de porc <strong>traitée</strong>, non vivante, est une <strong>bioprothèse</strong>, pas une xénogreffe.</p>
+<div class="schema" id="sc-vocabulaire"></div>
+
+<h2>Ingénierie tissulaire et médecine régénérative</h2>
+<p>Au lieu de remplacer l'os par un matériau qui reste, on aide le corps à le refaire. L'<strong>ingénierie tissulaire</strong> associe trois composants, une « construction active » : un <strong>échafaudage biodégradable</strong>, des <strong>cellules vivantes</strong> et des <strong>facteurs bioactifs</strong>. Le nouveau tissu se forme pendant que l'échafaudage se dégrade.</p>
+<ul>
+<li>L'échafaudage est poreux et interconnecté : il permet l'adhésion, la croissance, la différenciation et la colonisation des cellules.</li>
+<li>Ingénierie tissulaire : croissance des tissus hors du corps. <strong>Médecine régénérative</strong> : réparation dans le corps, avec les mécanismes de réparation de l'organisme.</li>
+</ul>
+<div class="schema" id="sc-it"></div>
+
+<h2>Nanomédecine</h2>
+<p>Les <strong>nanotechnologies</strong> travaillent entre <strong>1 et 100 nm</strong> (1 nm = 10⁻⁹ m). À cette taille, la matière a de nouvelles propriétés. Trois usages : <strong>prévenir</strong> (revêtements anti-infection), <strong>diagnostiquer</strong> (biocapteurs, imagerie, agents de contraste) et <strong>traiter</strong> (ciblage, délivrance de médicaments).</p>
+<p>Bénéfices : détection plus précoce, ciblage plus spécifique, doses et effets secondaires réduits, chirurgie moins invasive.</p>
+<div class="schema" id="sc-nano"></div>
+<p>Le marché des biomatériaux grandit vite, poussé par le vieillissement de la population. Les chiffres du cours ne sont pas à retenir par cœur.</p>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne la définition actuelle d'un biomatériau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Un matériau destiné à alimenter (suppléer) ou à remplacer tout ou partie d'un organe déficient.</p><p>Il doit exister au contact du vivant sans défense inacceptable ni réponse hostile de l'hôte.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qu'est-ce que la biocompatibilité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La capacité d'un biomatériau à exister au contact des tissus du vivant sans provoquer de défense inacceptable ni de réponse hostile de l'hôte.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Une seringue et l'insuline qu'elle contient : laquelle est un dispositif médical, et pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La seringue est un DM : elle agit mécaniquement.</p><p>L'insuline est un médicament : elle agit par métabolisme.</p><p>Le critère est le mode d'action principal voulu.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quels sont les trois critères qui fixent la classe d'un DM ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le caractère invasif.</p><p>La durée du contact.</p><p>La partie du corps concernée.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne la classe d'une lentille de contact, d'une pompe à perfusion et d'un stent.</p><details class="corrige"><summary>Voir la réponse</summary><p>Lentille de contact : IIa (invasive de courte durée).</p><p>Pompe à perfusion : IIb (invasive prolongée).</p><p>Stent : III (contact avec le système circulatoire central).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Une valve cardiaque de porc traitée, non vivante, posée chez une patiente : xénogreffe ou bioprothèse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une bioprothèse : le tissu est non vivant et traité.</p><p>Une xénogreffe serait un tissu vivant d'une autre espèce.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Différence entre autogreffe, allogreffe et xénogreffe ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Autogreffe : donneur et receveur sont la même personne.</p><p>Allogreffe : même espèce, mais génétiquement distincts.</p><p>Xénogreffe : espèces différentes.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quels sont les trois composants de l'ingénierie tissulaire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un échafaudage biodégradable.</p><p>Des cellules vivantes.</p><p>Des facteurs bioactifs.</p><p>Le nouveau tissu se forme pendant que l'échafaudage se dégrade.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Cite les quatre générations de biomatériaux avec un exemple chacune.</p><details class="corrige"><summary>Voir la réponse</summary><p>1re : matériaux non contrôlés (bois, verre, or).</p><p>2e : matériaux choisis pour leurs propriétés (métaux, céramiques, polymères).</p><p>3e : modification de surface, échafaudages, nanomatériaux.</p><p>4e : ingénierie tissulaire, nanomédecine, médecine régénérative.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Dernier chapitre</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 1) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
