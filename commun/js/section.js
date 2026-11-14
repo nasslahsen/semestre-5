@@ -38,11 +38,22 @@
     bp.className = "podcast";
     bp.innerHTML = '<p><small>' + P.t("Écouter le podcast du chapitre") + "</small>" + esc(pod.titre) +
       (pod.duree ? " · " + esc(pod.duree) : "") + (pod.langue === "en" && P.lang !== "en" ? " · en anglais" : "") + "</p>" +
-      '<audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>';
+      '<div class="podcast-lecteur"><audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>' +
+      '<button type="button" class="podcast-vitesse" aria-label="' + P.t("Vitesse de lecture") + '"></button></div>';
     titre1.parentNode.insertBefore(bp, titre1.nextSibling);
     var audio = bp.querySelector("audio"), CLEP = "s5-podcast", cleP = MID + "/" + ch.id, posP = {};
     try { posP = JSON.parse(localStorage.getItem(CLEP) || "{}") || {}; } catch (e) { posP = {}; }
     audio.addEventListener("loadedmetadata", function () { var t = posP[cleP]; if (t && t < audio.duration - 15) audio.currentTime = t; });
+    // vitesse : 1×, 1,25×, 1,5×, 1,75×, gardée d'une écoute à l'autre
+    var VIT = [1, 1.25, 1.5, 1.75], bv = bp.querySelector(".podcast-vitesse"), vit = 1;
+    try { vit = +localStorage.getItem("s5-podcast-vitesse") || 1; } catch (e) {}
+    function regler() { audio.playbackRate = vit; audio.defaultPlaybackRate = vit; bv.textContent = String(vit).replace(".", ",") + "×"; }
+    regler();
+    audio.addEventListener("play", regler);
+    bv.addEventListener("click", function () {
+      vit = VIT[(VIT.indexOf(vit) + 1) % VIT.length] || 1; regler();
+      try { localStorage.setItem("s5-podcast-vitesse", vit); } catch (e) {}
+    });
     var dernier = 0;
     audio.addEventListener("timeupdate", function () {
       if (Math.abs(audio.currentTime - dernier) < 5) return;
@@ -240,10 +251,13 @@
         suivante();
       }
       function fermerCartes() { fond.classList.remove("on"); document.documentElement.classList.remove("jeu-ouvert"); }
-      b.querySelector("button").addEventListener("click", function () {
+      function toutes() {
         var r = ratees(), reste = cartes.map(function (x, i) { return i; }).filter(function (i) { return r.indexOf(i) < 0; });
         lancer(r.concat(reste));
-      });
+      }
+      b.querySelector("button").addEventListener("click", toutes);
+      // depuis « Mon suivi » : la page s'ouvre avec ?cartes=<paquet> et ce paquet démarre aussitôt (les ratées seulement s'il y en a)
+      if (new URLSearchParams(location.search).get("cartes") === cleDeck) setTimeout(function () { var r = ratees(); if (r.length) lancer(r); else toutes(); }, 300);
     }
 
     // L'exercice s'ouvre par-dessus la page ; « Revenir au cours » le ferme et la page n'a pas bougé
