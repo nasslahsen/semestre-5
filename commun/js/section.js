@@ -38,22 +38,11 @@
     bp.className = "podcast";
     bp.innerHTML = '<p><small>' + P.t("Écouter le podcast du chapitre") + "</small>" + esc(pod.titre) +
       (pod.duree ? " · " + esc(pod.duree) : "") + (pod.langue === "en" && P.lang !== "en" ? " · en anglais" : "") + "</p>" +
-      '<div class="podcast-lecteur"><audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>' +
-      '<button type="button" class="podcast-vitesse" aria-label="' + P.t("Vitesse de lecture") + '"></button></div>';
+      '<audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>';
     titre1.parentNode.insertBefore(bp, titre1.nextSibling);
     var audio = bp.querySelector("audio"), CLEP = "s5-podcast", cleP = MID + "/" + ch.id, posP = {};
     try { posP = JSON.parse(localStorage.getItem(CLEP) || "{}") || {}; } catch (e) { posP = {}; }
     audio.addEventListener("loadedmetadata", function () { var t = posP[cleP]; if (t && t < audio.duration - 15) audio.currentTime = t; });
-    // vitesse : 1×, 1,25×, 1,5×, 1,75×, gardée d'une écoute à l'autre
-    var VIT = [1, 1.25, 1.5, 1.75], bv = bp.querySelector(".podcast-vitesse"), vit = 1;
-    try { vit = +localStorage.getItem("s5-podcast-vitesse") || 1; } catch (e) {}
-    function regler() { audio.playbackRate = vit; audio.defaultPlaybackRate = vit; bv.textContent = String(vit).replace(".", ",") + "×"; }
-    regler();
-    audio.addEventListener("play", regler);
-    bv.addEventListener("click", function () {
-      vit = VIT[(VIT.indexOf(vit) + 1) % VIT.length] || 1; regler();
-      try { localStorage.setItem("s5-podcast-vitesse", vit); } catch (e) {}
-    });
     var dernier = 0;
     audio.addEventListener("timeupdate", function () {
       if (Math.abs(audio.currentTime - dernier) < 5) return;

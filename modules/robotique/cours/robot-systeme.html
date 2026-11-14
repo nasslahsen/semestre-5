@@ -40,8 +40,8 @@
 </table></div>
 <p>Le résultat de l'action modifie l'environnement, qui fournit de nouvelles informations : c'est l'interaction avec l'environnement, qui referme la boucle.</p>
 <h3>Le système robotisé</h3>
-<p>Un robot industriel est un manipulateur programmable, commandé automatiquement, capable de réaliser différents mouvements afin d'effectuer des tâches dans un processus de production. Il ne constitue qu'un élément de la cellule : <strong>un système robotisé est un ensemble de composants qui coopèrent pour réaliser automatiquement une tâche industrielle.</strong></p>
-<p>Composants d'un robot industriel : manipulateur (bras, articulations, transmissions, réducteurs), actionneurs (servomoteurs), capteurs (codeurs absolus, capteurs de couple, vision), contrôleur (armoire de commande, cartes de puissance, calcul cinématique), effecteur terminal (EOAT : pince, ventouse, torche, outil de mesure), teach pendant (pupitre de programmation).</p>
+<p>Un <strong>robot industriel</strong> est un <strong>manipulateur</strong> programmable, commandé automatiquement, capable de réaliser différents mouvements afin d'effectuer des tâches dans un processus de production. Il ne constitue qu'un élément de la cellule : <strong>un système robotisé est un ensemble de composants qui coopèrent pour réaliser automatiquement une tâche industrielle.</strong></p>
+<p>Composants d'un <strong>robot industriel</strong> : <strong>manipulateur</strong> (bras, articulations, <strong>transmissions</strong>, réducteurs), <strong>actionneurs</strong> (servomoteurs), <strong>capteurs</strong> (codeurs absolus, capteurs de couple, <strong>vision</strong>), <strong>contrôleur</strong> (armoire de commande, cartes de puissance, calcul cinématique), <strong>effecteur</strong> terminal (EOAT : pince, ventouse, torche, outil de mesure), teach pendant (pupitre de programmation).</p>
 <div class="tableau"><table>
 <tr><th>Sous-système</th><th>Rôle</th><th>Éléments</th></tr>
 <tr><td>Chaîne d'information</td><td>mesurer l'état du système, traiter les informations, générer les commandes : acquérir, traiter, communiquer, commander</td><td>capteurs, vision, contrôleur, API, IHM, réseau</td></tr>
@@ -65,17 +65,17 @@
 <tr><td>Domaine d'application</td><td>industriel, service professionnel, service personnel, médical et d'assistance, militaire, spatial et sous-marin</td></tr>
 </table></div>
 <figure class="photo duo"><img src="../images/cellule-carrosserie.jpg" alt="Ligne de robots industriels orange qui assemblent des carrosseries"><img src="../images/cobot.jpg" alt="Cobot à six axes posé sur un chariot avec son écran"><img src="../images/manipulateur-mobile.jpg" alt="Manipulateur mobile : un bras collaboratif sur une base à roues"><figcaption>Trois catégories : robots industriels conventionnels dans une cellule de carrosserie, séparés de l'humain ; un cobot, fait pour partager l'espace ; un manipulateur mobile (base mobile + bras), robot hybride.<small>Photos Wikimedia Commons : BMW Werk Leipzig (CC BY-SA 2.0 DE), GrowSkills Robotics (CC BY-SA 4.0), Auledas (CC BY 4.0).</small></figcaption></figure>
-<p>Historique en bref : 1920, le mot « robot » (R.U.R., Karel Čapek) ; 1942, Asimov popularise « robotique » ; 1954, brevet de George Devol ; 1961, Unimate chez General Motors ; 1970–1980, robots articulés et SCARA ; 1990–2000, vision industrielle ; 2000–2010, robots mobiles et cobots ; depuis 2010, robots autonomes, IA, industrie 4.0.</p>
+<p>Historique en bref : 1920, le mot « robot » (R.U.R., Karel Čapek) ; 1942, Asimov popularise « robotique » ; 1954, brevet de George Devol ; 1961, Unimate chez General Motors ; 1970–1980, robots articulés et SCARA ; 1990–2000, <strong>vision</strong> industrielle ; 2000–2010, robots <strong>mobiles</strong> et <strong>cobots</strong> ; depuis 2010, robots <strong>autonomes</strong>, IA, industrie 4.0.</p>
 
 <div class="schema" id="sc-boucle"></div>
 <div class="schema" id="sc-systeme"></div>
 <div class="schema" id="sc-classement"></div>
 
 <h2>Exemple</h2>
-<p>Exemple de fonctionnement d'une cellule du cours (figure ci-dessus) : détection (la caméra détecte la pièce entrante), autorisation (l'API autorise le cycle), approche, préhension, déplacement selon la trajectoire programmée, dépose sur le convoyeur de sortie. Chaque étape mobilise la chaîne d'information, la chaîne d'énergie, la chaîne d'action et la sécurité. L'étape de détection relève surtout de « percevoir » et de la chaîne d'information ; la préhension relève d'« agir » et de la chaîne d'action.</p>
+<p>Exemple de fonctionnement d'une cellule du cours (figure ci-dessus) : détection (la caméra détecte la pièce entrante), autorisation (l'API autorise le cycle), approche, préhension, déplacement selon la trajectoire programmée, dépose sur le convoyeur de sortie. Chaque étape mobilise la <strong>chaîne d'information</strong>, la <strong>chaîne d'énergie</strong>, la <strong>chaîne d'action</strong> et la <strong>sécurité</strong>. L'étape de détection relève surtout de « percevoir » et de la chaîne d'information ; la préhension relève d'« agir » et de la chaîne d'action.</p>
 
 <h2>Formules clés</h2>
-<p>Robot = système <strong>programmable</strong> qui exécute des <strong>actions</strong> dans son <strong>environnement</strong> pour une <strong>tâche</strong>. Boucle : percevoir, traiter, décider, agir. Système robotisé = chaîne d'information + chaîne d'énergie + chaîne d'action + sécurité. Cinq critères : mobilité, architecture, interaction, autonomie, domaine.</p>
+<p>Robot = système <strong>programmable</strong> qui exécute des <strong>actions</strong> dans son <strong>environnement</strong> pour une <strong>tâche</strong>. Boucle : <strong>percevoir</strong>, <strong>traiter</strong>, <strong>décider</strong>, <strong>agir</strong>. <strong>Système robotisé</strong> = <strong>chaîne d'information</strong> + <strong>chaîne d'énergie</strong> + <strong>chaîne d'action</strong> + <strong>sécurité</strong>. Cinq critères : <strong>mobilité</strong>, <strong>architecture</strong>, interaction, <strong>autonomie</strong>, <strong>domaine</strong>.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
