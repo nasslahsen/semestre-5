@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les bases de mécanique (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 0 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les bases de mécanique</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-0.html">Lire le cours complet</a></p>
+<p>Ce chapitre donne les outils dont le cours se sert pour comparer les matériaux. Il sert surtout aux calculs (TD 1, composites).</p>
+
+<h2>Contrainte, déformation, module</h2>
+<p>On divise la force par la section, et l'allongement par la longueur, pour avoir des grandeurs propres au matériau.</p>
+<ul>
+<li><strong>Contrainte</strong> : \(\sigma = F / S_0\), en MPa si F est en N et \(S_0\) en mm² (1 MPa = 1 N/mm² = 10⁶ Pa).</li>
+<li><strong>Déformation</strong> : \(\varepsilon = \Delta l / l_0\), sans unité (souvent en %).</li>
+<li><strong>Module d'Young</strong> : dans le domaine élastique, \(\sigma = E\,\varepsilon\) (droite de Hooke). E est la <strong>rigidité</strong> du matériau, en MPa ou GPa.</li>
+<li>Pour un matériau isotrope, deux constantes suffisent, reliées par \(G = E / (2(1+\nu))\) (ν : coefficient de Poisson, G : module de cisaillement). Un composite n'est pas isotrope.</li>
+</ul>
+
+<h2>La courbe de traction</h2>
+<div class="tableau"><table>
+<tr><th>Repère</th><th>Nom</th><th>Ce qu'on lit</th></tr>
+<tr><td>O à A</td><td>droite de Hooke</td><td>domaine élastique : on relâche, l'éprouvette revient</td></tr>
+<tr><td>A</td><td>résistance élastique \(R_e = F_e / S_0\)</td><td>fin du domaine élastique</td></tr>
+<tr><td>C</td><td>\(R_{max}\)</td><td>la contrainte la plus haute supportée</td></tr>
+<tr><td>D</td><td>résistance à la rupture \(R_r\)</td><td>la contrainte au moment de la rupture</td></tr>
+</table></div>
+<ul>
+<li>Après A : <strong>déformation permanente</strong>. En relâchant, il reste un allongement.</li>
+<li><strong>Ductile</strong> : s'allonge beaucoup sans se rompre. <strong>Fragile</strong> : casse presque au bout de la droite de Hooke. <strong>Dur</strong> : résiste à la pénétration.</li>
+<li><strong>Ténacité</strong> : l'énergie absorbée avant la rupture, c'est l'aire sous la courbe.</li>
+</ul>
+
+<h2>Les modules en échelle log</h2>
+<p>Les modules vont d'environ 1 MPa (élastomère) à 207 GPa (acier). On trace donc log E : chaque graduation multiplie le module par 10.</p>
+<ul>
+<li>1 MPa = 10⁶ Pa donne log E = 6. 1 GPa = 10⁹ Pa donne log E = 9.</li>
+<li>Une chute de log E de 9 à 6 (au passage de Tg) divise le module par 1 000.</li>
+</ul>
+
+<h2>Masse volumique et mélanges</h2>
+<ul>
+<li>\(\rho = m / V\), en g/cm³ (le cours dit souvent « densité »).</li>
+<li>Deux phases qui occupent les fractions de volume \(v_1\) et \(v_2 = 1 - v_1\) : \(\rho = \rho_1 v_1 + \rho_2 v_2\). C'est une moyenne pondérée par les volumes, pas la moyenne simple.</li>
+<li>Au chapitre 7, la même idée donne \(\rho = \rho_c X + \rho_a (1 - X)\).</li>
+</ul>
+<p>Formules à savoir :</p>
+\[\sigma = \frac{F}{S_0} \qquad \varepsilon = \frac{\Delta l}{l_0} \qquad \sigma = E\,\varepsilon \qquad \rho = \rho_1 v_1 + \rho_2 v_2\]
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Écris la contrainte et la déformation, avec leurs unités.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\sigma = F / S_0\), en MPa (F en N, \(S_0\) en mm²).</p><p>\(\varepsilon = \Delta l / l_0\), sans unité.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Que représente le module d'Young ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La rigidité du matériau : la pente de la droite de Hooke, \(\sigma = E\,\varepsilon\), dans le domaine élastique.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Sur une courbe de traction, que sont Re, Rmax et Rr ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Re : la fin du domaine élastique.</p><p>Rmax : la contrainte la plus haute supportée.</p><p>Rr : la contrainte au moment de la rupture.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Qu'est-ce que la ténacité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'énergie qu'un matériau absorbe avant de rompre.</p><p>C'est l'aire sous la courbe de traction.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> log E passe de 9 à 6 : par combien le module est-il divisé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La différence vaut 3.</p><p>Le module est divisé par 10³ = 1 000.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Un matériau a moitié de son volume à 1,0 g/cm³ et moitié à 1,2 g/cm³. Sa masse volumique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\rho = \rho_1 v_1 + \rho_2 v_2\)</p><p>\(\rho = 0{,}5 \times 1{,}0 + 0{,}5 \times 1{,}2\)</p><p>\(\rho = 1{,}1\) g/cm³</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-2.html"><small>Version courte suivante</small>Les familles de matériaux</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 0) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

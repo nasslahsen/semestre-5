@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Élastomères et caoutchoucs (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Élastomères et caoutchoucs</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>L'élastomère</h2>
+<p><strong>Élastomère</strong> : polymère organique ou minéral (le <strong>silicone</strong>) à base de gomme collante, qui devient élastique après <strong>réticulation</strong>. Il s'écrase ou s'étire, puis revient à sa forme.</p>
+<ul>
+<li>Le <strong>caoutchouc naturel</strong> (NR) est du <strong>polyisoprène</strong>, tiré du <strong>latex</strong> de l'hévéa par une « saignée » de l'écorce.</li>
+<li>Le latex brut est capricieux : collant au soleil, il fond à chaud et devient cassant au froid.</li>
+<li>Propriétés du caoutchouc naturel : flexible au froid, <strong>résilience élevée</strong>, faible résistance aux huiles et à l'oxydation, sensible à l'<strong>ozone</strong> et au dioxygène.</li>
+</ul>
+
+<h2>Élastomère ou plastomère : tout dépend de Tv</h2>
+<p>Tout se joue sur la température de transition vitreuse <strong>Tv</strong>, comparée à la température ambiante :</p>
+<div class="tableau"><table>
+<tr><th></th><th>Élastomère</th><th>Plastomère</th></tr>
+<tr><td>Tv</td><td>sous l'ambiante (souvent &lt; −40 °C)</td><td>au-dessus de l'ambiante</td></tr>
+<tr><td>Module à l'ambiante</td><td>faible, ≈ 1 MPa</td><td>≈ 1 GPa</td></tr>
+<tr><td>Déformation</td><td>seulement élastique, jusqu'à 1 000 %</td><td>élastique puis plastique, faible</td></tr>
+<tr><td>Exemple</td><td>caoutchouc naturel (Tv ≈ −60 °C)</td><td>polystyrène (Tv ≈ 100 °C)</td></tr>
+</table></div>
+<p>À l'inverse d'un métal, un caoutchouc sous contrainte constante <strong>se contracte</strong> quand on le chauffe : ses chaînes étirées veulent retrouver leur pelote.</p>
+<div class="schema" id="sc-elastomere"></div>
+
+<h2>La vulcanisation</h2>
+<p>Un caoutchouc brut coule à chaud. La <strong>vulcanisation</strong> relie les chaînes par des <strong>liaisons covalentes</strong> (réticulation chimique) : le réseau se déforme mais ne coule plus.</p>
+<div class="tableau"><table>
+<tr><th>Agent</th><th>Pont formé</th><th>Pour</th></tr>
+<tr><td><strong>Soufre</strong> (le principal)</td><td>ponts disulfure S–S</td><td>élastomères insaturés (avec doubles liaisons)</td></tr>
+<tr><td><strong>Peroxyde organique</strong></td><td>ponts C–C</td><td>presque tous les élastomères</td></tr>
+<tr><td><strong>MgO / ZnO</strong></td><td>ponts éther C–O–C</td><td>élastomères halogénés</td></tr>
+</table></div>
+<ul>
+<li>Plus de soufre : <strong>Tg et E augmentent</strong>, le plateau caoutchouteux reste. Trop de soufre : Tg passe au-dessus de l'ambiante.</li>
+<li>Le <strong>noir de carbone</strong> augmente E sans changer Tg.</li>
+<li>Pendant la cuisson : le <strong>temps de vulcanisation</strong> (le module monte jusqu'à son maximum), le <strong>temps de plateau</strong>, puis parfois la <strong>réversion</strong> (le module redescend, surtout avec le caoutchouc naturel).</li>
+</ul>
+<div class="schema" id="sc-vulcanisation"></div>
+
+<h2>La formulation</h2>
+<p>La recette d'un caoutchouc pour une application précise : l'élastomère + des <strong>charges</strong> + des <strong>plastifiants</strong> + des <strong>accélérateurs</strong> de vulcanisation + des <strong>additifs</strong> (mise en œuvre, protection contre le dioxygène, l'ozone, la chaleur, les UV).</p>
+<ul>
+<li>Le <strong>noir de carbone</strong> fait presque tout : pigment, renfort, stabilisant, conducteur électrique.</li>
+<li>Un élastomère <strong>saturé</strong> ne se vulcanise pas au soufre : on prend un peroxyde.</li>
+<li>Caoutchoucs réticulables du cours : NR, SBR, butyle, CR, NBR, EPDM, silicones.</li>
+</ul>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Qu'est-ce qu'un élastomère ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un polymère organique ou minéral (silicone) à base de gomme collante, élastique après réticulation.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Comment distingue-t-on un élastomère d'un plastomère ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par la position de Tv par rapport à la température ambiante.</p><p>Tv sous l'ambiante : élastomère.</p><p>Tv au-dessus : plastomère.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi le caoutchouc naturel est-il souple à 20 °C, et le polystyrène rigide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le caoutchouc naturel a une Tv d'environ −60 °C : à 20 °C, il est sur son plateau caoutchouteux.</p><p>Le polystyrène a une Tv d'environ 100 °C : à 20 °C, il est encore vitreux.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Qu'est-ce que la vulcanisation, et à quoi sert-elle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une réticulation chimique : on relie les chaînes par des liaisons covalentes.</p><p>Le caoutchouc ne coule plus à chaud et revient à sa forme.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quels agents de vulcanisation existe-t-il, et quels ponts forment-ils ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Soufre : ponts disulfure S–S (élastomères insaturés).</p><p>Peroxyde organique : ponts C–C (presque tous les élastomères).</p><p>MgO / ZnO : ponts éther (élastomères halogénés).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que se passe-t-il quand on augmente le taux de soufre ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tg et le module E augmentent.</p><p>Le plateau caoutchouteux reste.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Cite les ingrédients d'une formulation de caoutchouc.</p><details class="corrige"><summary>Voir la réponse</summary><p>L'élastomère, des charges, des plastifiants, des accélérateurs de vulcanisation, des additifs.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quels sont les rôles du noir de carbone ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pigment, renfort, stabilisant et conducteur électrique.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-5.html"><small>Version courte suivante</small>Additifs, charges et renforts</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

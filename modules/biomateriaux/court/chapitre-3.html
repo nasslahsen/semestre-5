@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Structure et états des polymères (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Structure et états des polymères</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>Trois familles de polymères</h2>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Macromolécules</th><th>À la chaleur</th><th>Exemples</th></tr>
+<tr><td><strong>Thermoplastique</strong></td><td>chaînes linéaires ou ramifiées</td><td>se ramollit, se remoule</td><td>PE, PC, PS (seringues, tubes)</td></tr>
+<tr><td><strong>Élastomère</strong></td><td>réseau à mailles larges</td><td>reste élastique</td><td>caoutchouc</td></tr>
+<tr><td><strong>Thermodurcissable</strong></td><td>réseau à mailles serrées</td><td>ne se reforme plus, se dégrade</td><td>époxy, polyester UP, phénolique</td></tr>
+</table></div>
+<p>L'image du cours : le thermoplastique est un <strong>œuf en chocolat</strong> (on le refond), le thermodurcissable un <strong>œuf cuit</strong> (pas de retour). Les thermoplastiques sont amorphes ou semi-cristallins ; thermodurcissables et élastomères sont amorphes.</p>
+<div class="schema" id="sc-polymeres"></div>
+
+<h2>La longueur des chaînes</h2>
+<ul>
+<li>Plus la <strong>masse moléculaire</strong> est grande, plus les chaînes s'<strong>enchevêtrent</strong> : propriétés mécaniques et viscosité augmentent.</li>
+<li>Chaînes courtes (la paraffine) : la rupture passe entre les chaînes, seules des liaisons faibles cèdent. Peu tenace, fond à basse température.</li>
+<li>Chaînes longues : la rupture doit casser des chaînes (liaisons covalentes). Tenace.</li>
+<li>Masse plus grande : le polymère devient liquide à plus haute température. Masse infinie : jamais liquide.</li>
+</ul>
+
+<h2>Un polymère amorphe qu'on chauffe</h2>
+<div class="tableau"><table>
+<tr><th>Zone</th><th>État</th><th>Ce qui se passe</th></tr>
+<tr><td>0-1</td><td><strong>vitreux</strong></td><td>chaînes figées, module ≈ 10⁹ Pa, rigide</td></tr>
+<tr><td>1-2</td><td><strong>transition vitreuse</strong> (Tg)</td><td>le module chute d'environ 1 000</td></tr>
+<tr><td>2-3</td><td><strong>plateau caoutchouteux</strong></td><td>de longues sections de chaînes bougent, ≈ 10⁶ Pa</td></tr>
+<tr><td>3-4</td><td>transition caoutchouc-liquide</td><td>les chaînes se désenchevêtrent</td></tr>
+<tr><td>5</td><td><strong>liquide</strong></td><td>le polymère s'écoule</td></tr>
+</table></div>
+<p>À 20 °C, le polystyrène (Tg ≈ 100 °C) est vitreux et le caoutchouc naturel (Tg ≈ −60 °C) est caoutchouteux : la même courbe, décalée en température.</p>
+<p><strong>Relaxation</strong> : à déformation maintenue, la contrainte diminue avec le temps, car les chaînes se désenchevêtrent et se réenchevêtrent.</p>
+<div class="schema" id="sc-etats"></div>
+
+<h2>Les polymères semi-cristallins</h2>
+<ul>
+<li>Un polymère ne cristallise jamais à 100 % : c'est une <strong>phase cristalline</strong> (densité ρc, fusion <strong>Tf</strong>) dispersée dans une <strong>phase amorphe</strong> (densité ρa, transition vitreuse <strong>Tg</strong>).</li>
+<li>Entre Tg et Tf, le module baisse lentement : les cristaux tiennent le matériau. Plus il y a de cristaux, plus la chute à Tg est petite.</li>
+<li>Les ramifications gênent la cristallisation.</li>
+<li>Sous Tf : <strong>translucide ou opaque</strong> (les cristaux diffusent la lumière). Au-dessus de Tf : <strong>transparent</strong>.</li>
+<li>Cristallisation la plus rapide vers \(T = (T_f + T_g)/2\).</li>
+</ul>
+
+<h2>Le taux de cristallinité</h2>
+<p>La phase cristalline est plus dense. Avec X la fraction cristalline :</p>
+\[\rho = \rho_c X + \rho_a (1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]
+<p>La pièce chauffée puis refroidie d'un coup (trempée) :</p>
+<ul>
+<li>Chauffée <strong>sous Tf</strong> : les cristaux restent, X, ρ et le volume ne changent pas.</li>
+<li>Chauffée <strong>au-dessus de Tf</strong> puis trempée : tout fond et n'a pas le temps de recristalliser. X = 0, ρ = ρa, et le volume augmente (\(V = m / \rho_a\), la masse ne change jamais).</li>
+</ul>
+<div class="schema" id="sc-trempe"></div>
+<p>Deux dates : le <strong>celluloïd</strong> (1869), premier plastique, et la <strong>Bakélite</strong> (1907), premier thermodurcissable entièrement synthétique.</p>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelles sont les trois familles de polymères, et comment se comportent-elles à la chaleur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Thermoplastique : chaînes linéaires ou ramifiées, se ramollit et se remoule.</p><p>Élastomère : réseau à mailles larges, reste élastique.</p><p>Thermodurcissable : réseau à mailles serrées, ne se reforme plus.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Pourquoi un polymère à chaînes longues est-il plus tenace que la paraffine ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les chaînes longues s'enchevêtrent : pour rompre le matériau, il faut casser des chaînes, donc des liaisons covalentes.</p><p>Dans la paraffine, la rupture passe entre les chaînes courtes, par des liaisons faibles.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les cinq zones de la courbe du module d'un polymère amorphe.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vitreux.</p><p>Transition vitreuse (Tg).</p><p>Plateau caoutchouteux.</p><p>Transition caoutchouc-liquide.</p><p>Liquide.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Un semi-cristallin est-il transparent sous Tf ? Et au-dessus ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Sous Tf : translucide ou opaque, les cristaux diffusent la lumière.</p><p>Au-dessus de Tf : transparent, les cristaux ont fondu.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Tg = −10 °C et Tf = 150 °C. À quelle température la cristallisation est-elle la plus rapide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(T = (T_f + T_g) / 2\)</p><p>\(T = (150 - 10) / 2\)</p><p>\(T = 70\) °C</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> ρa = 1 g/cm³, ρc = 1,2 g/cm³, X = 0,5. Densité du polymère ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\rho = \rho_c X + \rho_a (1 - X)\)</p><p>\(\rho = 1{,}2 \times 0{,}5 + 1 \times 0{,}5\)</p><p>\(\rho = 1{,}1\) g/cm³</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Une plaque de 11 g est chauffée au-dessus de Tf puis trempée. ρa = 1 g/cm³. Son nouveau volume ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tout fond et ne recristallise pas : X = 0, donc ρ = ρa.</p><p>\(V = m / \rho_a\)</p><p>\(V = 11 / 1\)</p><p>\(V = 11\) cm³</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Qu'est-ce que la relaxation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À déformation maintenue, la contrainte diminue avec le temps : les chaînes se désenchevêtrent et se réenchevêtrent.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-11.html"><small>Version courte suivante</small>Polymères biomédicaux et matériaux naturels</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

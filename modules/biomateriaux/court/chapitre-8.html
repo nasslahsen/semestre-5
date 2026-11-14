@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Histoire, exigences et applications (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 8 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Histoire, exigences et applications</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-8.html">Lire le cours complet</a></p>
+<h2>L'histoire en quatre repères</h2>
+<p>Les matériaux médicaux viennent presque toujours d'ailleurs (chimie, métallurgie, aéronautique) : le chirurgien garde ceux que le corps tolère.</p>
+<ul>
+<li>Pendant la guerre : le <strong>PMMA</strong> des cockpits d'avions donne les lentilles intraoculaires.</li>
+<li>Années 50 : l'<strong>acier inoxydable</strong>, premier matériau utilisé avec succès pour la prothèse de hanche.</li>
+<li>1969 : le <strong>titane</strong> entre en médecine (Brånemark), venu de l'aéronautique pour sa faible densité et sa résistance.</li>
+<li>Années 70 : études de toxicité, les <strong>alliages de titane</strong> gagnent. Problème : ces matériaux ne s'intègrent pas parfaitement au corps.</li>
+</ul>
+
+<h2>Bio-inerte ou bioactif</h2>
+<ul>
+<li><strong>Bio-inerte</strong> : son rôle est de remplacer une fonction d'un organe. Exemple : une valve cardiaque.</li>
+<li><strong>Bioactif</strong> : il interagit fortement avec le tissu où il est implanté. Exemple : un revêtement d'<strong>hydroxyapatite</strong> (la partie minérale de l'os) sur une prothèse de hanche, qui améliore son intégration dans l'os.</li>
+</ul>
+
+<h2>Reconnaître un biomatériau : les trois critères de Chester</h2>
+<p>Chester (1991) : un biomatériau est tout <strong>matériau non vivant</strong> utilisé dans un dispositif médical pour remplacer ou traiter un tissu, un organe ou une fonction. Trois critères :</p>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Ce qu'il apporte</th></tr>
+<tr><td>1. contact avec des tissus ou fluides vivants</td><td>la question de la biocompatibilité</td></tr>
+<tr><td>2. contact de plus de quelques heures</td><td>exclut les médicaments</td></tr>
+<tr><td>3. non vivant</td><td>exclut les greffes</td></tr>
+</table></div>
+<div class="schema" id="sc-chester"></div>
+
+<h2>Ce qu'on exige d'un biomatériau</h2>
+<ul>
+<li><strong>Tolérance biologique</strong> : au produit, à ses constituants et à ses produits de dégradation.</li>
+<li><strong>Biocompatibilité « négative »</strong> : pas de réaction inflammatoire ni de toxicité.</li>
+<li><strong>Biocompatibilité élargie</strong> : une réponse de l'hôte appropriée dans une application précise.</li>
+<li><strong>Biofonctionnalité</strong> : remplir la fonction pour laquelle il est prévu.</li>
+<li>Exigences mécaniques, selon le produit : résistance à la <strong>rupture</strong>, à l'<strong>usure</strong>, à la <strong>fatigue</strong>, au <strong>fluage</strong>, au <strong>choc</strong>.</li>
+</ul>
+<p>Dans le temps, deux directions :</p>
+<ul>
+<li>Le matériau se dégrade : corrosion des métaux, vieillissement des plastiques, débris, fissures, fractures.</li>
+<li>Le matériau modifie l'hôte : en bien (le tissu s'adapte aux nouvelles contraintes) ou en mal (inflammation, mort cellulaire, toxicité).</li>
+</ul>
+
+<h2>Choisir et valider</h2>
+<p>On avance du plus sûr au plus risqué :</p>
+<ol>
+<li><strong>Calculs et simulations</strong> : contraintes, déformations, interfaces.</li>
+<li><strong>Essais mécaniques</strong> : rupture, bancs d'usure, simulateurs articulaires ou vasculaires.</li>
+<li><strong>Essais biologiques</strong> : cultures de cellules, puis animaux, puis l'homme.</li>
+</ol>
+<p>Les cellules utilisées : le <strong>fibroblaste</strong> (soutien du tissu conjonctif), l'<strong>ostéoblaste</strong> (fabrique et minéralise l'os), les <strong>cellules endothéliales</strong> (tonus des vaisseaux).</p>
+<p>La seule vraie sécurité : l'implantation chez l'homme avec un <strong>suivi à long terme</strong> (résultats, échecs, survie), comparée à un produit plus ancien. Le marquage passe par un <strong>organisme notifié</strong>.</p>
+<div class="schema" id="sc-valider"></div>
+<p><strong>Cahier des charges</strong> d'un biomatériau :</p>
+<ul>
+<li>stérilisable ;</li>
+<li>pas de transmission de maladie infectieuse ou parasitaire ;</li>
+<li>pas de réaction immunitaire ;</li>
+<li>pas de toxicité, ni du produit ni de ses produits de dégradation ;</li>
+<li>fabrication et stockage faciles ;</li>
+<li>moindre coût.</li>
+</ul>
+
+<h2>Où les trouve-t-on ?</h2>
+<p>Trois usages : <strong>pallier la déficience d'un organe</strong> (implants), <strong>réparer</strong> (prothèses), <strong>explorer le corps</strong> (appareils médico-chirurgicaux). Ils sont une alternative aux greffes.</p>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Exemples</th></tr>
+<tr><td>Orthopédie</td><td>prothèses articulaires, vis, plaques, comblement osseux</td></tr>
+<tr><td>Odontologie, stomatologie</td><td>implants dentaires, restauration, orthodontie</td></tr>
+<tr><td>Cardiovasculaire</td><td>valves, stents, prothèses vasculaires, stimulateurs, cathéters</td></tr>
+<tr><td>Ophtalmologie</td><td>implants, lentilles (souvent exclues : contact trop court)</td></tr>
+<tr><td>Urologie, néphrologie</td><td>dialyseurs (« rein artificiel »)</td></tr>
+<tr><td>Endocrinologie</td><td>pompes implantables, libération contrôlée, pancréas artificiel</td></tr>
+<tr><td>Chirurgie générale</td><td>drains, peau artificielle, colles tissulaires</td></tr>
+<tr><td>Chirurgie esthétique</td><td>implants mammaires en silicone</td></tr>
+</table></div>
+<p>À ne pas confondre : une <strong>prothèse</strong> remplace, une <strong>orthèse</strong> soutient, compense ou protège.</p>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne les trois critères de Chester pour reconnaître un biomatériau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Contact avec des tissus ou des fluides vivants.</p><p>Contact de plus de quelques heures (exclut les médicaments).</p><p>Non vivant (exclut les greffes).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Une autogreffe de peau est-elle un biomatériau ? Et un comprimé d'antibiotique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'autogreffe : non, elle est vivante (critère 3).</p><p>Le comprimé : non, il ne reste pas au contact (critère 2) et agit par voie pharmacologique.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Différence entre un biomatériau bio-inerte et un biomatériau bioactif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Bio-inerte : il remplace une fonction (une valve cardiaque).</p><p>Bioactif : il interagit fortement avec le tissu (un revêtement d'hydroxyapatite sur une prothèse de hanche).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Biocompatibilité et biofonctionnalité : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Biocompatibilité : ne pas nuire, pas d'inflammation ni de toxicité.</p><p>Biofonctionnalité : remplir la fonction prévue.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Cite les éléments du cahier des charges d'un biomatériau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Stérilisable.</p><p>Pas de transmission de maladie infectieuse ou parasitaire.</p><p>Pas de réaction immunitaire.</p><p>Pas de toxicité du produit ni de ses produits de dégradation.</p><p>Fabrication et stockage faciles.</p><p>Moindre coût.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Dans quel ordre valide-t-on un nouveau biomatériau ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Calculs et simulations.</p><p>Essais mécaniques.</p><p>Essais biologiques : cellules, animaux, puis l'homme.</p><p>Puis un suivi à long terme, la seule vraie sécurité.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Quel matériau a été le premier utilisé avec succès pour la prothèse de hanche, et quand ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'acier inoxydable, dans les années 50.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Prothèse ou orthèse : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La prothèse remplace un membre ou une fonction.</p><p>L'orthèse soutient, compense ou protège une partie du corps.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-0.html"><small>Version courte suivante</small>Les bases de mécanique</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 8) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les matériaux composites (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 6 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les matériaux composites</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-6.html">Lire le cours complet</a></p>
+<h2>Renfort et matrice</h2>
+<p>Un <strong>composite</strong> : deux matériaux ou plus, <strong>insolubles</strong> l'un dans l'autre, combinés pour avoir des propriétés qu'aucun n'a seul (ASTM D3878). Le <strong>renfort</strong> (les fibres) porte la charge, la <strong>matrice</strong> tient et protège les fibres.</p>
+<ul>
+<li>Matrices : <strong>organiques</strong> (thermodurcissables, thermoplastiques, élastomères) ou <strong>minérales</strong> (céramiques, métaux).</li>
+<li>Renforts : <strong>organiques</strong> (aramides), <strong>minéraux</strong> (verre, carbone, bore), <strong>végétaux</strong> (bois, coton, jute).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th></th><th>Grande diffusion (GD)</th><th>Hautes performances (HP)</th></tr>
+<tr><td>Part</td><td>95 % des composites</td><td>le reste</td></tr>
+<tr><td>Constituants</td><td>polyester + fibre de verre</td><td>verre, carbone ou aramide</td></tr>
+<tr><td>Propriétés, coût</td><td>plus faibles, grande série</td><td>élevées, coût unitaire important</td></tr>
+<tr><td>Usage</td><td>bateaux, cannes à pêche</td><td>aéronautique, spatial</td></tr>
+</table></div>
+<div class="schema" id="sc-composites-familles"></div>
+
+<h2>Pourquoi des composites</h2>
+<p>Le <strong>module spécifique</strong> \(E/\rho\) mesure la rigidité par unité de masse. Tous les métaux sont vers 25 ; le carbone-époxy unidirectionnel monte à 89 ou 132. À rigidité égale dans le sens des fibres, une pièce en carbone-époxy est bien plus légère (main prothétique, lame de course).</p>
+
+<h2>Isotrope ou orthotrope</h2>
+<ul>
+<li>Un métal est <strong>isotrope</strong> : même rigidité dans tous les sens, 2 constantes élastiques suffisent.</li>
+<li>Un pli de fibres alignées est <strong>orthotrope</strong> : raide le long des fibres (direction <strong>L</strong> ou 1), souple en travers (direction <strong>T</strong> ou 2).</li>
+<li>Monocouche orthotrope : 9 constantes. Plaque mince : 4 constantes (\(E_L, E_T, G_{LT}, \nu_{LT}\)).</li>
+</ul>
+
+<h2>Le long des fibres : la loi des mélanges</h2>
+<p>Fibres et matrice ont la <strong>même déformation</strong> (deux ressorts côte à côte) : leurs forces s'ajoutent.</p>
+\[\sigma_{CL} = \sigma_f\,\phi_f + \sigma_m\,\phi_m \qquad E_{CL} = E_f\,\phi_f + E_m\,\phi_m \qquad \phi_m = 1 - \phi_f\]
+<p>Le module longitudinal dépend surtout des <strong>fibres</strong>. La fibre, moins déformable, rompt la première.</p>
+
+<h2>En travers des fibres</h2>
+<p>Fibres et matrice ont la <strong>même contrainte</strong> (deux ressorts en série) : leurs allongements s'ajoutent.</p>
+\[\frac{1}{E_{CT}} = \frac{\phi_f}{E_f} + \frac{\phi_m}{E_m}\]
+<ul>
+<li>Le module transversal dépend surtout de la <strong>matrice</strong>.</li>
+<li>Toujours \(E_{CL} > E_{CT}\).</li>
+<li>Exemple du cours (\(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\)) : \(E_{CL} = 29{,}8\) GPa mais \(E_{CT} = 4{,}86\) GPa.</li>
+</ul>
+<div class="schema" id="sc-composites"></div>
+
+<h2>Fibres orientées</h2>
+<p>Quand les fibres ne sont pas toutes alignées avec la charge, on corrige avec le <strong>coefficient d'orientation</strong> \(K_o\) :</p>
+\[E_{CL} = K_o\,E_f\,\phi_f + E_m\,\phi_m \qquad K_o = \sum a_n (\cos\theta_n)^4\]
+<div class="tableau"><table>
+<tr><th>Orientation</th><th>\(K_o\)</th></tr>
+<tr><td>toutes alignées</td><td>1</td></tr>
+<tr><td>moitié à 0°, moitié à 90° (tissu)</td><td>0,5</td></tr>
+<tr><td>un quart à 0°, 90°, +45°, −45°, ou aléatoire (mat)</td><td>0,375</td></tr>
+<tr><td>moitié à +45°, moitié à −45°</td><td>0,25</td></tr>
+<tr><td>toutes perpendiculaires</td><td>0</td></tr>
+</table></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Qu'est-ce qu'un composite ? Quel est le rôle de chaque constituant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Deux matériaux ou plus, insolubles l'un dans l'autre, qui donnent des propriétés qu'aucun n'a seul.</p><p>Le renfort porte la charge.</p><p>La matrice tient et protège les fibres et répartit l'effort.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Composites de grande diffusion et de hautes performances : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>GD : 95 % des composites, polyester-verre, propriétés plus faibles, grande série.</p><p>HP : verre, carbone ou aramide, propriétés spécifiques élevées, coût élevé, aéronautique.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi le module longitudinal dépend-il des fibres et le transversal de la matrice ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le long des fibres, même déformation : la fibre raide porte presque toute la force.</p><p>En travers, même contrainte : la matrice souple fait presque tout l'allongement.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Ef = 70 GPa, Em = 3 GPa, φf = 0,4. Calcule le module longitudinal.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(E_{CL} = E_f\,\phi_f + E_m\,\phi_m\)</p><p>\(E_{CL} = 70 \times 0{,}4 + 3 \times 0{,}6\)</p><p>\(E_{CL} = 29{,}8\) GPa</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Avec les mêmes valeurs, calcule le module transversal.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(E_{CT} = E_f E_m / (\phi_f E_m + \phi_m E_f)\)</p><p>\(E_{CT} = (70 \times 3) / (0{,}4 \times 3 + 0{,}6 \times 70)\)</p><p>\(E_{CT} = 4{,}86\) GPa</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que vaut Ko pour un tissu 0/90 ? Et pour des fibres à ±45° ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tissu 0/90 : \(K_o = 0{,}5 \times 1 + 0{,}5 \times 0 = 0{,}5\).</p><p>±45° : \(K_o = \cos^4 45° = 0{,}25\).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'est-ce que le module spécifique, et pourquoi favorise-t-il les composites ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le rapport \(E/\rho\) : la rigidité par unité de masse.</p><p>Les métaux sont vers 25, le carbone-époxy unidirectionnel monte à 89 ou 132 : plus léger à rigidité égale.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Combien de constantes élastiques pour un matériau isotrope, une monocouche orthotrope, une plaque mince ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Isotrope : 2.</p><p>Monocouche orthotrope : 9.</p><p>Plaque mince : 4.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-7.html"><small>Version courte suivante</small>Procédés de fabrication des plastiques</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 6) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

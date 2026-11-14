@@ -42,6 +42,9 @@ modules/<id>/              un dossier par module actif
   cours/<page>.html        une page de cours par notion : la source des pages de chapitre
   figures/<page>.js        les figures interactives d'une page de cours
   images/                  photos réelles : du cours ou sous licence libre (voir section 8)
+  court/chapitre-<n>.html  version courte d'un chapitre (demandée par l'utilisatrice) : l'essentiel sans chiffres de marché ni
+                           historique détaillé, schémas repris, puis 6 à 10 questions d'examen à réponse cachée ; `court: [ids]`
+                           de module.js ajoute l'accès « Version courte » sous le titre de la page du chapitre
   audio/                   podcasts des chapitres (m4a, AAC mono 64 kb/s) : `podcasts[<chapitre>]` de module.js, lecteur sous le titre
   liens-cours.js           pour chaque étape de chaque niveau, la section du cours qui l'explique (généré)
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
