@@ -374,29 +374,26 @@ window.SCHEMAS = {
   },
 
   /* ---------- L'arbre du module : sous-modules, parties et chapitres (chaque chapitre ouvre sa page) ---------- */
-  "sc-structure": { titre: "Le module en un coup d'œil : touche un chapitre pour l'ouvrir",
-    cols: [[{ id: "m", t: "Robotique médicale", k: "fort" }],
-           [{ id: "b", t: "Robotique biomédicale", s: "décrire et modéliser un robot", k: "fort" },
-            { id: "e", t: "Éléments mécaniques", s: "de quoi est fait un axe", k: "fort" }],
-           [{ id: "pf", t: "Les fondations", k: "doux" },
-            { id: "pg", t: "La géométrie", s: "repères, rotations, matrices", k: "doux" },
-            { id: "pm", t: "Les modèles", s: "MGD, MGI, cinématique", k: "doux" },
-            { id: "pt", t: "Les TD", k: "doux" },
-            { id: "pa", t: "L'axe et ses liaisons", k: "doux" },
-            { id: "pr", t: "Guider et transmettre", k: "doux" }],
-           [{ id: "c0", t: "0. Les bases", s: "angles, vecteurs, matrices", href: "chapitres/chapitre-0.html" },
-            { id: "c1", t: "1. Le robot", s: "classement, DDL, liaisons, médical", href: "chapitres/chapitre-1.html" },
-            { id: "c2", t: "2. Repères et vecteurs", s: "produits, cylindriques, Chasles", href: "chapitres/chapitre-2.html" },
-            { id: "c3", t: "3. Orientations", s: "matrice de rotation, Euler", href: "chapitres/chapitre-3.html" },
-            { id: "c4", t: "4. Transformations", s: "homogène, bras 2R", href: "chapitres/chapitre-4.html" },
-            { id: "c10", t: "5. Modélisation", s: "Denavit–Hartenberg, MGD", href: "chapitres/chapitre-10.html" },
-            { id: "c11", t: "6. Modèle inverse", s: "MGI, jacobienne", href: "chapitres/chapitre-11.html" },
-            { id: "c9", t: "TD 1", s: "classer, 3R, échographie", href: "chapitres/chapitre-9.html" },
-            { id: "c5", t: "1. Architecture d'un axe", s: "vitesse, couple, jeu", href: "chapitres/chapitre-5.html" },
-            { id: "c6", t: "2. Assemblages", s: "vis, clavettes, ressorts", href: "chapitres/chapitre-6.html" },
-            { id: "c7", t: "3. Guidages", s: "roulements, L₁₀", href: "chapitres/chapitre-7.html" },
-            { id: "c8", t: "4. Transmissions", s: "arbres, engrenages", href: "chapitres/chapitre-8.html" }]],
-    liens: [["m", "b"], ["m", "e"], ["b", "pf"], ["b", "pg"], ["b", "pm"], ["b", "pt"], ["e", "pa"], ["e", "pr"],
-            ["pf", "c0"], ["pf", "c1"], ["pg", "c2"], ["pg", "c3"], ["pg", "c4"], ["pm", "c10"], ["pm", "c11"], ["pt", "c9"],
-            ["pa", "c5"], ["pa", "c6"], ["pr", "c7"], ["pr", "c8"]], vgap: 10, gap: 56 },
+  "sc-structure-bio": { titre: "Le cours en arbre : touche un bloc pour voir ce qu'il contient",
+    arbre: { t: "Robotique biomédicale", s: "décrire et modéliser un robot", k: "fort", enfants: [
+      { t: "Les fondations", k: "doux", enfants: [
+          { t: "0. Les bases", s: "angles, vecteurs, matrices", chapitre: 0 },
+          { t: "1. Le robot", s: "classement, DDL, liaisons, médical", chapitre: 1 }] },
+      { t: "La géométrie", s: "repères, rotations, matrices", k: "doux", enfants: [
+          { t: "2. Repères et vecteurs", s: "produits, cylindriques, Chasles", chapitre: 2 },
+          { t: "3. Orientations", s: "matrice de rotation, Euler", chapitre: 3 },
+          { t: "4. Transformations", s: "homogène, bras 2R", chapitre: 4 }] },
+      { t: "Les modèles", s: "MGD, MGI, cinématique", k: "doux", enfants: [
+          { t: "5. Modélisation", s: "Denavit–Hartenberg, MGD", chapitre: 10 },
+          { t: "6. Modèle inverse", s: "MGI, jacobienne", chapitre: 11 }] },
+      { t: "Les TD", k: "doux", enfants: [
+          { t: "TD 1", s: "classer, 3R, échographie", chapitre: 9 }] }] } },
+  "sc-structure-meca": { titre: "Le cours en arbre : touche un bloc pour voir ce qu'il contient",
+    arbre: { t: "Éléments mécaniques", s: "de quoi est fait un axe", k: "fort", enfants: [
+      { t: "L'axe et ses liaisons", k: "doux", enfants: [
+          { t: "1. Architecture d'un axe", s: "vitesse, couple, jeu", chapitre: 5 },
+          { t: "2. Assemblages", s: "vis, clavettes, ressorts", chapitre: 6 }] },
+      { t: "Guider et transmettre", k: "doux", enfants: [
+          { t: "3. Guidages", s: "roulements, L₁₀", chapitre: 7 },
+          { t: "4. Transmissions", s: "arbres, engrenages", chapitre: 8 }] }] } },
 };

@@ -3,6 +3,7 @@
  * Une page pose <div class="schema" id="sc-..."></div> ; le module définit window.SCHEMAS (modules/<id>/schemas.js) :
  *   SCHEMAS["sc-..."] = { titre, cols: [[{ id, t (titre), s (sous-titre, \n pour aller à la ligne), k ("", "doux", "fort", "neutre"), note }], ...],
  *                         liens: [["de", "vers"], ...], vgap, gap } ; un bloc avec href devient un lien
+ *   ou { titre, arbre: { t, s, k, enfants | chapitre } } : un arbre qui se déplie quand on touche un bloc (voir deplier) ;
  *   ou une fonction (boite, S) qui dessine elle-même (courbes) avec S.el, S.svg(boite, titre, hauteur).
  * Les colonnes vont de gauche à droite ; les blocs d'une colonne sont centrés ; les couleurs suivent le module (--jeu-texte, --jeu-pale).
  */
@@ -85,6 +86,86 @@
   }
 
 
+  // Arbre qui se déplie : { titre, arbre: { t, s, k, enfants: [...] } }. Au départ, la racine et ses enfants ;
+  // toucher un bloc montre ce qu'il contient (un seul bloc ouvert par niveau) ; le retoucher le referme.
+  // Un nœud { chapitre: <id> } reçoit pour enfants les sections de ce chapitre (module.js), qui ouvrent la page à cet endroit.
+  function deplier(boite, d) {
+    var id = boite.id, P = window.PLATEFORME, mid = document.documentElement.getAttribute("data-module");
+    var MOD = P && mid ? P.module(mid) : null;
+    function completer(nd, prof) {
+      nd.prof = prof;
+      if (nd.chapitre !== undefined && !nd.enfants && MOD && MOD.sections) {
+        nd.enfants = MOD.sections.filter(function (s) { return s.chapitre === nd.chapitre; })
+          .map(function (s) { return { t: s.titre, k: "neutre", href: "chapitres/chapitre-" + nd.chapitre + ".html#s-" + s.id }; });
+      }
+      var m = prof;
+      (nd.enfants || []).forEach(function (e) { m = Math.max(m, completer(e, prof + 1)); });
+      return m;
+    }
+    var R = d.arbre, nCol = completer(R, 0) + 1, gap = d.gap || 36;
+    var cw = (W - 20 - gap * (nCol - 1)) / nCol, maxT = Math.floor((cw - 36) / 9.6), maxS = Math.floor((cw - 40) / 7.9);
+    var chemin = [R], vg = d.vgap || 10;
+    if (d.titre) { var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = d.titre; boite.appendChild(tt); }
+    var svg = null;
+    function ouvert(nd) { return chemin.indexOf(nd) >= 0 && nd.enfants && nd.enfants.length; }
+    function mesurer(nd) {
+      nd.lt = couper(nd.t, maxT); nd.ls = couper(nd.s, maxS);
+      nd.h = 18 + nd.lt.length * 22 + nd.ls.length * 20 + (nd.ls.length ? 4 : 0) + 6;
+      var e = ouvert(nd) ? nd.enfants : [];
+      e.forEach(mesurer);
+      var hE = e.reduce(function (s, x) { return s + x.hs; }, 0) + vg * Math.max(0, e.length - 1);
+      nd.hs = Math.max(nd.h, hE);
+    }
+    function placer(nd, y0) {
+      nd.x = 10 + nd.prof * (cw + gap); nd.w = cw;
+      var e = ouvert(nd) ? nd.enfants : [];
+      if (!e.length) { nd.y = y0 + (nd.hs - nd.h) / 2; return; }
+      var hE = e.reduce(function (s, x) { return s + x.hs; }, 0) + vg * (e.length - 1), y = y0 + (nd.hs - hE) / 2;
+      e.forEach(function (x) { placer(x, y); y += x.hs + vg; });
+      var a = e[0], b = e[e.length - 1];
+      nd.y = (a.y + a.h / 2 + b.y + b.h / 2) / 2 - nd.h / 2;
+    }
+    function basculer(nd) {
+      var i = chemin.indexOf(nd);
+      if (i >= 0) chemin = chemin.slice(0, Math.max(1, i)); // la racine reste ouverte
+      else { chemin = chemin.slice(0, nd.prof); chemin.push(nd); }
+      dessin();
+    }
+    function bloc(nd) {
+      var st = STYLE[nd.k || ""], dest, peut = nd.enfants && nd.enfants.length && nd !== R;
+      if (nd.href) dest = el("a", { href: nd.href, "aria-label": nd.t }, svg);
+      else { dest = el("g", { role: peut ? "button" : "img", "aria-label": nd.t }, svg); if (peut) dest.addEventListener("click", function () { basculer(nd); }); }
+      if (nd.href || peut) dest.style.cursor = "pointer";
+      el("rect", { x: nd.x, y: nd.y, width: nd.w, height: nd.h, rx: 10, "stroke-width": 2.2, style: "fill:" + st.fond + ";stroke:" + st.bord }, dest);
+      var tot = nd.lt.length * 22 + nd.ls.length * 20 + (nd.ls.length ? 4 : 0), y = nd.y + (nd.h - tot) / 2 + 16, cx = nd.x + (peut ? nd.w - 18 : nd.w) / 2;
+      nd.lt.forEach(function (l) { var t = el("text", { x: cx, y: y, "text-anchor": "middle", "font-size": 17, "font-weight": 700, style: "fill:" + st.titre }, dest); t.textContent = l; y += 22; });
+      if (nd.ls.length) y += 4;
+      nd.ls.forEach(function (l) { var t = el("text", { x: cx, y: y - 2, "text-anchor": "middle", "font-size": 15, style: "fill:" + st.sous }, dest); t.textContent = l; y += 20; });
+      // un bloc qui contient quelque chose porte un « + » (ou un « − » quand il est ouvert)
+      if (peut) { var s = el("text", { x: nd.x + nd.w - 14, y: nd.y + nd.h / 2 + 7, "text-anchor": "middle", "font-size": 22, "font-weight": 700, style: "fill:" + st.titre }, dest); s.textContent = ouvert(nd) ? "−" : "+"; }
+    }
+    function dessin() {
+      mesurer(R); placer(R, 8);
+      var H = R.hs + 16;
+      if (svg) svg.parentNode.removeChild(svg);
+      svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "group", "aria-label": d.titre || "arbre" }, boite);
+      var defs = el("defs", {}, svg), mk = el("marker", { id: "fl-" + id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 9, markerHeight: 9, orient: "auto-start-reverse" }, defs);
+      el("path", { d: "M0,0 L10,5 L0,10 L3,5 z", style: "fill:var(--jeu-texte)" }, mk);
+      (function liens(nd) {
+        if (!ouvert(nd)) return;
+        nd.enfants.forEach(function (c) {
+          var x1 = nd.x + nd.w, y1 = nd.y + nd.h / 2, x2 = c.x - 2, y2 = c.y + c.h / 2, mx = x1 + gap / 2;
+          var dd = Math.abs(y1 - y2) < 1 ? "M" + x1 + "," + y1 + " H" + x2 : "M" + x1 + "," + y1 + " H" + mx + " V" + y2 + " H" + x2;
+          el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)", "marker-end": "url(#fl-" + id + ")" }, svg);
+          liens(c);
+        });
+      })(R);
+      (function tous(nd) { bloc(nd); if (ouvert(nd)) nd.enfants.forEach(tous); })(R);
+    }
+    dessin();
+    return svg;
+  }
+
   function svgLibre(boite, titre, h) {
     if (titre) { var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = titre; boite.appendChild(tt); }
     return el("svg", { viewBox: "0 0 1000 " + h, role: "img", "aria-label": titre || "schéma" }, boite);
@@ -96,7 +177,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(".schema[id]"), function (boite) {
       var d = defs[boite.id];
       if (!d || boite.firstChild) return;
-      if (typeof d === "function") d(boite, S); else dessiner(boite, d);
+      if (typeof d === "function") d(boite, S); else if (d.arbre) deplier(boite, d); else dessiner(boite, d);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tout); else tout();
