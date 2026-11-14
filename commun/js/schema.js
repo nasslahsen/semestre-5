@@ -162,6 +162,39 @@
     return svg;
   }
 
+  // Un schéma en colonnes qui est un classement (une seule racine, un seul parent par bloc, au moins un embranchement)
+  // devient un arbre qui se déplie. Une feuille qui énumère des types courts (« Fixe, mobile, hybride ») est coupée :
+  // un bloc par type. Les enchaînements et les schémas avec notes ou étiquettes de liens restent tels quels.
+  function enArbre(d) {
+    if (d.deplier === false || !d.cols) return null;
+    var blocs = {}, tous = [], parents = {}, enf = {}, ordre = {};
+    d.cols.forEach(function (c) { c.forEach(function (bl, j) { if (!bl.id || bl.note) tous = null; if (tous) { tous.push(bl); blocs[bl.id] = bl; ordre[bl.id] = j; } }); });
+    if (!tous) return null;
+    var ok = true;
+    (d.liens || []).forEach(function (l) {
+      if (l[2] || !blocs[l[0]] || !blocs[l[1]] || parents[l[1]]) ok = false;
+      parents[l[1]] = l[0]; (enf[l[0]] = enf[l[0]] || []).push(l[1]);
+    });
+    var racines = tous.filter(function (bl) { return !parents[bl.id]; });
+    var embr = Object.keys(enf).some(function (k) { return enf[k].length > 1; });
+    if (!ok || racines.length !== 1 || !embr) return null;
+    function types(bl) {
+      if (bl.s || !/, /.test(bl.t) || /[:=;()]|\d/.test(bl.t)) return null;
+      var l = bl.t.split(", ");
+      if (l.length < 2 || l.some(function (x) { return x.split(" ").length > 3; })) return null;
+      return l.map(function (x) { return { t: x.charAt(0).toUpperCase() + x.slice(1), k: "neutre" }; });
+    }
+    function noeud(bl) {
+      var e = (enf[bl.id] || []).slice().sort(function (a, b) { return ordre[a] - ordre[b]; }).map(function (i) { return noeud(blocs[i]); });
+      var nd = { t: bl.t, s: bl.s, k: bl.k, href: bl.href }, seul = enf[bl.id] && enf[bl.id].length === 1 ? blocs[enf[bl.id][0]] : null;
+      // un seul enfant qui énumère des types : les types prennent sa place, un bloc chacun
+      var ty = seul && !enf[seul.id] ? types(seul) : null;
+      if (ty) nd.enfants = ty; else if (e.length) nd.enfants = e;
+      return nd;
+    }
+    return { titre: d.titre, arbre: noeud(racines[0]), gap: d.gap };
+  }
+
   function svgLibre(boite, titre, h) {
     if (titre) { var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = titre; boite.appendChild(tt); }
     return el("svg", { viewBox: "0 0 1000 " + h, role: "img", "aria-label": titre || "schéma" }, boite);
@@ -173,7 +206,8 @@
     Array.prototype.forEach.call(document.querySelectorAll(".schema[id]"), function (boite) {
       var d = defs[boite.id];
       if (!d || boite.firstChild) return;
-      if (typeof d === "function") d(boite, S); else if (d.arbre) deplier(boite, d); else dessiner(boite, d);
+      var a = typeof d === "function" || d.arbre ? null : enArbre(d);
+      if (typeof d === "function") d(boite, S); else if (d.arbre) deplier(boite, d); else if (a) deplier(boite, a); else dessiner(boite, d);
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tout); else tout();
