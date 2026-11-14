@@ -62,6 +62,8 @@
 <tr><td>Prévenir le desserrage</td><td>par exemple une rondelle frein</td></tr>
 </table></div>
 
+<div class="schema" id="sc-fonctions"></div>
+
 <h4>Exemple du cours : trois liaisons complètes</h4>
 <h5>Écrou à encoches et rondelle frein</h5>
 <p>Un écrou à encoches est un dispositif de serrage utilisé pour fixer des roulements ou d'autres composants de machine sur un arbre. Le montage est démontable. Une rainure de clavette est usinée sur la tête de l'arbre filetée. Pour sécuriser le montage et éviter tout desserrage accidentel, une rondelle frein à languette est interposée entre l'écrou et l'organe à serrer. Le serrage et le desserrage de l'écrou se font avec une clé à ergots. À l'aide d'outils de frappe et d'un marteau, une languette extérieure de la rondelle est déformée pour s'engager dans l'encoche de l'écrou.</p>
@@ -110,6 +112,8 @@
 <h5>Interfaces filetées et matériaux tendres</h5>
 <p>La résistance d'un assemblage fileté dépend aussi de la pièce taraudée. Dans un carter en aluminium, en polymère ou imprimé en 3D, le taraudage peut être le point faible. En cas de démontages fréquents, un insert fileté métallique améliore la tenue et la répétabilité du montage.</p>
 
+<div class="schema" id="sc-precharge-vis"></div>
+
 <h4>Exemple du cours : estimation de précharge</h4>
 <p>Pour une vis M6 (\(d = 6\) mm) avec \(F_0 = 4\) kN et l'hypothèse \(K = 0{,}20\) :</p>
 \[ T \simeq 0{,}20 \times 4000 \times 0{,}006 = 4{,}8 \text{ N}\cdot\text{m} \]
@@ -152,6 +156,8 @@
 <h4>Rappel : contrainte et unités</h4>
 <p>Une contrainte est une force divisée par la surface qui la supporte. Avec une force en newtons et une surface en mm², on obtient des N/mm², et 1 N/mm² = 1 MPa. C'est pour cela qu'on garde \(b\) et \(L\) en millimètres dans \(\tau \simeq F_t / (bL)\). Dans \(F_t = 2C/d\), en revanche, \(C\) est en N·m et \(d\) doit être en mètres pour obtenir des newtons.</p>
 
+<div class="schema" id="sc-clavette"></div>
+
 <h4>Exemple du cours : ordre de grandeur</h4>
 <p>Avec \(C = 8\) N·m, \(d = 12\) mm, \(b = 4\) mm et \(L = 20\) mm :</p>
 \[ F_t = \frac{2 \times 8}{0{,}012} = 1{,}33 \text{ kN} \qquad \tau \simeq \frac{1333}{4 \times 20} = 16{,}7 \text{ MPa} \]
@@ -185,6 +191,8 @@
 <div id="fig-goupilles"></div>
 
 <p>Deux usages montrés dans le cours : la goupille d'arrêt, qui traverse l'arbre et le moyeu pour immobiliser les pièces, avec \(d \approx D/3\) et un ajustement H7/m6 ; les goupilles de positionnement, associées à une vis de fixation : la vis serre, les goupilles positionnent.</p>
+
+<div class="schema" id="sc-retenue"></div>
 
 <h4>Exemple</h4>
 <p><span class="complement">Exemple ajouté</span> Un arbre de \(D = 24\) mm porte une roue immobilisée par une goupille d'arrêt : \(d \approx 24/3 = 8\) mm. Le roulement voisin, poussé par un effort axial, est retenu par un anneau élastique extérieur logé dans une gorge de l'arbre. Si le même roulement était monté dans un logement, la gorge serait dans l'alésage et on prendrait un anneau intérieur.</p>
@@ -220,6 +228,8 @@
 
 <div id="fig-applications"></div>
 
+<div class="schema" id="sc-ressorts"></div>
+
 <h4>Exemple du cours</h4>
 <p>Pour une variation de force \(\Delta F = 12\) N sur \(\Delta x = 12\) mm, la raideur requise est :</p>
 \[ k = \frac{\Delta F}{\Delta x} = \frac{12}{12} = 1 \text{ N/mm} \]
@@ -237,8 +247,10 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../meca/dessin.js"></script>
 <script src="../figures/fonctions-liaison.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/assemblage-visse.js"></script>
 <script src="../figures/clavette.js"></script>
 <script src="../figures/anneaux-goupilles.js"></script>

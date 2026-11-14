@@ -95,6 +95,8 @@
 
 <div id="fig-diametre"></div>
 
+<div class="schema" id="sc-arbre"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté : le cours ne donne pas de valeur de \(R_{pg}\) ; 40 N/mm² est supposé ici.</p>
 <p>Arbre plein, \(M_t = 20\) N·m \(= 20\,000\) N·mm, \(R_{pg} = 40\) N/mm² :</p>
@@ -152,6 +154,8 @@
 </table></div>
 
 <div id="fig-types"></div>
+
+<div class="schema" id="sc-engrenages"></div>
 
 <h4>Exemples du cours</h4>
 <p>Boîte de vitesses : elle contient plusieurs couples d'engrenages de tailles différentes. En sélectionnant une combinaison d'engrenages, on change le rapport entre la vitesse du moteur et celle des roues : un rapport faible favorise le couple pour démarrer ou monter une côte, tandis qu'un rapport important favorise une vitesse de déplacement plus élevée. Ici, le rapport s'entend vitesse de sortie sur vitesse d'entrée. Dans le schéma de principe du cours, des baladeurs (vitesses 1-2, 3-4 et 5) solidarisent avec l'arbre l'un des pignons fous montés sur l'arbre secondaire ; un pignon de marche arrière inverse le sens.</p>
@@ -214,6 +218,8 @@
 
 <div id="fig-dents-min"></div>
 
+<div class="schema" id="sc-denture"></div>
+
 <h4>Exemple du cours</h4>
 <p>Roue 1 de la figure du cours, module \(m = 2\) mm, \(Z_1 = 17\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_{a1} = 34 + 2 \times 2 = 38 \text{ mm} \qquad d_{f1} = 34 - 2{,}5 \times 2 = 29 \text{ mm} \]
@@ -258,6 +264,8 @@
 \[ a = \frac{d_1 + d_2}{2} = m\,\frac{Z_1 + Z_2}{2} \qquad (4.4) \]
 <p>Les deux roues ont forcément le même module, sinon leurs dents ne s'emboîtent pas.</p>
 
+<div class="schema" id="sc-conventions"></div>
+
 <h4>Exemple du cours</h4>
 <p>Pour \(m = 2\) mm, \(Z_1 = 17\), \(Z_2 = 20\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_2 = 2 \times 20 = 40 \text{ mm} \qquad i = \frac{17}{20} = 0{,}85 \qquad a = \frac{34 + 40}{2} = 37 \text{ mm} \]
@@ -301,6 +309,8 @@
 
 <div id="fig-cascade"></div>
 
+<div class="schema" id="sc-trains"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté : le cours donne les formules sans valeurs numériques.</p>
 <p>\(Z_1 = 15\), \(Z_2 = 45\), \(Z_3 = 12\), \(Z_4 = 36\), \(n_1 = 900\) tr/min, rendement 0,97 par étage, \(C_m = 0{,}5\) N·m :</p>
@@ -320,9 +330,11 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../meca/dessin.js"></script>
 <script src="../figures/arbre-couple.js"></script>
 <script src="../figures/arbre-torsion.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/engrenages.js"></script>
 <script src="../figures/denture.js"></script>
 <script src="../figures/rapport-engrenage.js"></script>

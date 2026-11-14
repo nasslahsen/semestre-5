@@ -70,6 +70,8 @@
 </table></div>
 <p class="complement">La dernière colonne est une lecture de la liste du cours, maillon par maillon ; les tolérances de montage concernent tous les maillons.</p>
 
+<div class="schema" id="sc-axe"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Un bras à six axes contient six chaînes complètes : six moteurs, six réductions, six guidages, chacun avec sa structure. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
@@ -188,6 +190,8 @@
 </table></div>
 <p>La lettre \(\alpha\) sert aussi deux fois de plus dans le support : l'angle de contact d'un roulement (chapitre 3) et l'angle de pression d'une denture (chapitre 4). Là encore, le contexte et l'unité tranchent : rad/s² pour une accélération, degrés pour un angle.</p>
 
+<div class="schema" id="sc-symboles"></div>
+
 <h4>Exemple du cours</h4>
 <p>Dans l'exemple de durée d'un roulement à billes, les données sont \(C = 3{,}2\) kN, \(P = 0{,}8\) kN et \(n = 300\) tr/min. Les unités disent tout : \(C\) et \(P\) sont en kN, ce sont des forces, donc la capacité dynamique de base et la charge dynamique équivalente du roulement, pas un couple ni une puissance. \(n\) en tr/min est la vitesse de rotation. Le calcul \(L_{10} = (C/P)^p\) compare deux forces : le rapport est sans dimension, comme il se doit pour une puissance \(p = 3\).</p>
 
@@ -236,6 +240,8 @@
 
 <div id="fig-couple"></div>
 
+<div class="schema" id="sc-reducteur"></div>
+
 <h4>Exemple ajouté</h4>
 <p>Un moteur tourne à \(n = 3000\) tr/min et fournit \(C = 0{,}32\) N·m. Il entraîne un réducteur de rapport \(i = 50\) et de rendement \(\eta = 0{,}8\).</p>
 \[ \omega_e = \frac{2\pi \times 3000}{60} \approx 314{,}16 \ \text{rad/s} \qquad P_e = 0{,}32 \times 314{,}16 \approx 100{,}5 \ \text{W} \]
@@ -282,6 +288,8 @@
 <h4>Rappel : degrés et radians</h4>
 <p>La formule \(\Delta x \simeq L\,\Delta\theta\) ne marche qu'en radians. Un tour vaut 360° ou \(2\pi\) rad, donc \(\theta_{rad} = \theta_{°} \times \pi / 180\). Oublier la conversion multiplie le résultat par environ 57.</p>
 
+<div class="schema" id="sc-jeu"></div>
+
 <h4>Exemple du cours</h4>
 <p>Ordre de grandeur, effet d'un jeu angulaire : pour un bras de longueur \(L = 0{,}40\) m et un jeu total \(\Delta\theta = 0{,}20°\),</p>
 \[ \Delta\theta = 0{,}20\,\frac{\pi}{180} = 3{,}49 \times 10^{-3}\ \text{rad}, \qquad \Delta x \simeq 0{,}40 \times 3{,}49 \times 10^{-3} = 1{,}40\ \text{mm} \]
@@ -321,6 +329,8 @@
 
 <p>Partout où deux pièces se rapprochent pendant le mouvement, un doigt ou un tissu peut être coincé : c'est un point de pincement, à supprimer dès la conception. Un lubrifiant qui s'échappe salit et contamine la zone de soin : d'où des carters étanches, des joints, et des surfaces faciles à nettoyer.</p>
 
+<div class="schema" id="sc-criteres-axe"></div>
+
 <h4>Exemple</h4>
 <p>Exemple ajouté : on motorise le coude d'un bras de rééducation. Solution A, le moteur est au coude : la chaîne est courte, mais le moteur fait partie de la masse mobile. Solution B, le moteur reste sur la base et le mouvement monte par une transmission : moins de masse mobile, mais un maillon de plus, avec son jeu et sa souplesse. Aucune n'est meilleure en soi : le choix final dépend de l'importance donnée à chaque critère pour cette application.</p>
 
@@ -336,8 +346,10 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../meca/dessin.js"></script>
 <script src="../figures/chaine-fonctionnelle.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/nomenclature.js"></script>
 <script src="../figures/vitesse-couple-puissance.js"></script>
 <script src="../figures/rigidite-jeu.js"></script>

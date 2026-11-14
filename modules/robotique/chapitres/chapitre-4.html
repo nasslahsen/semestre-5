@@ -42,6 +42,8 @@
 <p>Dans l'autre sens, grâce à \(R^{-1} = R^T\) : \(V^s = R^{s,0}\,V^0\) avec \(R^{s,0} = (R^{0,s})^T\). Cochez « Sens inverse » sur la figure.</p>
 <p>Ensemble, position et orientation forment la <strong>situation</strong> (ou configuration) du corps rigide, notée \(\{\mathbf{R}, \vec{p}\}\) ou \((\mathbf{R}, \vec{p})\) : 6 paramètres indépendants, 3 pour la position \((P_x, P_y, P_z)\) et 3 pour l'orientation (par exemple les 3 angles d'Euler, ou les 9 éléments de \(R\) avec 6 contraintes d'orthonormalité).</p>
 
+<div class="schema" id="sc-changement"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Un instrument fixé au solide \(S\) : origine en \(O_0O_s^0 = (1;\ 2;\ 0)^T\) m, repère tourné de \(\alpha = 90°\) autour de \(\vec{z}_0\), pointe \(M\) à \(O_sM^s = (0{,}5;\ 0;\ 0)^T\) m le long de \(\vec{x}_s\).</p>
@@ -84,6 +86,8 @@
 \[ T^{s,0} = \left(T^{0,s}\right)^{-1} = \begin{pmatrix} (R^{0,s})^T & -(R^{0,s})^T\,O_0O_s^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} \]
 <p>Justification : si \(X^0 = R\,X^s + P\), alors \(X^s = R^T(X^0 - P) = R^T X^0 - R^T P\).</p>
 
+<div class="schema" id="sc-homogene"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté (même situation que la page précédente).</p>
 <p>Origine en \((1;\ 2;\ 0)\), rotation de 90° autour de \(\vec{z}_0\), pointe en \(O_sM^s = (0{,}5;\ 0;\ 0)\) :</p>
@@ -117,6 +121,8 @@
 <p>Pourquoi l'ordre compte : le produit matriciel n'est pas commutatif. Avec le produit par blocs, \(T^{0,1}T^{1,2} = \begin{pmatrix} R^{0,1}R^{1,2} & R^{0,1}P^{1,2} + P^{0,1} \\ 0 & 1 \end{pmatrix}\) : la position du repère 2 est d'abord tournée par \(R^{0,1}\) avant d'être ajoutée.</p>
 
 <div id="fig-chaine"></div>
+
+<div class="schema" id="sc-composition"></div>
 
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
@@ -166,6 +172,8 @@
 <p>On retrouve la même chose avec la relation de Chasles : \(\overrightarrow{O_0M} = \overrightarrow{O_0O_2} + \overrightarrow{O_2M}\), le premier vecteur de longueur \(l_1\) dans la direction \(\theta_1\), le second de longueur \(l_2\) dans la direction \(\theta_1 + \theta_2\). L'orientation de l'organe terminal est \(\theta_1 + \theta_2\).</p>
 <p><strong>Espace de travail.</strong> Si les deux pivots tournent librement, \(M\) atteint tous les points à une distance de \(O_0\) comprise entre \(|l_1 - l_2|\) (bras replié, \(\theta_2 = 180°\)) et \(l_1 + l_2\) (bras tendu, \(\theta_2 = 0\)) : un anneau. Case « Espace de travail » sur la figure.</p>
 
+<div class="schema" id="sc-bras2r"></div>
+
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>\(l_1 = 0{,}4\) m, \(l_2 = 0{,}3\) m, \(\theta_1 = 30°\), \(\theta_2 = 45°\), donc \(\theta_1 + \theta_2 = 75°\).</p>
@@ -191,7 +199,9 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../figures/changement-repere.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/matrice-homogene.js"></script>
 <script src="../figures/composition.js"></script>
 <script src="../figures/bras-2r.js"></script>

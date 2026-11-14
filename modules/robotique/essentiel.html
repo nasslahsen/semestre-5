@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'essentiel en schémas · Robotique médicale</title>
+<link rel="stylesheet" href="../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../commun/css/cours.css">
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+<style>
+  .retenir { margin: 8px 0 26px; }
+  .retenir li { margin: 4px 0; }
+  .lien-chapitre { font-size: 16px; }
+  .partie-sm { margin-top: 64px; }
+</style>
+</head>
+<body>
+<header id="barre"></header>
+<main>
+<p class="etiquette">Robotique médicale</p>
+<h1>L'essentiel en schémas</h1>
+<p class="chapeau">Tout ce qu'il faut savoir avant l'examen, chapitre par chapitre, en schémas : d'abord la robotique biomédicale, puis les éléments mécaniques. Lis un schéma de gauche à droite, puis les lignes à retenir dessous. Les formules sont toutes regroupées à la fin.</p>
+<div class="schema" id="sc-structure"></div>
+
+
+<h2>Le robot et sa description</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-1.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-boucle"></div>
+<div class="schema" id="sc-classement"></div>
+<div class="schema" id="sc-articulations"></div>
+<div class="schema" id="sc-liaisons"></div>
+<div class="schema" id="sc-topologies"></div>
+<div class="schema" id="sc-architectures"></div>
+<div class="schema" id="sc-precision"></div>
+<div class="schema" id="sc-ruptures"></div>
+<ul class="retenir">
+<li>Robot : système programmable qui exécute des actions dans son environnement pour accomplir une tâche.</li>
+<li>Système robotisé : chaîne d'information, chaîne d'énergie, chaîne d'action, sécurité.</li>
+<li>6 DDL au plus pour l'effecteur dans l'espace (3 position + 3 orientation), 3 dans le plan. Un robot à 7 axes est redondant.</li>
+<li>Robotique médicale = robot + professionnel de santé + patient + environnement clinique. Normes : ISO 13485, IEC 60601, ISO 14971.</li>
+</ul>
+
+<h2>Repères, vecteurs et orientations</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-2.html">Ouvrir le chapitre des repères</a> · <a href="chapitres/chapitre-3.html">Ouvrir le chapitre des orientations</a></p>
+<div class="schema" id="sc-reperes"></div>
+<div class="schema" id="sc-produits"></div>
+<div class="schema" id="sc-coordonnees"></div>
+<div class="schema" id="sc-so3"></div>
+<div class="schema" id="sc-elementaires"></div>
+<div class="schema" id="sc-euler"></div>
+<ul class="retenir">
+<li>Repère direct : z = x × y (main droite).</li>
+<li>Colonnes de R^(A,B) : les axes de B exprimés dans A ; chaque coefficient est un produit scalaire.</li>
+<li>Repère tourné de α : x₁ · x₂ = cos α, y₁ · x₂ = sin α, x₁ · y₂ = −sin α.</li>
+<li>Euler en axes mobiles : on multiplie à droite, dans l'ordre des rotations. L'ordre compte : AB ≠ BA.</li>
+</ul>
+
+<h2>Transformations et bras 2R</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-4.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-changement"></div>
+<div class="schema" id="sc-homogene"></div>
+<div class="schema" id="sc-composition"></div>
+<div class="schema" id="sc-dessin-2r"></div>
+<ul class="retenir">
+<li>Situation d'un corps rigide : {R, p}, 6 paramètres (3 position + 3 orientation).</li>
+<li>Inverse d'une matrice homogène : rotation Rᵀ et position −Rᵀ P.</li>
+<li>Rot · Trans ≠ Trans · Rot : même orientation, positions différentes.</li>
+</ul>
+
+<h2>Modélisation : DH, MGD, MGI, cinématique</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-10.html">Ouvrir la modélisation</a> · <a href="chapitres/chapitre-11.html">Ouvrir le modèle inverse</a></p>
+<div class="schema" id="sc-modeles"></div>
+<div class="schema" id="sc-dh-regles"></div>
+<div class="schema" id="sc-dh-param"></div>
+<div class="schema" id="sc-mgd"></div>
+<div class="schema" id="sc-mgi"></div>
+<div class="schema" id="sc-mgi-2r"></div>
+<ul class="retenir">
+<li>DH (1955) : 4 paramètres par liaison au lieu de 6 ; ambiguïtés pour les structures fermées ou arborescentes.</li>
+<li>Bras plan 2R en DH : α = 0, d = L, r = 0 pour chaque ligne.</li>
+<li>MGI : défis de non-linéarité, d'existence, de multiplicité (coude haut, coude bas) et de singularités (bras tendu).</li>
+<li>Jacobienne : la colonne i est la vitesse de l'outil quand seule l'articulation i bouge à vitesse 1.</li>
+</ul>
+
+<h2 class="partie-sm">L'axe mécanique</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-5.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-axe"></div>
+<div class="schema" id="sc-symboles"></div>
+<div class="schema" id="sc-reducteur"></div>
+<div class="schema" id="sc-jeu"></div>
+<ul class="retenir">
+<li>La précision de l'outil dépend de chaque maillon : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances.</li>
+<li>Critères biomédicaux : masse mobile, bruit, points de pincement, nettoyage, lubrifiants confinés.</li>
+</ul>
+
+<h2>Assemblages et fixations</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-6.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-fonctions"></div>
+<div class="schema" id="sc-precharge-vis"></div>
+<div class="schema" id="sc-clavette"></div>
+<div class="schema" id="sc-retenue"></div>
+<ul class="retenir">
+<li>K n'est pas une constante : il dépend du frottement, du revêtement, de la lubrification.</li>
+<li>Carter tendre ou imprimé en 3D : insert fileté métallique.</li>
+<li>Ressort : F = k x ; rappel, contact, effort, chocs.</li>
+</ul>
+
+<h2>Guidages et roulements</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-7.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-familles-roulements"></div>
+<div class="schema" id="sc-charges"></div>
+<div class="schema" id="sc-l10"></div>
+<div class="schema" id="sc-fixe-libre"></div>
+<div class="schema" id="sc-precharge-roul"></div>
+<ul class="retenir">
+<li>α ≤ 45° : roulement radial ; α > 45° : butée.</li>
+<li>Charge doublée sur un roulement à billes : durée divisée par 8.</li>
+<li>Choisir la famille d'abord, la référence ensuite.</li>
+</ul>
+
+<h2>Transmissions : arbres et engrenages</h2>
+<p class="lien-chapitre"><a href="chapitres/chapitre-8.html">Ouvrir le chapitre</a></p>
+<div class="schema" id="sc-arbre"></div>
+<div class="schema" id="sc-engrenages"></div>
+<div class="schema" id="sc-denture"></div>
+<div class="schema" id="sc-trains"></div>
+<div class="schema" id="sc-conventions"></div>
+<ul class="retenir">
+<li>Deux roues en prise ont le même module ; deux roues extérieures tournent en sens inverses.</li>
+<li>Entraxe : a = m (Z₁ + Z₂) / 2.</li>
+<li>Roue inverseuse : change le sens, pas la valeur du rapport.</li>
+</ul>
+
+<h2>Toutes les formules</h2>
+<p>Bases et repères :</p>
+\[x = L\cos\theta \qquad y = L\sin\theta \qquad \|\vec{u}\| = \sqrt{u_x^2 + u_y^2 + u_z^2} \qquad r = \sqrt{x^2 + y^2},\ \theta = \operatorname{atan2}(y, x)\]
+\[\vec{a} \cdot \vec{b} = \|\vec{a}\|\,\|\vec{b}\|\cos\theta \qquad \|\vec{u} \wedge \vec{v}\| = \|\vec{u}\|\,\|\vec{v}\|\sin\theta\]
+<p>Rotations et transformations :</p>
+\[R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad R^{-1} = R^T \qquad V^i = R^{i,j}\,V^j \qquad O_0M^0 = O_0O_s^0 + R^{0,s}\,O_sM^s\]
+\[T^{0,n} = T^{0,1}\,T^{1,2} \cdots T^{n-1,n} \qquad T^{-1} = \begin{pmatrix} R^T & -R^T P \\ 0 & 1 \end{pmatrix}\]
+<p>Modèles du bras 2R :</p>
+\[x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \qquad y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2)\]
+\[\cos\theta_2 = \frac{x^2 + y^2 - L_1^2 - L_2^2}{2L_1L_2} \qquad \theta_1 = \arctan\frac{y}{x} \mp \arccos\frac{L_1^2 + r^2 - L_2^2}{2L_1 r} \qquad V = J(q)\,\dot q\]
+<p>Performances :</p>
+\[T_{cycle} = \sum T_i \qquad N = \frac{3600}{T_{cycle}}\]
+<p>Axe, assemblages, guidages :</p>
+\[\omega = \frac{2\pi n}{60} \qquad P = C\omega \qquad C_s \simeq \eta\, i\, C_e \qquad k_\theta = \frac{C}{\theta} \qquad \Delta x \simeq L\,\Delta\theta\]
+\[T \simeq K F_0 d \qquad F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL} \qquad F = kx \qquad k = \frac{F}{\delta}\]
+\[L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p\]
+<p>Transmissions :</p>
+\[C = \frac{60P}{2\pi n} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}} \qquad d = mZ \qquad a = m\,\frac{Z_1 + Z_2}{2} \qquad i_{12} = \frac{Z_1}{Z_2} \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot}\]
+</main>
+<script src="../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../commun/js/schema.js"></script>
+<script src="schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME;
+  var sm = new URLSearchParams(location.search).get("sm") || "bio";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", sm) });
+  // retour d'un cran : la page « Préparer l'examen », d'où l'on vient
+  var r = document.querySelector("#barre .site-retour"); if (r) { r.href = "examen.html?sm=" + encodeURIComponent(sm); r.textContent = "Examen"; }
+  var b = String.fromCharCode(92);
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

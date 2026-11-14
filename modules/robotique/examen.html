@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Préparer l'examen · Robotique médicale</title>
+<link rel="stylesheet" href="../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../commun/css/cours.css">
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+<style>
+  .priorite { display: inline-block; min-width: 108px; font: 600 15px Inter, sans-serif; }
+  .priorite.p1 { color: var(--jeu-texte); }
+  .priorite.p3 { color: #6b7080; font-weight: 500; }
+  ol.jours { list-style: none; padding: 0; margin: 18px 0; }
+  ol.jours > li { display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-top: 1.5px solid var(--trait); }
+  ol.jours > li:last-child { border-bottom: 1.5px solid var(--trait); }
+  .jour-texte { flex: 1; }
+  .jour-texte h3 { margin: 0 0 6px; }
+  .jour-texte p { margin: 4px 0; }
+  .jour-fait { flex: none; min-width: 150px; min-height: 48px; padding: 0 16px; border: 1.5px solid #c9cdd6; border-radius: 12px; background: #fff; color: #15171f; font: 600 16px Inter, sans-serif; cursor: pointer; }
+  .jour-fait[aria-pressed="true"] { border-color: #12a26b; color: #12a26b; }
+  .methode { margin: 26px 0 8px; }
+  .methode-quand { color: #4a4f5c; }
+  a.btn-jouer { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font: 700 17px Inter, sans-serif; }
+  details.corrige .katex-display { margin: 4px 0 10px; padding: 0; }
+  details.corrige p { margin-top: 10px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<header id="barre"></header>
+<main>
+<p class="etiquette">Robotique médicale</p>
+<h1>Préparer l'examen</h1>
+<p class="chapeau">Deux cours dans ce module : la robotique biomédicale (description, repères, matrices, modèles du robot) et les éléments mécaniques (axe, assemblages, roulements, engrenages). Cette page dit quoi apprendre en premier, comment répartir six jours, toutes les méthodes de calcul, et les questions de cours à savoir faire.</p>
+
+<div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : les schémas et les lignes à retenir des deux cours, et toutes les formules</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
+
+<div class="schema" id="sc-structure"></div>
+
+<h2>Comment travailler cette semaine</h2>
+<ul>
+<li>Ne lis pas tout d'un trait. Pour chaque chapitre, lis d'abord les schémas et le bloc Formules clés en bas de chaque notion. Tu ne descends dans le cours que pour ce que tu ne comprends pas.</li>
+<li>Après chaque section, fais ses cartes de révision : la question d'abord, tu réponds dans ta tête, puis tu retournes la carte. En fin de chapitre, refais toutes les cartes du chapitre.</li>
+<li>Pour les calculs, refais le TD 1 sans regarder la correction, puis les méthodes de cette page sur papier.</li>
+<li>Le soir, ouvre <a href="../../suivi.html">Mon suivi</a> : la liste « À revoir » te redonne seulement tes erreurs.</li>
+</ul>
+<p>Le tri ci-dessous est fait à partir du cours et du TD reçus : le programme exact de l'examen n'a pas été donné. Si l'enseignante annonce ce qui tombe, adapte.</p>
+
+<h2>Ce qui compte vraiment</h2>
+<p>Robotique biomédicale :</p>
+<div class="tableau"><table>
+<tr><th>Chapitre</th><th>Priorité</th><th>Ce qu'il faut savoir</th></tr>
+<tr><td><a href="chapitres/chapitre-0.html">Les bases</a></td><td><span class="priorite">À connaître</span></td><td>Degrés et radians, cos et sin, x = L cos θ, produit matrice-vecteur et produit de matrices. Indispensable pour calculer, rien à apprendre par cœur.</td></tr>
+<tr><td><a href="chapitres/chapitre-1.html">Le robot et sa description</a></td><td><span class="priorite p1">Indispensable</span></td><td>Définition, boucle percevoir-traiter-décider-agir, système robotisé, cinq critères de classement, DDL, liaisons, topologies, architectures, précision et répétabilité, temps de cycle, spécificités du médical.</td></tr>
+<tr><td><a href="chapitres/chapitre-2.html">Repères et vecteurs</a></td><td><span class="priorite">À connaître</span></td><td>Repère direct, produit scalaire et vectoriel (l'exercice des deux repères), coordonnées cylindriques et atan2, relation de Chasles.</td></tr>
+<tr><td><a href="chapitres/chapitre-3.html">Orientations</a></td><td><span class="priorite p1">Indispensable</span></td><td>Matrice de rotation par colonnes, propriétés (Rᵀ R = I, det = 1), Rz, Ry, Rx, angles d'Euler ZYX et la singularité.</td></tr>
+<tr><td><a href="chapitres/chapitre-4.html">Transformations</a></td><td><span class="priorite p1">Indispensable</span></td><td>Changement de repère (1.2) et (1.3), matrice homogène, composition, bras 2R.</td></tr>
+<tr><td><a href="chapitres/chapitre-10.html">Modélisation des robots médicaux</a></td><td><span class="priorite p1">Indispensable</span></td><td>Règles et paramètres de Denavit–Hartenberg, tableau DH du 2R, méthode du MGD.</td></tr>
+<tr><td><a href="chapitres/chapitre-11.html">Modèle inverse et cinématique</a></td><td><span class="priorite p1">Indispensable</span></td><td>MGI du 2R (accessibilité, Al-Kashi, coude haut et bas), jacobienne et V = J q̇.</td></tr>
+<tr><td><a href="chapitres/chapitre-9.html">TD 1</a></td><td><span class="priorite p1">Indispensable</span></td><td>Classer des robots, robot 3R, sonde d'échographie, vitesses et facteur de réduction.</td></tr>
+</table></div>
+<p>Éléments mécaniques :</p>
+<div class="tableau"><table>
+<tr><th>Chapitre</th><th>Priorité</th><th>Ce qu'il faut savoir</th></tr>
+<tr><td><a href="chapitres/chapitre-5.html">Architecture d'un axe</a></td><td><span class="priorite p1">Indispensable</span></td><td>Chaîne fonctionnelle, ω = 2πn/60, P = Cω, réducteur, Δx ≈ L Δθ, critères biomédicaux. La nomenclature : survol, mais savoir lire les unités.</td></tr>
+<tr><td><a href="chapitres/chapitre-6.html">Assemblages et fixations</a></td><td><span class="priorite">À connaître</span></td><td>Une fonction, un élément ; précharge et T ≈ K F₀ d ; clavette ; anneaux, goupilles ; F = kx.</td></tr>
+<tr><td><a href="chapitres/chapitre-7.html">Guidages</a></td><td><span class="priorite p1">Indispensable</span></td><td>Familles de roulements, radial ou butée, choix d'un type, durée L₁₀, fixe-libre, précharge.</td></tr>
+<tr><td><a href="chapitres/chapitre-8.html">Transmissions</a></td><td><span class="priorite p1">Indispensable</span></td><td>Couple d'un arbre, diamètre en torsion, types d'engrenages, module, rapport et entraxe, trains.</td></tr>
+</table></div>
+
+<h2>Le plan sur six jours</h2>
+<p>Environ trois heures par jour. Touche « Marquer fait » quand la journée est finie.</p>
+<ol class="jours">
+<li><div class="jour-texte"><h3>Jour 1 : le robot</h3><p><a href="chapitres/chapitre-1.html">Le robot et sa description</a> : schémas, Formules clés, cartes de chaque section. Questions A et B plus bas.</p></div><button type="button" class="jour-fait" data-jour="1" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 2 : repères et rotations</h3><p><a href="chapitres/chapitre-2.html">Repères</a> et <a href="chapitres/chapitre-3.html">orientations</a>. Refais l'exercice des deux repères à la main. Questions C.</p></div><button type="button" class="jour-fait" data-jour="2" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 3 : transformations et MGD</h3><p><a href="chapitres/chapitre-4.html">Transformations</a> et <a href="chapitres/chapitre-10.html">modélisation DH</a>. Méthodes 1 et 4. Questions D.</p></div><button type="button" class="jour-fait" data-jour="3" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 4 : MGI, jacobienne et TD 1</h3><p><a href="chapitres/chapitre-11.html">Modèle inverse et cinématique</a>, puis le <a href="chapitres/chapitre-9.html">TD 1</a> entier sans regarder. Méthodes 2, 3 et 5.</p></div><button type="button" class="jour-fait" data-jour="4" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 5 : la mécanique</h3><p><a href="chapitres/chapitre-5.html">Axe</a>, <a href="chapitres/chapitre-6.html">assemblages</a>, <a href="chapitres/chapitre-7.html">roulements</a>, <a href="chapitres/chapitre-8.html">engrenages</a>. Méthodes 6 à 10. Questions E et F.</p></div><button type="button" class="jour-fait" data-jour="5" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 6 : l'examen blanc</h3><p>Toutes les questions de cours sans ouvrir les réponses, puis les dix méthodes sur feuille. Termine par <a href="essentiel.html">L'essentiel en schémas</a> et <a href="../../suivi.html">Mon suivi</a>.</p></div><button type="button" class="jour-fait" data-jour="6" aria-pressed="false">Marquer fait</button></li>
+</ol>
+
+<h2>Les calculs : dix méthodes</h2>
+<p>Les exemples sont ajoutés pour t'entraîner : ce ne sont pas ceux du cours. Fais-les sur papier avant d'ouvrir la correction.</p>
+
+<h3 class="methode">Méthode 1 : le modèle géométrique direct du bras 2R</h3>
+<p class="methode-quand">Quand : on donne les longueurs et les angles articulaires, on demande la position et l'orientation de l'outil.</p>
+\[x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) \qquad y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2) \qquad \varphi = \theta_1 + \theta_2\]
+<p>Exemple ajouté : \(L_1 = 50\) cm, \(L_2 = 30\) cm, \(\theta_1 = 60°\), \(\theta_2 = -30°\). Position et orientation de l'outil ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. L'angle absolu du segment 2.</p>
+\[\theta_1 + \theta_2 = 60° - 30° = 30°\]
+<p>2. Abscisse.</p>
+\[x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2)\]
+\[x = 50\cos 60° + 30\cos 30° = 25 + 25{,}98 = 50{,}98\ \text{cm}\]
+<p>3. Ordonnée.</p>
+\[y = L_1\sin\theta_1 + L_2\sin(\theta_1 + \theta_2)\]
+\[y = 50\sin 60° + 30\sin 30° = 43{,}30 + 15 = 58{,}30\ \text{cm}\]
+<p>4. Orientation de l'outil : \(\varphi = 30°\) par rapport à \(x_0\).</p>
+<p>Piège : le segment 2 est orienté de \(\theta_1 + \theta_2\), pas de \(\theta_2\).</p>
+</details>
+
+<h3 class="methode">Méthode 2 : le modèle géométrique inverse du bras 2R</h3>
+<p class="methode-quand">Quand : on donne une cible, on demande les angles (coude haut ou coude bas).</p>
+\[r = \sqrt{x_c^2 + y_c^2} \qquad \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2} \qquad \alpha = \arctan\frac{y_c}{x_c} \qquad \beta = \arccos\frac{L_1^2 + r^2 - L_2^2}{2L_1 r}\]
+<p>Exemple ajouté : même bras (50 et 30 cm), cible \((60 ;\ 30)\) cm, coude bas (\(\theta_1 = \alpha - \beta\)).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Accessibilité.</p>
+\[r = \sqrt{x_c^2 + y_c^2}\]
+\[r = \sqrt{60^2 + 30^2} = \sqrt{4500} \approx 67{,}08\ \text{cm}\]
+<p>\(|L_1 - L_2| = 20 \le 67{,}08 \le 80 = L_1 + L_2\) : la cible est accessible.</p>
+<p>2. Angle du coude (Al-Kashi).</p>
+\[\cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2L_1L_2}\]
+\[\cos\theta_2 = \frac{4500 - 2500 - 900}{2 \times 50 \times 30} = \frac{1100}{3000} \approx 0{,}3667\]
+<p>Résultat : \(\theta_2 \approx 68{,}49°\).</p>
+<p>3. Les angles α et β.</p>
+\[\alpha = \arctan\frac{30}{60} \approx 26{,}57°\]
+\[\beta = \arccos\frac{2500 + 4500 - 900}{2 \times 50 \times 67{,}08} \approx 24{,}59°\]
+<p>4. Angle de l'épaule, coude bas.</p>
+\[\theta_1 = \alpha - \beta = 26{,}57° - 24{,}59° \approx 1{,}98°\]
+<p>(Coude haut : \(\theta_1 = \alpha + \beta \approx 51{,}15°\) et \(\theta_2 \approx -68{,}49°\).)</p>
+<p>5. Vérification avec le MGD.</p>
+\[x = 50\cos 1{,}98° + 30\cos 70{,}47° \approx 60{,}00\ \text{cm} \qquad y = 50\sin 1{,}98° + 30\sin 70{,}47° \approx 30{,}00\ \text{cm}\]
+</details>
+
+<h3 class="methode">Méthode 3 : la jacobienne et la vitesse de l'outil</h3>
+<p class="methode-quand">Quand : on donne les vitesses articulaires, on demande la vitesse de l'outil (et si elle respecte une limite).</p>
+\[V = J(q)\,\dot q \qquad J = \begin{pmatrix} -L_1\sin\theta_1 - L_2\sin(\theta_1 + \theta_2) & -L_2\sin(\theta_1 + \theta_2) \\ L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2) & L_2\cos(\theta_1 + \theta_2) \end{pmatrix}\]
+<p>Exemple ajouté : bras 50 et 30 cm, \(\theta_1 = 30°\), \(\theta_2 = 60°\), \(\dot\theta_1 = 0{,}1\) rad/s, \(\dot\theta_2 = 0{,}2\) rad/s. Vitesse de l'outil ? Respecte-t-elle 10 cm/s ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. La jacobienne, avec \(\theta_1 + \theta_2 = 90°\).</p>
+\[J = \begin{pmatrix} -50 \times 0{,}5 - 30 \times 1 & -30 \times 1 \\ 50 \times 0{,}866 + 30 \times 0 & 30 \times 0 \end{pmatrix} = \begin{pmatrix} -55 & -30 \\ 43{,}30 & 0 \end{pmatrix}\]
+<p>2. La vitesse : chaque ligne de J fois le vecteur des vitesses articulaires.</p>
+\[v_x = -55 \times 0{,}1 + (-30) \times 0{,}2 = -11{,}50\ \text{cm/s}\]
+\[v_y = 43{,}30 \times 0{,}1 + 0 \times 0{,}2 = 4{,}33\ \text{cm/s}\]
+<p>3. La norme.</p>
+\[\|V\| = \sqrt{v_x^2 + v_y^2}\]
+\[\|V\| = \sqrt{11{,}50^2 + 4{,}33^2} \approx 12{,}29\ \text{cm/s}\]
+<p>Résultat : 12,29 > 10 cm/s, la limite n'est pas respectée. Facteur de réduction : \(12{,}29 / 10 \approx 1{,}23\), on divise les deux vitesses articulaires par 1,23.</p>
+</details>
+
+<h3 class="methode">Méthode 4 : changement de repère et matrice homogène</h3>
+<p class="methode-quand">Quand : on connaît un point dans le repère du solide, on le veut dans le repère fixe.</p>
+\[O_0M^0 = O_0O_s^0 + R^{0,s}\,O_sM^s \qquad \begin{pmatrix} O_0M^0 \\ 1 \end{pmatrix} = T^{0,s} \begin{pmatrix} O_sM^s \\ 1 \end{pmatrix}\]
+<p>Exemple ajouté : origine du solide en \((2 ;\ 1 ;\ 0)\), repère tourné de 30° autour de \(z_0\), point \(M\) en \((1 ;\ 0 ;\ 0)\) dans le repère du solide.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. La matrice de rotation.</p>
+\[R_z(30°) = \begin{pmatrix} 0{,}866 & -0{,}5 & 0 \\ 0{,}5 & 0{,}866 & 0 \\ 0 & 0 & 1 \end{pmatrix}\]
+<p>2. Traduire OₛM dans R₀ : c'est la première colonne.</p>
+\[R^{0,s}\,O_sM^s = (0{,}866 ;\ 0{,}5 ;\ 0)\]
+<p>3. Ajouter la position de l'origine.</p>
+\[O_0M^0 = (2 + 0{,}866 ;\ 1 + 0{,}5 ;\ 0)\]
+<p>Résultat : \(O_0M^0 = (2{,}866 ;\ 1{,}5 ;\ 0)\).</p>
+</details>
+
+<h3 class="methode">Méthode 5 : temps de cycle et cadence</h3>
+<p class="methode-quand">Quand : on donne les durées d'un cycle, on demande la cadence.</p>
+\[T_{cycle} = T_{approche} + T_{prise} + T_{transfert} + T_{dépose} + T_{retour} + T_{synchro} \qquad N = \frac{3600}{T_{cycle}}\]
+<p>Exemple ajouté : approche 0,4 s, prise 0,3 s, transfert 0,8 s, dépose 0,2 s, retour 0,6 s, synchronisation 0,5 s.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Temps de cycle.</p>
+\[T_{cycle} = 0{,}4 + 0{,}3 + 0{,}8 + 0{,}2 + 0{,}6 + 0{,}5 = 2{,}8\ \text{s}\]
+<p>2. Cadence.</p>
+\[N = \frac{3600}{2{,}8} \approx 1286\ \text{cycles/h}\]
+<p>Piège : doubler la vitesse ne divise que les temps de mouvement (approche, transfert, retour), pas la prise, la dépose ni la synchronisation.</p>
+</details>
+
+<h3 class="methode">Méthode 6 : moteur, réducteur, jeu</h3>
+<p class="methode-quand">Quand : on donne un moteur et un réducteur, on demande vitesse, puissance et couple de sortie ; ou un jeu, on demande l'écart en bout de bras.</p>
+\[\omega = \frac{2\pi n}{60} \qquad P = C\omega \qquad \omega_s = \frac{\omega_e}{i} \qquad C_s \simeq \eta\, i\, C_e \qquad \Delta x \simeq L\,\Delta\theta\]
+<p>Exemple ajouté : moteur à 4000 tr/min et 0,25 N·m, réducteur \(i = 40\), \(\eta = 0{,}85\). Puis un jeu de 0,1° sur un bras de 0,5 m.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Vitesse angulaire du moteur.</p>
+\[\omega = \frac{2\pi \times 4000}{60} \approx 418{,}9\ \text{rad/s}\]
+<p>2. Puissance du moteur.</p>
+\[P = C\omega = 0{,}25 \times 418{,}9 \approx 104{,}7\ \text{W}\]
+<p>3. Vitesse et couple de sortie.</p>
+\[\omega_s = \frac{418{,}9}{40} \approx 10{,}47\ \text{rad/s}\ (100\ \text{tr/min})\]
+\[C_s \simeq 0{,}85 \times 40 \times 0{,}25 = 8{,}5\ \text{N}\cdot\text{m}\]
+<p>4. Le jeu, d'abord en radians.</p>
+\[\Delta\theta = 0{,}1 \times \frac{\pi}{180} \approx 1{,}745 \times 10^{-3}\ \text{rad}\]
+\[\Delta x \simeq L\,\Delta\theta = 0{,}5 \times 1{,}745 \times 10^{-3} \approx 0{,}87\ \text{mm}\]
+</details>
+
+<h3 class="methode">Méthode 7 : vis et clavette</h3>
+<p class="methode-quand">Quand : on demande un couple de serrage, ou de vérifier une clavette.</p>
+\[T \simeq K F_0 d \qquad F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL}\]
+<p>Exemple ajouté : vis M8, \(F_0 = 6\) kN, \(K = 0{,}20\). Clavette : \(C = 12\) N·m, \(d = 16\) mm, \(b = 5\) mm, \(L = 25\) mm.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Couple de serrage (d en mètres).</p>
+\[T \simeq 0{,}20 \times 6000 \times 0{,}008 = 9{,}6\ \text{N}\cdot\text{m}\]
+<p>2. Force tangentielle sur la clavette (d en mètres).</p>
+\[F_t = \frac{2 \times 12}{0{,}016} = 1500\ \text{N}\]
+<p>3. Cisaillement (b et L en mm, résultat en MPa).</p>
+\[\tau \simeq \frac{1500}{5 \times 25} = 12\ \text{MPa}\]
+<p>Résultat : bien sous les 200 MPa environ de l'acier C45.</p>
+</details>
+
+<h3 class="methode">Méthode 8 : durée d'un roulement</h3>
+<p class="methode-quand">Quand : on donne la capacité, la charge et la vitesse, on demande la durée.</p>
+\[L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \qquad p = 3\ \text{(billes)},\ \frac{10}{3}\ \text{(rouleaux)}\]
+<p>Exemple ajouté : roulement à billes, \(C = 5\) kN, \(P = 1{,}25\) kN, \(n = 600\) tr/min.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Durée en millions de tours.</p>
+\[L_{10} = \left(\frac{5}{1{,}25}\right)^3 = 4^3 = 64\ \text{millions de tours}\]
+<p>2. Durée en heures.</p>
+\[L_{10h} = \frac{64 \times 10^6}{60 \times 600} \approx 1778\ \text{h}\]
+<p>Piège : ici C et P sont des forces (kN), pas un couple ni une puissance.</p>
+</details>
+
+<h3 class="methode">Méthode 9 : arbre en torsion</h3>
+<p class="methode-quand">Quand : on donne une puissance et une vitesse, on demande le couple puis le diamètre minimal.</p>
+\[C = \frac{60P}{2\pi n} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}}\]
+<p>Exemple ajouté : \(P = 200\) W à 1500 tr/min, \(R_{pg} = 30\) N/mm² (valeur supposée).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Couple.</p>
+\[C = \frac{60 \times 200}{2\pi \times 1500} \approx 1{,}273\ \text{N}\cdot\text{m}\]
+<p>2. En N·mm.</p>
+\[M_t = 1{,}273 \times 1000 \approx 1273\ \text{N}\cdot\text{mm}\]
+<p>3. Diamètre minimal.</p>
+\[d > \sqrt[3]{\frac{16 \times 1273}{\pi \times 30}} \approx 6{,}0\ \text{mm}\]
+<p>On choisit ensuite un diamètre normalisé au-dessus.</p>
+</details>
+
+<h3 class="methode">Méthode 10 : engrenages et trains</h3>
+<p class="methode-quand">Quand : on donne le module et les dents, on demande diamètres, rapport, entraxe ; ou un train, on demande le couple de sortie.</p>
+\[d = mZ \qquad i_{12} = \frac{Z_1}{Z_2} \qquad a = m\,\frac{Z_1 + Z_2}{2} \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot}\]
+<p>Exemple ajouté : \(m = 1{,}5\) mm, \(Z_1 = 18\), \(Z_2 = 54\). Puis un train de deux étages de rapports 1/3 et 1/4, rendement 0,96 par étage, couple moteur 0,3 N·m.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Diamètres primitifs.</p>
+\[d_1 = 1{,}5 \times 18 = 27\ \text{mm} \qquad d_2 = 1{,}5 \times 54 = 81\ \text{mm}\]
+<p>2. Rapport et entraxe.</p>
+\[i_{12} = \frac{18}{54} = \frac{1}{3} \qquad a = 1{,}5 \times \frac{18 + 54}{2} = 54\ \text{mm}\]
+<p>3. Le train : rapport et rendement totaux (rapport entrée sur sortie pour la formule du couple).</p>
+\[i_{tot} = 3 \times 4 = 12 \qquad \eta_{tot} = 0{,}96^2 \approx 0{,}922\]
+<p>4. Couple de sortie.</p>
+\[C_s \simeq 0{,}3 \times 12 \times 0{,}922 \approx 3{,}32\ \text{N}\cdot\text{m}\]
+<p>Piège : vérifier quelle écriture du rapport la formule attend (ωₑ/ωₛ ou ωₛ/ωₑ).</p>
+</details>
+
+<h2>Questions de cours à savoir faire</h2>
+<p>Réponds à voix haute ou sur papier, puis ouvre.</p>
+
+<h3>A. Le robot</h3>
+<p>1. Donne la définition d'un robot retenue par le cours et ses quatre mots clés.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Un système programmable capable d'exécuter des actions dans son environnement afin d'accomplir une tâche, de manière automatique, semi-autonome ou sous le contrôle d'un opérateur.</p>
+<ul><li>Programmable.</li><li>Action.</li><li>Environnement.</li><li>Tâche.</li></ul>
+</details>
+<p>2. Décris la boucle de fonctionnement d'un robot.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Percevoir : les capteurs.</li><li>Traiter : la commande (ordinateur, API).</li><li>Décider : le plan d'action.</li><li>Agir : les actionneurs.</li></ul>
+<p>L'action modifie l'environnement, qui renvoie de nouvelles informations : la boucle se referme.</p>
+</details>
+<p>3. Quels sont les quatre sous-systèmes d'un système robotisé ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Chaîne d'information : capteurs, contrôleur, API, IHM.</li><li>Chaîne d'énergie : alimentation, variateurs, moteurs.</li><li>Chaîne d'action : actionneurs, transmissions, manipulateur, effecteur.</li><li>Sécurité : arrêt d'urgence, barrière immatérielle, scanner laser.</li></ul>
+</details>
+<p>4. Cite les cinq critères de classement d'un robot avec leurs catégories.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Mobilité : fixe, mobile, hybride.</li><li>Architecture : sériel, parallèle, hybride.</li><li>Interaction avec l'humain : industriel, cobot, de service.</li><li>Autonomie : téléopéré, programmé, adaptatif, autonome.</li><li>Domaine : industriel, service, médical, militaire, spatial.</li></ul>
+</details>
+<p>5. Différence entre nombre d'axes, DDL articulaires et DDL de l'effecteur ? Exemple d'un robot à 7 axes.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Axes : ce que le contrôleur commande.</li><li>DDL articulaires : ce que chaque articulation peut faire.</li><li>DDL de l'effecteur : ce que l'outil peut réaliser, 6 au plus.</li></ul>
+<p>Un robot à 7 axes a au plus 6 DDL pour l'effecteur : 1 DDL de redondance.</p>
+</details>
+
+<h3>B. Architectures, performances, médical</h3>
+<p>6. Sériel ou parallèle : avantages de chacun ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Sériel : grande enveloppe de travail, dextérité, polyvalence, coût plus bas.</li><li>Parallèle : précision, rigidité, vitesse, charge, peu d'inertie mobile.</li></ul>
+</details>
+<p>7. Précision et répétabilité : définis, et explique comment un robot peut être répétable sans être précis.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Précision : atteindre le point demandé. Répétabilité : revenir au même point à chaque fois.</p>
+<p>Un robot peut poser toujours au même endroit, mais décalé de la cible (écart constant) : répétable, pas précis. On mesure ce décalage et on le compense.</p>
+</details>
+<p>8. Cite les différences entre robotique industrielle et médicale.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Environnement : structuré et statique, contre vivant et variable.</li><li>Objet : pièce standard, contre patient variable.</li><li>Relation à l'humain : séparation, contre contact direct.</li><li>Objectif : cadence, contre assistance, précision, sécurité.</li><li>Commande : programmée, contre téléopérée et supervisée.</li><li>Sécurité : barrières, contre limitation des forces et sécurité intrinsèque.</li></ul>
+</details>
+
+<h3>C. Repères et rotations</h3>
+<p>9. Que sont les colonnes d'une matrice de rotation, et quelles sont ses propriétés ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Les colonnes de R^(A,B) sont les axes de B exprimés dans A.</p>
+<ul><li>Rᵀ R = I.</li><li>R⁻¹ = Rᵀ.</li><li>det R = +1.</li><li>Colonnes de norme 1.</li></ul>
+<p>D'où 3 paramètres indépendants pour une orientation.</p>
+</details>
+<p>10. Explique la convention d'Euler ZYX et sa singularité.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Lacet autour de z, puis tangage autour du nouvel y, puis roulis autour du nouvel x, en axes mobiles :</p>
+\[R = R_z(\alpha)\,R_y(\beta)\,R_x(\gamma)\]
+<p>Singularité quand β = ±90° : le premier et le dernier axe s'alignent, on perd un degré de liberté dans la description.</p>
+</details>
+
+<h3>D. Modélisation</h3>
+<p>11. Donne les deux règles de placement des repères de Denavit–Hartenberg.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Z_j est l'axe de l'articulation j + 1.</li><li>X_j est le long de la normale commune à Z_{j−1} et Z_j, dirigé de Z_{j−1} vers Z_j.</li></ul>
+</details>
+<p>12. Donne la méthode du MGD.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ol><li>Placer les repères selon DH.</li><li>Remplir le tableau DH.</li><li>Écrire les matrices élémentaires.</li><li>Les multiplier de la base vers l'outil et simplifier.</li><li>Lire la position dans la 4e colonne, l'orientation dans le bloc R.</li></ol>
+</details>
+<p>13. Quels sont les défis du MGI, et les deux familles de méthodes ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Défis : non-linéarité, existence des solutions, solutions multiples (coude haut, coude bas), singularités.</p>
+<ul><li>Analytique : exacte, rapide, toutes les solutions, mais pas de méthode générale.</li><li>Numérique (Newton-Raphson) : générale, mais une seule solution et convergence non garantie.</li></ul>
+</details>
+<p>14. Que représente une colonne de la jacobienne ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>La vitesse de l'outil quand seule l'articulation correspondante bouge, à vitesse 1.</p>
+</details>
+
+<h3>E. L'axe et les assemblages</h3>
+<p>15. Quels sont les constituants d'un axe, et de quoi dépend la précision de l'outil ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Source d'énergie, actionneur, transmission, guidage, structure.</p>
+<p>La précision dépend de toute la chaîne : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage.</p>
+</details>
+<p>16. Quels critères s'ajoutent pour un axe en milieu de soin ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Masse mobile limitée.</li><li>Bruit et vibrations limités.</li><li>Pas de points de pincement.</li><li>Facile à nettoyer et à maintenir.</li><li>Lubrifiants confinés.</li></ul>
+</details>
+<p>17. Quelles sont les cinq fonctions d'une liaison, et quel élément pour chacune ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Serrer : vis.</li><li>Positionner : goupilles, épaulements, centrages.</li><li>Transmettre un couple : clavette, cannelures.</li><li>Maintenir axialement : écrou, anneau élastique.</li><li>Prévenir le desserrage : rondelle frein.</li></ul>
+</details>
+
+<h3>F. Roulements et engrenages</h3>
+<p>18. Comment choisit-on un roulement ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>La famille d'abord, selon les charges (direction et sens), la vitesse, l'alignement et la place ; puis la référence sur catalogue, avec la durée L₁₀.</p>
+<p>Radial si α ≤ 45°, butée si α > 45°.</p>
+</details>
+<p>19. Pourquoi un montage fixe-libre ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Pour positionner l'arbre axialement (palier fixe) sans l'empêcher de se dilater (palier libre, une bague coulisse). Deux paliers fixes sur-contraindraient le montage.</p>
+</details>
+<p>20. Effets de la précharge d'un roulement ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Moins de jeu, plus de rigidité.</li><li>Plus d'efforts internes, de frottement et d'échauffement.</li><li>Trop forte : durée de vie réduite.</li></ul>
+</details>
+<p>21. Cite les types d'engrenages selon la position des axes.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Axes parallèles : denture droite, denture hélicoïdale (progressive, silencieuse).</li><li>Axes concourants : engrenages coniques.</li><li>Axes gauches : roue et vis sans fin (grand rapport, souvent irréversible).</li></ul>
+</details>
+</main>
+<script src="../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../commun/js/schema.js"></script>
+<script src="schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME;
+  var sm = new URLSearchParams(location.search).get("sm") || "bio";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", sm) });
+  var b = String.fromCharCode(92);
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+  var CLE = "s5-examen-robotique", faits = {};
+  try { faits = JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { faits = {}; }
+  Array.prototype.forEach.call(document.querySelectorAll(".jour-fait"), function (bt) {
+    function montrer() { var f = !!faits[bt.dataset.jour]; bt.setAttribute("aria-pressed", f ? "true" : "false"); bt.textContent = f ? "Fait" : "Marquer fait"; }
+    montrer();
+    bt.addEventListener("click", function () {
+      faits[bt.dataset.jour] = !faits[bt.dataset.jour]; montrer();
+      try { localStorage.setItem(CLE, JSON.stringify(faits)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>

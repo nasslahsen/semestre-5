@@ -47,6 +47,8 @@
 </ol>
 <p>La normale commune est la droite perpendiculaire à la fois à \(Z_{j-1}\) et à \(Z_j\). L'origine \(O_j\) est là où elle coupe \(Z_j\).</p>
 
+<div class="schema" id="sc-dh-regles"></div>
+
 <h4>Exemple</h4>
 <p>Le système d'insertion d'aiguille 2R du cours : deux pivots dans le plan \((x, y)\). Les axes \(z_0\), \(z_1\), \(z_2\) sortent de la page, parallèles et de même sens. Entre \(z_0\) et \(z_1\), la normale commune est la droite \(O_0O_1\), le long du segment 1 : elle porte \(x_1\). Entre \(z_1\) et \(z_2\), c'est la droite \(O_1O_2\), le long du segment 2 : elle porte \(x_2\). Comme les segments sont dans le plan et les axes \(z\) perpendiculaires à ce plan, les normales communes se superposent aux lignes centrales des segments. \(x_0\) est la référence horizontale choisie pour mesurer \(\theta_1\).</p>
 
@@ -87,6 +89,8 @@
 <p>Le produit donne :</p>
 \[ {}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p>Le cours écrit la même matrice \(T^{j-1,j}\) ou \({}^{j-1}T_j\). La dernière colonne est la position de \(O_j\) dans \(R_{j-1}\) : on avance de \(d_j\) dans la direction \(\theta_j\), à la hauteur \(r_j\).</p>
+
+<div class="schema" id="sc-dh-param"></div>
 
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
@@ -191,6 +195,8 @@
 <li>Robots de rééducation (post-AVC, motrice) : mesurer le mouvement du bras, le comparer à l'exercice, retour visuel au patient.</li>
 </ul>
 
+<div class="schema" id="sc-mgd"></div>
+
 <h4>Exemple</h4>
 <p>Exemple clinique du cours : robot de biopsie du sein, 2R plan. Segment 1 : \(L_1 = 40\) cm, relié à la base par l'articulation 1 (angle \(\theta_1\)) ; segment 2 : \(L_2 = 30\) cm, relié au segment 1 par l'articulation 2 (angle \(\theta_2\)). Le repère de base \(\{0\}\) est fixé au point d'ancrage du robot sur la table d'examen.</p>
 \[ {}^0_2T = {}^0_1T\;{}^1_2T = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
@@ -213,7 +219,9 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../figures/dh-convention.js"></script>
+<script src="../schemas.js"></script>
 <script src="../figures/dh-parametres.js"></script>
 <script src="../figures/dh-2r.js"></script>
 <script src="../figures/mgd.js"></script>

@@ -2,7 +2,7 @@
  * Schémas en blocs reliés par des flèches (arbres, classements, enchaînements), pour les pages de cours et de révision.
  * Une page pose <div class="schema" id="sc-..."></div> ; le module définit window.SCHEMAS (modules/<id>/schemas.js) :
  *   SCHEMAS["sc-..."] = { titre, cols: [[{ id, t (titre), s (sous-titre, \n pour aller à la ligne), k ("", "doux", "fort", "neutre"), note }], ...],
- *                         liens: [["de", "vers"], ...], vgap, gap }
+ *                         liens: [["de", "vers"], ...], vgap, gap } ; un bloc avec href devient un lien
  *   ou une fonction (boite, S) qui dessine elle-même (courbes) avec S.el, S.svg(boite, titre, hauteur).
  * Les colonnes vont de gauche à droite ; les blocs d'une colonne sont centrés ; les couleurs suivent le module (--jeu-texte, --jeu-pale).
  */
@@ -70,12 +70,14 @@
     });
     d.cols.forEach(function (c) {
       c.forEach(function (bl) {
-        var st = STYLE[bl.k || ""];
-        el("rect", { x: bl.x, y: bl.y, width: bl.w, height: bl.h, rx: 10, "stroke-width": 2.2, style: "fill:" + st.fond + ";stroke:" + st.bord }, svg);
+        var st = STYLE[bl.k || ""], dest = svg;
+        // un bloc avec href est un lien (ex. : les chapitres de l'arbre du module)
+        if (bl.href) { dest = el("a", { href: bl.href, "aria-label": bl.t }, svg); dest.style.cursor = "pointer"; }
+        el("rect", { x: bl.x, y: bl.y, width: bl.w, height: bl.h, rx: 10, "stroke-width": 2.2, style: "fill:" + st.fond + ";stroke:" + st.bord }, dest);
         var tot = bl.lt.length * 22 + bl.ls.length * 20 + (bl.ls.length ? 4 : 0), y = bl.y + (bl.h - tot) / 2 + 16;
-        bl.lt.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y, "text-anchor": "middle", "font-size": 17, "font-weight": 700, style: "fill:" + st.titre }, svg); t.textContent = l; y += 22; });
+        bl.lt.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y, "text-anchor": "middle", "font-size": 17, "font-weight": 700, style: "fill:" + st.titre }, dest); t.textContent = l; y += 22; });
         if (bl.ls.length) y += 4;
-        bl.ls.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y - 2, "text-anchor": "middle", "font-size": 15, style: "fill:" + st.sous }, svg); t.textContent = l; y += 20; });
+        bl.ls.forEach(function (l) { var t = el("text", { x: bl.x + bl.w / 2, y: y - 2, "text-anchor": "middle", "font-size": 15, style: "fill:" + st.sous }, dest); t.textContent = l; y += 20; });
         if (bl.note) { var t = el("text", { x: bl.x + bl.w / 2, y: bl.y + bl.h + 19, "text-anchor": "middle", "font-size": 14, fill: "#5b6172" }, svg); t.textContent = bl.note; }
       });
     });
