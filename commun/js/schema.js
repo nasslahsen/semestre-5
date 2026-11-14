@@ -60,13 +60,11 @@
       c.forEach(function (bl, j) { if (c.length === maxN) bl.h = rangs[j]; bl.y = y; y += bl.h + vg; });
     });
     var svg = el("svg", { viewBox: "0 0 " + W + " " + (H + haut + 18 + notes), role: "img", "aria-label": d.titre || "schéma" }, boite);
-    var defs = el("defs", {}, svg), mk = el("marker", { id: "fl-" + id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 9, markerHeight: 9, orient: "auto-start-reverse" }, defs);
-    el("path", { d: "M0,0 L10,5 L0,10 L3,5 z", style: "fill:var(--jeu-texte)" }, mk);
     (d.liens || []).forEach(function (l) {
       var a = blocs[l[0]], c = blocs[l[1]];
-      var x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = c.x - 2, y2 = c.y + c.h / 2, mx = x1 + (c.x - x1) / 2;
+      var x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = c.x, y2 = c.y + c.h / 2, mx = x1 + (c.x - x1) / 2;
       var dd = Math.abs(y1 - y2) < 1 ? "M" + x1 + "," + y1 + " H" + x2 : "M" + x1 + "," + y1 + " H" + mx + " V" + y2 + " H" + x2;
-      el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)", "marker-end": "url(#fl-" + id + ")" }, svg);
+      el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)" }, svg);
       if (l[2]) { var tx = el("text", { x: x1 + 6, y: y1 - 8, "font-size": 14, fill: "#5b6172" }, svg); tx.textContent = l[2]; }
     });
     d.cols.forEach(function (c) {
@@ -149,14 +147,12 @@
       var H = R.hs + 16;
       if (svg) svg.parentNode.removeChild(svg);
       svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "group", "aria-label": d.titre || "arbre" }, boite);
-      var defs = el("defs", {}, svg), mk = el("marker", { id: "fl-" + id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 9, markerHeight: 9, orient: "auto-start-reverse" }, defs);
-      el("path", { d: "M0,0 L10,5 L0,10 L3,5 z", style: "fill:var(--jeu-texte)" }, mk);
       (function liens(nd) {
         if (!ouvert(nd)) return;
         nd.enfants.forEach(function (c) {
-          var x1 = nd.x + nd.w, y1 = nd.y + nd.h / 2, x2 = c.x - 2, y2 = c.y + c.h / 2, mx = x1 + gap / 2;
+          var x1 = nd.x + nd.w, y1 = nd.y + nd.h / 2, x2 = c.x, y2 = c.y + c.h / 2, mx = x1 + gap / 2;
           var dd = Math.abs(y1 - y2) < 1 ? "M" + x1 + "," + y1 + " H" + x2 : "M" + x1 + "," + y1 + " H" + mx + " V" + y2 + " H" + x2;
-          el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)", "marker-end": "url(#fl-" + id + ")" }, svg);
+          el("path", { d: dd, fill: "none", "stroke-width": 2.5, style: "stroke:var(--jeu-texte)" }, svg);
           liens(c);
         });
       })(R);
