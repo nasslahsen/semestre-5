@@ -31,6 +31,26 @@
   var etiquette = document.querySelector("[data-etiquette]");
   if (etiquette) etiquette.textContent = P.nomChapitre(MID, ch.id);
 
+  // Podcast du chapitre (module.js, podcasts[<id>]) : un lecteur discret sous le titre, qui reprend où l'on s'était arrêté
+  var pod = MOD.podcasts && MOD.podcasts[ch.id], titre1 = main.querySelector("h1");
+  if (pod && titre1) {
+    var bp = document.createElement("div");
+    bp.className = "podcast";
+    bp.innerHTML = '<p><small>' + P.t("Écouter le podcast du chapitre") + "</small>" + esc(pod.titre) +
+      (pod.duree ? " · " + esc(pod.duree) : "") + (pod.langue === "en" && P.lang !== "en" ? " · en anglais" : "") + "</p>" +
+      '<audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>';
+    titre1.parentNode.insertBefore(bp, titre1.nextSibling);
+    var audio = bp.querySelector("audio"), CLEP = "s5-podcast", cleP = MID + "/" + ch.id, posP = {};
+    try { posP = JSON.parse(localStorage.getItem(CLEP) || "{}") || {}; } catch (e) { posP = {}; }
+    audio.addEventListener("loadedmetadata", function () { var t = posP[cleP]; if (t && t < audio.duration - 15) audio.currentTime = t; });
+    var dernier = 0;
+    audio.addEventListener("timeupdate", function () {
+      if (Math.abs(audio.currentTime - dernier) < 5) return;
+      dernier = audio.currentTime; posP[cleP] = audio.ended ? 0 : Math.floor(audio.currentTime);
+      try { localStorage.setItem(CLEP, JSON.stringify(posP)); } catch (e) {}
+    });
+  }
+
   // Ancres : celles des anciennes pages, préfixées par la notion (h4 = ancien h2, h5 = ancien h3)
   [].forEach.call(main.querySelectorAll("article.notion"), function (art) {
     var nid = art.id.replace(/^n-/, ""), vus = {};

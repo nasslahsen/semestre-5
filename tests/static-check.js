@@ -146,6 +146,10 @@ for (const id of modules) {
   // chaque page de cours dans une seule section), une ligne courte par chapitre, la page de chaque chapitre
   // à jour avec les pages de cours qu'elle réunit (node outils/regrouper.js <id>)
   if (!P.sections && id !== "_modele") err(`${d}/module.js : pas de sections (structure par chapitres)`);
+  for (const [cid, pod] of Object.entries(P.podcasts || {})) {
+    if (!P.chapitres.some(c => String(c.id) === cid)) err(`${d}/module.js : podcast d'un chapitre inconnu (${cid})`);
+    if (!pod.fichier || !existe(d + "/" + pod.fichier)) err(`${d}/module.js : fichier du podcast du chapitre ${cid} manquant (${pod.fichier})`);
+  }
   if (P.sections) {
     const dc = d + "/chapitres/";
     const { pageChapitre, chapitresAvecSections } = require("../outils/regrouper.js");
