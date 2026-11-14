@@ -41,7 +41,7 @@
 <ul>
 <li>la chaîne fonctionnelle (cette page) : de quoi un axe est fait ;</li>
 <li>la nomenclature : lire les symboles et leurs unités sans se tromper de sens ;</li>
-<li>vitesse, couple, puissance : ce que le moteur fournit et ce que la réduction en fait ;</li>
+<li>vitesse, couple, puissance : ce que le moteur fournit et ce que la <strong>réduction</strong> en fait ;</li>
 <li>rigidité et jeu : comment un tout petit angle à l'axe devient un écart au bout de l'outil ;</li>
 <li>les contraintes biomédicales : ce qu'on exige d'un axe en milieu de soin.</li>
 </ul>
@@ -51,13 +51,13 @@
 
 <div id="fig-robot-axes"></div>
 
-<p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la réduction l'adapte (moins vite, plus de couple), la transmission l'amène, le guidage le tient, le bras le porte jusqu'à l'outil. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
+<p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la <strong>réduction</strong> l'adapte (moins vite, plus de couple), la <strong>transmission</strong> l'amène, le <strong>guidage</strong> le tient, le bras le porte jusqu'à l'<strong>outil</strong>. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
 
 <div id="fig-chaine"></div>
 
 <h4>Formalisation</h4>
-<p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre actionneurs et mouvements utiles à la tâche.</p>
-<p>Un axe robotique associe une source d'énergie, un actionneur, une transmission, un guidage et une structure. Sa chaîne fonctionnelle simplifiée s'écrit :</p>
+<p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre <strong>actionneurs</strong> et mouvements utiles à la tâche.</p>
+<p>Un axe robotique associe une source d'énergie, un <strong>actionneur</strong>, une <strong>transmission</strong>, un <strong>guidage</strong> et une <strong>structure</strong>. Sa chaîne fonctionnelle simplifiée s'écrit :</p>
 \[ \boxed{\text{Moteur}} \rightarrow \boxed{\text{Réduction}} \rightarrow \boxed{\text{Transmission}} \rightarrow \boxed{\text{Guidage}} \rightarrow \boxed{\text{Bras / effecteur}} \]
 <p>Les performances d'un robot dépendent de toute la chaîne mécanique : jeu, rigidité, frottement, rendement, déformations, défauts d'alignement et tolérances de montage.</p>
 <div class="tableau"><table>
@@ -74,11 +74,11 @@
 
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
-<p>Un bras à six axes contient six chaînes complètes : six moteurs, six réductions, six guidages, chacun avec sa structure. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
+<p>Un bras à six axes contient six chaînes complètes : six moteurs, six <strong>réductions</strong>, six <strong>guidages</strong>, chacun avec sa <strong>structure</strong>. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
 
 <h4>Formules clés</h4>
 \[ \text{Moteur} \rightarrow \text{Réduction} \rightarrow \text{Transmission} \rightarrow \text{Guidage} \rightarrow \text{Bras / effecteur} \]
-<p>Un axe : source d'énergie, actionneur, transmission, guidage, structure. Précision de l'outil : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage de toute la chaîne.</p>
+<p>Un axe : source d'énergie, <strong>actionneur</strong>, <strong>transmission</strong>, <strong>guidage</strong>, <strong>structure</strong>. Précision de l'outil : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage de toute la chaîne.</p>
 </article>
 
 <article class="notion" id="n-nomenclature">
@@ -96,7 +96,7 @@
 <div id="fig-axe-symboles"></div>
 
 <h4>Formalisation</h4>
-<p>Les équations utilisent les unités du Système international (SI), sauf indication contraire. La nomenclature précise le sens des symboles. Certains symboles ont plusieurs sens : <strong>P</strong> désigne une puissance (en W) ou la charge dynamique équivalente d'un roulement (en N) ; <strong>C</strong> un couple (en N·m) ou la capacité dynamique d'un roulement (en N) ; <strong>p</strong> l'exposant de durée d'un roulement, le pas d'une courroie ou l'avance d'une vis ; <strong>m</strong> le module d'un engrenage ou une masse. Les unités permettent d'identifier le sens utilisé.</p>
+<p>Les équations utilisent les unités du Système international (SI), sauf indication contraire. La nomenclature précise le sens des symboles. Certains symboles ont plusieurs sens : <strong>P</strong> désigne une puissance (en W) ou la charge dynamique équivalente d'un roulement (en N) ; <strong>C</strong> un couple (en N·m) ou la capacité dynamique d'un roulement (en N) ; <strong>p</strong> l'<strong>exposant de durée</strong> d'un roulement, le pas d'une courroie ou l'avance d'une vis ; <strong>m</strong> le module d'un engrenage ou une masse. Les unités permettent d'identifier le sens utilisé.</p>
 
 <h5>Rotation, puissance et axe</h5>
 <div class="tableau"><table>
@@ -218,7 +218,7 @@
 
 <div id="fig-vitesse"></div>
 
-<p>Un réducteur échange de la vitesse contre du couple. Il ne fabrique pas de puissance : il en perd un peu, à cause des frottements.</p>
+<p>Un <strong>réducteur</strong> échange de la vitesse contre du couple. Il ne fabrique pas de puissance : il en perd un peu, à cause des frottements.</p>
 
 <div id="fig-reducteur"></div>
 
@@ -312,13 +312,13 @@
 <p class="chapeau">Un bras de rééducation tient le bras d'un patient, un bras chirurgical travaille au-dessus d'un champ opératoire. Un axe robotique y doit tenir les critères de toute machine, et d'autres encore, propres au soin.</p>
 
 <h4>Intuition</h4>
-<p>Pour une machine d'atelier, on regarde ce qu'elle porte, sa raideur, sa durée de vie et son prix. Près d'un patient, d'autres questions arrivent : que se passe-t-il si un doigt se glisse entre deux pièces ? si de la graisse s'échappe sur le champ opératoire ? si le bras est lourd et bruyant ? Chaque contrainte vise un endroit précis de la machine.</p>
+<p>Pour une machine d'atelier, on regarde ce qu'elle porte, sa raideur, sa <strong>durée de vie</strong> et son prix. Près d'un patient, d'autres questions arrivent : que se passe-t-il si un doigt se glisse entre deux pièces ? si de la graisse s'échappe sur le champ opératoire ? si le bras est lourd et bruyant ? Chaque contrainte vise un endroit précis de la machine.</p>
 
 <div id="fig-biomedical"></div>
 
 <h4>Formalisation</h4>
 
-<p>Un système biomédical doit respecter les critères classiques de charge, rigidité, durée de vie et coût. Il doit aussi limiter la masse mobile, le bruit, les vibrations et les points de pincement. Il doit être facile à nettoyer et à maintenir, et les lubrifiants doivent rester confinés. Le choix final dépend de l'importance de chaque critère.</p>
+<p>Un système biomédical doit respecter les <strong>critères classiques</strong> de <strong>charge</strong>, <strong>rigidité</strong>, <strong>durée de vie</strong> et <strong>coût</strong>. Il doit aussi limiter la <strong>masse mobile</strong>, le <strong>bruit</strong>, les vibrations et les <strong>points de pincement</strong>. Il doit être facile à nettoyer et à maintenir, et les lubrifiants doivent rester confinés. Le choix final dépend de l'importance de chaque critère.</p>
 
 
 <div class="tableau"><table>
@@ -335,7 +335,7 @@
 <p>Exemple ajouté : on motorise le coude d'un bras de rééducation. Solution A, le moteur est au coude : la chaîne est courte, mais le moteur fait partie de la masse mobile. Solution B, le moteur reste sur la base et le mouvement monte par une transmission : moins de masse mobile, mais un maillon de plus, avec son jeu et sa souplesse. Aucune n'est meilleure en soi : le choix final dépend de l'importance donnée à chaque critère pour cette application.</p>
 
 <h4>Formules clés</h4>
-<p>Critères classiques : charge, rigidité, durée de vie, coût. Critères liés au contexte biomédical : masse mobile limitée, bruit et vibrations limités, pas de points de pincement, facile à nettoyer et à maintenir, lubrifiants confinés. Le choix final pèse l'importance de chaque critère.</p>
+<p><strong>Critères classiques</strong> : <strong>charge</strong>, <strong>rigidité</strong>, <strong>durée de vie</strong>, <strong>coût</strong>. Critères liés au contexte biomédical : <strong>masse mobile</strong> limitée, <strong>bruit</strong> et vibrations limités, pas de <strong>points de pincement</strong>, facile à nettoyer et à maintenir, <strong>lubrifiants confinés</strong>. Le choix final pèse l'importance de chaque critère.</p>
 </article>
 
 <div class="fin-partie" data-section="contraintes-biomedicales"></div>

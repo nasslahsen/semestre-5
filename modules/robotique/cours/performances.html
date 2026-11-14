@@ -35,10 +35,10 @@
 <tr><td>C</td><td>moyenne</td><td>faible</td><td>dispersées autour de P, moyenne proche de P</td></tr>
 <tr><td>D</td><td>faible</td><td>faible</td><td>éloignées de P et dispersées</td></tr>
 </table></div>
-<p><strong>Vitesse</strong> : rapidité de déplacement des articulations ou de l'outil. Vitesse articulaire (°/s pour les axes rotatifs, mm/s pour les axes linéaires), vitesse linéaire du TCP (<em>Tool Center Point</em>, en mm/s ou m/s), vitesse angulaire du TCP (°/s), vitesse moyenne \(v_{moy} = d / t\).</p>
+<p><strong>Vitesse</strong> : rapidité de déplacement des articulations ou de l'outil. Vitesse articulaire (°/s pour les axes rotatifs, mm/s pour les axes linéaires), vitesse linéaire du <strong>TCP</strong> (<em>Tool Center Point</em>, en mm/s ou m/s), vitesse angulaire du TCP (°/s), vitesse moyenne \(v_{moy} = d / t\).</p>
 <p><strong>Temps de cycle</strong> : durée nécessaire au robot pour réaliser une opération complète et revenir à son état initial.</p>
 \[ T_{cycle} = T_{approche} + T_{prise} + T_{transfert} + T_{dépose} + T_{retour} + T_{synchronisation} \qquad N = \frac{3600}{T_{cycle}} \ \text{cycles/h} \]
-<p>Relation entre vitesse et temps de cycle : \(T_{cycle} = T_{mouvement} + T_{prise} + T_{dépose} + T_{attente}\). Si \(v\) augmente, \(T_{mouvement}\) diminue, donc \(T_{cycle}\) diminue ; la vitesse ne supprime pas les temps de prise, de dépose et d'attente.</p>
+<p>Relation entre vitesse et temps de cycle : \(T_{cycle} = T_{mouvement} + T_{prise} + T_{dépose} + T_{attente}\). Si \(v\) augmente, \(T_{mouvement}\) diminue, donc \(T_{cycle}\) diminue ; la vitesse ne supprime pas les temps de <strong>prise</strong>, de <strong>dépose</strong> et d'attente.</p>
 
 <div id="fig-cycle"></div>
 
@@ -46,9 +46,9 @@
 <div class="schema" id="sc-cycle"></div>
 
 <h2>Exemple du cours</h2>
-<p>Robot pick and place : approche 0,30 s, prise 0,20 s, transfert 0,55 s, dépose 0,15 s, retour 0,45 s, synchronisation 0,35 s.</p>
+<p>Robot pick and place : <strong>approche</strong> 0,30 s, <strong>prise</strong> 0,20 s, <strong>transfert</strong> 0,55 s, <strong>dépose</strong> 0,15 s, <strong>retour</strong> 0,45 s, synchronisation 0,35 s.</p>
 \[ T_{cycle} = 0{,}30 + 0{,}20 + 0{,}55 + 0{,}15 + 0{,}45 + 0{,}35 = 2{,}00 \text{ s/cycle} \qquad N = \frac{3600}{2{,}00} = 1800 \text{ cycles/h, soit } 30 \text{ cycles/min} \]
-<p>Cette cadence est théorique : en production, elle est réduite par les arrêts, les défauts, la maintenance et l'alimentation en pièces. <span class="complement">Si l'on double la vitesse, seuls l'approche, le transfert et le retour sont divisés par deux : \(T_{cycle} = 1{,}35\) s et \(N \approx 2667\) cycles/h. La cadence n'est pas doublée (vérifiable sur la figure avec « vitesse × 2 »).</span></p>
+<p>Cette cadence est théorique : en production, elle est réduite par les arrêts, les défauts, la maintenance et l'alimentation en pièces. <span class="complement">Si l'on double la vitesse, seuls l'<strong>approche</strong>, le <strong>transfert</strong> et le <strong>retour</strong> sont divisés par deux : \(T_{cycle} = 1{,}35\) s et \(N \approx 2667\) cycles/h. La cadence n'est pas doublée (vérifiable sur la figure avec « vitesse × 2 »).</span></p>
 
 <h2>Rappel : vitesse moyenne et vitesse instantanée</h2>
 <p>La vitesse moyenne sur un trajet est \(v_{moy} = d / t\). La vitesse instantanée est la limite de cette moyenne sur un intervalle de temps de plus en plus court : c'est la dérivée de la position par rapport au temps, \(v(t) = \dfrac{dx}{dt} = \dot{x}\), qui se lit comme la pente de la tangente à la courbe \(x(t)\). Règles utiles : la dérivée de \(t^n\) est \(n\,t^{n-1}\), celle de \(\sin t\) est \(\cos t\), celle de \(\cos t\) est \(-\sin t\), et pour une fonction composée, \(\frac{d}{dt}\cos\theta(t) = -\sin\theta(t)\,\dot{\theta}\).</p>

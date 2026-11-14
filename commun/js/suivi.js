@@ -33,7 +33,7 @@
     });
     document.getElementById("resume").textContent = faits + " sections faites sur " + total + ", " + niveaux +
       (niveaux > 1 ? " niveaux réussis." : " niveau réussi.") + " Une section compte quand ses exercices sont réussis.";
-    progres(); revoir(); programme(); documents();
+    progres(); revoir(); cartes(); programme(); documents();
   }
 
   // Où j'en suis : un module par ligne ; on l'ouvre pour voir ses chapitres.
@@ -90,6 +90,32 @@
         "<h3>" + esc(x.n.titre) + "</h3><p>" + etapes + "</p></div>" +
         '<div class="sv-actions"><a class="btn-continuer" href="' + cours + '">Revoir le cours</a>' +
         '<a class="sv-lien" href="' + P.racine + "modules/" + x.m.id + "/jouer.html#" + x.n.id + '">Rejouer</a></div></article>';
+    }).join("");
+  }
+
+  // Cartes à retravailler : les cartes ratées au dernier passage de chaque paquet (localStorage « s5-cartes »).
+  // Le bouton ouvre la page du chapitre à la section et lance tout de suite le paquet, ratées d'abord.
+  function cartes() {
+    var memo = {}, items = [];
+    try { memo = JSON.parse(localStorage.getItem("s5-cartes") || "{}") || {}; } catch (e) { memo = {}; }
+    Object.keys(memo).forEach(function (cle) {
+      var n = (memo[cle] || []).length, x = cle.split("/"), mid = x[0], type = x[1], id = x.slice(2).join("/");
+      if (!n) return;
+      var m0 = actifs.filter(function (m) { return m.id === mid; })[0], m = m0 && P.module(mid);
+      if (!m) return;
+      var s = type === "s" ? (m.sections || []).filter(function (y) { return y.id === id; })[0] : null;
+      var chid = s ? s.chapitre : +id;
+      if (!P.chapitre(mid, chid)) return;
+      var url = P.urlChapitre(mid, chid) + "?cartes=" + encodeURIComponent(type + "/" + id) + (s ? "#s-" + s.id : "");
+      items.push({ m: m0, n: n, titre: s ? s.titre : "Toutes les cartes du chapitre", chap: P.nomChapitre(mid, chid), url: url });
+    });
+    var z = document.getElementById("cartes");
+    if (!items.length) { z.innerHTML = ""; return; }
+    items.sort(function (a, b) { return b.n - a.n; });
+    z.innerHTML = '<h2 class="tableau-titre">Cartes à retravailler</h2>' + items.slice(0, 12).map(function (x) {
+      return '<article class="sv-revoir"' + style(x.m) + '><div class="sv-rt"><span class="sv-kicker">' + esc(x.m.titre) + " · " + esc(x.chap) + "</span>" +
+        "<h3>" + esc(x.titre) + "</h3><p>" + x.n + (x.n > 1 ? " cartes ratées" : " carte ratée") + " au dernier passage</p></div>" +
+        '<div class="sv-actions"><a class="btn-continuer" href="' + x.url + '">Réviser ces cartes</a></div></article>';
     }).join("");
   }
 

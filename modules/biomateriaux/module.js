@@ -17,11 +17,17 @@ PLATEFORME.parcours("biomateriaux", {
       { sousModule: "biomateriaux", titre: "Cours : Historique et Applications", couvre: "chapitre 2" },
       { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux", couvre: "chapitre 5" },
       { sousModule: "biomateriaux", titre: "Cours : Classes des biomatériaux, Céramiques et Polymères", couvre: "chapitres 6 et 8" },
+      { sousModule: "biomateriaux", titre: "Examen partiel 2024-2025 (Biomatériaux et Prothèses), avec corrigé", couvre: "page Annales ; ses réponses complètent les chapitres 1, 2 et 6 des versions courtes" },
       { sousModule: "biomateriaux", titre: "TP 1 : Procédés de fabrication des plastiques", couvre: "chapitre 12 (déjà couvert ; le moulage par centrifugation n'y a que son titre)" }
+    ],
+    manque: [
+      "Partie du cours sur la biocompatibilité (activités indésirables, tests, décontamination et stérilisation, risque infectieux), les abords des DM et le marquage CE : seulement vue dans le partiel 2024-2025"
     ]
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : priorités, plan de six jours, méthodes de calcul, questions de cours.
   examen: { biomateriaux: true },
+  // Versions courtes (court/chapitre-<id>.html) : l'essentiel du chapitre et des questions d'examen ; accès sous le titre du chapitre.
+  court: [1, 8, 0, 2, 9, 10, 3, 11, 4, 5, 6, 7],
   // Podcasts (NotebookLM, faits à partir du cours) : un lecteur sous le titre de la page du chapitre ; fichier dans audio/.
   podcasts: {
     1: { titre: "Biocompatibility and Medical Device Classification", duree: "24 min", langue: "en", fichier: "audio/chapitre-1.m4a" },

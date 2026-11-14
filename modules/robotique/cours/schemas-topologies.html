@@ -27,7 +27,7 @@
 
 <h2>Formalisation</h2>
 <p><strong>Schéma cinématique</strong> : représentation graphique épurée et normalisée de la chaîne cinématique. C'est un outil d'analyse qui ne conserve que l'information utile au mouvement : les axes des liaisons et les lignes qui les relient (dont les longueurs sont utiles aux calculs). Pour passer de la chaîne au schéma, on supprime les enveloppes, les moteurs, les vis, les épaisseurs. Le schéma prépare les calculs : on y place les repères, puis on applique les méthodes de modélisation, par exemple la méthode de Denavit–Hartenberg.</p>
-<p><strong>Schéma plan (2D)</strong> : tous les mouvements du mécanisme se déroulent dans des plans parallèles à un même plan de référence, généralement le plan \(X - Y\) ; tous les axes de rotation sont parallèles entre eux, suivant l'axe \(Z\) : \(\vec{z}_0 \parallel \vec{z}_1 \parallel \vec{Z}\). On l'utilise pour simplifier l'apprentissage et l'analyse géométrique des robots simples (exemple du cours : le robot Quanser 2R).</p>
+<p><strong>Schéma plan (2D)</strong> : tous les mouvements du mécanisme se déroulent dans des plans <strong>parallèles</strong> à un même plan de référence, généralement le plan \(X - Y\) ; tous les axes de rotation sont parallèles entre eux, suivant l'axe \(Z\) : \(\vec{z}_0 \parallel \vec{z}_1 \parallel \vec{Z}\). On l'utilise pour simplifier l'apprentissage et l'analyse géométrique des robots simples (exemple du cours : le robot Quanser 2R).</p>
 <p><strong>Schéma spatial (3D)</strong> : les mouvements ne peuvent pas être décrits dans un unique plan ; les axes des liaisons ont des orientations différentes, par exemple suivant \(Z\), puis \(Y\), puis \(X\). C'est la représentation nécessaire pour la quasi-totalité des robots manipulateurs industriels (exemple du cours : le Kinova Jaco, 6 pivots en série). Exemple du bras spatial à deux pivots : pivot 1 entre le bâti 0 et le solide 1, d'axe vertical \(\vec{z}_0\) ; pivot 2 entre les solides 1 et 2, d'axe horizontal \(\vec{z}_1\), avec \(\vec{z}_0 \perp \vec{z}_1\).</p>
 
 <h2>Topologie des architectures</h2>
@@ -53,7 +53,7 @@
 </ul>
 
 <h2>Formules clés</h2>
-<p>Schéma plan : \(\vec{z}_0 \parallel \vec{z}_1 \parallel \vec{Z}\). Série : chaque solide relié à au plus deux autres, pas de boucle. Parallèle : au moins une boucle. Arborescente : embranchements, pas de boucle. Hybride : série + parallèle.</p>
+<p>Schéma plan : \(\vec{z}_0 \parallel \vec{z}_1 \parallel \vec{Z}\). Série : chaque solide relié à au plus deux autres, <strong>pas de boucle</strong>. Parallèle : <strong>au moins une boucle</strong>. <strong>Arborescente</strong> : <strong>embranchements</strong>, pas de boucle. <strong>Hybride</strong> : série + parallèle.</p>
 <p class="complement">Complément : dans un graphe connexe de \(N\) solides et \(L\) liaisons, le nombre de boucles indépendantes vaut \(L - N + 1\). Il est nul pour une chaîne série ou arborescente.</p>
 
 </main>

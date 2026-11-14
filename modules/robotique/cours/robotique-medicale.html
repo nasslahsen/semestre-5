@@ -21,7 +21,7 @@
 <p class="chapeau">Les mêmes technologies que dans l'industrie, mais de nouvelles exigences : la pièce est un patient qui respire, l'opérateur est au contact, et une erreur peut être irréversible.</p>
 
 <h2>Intuition</h2>
-<p>Un robot industriel vise une pièce posée, immobile, toujours au même endroit. Un robot médical vise une cible dans un corps qui bouge : respiration, battements cardiaques, mouvements involontaires. S'il vise le point planifié sans suivre ce mouvement, il le manque. D'où le besoin d'une perception adaptative : imagerie en temps réel, recalage anatomique, suivi des mouvements physiologiques.</p>
+<p>Un robot industriel vise une pièce posée, immobile, toujours au même endroit. Un robot médical vise une cible dans un corps qui bouge : respiration, battements cardiaques, mouvements involontaires. S'il vise le point planifié sans suivre ce mouvement, il le manque. D'où le besoin d'une <strong>perception adaptative</strong> : imagerie en temps réel, recalage anatomique, suivi des mouvements physiologiques.</p>
 
 <div id="fig-respiration"></div>
 
@@ -39,16 +39,16 @@
 <p>Les six ruptures du cours et leur conséquence :</p>
 <ul>
 <li><strong>Du produit standardisé au patient variable</strong> : perception adaptative (imagerie en temps réel, recalage anatomique, suivi des mouvements physiologiques). C'est la figure ci-dessus.</li>
-<li><strong>De la zone d'exclusion au contact direct</strong> : sécurité intrinsèque (limitation des forces et des couples, détection de collision, arrêt instantané, redondance des capteurs).</li>
-<li><strong>De la précision géométrique à la précision biomécanique</strong> : passer du repère cartésien au repère anatomique (repérage par imagerie, suivi du mouvement physiologique, asservissement visuel). C'est l'outil des pages sur les repères et les matrices.</li>
+<li><strong>De la zone d'exclusion au contact direct</strong> : <strong>sécurité intrinsèque</strong> (limitation des forces et des couples, détection de collision, arrêt instantané, redondance des capteurs).</li>
+<li><strong>De la précision géométrique à la précision biomécanique</strong> : passer du repère cartésien au <strong>repère anatomique</strong> (repérage par imagerie, suivi du mouvement physiologique, asservissement visuel). C'est l'outil des pages sur les repères et les matrices.</li>
 <li><strong>De la reprogrammation à la décision assistée</strong> : l'humain ne programme plus en amont, il supervise et pilote pendant l'acte, avec une responsabilité clinique directe.</li>
-<li><strong>De la fiabilité économique à la fiabilité vitale</strong> : dispositif médical souvent de classe III, normes ISO 13485, IEC 60601, ISO 14971 (au lieu de l'ISO 10218), traçabilité obligatoire, essais cliniques, certification ; une erreur est souvent irréversible.</li>
-<li><strong>De l'environnement contrôlé à l'environnement contraint</strong> : stérilisation ou usage unique, biocompatibilité, compatibilité IRM (actionneurs piézoélectriques, pas de matériau ferromagnétique), surfaces lisses sans zone de rétention bactérienne.</li>
+<li><strong>De la fiabilité économique à la fiabilité vitale</strong> : dispositif médical souvent de <strong>classe III</strong>, <strong>normes</strong> ISO 13485, IEC 60601, ISO 14971 (au lieu de l'ISO 10218), traçabilité obligatoire, <strong>essais cliniques</strong>, certification ; une erreur est souvent irréversible.</li>
+<li><strong>De l'environnement contrôlé à l'environnement contraint</strong> : <strong>stérilisation</strong> ou usage unique, <strong>biocompatibilité</strong>, compatibilité <strong>IRM</strong> (actionneurs piézoélectriques, pas de matériau ferromagnétique), surfaces lisses sans zone de rétention bactérienne.</li>
 </ul>
 <p>Cinq axes à repenser : perception, sécurité, commande, précision, validation. Objectifs : assister, diagnostiquer, traiter, rééduquer. Exigences : précision, sécurité, fiabilité, interaction avec l'humain.</p>
 
 <h2>Interfaces homme-machine</h2>
-<p>Une IHM est l'ensemble des moyens qui permettent à un professionnel de santé ou à un patient d'interagir avec un système robotisé médical : commander, observer, superviser. Le praticien reste dans la boucle. En <strong>téléopération</strong> (maître-esclave, comme le da Vinci), le chirurgien commande les instruments depuis une console ; le système peut réduire l'amplitude des mouvements (mise à l'échelle, par exemple 1 cm de la main donne 3 mm à l'instrument) et filtrer les tremblements.</p>
+<p>Une IHM est l'ensemble des moyens qui permettent à un professionnel de santé ou à un patient d'interagir avec un système robotisé médical : commander, observer, superviser. Le praticien reste dans la boucle. En <strong>téléopération</strong> (maître-esclave, comme le <strong>da Vinci</strong>), le chirurgien commande les instruments depuis une console ; le système peut réduire l'amplitude des mouvements (mise à l'échelle, par exemple 1 cm de la main donne 3 mm à l'instrument) et filtrer les tremblements.</p>
 
 <figure class="photo duo"><img src="../images/da-vinci-chariot.jpg" alt="Chariot patient du da Vinci Xi avec ses quatre bras porte-instruments"><img src="../images/da-vinci-console.jpg" alt="Chirurgien assis à la console du da Vinci"><figcaption>Le da Vinci : le chariot patient et ses bras porte-instruments (esclave), et la console où le chirurgien commande (maître).<small>Photos Wikimedia Commons : Alvarogarciamd (CC BY-SA 4.0), Cmglee (CC BY-SA 3.0).</small></figcaption></figure>
 
@@ -63,10 +63,10 @@
 <tr><td>Immersive</td><td>RV pour planifier et former, RA pour guider pendant l'opération</td><td>modèle 3D superposé à la vue</td><td>recalage en temps réel, déformation des tissus</td></tr>
 <tr><td>Cerveau-machine (BCI)</td><td>traduit l'activité cérébrale en commandes</td><td>BrainGate</td><td>chirurgie des implants, fiabilité, données neuronales</td></tr>
 </table></div>
-<p>Enjeux des IHM médicales : clarté, ergonomie et adaptation, précision et fidélité, réactivité (latence), sécurité (alertes, état sûr en cas de panne), cybersécurité.</p>
+<p>Enjeux des <strong>IHM médicales</strong> : clarté, ergonomie et adaptation, précision et fidélité, réactivité (latence), sécurité (alertes, état sûr en cas de panne), cybersécurité.</p>
 
 <h2>Classification et historique</h2>
-<p>Quatre critères complémentaires et indépendants : <strong>domaine</strong> (chirurgicaux, rééducation, exosquelettes et orthèses, assistance et mobilité, diagnostic et navigation, téléprésence, logistique hospitalière), <strong>autonomie</strong> (téléopérés, programmés, adaptatifs, autonomes supervisés), <strong>mode d'interaction</strong> (sans contact, contact externe, invasif, co-manipulation), <strong>fonction médicale</strong> (assister, diagnostiquer, traiter, rééduquer).</p>
+<p>Quatre critères complémentaires et indépendants : <strong>domaine</strong> (chirurgicaux, rééducation, exosquelettes et orthèses, assistance et mobilité, diagnostic et navigation, téléprésence, logistique hospitalière), <strong>autonomie</strong> (téléopérés, programmés, adaptatifs, autonomes supervisés), <strong>mode d'interaction</strong> (sans contact, contact externe, invasif, <strong>co-manipulation</strong>), <strong>fonction médicale</strong> (assister, diagnostiquer, traiter, rééduquer).</p>
 <figure class="photo duo"><img src="../images/rosa-one.jpg" alt="Bras robotique ROSA One, blanc, avec son guide d'instrument"><img src="../images/exosquelette-ekso.jpg" alt="Patient debout dans un exosquelette Ekso, aidé d'un kinésithérapeute"><img src="../images/cyberknife.jpg" alt="CyberKnife : bras robotique qui porte un accélérateur de radiothérapie"><figcaption>ROSA, cité dans le cours (chirurgie guidée) ; un exosquelette Ekso (rééducation de la marche) ; le CyberKnife, exemple ajouté (radiothérapie : un bras robotique déplace la source autour du patient).<small>Photos Wikimedia Commons : LucileBssg (CC BY-SA 4.0), AriceEB (CC BY-SA 4.0), St. Mary's of Michigan (CC BY 2.0).</small></figcaption></figure>
 <p>Historique : 1985, PUMA 200 pour une biopsie cérébrale guidée par scanner ; 1992, ROBODOC (prothèse de hanche) ; 1994–1996, AESOP (porte-endoscope, commande vocale) ; 1997–2000, da Vinci ; 1998–2001, ZEUS ; 2001, opération Lindbergh (téléchirurgie New York – Strasbourg) ; depuis 2010, Mako, ROSA, Lokomat, exosquelettes, micro-robots, IA. Écosystème : marché de plus de 16 milliards de dollars ; acteurs : patients et soignants, ingénieurs, fabricants, hôpitaux, autorités (au Maroc, l'AMMPS pour les dispositifs médicaux).</p>
 

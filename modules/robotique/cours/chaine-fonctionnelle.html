@@ -33,7 +33,7 @@
 <ul>
 <li>la chaîne fonctionnelle (cette page) : de quoi un axe est fait ;</li>
 <li>la nomenclature : lire les symboles et leurs unités sans se tromper de sens ;</li>
-<li>vitesse, couple, puissance : ce que le moteur fournit et ce que la réduction en fait ;</li>
+<li>vitesse, couple, puissance : ce que le moteur fournit et ce que la <strong>réduction</strong> en fait ;</li>
 <li>rigidité et jeu : comment un tout petit angle à l'axe devient un écart au bout de l'outil ;</li>
 <li>les contraintes biomédicales : ce qu'on exige d'un axe en milieu de soin.</li>
 </ul>
@@ -43,13 +43,13 @@
 
 <div id="fig-robot-axes"></div>
 
-<p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la réduction l'adapte (moins vite, plus de couple), la transmission l'amène, le guidage le tient, le bras le porte jusqu'à l'outil. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
+<p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la <strong>réduction</strong> l'adapte (moins vite, plus de couple), la <strong>transmission</strong> l'amène, le <strong>guidage</strong> le tient, le bras le porte jusqu'à l'<strong>outil</strong>. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
 
 <div id="fig-chaine"></div>
 
 <h2>Formalisation</h2>
-<p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre actionneurs et mouvements utiles à la tâche.</p>
-<p>Un axe robotique associe une source d'énergie, un actionneur, une transmission, un guidage et une structure. Sa chaîne fonctionnelle simplifiée s'écrit :</p>
+<p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre <strong>actionneurs</strong> et mouvements utiles à la tâche.</p>
+<p>Un axe robotique associe une source d'énergie, un <strong>actionneur</strong>, une <strong>transmission</strong>, un <strong>guidage</strong> et une <strong>structure</strong>. Sa chaîne fonctionnelle simplifiée s'écrit :</p>
 \[ \boxed{\text{Moteur}} \rightarrow \boxed{\text{Réduction}} \rightarrow \boxed{\text{Transmission}} \rightarrow \boxed{\text{Guidage}} \rightarrow \boxed{\text{Bras / effecteur}} \]
 <p>Les performances d'un robot dépendent de toute la chaîne mécanique : jeu, rigidité, frottement, rendement, déformations, défauts d'alignement et tolérances de montage.</p>
 <div class="tableau"><table>
@@ -66,11 +66,11 @@
 
 <h2>Exemple</h2>
 <p class="complement">Exemple ajouté.</p>
-<p>Un bras à six axes contient six chaînes complètes : six moteurs, six réductions, six guidages, chacun avec sa structure. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
+<p>Un bras à six axes contient six chaînes complètes : six moteurs, six <strong>réductions</strong>, six <strong>guidages</strong>, chacun avec sa <strong>structure</strong>. Un petit jeu dans la réduction de l'épaule ne reste pas à l'épaule : il fait pivoter tout ce qui est au-dessus, et se retrouve au bout de l'outil, d'autant plus grand que le bras est long. La page « Rigidité et jeu angulaire » chiffre cet effet.</p>
 
 <h2>Formules clés</h2>
 \[ \text{Moteur} \rightarrow \text{Réduction} \rightarrow \text{Transmission} \rightarrow \text{Guidage} \rightarrow \text{Bras / effecteur} \]
-<p>Un axe : source d'énergie, actionneur, transmission, guidage, structure. Précision de l'outil : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage de toute la chaîne.</p>
+<p>Un axe : source d'énergie, <strong>actionneur</strong>, <strong>transmission</strong>, <strong>guidage</strong>, <strong>structure</strong>. Précision de l'outil : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage de toute la chaîne.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

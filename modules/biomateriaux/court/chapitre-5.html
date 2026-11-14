@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Additifs, charges et renforts (version courte) · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Additifs, charges et renforts</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<p>Le polymère seul ne sait pas tout faire : on lui ajoute des <strong>adjuvants</strong>, des <strong>plastifiants</strong>, des <strong>charges</strong> et des <strong>renforts</strong>.</p>
+
+<h2>Les adjuvants : chacun corrige un défaut</h2>
+<div class="tableau"><table>
+<tr><th>Adjuvant</th><th>À quoi il sert</th></tr>
+<tr><td><strong>Stabilisants</strong></td><td>empêcher l'altération pendant la mise en œuvre (anti-oxygènes, moins de 1 %)</td></tr>
+<tr><td><strong>Colorants</strong> / <strong>pigments</strong></td><td>colorant soluble : reste <strong>transparent</strong> ; pigment insoluble : <strong>opaque</strong></td></tr>
+<tr><td><strong>Anti-chocs</strong></td><td>meilleure résistance au choc (ABS, MBS), surtout dans le PVC</td></tr>
+<tr><td><strong>Antistatiques</strong></td><td>pas de charges en surface : ni poussières ni étincelles</td></tr>
+<tr><td><strong>Ignifugeants</strong></td><td>rendre la combustion plus difficile (peut dépasser 10 %)</td></tr>
+<tr><td><strong>Lubrifiants</strong></td><td>interne : frottement du polymère sur lui-même ; externe : sur le métal de la machine (≈ 0,1 %)</td></tr>
+<tr><td><strong>Anti-retrait</strong></td><td>compenser le retrait des polyesters insaturés (PVAC)</td></tr>
+<tr><td><strong>Agents de germination</strong></td><td>cristallisation plus rapide, cristaux plus petits</td></tr>
+<tr><td><strong>Agents de réticulation</strong></td><td>former un réseau 3D, durcir les résines</td></tr>
+</table></div>
+<div class="schema" id="sc-adjuvants"></div>
+
+<h2>Les plastifiants</h2>
+<p>Un <strong>plastifiant</strong> est un solvant lourd : ses petites molécules se glissent entre les chaînes et coupent une partie de leurs interactions. Le polymère rigide devient <strong>souple</strong>.</p>
+<ul>
+<li>Plus de plastifiant : la <strong>rigidité</strong>, la <strong>Tv</strong> et la <strong>limite de flexibilité</strong> diminuent (ce dernier critère est caractéristique de l'effet plastifiant).</li>
+<li>Pour <strong>baisser la densité</strong> d'un polymère (TD : PVC de 1,45 à 0,3 g/cm³), la masse ne change pas : on augmente le volume, on le <strong>gonfle</strong> (ici environ 1,45 / 0,3 ≈ 4,8 fois le volume).</li>
+<li>Exemple : le <strong>PVC</strong> (Tv = 90 °C) est rigide. Rigide, il devient fragile à 0 °C ; plastifié, entre −5 et −60 °C. D'où les tubulures et poches de perfusion souples.</li>
+</ul>
+
+<h2>Charges et renforts : la forme compte</h2>
+<p>Un <strong>renfort</strong> : un produit ni soluble ni miscible qui améliore les propriétés du polymère. On le classe par son <strong>rapport de forme</strong> (plus grande dimension / plus petite).</p>
+<div class="tableau"><table>
+<tr><th>Forme</th><th>Rapport de forme</th><th>Exemples</th></tr>
+<tr><td><strong>Granulaire</strong></td><td>1</td><td>billes de verre, CaCO₃, noir de carbone</td></tr>
+<tr><td><strong>Lamellaire</strong></td><td>10 à 40</td><td>talc, mica</td></tr>
+<tr><td><strong>Aciculaire</strong> (aiguilles)</td><td>10 à 100</td><td>wollastonite, fibres courtes</td></tr>
+<tr><td><strong>Fibrillaire</strong></td><td>100 à l'infini</td><td>fibres longues de verre, de carbone</td></tr>
+</table></div>
+<p>Plus le renfort est allongé, plus le module E et la tenue à chaud (<strong>HDT</strong>, température de fléchissement sous charge) montent. Polypropylène : 1,7 GPa seul, 2,8 avec 40 % de CaCO₃, 4,2 avec 40 % de talc, 6,5 avec 30 % de fibres de verre.</p>
+<p>Le <strong>carbonate de calcium</strong> est la charge la plus utilisée : il rigidifie à basse température mais diminue la résistance au choc.</p>
+<p>L'<strong>HDT</strong> se mesure ainsi : une poutre sur deux appuis, chargée, plongée dans un bain chauffé ; on suit sa flèche. Environ 35 % des plastiques sont chargés ou renforcés.</p>
+<div class="schema" id="sc-forme"></div>
+
+<h2>Les principaux renforts</h2>
+<ul>
+<li><strong>Verre</strong> : bon marché, isolant, inerte. Le verre <strong>E</strong> (usage général) fait 90 % des applications. Formes : billes, fibres broyées ou coupées, roving, mat, tissus.</li>
+<li>Lire un fil de verre « E C 9 68 » : type de verre (E usage général, D diélectrique, C chimique, S ou R mécanique), puis C continu ou D discontinu, puis le diamètre en µm, puis la masse linéique en <strong>tex</strong> (1 tex = 1 g/km). Ici : verre E, continu, 9 µm, 68 g par km.</li>
+<li><strong>Fibres de carbone</strong> : aussi rigides que l'acier, <strong>4 fois plus légères</strong>, très bonnes en fatigue, conductrices. Chères : réservées aux pièces de pointe.</li>
+<li><strong>Noir de carbone</strong> : stabilisant (UV), colorant, charge conductrice. <strong>Graphite</strong> : pièces autolubrifiantes.</li>
+<li><strong>Aramide</strong> (Kevlar) : excellente résistance en <strong>traction</strong>, léger, tient 180 °C, mais faible en <strong>compression</strong>.</li>
+<li>Défauts du Kevlar : allongement sous contrainte élevée et tenue en compression limitée.</li>
+<li>Formes du verre : <strong>roving</strong> (stratifil : fils parallèles assemblés sous torsion, pour faire des tissus), <strong>mat</strong> (nappe de fibres discontinues, quelques dixièmes de mm), <strong>tissu</strong> (deux ensembles de fils entrecroisés sur un métier).</li>
+<li><strong>Mica</strong> (lamellaire, économique), <strong>wollastonite</strong> (aciculaire, tenue thermique), <strong>PTFE</strong> en poudre (frottement).</li>
+</ul>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Colorant ou pigment : lequel choisir pour une poche colorée qui doit rester transparente ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un colorant : il est soluble, la poche reste transparente.</p><p>Un pigment, insoluble, la rendrait opaque.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> À quoi sert un antistatique ? Et un ignifugeant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Antistatique : limiter les charges électriques en surface, donc ni poussières ni étincelles.</p><p>Ignifugeant : rendre la combustion plus difficile.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Qu'est-ce qu'un plastifiant, et quel est son effet ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un solvant lourd qui se glisse entre les chaînes et coupe une partie de leurs interactions.</p><p>Le polymère devient souple : rigidité, Tv et limite de flexibilité diminuent.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Comment rend-on le PVC souple pour une poche de perfusion ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On ajoute un plastifiant : la Tv et la température de fragilité baissent (de 0 °C à −5 jusqu'à −60 °C).</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qu'est-ce que le rapport de forme ? Cite les quatre formes de renforts.</p><details class="corrige"><summary>Voir la réponse</summary><p>Le rapport entre la plus grande et la plus petite dimension d'une particule.</p><p>Granulaire, lamellaire, aciculaire, fibrillaire.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi des fibres de verre renforcent-elles plus que du CaCO₃ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elles sont plus allongées (rapport de forme plus grand) : elles reprennent mieux la charge.</p><p>Pour le polypropylène : 6,5 GPa avec 30 % de fibres de verre, contre 2,8 GPa avec 40 % de CaCO₃.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Comment rendre le PVC nettement plus rigide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On le renforce avec des fibres ou d'autres charges.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Le PVC a une densité de 1,45 g/cm³. Comment l'amener à 0,3 g/cm³ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La masse ne peut pas changer : on augmente le volume, on le gonfle.</p><p>\(V_{après} / V_{avant} = \rho_{avant} / \rho_{après}\)</p><p>\(V_{après} / V_{avant} = 1{,}45 / 0{,}3\)</p><p>Environ 4,8 fois le volume.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Que signifie la désignation de fil de verre « E C 9 68 » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Verre E (usage général).</p><p>Fil continu.</p><p>Diamètre de 9 µm.</p><p>Masse linéique de 68 tex, soit 68 g par km.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Donne un atout et un défaut des fibres de carbone, puis de l'aramide.</p><details class="corrige"><summary>Voir la réponse</summary><p>Carbone : rigide comme l'acier et 4 fois plus léger, mais cher.</p><p>Aramide : excellent en traction, mais faible en compression.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>Les matériaux composites</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("biomateriaux", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

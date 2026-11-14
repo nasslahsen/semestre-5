@@ -28,7 +28,7 @@
 
 <h2>Formalisation</h2>
 <h3>Définition et objectif</h3>
-<p>La <strong>modélisation géométrique inverse</strong> (MGI) a pour but de déterminer les valeurs des variables articulaires \(q\) nécessaires pour placer l'organe terminal (OT) à une position et une orientation désirées dans l'espace de travail. Mathématiquement, on cherche à inverser la fonction de la MGD :</p>
+<p>La <strong>modélisation géométrique inverse</strong> (<strong>MGI</strong>) a pour but de déterminer les valeurs des variables articulaires \(q\) nécessaires pour placer l'organe terminal (OT) à une position et une orientation désirées dans l'espace de travail. Mathématiquement, on cherche à inverser la fonction de la MGD :</p>
 \[ q = f^{-1}(X) \]
 <p>où \(X = [x, y, z, \phi, \theta, \psi]^T\) est le vecteur de posture désirée de l'outil (espace cartésien) et \(q = [q_1, q_2, \dots, q_n]^T\) le vecteur des variables articulaires à trouver (espace articulaire).</p>
 <h3>Les défis de la MGI</h3>
@@ -39,7 +39,7 @@
 <li><strong>Les singularités</strong> : par exemple bras tendu, \(\theta_2 = 0\) ; la mobilité instantanée de l'outil est réduite (perte de rang de la jacobienne de position).</li>
 </ol>
 <h3>Les méthodes de résolution</h3>
-<p><strong>Méthodes analytiques (ou géométriques)</strong> : elles utilisent la géométrie et la trigonométrie du robot pour résoudre les équations de manière exacte. Avantages : solution exacte, rapide (temps réel), toutes les solutions. Inconvénients : pas de méthode générale, difficile pour les robots complexes.</p>
+<p><strong>Méthodes analytiques (ou géométriques)</strong> : elles utilisent la géométrie et la trigonométrie du robot pour résoudre les équations de manière exacte. Avantages : solution <strong>exacte</strong>, <strong>rapide</strong> (temps réel), <strong>toutes les solutions</strong>. Inconvénients : pas de méthode générale, difficile pour les robots complexes.</p>
 <p><strong>Méthodes numériques</strong> : elles partent d'une estimation initiale des angles et itèrent pour se rapprocher de la solution. La plus connue est la méthode de Newton-Raphson, qui utilise la matrice jacobienne \(J(q)\) pour linéariser la MGD autour d'une solution courante \(q_k\) :</p>
 \[ q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
 <p>Avantages : méthode générale (elle fonctionne pour n'importe quel robot), facile à implémenter. Inconvénients : convergence non garantie, lente, une seule solution.</p>
@@ -58,7 +58,7 @@
 
 <h2>Formules clés</h2>
 \[ q = f^{-1}(X) \qquad |L_1 - L_2| \leq r \leq L_1 + L_2 \qquad q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
-<p>Analytique : exacte, rapide, toutes les solutions. Numérique : générale, une seule solution, convergence non garantie.</p>
+<p>Analytique : <strong>exacte</strong>, <strong>rapide</strong>, <strong>toutes les solutions</strong>. Numérique : générale, une seule solution, convergence non garantie.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

@@ -36,7 +36,7 @@
 
 <h4>Formalisation</h4>
 <h5>Définition et objectif</h5>
-<p>La <strong>modélisation géométrique inverse</strong> (MGI) a pour but de déterminer les valeurs des variables articulaires \(q\) nécessaires pour placer l'organe terminal (OT) à une position et une orientation désirées dans l'espace de travail. Mathématiquement, on cherche à inverser la fonction de la MGD :</p>
+<p>La <strong>modélisation géométrique inverse</strong> (<strong>MGI</strong>) a pour but de déterminer les valeurs des variables articulaires \(q\) nécessaires pour placer l'organe terminal (OT) à une position et une orientation désirées dans l'espace de travail. Mathématiquement, on cherche à inverser la fonction de la MGD :</p>
 \[ q = f^{-1}(X) \]
 <p>où \(X = [x, y, z, \phi, \theta, \psi]^T\) est le vecteur de posture désirée de l'outil (espace cartésien) et \(q = [q_1, q_2, \dots, q_n]^T\) le vecteur des variables articulaires à trouver (espace articulaire).</p>
 <h5>Les défis de la MGI</h5>
@@ -47,7 +47,7 @@
 <li><strong>Les singularités</strong> : par exemple bras tendu, \(\theta_2 = 0\) ; la mobilité instantanée de l'outil est réduite (perte de rang de la jacobienne de position).</li>
 </ol>
 <h5>Les méthodes de résolution</h5>
-<p><strong>Méthodes analytiques (ou géométriques)</strong> : elles utilisent la géométrie et la trigonométrie du robot pour résoudre les équations de manière exacte. Avantages : solution exacte, rapide (temps réel), toutes les solutions. Inconvénients : pas de méthode générale, difficile pour les robots complexes.</p>
+<p><strong>Méthodes analytiques (ou géométriques)</strong> : elles utilisent la géométrie et la trigonométrie du robot pour résoudre les équations de manière exacte. Avantages : solution <strong>exacte</strong>, <strong>rapide</strong> (temps réel), <strong>toutes les solutions</strong>. Inconvénients : pas de méthode générale, difficile pour les robots complexes.</p>
 <p><strong>Méthodes numériques</strong> : elles partent d'une estimation initiale des angles et itèrent pour se rapprocher de la solution. La plus connue est la méthode de Newton-Raphson, qui utilise la matrice jacobienne \(J(q)\) pour linéariser la MGD autour d'une solution courante \(q_k\) :</p>
 \[ q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
 <p>Avantages : méthode générale (elle fonctionne pour n'importe quel robot), facile à implémenter. Inconvénients : convergence non garantie, lente, une seule solution.</p>
@@ -66,7 +66,7 @@
 
 <h4>Formules clés</h4>
 \[ q = f^{-1}(X) \qquad |L_1 - L_2| \leq r \leq L_1 + L_2 \qquad q_{k+1} = q_k + J^{-1}(q_k)\,\big(X_{cible} - f(q_k)\big) \]
-<p>Analytique : exacte, rapide, toutes les solutions. Numérique : générale, une seule solution, convergence non garantie.</p>
+<p>Analytique : <strong>exacte</strong>, <strong>rapide</strong>, <strong>toutes les solutions</strong>. Numérique : générale, une seule solution, convergence non garantie.</p>
 </article>
 
 <div class="fin-partie" data-section="mgi"></div>
@@ -140,7 +140,7 @@
 <p class="chapeau">Pour déplacer une sonde d'échographie de A vers B sur le patient, connaître les deux poses ne suffit pas : à quelle vitesse, dans quelle direction ? Il faut coordonner les vitesses des articulations.</p>
 
 <h4>Intuition</h4>
-<p>La modélisation géométrique répond à « où placer et comment orienter la sonde ? ». La modélisation cinématique répond à « comment la déplacer ? ». Si je change la vitesse d'un moteur précis, quel est l'effet exact sur la vitesse et la direction de l'outil ? La matrice jacobienne fait cette traduction.</p>
+<p>La modélisation géométrique répond à « où placer et comment orienter la sonde ? ». La modélisation <strong>cinématique</strong> répond à « comment la déplacer ? ». Si je change la vitesse d'un moteur précis, quel est l'effet exact sur la vitesse et la direction de l'outil ? La matrice jacobienne fait cette traduction.</p>
 
 <div id="fig-jacobienne"></div>
 
