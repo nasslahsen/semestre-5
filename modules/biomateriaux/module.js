@@ -22,6 +22,10 @@ PLATEFORME.parcours("biomateriaux", {
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : priorités, plan de six jours, méthodes de calcul, questions de cours.
   examen: { biomateriaux: true },
+  // Podcasts (NotebookLM, faits à partir du cours) : un lecteur sous le titre de la page du chapitre ; fichier dans audio/.
+  podcasts: {
+    1: { titre: "Biocompatibility and Medical Device Classification", duree: "24 min", langue: "en", fichier: "audio/chapitre-1.m4a" }
+  },
   // Cartes de révision (questions de cours) : un paquet à la fin de chaque section, et toutes les cartes du chapitre en fin de chapitre.
   cartesSections: {
     "traction": [

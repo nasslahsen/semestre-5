@@ -42,6 +42,7 @@ modules/<id>/              un dossier par module actif
   cours/<page>.html        une page de cours par notion : la source des pages de chapitre
   figures/<page>.js        les figures interactives d'une page de cours
   images/                  photos réelles : du cours ou sous licence libre (voir section 8)
+  audio/                   podcasts des chapitres (m4a, AAC mono 64 kb/s) : `podcasts[<chapitre>]` de module.js, lecteur sous le titre
   liens-cours.js           pour chaque étape de chaque niveau, la section du cours qui l'explique (généré)
   sources/                 PDF du cours (jamais commités ni publiés, voir .gitignore)
 modules/_modele/           modèle à copier pour un nouveau module (non publié)
