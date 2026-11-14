@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les bases (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 0 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les bases</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-0.html">Lire le cours complet</a></p>
+<p>Les outils de maths que tout le cours utilise sans les redire : angles, cosinus et sinus, vecteurs, matrices.</p>
+
+<h2>Degrés et radians</h2>
+<ul>
+<li>Un tour = 360°, un demi-tour = 180° = <strong>π rad</strong>. 1 rad ≈ 57,3°.</li>
+<li>Degrés → radians : multiplier par π/180. Radians → degrés : multiplier par 180/π.</li>
+<li>Un angle <strong>positif</strong> tourne dans le sens inverse des aiguilles d'une montre (<strong>sens trigonométrique</strong>). −45° est la même position que 315°.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Degrés</th><td>30°</td><td>45°</td><td>60°</td><td>90°</td><td>180°</td></tr>
+<tr><th>Radians</th><td>π/6</td><td>π/4</td><td>π/3</td><td>π/2</td><td>π</td></tr>
+</table></div>
+
+<h2>Cosinus et sinus</h2>
+<ul>
+<li>Sur le cercle de rayon 1, le point à l'angle θ est en \((\cos\theta ; \sin\theta)\) : le <strong>cosinus</strong> est l'ombre sur l'axe horizontal, le <strong>sinus</strong> sur l'axe vertical.</li>
+<li>\(\cos^2\theta + \sin^2\theta = 1\) (Pythagore).</li>
+<li>À distance r : \(x = r\cos\theta\), \(y = r\sin\theta\).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th></th><th>30°</th><th>45°</th><th>60°</th></tr>
+<tr><td>cos</td><td>√3/2 ≈ 0,866</td><td>√2/2 ≈ 0,707</td><td>1/2</td></tr>
+<tr><td>sin</td><td>1/2</td><td>√2/2</td><td>√3/2</td></tr>
+</table></div>
+<p>Les signes par <strong>quadrant</strong> : en haut à droite (+, +), en haut à gauche (−, +), en bas à gauche (−, −), en bas à droite (+, −). Pour vérifier un calcul, regarde où pointe le bras.</p>
+<ul>
+<li>\(\cos(-\alpha) = \cos\alpha\) et \(\sin(-\alpha) = -\sin\alpha\) : passer de +α à −α ne change que le signe des sinus.</li>
+<li>\((\cos(\alpha + 90°) ; \sin(\alpha + 90°)) = (-\sin\alpha ; \cos\alpha)\) : c'est la deuxième colonne d'une matrice de rotation.</li>
+</ul>
+
+<h2>Le triangle rectangle</h2>
+<p>Un bras de longueur L incliné de θ : il avance de \(L\cos\theta\) (côté <strong>adjacent</strong>) et monte de \(L\sin\theta\) (côté <strong>opposé</strong>). Dans l'autre sens, on connaît (x, y) :</p>
+\[L = \sqrt{x^2 + y^2} \qquad \tan\theta = \frac{y}{x}\]
+<p>Ces deux passages, de (L, θ) vers (x, y) et retour, reviennent tout le temps : un bras connaît ses angles, la tâche donne des positions.</p>
+<div class="schema" id="sc-polaire"></div>
+
+<h2>Vecteurs</h2>
+<ul>
+<li>Un <strong>vecteur</strong> est un déplacement : une direction et une longueur. Il ne dépend pas de son point de départ.</li>
+<li>Somme : composante par composante. C'est la <strong>relation de Chasles</strong> : \(\overrightarrow{OA} + \overrightarrow{AM} = \overrightarrow{OM}\).</li>
+<li>Multiplier par k multiplie chaque composante ; k négatif retourne le vecteur.</li>
+<li><strong>Norme</strong> (longueur) : \(|\vec{V}| = \sqrt{V_x^2 + V_y^2 + V_z^2}\).</li>
+<li><strong>Vecteur unitaire</strong> : \(\hat{u} = \vec{u} / |\vec{u}|\), de longueur 1. Les axes d'un repère sont unitaires.</li>
+</ul>
+
+<h2>Matrices</h2>
+<ul>
+<li>Matrice fois vecteur, <strong>ligne par ligne</strong> : chaque case du résultat est une ligne fois le vecteur.</li>
+<li><strong>Colonne par colonne</strong> : le résultat est un mélange des colonnes, dosé par les composantes du vecteur. C'est la clé des rotations : les colonnes d'une matrice de rotation sont les axes du repère tourné.</li>
+<li>Matrice fois matrice : la case (i, j) est la ligne i de A fois la colonne j de B.</li>
+<li>\((AB)V = A(BV)\) : on applique d'abord B, celle de droite. En général <strong>AB ≠ BA</strong> : l'ordre compte.</li>
+<li><strong>Transposée</strong> : on échange lignes et colonnes. Pour une rotation, \(R^T R = I\), donc \(R^{-1} = R^T\).</li>
+</ul>
+<div class="schema" id="sc-lecture-matrice"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Combien vaut 180° en radians ? Et π/3 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>180° = π rad.</p><p>π/3 rad = 60°.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Dans quel sens tourne un angle positif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Dans le sens inverse des aiguilles d'une montre (sens trigonométrique).</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Un bras de 0,8 m fait 60° avec l'horizontale. De combien avance-t-il et monte-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(x = L\cos\theta = 0{,}8 \times 0{,}5 = 0{,}4\) m</p><p>\(y = L\sin\theta = 0{,}8 \times 0{,}866 \approx 0{,}693\) m</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Le bout d'un bras est en (0,5 ; 1,2) m. Sa longueur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(L = \sqrt{x^2 + y^2}\)</p><p>\(L = \sqrt{0{,}25 + 1{,}44}\)</p><p>\(L = 1{,}3\) m</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Le bras pointe en bas à gauche : signes de cos θ et sin θ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>cos θ &lt; 0 et sin θ < 0 (3e quadrant).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce que la relation de Chasles ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\overrightarrow{OA} + \overrightarrow{AM} = \overrightarrow{OM}\) : enchaîner deux déplacements, c'est additionner les vecteurs.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Norme de V = (2 ; 3 ; 6) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(|\vec{V}| = \sqrt{4 + 9 + 36} = \sqrt{49} = 7\)</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Comment lire un produit matrice-vecteur colonne par colonne ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le résultat est un mélange des colonnes de la matrice, dosé par les composantes du vecteur.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> AB et BA sont-ils égaux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En général non : le produit de matrices n'est pas commutatif, l'ordre compte.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quelle est l'inverse d'une matrice de rotation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Sa transposée : \(R^{-1} = R^T\), car \(R^T R = I\).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-1.html"><small>Version courte suivante</small>Le robot et sa description</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 0) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

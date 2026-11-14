@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le robot et sa description (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 1 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le robot et sa description</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-1.html">Lire le cours complet</a></p>
+<h2>Le robot</h2>
+<p><strong>Robot</strong> (définition retenue) : un système programmable capable d'exécuter des actions dans son environnement afin d'accomplir une tâche donnée, de manière automatique, semi-autonome ou sous le contrôle d'un opérateur. Mots clés : <strong>programmable</strong>, <strong>action</strong>, <strong>environnement</strong>, <strong>tâche</strong>.</p>
+<p>La <strong>robotique</strong> est pluridisciplinaire : étude, conception, réalisation, programmation, commande et utilisation des robots (mécanique, électrique, informatique, mathématiques…).</p>
+<p>Le fonctionnement est une <strong>boucle</strong> :</p>
+<ol>
+<li><strong>Percevoir</strong> : acquérir des informations sur l'environnement et sur son propre état (capteurs, entrées).</li>
+<li><strong>Traiter</strong> les informations (système de commande : ordinateur, API).</li>
+<li><strong>Décider</strong> selon le programme et la situation (plan d'action).</li>
+<li><strong>Agir</strong> (actionneurs, sorties).</li>
+</ol>
+<p>L'action modifie l'environnement, qui renvoie de nouvelles informations : la boucle se referme.</p>
+<div class="schema" id="sc-boucle"></div>
+
+<h2>Le système robotisé</h2>
+<p>Un <strong>robot industriel</strong> est un manipulateur programmable, commandé automatiquement. Il n'est qu'un élément de la cellule : un <strong>système robotisé</strong> est un ensemble de composants qui coopèrent pour réaliser automatiquement une tâche.</p>
+<ul>
+<li><strong>Chaîne d'information</strong> : mesurer, traiter, commander (capteurs, vision, contrôleur, API, IHM).</li>
+<li><strong>Chaîne d'énergie</strong> : alimenter et moduler l'énergie (alimentation, variateurs, moteurs).</li>
+<li><strong>Chaîne d'action</strong> : transformer les ordres en mouvement (actionneurs, transmissions, manipulateur, effecteur).</li>
+<li><strong>Sécurité</strong> : arrêt d'urgence, barrière immatérielle, porte interverrouillée, scanner laser.</li>
+</ul>
+<p>Composants d'un robot industriel : manipulateur, actionneurs (servomoteurs), capteurs (codeurs, couple, vision), contrôleur, effecteur terminal (pince, ventouse, outil), teach pendant (pupitre de programmation).</p>
+<div class="schema" id="sc-systeme"></div>
+
+<h2>Classer un robot : cinq critères</h2>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Catégories</th></tr>
+<tr><td><strong>Mobilité</strong></td><td>fixes, mobiles, hybrides (base mobile + bras)</td></tr>
+<tr><td><strong>Architecture</strong></td><td>sériels (chaîne ouverte), parallèles (chaîne fermée), hybrides</td></tr>
+<tr><td><strong>Interaction avec l'humain</strong></td><td>industriels (séparés), collaboratifs ou cobots (espace partagé), de service</td></tr>
+<tr><td><strong>Autonomie</strong></td><td>téléopéré, programmé, adaptatif, autonome</td></tr>
+<tr><td><strong>Domaine</strong></td><td>industriel, service, médical, militaire, spatial</td></tr>
+</table></div>
+<p>Un même robot appartient à plusieurs catégories selon le critère.</p>
+<div class="schema" id="sc-classement"></div>
+
+<h2>L'anatomie d'un robot</h2>
+<ul>
+<li><strong>Base</strong> : partie fixe qui supporte le robot.</li>
+<li><strong>Segment</strong> : élément rigide reliant deux articulations.</li>
+<li><strong>Articulation</strong> : liaison mobile entre deux segments.</li>
+<li><strong>Axe</strong> : direction autour ou le long de laquelle l'articulation bouge ; un mouvement indépendant commandé.</li>
+<li><strong>Poignet</strong> : articulations terminales qui orientent l'effecteur.</li>
+<li><strong>Effecteur</strong> (organe terminal) : l'outil qui fait la tâche. En médecine : pince, ciseaux, porte-aiguille, caméra endoscopique.</li>
+</ul>
+<p>Deux types d'articulations : <strong>rotoïde (R)</strong>, une rotation de variable θᵢ ; <strong>prismatique (P)</strong>, une translation de variable dᵢ. Exemples : robot articulé RRRRRR, cartésien PPP, SCARA (R et P).</p>
+<div class="schema" id="sc-articulations"></div>
+
+<h2>Degrés de liberté</h2>
+<ul>
+<li>Un <strong>degré de liberté</strong> (DDL) est un mouvement indépendant. Une articulation active donne 1 DDL.</li>
+<li>Un solide dans l'espace : <strong>6 DDL</strong> = 3 translations + 3 rotations. Dans le plan : 3 DDL (2 translations + 1 rotation).</li>
+<li>Rotations : Rx <strong>roulis</strong>, Ry <strong>tangage</strong>, Rz <strong>lacet</strong>.</li>
+<li>L'effecteur a au plus 6 DDL (3 de position, 3 d'orientation).</li>
+<li>Trois notions distinctes : le <strong>nombre d'axes</strong> (ce que le contrôleur commande), les <strong>DDL articulaires</strong>, les <strong>DDL de l'effecteur</strong> (ce que l'outil peut faire).</li>
+<li>Robot <strong>redondant</strong> : 7 axes pour un effecteur à 6 DDL, plus 1 DDL de redondance (on bouge le coude sans bouger la pince).</li>
+<li><strong>Configuration articulaire</strong> \(q = [q_1, \dots, q_n]^T\) : la posture des segments. <strong>Configuration opérationnelle</strong> \(X = [x, y, z, \alpha, \beta, \gamma]^T\) : la pose de l'outil. Passer de q à X : le <strong>modèle géométrique direct</strong>.</li>
+</ul>
+<div class="schema" id="sc-configurations"></div>
+
+<h2>Les liaisons normalisées</h2>
+<p>Une <strong>liaison</strong> relie deux segments et bloque certains mouvements : DDL restants = 6 − contraintes. Mobilité + liaison = 6.</p>
+<div class="tableau"><table>
+<tr><th>Liaison</th><th>Mouvements permis</th><th>Mobilités</th></tr>
+<tr><td>Encastrement</td><td>aucun</td><td>0</td></tr>
+<tr><td>Glissière</td><td>Tx</td><td>1</td></tr>
+<tr><td>Pivot</td><td>Rx</td><td>1</td></tr>
+<tr><td>Hélicoïdale</td><td>Tx et Rx couplées</td><td>1</td></tr>
+<tr><td>Pivot glissant</td><td>Tx, Rx</td><td>2</td></tr>
+<tr><td>Plane</td><td>Tx, Ty, Rz</td><td>3</td></tr>
+<tr><td>Rotule</td><td>Rx, Ry, Rz</td><td>3</td></tr>
+<tr><td>Linéaire annulaire</td><td>Tx, Rx, Ry, Rz</td><td>4</td></tr>
+<tr><td>Ponctuelle</td><td>Tx, Ty, Rx, Ry, Rz</td><td>5</td></tr>
+</table></div>
+<p>Environ <strong>95 %</strong> des manipulateurs n'utilisent que le <strong>pivot</strong> (R) et la <strong>glissière</strong> (P) : 1 DDL, 1 actionneur, commande simple, bonne rigidité et précision.</p>
+<div class="schema" id="sc-liaisons"></div>
+
+<h2>Schémas, topologies, architectures</h2>
+<ul>
+<li><strong>Schéma cinématique</strong> : une représentation épurée qui ne garde que les axes des liaisons et les traits qui les relient. Il prépare les calculs (Denavit–Hartenberg).</li>
+<li>Schéma <strong>plan</strong> : tous les axes de rotation parallèles (z₀ ∥ z₁). Schéma <strong>spatial</strong> : des axes d'orientations différentes (presque tous les robots industriels).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Topologie</th><th>Définition</th><th>Exemples</th></tr>
+<tr><td><strong>Série</strong> (chaîne ouverte)</td><td>chaque solide relié à au plus deux autres, pas de boucle, extrémité libre</td><td>bras 6R, ROSA ONE Brain</td></tr>
+<tr><td><strong>Parallèle</strong> (chaîne fermée)</td><td>au moins une boucle, plusieurs chaînes vers l'effecteur</td><td>Delta, Stewart, SurgiScope</td></tr>
+<tr><td><strong>Arborescente</strong></td><td>des embranchements, pas de boucle</td><td>humanoïde</td></tr>
+<tr><td><strong>Hybride</strong></td><td>série + parallèle</td><td>plateforme portant un bras</td></tr>
+</table></div>
+<div class="tableau"><table>
+<tr><th>Robot sériel</th><th>Mouvements</th><th>Espace de travail</th></tr>
+<tr><td>Cartésien PPP</td><td>3 translations</td><td>parallélépipède</td></tr>
+<tr><td>Cylindrique</td><td>rotation autour de Z + 2 translations</td><td>cylindre</td></tr>
+<tr><td>Sphérique (polaire)</td><td>rotations + translation radiale</td><td>sphère</td></tr>
+<tr><td>SCARA</td><td>2 rotations horizontales + 1 translation verticale</td><td>anneau extrudé</td></tr>
+<tr><td>Articulé</td><td>rotations en série, comme un bras</td><td>forme complexe</td></tr>
+</table></div>
+<ul>
+<li><strong>Espace de travail</strong> : l'ensemble des positions que l'effecteur peut atteindre. Il dépend de l'architecture, des longueurs, des limites articulaires et des obstacles.</li>
+<li><strong>Sériel</strong> : grande enveloppe, dextérité, polyvalence, coût plus bas. <strong>Parallèle</strong> : précision, rigidité, vitesse, charge, peu d'inertie mobile.</li>
+<li><strong>Charge utile</strong> : la masse maximale transportée en gardant les performances. On compte tout : effecteur + pièce + accessoires.</li>
+</ul>
+<div class="schema" id="sc-serie-parallele"></div>
+
+<h2>Performances</h2>
+<ul>
+<li><strong>Précision</strong> : atteindre le point demandé (écart entre position atteinte et position demandée).</li>
+<li><strong>Répétabilité</strong> : revenir plusieurs fois au même point, positions groupées. Un robot peut être <strong>répétable sans être précis</strong> : toujours au même endroit, mais décalé de la cible (écart constant, qu'on compense).</li>
+<li><strong>Temps de cycle</strong> : la durée d'une opération complète jusqu'au retour à l'état initial. \(T_{cycle} = T_{approche} + T_{prise} + T_{transfert} + T_{dépose} + T_{retour} + T_{synchro}\), et la cadence \(N = 3600 / T_{cycle}\) cycles/h.</li>
+<li>Aller plus vite ne raccourcit que les mouvements, pas les temps de prise, de dépose et d'attente : doubler la vitesse ne double pas la cadence.</li>
+</ul>
+<div class="schema" id="sc-precision"></div>
+
+<h2>La robotique médicale</h2>
+<p><strong>Robotique médicale</strong> = robot + professionnel de santé + patient + environnement clinique. Les robots assistent les soignants, améliorent la précision et facilitent la prise en charge.</p>
+<div class="tableau"><table>
+<tr><th></th><th>Industrielle</th><th>Médicale</th></tr>
+<tr><td>Environnement</td><td>structuré, statique</td><td>vivant, variable, non structuré</td></tr>
+<tr><td>Objet</td><td>pièce standardisée</td><td>patient variable, tissus déformables</td></tr>
+<tr><td>Relation à l'humain</td><td>séparation, zone d'exclusion</td><td>contact direct</td></tr>
+<tr><td>Objectif</td><td>performance, cadence</td><td>assistance, précision, sécurité</td></tr>
+<tr><td>Commande</td><td>programmée</td><td>téléopérée, adaptative, supervisée</td></tr>
+<tr><td>Sécurité</td><td>barrières, arrêt d'urgence</td><td>forces limitées, détection de collision, sécurité intrinsèque</td></tr>
+</table></div>
+<p>Les six ruptures :</p>
+<ul>
+<li>Pièce standard → patient variable : <strong>perception adaptative</strong> (imagerie en temps réel, recalage, suivi des mouvements physiologiques).</li>
+<li>Zone d'exclusion → contact direct : <strong>sécurité intrinsèque</strong> (forces limitées, détection de collision, arrêt instantané).</li>
+<li>Précision géométrique → biomécanique : le <strong>repère anatomique</strong>.</li>
+<li>Reprogrammation → <strong>décision assistée</strong> : le praticien supervise pendant l'acte.</li>
+<li>Fiabilité économique → <strong>vitale</strong> : classe III, normes ISO 13485, IEC 60601, ISO 14971, essais cliniques.</li>
+<li>Environnement contrôlé → <strong>contraint</strong> : stérilisation, biocompatibilité, compatibilité IRM.</li>
+</ul>
+<div class="schema" id="sc-ruptures"></div>
+<p>Les <strong>IHM</strong> médicales : téléopération (da Vinci, avec mise à l'échelle des mouvements et filtrage des tremblements), co-manipulation (Mako, barrière virtuelle), haptique (retour d'effort), multimodale (voix, gestes), immersive (RV pour planifier, RA pour guider), cerveau-machine (BrainGate). Le praticien reste dans la boucle.</p>
+<div class="schema" id="sc-ihm"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne la définition d'un robot retenue par le cours.</p><details class="corrige"><summary>Voir la réponse</summary><p>Un système programmable capable d'exécuter des actions dans son environnement afin d'accomplir une tâche donnée, de manière automatique, semi-autonome ou sous le contrôle d'un opérateur.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelles sont les quatre étapes de la boucle de fonctionnement d'un robot ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Percevoir (capteurs).</p><p>Traiter (commande).</p><p>Décider (plan d'action).</p><p>Agir (actionneurs).</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quels sont les quatre sous-systèmes d'un système robotisé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La chaîne d'information.</p><p>La chaîne d'énergie.</p><p>La chaîne d'action.</p><p>La sécurité.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite les cinq critères de classement d'un robot.</p><details class="corrige"><summary>Voir la réponse</summary><p>Mobilité, architecture, interaction avec l'humain, autonomie, domaine.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelle différence entre une articulation rotoïde et prismatique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rotoïde (R) : une rotation, variable θᵢ.</p><p>Prismatique (P) : une translation, variable dᵢ.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Combien de DDL a un solide dans l'espace ? Dans le plan ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Dans l'espace : 6 (3 translations, 3 rotations).</p><p>Dans le plan : 3 (2 translations, 1 rotation).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'est-ce qu'un robot redondant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un robot qui a plus d'axes que les DDL de son effecteur, par exemple 7 axes pour 6 DDL : il peut bouger le coude sans bouger la pince.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Configuration articulaire et configuration opérationnelle : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Articulaire q : la posture des segments (les variables articulaires).</p><p>Opérationnelle X : la position et l'orientation de l'outil.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Combien de mobilités pour un pivot, une rotule, une ponctuelle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pivot : 1. Rotule : 3. Ponctuelle : 5.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Pourquoi presque tous les robots n'utilisent-ils que des pivots et des glissières ?</p><details class="corrige"><summary>Voir la réponse</summary><p>1 DDL et 1 actionneur chacun : une commande simple, une bonne rigidité et une bonne précision.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Série, parallèle, arborescente : définis chaque topologie.</p><details class="corrige"><summary>Voir la réponse</summary><p>Série : chaîne ouverte, pas de boucle, extrémité libre.</p><p>Parallèle : au moins une boucle.</p><p>Arborescente : des embranchements, sans boucle.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Quel espace de travail pour un robot cartésien, cylindrique, SCARA ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Cartésien : parallélépipède.</p><p>Cylindrique : cylindre.</p><p>SCARA : anneau extrudé.</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Précision et répétabilité : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Précision : atteindre le point demandé.</p><p>Répétabilité : revenir toujours au même point.</p><p>Un robot peut être répétable sans être précis.</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Un cycle dure 2 s. Quelle cadence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(N = 3600 / T_{cycle}\)</p><p>\(N = 3600 / 2\)</p><p>\(N = 1800\) cycles/h</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Cite trois des six ruptures entre robotique industrielle et médicale.</p><details class="corrige"><summary>Voir la réponse</summary><p>Patient variable : perception adaptative.</p><p>Contact direct : sécurité intrinsèque.</p><p>Fiabilité vitale : normes, classe III, essais cliniques.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-2.html"><small>Version courte suivante</small>Repères et vecteurs dans l&#x27;espace</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 1) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

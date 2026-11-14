@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Transformations (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Transformations</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>Le changement de repère</h2>
+<p>La matrice de rotation sert de <strong>traducteur</strong> : elle convertit les composantes d'un vecteur d'un repère à l'autre.</p>
+\[V^i = R^{i,j}\,V^j \quad (1.2) \qquad \overrightarrow{O_0M}^0 = \overrightarrow{O_0O_s}^0 + R^{0,s}\,\overrightarrow{O_sM}^s \quad (1.3)\]
+<ul>
+<li>(1.3) en trois étapes : on part de \(\overrightarrow{O_sM}^s\), <strong>constant</strong> dans le repère du solide ; on le traduit dans R₀ avec R⁰ˢ ; on <strong>ajoute</strong> la position de l'origine du solide.</li>
+<li>Dans l'autre sens : \(V^s = R^{s,0} V^0\) avec \(R^{s,0} = (R^{0,s})^T\).</li>
+<li>La <strong>situation</strong> (configuration) d'un corps : position + orientation, notée (R, p⃗), soit <strong>6 paramètres</strong> (3 de position, 3 d'orientation).</li>
+</ul>
+<div class="schema" id="sc-changement"></div>
+
+<h2>La matrice homogène</h2>
+<p>Rotation et translation dans <strong>une seule matrice 4 × 4</strong> : (1.3) devient une simple multiplication.</p>
+\[T^{0,s} = \begin{pmatrix} R^{0,s} & \overrightarrow{O_0O_s}^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} \qquad \begin{pmatrix} \overrightarrow{O_0M}^0 \\ 1 \end{pmatrix} = T^{0,s} \begin{pmatrix} \overrightarrow{O_sM}^s \\ 1 \end{pmatrix}\]
+<ul>
+<li>Les trois premières colonnes : les axes x_s, y_s, z_s dans R₀. La quatrième : la <strong>position</strong> de l'origine O_s. Dernière ligne : 0 0 0 1.</li>
+<li>Le 1 ajouté à un point « active » la translation. Avec un 0 (une direction), la translation est ignorée.</li>
+<li><strong>Inverse</strong> : \((T^{0,s})^{-1} = \begin{pmatrix} R^T & -R^T P \\ 0 & 1 \end{pmatrix}\). Elle permet de changer de point de vue (de la caméra à l'organe).</li>
+</ul>
+<div class="schema" id="sc-homogene"></div>
+
+<h2>La composition</h2>
+<p>Pour un bras de n segments en série, la pose de l'outil par rapport à la base :</p>
+\[T^{0,n} = T^{0,1}\,T^{1,2} \cdots T^{n-1,n}\]
+<ul>
+<li>Les indices intérieurs s'enchaînent comme des dominos ; il ne reste que les indices extérieurs.</li>
+<li><strong>L'ordre compte</strong> : tourner puis avancer ≠ avancer puis tourner, car chaque mouvement est exprimé dans le repère obtenu juste avant. Rot·Trans ≠ Trans·Rot.</li>
+</ul>
+<div class="schema" id="sc-composition"></div>
+
+<h2>Le bras 2R : modèle géométrique direct</h2>
+<p>Deux pivots d'axes parallèles, segments l₁ et l₂, angles θ₁ et θ₂. On veut la position de la pince M : c'est le <strong>modèle géométrique direct</strong> (MGD), p = f(q).</p>
+<ol>
+<li>\(T^{0,1}\) : rotation θ₁ autour de z₀.</li>
+<li>\(T^{1,2}\) : rotation θ₂ autour de z₁, origine au bout du segment 1, \((l_1 ; 0 ; 0)\).</li>
+<li>\(T^{0,2} = T^{0,1} T^{1,2}\) : rotation <strong>θ₁ + θ₂</strong>, origine O₂ en \((l_1\cos\theta_1 ; l_1\sin\theta_1)\).</li>
+<li>M est à l₂ sur x₂ :</li>
+</ol>
+\[x_M = l_1\cos\theta_1 + l_2\cos(\theta_1 + \theta_2) \qquad y_M = l_1\sin\theta_1 + l_2\sin(\theta_1 + \theta_2)\]
+<ul>
+<li>L'<strong>orientation</strong> de l'outil vaut θ₁ + θ₂ : deux rotations autour d'axes parallèles s'additionnent.</li>
+<li><strong>Espace de travail</strong> : un anneau, \(|l_1 - l_2| \le O_0M \le l_1 + l_2\).</li>
+<li>Formules d'addition : \(\cos(a + b) = \cos a\cos b - \sin a\sin b\), \(\sin(a + b) = \sin a\cos b + \cos a\sin b\).</li>
+</ul>
+<div class="schema" id="sc-bras2r"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Écris la relation de changement de repère (1.2).</p><details class="corrige"><summary>Voir la réponse</summary><p>\(V^i = R^{i,j}\,V^j\)</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Écris la relation (1.3) et explique ses termes.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\overrightarrow{O_0M}^0 = \overrightarrow{O_0O_s}^0 + R^{0,s}\,\overrightarrow{O_sM}^s\)</p><p>\(\overrightarrow{O_sM}^s\) : le point dans le repère du solide (constant).</p><p>\(R^{0,s}\) : le traduit dans R₀.</p><p>\(\overrightarrow{O_0O_s}^0\) : la position de l'origine du solide.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Combien de paramètres pour la situation d'un corps rigide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>6 : 3 de position et 3 d'orientation.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Que contient une matrice homogène T⁰ˢ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le bloc de rotation R⁰ˢ (3 × 3), la position de l'origine O_s (4e colonne), et la ligne 0 0 0 1.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Pourquoi ajoute-t-on un 1 aux coordonnées d'un point ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour activer la quatrième colonne, donc la translation. Avec un 0, une direction ignore la translation.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Écris l'inverse d'une matrice homogène.</p><details class="corrige"><summary>Voir la réponse</summary><p>\((T^{0,s})^{-1} = \begin{pmatrix} R^T & -R^T P \\ 0 & 1 \end{pmatrix}\)</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Comment obtient-on la pose de l'outil par rapport à la base ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(T^{0,n} = T^{0,1}\,T^{1,2} \cdots T^{n-1,n}\)</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Tourner puis avancer, ou avancer puis tourner : même résultat ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : même orientation finale, mais positions différentes. L'ordre des matrices compte.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Donne la position de l'organe terminal du bras 2R.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(x_M = l_1\cos\theta_1 + l_2\cos(\theta_1 + \theta_2)\)</p><p>\(y_M = l_1\sin\theta_1 + l_2\sin(\theta_1 + \theta_2)\)</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> l₁ = 0,4 m, l₂ = 0,3 m, θ₁ = 30°, θ₂ = 45°. Position de M ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(x_M = 0{,}4\cos 30° + 0{,}3\cos 75°\)</p><p>\(x_M = 0{,}346 + 0{,}078 = 0{,}424\) m</p><p>\(y_M = 0{,}4\sin 30° + 0{,}3\sin 75°\)</p><p>\(y_M = 0{,}200 + 0{,}290 = 0{,}490\) m</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Quelle est l'orientation de l'outil du bras 2R ?</p><details class="corrige"><summary>Voir la réponse</summary><p>θ₁ + θ₂.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Quel est l'espace de travail du bras 2R ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un anneau : \(|l_1 - l_2| \le O_0M \le l_1 + l_2\).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-10.html"><small>Version courte suivante</small>Modélisation des robots médicaux</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

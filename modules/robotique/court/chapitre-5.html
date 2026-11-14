@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architecture mécanique d&#x27;un axe (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Architecture mécanique d&#x27;un axe</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<h2>La chaîne fonctionnelle</h2>
+<p>Un axe robotique associe une <strong>source d'énergie</strong>, un <strong>actionneur</strong>, une <strong>transmission</strong>, un <strong>guidage</strong> et une <strong>structure</strong>. Le mouvement suit toujours le même chemin :</p>
+<p>Moteur → Réduction → Transmission → Guidage → Bras / effecteur</p>
+<div class="tableau"><table>
+<tr><th>Constituant</th><th>Rôle</th><th>Ce qu'il peut dégrader</th></tr>
+<tr><td>Actionneur (moteur)</td><td>créer le mouvement</td><td>vitesse et couple disponibles</td></tr>
+<tr><td>Réduction</td><td>adapter vitesse et couple</td><td>jeu, rendement, frottement</td></tr>
+<tr><td>Transmission</td><td>amener le mouvement jusqu'à l'organe</td><td>rigidité, jeu</td></tr>
+<tr><td>Guidage</td><td>autoriser le mouvement utile, bloquer le reste</td><td>jeu, frottement, alignement</td></tr>
+<tr><td>Structure (bras, effecteur)</td><td>porter la charge et l'outil</td><td>déformations, rigidité</td></tr>
+</table></div>
+<p>Les performances dépendent de <strong>toute la chaîne</strong> : jeu, rigidité, frottement, rendement, déformations, défauts d'alignement, tolérances de montage. Un jeu à l'épaule se retrouve au bout de l'outil.</p>
+<div class="schema" id="sc-axe"></div>
+
+<h2>Une lettre, plusieurs sens : l'unité tranche</h2>
+<ul>
+<li><strong>P</strong> : puissance (W) ou charge dynamique équivalente d'un roulement (N).</li>
+<li><strong>C</strong> : couple (N·m) ou capacité dynamique d'un roulement (N).</li>
+<li><strong>m</strong> : module d'un engrenage (mm) ou masse (kg).</li>
+<li><strong>p</strong> : exposant de durée d'un roulement, pas d'une courroie, ou avance d'une vis.</li>
+<li>Indices : e entrée, s sortie, m moteur, g gravitaire, d dimensionnement, f frottement, tot total, req requis.</li>
+<li>Règle : toujours écrire l'<strong>unité</strong> à côté d'un nombre.</li>
+</ul>
+<div class="schema" id="sc-symboles"></div>
+
+<h2>Vitesse, couple, puissance</h2>
+\[\omega = \frac{2\pi n}{60} \quad (1.1) \qquad P = C\,\omega \quad (1.2) \qquad C_s \simeq \eta\, i\, C_e \quad (1.3)\]
+<ul>
+<li>ω en rad/s, n en tr/min, P en W, C en N·m.</li>
+<li>Rapport \(i = \omega_e / \omega_s\) : un <strong>réducteur</strong> a i &gt; 1, la sortie tourne i fois moins vite et donne environ η i fois plus de couple.</li>
+<li>Il ne crée pas de puissance : \(P_s \simeq \eta P_e\), les frottements en perdent un peu.</li>
+<li>Attention : au chapitre engrenages, \(i_{12} = \omega_2 / \omega_1\) (sortie sur entrée). Vérifier la convention.</li>
+<li>Couple et bras de levier : \(C = F r\).</li>
+</ul>
+<div class="schema" id="sc-reducteur"></div>
+
+<h2>Rigidité torsionnelle et jeu angulaire</h2>
+<ul>
+<li><strong>Rigidité torsionnelle</strong> : \(k_\theta = C / \theta\) (1.4), en N·m/rad. Plus elle est grande, moins l'arbre se tord sous un couple.</li>
+<li><strong>Jeu</strong> : un petit angle libre dans la transmission ; la sortie tourne sans que le moteur bouge.</li>
+<li>Ce petit angle devient au bout du bras un arc : \(\Delta x \simeq L\,\Delta\theta\) (1.5), avec Δθ <strong>en radians</strong> (\(\theta_{rad} = \theta_° \times \pi / 180\)).</li>
+<li>Plusieurs articulations : chaque jeu agit avec la distance entre son axe et l'outil ; additionner donne le <strong>cas le plus défavorable</strong>.</li>
+</ul>
+<p>Exemple du cours : L = 0,40 m, Δθ = 0,20° = 3,49 × 10⁻³ rad, donc Δx ≈ 1,40 mm. Même un faible jeu crée un écart mesurable.</p>
+<div class="schema" id="sc-jeu"></div>
+
+<h2>Contraintes biomédicales</h2>
+<div class="tableau"><table>
+<tr><th>Critères classiques</th><th>Critères liés au contexte biomédical</th></tr>
+<tr><td>charge, rigidité, durée de vie, coût</td><td>masse mobile limitée, bruit et vibrations limités, pas de points de pincement, facile à nettoyer et à maintenir, lubrifiants confinés</td></tr>
+</table></div>
+<ul>
+<li><strong>Point de pincement</strong> : deux pièces qui se rapprochent pendant le mouvement, où un doigt ou un tissu peut être coincé. À supprimer dès la conception.</li>
+<li>Lubrifiant qui s'échappe : il contamine la zone de soin, d'où carters étanches et joints.</li>
+<li>Le choix final dépend de l'<strong>importance de chaque critère</strong>.</li>
+</ul>
+<div class="schema" id="sc-criteres-axe"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne la chaîne fonctionnelle d'un axe.</p><details class="corrige"><summary>Voir la réponse</summary><p>Moteur → Réduction → Transmission → Guidage → Bras / effecteur.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quel est le rôle de la réduction ? Que peut-elle dégrader ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Adapter vitesse et couple (moins vite, plus de couple).</p><p>Elle peut ajouter du jeu, du frottement et baisser le rendement.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quel est le rôle du guidage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Autoriser le mouvement utile et bloquer les autres.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> De quoi dépend la précision de l'outil ?</p><details class="corrige"><summary>Voir la réponse</summary><p>De toute la chaîne : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Sur une fiche de roulement, P = 0,8 kN. Est-ce une puissance ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : l'unité est une force. C'est la charge dynamique équivalente du roulement.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Écris la conversion de tr/min en rad/s.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\omega = \dfrac{2\pi n}{60}\)</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Écris la puissance mécanique de rotation.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(P = C\,\omega\)</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Un réducteur a i = 50 et η = 0,8. Que deviennent la vitesse et le couple ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La vitesse de sortie est 50 fois plus faible.</p><p>\(C_s \simeq \eta\, i\, C_e = 40\,C_e\)</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Un moteur tourne à 3000 tr/min avec 0,32 N·m. Sa puissance ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\omega = 2\pi \times 3000 / 60 \approx 314{,}16\) rad/s</p><p>\(P = C\omega = 0{,}32 \times 314{,}16\)</p><p>\(P \approx 100{,}5\) W</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Un réducteur crée-t-il de la puissance ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : \(P_s \simeq \eta P_e\), il en perd un peu par frottement.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Définis la rigidité torsionnelle.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(k_\theta = C / \theta\), en N·m/rad : le couple divisé par l'angle de torsion.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Qu'est-ce que le jeu angulaire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un petit angle libre dans la transmission : la sortie peut tourner sans que le moteur bouge.</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Bras de 0,40 m, jeu de 0,20°. Écart au bout ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\Delta\theta = 0{,}20 \times \pi / 180 = 3{,}49 \times 10^{-3}\) rad</p><p>\(\Delta x \simeq L\,\Delta\theta = 0{,}40 \times 3{,}49 \times 10^{-3}\)</p><p>\(\Delta x \approx 1{,}40\) mm</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Pourquoi convertir Δθ en radians ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\Delta x \simeq L\Delta\theta\) est la longueur d'un arc, valable seulement en radians. Sinon le résultat est environ 57 fois trop grand.</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Quels sont les critères classiques d'un axe ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Charge, rigidité, durée de vie, coût.</p></details></div>
+<div class="question-court"><p class="q"><span>16.</span> Quels critères ajoute le contexte biomédical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Masse mobile limitée.</p><p>Bruit et vibrations limités.</p><p>Pas de points de pincement.</p><p>Facile à nettoyer et à maintenir.</p><p>Lubrifiants confinés.</p></details></div>
+<div class="question-court"><p class="q"><span>17.</span> Qu'est-ce qu'un point de pincement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un endroit où deux pièces se rapprochent pendant le mouvement et peuvent coincer un doigt ou un tissu.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>Assemblages et fixations</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "meca") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

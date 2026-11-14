@@ -11,6 +11,7 @@ PLATEFORME.parcours("robotique", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   // Page « Préparer l'examen » (examen.html, lien sur la carte), commune aux deux sous-modules ; elle ouvre « L'essentiel en schémas ».
   examen: { bio: true, meca: true },
+  court: [0, 1, 2, 3, 4, 10, 11, 5, 6, 7, 8],
   // Cartes de révision (questions de cours) : un paquet à la fin de chaque section, et toutes les cartes du chapitre en fin de chapitre.
   cartesSections: {
     "angles-cercle": [

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Guidages rotatifs et linéaires (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 7 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Guidages rotatifs et linéaires</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-7.html">Lire le cours complet</a></p>
+<h2>Ce qu'on demande à un guidage</h2>
+<p>Un <strong>guidage</strong> autorise les degrés de liberté utiles et contraint les autres.</p>
+<div class="tableau"><table>
+<tr><th>Ce qu'il supporte</th><th>Comment il se comporte</th><th>Ce qui l'entoure</th></tr>
+<tr><td>charge radiale et axiale, moment</td><td>rigidité, jeu, frottement, vitesse, précision géométrique</td><td>durée de vie, lubrification, contamination, encombrement</td></tr>
+</table></div>
+\[k = \frac{F}{\delta} \quad (3.1)\]
+<ul>
+<li><strong>Raideur</strong> k en N/mm : la pente de la courbe effort-déplacement. Plus le chariot s'enfonce peu, plus il est raide.</li>
+<li>En rotation : <strong>raideur angulaire</strong> en N·m/rad (même idée que \(k_\theta = C/\theta\) et \(F = kx\)).</li>
+</ul>
+<div class="schema" id="sc-guidage"></div>
+
+<h2>Le roulement</h2>
+<p>Les <strong>roulements</strong> soutiennent et guident, avec un frottement minimal, des pièces en rotation, et transfèrent les charges. Précision, vitesses élevées, moins de bruit, d'échauffement, d'énergie et d'usure. Normalisés, donc produits en série.</p>
+<ul>
+<li>Constitution : <strong>bague extérieure</strong>, <strong>bague intérieure</strong>, <strong>chemins de roulement</strong> (pistes dans les bagues), <strong>éléments roulants</strong>, <strong>cage</strong> (garde les billes à distance régulière).</li>
+<li><strong>Bille</strong> : contact elliptique. <strong>Rouleau</strong> : contact rectangulaire.</li>
+<li>Méthode : choisir d'abord la <strong>famille</strong>, puis la <strong>référence</strong>.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Point fort</th></tr>
+<tr><td>Rigides à billes</td><td>nombreuses applications</td></tr>
+<tr><td>À contact oblique</td><td>efforts axiaux, montages préchargés</td></tr>
+<tr><td>À rouleaux cylindriques</td><td>fortes charges radiales</td></tr>
+<tr><td>À aiguilles</td><td>encombrement radial réduit</td></tr>
+<tr><td>Butées</td><td>efforts axiaux</td></tr>
+</table></div>
+<div class="schema" id="sc-familles-roulements"></div>
+
+<h2>Radial ou axial</h2>
+<ul>
+<li><strong>Charge radiale</strong> : perpendiculaire à l'arbre. <strong>Charge axiale</strong> : le long de l'arbre.</li>
+<li>Rouleaux cylindriques : radial seul. Rigide à billes : radial et axial (combiné). <strong>Butées</strong> : surtout axial, vitesses plus faibles que les radiaux de mêmes dimensions.</li>
+<li><strong>Angle de contact</strong> α ≤ 45° : roulement radial ; α > 45° : butée.</li>
+<li>Exemple du cours : rouleaux cylindriques à gauche (radial seul), rigide à billes à droite : toute la charge axiale passe par le roulement à billes.</li>
+</ul>
+<div class="schema" id="sc-charges"></div>
+
+<h2>Choisir le type</h2>
+<p>Quatre questions : charge axiale (un ou deux sens) ? vitesse ? alignement des paliers ? place ? Le <strong>déversement</strong> est le désalignement accepté entre arbre et logement (1' = 1/60°).</p>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Charges</th><th>Vitesse</th><th>Déversement</th></tr>
+<tr><td>Billes, contact radial</td><td>radiales et axiales assez importantes</td><td></td><td>2' à 10'</td></tr>
+<tr><td>Billes, contact oblique (1 rangée)</td><td>axiales élevées dans un sens, ou combinées</td><td>grande</td><td>≈ 0</td></tr>
+<tr><td>Deux rangées de billes à rotule</td><td>radiales moyennes, axiales faibles</td><td>grande</td><td>1,5° à 3°</td></tr>
+<tr><td>Rouleaux cylindriques</td><td>radiales élevées, aucune axiale</td><td>grande</td><td>2'</td></tr>
+<tr><td>Rouleaux à rotule (2 rangées)</td><td>radiales très importantes, combinées</td><td>moyenne</td><td>1° à 2,5°</td></tr>
+<tr><td>Rouleaux coniques</td><td>radiales et axiales importantes</td><td>pas les grandes</td><td>2'</td></tr>
+<tr><td>Aiguilles</td><td>radiales importantes, peu de place, aucune axiale</td><td>grande</td><td>≈ 0</td></tr>
+<tr><td>Butées à billes</td><td>axiales, simple ou double effet</td><td>plus faible</td><td></td></tr>
+</table></div>
+<ul>
+<li><strong>Rouleaux coniques</strong> : montés <strong>par paire en opposition</strong>, jeu de fonctionnement réglé, cuvette séparable.</li>
+<li><strong>Aiguilles</strong> : résistent aux chocs, exigent des portées dures et lisses (HRC 57 min., Ra 0,2 max.).</li>
+<li>Rouleaux cylindriques : bague séparable.</li>
+</ul>
+<div class="schema" id="sc-choix-roulement"></div>
+
+<h2>Durée nominale L10</h2>
+\[L_{10} = \left(\frac{C}{P}\right)^p \quad (3.2) \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \quad (3.3)\]
+<ul>
+<li>L₁₀ en millions de tours, C <strong>capacité dynamique</strong> (N), P <strong>charge dynamique équivalente</strong> (N), n en tr/min.</li>
+<li>p = 3 pour les <strong>billes</strong>, p = 10/3 pour les <strong>rouleaux</strong>. Charge doublée : durée divisée par 8 (billes).</li>
+<li>L₁₀ : <strong>90 % de fiabilité</strong>, conditions de laboratoire parfaites. Les modèles avancés ajoutent la lubrification et la contamination (facteurs de modification).</li>
+<li>Pré-sélection : tours requis sur la durée t, puis \(C_{req} = P\left(\frac{60\,n\,t}{10^6}\right)^{1/p}\), puis catalogue.</li>
+</ul>
+<div class="schema" id="sc-l10"></div>
+
+<h2>Montage fixe-libre</h2>
+<p>Un arbre qui chauffe s'allonge. Le <strong>palier fixe</strong> assure le positionnement axial ; le <strong>palier libre</strong> laisse une bague coulisser pour la <strong>dilatation</strong>. Deux paliers fixes : montage sur-contraint.</p>
+<ul>
+<li><strong>Arbre tournant</strong> : les deux bagues intérieures maintenues ; la bague extérieure d'un roulement coulisse (jeu ≈ 0,1).</li>
+<li><strong>Logement tournant</strong> : les deux bagues extérieures maintenues ; la bague intérieure d'un roulement coulisse.</li>
+<li>Règle : les bagues qui tournent restent maintenues, une bague de l'autre côté coulisse.</li>
+<li>Rouleaux coniques : deux roulements en opposition, jeu réglé par écrou à encoches et rondelle frein.</li>
+</ul>
+<div class="schema" id="sc-fixe-libre"></div>
+
+<h2>Jeu, précharge et frottement</h2>
+<p>La <strong>précharge</strong> d'un roulement : une charge constante appliquée au montage pour éliminer le jeu (broches, moteurs, différentiels).</p>
+<div class="tableau"><table>
+<tr><th>Quand la précharge augmente</th><th>Effet</th></tr>
+<tr><td>jeu</td><td>diminue</td></tr>
+<tr><td>rigidité</td><td>augmente</td></tr>
+<tr><td>efforts internes, frottement, échauffement</td><td>augmentent</td></tr>
+<tr><td>durée de vie</td><td>réduite si trop forte</td></tr>
+</table></div>
+<ul>
+<li>Appliquer la valeur du <strong>fabricant</strong> ; ajustements serrés et température modifient la précharge réelle.</li>
+<li>Les roulements à <strong>contact oblique</strong> se prêtent bien aux montages préchargés.</li>
+</ul>
+<div class="schema" id="sc-precharge-roul"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quel est le rôle d'un guidage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Autoriser les degrés de liberté utiles et contraindre les autres.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Donne les paramètres d'un guidage.</p><details class="corrige"><summary>Voir la réponse</summary><p>Ce qu'il supporte : charge radiale, axiale, moment.</p><p>Comment il se comporte : rigidité, jeu, frottement, vitesse, précision.</p><p>Ce qui l'entoure : durée de vie, lubrification, contamination, encombrement.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Un chariot s'enfonce de 0,05 mm sous 200 N. Raideur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(k = F / \delta = 200 / 0{,}05 = 4000\) N/mm</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> À quoi sert un roulement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Soutenir et guider une pièce en rotation avec un frottement minimal, et transférer les charges.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> De quoi est constitué un roulement à billes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Bague extérieure, bague intérieure, chemins de roulement, billes, cage.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Bille et rouleau : quel contact ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Bille : contact elliptique. Rouleau : contact rectangulaire.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Dans quel ordre choisit-on un roulement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La famille d'abord, puis la référence.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quelle famille pour de fortes charges radiales ? Pour peu de place ? Pour une précharge ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Fortes charges radiales : rouleaux cylindriques.</p><p>Peu de place : aiguilles.</p><p>Précharge : contact oblique.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Qu'est-ce qui distingue un roulement radial d'une butée ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'angle de contact : α ≤ 45° radial, α > 45° butée.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quel roulement reprend la charge axiale si l'arbre est monté sur rouleaux cylindriques et rigide à billes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le rigide à billes : les rouleaux cylindriques ne reprennent que du radial.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Qu'est-ce que le déversement admissible ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le désalignement angulaire accepté entre l'arbre et le logement.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Paliers désalignés de 2°, grande vitesse, radial moyen. Quel roulement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Deux rangées de billes à rotule (1,5° à 3°).</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Radial et axial importants dans les deux sens, jeu à régler. Quel montage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Deux roulements à rouleaux coniques en opposition.</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Écris la durée nominale L10, en tours puis en heures.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(L_{10} = (C/P)^p\)</p><p>\(L_{10h} = \dfrac{10^6}{60\,n}(C/P)^p\)</p></details></div>
+<div class="question-court"><p class="q"><span>15.</span> Que vaut p ?</p><details class="corrige"><summary>Voir la réponse</summary><p>p = 3 pour les billes, p = 10/3 pour les rouleaux.</p></details></div>
+<div class="question-court"><p class="q"><span>16.</span> Roulement à billes, C = 3,2 kN, P = 0,8 kN, n = 300 tr/min. Durée ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(L_{10} = (3{,}2 / 0{,}8)^3 = 64\) millions de tours</p><p>\(L_{10h} = 64 \times 10^6 / (60 \times 300)\)</p><p>\(L_{10h} \approx 3556\) h</p></details></div>
+<div class="question-court"><p class="q"><span>17.</span> Que signifie L10 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La durée atteinte par 90 % des roulements, en conditions de laboratoire parfaites.</p></details></div>
+<div class="question-court"><p class="q"><span>18.</span> Pourquoi un montage fixe-libre ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour positionner l'arbre axialement sans empêcher sa dilatation thermique.</p></details></div>
+<div class="question-court"><p class="q"><span>19.</span> Arbre tournant : quelles bagues sont maintenues, laquelle coulisse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les deux bagues intérieures sont maintenues.</p><p>La bague extérieure d'un roulement coulisse.</p></details></div>
+<div class="question-court"><p class="q"><span>20.</span> Quels sont les effets d'une précharge plus forte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Moins de jeu, plus de rigidité.</p><p>Plus d'efforts internes, de frottement et d'échauffement.</p><p>Trop forte : durée de vie réduite.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-8.html"><small>Version courte suivante</small>Transmissions de puissance</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "meca") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 7) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

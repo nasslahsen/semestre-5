@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Modélisation des robots médicaux (version courte) · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 10 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Modélisation des robots médicaux</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-10.html">Lire le cours complet</a></p>
+<h2>Pourquoi Denavit–Hartenberg</h2>
+<p>Passer d'un repère au suivant demande en général 6 nombres. La convention de <strong>Denavit–Hartenberg</strong> (1955) impose où placer chaque repère : il n'en faut plus que <strong>4 par liaison</strong>.</p>
+<ul>
+<li>Avantage : un <strong>standard universel</strong>, repris par les logiciels (MATLAB, RoboDK, CoppeliaSim). Un même tableau fonctionne partout : <strong>interopérabilité</strong>.</li>
+<li>Limite : faite pour les structures <strong>ouvertes simples</strong>, elle a des ambiguïtés pour les structures <strong>fermées</strong> ou <strong>arborescentes</strong>.</li>
+</ul>
+
+<h2>Les deux règles</h2>
+<p>Le repère j est attaché au segment j, entre les articulations j et j + 1.</p>
+<ul>
+<li><strong>Axe Z_j</strong> : aligné avec l'axe de mouvement de l'articulation <strong>j + 1</strong> (et non j).</li>
+<li><strong>Axe X_j</strong> : le long de la <strong>normale commune</strong> entre Z_{j−1} et Z_j, dirigé de Z_{j−1} vers Z_j.</li>
+<li>La normale commune est perpendiculaire à Z_{j−1} et à Z_j. L'origine O_j est là où elle coupe Z_j.</li>
+<li>Bras plan 2R : les axes z sortent de la page, parallèles ; les normales communes sont les segments eux-mêmes, x₁ suit le segment 1, x₂ le segment 2.</li>
+</ul>
+<div class="schema" id="sc-dh-regles"></div>
+
+<h2>Les quatre paramètres</h2>
+<ul>
+<li><strong>α_j</strong> : angle entre Z_{j−1} et Z_j, rotation autour de X_j.</li>
+<li><strong>d_j</strong> : distance entre Z_{j−1} et Z_j, mesurée le long de X_j.</li>
+<li><strong>θ_j</strong> : angle entre X_{j−1} et X_j, rotation autour de Z_{j−1}.</li>
+<li><strong>r_j</strong> : distance entre X_{j−1} et X_j, mesurée le long de Z_{j−1}.</li>
+</ul>
+<p>Quatre mouvements dans l'ordre : tourner, monter, avancer, incliner.</p>
+\[T^{j-1,j} = \mathrm{Rot}(z, \theta_j)\,\mathrm{Trans}(z, r_j)\,\mathrm{Trans}(x, d_j)\,\mathrm{Rot}(x, \alpha_j)\]
+\[{}^{j-1}T_j = \begin{pmatrix} \cos\theta_j & -\sin\theta_j\cos\alpha_j & \sin\theta_j\sin\alpha_j & d_j\cos\theta_j \\ \sin\theta_j & \cos\theta_j\cos\alpha_j & -\cos\theta_j\sin\alpha_j & d_j\sin\theta_j \\ 0 & \sin\alpha_j & \cos\alpha_j & r_j \\ 0 & 0 & 0 & 1 \end{pmatrix}\]
+<p>La dernière colonne est la position de O_j dans R_{j−1} : on avance de d_j dans la direction θ_j, à la hauteur r_j. Avec α_j = 0, les axes Z restent parallèles (bras plans).</p>
+<div class="schema" id="sc-dh-param"></div>
+
+<h2>Le robot 2R (aiguille de biopsie)</h2>
+<ul>
+<li>α₁ = α₂ = 0 (z₀ ∥ z₁ ∥ z₂, de même sens). r₁ = r₂ = 0 (tout dans le même plan).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>j</th><th>α_j</th><th>d_j</th><th>θ_j</th><th>r_j</th></tr>
+<tr><td>1</td><td>0</td><td>L₁</td><td>θ₁</td><td>0</td></tr>
+<tr><td>2</td><td>0</td><td>L₂</td><td>θ₂</td><td>0</td></tr>
+</table></div>
+\[{}^0T_1 = \begin{pmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & L_1\cos\theta_1 \\ \sin\theta_1 & \cos\theta_1 & 0 & L_1\sin\theta_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad {}^0T_2 = {}^0T_1\,{}^1T_2 = \begin{pmatrix} C_{12} & -S_{12} & 0 & L_1C_1 + L_2C_{12} \\ S_{12} & C_{12} & 0 & L_1S_1 + L_2S_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]
+<p>¹T₂ a la même forme que ⁰T₁ avec θ₂ et L₂. Même position de l'outil qu'au chapitre 4 : les repères diffèrent, le résultat non.</p>
+
+<h2>Le modèle géométrique direct (MGD)</h2>
+<p>Le <strong>MGD</strong> donne la position et l'orientation de l'<strong>organe terminal</strong> (OT) en fonction des <strong>variables articulaires</strong> (angles θ_i ou courses d_i), sans tenir compte des forces :</p>
+\[X = f(q) \qquad {}^0_nT(q) = {}^0_1T(q_1)\,{}^1_2T(q_2) \cdots {}^{n-1}_{\ \ n}T(q_n)\]
+<ul>
+<li>q = [q₁ … qₙ]^T : variables articulaires. X = [x, y, z, φ, θ, ψ]^T : posture de l'outil par rapport à la base.</li>
+<li><strong>Position</strong> : 4e colonne de ⁰ₙT. <strong>Orientation</strong> : le bloc de rotation ⁰ₙR (3 × 3).</li>
+<li>Méthode : tableau DH → matrices élémentaires (valeurs remplacées) → produit dans l'<strong>ordre strict</strong>, de la base vers l'outil (pas commutatif) → simplifier (formules d'addition) → lire position et orientation.</li>
+<li>Usage : les encodeurs donnent les angles, la MGD calcule où est la pointe, le recalage la superpose à l'image. Vérifier l'<strong>espace de travail</strong> avant l'opération.</li>
+<li>Applications : <strong>navigation chirurgicale</strong> (orthopédie, neurochirurgie, ORL), <strong>biopsie guidée</strong> (sénologie, pneumologie, radiologie interventionnelle), <strong>robots de rééducation</strong> (post-AVC).</li>
+</ul>
+<div class="schema" id="sc-mgd"></div>
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Pourquoi la convention de Denavit–Hartenberg ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Placer les repères de façon imposée : 4 paramètres par liaison au lieu de 6.</p><p>Un standard universel : le même tableau fonctionne dans tous les logiciels (interopérabilité).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle est la limite de la convention DH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Des ambiguïtés pour les structures fermées ou arborescentes.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les deux règles de placement d'un repère DH.</p><details class="corrige"><summary>Voir la réponse</summary><p>Z_j est aligné avec l'axe de l'articulation j + 1.</p><p>X_j est le long de la normale commune entre Z_{j−1} et Z_j, dirigé de Z_{j−1} vers Z_j.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Définis les quatre paramètres DH.</p><details class="corrige"><summary>Voir la réponse</summary><p>α_j : angle entre Z_{j−1} et Z_j, autour de X_j.</p><p>d_j : distance entre Z_{j−1} et Z_j, le long de X_j.</p><p>θ_j : angle entre X_{j−1} et X_j, autour de Z_{j−1}.</p><p>r_j : distance entre X_{j−1} et X_j, le long de Z_{j−1}.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Dans quel ordre s'enchaînent les quatre mouvements DH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(T^{j-1,j} = \mathrm{Rot}(z, \theta_j)\,\mathrm{Trans}(z, r_j)\,\mathrm{Trans}(x, d_j)\,\mathrm{Rot}(x, \alpha_j)\)</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que représente la dernière colonne de la matrice DH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La position de O_j dans R_{j−1} : \((d_j\cos\theta_j ;\ d_j\sin\theta_j ;\ r_j)\).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Écris le tableau DH du robot 2R.</p><details class="corrige"><summary>Voir la réponse</summary><p>Ligne 1 : α₁ = 0, d₁ = L₁, θ₁, r₁ = 0.</p><p>Ligne 2 : α₂ = 0, d₂ = L₂, θ₂, r₂ = 0.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Pourquoi α = 0 et r = 0 pour le 2R plan ?</p><details class="corrige"><summary>Voir la réponse</summary><p>α = 0 : les axes z sont parallèles et de même sens.</p><p>r = 0 : toutes les origines sont dans le même plan.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Une liaison DH a θ = 90°, r = 0, d = 2, α = 0. Où est O_j ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\((d\cos\theta ;\ d\sin\theta ;\ r) = (0 ;\ 2 ;\ 0)\) : à 2 unités sur Y_{j−1}.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Définis le modèle géométrique direct.</p><details class="corrige"><summary>Voir la réponse</summary><p>La position et l'orientation de l'organe terminal en fonction des variables articulaires : \(X = f(q)\), sans tenir compte des forces.</p></details></div>
+<div class="question-court"><p class="q"><span>11.</span> Comment calcule-t-on la MGD d'un robot à n articulations ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\({}^0_nT = {}^0_1T\,{}^1_2T \cdots {}^{n-1}_{\ \ n}T\), dans l'ordre strict de la base vers l'outil.</p><p>Position : 4e colonne. Orientation : le bloc ⁰ₙR.</p></details></div>
+<div class="question-court"><p class="q"><span>12.</span> Donne les étapes de la méthode MGD.</p><details class="corrige"><summary>Voir la réponse</summary><p>Récupérer le tableau DH.</p><p>Écrire les matrices élémentaires.</p><p>Les multiplier de la base vers l'outil.</p><p>Simplifier.</p><p>Lire position et orientation.</p></details></div>
+<div class="question-court"><p class="q"><span>13.</span> Robot de biopsie : L₁ = 40 cm, L₂ = 30 cm, θ₁ = 45°, θ₂ = 30°. Position et orientation de la pointe ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(x = L_1\cos\theta_1 + L_2\cos(\theta_1 + \theta_2)\)</p><p>\(x = 40 \times 0{,}707 + 30 \times 0{,}259 \approx 36{,}05\) cm</p><p>\(y = 40 \times 0{,}707 + 30 \times 0{,}966 \approx 57{,}26\) cm</p><p>Orientation : θ₁ + θ₂ = 75°.</p></details></div>
+<div class="question-court"><p class="q"><span>14.</span> Cite trois applications médicales de la MGD.</p><details class="corrige"><summary>Voir la réponse</summary><p>Navigation chirurgicale.</p><p>Biopsie guidée.</p><p>Robots de rééducation.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-11.html"><small>Version courte suivante</small>Modèle inverse et cinématique</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("robotique", 10) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
