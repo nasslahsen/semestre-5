@@ -24,7 +24,18 @@ PLATEFORME.parcours("biomateriaux", {
   examen: { biomateriaux: true },
   // Podcasts (NotebookLM, faits à partir du cours) : un lecteur sous le titre de la page du chapitre ; fichier dans audio/.
   podcasts: {
-    1: { titre: "Biocompatibility and Medical Device Classification", duree: "24 min", langue: "en", fichier: "audio/chapitre-1.m4a" }
+    1: { titre: "Biocompatibility and Medical Device Classification", duree: "24 min", langue: "en", fichier: "audio/chapitre-1.m4a" },
+    8: { titre: "Biomaterials and Biocompatibility Exam Prep", duree: "23 min", langue: "en", fichier: "audio/chapitre-8.m4a" },
+    0: { titre: "Stress and Strain in Biomaterial Mechanics", duree: "23 min", langue: "en", fichier: "audio/chapitre-0.m4a" },
+    2: { titre: "How Atomic Bonds Shape Medical Implants", duree: "22 min", langue: "en", fichier: "audio/chapitre-2.m4a" },
+    9: { titre: "How Metals Survive Inside the Human Body", duree: "25 min", langue: "en", fichier: "audio/chapitre-9.m4a" },
+    10: { titre: "Designing Bioceramics for the Human Body", duree: "29 min", langue: "en", fichier: "audio/chapitre-10.m4a" },
+    3: { titre: "The Molecular Architecture of Biomedical Polymers", duree: "25 min", langue: "en", fichier: "audio/chapitre-3.m4a" },
+    11: { titre: "Physics of Medical Polymers and Implants", duree: "23 min", langue: "en", fichier: "audio/chapitre-11.m4a" },
+    4: { titre: "Medical Elastomers and the Chemistry of Vulcanization", duree: "25 min", langue: "en", fichier: "audio/chapitre-4.m4a" },
+    5: { titre: "Polymer Additives and Reinforcements in Biomaterials", duree: "29 min", langue: "en", fichier: "audio/chapitre-5.m4a" },
+    6: { titre: "Composite Materials Mechanics for Biomedical Engineers", duree: "24 min", langue: "en", fichier: "audio/chapitre-6.m4a" },
+    7: { titre: "Plastics Manufacturing Processes for Biomedical Engineers", duree: "24 min", langue: "en", fichier: "audio/chapitre-7.m4a" }
   },
   // Cartes de révision (questions de cours) : un paquet à la fin de chaque section, et toutes les cartes du chapitre en fin de chapitre.
   cartesSections: {
