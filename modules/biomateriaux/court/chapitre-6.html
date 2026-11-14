@@ -35,6 +35,7 @@
 <tr><td>Usage</td><td>bateaux, cannes à pêche</td><td>aéronautique, spatial</td></tr>
 </table></div>
 <div class="schema" id="sc-composites-familles"></div>
+<p>Formes du renfort : <strong>roving</strong> (assemblage de fibres, tissable), fibres <strong>coupées</strong> (3 à 12 mm, thermodurcissables), fibres <strong>broyées</strong> (moins de 1 mm, thermoplastiques), <strong>mat</strong> (feuille de fibres tenues par un liant), <strong>tissu</strong> (fils de chaîne et de trame ; armures satin, sergé, taffetas). Usages médicaux : main prothétique en carbone, composites dentaires (à la place de l'amalgame), matériel de bloc opératoire et d'IRM.</p>
 
 <h2>Pourquoi des composites</h2>
 <p>Le <strong>module spécifique</strong> \(E/\rho\) mesure la rigidité par unité de masse. Tous les métaux sont vers 25 ; le carbone-époxy unidirectionnel monte à 89 ou 132. À rigidité égale dans le sens des fibres, une pièce en carbone-époxy est bien plus légère (main prothétique, lame de course).</p>
@@ -44,6 +45,8 @@
 <li>Un métal est <strong>isotrope</strong> : même rigidité dans tous les sens, 2 constantes élastiques suffisent.</li>
 <li>Un pli de fibres alignées est <strong>orthotrope</strong> : raide le long des fibres (direction <strong>L</strong> ou 1), souple en travers (direction <strong>T</strong> ou 2).</li>
 <li>Monocouche orthotrope : 9 constantes. Plaque mince : 4 constantes (\(E_L, E_T, G_{LT}, \nu_{LT}\)).</li>
+<li>La <strong>monocouche unidirectionnelle</strong> : le pli de base, fibres toutes parallèles, à partir duquel on construit les stratifiés.</li>
+<li><strong>Hypothèses</strong> de la micromécanique : fibres réparties uniformément, collage parfait fibre-matrice, charge parallèle ou normale aux fibres, pas de contraintes résiduelles, fibres et matrice élastiques.</li>
 </ul>
 
 <h2>Le long des fibres : la loi des mélanges</h2>
@@ -57,6 +60,8 @@
 \[\frac{1}{E_{CT}} = \frac{\phi_f}{E_f} + \frac{\phi_m}{E_m}\]
 <ul>
 <li>Le module transversal dépend surtout de la <strong>matrice</strong>.</li>
+<li>Si \(E_f \gg E_m\) : \(E_{CT} \approx E_m / \phi_m\).</li>
+<li>Dans l'exemple du cours (ε = 0,01), les fibres portent 280 MPa sur 298, environ 94 % de la charge.</li>
 <li>Toujours \(E_{CL} > E_{CT}\).</li>
 <li>Exemple du cours (\(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\)) : \(E_{CL} = 29{,}8\) GPa mais \(E_{CT} = 4{,}86\) GPa.</li>
 </ul>
