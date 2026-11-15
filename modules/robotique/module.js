@@ -562,6 +562,7 @@ PLATEFORME.parcours("robotique", {
       { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" },
       { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3 « Modélisation des robots médicaux » (Pr. Hasnaa El Hansali)", couvre: "chapitre 5 : convention de Denavit–Hartenberg, modèle géométrique direct ; fin du chapitre 2 (bras 2R)" },
       { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3, partie 2 (Pr. Hasnaa El Hansali)", couvre: "chapitre 6 : modèle géométrique inverse, modélisation cinématique, matrice jacobienne ; exemple de MGD du chapitre 5" },
+      { sousModule: "bio", titre: "Exercice de révision « Modélisation géométrique d'un robot médical à 3 degrés de liberté » (Pr. El Hansali Hasnaa)", couvre: "MGD d'un bras 3R (sonde échographique) : corrigé sur la page « Préparer l'examen »" },
       { sousModule: "bio", titre: "TD série 1 « Introduction générale, domaines d'applications de la robotique et modélisation des robots industriels » (Pr. El Hansali Hasnaa)", couvre: "TD 1 : partie 1, exercices 1 et 2 (MGD et modèle cinématique direct), exercice 3 questions 1 et 2" }
     ],
     manque: [

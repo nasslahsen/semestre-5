@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Exercice de révision : le bras 3R de l&#x27;échographie · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Exercice de révision MGD (bras 3R) et sa correction, question par question. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Exercice de révision : le bras 3R de l&#x27;échographie</h1>
+<p class="court-lien">Réponds dans ta tête, puis touche « Voir la réponse ». <a href="../examen.html">Préparer l'examen</a></p>
+<p>Exercice de révision du Pr. El Hansali, donné à la 3e année Licence Informatique Décisionnelle en Santé Digitale : « Modélisation géométrique d'un robot médical à 3 degrés de liberté ». Il porte sur le MGD seulement (aucune question de MGI). La correction ci-dessous n'est pas celle du professeur : elle a été calculée à partir du cours.</p>
+
+<h2>L'énoncé</h2>
+<p>Un bras manipulateur <strong>3R</strong> positionne une <strong>sonde échographique</strong>, assimilée à un point M.</p>
+<ul>
+<li><strong>Articulation 1</strong> : rotation de la base autour d'un axe vertical, angle θ₁.</li>
+<li><strong>Articulation 2</strong> : rotation du premier bras, angle θ₂.</li>
+<li><strong>Articulation 3</strong> : rotation du deuxième bras, angle θ₃.</li>
+<li>d₁ : hauteur de la première articulation par rapport à la base. a₂, a₃ : longueurs des deux segments mobiles.</li>
+<li>Segments rigides, articulations idéales.</li>
+</ul>
+<p>Convention de Denavit–Hartenberg standard :</p>
+\[T^{i-1,i} = R_z(\theta_i)\,T_z(d_i)\,T_x(a_i)\,R_x(\alpha_i)\]
+<div class="tableau"><table>
+<tr><th>Articulation i</th><th>α_i</th><th>a_i</th><th>d_i</th><th>θ_i</th></tr>
+<tr><td>1</td><td>+π/2</td><td>0</td><td>d₁</td><td>θ₁</td></tr>
+<tr><td>2</td><td>0</td><td>a₂</td><td>0</td><td>θ₂</td></tr>
+<tr><td>3</td><td>0</td><td>a₃</td><td>0</td><td>θ₃</td></tr>
+</table></div>
+<p><strong>Attention à la notation.</strong> Dans le cours, la distance le long de X s'appelle d_j et la distance le long de Z s'appelle r_j. Ici, c'est la notation standard : la distance le long de X s'appelle <strong>a_i</strong>, celle le long de Z <strong>d_i</strong>. La matrice écrite dans l'énoncé garde les lettres du cours : lire a_i à la place de son « d_i », et d_i à la place de son « r_i ». La dernière colonne de chaque matrice est donc \((a_i\cos\theta_i ;\ a_i\sin\theta_i ;\ d_i)\).</p>
+<div class="schema" id="sc-mgd"></div>
+
+<h2>Partie A : modélisation géométrique directe</h2>
+<div class="question-court"><p class="q">1. À partir du tableau DH, établis T⁰¹, T¹² et T²³.</p><details class="corrige"><summary>Voir la réponse</summary><p>Liaison 1 : α₁ = 90°, donc cos α₁ = 0 et sin α₁ = 1.</p><p>\[T^{0,1} = \begin{pmatrix} c_1 & 0 & s_1 & 0 \\ s_1 & 0 & -c_1 & 0 \\ 0 & 1 & 0 & d_1 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p><p>Liaisons 2 et 3 : α = 0, comme le bras 2R du cours.</p><p>\[T^{1,2} = \begin{pmatrix} c_2 & -s_2 & 0 & a_2c_2 \\ s_2 & c_2 & 0 & a_2s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad T^{2,3} = \begin{pmatrix} c_3 & -s_3 & 0 & a_3c_3 \\ s_3 & c_3 & 0 & a_3s_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p></details></div>
+<div class="question-court"><p class="q">2. Déduis-en la matrice globale T⁰³ = T⁰¹ T¹² T²³.</p><details class="corrige"><summary>Voir la réponse</summary><p>D'abord T¹³ = T¹² T²³ : c'est un bras 2R plan, de rotation θ₂ + θ₃ (notée c₂₃, s₂₃).</p><p>\[T^{1,3} = \begin{pmatrix} c_{23} & -s_{23} & 0 & a_2c_2 + a_3c_{23} \\ s_{23} & c_{23} & 0 & a_2s_2 + a_3s_{23} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p><p>Puis T⁰³ = T⁰¹ T¹³ :</p><p>\[T^{0,3} = \begin{pmatrix} c_1c_{23} & -c_1s_{23} & s_1 & c_1(a_2c_2 + a_3c_{23}) \\ s_1c_{23} & -s_1s_{23} & -c_1 & s_1(a_2c_2 + a_3c_{23}) \\ s_{23} & c_{23} & 0 & d_1 + a_2s_2 + a_3s_{23} \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p></details></div>
+<div class="question-court"><p class="q">3. Donne les coordonnées de M dans R₀.</p><details class="corrige"><summary>Voir la réponse</summary><p>On lit la 4e colonne de T⁰³ :</p><p>\(x_M = \cos\theta_1\,\big(a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\big)\)</p><p>\(y_M = \sin\theta_1\,\big(a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\big)\)</p><p>\(z_M = d_1 + a_2\sin\theta_2 + a_3\sin(\theta_2 + \theta_3)\)</p></details></div>
+<div class="question-court"><p class="q">4. Que représente géométriquement θ₁ + θ₂ + θ₃ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rien de géométrique pour ce robot.</p><p>θ₁ tourne autour de l'axe vertical z₀ : il oriente le plan du bras autour de la base.</p><p>θ₂ et θ₃ tournent dans ce plan vertical, autour d'axes perpendiculaires à z₀ (α₁ = 90°).</p><p>On n'additionne que des rotations autour d'axes parallèles : l'angle qui a un sens est β = θ₂ + θ₃, l'inclinaison du dernier bras par rapport à l'horizontale.</p><p>Pour un bras 3R plan (trois axes parallèles), la somme serait l'orientation de l'outil : c'est sans doute le piège.</p></details></div>
+<h2>Partie B : application numérique</h2>
+<p>d₁ = 30 cm, a₂ = 40 cm, a₃ = 25 cm. Configuration : θ₁ = 30°, θ₂ = 45°, θ₃ = −30°, donc θ₂ + θ₃ = 15°.</p>
+<div class="question-court"><p class="q">5. Calcule les coordonnées de M dans R₀, et l'orientation du dernier bras β = θ₂ + θ₃.</p><details class="corrige"><summary>Voir la réponse</summary><p>Distance horizontale de M à l'axe de la base :</p><p>\(\rho = a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\)</p><p>\(\rho = 40 \times 0{,}7071 + 25 \times 0{,}9659 = 28{,}28 + 24{,}15\)</p><p>\(\rho \approx 52{,}43\) cm</p><p>\(x_M = \rho\cos\theta_1 = 52{,}43 \times 0{,}8660\)</p><p>\(x_M \approx 45{,}41\) cm</p><p>\(y_M = \rho\sin\theta_1 = 52{,}43 \times 0{,}5\)</p><p>\(y_M \approx 26{,}22\) cm</p><p>\(z_M = d_1 + a_2\sin\theta_2 + a_3\sin(\theta_2 + \theta_3)\)</p><p>\(z_M = 30 + 40 \times 0{,}7071 + 25 \times 0{,}2588 = 30 + 28{,}28 + 6{,}47\)</p><p>\(z_M \approx 64{,}76\) cm</p><p>\(\beta = \theta_2 + \theta_3 = 45° - 30°\)</p><p>\(\beta = 15°\) : le dernier bras monte de 15° au-dessus de l'horizontale.</p></details></div>
+<div class="question-court"><p class="q">6. Quelle est la distance entre M et l'origine de R₀ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(OM = \sqrt{x_M^2 + y_M^2 + z_M^2}\)</p><p>\(OM = \sqrt{2061{,}9 + 687{,}3 + 4193{,}2}\)</p><p>\(OM \approx 83{,}32\) cm</p></details></div>
+<h2>Partie C : erreur de position et interprétation médicale</h2>
+<div class="question-court"><p class="q">7. Avec la configuration de la question 5, où se trouve exactement la sonde par rapport à R₀ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>M = (45,41 ; 26,22 ; 64,76) cm dans R₀.</p><p>45,4 cm selon x₀.</p><p>26,2 cm selon y₀.</p><p>64,8 cm au-dessus de la base.</p></details></div>
+<div class="question-court"><p class="q">8a. La zone cible de l'examen FAST est en (x = 45 cm ; y = 50 cm). La sonde est-elle sur la cible ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non.</p><p>x est presque bon : 45,41 au lieu de 45.</p><p>y est loin : 26,22 au lieu de 50.</p></details></div>
+<div class="question-court"><p class="q">8b. Calcule le vecteur erreur (Δx, Δy) que l'asservissement doit corriger.</p><details class="corrige"><summary>Voir la réponse</summary><p>Erreur = cible moins position actuelle.</p><p>\(\Delta x = x_{cible} - x_M = 45 - 45{,}41\)</p><p>\(\Delta x \approx -0{,}41\) cm</p><p>\(\Delta y = y_{cible} - y_M = 50 - 26{,}22\)</p><p>\(\Delta y \approx +23{,}78\) cm</p><p>\(\|\Delta\| = \sqrt{0{,}41^2 + 23{,}78^2} \approx 23{,}79\) cm : l'erreur vient presque entièrement de y.</p><p>L'énoncé ne donne pas de z pour la cible : on ne corrige que dans le plan (x, y).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-10.html"><small>Réviser</small>La version courte du MGD</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Exercice de révision";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
