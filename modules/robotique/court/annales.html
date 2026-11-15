@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Exercice de révision : le bras 3R de l&#x27;échographie · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Exercice de révision MGD (bras 3R) et sa correction, question par question. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Exercice de révision : le bras 3R de l&#x27;échographie</h1>
+<p class="court-lien">Réponds dans ta tête, puis touche « Voir la réponse ». <a href="../examen.html">Préparer l'examen</a></p>
+<p>Exercice de révision du Pr. El Hansali, donné à la 3e année Licence Informatique Décisionnelle en Santé Digitale : « Modélisation géométrique d'un robot médical à 3 degrés de liberté ». Il porte sur le MGD seulement (aucune question de MGI). La correction n'est pas celle du professeur : elle est construite pas à pas à partir du cours, pour que tu puisses refaire seule un exercice du même type.</p>
+
+<h2>L'énoncé</h2>
+<p>Un bras manipulateur <strong>3R</strong> positionne une <strong>sonde échographique</strong>, assimilée à un point M.</p>
+<ul>
+<li><strong>Articulation 1</strong> : rotation de la base autour d'un axe vertical, angle θ₁.</li>
+<li><strong>Articulation 2</strong> : rotation du premier bras, angle θ₂.</li>
+<li><strong>Articulation 3</strong> : rotation du deuxième bras, angle θ₃.</li>
+<li>d₁ : hauteur de la première articulation par rapport à la base. a₂, a₃ : longueurs des deux segments mobiles.</li>
+<li>Le point M est l'origine O₃ du dernier repère. Segments rigides, articulations idéales.</li>
+</ul>
+<p>Convention de Denavit–Hartenberg standard :</p>
+\[T^{i-1,i} = R_z(\theta_i)\,T_z(d_i)\,T_x(a_i)\,R_x(\alpha_i)\]
+<div class="tableau"><table>
+<tr><th>Articulation i</th><th>α_i</th><th>a_i</th><th>d_i</th><th>θ_i</th></tr>
+<tr><td>1</td><td>+π/2</td><td>0</td><td>d₁</td><td>θ₁</td></tr>
+<tr><td>2</td><td>0</td><td>a₂</td><td>0</td><td>θ₂</td></tr>
+<tr><td>3</td><td>0</td><td>a₃</td><td>0</td><td>θ₃</td></tr>
+</table></div>
+
+<h2>Avant de commencer : les outils</h2>
+<p><strong>Attention à la notation.</strong> Dans le cours, la distance le long de X s'appelle d_j et la distance le long de Z s'appelle r_j. Ici, c'est la notation standard : la distance le long de X s'appelle <strong>a_i</strong>, celle le long de Z s'appelle <strong>d_i</strong>. Même matrice, autres lettres. La matrice générale s'écrit donc :</p>
+\[T^{i-1,i} = \begin{pmatrix} \cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\theta_i\sin\alpha_i & a_i\cos\theta_i \\ \sin\theta_i & \cos\theta_i\cos\alpha_i & -\cos\theta_i\sin\alpha_i & a_i\sin\theta_i \\ 0 & \sin\alpha_i & \cos\alpha_i & d_i \\ 0 & 0 & 0 & 1 \end{pmatrix}\]
+<p>Comment la lire :</p>
+<ul>
+<li>Les trois premières colonnes sont les axes x_i, y_i, z_i du nouveau repère, exprimés dans l'ancien.</li>
+<li>La 4e colonne est la <strong>position</strong> de la nouvelle origine O_i dans l'ancien repère : on avance de a_i dans la direction θ_i, et on monte de d_i.</li>
+<li>La dernière ligne est toujours 0 0 0 1.</li>
+</ul>
+<p>Ce qu'il faut avoir en tête le jour de l'examen :</p>
+<ul>
+<li>cos 0 = 1, sin 0 = 0 ; cos 90° = 0, sin 90° = 1.</li>
+<li>Notation courte : \(c_i = \cos\theta_i\), \(s_i = \sin\theta_i\), \(c_{23} = \cos(\theta_2 + \theta_3)\), \(s_{23} = \sin(\theta_2 + \theta_3)\).</li>
+<li>Formules d'addition : \(\cos(a + b) = \cos a\cos b - \sin a\sin b\) et \(\sin(a + b) = \sin a\cos b + \cos a\sin b\).</li>
+<li>Produit de matrices : la case (ligne i, colonne j) du résultat = la ligne i de la première fois la colonne j de la seconde, terme à terme, puis on additionne.</li>
+</ul>
+<p>La méthode, valable pour tout exercice de MGD :</p>
+<ol>
+<li>Pour chaque ligne du tableau DH, remplacer α, a, d, θ dans la matrice générale.</li>
+<li>Multiplier les matrices dans l'ordre, de la base vers l'outil. Astuce : commencer par les liaisons qui ont α = 0, leur produit est un bras plan simple.</li>
+<li>Simplifier avec les formules d'addition.</li>
+<li>Lire la position de l'outil dans la 4e colonne.</li>
+<li>Vérifier sur le dessin que le résultat a du sens.</li>
+</ol>
+<div class="schema" id="sc-mgd"></div>
+
+<h2>Partie A : modélisation géométrique directe</h2>
+<div class="question-court"><p class="q">1. À partir du tableau DH, établis T⁰¹, T¹² et T²³.</p><details class="corrige"><summary>Voir la réponse</summary><p><strong>T⁰¹ : ligne 1 du tableau.</strong></p><p>On lit : α₁ = π/2 (90°), a₁ = 0, d₁ = d₁, θ₁ = θ₁.</p><p>Donc cos α₁ = 0 et sin α₁ = 1.</p><p>On remplace dans la matrice générale, case par case :</p><p>Ligne 1 : \(c_1\) ; \(-s_1 \times 0 = 0\) ; \(s_1 \times 1 = s_1\) ; \(a_1 c_1 = 0 \times c_1 = 0\).</p><p>Ligne 2 : \(s_1\) ; \(c_1 \times 0 = 0\) ; \(-c_1 \times 1 = -c_1\) ; \(a_1 s_1 = 0\).</p><p>Ligne 3 : \(0\) ; \(\sin\alpha_1 = 1\) ; \(\cos\alpha_1 = 0\) ; \(d_1\).</p><p>\[T^{0,1} = \begin{pmatrix} c_1 & 0 & s_1 & 0 \\ s_1 & 0 & -c_1 & 0 \\ 0 & 1 & 0 & d_1 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p><p>Vérification sur le dessin :</p><p>4e colonne (0 ; 0 ; d₁) : O₁ est juste au-dessus de la base, à la hauteur d₁. C'est bien l'épaule.</p><p>3e colonne (s₁ ; −c₁ ; 0) : l'axe z₁ est horizontal. Normal : l'articulation 2 lève le bras dans un plan vertical, donc son axe est horizontal.</p><p><strong>T¹² : ligne 2 du tableau.</strong></p><p>On lit : α₂ = 0, a₂ = a₂, d₂ = 0, θ₂ = θ₂.</p><p>Donc cos α₂ = 1 et sin α₂ = 0 : tous les termes en sin α disparaissent, ceux en cos α gardent leur facteur.</p><p>Ligne 1 : \(c_2\) ; \(-s_2 \times 1 = -s_2\) ; \(s_2 \times 0 = 0\) ; \(a_2 c_2\).</p><p>Ligne 2 : \(s_2\) ; \(c_2 \times 1 = c_2\) ; \(-c_2 \times 0 = 0\) ; \(a_2 s_2\).</p><p>Ligne 3 : \(0\) ; \(0\) ; \(1\) ; \(d_2 = 0\).</p><p>\[T^{1,2} = \begin{pmatrix} c_2 & -s_2 & 0 & a_2c_2 \\ s_2 & c_2 & 0 & a_2s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p><p>Sens : on tourne de θ₂ autour de z₁, puis on avance de a₂ le long du bras. O₂ (le coude) est en (a₂c₂ ; a₂s₂ ; 0) dans R₁.</p><p><strong>T²³ : ligne 3 du tableau.</strong></p><p>Même forme que la ligne 2 (α₃ = 0, d₃ = 0), avec a₃ et θ₃ :</p><p>\[T^{2,3} = \begin{pmatrix} c_3 & -s_3 & 0 & a_3c_3 \\ s_3 & c_3 & 0 & a_3s_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p></details></div>
+<div class="question-court"><p class="q">2. Déduis-en la matrice globale T⁰³ = T⁰¹ T¹² T²³.</p><details class="corrige"><summary>Voir la réponse</summary><p><strong>Étape 1 : le produit T¹³ = T¹² T²³.</strong></p><p>On commence par les deux liaisons à α = 0 : leur produit est simple, c'est le bras 2R du cours.</p><p>Case (1, 1) : ligne 1 de T¹² fois colonne 1 de T²³.</p><p>\(c_2 c_3 + (-s_2)\,s_3 + 0 + 0 = c_2c_3 - s_2s_3 = c_{23}\) (formule d'addition du cosinus).</p><p>Case (1, 2) : \(c_2(-s_3) + (-s_2)\,c_3 = -(s_2c_3 + c_2s_3) = -s_{23}\).</p><p>Case (2, 1) : \(s_2c_3 + c_2s_3 = s_{23}\).</p><p>Case (2, 2) : \(s_2(-s_3) + c_2c_3 = c_{23}\).</p><p>Case (1, 4) : \(c_2 \cdot a_3c_3 + (-s_2)\cdot a_3s_3 + 0 + a_2c_2 \cdot 1 = a_3c_{23} + a_2c_2\).</p><p>Case (2, 4) : \(s_2 \cdot a_3c_3 + c_2 \cdot a_3s_3 + a_2s_2 = a_3s_{23} + a_2s_2\).</p><p>La 3e ligne et la 3e colonne restent celles de l'identité (0 0 1 0).</p><p>\[T^{1,3} = \begin{pmatrix} c_{23} & -s_{23} & 0 & a_2c_2 + a_3c_{23} \\ s_{23} & c_{23} & 0 & a_2s_2 + a_3s_{23} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p><p>À retenir : deux rotations autour d'axes parallèles s'additionnent (θ₂ + θ₃), et la position est la somme des deux bras projetés.</p><p><strong>Étape 2 : le produit T⁰³ = T⁰¹ T¹³.</strong></p><p>On prend chaque ligne de T⁰¹ et on la multiplie par chaque colonne de T¹³.</p><p>Les colonnes de T¹³ sont : col 1 = (c₂₃ ; s₂₃ ; 0 ; 0), col 2 = (−s₂₃ ; c₂₃ ; 0 ; 0), col 3 = (0 ; 0 ; 1 ; 0), col 4 = (a₂c₂ + a₃c₂₃ ; a₂s₂ + a₃s₂₃ ; 0 ; 1).</p><p>Ligne 1 de T⁰¹ = (c₁ ; 0 ; s₁ ; 0) :</p><p>col 1 : \(c_1c_{23} + 0 + 0 + 0 = c_1c_{23}\)</p><p>col 2 : \(-c_1s_{23}\)</p><p>col 3 : \(s_1 \times 1 = s_1\)</p><p>col 4 : \(c_1(a_2c_2 + a_3c_{23}) + 0 + 0 + 0 \times 1 = c_1(a_2c_2 + a_3c_{23})\)</p><p>Ligne 2 de T⁰¹ = (s₁ ; 0 ; −c₁ ; 0) :</p><p>col 1 : \(s_1c_{23}\)</p><p>col 2 : \(-s_1s_{23}\)</p><p>col 3 : \(-c_1\)</p><p>col 4 : \(s_1(a_2c_2 + a_3c_{23})\)</p><p>Ligne 3 de T⁰¹ = (0 ; 1 ; 0 ; d₁) : elle prend la 2e case de chaque colonne, plus d₁ fois la 4e.</p><p>col 1 : \(s_{23}\)</p><p>col 2 : \(c_{23}\)</p><p>col 3 : \(0\)</p><p>col 4 : \((a_2s_2 + a_3s_{23}) + d_1 \times 1\)</p><p>\[T^{0,3} = \begin{pmatrix} c_1c_{23} & -c_1s_{23} & s_1 & c_1(a_2c_2 + a_3c_{23}) \\ s_1c_{23} & -s_1s_{23} & -c_1 & s_1(a_2c_2 + a_3c_{23}) \\ s_{23} & c_{23} & 0 & d_1 + a_2s_2 + a_3s_{23} \\ 0 & 0 & 0 & 1 \end{pmatrix}\]</p></details></div>
+<div class="question-court"><p class="q">3. Donne les coordonnées de M dans R₀.</p><details class="corrige"><summary>Voir la réponse</summary><p>M est l'origine du repère R₃. Sa position dans R₀ est donc la 4e colonne de T⁰³.</p><p>\(x_M = \cos\theta_1\,\big(a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\big)\)</p><p>\(y_M = \sin\theta_1\,\big(a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\big)\)</p><p>\(z_M = d_1 + a_2\sin\theta_2 + a_3\sin(\theta_2 + \theta_3)\)</p><p><strong>Retrouver ce résultat sans matrices</strong> (pour vérifier le jour de l'examen) :</p><p>Dans le plan vertical du bras, les deux segments forment un bras 2R plan :</p><p>le bras 1 avance horizontalement de \(a_2\cos\theta_2\) et monte de \(a_2\sin\theta_2\).</p><p>le bras 2 avance de \(a_3\cos(\theta_2 + \theta_3)\) et monte de \(a_3\sin(\theta_2 + \theta_3)\).</p><p>Portée horizontale : \(\rho = a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\).</p><p>Hauteur : \(z_M = d_1 + a_2\sin\theta_2 + a_3\sin(\theta_2 + \theta_3)\), car l'épaule est déjà à d₁.</p><p>La base fait tourner ce plan d'un angle θ₁ autour de z₀ : ce sont des coordonnées cylindriques, \(x_M = \rho\cos\theta_1\) et \(y_M = \rho\sin\theta_1\).</p></details></div>
+<div class="question-court"><p class="q">4. Que représente géométriquement θ₁ + θ₂ + θ₃ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rien de géométrique pour ce robot.</p><p>θ₁ tourne autour de l'axe vertical z₀ : il oriente le plan du bras autour de la base.</p><p>θ₂ et θ₃ tournent autour d'axes horizontaux (z₁ et z₂, perpendiculaires à z₀ à cause de α₁ = 90°).</p><p>On ne peut additionner que des rotations autour d'axes parallèles. On le voit dans T⁰³ : θ₂ et θ₃ se regroupent en c₂₃ et s₂₃, mais θ₁ reste à part (c₁, s₁).</p><p>L'angle qui a un sens est β = θ₂ + θ₃ : l'inclinaison du dernier bras par rapport à l'horizontale, dans le plan du bras.</p><p>Pour un bras 3R plan (trois axes parallèles, tous les α = 0), la somme serait l'orientation de l'outil : c'est sans doute le piège.</p></details></div>
+<h2>Partie B : application numérique</h2>
+<p>d₁ = 30 cm, a₂ = 40 cm, a₃ = 25 cm. Configuration : θ₁ = 30°, θ₂ = 45°, θ₃ = −30°.</p>
+<div class="question-court"><p class="q">5. Calcule les coordonnées de M dans R₀, et l'orientation du dernier bras β = θ₂ + θ₃.</p><details class="corrige"><summary>Voir la réponse</summary><p><strong>Étape 1 : les angles et leurs cosinus et sinus.</strong></p><p>\(\theta_2 + \theta_3 = 45° + (-30°) = 15°\)</p><p>cos 30° ≈ 0,8660 ; sin 30° = 0,5</p><p>cos 45° = sin 45° ≈ 0,7071</p><p>cos 15° ≈ 0,9659 ; sin 15° ≈ 0,2588</p><p><strong>Étape 2 : la portée horizontale ρ</strong> (le terme entre parenthèses, commun à x et y).</p><p>\(\rho = a_2\cos\theta_2 + a_3\cos(\theta_2 + \theta_3)\)</p><p>\(\rho = 40 \times 0{,}7071 + 25 \times 0{,}9659 = 28{,}28 + 24{,}15\)</p><p>\(\rho \approx 52{,}43\) cm</p><p><strong>Étape 3 : x et y</strong> (on fait tourner la portée de θ₁).</p><p>\(x_M = \rho\cos\theta_1 = 52{,}43 \times 0{,}8660\)</p><p>\(x_M \approx 45{,}41\) cm</p><p>\(y_M = \rho\sin\theta_1 = 52{,}43 \times 0{,}5\)</p><p>\(y_M \approx 26{,}22\) cm</p><p><strong>Étape 4 : z</strong> (hauteur de l'épaule, plus ce que montent les deux bras).</p><p>\(z_M = d_1 + a_2\sin\theta_2 + a_3\sin(\theta_2 + \theta_3)\)</p><p>\(z_M = 30 + 40 \times 0{,}7071 + 25 \times 0{,}2588 = 30 + 28{,}28 + 6{,}47\)</p><p>\(z_M \approx 64{,}76\) cm</p><p><strong>Étape 5 : l'orientation du dernier bras.</strong></p><p>\(\beta = \theta_2 + \theta_3 = 45° - 30°\)</p><p>\(\beta = 15°\)</p><p>Le bras 1 monte à 45°, le coude le redescend de 30° : le dernier bras reste incliné de 15° au-dessus de l'horizontale.</p><p>Vérification : θ₁ = 30° est entre 0 et 90°, donc x et y doivent être positifs, et x > y car cos 30° > sin 30°. C'est le cas.</p></details></div>
+<div class="question-court"><p class="q">6. Quelle est la distance entre M et l'origine de R₀ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>C'est la norme du vecteur \(\overrightarrow{O_0M}\) (Pythagore en 3D).</p><p>\(OM = \sqrt{x_M^2 + y_M^2 + z_M^2}\)</p><p>\(OM = \sqrt{45{,}41^2 + 26{,}22^2 + 64{,}76^2} = \sqrt{2061{,}9 + 687{,}3 + 4193{,}2}\)</p><p>\(OM \approx 83{,}32\) cm</p><p>Plus rapide : \(x_M^2 + y_M^2 = \rho^2\), donc \(OM = \sqrt{\rho^2 + z_M^2} = \sqrt{52{,}43^2 + 64{,}76^2}\), même résultat.</p></details></div>
+<h2>Partie C : erreur de position et interprétation médicale</h2>
+<div class="question-court"><p class="q">7. Avec la configuration de la question 5, où se trouve exactement la sonde par rapport à R₀ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On reprend le résultat de la question 5 : M = (45,41 ; 26,22 ; 64,76) cm dans R₀.</p><p>45,4 cm selon x₀.</p><p>26,2 cm selon y₀.</p><p>64,8 cm au-dessus de la base.</p><p>Comme R₀ est la référence du patient, c'est la position de la sonde par rapport au patient.</p></details></div>
+<div class="question-court"><p class="q">8a. La zone cible de l'examen FAST est en (x = 45 cm ; y = 50 cm). La sonde est-elle sur la cible ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On compare coordonnée par coordonnée.</p><p>x : 45,41 cm pour la sonde, 45 cm pour la cible. Presque bon.</p><p>y : 26,22 cm pour la sonde, 50 cm pour la cible. Très loin.</p><p>Donc non, la sonde n'est pas sur la cible.</p></details></div>
+<div class="question-court"><p class="q">8b. Calcule le vecteur erreur (Δx, Δy) que l'asservissement doit corriger.</p><details class="corrige"><summary>Voir la réponse</summary><p>L'erreur est ce qu'il faut ajouter à la position actuelle pour arriver à la cible : cible moins position actuelle.</p><p>\(\Delta x = x_{cible} - x_M = 45 - 45{,}41\)</p><p>\(\Delta x \approx -0{,}41\) cm</p><p>\(\Delta y = y_{cible} - y_M = 50 - 26{,}22\)</p><p>\(\Delta y \approx +23{,}78\) cm</p><p>Taille de l'erreur :</p><p>\(\|\Delta\| = \sqrt{\Delta x^2 + \Delta y^2} = \sqrt{0{,}41^2 + 23{,}78^2}\)</p><p>\(\|\Delta\| \approx 23{,}79\) cm</p><p>Interprétation : la commande doit reculer la sonde de 0,41 cm selon x, et surtout l'avancer de 23,78 cm selon y.</p><p>L'énoncé ne donne pas de z pour la cible : on ne corrige que dans le plan (x, y).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-10.html"><small>Réviser</small>La version courte du MGD</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", "bio") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Exercice de révision";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
