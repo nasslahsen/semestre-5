@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Révision du contrôle du 19 novembre · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Révision du contrôle du 19-11-2026 : la présentation du professeur, expliquée, avec questions. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Révision du contrôle du 19 novembre</h1>
+<p class="court-lien">Lis une partie, réponds aux questions dans ta tête, puis touche « Voir la réponse ». <a href="../examen.html">Préparer l'examen</a></p>
+<p>La présentation de révision du professeur (64 diapositives), remise en ordre et expliquée. Les sept parties suivent l'ordre des diapositives. Quand une diapositive ne donne qu'un titre ou un mot, l'explication vient du cours : c'est signalé par « Du cours ». À la fin de chaque partie, des questions de contrôle avec la réponse cachée.</p>
+<p>Ce que le professeur demande de connaître sur les polymères (sa première diapositive) :</p>
+<ul>
+<li>la <strong>masse moléculaire</strong> et son importance ;</li>
+<li>l'<strong>état physique</strong> : vitreux, caoutchouteux, semi-cristallin ;</li>
+<li>la <strong>température de transition</strong> ;</li>
+<li>l'<strong>orientation</strong> ;</li>
+<li>les principaux <strong>additifs</strong> et leur rôle ;</li>
+<li>l'effet des <strong>charges et des renforts</strong> sur la rigidité ;</li>
+<li>la <strong>loi des mélanges</strong> et l'orientation des fibres.</li>
+</ul>
+<p>Puis la révision passe aux procédés, aux dispositifs médicaux, aux métaux et aux céramiques.</p>
+
+<h2>Les polymères : structure et familles</h2>
+<p>Un polymère est fait de très longues chaînes, les <strong>macromolécules</strong>. Leur forme décide de la famille :</p>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Forme des chaînes</th><th>À la chaleur</th></tr>
+<tr><td>Thermoplastiques</td><td>linéaires ou ramifiées, non reliées</td><td>se ramollissent, on peut les remouler</td></tr>
+<tr><td>Élastomères</td><td>réseau à mailles larges</td><td>restent souples, très déformables</td></tr>
+<tr><td>Thermodurcissables</td><td>réseau à mailles serrées</td><td>ne se ramollissent plus, se dégradent</td></tr>
+</table></div>
+<p>À l'échelle des chaînes, un plastique est <strong>amorphe</strong> (chaînes en pelote, en désordre) ou <strong>partiellement cristallin</strong> (des zones où les chaînes sont rangées).</p>
+<figure class="photo duo"><img src="../images/rev-macromolecules.jpg" alt="Formes des macromolécules : linéaires, ramifiées, réseau à mailles larges et serrées, matière amorphe et partiellement cristalline"><img src="../images/rev-thermoplastiques.jpg" alt="Exemples de thermoplastiques : granulés, bouteilles, seringues, polystyrène expansé et formules du PE, du PC et du PS"><figcaption>Forme des macromolécules et exemples de thermoplastiques. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<ul>
+<li><strong>Thermoplastiques</strong> : ils n'atteignent jamais l'état gazeux, ils se dégradent avant. Vendus en granulés, feuilles ou poudre. Exemples : <strong>polyéthylène (PE)</strong>, <strong>polycarbonate (PC)</strong>, <strong>polystyrène (PS)</strong>.</li>
+<li><strong>Thermodurcissables</strong> : une fois durcis et moulés, on ne peut plus les chauffer pour les reformer, ils se dégradent. On les moule à partir d'un semi-produit : <strong>résine + catalyseur</strong>. L'image du cours : un œuf cuit (thermodurcissable) ne redevient pas cru, un œuf en chocolat (thermoplastique) refond.</li>
+</ul>
+<h3>Élastomères et caoutchoucs</h3>
+<ul>
+<li>Un <strong>élastomère</strong> ne subit qu'une <strong>déformation élastique</strong> : il supporte de grandes déformations et revient à sa forme.</li>
+<li>Un <strong>plastomère</strong> peut subir une déformation élastique accompagnée d'une <strong>déformation plastique</strong> (permanente).</li>
+<li>Ce qui rend les élastomères uniques : un <strong>module très faible</strong>, E ≈ 1 MPa (contre environ 1 GPa pour les plastiques), et des <strong>déformations énormes</strong>, jusqu'à 1000 %.</li>
+</ul>
+<figure class="photo"><img src="../images/rev-module-caoutchouc-ps.jpg" alt="Module en fonction de la température pour le polystyrène et le caoutchouc naturel brut et vulcanisé"><figcaption>Module selon la température : à l'ambiante (flèche bleue), le polystyrène est sous sa Tv (rigide), le caoutchouc naturel au-dessus (souple). Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<p>Lecture du graphique : à température ambiante, le polystyrène est encore sous sa température de transition vitreuse Tv (≈ 100 °C), donc rigide. Le caoutchouc naturel l'a déjà dépassée (Tv ≈ −60 °C), donc il est sur son plateau souple. Le caoutchouc brut finit par couler ; le caoutchouc <strong>vulcanisé</strong> garde son plateau.</p>
+<h3>La vulcanisation</h3>
+<ul>
+<li>Un élastomère brut n'est pas prêt à l'emploi : au-dessus de Tg, des chaînes linéaires se comportent comme un <strong>liquide extrêmement visqueux</strong>.</li>
+<li>La <strong>vulcanisation</strong> crée une <strong>réticulation chimique</strong> : des liaisons covalentes (des ponts) entre les chaînes.</li>
+<li>Le système principal est au <strong>soufre</strong> (ponts S–S), ou un <strong>peroxyde</strong> organique.</li>
+<li>Effet du soufre : <strong>Tg et E augmentent</strong> sans faire disparaître le plateau caoutchouteux. À une température donnée (T &gt; Tg), plus il y a de soufre, plus le module est élevé.</li>
+</ul>
+<figure class="photo duo"><img src="../images/rev-vulcanisation-ponts.jpg" alt="Chaînes de caoutchouc reliées par des ponts de soufre"><img src="../images/rev-soufre.jpg" alt="Module G en fonction de la température pour 0, 2, 10 et 30 % de soufre"><figcaption>Ponts de soufre entre les chaînes, et module selon le pourcentage de soufre (0, 2, 10, 30 %) : plus de soufre, Tg plus haute et module plus grand. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="schema" id="sc-vulcanisation"></div>
+<h3>Polymérisation par addition</h3>
+<p>On ouvre la double liaison C=C du monomère pour l'accrocher au suivant. Le tableau du professeur :</p>
+<div class="tableau"><table>
+<tr><th>Monomère</th><th>Polymère</th><th>Sigle</th><th>Usage principal</th></tr>
+<tr><td>éthylène CH₂=CH₂</td><td>polyéthylène</td><td>PE</td><td>plastique</td></tr>
+<tr><td>propylène</td><td>polypropylène</td><td>PP</td><td>plastique, fibres</td></tr>
+<tr><td>chlorure de vinyle</td><td>polychlorure de vinyle</td><td>PVC</td><td>plastique</td></tr>
+<tr><td>acrylonitrile</td><td>polyacrylonitrile</td><td>PAN</td><td>fibres</td></tr>
+<tr><td>tétrafluoroéthylène CF₂=CF₂</td><td>polytétrafluoroéthylène</td><td>PTFE</td><td>plastique</td></tr>
+<tr><td>styrène</td><td>polystyrène</td><td>PS</td><td>plastique</td></tr>
+<tr><td>méthacrylate de méthyle</td><td>polyméthacrylate de méthyle</td><td>PMMA</td><td>plastique</td></tr>
+<tr><td>acrylate d'éthyle</td><td>polyacrylate d'éthyle</td><td>PEA</td><td>colles, peintures</td></tr>
+</table></div>
+<div class="question-court"><p class="q">Quelle est la différence de structure entre un thermoplastique, un élastomère et un thermodurcissable ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Thermoplastique : chaînes linéaires ou ramifiées, non reliées.</p><p>Élastomère : réseau à mailles larges.</p><p>Thermodurcissable : réseau à mailles serrées.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi ne peut-on pas remouler un thermodurcissable ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une fois durci, son réseau serré ne fond plus : chauffé, il se dégrade au lieu de se ramollir.</p></details></div>
+<div class="question-court"><p class="q">Élastomère et plastomère : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Élastomère : seulement une déformation élastique, il revient à sa forme.</p><p>Plastomère : une déformation élastique plus une déformation plastique, permanente.</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les deux propriétés uniques des élastomères ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un module très faible, E ≈ 1 MPa (contre ≈ 1 GPa pour un plastique).</p><p>Des déformations jusqu'à 1000 %.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que la vulcanisation, et pourquoi la fait-on ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une réticulation chimique : des ponts covalents (soufre ou peroxyde) entre les chaînes.</p><p>Sans elle, au-dessus de Tg, le caoutchouc brut se comporte comme un liquide très visqueux.</p></details></div>
+<div class="question-court"><p class="q">Quel est l'effet du pourcentage de soufre sur un caoutchouc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tg et E augmentent, le plateau caoutchouteux reste.</p><p>À une température donnée au-dessus de Tg, le module augmente avec le % de soufre.</p></details></div>
+<div class="question-court"><p class="q">Donne le sigle et un usage du polymère obtenu à partir du tétrafluoroéthylène, puis du méthacrylate de méthyle.</p><details class="corrige"><summary>Voir la réponse</summary><p>Tétrafluoroéthylène : PTFE, plastique.</p><p>Méthacrylate de méthyle : PMMA, plastique.</p></details></div>
+<h2>États, Tg et cristallinité</h2>
+<h3>Le polymère amorphe qu'on chauffe</h3>
+<p>Sous une contrainte, les chaînes s'étirent, puis veulent revenir à l'équilibre : c'est la <strong>relaxation</strong> (désenchevêtrement, puis réenchevêtrement). La contrainte décroît avec le temps. <strong>Le temps nécessaire dépend de la longueur des chaînes</strong>.</p>
+<figure class="photo"><img src="../images/rev-relaxation.jpg" alt="Pelote de chaînes au repos, chaînes étirées, et contrainte qui décroît avec le temps"><figcaption>Relaxation : la pelote étirée revient peu à peu, la contrainte σ diminue avec le temps. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<p>La courbe la plus importante de la révision : le module de relaxation Er (en log) quand on chauffe un polymère amorphe.</p>
+<figure class="photo"><img src="../images/rev-etats-amorphe.jpg" alt="Courbe du logarithme du module de relaxation en fonction de la température, avec les zones 0 à 5 et Tg"><figcaption>États d'un polymère amorphe. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="tableau"><table>
+<tr><th>Zone</th><th>État</th><th>Ce qui se passe</th></tr>
+<tr><td>0–1</td><td>vitreux</td><td>basse température : une déformation écarte seulement les atomes, le polymère est rigide</td></tr>
+<tr><td>1–2</td><td>transition vitreuse</td><td>chute importante du module autour de <strong>Tg</strong></td></tr>
+<tr><td>2–3</td><td>plateau caoutchouteux</td><td>de longues sections de chaînes peuvent bouger</td></tr>
+<tr><td>3–4</td><td>transition caoutchouc-liquide</td><td>les chaînes commencent à glisser</td></tr>
+<tr><td>5</td><td>liquide</td><td>le polymère coule</td></tr>
+</table></div>
+<p>Du cours : <strong>Tg</strong> (ou Tv) est la <strong>température de transition vitreuse</strong>, où le polymère passe de l'état rigide (vitreux) à l'état souple (caoutchouteux).</p>
+<h3>Effet de la masse moléculaire</h3>
+<ul>
+<li>Plus la <strong>masse moléculaire</strong> est grande (chaînes plus longues), plus l'apparition du liquide est <strong>repoussée vers les hautes températures</strong> : le plateau caoutchouteux s'allonge.</li>
+<li>Pour une masse moléculaire infinie (chaînes toutes reliées), le polymère n'atteint jamais l'état liquide.</li>
+</ul>
+<figure class="photo"><img src="../images/rev-masse-moleculaire.jpg" alt="Module en fonction de la température pour trois masses moléculaires M1, M2 et M3 infinie"><figcaption>M₂ &gt; M₁ : le plateau dure plus longtemps. M₃ infinie : jamais liquide. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="schema" id="sc-etats"></div>
+<h3>Les polymères semi-cristallins</h3>
+<ul>
+<li>Deux phases coexistent : la <strong>phase cristalline</strong>, avec sa densité ρc et sa <strong>température de fusion Tf</strong>, et la <strong>phase amorphe</strong>, avec sa densité ρa et sa <strong>Tg</strong>.</li>
+<li>Un polymère cristallise si : <strong>T ≪ Tf</strong>, <strong>T ≫ Tg</strong> (les chaînes doivent pouvoir bouger), des <strong>chaînes flexibles</strong> et des <strong>chaînes régulières</strong>.</li>
+</ul>
+<figure class="photo duo"><img src="../images/rev-semi-cristallin.jpg" alt="Polymère semi-cristallin : lamelles cristallines reliées par des chaînes amorphes"><img src="../images/rev-cristallinite.jpg" alt="Module selon la température pour une forte, une faible et une cristallinité nulle"><figcaption>Lamelles cristallines (ρc, Tf) dans la phase amorphe (ρa, Tg), et effet du taux de cristallinité sur la courbe. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<p><strong>Taux de cristallinité X</strong> : la fraction du polymère à l'état cristallin. On le mesure par la densité :</p>
+\[\rho = \rho_c X + \rho_a (1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a}\]
+<p>Influence : plus X est grand, plus la <strong>chute du module à Tg est faible</strong> (les cristaux tiennent la matière jusqu'à Tf). À 0 % (amorphe), le module s'effondre à Tg.</p>
+<h3>Quelques polymères à connaître</h3>
+<div class="tableau"><table>
+<tr><th>Sigle</th><th>Tg (°C)</th><th>Tf (°C)</th><th>À l'ambiante</th></tr>
+<tr><td>PP</td><td>−18</td><td>170</td><td rowspan="3">semi-cristallins, plastiques modérément fragiles (≈ 1 GPa)</td></tr>
+<tr><td>PE</td><td>−120</td><td>140</td></tr>
+<tr><td>POM (acétal)</td><td>−50</td><td>181</td></tr>
+<tr><td>PVC</td><td>90</td><td>–</td><td rowspan="3">amorphes et fragiles</td></tr>
+<tr><td>PMMA</td><td>105</td><td>–</td></tr>
+<tr><td>PS</td><td>100</td><td>–</td></tr>
+<tr><td>PdMS (silicone)</td><td>−123</td><td>−80</td><td rowspan="2">caoutchouteux, utilisés comme caoutchoucs</td></tr>
+<tr><td>PB</td><td>−73</td><td>28</td></tr>
+</table></div>
+<p>L'arbre du professeur pour prévoir le comportement d'un polymère à partir de Tg :</p>
+<ul>
+<li><strong>Tg ≫ T ambiante</strong> (cristallin ou non) : <strong>plastique</strong>, E ≈ 1 à 3 GPa.</li>
+<li><strong>Tg &lt; T ambiante</strong> et peu cristallin : si les chaînes sont réticulées (masse moléculaire infinie), <strong>élastomère</strong>, E ≈ 1 MPa ; sinon, <strong>liquide</strong>.</li>
+</ul>
+<div class="question-court"><p class="q">Décris les cinq zones de la courbe du module d'un polymère amorphe qu'on chauffe.</p><details class="corrige"><summary>Voir la réponse</summary><p>0–1 : état vitreux, rigide.</p><p>1–2 : transition vitreuse, chute du module à Tg.</p><p>2–3 : plateau caoutchouteux.</p><p>3–4 : transition caoutchouc-liquide.</p><p>5 : état liquide.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que Tg ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La température de transition vitreuse : le polymère passe de l'état vitreux (rigide) à l'état caoutchouteux (souple).</p></details></div>
+<div class="question-court"><p class="q">Quel est l'effet de la masse moléculaire sur l'état d'un polymère ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Plus elle est grande, plus le liquide apparaît à haute température.</p><p>Masse moléculaire infinie (réticulé) : jamais liquide.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que la relaxation, et de quoi dépend sa durée ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le retour des chaînes étirées vers l'équilibre (désenchevêtrement, réenchevêtrement) : la contrainte diminue avec le temps.</p><p>Sa durée dépend de la longueur des chaînes.</p></details></div>
+<div class="question-court"><p class="q">À quelles conditions un polymère cristallise-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>T ≪ Tf.</p><p>T ≫ Tg (mobilité des chaînes).</p><p>Chaînes flexibles.</p><p>Chaînes régulières.</p></details></div>
+<div class="question-court"><p class="q">Écris la formule du taux de cristallinité par la densité.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\rho = \rho_c X + \rho_a (1 - X)\)</p><p>\(X = (\rho - \rho_a)/(\rho_c - \rho_a)\)</p></details></div>
+<div class="question-court"><p class="q">Comment le taux de cristallinité change-t-il la courbe du module ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Plus X est grand, plus la chute du module à Tg est faible : le matériau reste rigide jusqu'à Tf.</p></details></div>
+<div class="question-court"><p class="q">À l'ambiante, dans quel état sont le PE, le PMMA et le silicone ?</p><details class="corrige"><summary>Voir la réponse</summary><p>PE : semi-cristallin (plastique modérément fragile).</p><p>PMMA : amorphe et fragile (Tg = 105 °C).</p><p>Silicone : caoutchouteux.</p></details></div>
+<div class="question-court"><p class="q">Selon l'arbre de Tg, quand obtient-on un plastique, un élastomère ou un liquide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tg ≫ T ambiante : plastique, E ≈ 1 à 3 GPa.</p><p>Tg &lt; T ambiante et réticulé : élastomère, E ≈ 1 MPa.</p><p>Tg &lt; T ambiante et non réticulé : liquide.</p></details></div>
+<h2>Additifs, charges et renforts</h2>
+<p>Chaque additif corrige un défaut du polymère :</p>
+<div class="tableau"><table>
+<tr><th>On veut agir sur</th><th>Additif</th><th>Effet</th></tr>
+<tr><td>le coût</td><td>charge (filler)</td><td>baisse le coût</td></tr>
+<tr><td>la rigidité</td><td>renfort / plastifiant</td><td>l'augmente / la baisse</td></tr>
+<tr><td>la densité</td><td>agents gonflants, billes creuses</td><td>la baissent</td></tr>
+<tr><td>la couleur</td><td>colorants, pigments</td><td></td></tr>
+<tr><td>la résistance au feu</td><td>ignifugeants</td><td></td></tr>
+<tr><td>la résistance aux UV</td><td>stabilisants</td><td></td></tr>
+</table></div>
+<div class="schema" id="sc-adjuvants"></div>
+<h3>Les plastifiants</h3>
+<p>Un <strong>plastifiant</strong> est un <strong>solvant lourd</strong> qui, incorporé au polymère, détruit en partie les interactions entre chaînes responsables de la cohésion mécanique : il transforme un matériau rigide en matériau <strong>souple</strong>, flexible. Sur la courbe, il <strong>abaisse Tg</strong>.</p>
+<figure class="photo duo"><img src="../images/rev-plastifiant.jpg" alt="Les molécules de plastifiant s'intercalent entre les chaînes du polymère"><img src="../images/rev-plastifiant-tg.jpg" alt="Courbe du module : le polymère plastifié a une Tg plus basse que le polymère seul"><figcaption>Le plastifiant écarte les chaînes et décale Tg vers les basses températures. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>Les agents de réticulation</h3>
+<ul>
+<li>Ils favorisent une <strong>structure tridimensionnelle</strong> : ils font <strong>durcir les résines « liquides »</strong> (exemple : polyester insaturé UP).</li>
+<li>Dans un caoutchouc (le soufre) : Tg et E augmentent, le plateau caoutchouteux reste (voir la vulcanisation plus haut).</li>
+</ul>
+<h3>Charges et renforts</h3>
+<p>Le <strong>carbonate de calcium</strong> (CaCO₃) est la <strong>charge la plus utilisée</strong> :</p>
+<ul>
+<li>particules irrégulières, <strong>rapport de forme proche de 1</strong> ;</li>
+<li>surtout dans les thermodurcissables ;</li>
+<li>il <strong>augmente la rigidité à basse température</strong>, a peu d'effet à haute température ;</li>
+<li>il <strong>diminue la résistance au choc</strong>.</li>
+</ul>
+<figure class="photo duo"><img src="../images/rev-caco3.jpg" alt="Calcite, calcaire, dolomite, craie, coquillages et poudre de carbonate de calcium"><img src="../images/rev-hdt.jpg" alt="Montage de mesure de la température de fléchissement sous charge HDT"><figcaption>Sources de carbonate de calcium, et montage de mesure de la HDT (barreau chargé dans un bain qu'on chauffe). Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="tableau"><table>
+<tr><th>Matériau</th><th>E (GPa)</th><th>HDT (°C)</th></tr>
+<tr><td>polypropylène seul</td><td>1,7</td><td>65</td></tr>
+<tr><td>PP + 40 % CaCO₃</td><td>2,8</td><td>75</td></tr>
+<tr><td>PP + 40 % talc</td><td>4,2</td><td>97</td></tr>
+<tr><td>PP + 30 % fibres de verre</td><td>6,5</td><td>148</td></tr>
+</table></div>
+<p>À lire : plus la particule est allongée (CaCO₃ ≈ sphère, talc en plaquettes, fibre de verre très longue), plus E et la <strong>HDT</strong> montent. La HDT (heat deflection temperature, température de fléchissement sous charge) se mesure avec le montage de la diapositive : un barreau chargé dans un bain qu'on chauffe, jusqu'à ce qu'il fléchisse d'une valeur donnée. Elle dit jusqu'à quelle température la pièce garde sa rigidité.</p>
+<div class="schema" id="sc-forme"></div>
+<h3>Loi des mélanges et orientation des fibres (du cours)</h3>
+<p>La diapositive 1 les annonce sans les redétailler ; voici l'essentiel du chapitre « Les matériaux composites ».</p>
+<ul>
+<li><strong>Loi des mélanges</strong> (tiré dans le sens des fibres) : \(E_{CL} = E_f \phi_f + E_m \phi_m\), avec φ les fractions volumiques (φf + φm = 1).</li>
+<li><strong>Module transversal</strong> (tiré en travers) : \(\dfrac{1}{E_{CT}} = \dfrac{\phi_f}{E_f} + \dfrac{\phi_m}{E_m}\), beaucoup plus faible.</li>
+<li><strong>Fibres orientées</strong> : \(E_{CL} = K_o E_f \phi_f + E_m \phi_m\), avec le <strong>coefficient d'orientation</strong> \(K_o = \sum a_n \cos^4\theta_n\) : 1 (fibres alignées), 0,5 (tissu 0/90), 0,375 (aléatoire dans le plan), 0 (perpendiculaires).</li>
+<li>Exemple du cours : verre \(E_f = 70\) GPa, résine \(E_m = 3\) GPa, \(\phi_f = 0{,}4\) : alignées 29,8 GPa, tissu 0/90 15,8 GPa, mat aléatoire 12,3 GPa.</li>
+</ul>
+<div class="schema" id="sc-ko"></div>
+<div class="question-court"><p class="q">Quel additif utiliser pour baisser le coût, augmenter la rigidité, la baisser, baisser la densité, résister au feu et aux UV ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Coût : charge.</p><p>Augmenter la rigidité : renfort.</p><p>Baisser la rigidité : plastifiant.</p><p>Baisser la densité : agents gonflants, billes creuses.</p><p>Feu : ignifugeants.</p><p>UV : stabilisants.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce qu'un plastifiant, et quel est son effet sur Tg ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un solvant lourd qui détruit en partie les interactions entre chaînes : le matériau devient souple.</p><p>Il abaisse Tg.</p></details></div>
+<div class="question-court"><p class="q">À quoi servent les agents de réticulation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À créer une structure tridimensionnelle : ils durcissent les résines liquides (polyester insaturé).</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les caractéristiques du carbonate de calcium comme charge ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La charge la plus utilisée, rapport de forme proche de 1, surtout dans les thermodurcissables.</p><p>Il augmente la rigidité à basse température, peu à haute température.</p><p>Il diminue la résistance au choc.</p></details></div>
+<div class="question-court"><p class="q">Classe CaCO₃, talc et fibre de verre selon leur effet sur le module et la HDT du PP. Pourquoi cet ordre ?</p><details class="corrige"><summary>Voir la réponse</summary><p>CaCO₃ (2,8 GPa, 75 °C) &lt; talc (4,2 GPa, 97 °C) &lt; fibre de verre (6,5 GPa, 148 °C).</p><p>Plus le renfort est allongé (rapport de forme grand), plus il rigidifie.</p></details></div>
+<div class="question-court"><p class="q">Composite verre-résine : Ef = 70 GPa, Em = 3 GPa, φf = 0,4, fibres alignées. Module longitudinal ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(E_{CL} = E_f \phi_f + E_m \phi_m\)</p><p>\(E_{CL} = 70 \times 0{,}4 + 3 \times 0{,}6 = 28 + 1{,}8\)</p><p>\(E_{CL} = 29{,}8\) GPa</p></details></div>
+<div class="question-court"><p class="q">Que vaut le coefficient d'orientation pour des fibres alignées, un tissu 0/90 et des fibres perpendiculaires ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Alignées : 1.</p><p>Tissu 0/90 : 0,5.</p><p>Perpendiculaires : 0.</p></details></div>
+<h2>Les procédés de fabrication</h2>
+<p>Les procédés du cours : <strong>injection</strong> (et injection soufflage), <strong>extrusion</strong> (et extrusion soufflage, extrusion gonflage), <strong>rotomoulage</strong>, <strong>thermoformage</strong>. Pour chacun : le principe, des exemples, et l'<strong>indice</strong> qui permet de le reconnaître sur un objet.</p>
+<div class="tableau"><table>
+<tr><th>Procédé</th><th>Principe</th><th>Exemples</th><th>Indice</th></tr>
+<tr><td>Injection</td><td>la matière est chauffée dans un cylindre, une vis sans fin prépare la dose, puis sert de piston pour l'injecter dans un moule fermé</td><td>bouchons, boîtes, corps de stylo, pièces automobiles, électriques, médicales</td><td>objet prêt à l'emploi, petit point d'injection</td></tr>
+<tr><td>Injection soufflage</td><td>on injecte une préforme, on la chauffe et on la gonfle à l'air comprimé contre le moule</td><td>bouteilles, flacons, réservoirs</td><td>point d'injection au fond</td></tr>
+<tr><td>Extrusion</td><td>la vis malaxe, compresse, cisaille, chauffe et pousse en continu la matière vers une filière</td><td>tuyaux, profilés, gaines, câbles</td><td>section constante, longueur continue</td></tr>
+<tr><td>Extrusion soufflage</td><td>on extrude un tube chaud, on l'enferme dans un moule et on le gonfle</td><td>bouteilles, flacons, réservoirs</td><td>ligne de soudure au fond</td></tr>
+<tr><td>Extrusion gonflage</td><td>à la sortie de la filière, on gonfle le tube en une longue bulle, on la refroidit, l'aplatit et l'enroule</td><td>sacs poubelle, sacs de congélation, films</td><td>film mince</td></tr>
+</table></div>
+<figure class="photo duo"><img src="../images/rev-injection.jpg" alt="Presse à injection : trémie, vis dans le cylindre et moule fermé, puis éjection de la pièce"><img src="../images/rev-extrudeuse.jpg" alt="Schéma d'une extrudeuse : trémie, vis sans fin dans le fourreau chauffant et filière"><figcaption>Injection (la vis pousse la matière dans le moule) et extrudeuse (la vis pousse la matière en continu à travers la filière). Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<figure class="photo duo"><img src="../images/rev-extrusion-soufflage.jpg" alt="Extrusion soufflage : le tube extrudé est enfermé dans le moule puis gonflé en bouteille"><img src="../images/rev-gonflage.jpg" alt="Extrusion gonflage : bulle de film plastique tirée vers le haut puis enroulée en bobines"><figcaption>Extrusion soufflage (tube pincé puis gonflé : ligne de soudure au fond) et extrusion gonflage (bulle de film). Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<ul>
+<li>Pour l'extrusion, on préfère un polymère de <strong>masse molaire élevée</strong> et de structure <strong>amorphe</strong>. L'extrudeuse s'appelle aussi <strong>boudineuse</strong>.</li>
+<li>Les variantes de l'extrusion : gainage, formage, calandrage, filière plate, soufflage, gonflage, filage, co-extrusion.</li>
+</ul>
+<figure class="photo"><img src="../images/rev-extrusion-objets.jpg" alt="Objets extrudés : tuyaux, gaines, profilés de fenêtre, tubes de couleur"><figcaption>Objets extrudés : tous ont une section constante. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="schema" id="sc-procedes"></div>
+<h3>Les plastiques de grande diffusion</h3>
+<p>Les plastiques <strong>de commodité</strong> font <strong>85 % du marché</strong> des plastiques. Ils ont une <strong>contrainte et une tenue en température faibles</strong> : <strong>PE</strong> (bouchons, films, réservoirs), <strong>PP</strong> (boîtes alimentaires, chaises), <strong>PVC</strong> (raccords, tuyaux transparents, portes), <strong>PS</strong> (barquettes, polystyrène expansé).</p>
+<div class="question-court"><p class="q">Décris le procédé d'injection et son indice.</p><details class="corrige"><summary>Voir la réponse</summary><p>La matière est chauffée et ramollie dans un cylindre, une vis sans fin prépare la quantité, puis devient piston et l'injecte dans un moule fermé.</p><p>Indice : objet prêt à l'emploi, avec un petit point d'injection.</p></details></div>
+<div class="question-court"><p class="q">Injection soufflage et extrusion soufflage font des bouteilles. Comment les distinguer sur l'objet ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Injection soufflage : un point d'injection au fond.</p><p>Extrusion soufflage : une ligne de soudure au fond.</p></details></div>
+<div class="question-court"><p class="q">Quel est le rôle de la vis dans une extrudeuse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle malaxe, compresse, cisaille, échauffe et transporte en continu la matière fluide et homogène vers la filière.</p></details></div>
+<div class="question-court"><p class="q">Comment fabrique-t-on un sac poubelle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par extrusion gonflage : le tube sorti de la filière est gonflé en une longue bulle, refroidi, aplati puis enroulé.</p></details></div>
+<div class="question-court"><p class="q">Quel type de polymère préfère-t-on pour l'extrusion ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une masse molaire élevée et une structure amorphe.</p></details></div>
+<div class="question-court"><p class="q">Que sont les plastiques de grande diffusion ?</p><details class="corrige"><summary>Voir la réponse</summary><p>PE, PP, PVC, PS : 85 % du marché, contrainte et tenue en température faibles.</p></details></div>
+<h2>Biomatériaux et dispositifs médicaux</h2>
+<ul>
+<li>Un <strong>dispositif médical</strong> est un produit de santé, logiciels compris, à usage médical, dont le mode d'action principal n'est obtenu <strong>ni par voie pharmacologique, ni immunologique, ni par métabolisme</strong>.</li>
+<li>Un biomatériau est <strong>rarement utilisé seul</strong> : il est <strong>intégré dans un dispositif médical</strong>. C'est ce qui les différencie.</li>
+<li>Rôle des dispositifs médicaux : le <strong>diagnostic, la prévention, le contrôle, le traitement</strong> d'une maladie ; le diagnostic, le contrôle, le traitement, la <strong>réparation</strong> d'une blessure ou d'un handicap ; le <strong>remplacement ou la modification</strong> de l'anatomie ou d'un processus physiologique.</li>
+</ul>
+<div class="schema" id="sc-dm-finalites"></div>
+<h3>Exigences mécaniques d'un biomatériau</h3>
+<p>Selon le produit : <strong>résistance à la rupture</strong>, <strong>à l'usure</strong>, <strong>à la fatigue</strong>, <strong>au fluage</strong>, <strong>au choc</strong>.</p>
+<h3>Domaines d'application : la chirurgie orthopédique</h3>
+<p>Prothèses articulaires (hanche, coude, genou, poignet, cheville, épaule), orthèses et cartilage, ligaments et tendons artificiels, remplacement osseux (tumeur, traumatisme), chirurgie du rachis, réparation de fractures (vis, plaques, clous, broches), matériaux de comblement osseux injectables.</p>
+<figure class="photo"><img src="../images/rev-orthopedie.jpg" alt="Prothèses de genou, d'épaule, de cheville, de hanche, implant pour rachis et ligaments artificiels"><figcaption>Chirurgie orthopédique : genou, rachis, épaule, cheville, hanche, ligaments, articulation inter-phalangienne. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>Les grandes classes de biomatériaux</h3>
+<ul>
+<li>Aucun matériau ne satisfait toutes les exigences : un matériau plus rigide peut être moins résilient, un autre plus résistant à l'usure moins résistant à la fatigue. D'où le choix d'un matériau, ou <strong>plusieurs matériaux dans le même implant</strong>.</li>
+<li>Les familles : <strong>métalliques</strong>, <strong>céramiques</strong>, <strong>polymériques</strong>, <strong>composites</strong>, <strong>biomatériaux naturels</strong>.</li>
+<li>Exemple de la hanche : surface de contact → <strong>résistance à l'usure</strong> ; tige → <strong>rigidité et résistance à la fatigue</strong> ; partie dans l'os → <strong>compatibilité avec le tissu, résistance à la corrosion</strong>.</li>
+<li><strong>Hydroxyapatite</strong> Ca₁₀(PO₄)₆(OH)₂ : le minéral de l'os, utilisé en revêtement des tiges et cupules pour qu'elles s'intègrent à l'os.</li>
+</ul>
+<div class="question-court"><p class="q">Qu'est-ce qu'un dispositif médical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un produit de santé, logiciels compris, à usage médical, dont l'action principale n'est ni pharmacologique, ni immunologique, ni métabolique.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce qui différencie un biomatériau d'un dispositif médical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le biomatériau est rarement utilisé seul : il est intégré dans un dispositif médical.</p></details></div>
+<div class="question-court"><p class="q">Quels sont les rôles des dispositifs médicaux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Diagnostic, prévention, contrôle, traitement d'une maladie.</p><p>Diagnostic, contrôle, traitement, réparation d'une blessure ou d'un handicap.</p><p>Remplacement ou modification de l'anatomie ou d'un processus physiologique.</p></details></div>
+<div class="question-court"><p class="q">Cite les exigences mécaniques d'un biomatériau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Résistance à la rupture, à l'usure, à la fatigue, au fluage, au choc.</p></details></div>
+<div class="question-court"><p class="q">Cite cinq applications en chirurgie orthopédique.</p><details class="corrige"><summary>Voir la réponse</summary><p>Prothèses articulaires.</p><p>Ligaments et tendons artificiels.</p><p>Chirurgie du rachis.</p><p>Réparation de fractures (vis, plaques, clous).</p><p>Comblement osseux injectable.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi utilise-t-on parfois plusieurs matériaux dans un même implant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Aucun matériau ne satisfait toutes les exigences : chaque pièce a sa contrainte (usure, fatigue, corrosion).</p></details></div>
+<h2>Les biomatériaux métalliques</h2>
+<p>Les problèmes mal résolus avec les métaux :</p>
+<ul>
+<li>la <strong>corrosion électrochimique</strong> et la durabilité ;</li>
+<li>la dégradation non électrochimique (interactions protéine/métal) ;</li>
+<li>les <strong>réactions immunitaires et d'hypersensibilité</strong> ;</li>
+<li>l'<strong>adaptation des propriétés mécaniques</strong> ;</li>
+<li>le <strong>frottement et les débris</strong>.</li>
+</ul>
+<p>Fe, Cr, Co, Ni, Ti, Ta, Nb, Mo, W ne sont tolérés qu'<strong>en petites quantités</strong>. In vivo, un implant peut corroder : il <strong>s'affaiblit mécaniquement</strong> et ses <strong>produits de corrosion</strong> nuisent aux tissus et aux organes.</p>
+<div class="schema" id="sc-problemes-metaux"></div>
+<h3>Les aciers inoxydables : 316 et 316L</h3>
+<ul>
+<li>Les plus utilisés pour les implants. Le « <strong>L</strong> » de 316L : <strong>faible teneur en carbone</strong> (0,03 %). Le 316L est recommandé plutôt que le 316.</li>
+<li>Durcis par <strong>écrouissage</strong>, pas par traitement thermique.</li>
+<li><strong>Non magnétiques</strong>, bonne <strong>résistance à la corrosion par piqûres</strong> en eau salée, mais <strong>artefacts en IRM</strong>.</li>
+<li>Composition : Cr 17–20 %, Ni 12–14 %, Mo 2–4 %, C ≤ 0,03 %. E = 210 GPa (2,1 × 10⁵ MPa), densité 7800 kg/m³.</li>
+<li>Le 316L <strong>peut corroder</strong> sous fortes contraintes avec manque d'oxygène (sous les vis d'une plaque de fracture). Donc réservé aux <strong>implants temporaires</strong> : plaques, vis, clous de hanche.</li>
+<li>Traitements de surface : <strong>anodisation</strong>, <strong>passivation</strong>, <strong>nitruration</strong> (corrosion, usure, fatigue).</li>
+<li>Ne pas mettre en <strong>contact direct</strong> inox et titane ou alliage de cobalt : <strong>corrosion galvanique</strong>. Plusieurs métaux dans le même os : pas de problème s'ils ne se touchent pas.</li>
+</ul>
+<figure class="photo"><img src="../images/rev-inox-applications.jpg" alt="Clous, vis orthopédique, tige fémorale et tête, prothèse d'épaule et arcs dentaires en acier inoxydable"><figcaption>Applications de l'inox : clous, vis, tige fémorale, prothèse d'épaule, arc dentaire. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>Les alliages cobalt-chrome</h3>
+<ul>
+<li>Usure de l'alliage forgeable Co-Ni-Cr-Mo voisine de celle du coulable Co-Cr-Mo : ≈ 0,14 mm/an contre un cotyle en polyéthylène. Mais le Co-Ni-Cr-Mo a un <strong>mauvais coefficient de frottement</strong> : déconseillé pour les surfaces frottantes.</li>
+<li><strong>Module de Young 220 à 234 GPa</strong>, plus que l'inox : conséquences possibles sur le transfert des efforts à l'os.</li>
+<li><strong>Faible usure</strong> grâce à sa dureté et sa ténacité : avantage du contact <strong>métal sur métal</strong> en CoCrMo (prothèse McKee-Farrar : 4,2 µm/an).</li>
+<li>Applications : PTH (encore en place après 38 ans), <strong>stents</strong> très fins, pièce fémorale de genou, <strong>filtre cave</strong>, implants dentaires. <strong>Artefacts en IRM</strong>.</li>
+</ul>
+<figure class="photo"><img src="../images/rev-cocr-applications.jpg" alt="Prothèse de hanche, stent, pièce fémorale de genou, filtre cave et implants dentaires en cobalt-chrome"><figcaption>Applications du cobalt-chrome. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>Le titane et ses alliages</h3>
+<div class="tableau"><table>
+<tr><th>Alliage</th><th>À retenir</th></tr>
+<tr><td>TiAl6V4 (TA6V)</td><td>le plus utilisé ; risque de relargage de <strong>vanadium toxique</strong></td></tr>
+<tr><td>Ti-6Al-7Nb</td><td>comme le TA6V, meilleure résistance à la corrosion</td></tr>
+<tr><td>Ti-5Al-2,5Fe</td><td>électrodes de pacemaker (qualité du signal)</td></tr>
+<tr><td>Ti-13Nb-13Zr</td><td>orthopédie : module plus faible que le TA6V</td></tr>
+<tr><td>Ti-15Mo-3Nb</td><td>orthopédie : très résistant, module faible, sans Al ni V</td></tr>
+</table></div>
+<ul>
+<li><strong>Chimie</strong> : excellente résistance à la corrosion grâce à la couche de <strong>passivation TiO₂</strong>, inertie chimique. La <strong>passivation</strong> : traiter le métal à l'acide pour éliminer le fer libre de surface et le recouvrir de cette couche d'oxyde protectrice.</li>
+<li><strong>Biologie</strong> : biocompatible, <strong>ostéointégration</strong> (le matériau se laisse coloniser par les cellules osseuses).</li>
+<li><strong>Mécanique</strong> : module (110 GPa) et densité (4,5) <strong>plus proches de l'os</strong> que le 316L et le CoCr, très résistant ; dépend des éléments d'alliage et des traitements.</li>
+<li>Dureté <strong>Vickers</strong> : une pointe pyramidale en diamant à base carrée (136°) ; plus l'empreinte est grande, moins le matériau est dur.</li>
+</ul>
+<h3>Le stress shielding</h3>
+<p>Un os qui travaille se renforce. Une prothèse trop rigide <strong>absorbe les contraintes</strong> à la place de l'os (<strong>stress shielding</strong>) : l'os autour n'est plus sollicité et perd de sa densité, une <strong>ostéoporose localisée</strong>. Le <strong>faible module du titane</strong> laisse passer plus d'effort dans l'os et limite ce risque.</p>
+<figure class="photo duo"><img src="../images/rev-stress-shielding.jpg" alt="Trajet des efforts du poids du corps dans le bassin et le fémur, zone protégée par la prothèse"><img src="../images/rev-titane-applications.jpg" alt="Prothèse de côtes, tige de hanche, prothèse tibiale, implants dentaires et systèmes de fixation en titane"><figcaption>Stress shielding (zone de l'os « protégée » par la prothèse) et applications du titane. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<p>Applications du titane : <strong>tiges de hanche en TiAl6V4</strong>, prothèse tibiale en Ti6Al4V, prothèse de côtes expansible, <strong>implants dentaires</strong>, systèmes de fixation (tiges, plaques, vis, clous). Les <strong>alliages à mémoire de forme</strong> (AMF, <strong>Nitinol</strong> NiTi) : agrafes d'ostéotomie, plaques, agrafes pour la scoliose, tige de Harrington, stents, arcs dentaires, pinces et pinces-paniers.</p>
+<figure class="photo"><img src="../images/rev-amf-applications.jpg" alt="Agrafes, plaques, stent, tige de Harrington, arc dentaire et pinces en alliage à mémoire de forme Nitinol"><figcaption>Applications des alliages à mémoire de forme (Nitinol). Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>Revêtement et finition de surface</h3>
+<p>La <strong>surface</strong> décide de la réponse biologique. Un métal a une énergie de surface élevée : il adsorbe facilement des matières organiques, d'où une couche oxydée et contaminée. Les modifications :</p>
+<ul>
+<li><strong>finition mécanique</strong> (polissage, meulage, sablage) : nettoyer, améliorer l'adhérence ;</li>
+<li><strong>finition chimique</strong> (alcalin, acide, eau oxygénée, oxydation anodique) : retirer les oxydes, meilleure corrosion, biocompatibilité, bioactivité ;</li>
+<li><strong>finition physique</strong> (dépôt en phase vapeur, implantation d'ions) : usure et corrosion ;</li>
+<li><strong>revêtement physique</strong> (flamme, <strong>projection plasma</strong>) : usure, corrosion, propriétés biologiques ;</li>
+<li><strong>enrobage chimique</strong> (silanisation, photochimie) : greffer des polymères bioactifs, peptides, protéines, facteurs de croissance.</li>
+</ul>
+<h3>Comparer les métaux</h3>
+<figure class="photo duo"><img src="../images/rev-module-young.jpg" alt="Diagramme du module de Young de l'os, du ciment, des alliages de titane, de la zircone, du 316L et du Co-Cr-Mo, et des limites élastiques"><img src="../images/rev-couples-frottement.jpg" alt="Tableau des couples de frottement : coefficient, pénétration et usure pour CoCr, inox, alumine et zircone contre polyéthylène, alumine-alumine et métal-métal"><figcaption>Modules de Young (l'os est tout en haut, à environ 20 GPa) et couples de frottement des prothèses. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="tableau"><table>
+<tr><th>Métal</th><th>Densité (g/cm³)</th><th>Module E (GPa)</th><th>Usages</th></tr>
+<tr><td>Ti et alliages</td><td>4,5</td><td>100–110</td><td>tiges de hanche, implants dentaires, vis</td></tr>
+<tr><td>NiTi (Nitinol)</td><td>6,5–6,7</td><td>≥ 48</td><td>stents, agrafes, guides</td></tr>
+<tr><td>316L</td><td>7,9</td><td>200</td><td>plaques, vis, implants temporaires</td></tr>
+<tr><td>CoCrMo</td><td>8,3</td><td>230</td><td>articulations, valves, dentaire</td></tr>
+<tr><td>Tantale</td><td>16,6</td><td>190</td><td>fils de suture, agrafes, clips</td></tr>
+</table></div>
+<p>Os : environ 20 GPa. Plus le métal est loin de l'os, plus le stress shielding est fort : le titane est le plus proche.</p>
+<div class="question-court"><p class="q">Quels sont les problèmes mal résolus avec les biomatériaux métalliques ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Corrosion électrochimique et durabilité.</p><p>Dégradation non électrochimique (protéine/métal).</p><p>Réactions immunitaires et hypersensibilité.</p><p>Adaptation des propriétés mécaniques.</p><p>Frottement et débris.</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les deux conséquences de la corrosion d'un implant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'implant se désintègre et s'affaiblit mécaniquement.</p><p>Les produits de corrosion nuisent aux tissus et aux organes.</p></details></div>
+<div class="question-court"><p class="q">Que signifie le L de 316L, et pourquoi le préfère-t-on ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Faible teneur en carbone (0,03 %) : meilleure résistance à la corrosion, il est recommandé pour les implants.</p></details></div>
+<div class="question-court"><p class="q">Donne quatre propriétés de l'acier 316L.</p><details class="corrige"><summary>Voir la réponse</summary><p>Durci par écrouissage.</p><p>Non magnétique.</p><p>Bonne résistance à la corrosion par piqûres en eau salée.</p><p>Artefacts en IRM.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi l'inox est-il réservé aux implants temporaires ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il peut corroder sous fortes contraintes avec manque d'oxygène, par exemple sous les vis d'une plaque de fracture.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi ne faut-il pas mettre en contact un implant en inox et un implant en titane ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour éviter la corrosion galvanique dans l'organisme.</p></details></div>
+<div class="question-court"><p class="q">Quels sont les atouts et les défauts du cobalt-chrome ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Atouts : faible usure (dureté, ténacité), bon en métal sur métal, stents très fins.</p><p>Défauts : module très élevé (220–234 GPa), mauvais frottement du Co-Ni-Cr-Mo, artefacts en IRM.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi le TA6V pose-t-il problème, et quels alliages le remplacent ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il peut relarguer du vanadium toxique.</p><p>Ti-6Al-7Nb (meilleure corrosion), Ti-13Nb-13Zr et Ti-15Mo-3Nb (module plus faible, sans Al ni V).</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que la passivation du titane ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un traitement acide qui élimine le fer libre de surface et recouvre le métal d'une couche d'oxyde TiO₂ qui le protège de la corrosion.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que l'ostéointégration ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'aptitude d'un matériau à être colonisé par les cellules osseuses vivantes.</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que le stress shielding, et pourquoi le titane le limite-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La prothèse trop rigide absorbe les contraintes à la place de l'os, qui perd sa densité (ostéoporose localisée).</p><p>Le titane a un module plus faible, plus proche de l'os : l'os reste sollicité.</p></details></div>
+<div class="question-court"><p class="q">Classe Ti, 316L et CoCrMo par densité et par module.</p><details class="corrige"><summary>Voir la réponse</summary><p>Densité : Ti 4,5 &lt; 316L 7,9 &lt; CoCrMo 8,3.</p><p>Module : Ti ≈ 110 &lt; 316L ≈ 200 &lt; CoCrMo ≈ 230 GPa.</p></details></div>
+<div class="question-court"><p class="q">Cite trois traitements de surface et leur but.</p><details class="corrige"><summary>Voir la réponse</summary><p>Finition mécanique (polissage, sablage) : nettoyer, adhérence.</p><p>Finition chimique (acide, oxydation anodique) : corrosion, biocompatibilité.</p><p>Projection plasma : usure, corrosion, propriétés biologiques.</p></details></div>
+<h2>Les biocéramiques</h2>
+<p>Les céramiques et leurs composites servent à réparer ou remplacer des organes, <strong>en particulier l'os</strong> : ce sont les <strong>biocéramiques</strong>. Deux catégories :</p>
+<ul>
+<li><strong>bio-inertes</strong> ou non résorbables : <strong>alumine</strong>, <strong>zircone</strong>, nitrures de silicium, fibres de carbone ;</li>
+<li><strong>biodégradables</strong> ou résorbables : <strong>hydroxyapatite</strong> dense, <strong>phosphate tricalcique</strong>.</li>
+</ul>
+<div class="schema" id="sc-ceramiques"></div>
+<div class="tableau"><table>
+<tr><th>Propriétés mécaniques</th><th>Propriétés biologiques</th><th>Autres</th></tr>
+<tr><td>très grande résistance à la <strong>compression</strong><br>très dures<br>bonne résistance à l'<strong>usure</strong><br>grande résistance au cisaillement<br><strong>non résilientes</strong> (ne résistent pas au choc) donc <strong>fragiles</strong><br><strong>non ductiles</strong> (pas de déformation plastique)</td><td>non toxiques<br>non cancérigènes<br>non allergiques<br>non inflammatoires<br>biocompatibles<br>biofonctionnelles pendant toute l'implantation</td><td>mauvais conducteurs d'électricité<br>mauvais conducteurs de chaleur<br>température de fusion très élevée</td></tr>
+</table></div>
+<figure class="photo duo"><img src="../images/rev-pth.jpg" alt="Radiographie d'une prothèse totale de hanche et pièces d'une prothèse avec tête et inserts en céramique"><img src="../images/rev-usure.jpg" alt="Usure comparée des couples de frottement : CoCr-polyéthylène 200 microns par an, métal-métal 4,2, alumine-alumine moins de 1"><figcaption>Prothèse totale de hanche, et usure des couples : CoCr/polyéthylène 200 µm/an, CoCr/polyéthylène réticulé 20, métal/métal 4,2, alumine/alumine moins de 1 µm/an. Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>La zircone ZrO₂ (oxyde de zirconium)</h3>
+<ul>
+<li>Utilisée pour sa <strong>résistance à l'usure</strong>, <strong>aux chocs thermiques</strong> et <strong>aux hautes températures</strong> (réfractaire). Industrie : pistons de pompes, lames de coupe, électronique.</li>
+<li>Médical : excellente usure (composants durables), <strong>inertie chimique</strong>, <strong>biocompatibilité</strong> ; <strong>têtes de prothèses de hanche</strong> à la place du métal, <strong>implants et couronnes dentaires</strong> à l'aspect naturel.</li>
+<li>Structure <strong>triphasique</strong> : <strong>cubique</strong> (propriétés modestes), <strong>tétragonale</strong> (propriétés satisfaisantes), <strong>monoclinique</strong> (plus de cohésion des grains, plus dense).</li>
+<li>Fabriquée par <strong>frittage</strong> (poudres agglomérées par chauffage sous forte pression), à partir du zircon ZrSiO₄. Fusion très élevée (2953 K), grande stabilité chimique.</li>
+<li>Propriétés un peu inférieures à l'alumine. À haute densité : très biocompatible, très résistante à l'usure, faible frottement contre le polyéthylène UHMWPE.</li>
+<li>Exemple <strong>3Y-TZP</strong> (ZrO₂ + 5,2 % Y₂O₃) : grains &lt; 0,5 µm, flexion 1150 MPa, module 200–250 GPa.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Propriété</th><th>Alumine</th><th>Zircone</th></tr>
+<tr><td>Module de Young (GPa)</td><td>380</td><td>190</td></tr>
+<tr><td>Dureté (Mohs)</td><td>9</td><td>6,5</td></tr>
+<tr><td>Densité (g/cm³)</td><td>3,8–3,9</td><td>5,95</td></tr>
+<tr><td>Taille des grains (µm)</td><td>4,0</td><td>0,6</td></tr>
+</table></div>
+<figure class="photo duo"><img src="../images/rev-zircone.jpg" alt="Tête de prothèse en zircone contrôlée par un palpeur"><img src="../images/rev-zircone-structure.jpg" alt="Billes de zircone et structure cristalline du dioxyde de zirconium"><figcaption>Têtes en zircone, billes et structure cristalline de ZrO₂ (Zr⁴⁺ en gris, O²⁻ en rouge). Diapositives du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<h3>La prothèse totale de hanche en quatre pièces</h3>
+<figure class="photo"><img src="../images/rev-pth-pieces.jpg" alt="Les quatre pièces d'une prothèse de hanche : cupule, insert, tête et tige"><figcaption>Cupule, insert, tête, tige. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<ol>
+<li>La <strong>cupule</strong> métallique, impactée dans l'os du bassin.</li>
+<li>L'<strong>insert</strong> (métal, céramique ou polyéthylène), mis dans la cupule.</li>
+<li>La <strong>tête</strong> (céramique ou métal), placée sur la tige.</li>
+<li>La <strong>tige</strong>, placée dans le canal fémoral.</li>
+</ol>
+<div class="schema" id="sc-pth"></div>
+<h3>Les problèmes des céramiques</h3>
+<ul>
+<li>Mal résolus : les <strong>mécanismes de dégradation</strong>, la <strong>durabilité</strong>, la <strong>résistance à la fracture</strong>, l'activité de surface, l'adhésion des protéines et des cellules.</li>
+<li>Céramiques biorésorbables : mesurer et <strong>contrôler la biorésorption</strong> et son effet sur le tissu, et la <strong>calcification</strong>.</li>
+<li>La <strong>calcification</strong> : un processus pathologique, un dépôt de sels de calcium (surtout de l'hydroxyapatite) dans les tissus mous.</li>
+</ul>
+<div class="question-court"><p class="q">Quelles sont les deux catégories de biocéramiques, avec des exemples ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Bio-inertes (non résorbables) : alumine, zircone, nitrures de silicium, fibres de carbone.</p><p>Résorbables (biodégradables) : hydroxyapatite dense, phosphate tricalcique.</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les propriétés mécaniques des biocéramiques ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Très grande résistance à la compression, très dures, bonne résistance à l'usure, grande résistance au cisaillement.</p><p>Non résilientes donc fragiles, non ductiles (pas de déformation plastique).</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les propriétés biologiques des biocéramiques ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non toxiques, non cancérigènes, non allergiques, non inflammatoires, biocompatibles, biofonctionnelles pendant toute l'implantation.</p></details></div>
+<div class="question-court"><p class="q">Céramique ou métal : laquelle conduit bien l'électricité et la chaleur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le métal. La céramique est mauvaise conductrice d'électricité et de chaleur, avec une fusion très élevée.</p></details></div>
+<div class="question-court"><p class="q">Pourquoi utilise-t-on la zircone en médecine ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Excellente résistance à l'usure, inertie chimique, biocompatibilité.</p><p>Têtes de prothèses de hanche, implants et couronnes dentaires.</p></details></div>
+<div class="question-court"><p class="q">Quelles sont les trois structures cristallines de la zircone ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Cubique (propriétés modestes), tétragonale (satisfaisantes), monoclinique (plus de cohésion, plus dense).</p></details></div>
+<div class="question-court"><p class="q">Comment fabrique-t-on la zircone ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par frittage : agglomération de poudres par chauffage sous forte pression.</p></details></div>
+<div class="question-court"><p class="q">Compare l'alumine et la zircone : module, dureté, densité.</p><details class="corrige"><summary>Voir la réponse</summary><p>Alumine : 380 GPa, dureté 9, densité 3,8–3,9.</p><p>Zircone : 190 GPa, dureté 6,5, densité 5,95.</p></details></div>
+<div class="question-court"><p class="q">Donne les quatre pièces d'une prothèse totale de hanche et leur matériau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Cupule métallique, dans le bassin.</p><p>Insert en métal, céramique ou polyéthylène.</p><p>Tête en céramique ou métal.</p><p>Tige dans le canal fémoral.</p></details></div>
+<div class="question-court"><p class="q">Quel couple de frottement s'use le moins ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Alumine/alumine : moins de 1 µm/an (contre 200 µm/an pour CoCr/polyéthylène et 4,2 pour métal/métal).</p></details></div>
+<div class="question-court"><p class="q">Qu'est-ce que la calcification ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un dépôt pathologique de sels de calcium (surtout de l'hydroxyapatite) dans les tissus mous.</p></details></div>
+<div class="question-court"><p class="q">Quels sont les problèmes mal résolus avec les céramiques ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Mécanismes de dégradation, durabilité, résistance à la fracture, activité de surface, adhésion des protéines et des cellules.</p><p>Pour les résorbables : contrôle de la biorésorption et calcification.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="annales.html"><small>Ensuite</small>Les annales : le partiel 2024–2025</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Révision du contrôle";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
