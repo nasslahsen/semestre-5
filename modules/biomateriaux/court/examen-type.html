@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L&#x27;examen type corrigé · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Examen type : examen de mi-session corrigé, problème par problème. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>L&#x27;examen type corrigé</h1>
+<p class="court-lien">Lis l'énoncé, réponds dans ta tête, puis touche « Voir la réponse ». <a href="../examen.html">Préparer l'examen</a></p>
+<p>L'examen de mi-session « Génie biomédical » du Pr. El Mekki Ennajimi (module Biomatériaux et Prothèses, 3e année GBM), avec son corrigé. Ton examen lui ressemblera. Pour chaque problème : l'énoncé, puis chaque question avec la réponse du corrigé et le <strong>pourquoi</strong>, pour que tu saches refaire une question du même genre. Quand le corrigé contient une erreur ou une coquille, c'est signalé par « Attention ».</p>
+
+<h2>Ce qu'il faut savoir pour cet examen</h2>
+<p>Ce que les douze problèmes demandent vraiment. Chaque point renvoie à une partie de la <a href="revision.html">révision du contrôle</a>.</p>
+<ul>
+<li><strong>Lire une température</strong> par rapport à Tg et Tf : sous Tg vitreux, entre Tg et Tf la phase amorphe est caoutchouteuse et la phase cristalline tient, au-dessus de Tf tout fond (ou une pâte si la masse moléculaire est énorme).</li>
+<li><strong>Tracer la courbe</strong> log Er en fonction de T pour un semi-cristallin, avec Tg, Tf et les zones vitreuse, caoutchouteuse, cristalline, amorphe.</li>
+<li><strong>Refroidir vite ou lentement</strong> : trempe depuis le liquide → amorphe et transparent ; refroidissement lent ou palier entre Tg et Tf → cristallin, opaque.</li>
+<li><strong>Calculer</strong> avec \(\rho = \rho_c X + \rho_a (1 - X)\) : densité, masse (m = ρV), ρc ou X inconnu.</li>
+<li><strong>Classer un polymère à l'ambiante</strong> avec son Tg et son Tf : semi-cristallin, amorphe vitreux, caoutchouteux.</li>
+<li><strong>Choisir un additif</strong> pour une propriété : plastifiant, stabilisant, ignifugeant, agent de germination, charge, agent gonflant, colorant.</li>
+<li><strong>Repérer une contradiction</strong> dans Tg, Tf, X : Tg toujours inférieure à Tf, rien de solide si Tf &lt; 25 °C, pas de cristaux au-dessus de Tf.</li>
+<li><strong>Proposer un matériau et une nuance</strong> pour chaque pièce d'une prothèse (hanche, implant dentaire, tige de Harrington) et le justifier : densité, module, usure, artefact IRM, allergie.</li>
+<li><strong>Choisir un alliage de titane</strong> dans un tableau (module, absence d'Al, de V, de Mo).</li>
+<li><strong>Les biocéramiques</strong> : inertes ou résorbables, propriétés biologiques, frittage, structures de la zircone.</li>
+<li><strong>Les normes</strong> : types de normes ASTM, étapes de mise sur le marché d'un dispositif médical, rôle de la FDA.</li>
+<li><strong>Vrai ou faux</strong> sur tout le cours : chaque mot compte (« seulement », « quel que soit », « partout dans le monde »).</li>
+</ul>
+
+<h2>Problème 1 : vrai ou faux (5 points)</h2>
+<p>Barème : +0,5 par bonne réponse, 0 pour une réponse fausse, −0,5 pour une question sans réponse. Il vaut donc mieux répondre à tout.</p>
+<div class="question-court"><p class="q">Un polymère semi-cristallin est transparent.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : les cristaux diffusent la lumière. Un semi-cristallin est translucide ou opaque. C'est l'amorphe qui peut être transparent.</p></details></div>
+<div class="question-court"><p class="q">Un polymère amorphe a une température de transition vitreuse légèrement différente de sa température de fusion.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : un amorphe n'a pas de cristaux, donc pas de Tf. Il n'a qu'une Tg (voir le tableau : PVC, PMMA, PS n'ont pas de Tf).</p></details></div>
+<div class="question-court"><p class="q">L'oxygène est un élément chimique allotropique.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vrai.</p><p>Pourquoi : l'allotropie, c'est exister sous plusieurs structures. L'oxygène existe en O₂ et en ozone O₃ (comme le carbone : diamant, graphite, carbone vitreux).</p></details></div>
+<div class="question-court"><p class="q">Une valve mécanique pour la chirurgie valvulaire peut être fabriquée en carbone pyrolytique synthétique.</p><details class="corrige"><summary>Voir la réponse</summary><p>Le corrigé dit : faux.</p><p>Attention : le cours présente bien des valves mécaniques en carbone pyrolytique. Le corrigé marque pourtant faux, sans explication : le piège porte sans doute sur le mot « synthétique ». Pose la question au professeur si tu peux.</p></details></div>
+<div class="question-court"><p class="q">Une valve mécanique est fabriquée à partir de carbone vitreux appartenant à la famille du graphite.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : le carbone vitreux est non cristallin, le graphite est cristallin : ce n'est pas la même famille. Et les valves sont en carbone pyrolytique.</p></details></div>
+<div class="question-court"><p class="q">L'acier inoxydable 316L peut contenir 17 % de Cr et 0,7 % de C.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : 17 % de Cr est possible (17 à 20 %), mais le « L » veut dire carbone faible : 0,03 % au plus, pas 0,7 %.</p></details></div>
+<div class="question-court"><p class="q">L'acier inoxydable 316L peut subir une corrosion en milieu biologique.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vrai.</p><p>Pourquoi : sous fortes contraintes et manque d'oxygène (sous les vis d'une plaque), le 316L corrode.</p></details></div>
+<div class="question-court"><p class="q">L'oxyde d'aluminium est monocristallin.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vrai, selon le corrigé.</p></details></div>
+<div class="question-court"><p class="q">L'oxyde de zirconium est monocristallin.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : la zircone est polycristalline (par exemple le Y-TZP, « polycrystal »), avec trois structures possibles.</p></details></div>
+<div class="question-court"><p class="q">Une biocéramique est un matériau dont les liaisons entre atomes sont de type ionique seulement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : les liaisons d'une céramique sont ioniques et covalentes. Le mot « seulement » rend la phrase fausse.</p></details></div>
+<div class="question-court"><p class="q">Une biocéramique résorbable peut remplacer un os fracturé sans interaction avec l'hôte.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : une céramique résorbable interagit forcément avec l'hôte : elle se dissout et l'os la remplace.</p></details></div>
+<div class="question-court"><p class="q">Il est recommandé d'utiliser l'acier 316L comme prothèse permanente seulement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : c'est l'inverse, le 316L est réservé aux implants temporaires (plaques, vis, clous), parce qu'il peut corroder.</p></details></div>
+<div class="question-court"><p class="q">Un polymère est recommandé pour une prothèse vasculaire quel que soit le diamètre du vaisseau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : « quel que soit » rend la phrase fausse : aucun matériau ne convient à tous les cas. Repère ces mots absolus (seulement, quel que soit, partout), ils annoncent souvent un faux.</p></details></div>
+<div class="question-court"><p class="q">Un élastomère peut se déformer élastiquement et plastiquement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : l'élastomère ne se déforme qu'élastiquement. C'est le plastomère qui ajoute une déformation plastique.</p></details></div>
+<div class="question-court"><p class="q">L'oxyde de zirconium ZrO₂ est une céramique résistante mécaniquement et biodégradable.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : résistante, oui, mais la zircone est bio-inerte, pas biodégradable.</p></details></div>
+<div class="question-court"><p class="q">La silicone est un matériau dont le polymère de base est du type organique seulement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : la silicone est un élastomère minéral : sa chaîne est faite de silicium et d'oxygène, pas de carbone.</p></details></div>
+<div class="question-court"><p class="q">Le PMMA a une résistance au choc équivalente ou supérieure à celle du PC.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : le PMMA est amorphe et fragile à l'ambiante (Tg = 105 °C). Le cours décrit le polycarbonate comme robuste.</p></details></div>
+<div class="question-court"><p class="q">Le CrCo est plus dense que les polymères et moins dense que l'alliage de titane.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : CoCrMo 8,3 g/cm³, titane 4,5 g/cm³ : le CrCo est plus dense que le titane.</p></details></div>
+<div class="question-court"><p class="q">La projection plasma est un traitement de surface qui peut être appliqué à un polyéthylène UHMWPE.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : la projection plasma dépose un revêtement à très haute température, sur des implants métalliques. Un polyéthylène fondrait.</p></details></div>
+<div class="question-court"><p class="q">La FDA est un organisme gouvernemental qui peut autoriser ou interdire un dispositif médical partout dans le monde.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux.</p><p>Pourquoi : la FDA est américaine, elle n'autorise que le marché des États-Unis. En Europe, c'est le marquage CE.</p></details></div>
+<h2>Problème 2 : le polymère et la plaque moulée (10 points)</h2>
+<p>Un polymère de masse moléculaire <strong>extrêmement élevée</strong>, Tg = 100 °C, Tf = 200 °C, ρa = 1 g/cm³, ρc = 1,2 g/cm³. Une plaque de 20 × 10 × 0,1 cm est moulée par injection ; à 25 °C, X = 50 %.</p>
+<p>La méthode : place chaque température sur l'axe, par rapport à Tg = 100 °C et Tf = 200 °C.</p>
+<figure class="photo"><img src="../images/exa-courbe-module.jpg" alt="Courbe du logarithme du module de relaxation tracée par le professeur avec Tg 100 °C, 150 °C et Tf 200 °C, zones vitreuse, cristalline, caoutchouteuse et amorphe"><figcaption>La courbe attendue à la question 1.6, telle que le corrigé la trace : vitreux sous 100 °C, plateau caoutchouteux de la phase amorphe entre 100 et 200 °C pendant que la phase cristalline tient, chute à Tf. Corrigé de l'examen de mi-session (cours Biomatériaux et Prothèses).</figcaption></figure>
+<div class="question-court"><p class="q">1.1 À 90 °C, la plaque est à l'état : solide, semi-cristallin, amorphe, vitreux ou caoutchouc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Semi-cristallin et vitreux.</p><p>Pourquoi : 90 °C &lt; Tg = 100 °C, donc la phase amorphe est vitreuse (rigide). La phase cristalline (X = 50 %) est toujours là.</p></details></div>
+<div class="question-court"><p class="q">1.2 À 220 °C, le matériau est-il liquide comme l'eau, visqueux comme l'huile, ou caoutchouteux comme une pâte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Caoutchouteux comme une pâte.</p><p>Pourquoi : 220 °C &gt; Tf, les cristaux ont fondu. Mais la masse moléculaire est extrêmement élevée : le plateau caoutchouteux se prolonge et le polymère ne devient pas liquide.</p></details></div>
+<div class="question-court"><p class="q">1.3 À l'ambiante, le module est 3 GPa. À 150 °C, il est plus faible. Pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La mobilité des chaînes de la phase amorphe.</p><p>Pourquoi : 150 °C est au-dessus de Tg : la phase amorphe passe à l'état caoutchouteux, ses chaînes bougent, le module baisse. La phase cristalline, elle, tient jusqu'à 200 °C.</p><p>Attention : le corrigé écrit « d) » devant cette réponse, mais dans l'énoncé c'est la proposition c.</p></details></div>
+<div class="question-court"><p class="q">1.4 On chauffe à 250 °C puis on refroidit instantanément à 25 °C. Le matériau est ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Amorphe et transparent.</p><p>Pourquoi : au-dessus de Tf tout est fondu. Une trempe ne laisse pas aux chaînes le temps de se ranger : elles sont figées en désordre, donc amorphe, et sans cristaux pour diffuser la lumière, donc transparent.</p></details></div>
+<div class="question-court"><p class="q">1.5 Pour obtenir 50 % de cristallinité, à quelle température la vitesse de cristallisation est-elle maximale : 130, 100, 25 ou 150 °C ?</p><details class="corrige"><summary>Voir la réponse</summary><p>150 °C.</p><p>Pourquoi : on ne cristallise qu'entre Tg (les chaînes doivent bouger) et Tf (les cristaux ne doivent pas fondre). La vitesse est la plus grande entre les deux, ici au milieu : 150 °C.</p></details></div>
+<div class="question-court"><p class="q">1.6 Trace la courbe du module de relaxation en fonction de T avec Tg, Tf et les zones.</p><details class="corrige"><summary>Voir la réponse</summary><p>Axe vertical log Er, axe horizontal T.</p><p>Plateau haut jusqu'à Tg = 100 °C : zone vitreuse.</p><p>Petite chute à Tg, puis un plateau encore élevé jusqu'à Tf = 200 °C : la phase amorphe est caoutchouteuse, la phase cristalline tient (X = 50 %).</p><p>Forte chute à Tf : les cristaux fondent, tout devient amorphe.</p><p>Masse moléculaire extrême : un plateau caoutchouteux bas après Tf, pas de liquide.</p></details></div>
+<div class="question-court"><p class="q">b. Calcule la masse de la pièce à 80 °C.</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\rho = \rho_c X + \rho_a (1 - X)\)</p><p>\(\rho = 1{,}2 \times 0{,}5 + 1 \times 0{,}5 = 1{,}1\) g/cm³</p><p>\(V = 20 \times 10 \times 0{,}1 = 20\) cm³</p><p>\(m = \rho V = 1{,}1 \times 20 = 22\) g</p><p>Attention : le corrigé écrit X = (ρ − ρa)/(ρ − ρc), c'est une coquille. La bonne formule est X = (ρ − ρa)/(ρc − ρa).</p></details></div>
+<div class="question-court"><p class="q">c. La plaque est chauffée à 150 °C puis refroidie instantanément à l'ambiante. Quel est son volume ?</p><details class="corrige"><summary>Voir la réponse</summary><p>20 cm³, il ne change pas.</p><p>Pourquoi : 150 °C est sous Tf = 200 °C. Les cristaux n'ont pas fondu, X reste 50 %, la densité reste 1,1 g/cm³ et le volume 20 cm³. La trempe ne change quelque chose que si on a dépassé Tf.</p></details></div>
+<h2>Problème 3 : états à l'ambiante et additifs (10 points)</h2>
+<p>La règle pour l'état à l'ambiante (25 °C) :</p>
+<ul>
+<li>Tf &gt; 25 °C et Tg &lt; 25 °C : <strong>semi-cristallin</strong>, avec une phase amorphe caoutchouteuse.</li>
+<li>pas de Tf et Tg &gt; 25 °C : <strong>amorphe vitreux</strong>.</li>
+<li>Tg &lt; 25 °C et pas de cristaux à l'ambiante : <strong>caoutchouteux</strong>.</li>
+</ul>
+<div class="question-court"><p class="q">Q1. Donne l'état à l'ambiante de PP, PE, POM, PVC, PMMA, PS, PdMS et PB.</p><details class="corrige"><summary>Voir la réponse</summary><p>PP (−18 / 170), PE (−120 / 140), POM (−50 / 181) : semi-cristallins (phase amorphe caoutchouteuse).</p><p>PVC (90), PMMA (105), PS (100) : amorphes vitreux.</p><p>PdMS (−123 / −80) : amorphe caoutchouteux (Tf sous l'ambiante : pas de cristaux à 25 °C).</p><p>PB (−73 / 28) : semi-cristallin caoutchouteux (Tf = 28 °C, juste au-dessus de l'ambiante).</p></details></div>
+<div class="question-court"><p class="q">a) Avoir une couleur transparente : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Colorants en produits organiques.</p></details></div>
+<div class="question-court"><p class="q">b) Le matériau doit devenir rigide à −10 °C au lieu de 0 °C sans additif : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un plastifiant.</p><p>Pourquoi : la « température de rigidité », c'est Tg. Le plastifiant écarte les chaînes et abaisse Tg.</p></details></div>
+<div class="question-court"><p class="q">c) Éviter la décomposition ou le vieillissement prématuré en service : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Stabilisants, antioxydants anti-UV.</p></details></div>
+<div class="question-court"><p class="q">d) Éviter que le matériau prenne feu ou dégage des odeurs nocives : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ignifugeants.</p></details></div>
+<div class="question-court"><p class="q">e) Améliorer la cadence de fabrication en plasturgie : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Agents de germination.</p><p>Pourquoi : ils facilitent et accélèrent la cristallisation : la pièce se solidifie plus vite dans le moule, on démoule plus tôt.</p></details></div>
+<div class="question-court"><p class="q">f) Augmenter la rigidité et diminuer le prix de revient : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Charges et renforts.</p></details></div>
+<div class="question-court"><p class="q">g) Augmenter son volume : quel additif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Agents gonflants.</p></details></div>
+<h2>Problème 4 : repérer les contradictions (5 points)</h2>
+<p>Des polymères purs de masse moléculaire très élevée, tous cristallisables, filés en fibres : le filage <strong>oriente</strong> les chaînes parallèlement à l'axe de la fibre. On donne Tg, Tf et X à 25 °C. Il faut dire lesquels peuvent exister (+) et lesquels sont contradictoires (−).</p>
+<p>Les règles qui se lisent dans le corrigé :</p>
+<ul>
+<li><strong>Tg &lt; Tf</strong> toujours : la phase amorphe se ramollit avant que les cristaux fondent.</li>
+<li><strong>Tf &gt; 25 °C</strong> : sinon le polymère est fondu à l'ambiante et ne peut pas former une fibre, ni avoir des cristaux.</li>
+<li><strong>X &gt; 0</strong> : un polymère cristallisable filé, aux chaînes orientées, est partiellement cristallin ; X = 0 est marqué contradictoire à chaque fois (règle déduite du corrigé : l'orientation range les chaînes).</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Matériau</th><th>Tg (°C)</th><th>Tf (°C)</th><th>X</th><th>Réponse</th><th>Pourquoi</th></tr>
+<tr><td>A</td><td>−120</td><td>−75</td><td>0</td><td>−</td><td>Tf &lt; 25 °C : fondu à l'ambiante</td></tr>
+<tr><td>B</td><td>−120</td><td>−75</td><td>0,1</td><td>−</td><td>Tf &lt; 25 °C : pas de cristaux possibles</td></tr>
+<tr><td>C</td><td>80</td><td>175</td><td>0</td><td>−</td><td>fibre orientée avec X = 0</td></tr>
+<tr><td>D</td><td>175</td><td>175</td><td>0</td><td>−</td><td>Tg = Tf impossible</td></tr>
+<tr><td>E</td><td>−20</td><td>175</td><td>0,9</td><td>+</td><td>Tg &lt; 25 °C &lt; Tf, cristallin</td></tr>
+<tr><td>F</td><td>175</td><td>−80</td><td>0,9</td><td>−</td><td>Tg &gt; Tf impossible</td></tr>
+<tr><td>G</td><td>175</td><td>275</td><td>0</td><td>−</td><td>fibre orientée avec X = 0</td></tr>
+<tr><td>H</td><td>50</td><td>275</td><td>0,9</td><td>+</td><td>cohérent</td></tr>
+<tr><td>I</td><td>175</td><td>275</td><td>0,9</td><td>+</td><td>cohérent</td></tr>
+<tr><td>J</td><td>75</td><td>275</td><td>0</td><td>−</td><td>fibre orientée avec X = 0</td></tr>
+</table></div>
+
+<h2>Problème 5 : la densité du nylon cristallin (5 points)</h2>
+<div class="question-court"><p class="q">Un nylon avec X = 0,33 a une densité de 1,11 g/cm³ ; la phase amorphe a 1,07 g/cm³. Densité du nylon 100 % cristallin ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(\rho = \rho_c X + \rho_a (1 - X)\), donc \(\rho_c = \dfrac{\rho - \rho_a (1 - X)}{X}\)</p><p>\(\rho_c = \dfrac{1{,}11 - 1{,}07 \times 0{,}67}{0{,}33} = \dfrac{0{,}393}{0{,}33}\)</p><p>\(\rho_c \approx 1{,}19\) g/cm³</p><p>Vérification : ρc doit être plus grand que ρ, lui-même plus grand que ρa (1,19 &gt; 1,11 &gt; 1,07).</p></details></div>
+<h2>Problème 6 : les normes ASTM (5 points)</h2>
+<p>Ce sujet n'est que dans le corrigé, pas dans le cours reçu : apprends-le tel quel. L'ASTM, standard international pour les tests des matériaux, propose des <strong>types de normes</strong>, chacun découpé en <strong>sections</strong>. Les réponses du corrigé :</p>
+<div class="tableau"><table>
+<tr><th>Ce que ça permet</th><th>Réponse</th><th>Type ou section</th></tr>
+<tr><td>déterminer les propriétés mécaniques, caractériser le matériau</td><td>méthode de tests</td><td>type</td></tr>
+<tr><td>déterminer les conditions à remplir par un matériau, produit, système ou service</td><td>spécifications</td><td>type</td></tr>
+<tr><td>diviser matériaux, produits, systèmes en groupes de caractéristiques similaires (origine, composition, propriétés, utilisation)</td><td>classification</td><td>type</td></tr>
+<tr><td>définir les termes, symboles, abréviations, acronymes</td><td>terminologie</td><td>section</td></tr>
+<tr><td>définir les mots qui ont un sens plus restreint dans la norme</td><td>terminologie</td><td>section</td></tr>
+<tr><td>décrire l'appareil et l'équipement requis pour le test</td><td>appareil</td><td>section</td></tr>
+<tr><td>calculer les résultats, avec équations et chiffres significatifs</td><td>calcul des résultats</td><td>section</td></tr>
+<tr><td>donner les informations obligatoires pour appliquer la norme</td><td>annexes</td><td>section</td></tr>
+</table></div>
+<p>La liste complète proposée : spécifications, champ d'application, documents de référence, méthode de tests, pratique, guide, terminologie, classification, importance et utilisation, appareil, procédure, calcul des résultats, rapport, précision et biais, annexes et appendices.</p>
+
+<h2>Problème 7 : du développement à la mise sur le marché (5 points)</h2>
+<p>Également absent du cours reçu. Les quatre exigences, dans l'ordre du corrigé, avec leur processus normatif :</p>
+<ol>
+<li><strong>Tests de sécurité</strong> : le produit n'interfère pas avec l'environnement médical et évite les risques inacceptables pour le patient → <strong>test de dispositifs médicaux</strong>.</li>
+<li><strong>Évaluation des risques</strong> par le fabricant, soumise à un laboratoire d'essai (document de gestion des risques) → <strong>évaluation pour l'approbation mondiale</strong>.</li>
+<li><strong>Exigences générales de test</strong> des dispositifs électroniques, famille de normes <strong>CEI 60601</strong> → <strong>certification</strong> des dispositifs médicaux.</li>
+<li><strong>Sécurité électrique, compatibilité électromagnétique (CEM), RFID, soumission FDA</strong> (60601, ISO 14708, réglementations internationales) → <strong>accès au marché mondial</strong>.</li>
+</ol>
+
+<h2>Problème 8 : la prothèse totale de hanche (8 points)</h2>
+<figure class="photo"><img src="../images/rev-pth-pieces.jpg" alt="Les quatre pièces d'une prothèse de hanche : 1 cupule, 2 insert, 3 tête, 4 tige"><figcaption>1 cupule, 2 insert, 3 tête, 4 tige. Diapositive du cours « Révision pour le contrôle du 19-11-2026 ».</figcaption></figure>
+<div class="question-court"><p class="q">Q1. Quelles sont les grandes classes de matériaux synthétiques qui remplacent un tissu, un organe ou une fonction ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Métaux et alliages.</p><p>Céramiques.</p><p>Polymères (plastiques).</p></details></div>
+<div class="question-court"><p class="q">Q2. Quelles nuances pour les pièces 1, 2, 3, 4 ? Justifie.</p><details class="corrige"><summary>Voir la réponse</summary><p>1 cupule : TiAl6V4, CoNiCrMo, ou PMMA coulé.</p><p>2 insert : alumine Al₂O₃, ou polyéthylène UHMWPE (PE-HD).</p><p>3 tête : alumine, zircone Y-TZP (tétragonale), 316L, ou CoNiCrMo.</p><p>4 tige : TA6V (faible densité, résistance à la corrosion, bonnes propriétés mécaniques) ou CoNiCrMo (grandes articulations porteuses).</p></details></div>
+<div class="question-court"><p class="q">Q3. Quelles nuances pour un patient allergique au nickel ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le corrigé propose : 316L, TiAl6V4, zircone, alumine, UHMWPE.</p><p>Attention : le 316L contient 12 à 14 % de nickel (composition du cours) et le CoNiCrMo aussi. Pour un allergique au nickel, garde le titane TiAl6V4, les céramiques (zircone, alumine) et le polyéthylène. Si tu écris le 316L comme le corrigé, ajoute au moins cette remarque.</p></details></div>
+<div class="question-court"><p class="q">Q4. Le chirurgien veut la prothèse la moins lourde, la moins rigide, sans artefact et qui s'use le moins. Que proposes-tu ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le moins lourd : TiAl6V4 (4,5 g/cm³).</p><p>Le moins rigide : le polyéthylène UHMWPE.</p><p>Sans artefact IRM : la zircone Y-TZP et le UHMWPE (les métaux comme le CoCr et l'inox donnent des artefacts).</p><p>Ce qui s'use le moins : l'alumine.</p><p>La combinaison du corrigé : TiAl6V4 + zircone Y-TZP + UHMWPE.</p></details></div>
+<h2>Problème 9 : la tige de Harrington (5 points)</h2>
+<figure class="photo"><img src="../images/exa-harrington.jpg" alt="Tige de Harrington fixée le long de la colonne vertébrale pour corriger une scoliose"><figcaption>Tige de Harrington pour corriger une scoliose. Corrigé de l'examen de mi-session (cours Biomatériaux et Prothèses).</figcaption></figure>
+<div class="question-court"><p class="q">Q1. Quelle classe et quelle nuance pour une tige de Harrington chez un patient de 22 ans ? Caractéristiques et avantages ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Classe : matériau métallique.</p><p>Nuance 1 : alliage de titane TiAl6V4 (titane expansible) : léger, résistant, biocompatible, module plus proche de l'os.</p><p>Nuance 2 : alliage à mémoire de forme Nitinol (AMF) : il reprend sa forme et exerce un effort de correction continu.</p></details></div>
+<div class="question-court"><p class="q">Q2. Bio-inerte ou biodégradable ? Pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Bio-inerte, non résorbable.</p><p>Pourquoi : la tige doit assurer la correction pendant des années sans se dégrader.</p></details></div>
+<h2>Problème 10 : l'implant dentaire (10 points)</h2>
+<figure class="photo"><img src="../images/exa-implant-dentaire.jpg" alt="Implant dentaire : 1 couronne, 2 pilier, 3 implant vissé dans l'os"><figcaption>1 couronne, 2 pilier, 3 implant (ancrage). Corrigé de l'examen de mi-session (cours Biomatériaux et Prothèses).</figcaption></figure>
+<div class="question-court"><p class="q">Q1. Quelles sont les trois pièces de ce dispositif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>1 la couronne.</p><p>2 le pilier.</p><p>3 l'implant (ancrage dans l'os).</p></details></div>
+<div class="question-court"><p class="q">Q2. Quel biomatériau pour chaque pièce ? Classe, nuance et densité.</p><details class="corrige"><summary>Voir la réponse</summary><p>Couronne : céramique, zircone ZrO₂ (céramo-céramique ou zircone complète, densité ≈ 6), ou céramo-métallique (CrCo recouvert de céramique, densité du CoCr 8,3).</p><p>Pilier : métal, alliage de titane TiAl6V4 (densité 4,4–4,5).</p><p>Implant : métal, TiAl6V4 (densité 4,4–4,5).</p><p>Les densités ne sont pas dans le corrigé : elles viennent des tableaux du cours (zircone 5,95–6,05, Ti 4,5, CoCrMo 8,3).</p></details></div>
+<div class="question-court"><p class="q">Q3. Quelle pièce doit subir un traitement de surface pour l'intégration osseuse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'implant (pièce 3) : c'est lui qui est dans l'os et doit s'ostéointégrer.</p></details></div>
+<h2>Problème 11 : choisir un alliage de titane (10 points)</h2>
+<div class="tableau"><table>
+<tr><th>Alliage</th><th>Module (GPa)</th><th>Résistance à la traction (MPa)</th><th>Allongement (%)</th></tr>
+<tr><td>Ti6Al7Nb</td><td>114</td><td>869–1086</td><td>7–16</td></tr>
+<tr><td>Ti5Al2,5Fe</td><td>107–112</td><td>860</td><td>8</td></tr>
+<tr><td>Ti15Mo5Zr3Al</td><td>80</td><td>882–1177</td><td>15–20</td></tr>
+<tr><td>Ti12Mo5Zr5Sn</td><td>&lt; 75</td><td>1010</td><td>17,8</td></tr>
+<tr><td>Ti30Nb</td><td>&lt; 75</td><td>700</td><td>20</td></tr>
+<tr><td>Ti30Ta</td><td>&lt; 75</td><td>740</td><td>28</td></tr>
+</table></div>
+<div class="question-court"><p class="q">1. Électrodes de pacemaker avec une bonne qualité du signal ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ti-5Al-2,5Fe (le cours l'associe aux électrodes de pacemakers).</p></details></div>
+<div class="question-court"><p class="q">2. Implant orthopédique au comportement élastique proche de l'os ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un module faible : Ti12Mo5Zr5Sn, Ti13Nb13Zr, Ti30Nb ou Ti30Ta (module &lt; 75 GPa).</p></details></div>
+<div class="question-court"><p class="q">3. Implant orthopédique très résistant, module faible, pour un patient qui ne tolère ni l'aluminium ni le vanadium ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ti12Mo5Zr5Sn : 1010 MPa et module &lt; 75 GPa, sans Al ni V.</p><p>Attention : le corrigé écrit « TiL2Mo5Zr5Sn », c'est une coquille pour Ti12Mo5Zr5Sn.</p></details></div>
+<div class="question-court"><p class="q">4. Un implant pour un patient allergique au molybdène ?</p><details class="corrige"><summary>Voir la réponse</summary><p>TiAl6V4 : il ne contient pas de molybdène.</p></details></div>
+<h2>Problème 11 bis : les biocéramiques (12 points)</h2>
+<div class="question-court"><p class="q">Q1. Cite 3 biocéramiques bio-inertes.</p><details class="corrige"><summary>Voir la réponse</summary><p>Zircone ZrO₂ (3Y-TZP), alumine Al₂O₃, carbure métallique, carbone pyrolytique.</p></details></div>
+<div class="question-court"><p class="q">Q2. Cite 2 biocéramiques biodégradables.</p><details class="corrige"><summary>Voir la réponse</summary><p>L'hydroxyapatite (HAP) Ca₁₀(PO₄)₆(OH)₂.</p><p>Le phosphate tricalcique Ca₃(PO₄)₂ (whitlockite).</p><p>Un composite des deux.</p></details></div>
+<div class="question-court"><p class="q">Q3. Différence entre biocéramique résorbable et non résorbable ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Résorbable = biodégradable : elle se dissout dans le corps et l'os la remplace.</p><p>Non résorbable = bio-inerte : elle reste en place sans réagir.</p></details></div>
+<div class="question-court"><p class="q">Q4. Cite 3 propriétés biologiques qui font d'une biocéramique bio-inerte un candidat pour la prothèse.</p><details class="corrige"><summary>Voir la réponse</summary><p>Non toxique, non cancérigène, non allergique.</p><p>Aussi : non inflammatoire, biocompatible, biofonctionnelle.</p></details></div>
+<div class="question-court"><p class="q">Q5. Comment s'appelle le procédé qui fabrique une pièce d'alumine ou de zircone à partir d'une poudre de 0,5 µm ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le frittage : densification à haute température (et sous pression).</p></details></div>
+<div class="question-court"><p class="q">Q6. Classe par inertie chimique l'or, la zircone, le Cr-Co, le TiAl6V4 et le 316L.</p><details class="corrige"><summary>Voir la réponse</summary><p>Réponse du corrigé : l'or, ZrO₂, TiAl6V4, CrCo, 316L.</p><p>Attention : cette liste va du plus inerte (l'or) au moins inerte (le 316L, qui peut corroder). Écris-la dans cet ordre en précisant le sens.</p></details></div>
+<div class="question-court"><p class="q">Q7. La zircone stabilisée à l'yttrium a une structure triphasique. a) Quelles phases ? b) Laquelle pour les prothèses ?</p><details class="corrige"><summary>Voir la réponse</summary><p>a) Dans le cours : cubique, tétragonale (quadratique), monoclinique. Le corrigé, lui, cite les ions Zr⁴⁺, O²⁻ et Y³⁺ : donne les trois structures, et cite les ions en plus.</p><p>b) La forme tétragonale (quadratique).</p></details></div>
+<div class="question-court"><p class="q">Q8. Pour la PTH (cupule, insert, tête, tige) : classes, nuances, et traitements ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Cupule : métal (CrCo, TiAl6V4) ou polymère (PMMA).</p><p>Insert : polymère (PEHD) ou céramique (alumine, zircone).</p><p>Tête : céramique (ZrO₂, Al₂O₃) ou métal (316L).</p><p>Tige : métal (CoCr, 316L, TiAl6V4).</p><p>Traitement de surface pour l'ostéointégration : la tige et la cupule, les deux pièces au contact de l'os.</p></details></div>
+<h2>Problème 12 : choisir le couple de frottement (10 points)</h2>
+<p>Les six fonctions d'une prothèse de hanche : <strong>support mécanique</strong>, <strong>tribologique</strong> (frottement), <strong>ancrage osseux</strong>, <strong>résistance à la corrosion</strong>, <strong>densité</strong>, <strong>corrosion galvanique</strong>. Matériaux possibles : 316L, UHMWPE, Al₂O₃, CoCr, ZrO₂.</p>
+<div class="question-court"><p class="q">Q1. Quel couple insert / tête pour résister aux chocs et à l'usure ? Justifie.</p><details class="corrige"><summary>Voir la réponse</summary><p>Le couple zircone / polyéthylène HD, ou alumine / polyéthylène HD.</p><p>Résistance aux chocs : résilience et résistance à la fatigue élevées (justification du corrigé).</p><p>Résistance à l'usure : coefficient de frottement bas, usure faible (zircone / PEhd : 0,01–0,04 et moins de 10 mg/an, contre 20 mg/an pour CoCr / PEhd).</p></details></div><p>Les annexes de l'examen (limites élastiques, modules de Young, densités, couples de frottement, tableau des métaux) sont les mêmes que dans la <a href="revision.html">révision du contrôle</a>, partie métaux : sache les lire, elles sont données le jour de l'examen.</p>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="revision.html"><small>Ensuite</small>La révision du contrôle</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Examen type corrigé";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
