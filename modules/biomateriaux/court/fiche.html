@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr" data-module="biomateriaux">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La fiche de la veille · Biomatériaux, biomécanique et prothèses</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Fiche de la veille : tout l essentiel sur une page. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>La fiche de la veille</h1>
+<p class="court-lien">À relire la veille et le matin de l'examen. <a href="../examen.html">Préparer l'examen</a></p>
+<p>Tout ce qui sert à l'examen, sur une page. Commence par les bases : sans elles, le reste paraît arbitraire ; avec elles, chaque réponse de l'examen type devient logique. Les chiffres viennent des tableaux du cours ; ceux des annexes sont donnés le jour de l'examen.</p>
+
+<h2>Les bases d'abord</h2>
+<div class="tableau"><table>
+<tr><th>Mot</th><th>Ce que ça veut dire</th></tr>
+<tr><td><strong>Polymère</strong></td><td>un plastique : de très longues chaînes de molécules</td></tr>
+<tr><td><strong>Amorphe</strong></td><td>chaînes en pelote, en désordre ; peut être transparent</td></tr>
+<tr><td><strong>Cristallin</strong></td><td>chaînes rangées ; plus dense, opaque. <strong>Semi-cristallin</strong> : un mélange des deux</td></tr>
+<tr><td><strong>Tg</strong></td><td>la température où la partie amorphe passe de <strong>rigide (vitreux)</strong> à <strong>souple (caoutchouteux)</strong></td></tr>
+<tr><td><strong>Tf</strong></td><td>la température où les cristaux fondent. Toujours <strong>Tg &lt; Tf</strong>. Un amorphe n'a pas de Tf</td></tr>
+<tr><td><strong>Module E</strong></td><td>la rigidité : grand E = rigide. Os ≈ 20 GPa ; titane 110 ; inox 200 ; CoCr 230 ; zircone ≈ 200 ; alumine 380 ; plastique 1 à 3 ; élastomère ≈ 0,001</td></tr>
+<tr><td><strong>Densité</strong></td><td>la lourdeur (g/cm³) : polymère ≈ 1 ; titane 4,5 ; zircone ≈ 6 ; inox 7,9 ; CoCr 8,3</td></tr>
+<tr><td><strong>Stress shielding</strong></td><td>un implant trop rigide prend les efforts à la place de l'os, qui s'affaiblit. D'où le titane, le plus proche de l'os</td></tr>
+<tr><td><strong>Ostéointégration</strong></td><td>l'os pousse sur l'implant. Les pièces dans l'os reçoivent un <strong>traitement de surface</strong></td></tr>
+<tr><td><strong>Artefact IRM</strong></td><td>le métal brouille l'image (inox, CoCr). Céramiques et polymères : pas d'artefact</td></tr>
+<tr><td><strong>Corrosion</strong></td><td>le métal se dégrade dans le corps. Le 316L peut corroder, donc implants <strong>temporaires</strong> seulement</td></tr>
+<tr><td><strong>Bio-inerte / résorbable</strong></td><td>reste en place sans réagir / se dissout et l'os le remplace</td></tr>
+</table></div>
+
+<h2>Polymères : une seule méthode</h2>
+<p><strong>Place la température</strong> sur l'axe, par rapport à Tg et Tf :</p>
+<ul>
+<li>sous Tg : <strong>vitreux</strong>, rigide ;</li>
+<li>entre Tg et Tf : la partie amorphe est <strong>caoutchouteuse</strong>, les cristaux tiennent ;</li>
+<li>au-dessus de Tf : tout fond. Masse moléculaire énorme : une <strong>pâte</strong>, pas un liquide.</li>
+</ul>
+<p><strong>Refroidir</strong> : une <strong>trempe</strong> depuis le liquide → amorphe et transparent. Lentement → cristallin et opaque. La cristallisation est la plus rapide <strong>entre Tg et Tf</strong>. Chauffer sans dépasser Tf ne change rien (X, densité, volume).</p>
+<p><strong>État à 25 °C</strong> : Tg &lt; 25 &lt; Tf → semi-cristallin. Pas de Tf, Tg &gt; 25 → amorphe vitreux (PVC, PMMA, PS). Tg et Tf sous 25 → caoutchouteux (silicone PdMS).</p>
+<p><strong>Calcul</strong> : la densité est la moyenne des deux phases.</p>
+\[\rho = \rho_c X + \rho_a (1 - X) \qquad X = \frac{\rho - \rho_a}{\rho_c - \rho_a} \qquad m = \rho V\]
+<p>Vérifie toujours ρa &lt; ρ &lt; ρc.</p>
+<p><strong>Contradictions</strong> dans un tableau : il faut Tg &lt; Tf ; Tf &gt; 25 °C pour un solide ; pas de cristaux au-dessus de Tf ; une fibre filée a X &gt; 0.</p>
+<div class="tableau"><table>
+<tr><th>On veut</th><th>Additif</th></tr>
+<tr><td>baisser la température de rigidité (Tg), assouplir</td><td>plastifiant</td></tr>
+<tr><td>éviter le vieillissement, les UV</td><td>stabilisants, antioxydants anti-UV</td></tr>
+<tr><td>résister au feu</td><td>ignifugeants</td></tr>
+<tr><td>produire plus vite (cristallisation plus rapide)</td><td>agents de germination</td></tr>
+<tr><td>plus rigide et moins cher</td><td>charges et renforts</td></tr>
+<tr><td>plus de volume, moins dense</td><td>agents gonflants</td></tr>
+<tr><td>une couleur</td><td>colorants, pigments</td></tr>
+<tr><td>durcir une résine liquide</td><td>agent de réticulation</td></tr>
+</table></div>
+
+<h2>Choisir un matériau : la logique</h2>
+<div class="tableau"><table>
+<tr><th>Besoin</th><th>Matériau</th><th>Pourquoi (avec les bases)</th></tr>
+<tr><td>dans l'os, permanent (tige, cupule, implant dentaire, pilier)</td><td><strong>TiAl6V4</strong></td><td>léger (4,5), module le plus proche de l'os, ne corrode pas (couche TiO₂), ostéointégration</td></tr>
+<tr><td>surface qui frotte (tête)</td><td><strong>zircone ou alumine</strong></td><td>céramique dure : usure et frottement très faibles, inerte</td></tr>
+<tr><td>en face de la tête (insert)</td><td><strong>polyéthylène UHMWPE</strong></td><td>amortit, frotte peu contre la céramique</td></tr>
+<tr><td>la meilleure usure</td><td><strong>alumine</strong></td><td>alumine/alumine : moins de 1 µm/an</td></tr>
+<tr><td>pas d'artefact IRM</td><td><strong>zircone, UHMWPE</strong></td><td>pas de métal</td></tr>
+<tr><td>implant temporaire (plaque, vis, clou)</td><td><strong>316L</strong></td><td>peut corroder à long terme</td></tr>
+<tr><td>allergie au nickel</td><td>titane, céramiques, polyéthylène</td><td>le 316L et le CoNiCrMo contiennent du nickel</td></tr>
+<tr><td>couronne dentaire</td><td><strong>zircone</strong></td><td>aspect naturel, inerte</td></tr>
+<tr><td>tige de Harrington (scoliose)</td><td><strong>TiAl6V4 ou Nitinol</strong>, bio-inerte</td><td>doit corriger des années sans se dégrader</td></tr>
+</table></div>
+<ul>
+<li><strong>PTH</strong> : 1 cupule (métal), 2 insert (polyéthylène ou céramique), 3 tête (céramique ou métal), 4 tige (métal). Traitement de surface : tige et cupule.</li>
+<li><strong>Implant dentaire</strong> : 1 couronne, 2 pilier, 3 implant (traitement de surface sur l'implant).</li>
+<li><strong>Alliages de titane</strong> : pacemaker → Ti-5Al-2,5Fe ; module faible → Ti12Mo5Zr5Sn, Ti13Nb13Zr, Ti30Nb, Ti30Ta ; sans Al ni V → Ti12Mo5Zr5Sn ; sans Mo → TiAl6V4. Le TA6V peut relarguer du vanadium toxique.</li>
+<li><strong>Couple insert / tête</strong> contre chocs et usure : zircone/PEHD ou alumine/PEHD (frottement bas, usure faible).</li>
+</ul>
+
+<h2>Biocéramiques</h2>
+<ul>
+<li><strong>Bio-inertes</strong> : zircone (3Y-TZP), alumine, carbone pyrolytique. <strong>Résorbables</strong> : hydroxyapatite Ca₁₀(PO₄)₆(OH)₂, phosphate tricalcique.</li>
+<li>Biologie : non toxiques, non cancérigènes, non allergiques, non inflammatoires, biocompatibles.</li>
+<li>Mécanique : très dures, résistent à la compression et à l'usure, mais <strong>fragiles</strong> (pas de déformation plastique).</li>
+<li>Fabrication : <strong>frittage</strong> (poudre chauffée sous pression). Zircone : cubique, <strong>tétragonale</strong> (celle des prothèses), monoclinique.</li>
+<li>Inertie chimique, du plus au moins inerte : or, zircone, TiAl6V4, CrCo, 316L.</li>
+</ul>
+
+<h2>Normes : à apprendre tel quel</h2>
+<ul>
+<li>ASTM, <strong>types</strong> : méthode de tests (propriétés), spécifications (conditions à remplir), classification (groupes). <strong>Sections</strong> : terminologie, appareil, calcul des résultats, annexes.</li>
+<li>Vers le marché : tests de sécurité → test ; évaluation des risques → évaluation mondiale ; CEI 60601 → certification ; sécurité électrique, CEM, FDA → accès au marché mondial.</li>
+<li>La <strong>FDA</strong> = États-Unis seulement ; Europe = marquage CE.</li>
+</ul>
+
+<h2>Le jour de l'examen</h2>
+<ul>
+<li><strong>Vrai ou faux</strong> : réponds à tout (une case vide coûte −0,5). Un mot absolu (seulement, quel que soit, partout) annonce souvent un faux.</li>
+<li><strong>Justifie</strong> chaque choix de matériau par une ligne des annexes : densité, module, couple de frottement.</li>
+<li><strong>Calcul</strong> : formule, application numérique, résultat avec l'unité, puis vérification.</li>
+</ul>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="examen-type.html"><small>Ensuite</small>L'examen type corrigé</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", "biomateriaux") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Fiche de la veille";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
