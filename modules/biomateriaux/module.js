@@ -11,6 +11,7 @@ PLATEFORME.parcours("biomateriaux", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
+      { sousModule: "biomateriaux", titre: "Présentation révision pour le contrôle du 19-11-2026", couvre: "polymères et additifs, procédés, dispositifs médicaux, biomatériaux métalliques et biocéramiques : page « Révision du contrôle »" },
       { sousModule: "biomateriaux", titre: "Support du cours « Biomatériaux et biocompatibilité »", couvre: "chapitres 1, 4, 7, 9, 10, 11 et 12" },
       { sousModule: "biomateriaux", titre: "TD 1 : Applications Matériaux Polymères/Plastiques (applications 1.1 à 1.6)", couvre: "espace TD, TD 1 (l'application 1.6 est rayée)" },
       { sousModule: "biomateriaux", titre: "Solution TD1 (avec le devoir n° 1)", couvre: "corrigé du TD 1" },
