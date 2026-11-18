@@ -217,12 +217,50 @@
     o = o || {};
     var m = P.module(P.courant), carte = o.carte || P.urlCarte(P.courant, o.sm, o.chapitre);
     el.className = "site-barre";
+    // Arrivé d'une autre page du site (un lien d'un schéma, d'un arbre, d'une carte) : « Retour » revient exactement
+    // à cette page, à l'endroit où l'on était (historique du navigateur). Sinon, le retour d'un cran habituel.
+    var venu = P.venuDuSite();
     el.innerHTML = '<div class="site-barre-int">' +
       (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t(window.REGISTRE.semestre) + "</a>"
                  : '<a class="site-retour" href="' + carte + '" aria-label="' + P.t("Carte du module") + '">' + P.t("Carte") + "</a>") +
       '<a class="site-module" href="' + carte + '"><i></i><span>' + (P.lang === "en" && m.titreEn ? m.titreEn : m.titre) + "</span></a>" +
       '<div class="droite">' + (o.droite || "") + "</div></div>";
+    if (venu) {
+      var r = el.querySelector(".site-retour");
+      r.textContent = P.t("Retour"); r.setAttribute("aria-label", P.t("Revenir à la page précédente"));
+      r.addEventListener("click", function (ev) { ev.preventDefault(); history.back(); });
+    }
     return el;
+  };
+  // La page précédente est-elle une page du site (même origine, même racine) ?
+  P.venuDuSite = function () {
+    try {
+      if (history.length < 2 || !document.referrer) return false;
+      var ref = new URL(document.referrer), ici = new URL(location.href), rac = new URL(racine || "./", location.href);
+      return ref.origin === ici.origin && ref.pathname.indexOf(rac.pathname) === 0 && (ref.pathname + ref.search) !== (ici.pathname + ici.search);
+    } catch (e) { return false; }
+  };
+  // Retour arrière : la position de lecture est remise en place une fois la page dessinée (schémas, figures).
+  (function () {
+    var cle = "s5-defil:" + location.pathname + location.search;
+    window.addEventListener("pagehide", function () { try { sessionStorage.setItem(cle, String(Math.round(window.scrollY))); } catch (e) {} });
+    window.addEventListener("load", function () {
+      var nav = null;
+      try { nav = performance.getEntriesByType("navigation")[0]; } catch (e) {}
+      if (!nav || nav.type !== "back_forward") return;
+      var y = null;
+      try { y = sessionStorage.getItem(cle); } catch (e) {}
+      if (y === null) return;
+      setTimeout(function () { window.scrollTo(0, +y); }, 250);
+    });
+  })();
+  // Mémoire de session pour l'état d'un dessin (arbre ouvert, chapitre choisi), pour le retrouver au retour.
+  P.memoire = function (cle, val) {
+    var k = "s5-etat:" + location.pathname + location.search + ":" + cle;
+    try {
+      if (val === undefined) { var v = sessionStorage.getItem(k); return v === null ? null : JSON.parse(v); }
+      sessionStorage.setItem(k, JSON.stringify(val));
+    } catch (e) { return null; }
   };
 
   /* ---------------- Chapitres : la carte et la grande page de chaque chapitre ---------------- */
@@ -387,7 +425,7 @@
      La langue vient de <html lang> (pages de cours et de chapitre), ou du sous-module (carte, écran de niveau : P.reglerLangue).
      P.t(texte français) rend le texte anglais correspondant quand la page est en anglais. */
   var EN = {
-    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Semestre 5": "Semester 5",
+    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
     "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
     "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Exercices": "Exercises", "Chapitre": "Chapter",
     // carte

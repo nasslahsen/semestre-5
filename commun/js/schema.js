@@ -103,6 +103,12 @@
     var R = d.arbre, nCol = completer(R, 0) + 1, gap = d.gap || 36;
     var cw = (W - 20 - gap * (nCol - 1)) / nCol, maxT = Math.floor((cw - 36) / 9.6), maxS = Math.floor((cw - 40) / 7.9);
     var chemin = [R], vg = d.vgap || 10;
+    // état gardé pour la session : au retour sur la page, l'arbre est ouvert comme on l'avait laissé
+    var memo = P && P.memoire && id ? P.memoire.bind(P, "arbre-" + id) : null;
+    if (memo) (memo() || []).forEach(function (t) {
+      var der = chemin[chemin.length - 1], e = (der.enfants || []).filter(function (x) { return x.t === t; })[0];
+      if (e) chemin.push(e);
+    });
     if (d.titre) { var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = d.titre; boite.appendChild(tt); }
     var svg = null;
     function ouvert(nd) { return chemin.indexOf(nd) >= 0 && nd.enfants && nd.enfants.length; }
@@ -127,6 +133,7 @@
       var i = chemin.indexOf(nd);
       if (i >= 0) chemin = chemin.slice(0, Math.max(1, i)); // la racine reste ouverte
       else { chemin = chemin.slice(0, nd.prof); chemin.push(nd); }
+      if (memo) memo(chemin.slice(1).map(function (x) { return x.t; }));
       dessin();
     }
     function bloc(nd) {
