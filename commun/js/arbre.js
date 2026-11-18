@@ -21,6 +21,9 @@
     var CH = A.chapitres, n = CH.length, pas = (H - 20) / n, f = Math.max(15, Math.min(20, pas * 0.42));
     var xR = 6, wR = W * 0.125, xP = W * 0.155, wP = W * 0.2, xC = W * 0.385, wC = W * 0.295, xF = W * 0.715, wF = W - W * 0.715 - 6;
     var hC = Math.min(pas - 6, 42), g = el("g", {}, svg), selC = -1, selP = -1;
+    // au retour sur la page, le chapitre ou la partie choisis sont rallumés
+    var memo = P.memoire ? P.memoire.bind(P, "vue-" + o.sm) : null, m0 = memo ? memo() : null;
+    if (m0) { selC = m0[0] < CH.length ? m0[0] : -1; selP = m0[1] < A.parties.length ? m0[1] : -1; }
     var r = P.reprendre(o.mid, o.sm), conseille = r ? r.chapitre : null;
     var y = function (i) { return 10 + pas * (i + 0.5); };
     var parts = A.parties.map(function (p, k) {
@@ -41,6 +44,7 @@
       else o.surChoix({ titre: A.racine, texte: "Tout le module sur une image. Touche un chapitre pour voir ce qu'il faut en retenir, puis une notion pour l'ouvrir. Faits en vert, conseillé en bleu.", url: null });
     }
     function dessin() {
+      if (memo) memo([selC, selP]);
       while (g.firstChild) g.removeChild(g.firstChild);
       var pAct = selC >= 0 ? CH[selC].partie : selP;
       // liens racine → parties, parties → chapitres (la vue d'ensemble part directement de la racine)
