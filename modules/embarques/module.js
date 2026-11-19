@@ -22,14 +22,17 @@ PLATEFORME.parcours("embarques", {
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
-      "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté."
+      "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté.",
+      "Évaluation : l'énoncé du TD semelle instrumentée et connectée (la page « Préparer l'examen » part de l'exemple du cours)."
     ]
   },
+  // Page « Préparer l'examen » (examen.html, lien sur la carte) : TD semelle et fonctions MQTT (traitement, callback, loop), annoncés par le professeur.
+  examen: { embarques: true, instrumentation: true },
   // Programme du module, sujet par sujet ; page « Mon suivi ». chapitres : où le sujet est sur le site ; recu : document reçu, pas encore construit.
   programme: [
     { sousModule: "embarques", sujet: "Architecture d'un système embarqué : Harvard, Super-Harvard ; AVR, CISC, RISC", chapitres: [2] },
     { sousModule: "embarques", sujet: "Modules : ADC, DAC, PWM, Timer, Watchdog", chapitres: [5] },
-    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "programmes complets à copier dans les labs 2 à 7 d'Instrumentation connectée ; organigramme : pas encore d'exercices" },
+    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "programmes complets à copier dans les labs 2 à 7 d'Instrumentation connectée ; tableau des GPIO, organigramme et programme de la semelle : page « Préparer l'examen »" },
     { sousModule: "embarques", sujet: "Bus de communication : UART, I2C, SPI", chapitres: [3] },
     { sousModule: "embarques", sujet: "Capteurs : température, force, pression, MEMS" },
     { sousModule: "embarques", sujet: "Conditionneur : pont de Wheatstone, alimentation en courant et en tension" },
@@ -39,7 +42,7 @@ PLATEFORME.parcours("embarques", {
     { sousModule: "instrumentation", sujet: "Plateforme ThingSpeak : création de channels, écriture et lecture de données", chapitres: [8, 11, 12, 13] },
     { sousModule: "instrumentation", sujet: "Objet connecté sur ESP32 : serveur web embarqué", note: "pas de document sur le serveur web embarqué" },
     { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", chapitres: [7, 8, 10, 14] },
-    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15], note: "simulateur ECG : lab 7 ; la semelle est un exemple du chapitre 1 de Systèmes embarqués ; rien sur l'oxymètre" },
+    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15], note: "simulateur ECG : lab 7 ; la semelle est un exemple du chapitre 1 de Systèmes embarqués, travaillée pour l'évaluation sur la page « Préparer l'examen » (énoncé du TD pas encore reçu) ; rien sur l'oxymètre" },
     { projet: true, sujet: "Polysomnographie CPAP : rapport technique (étude, conception, développement, test, limites), électronique et systèmes embarqués, objet connecté (acquisition, traitement, transmission, dashboard)" }
   ],
   chapitres: [

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Préparer l'examen · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../commun/css/cours.css">
+<link rel="stylesheet" href="../../commun/css/barre.css">
+<script src="../../registre.js"></script>
+<script src="../../commun/js/plateforme.js"></script>
+<script src="module.js"></script>
+<style>
+  a.btn-jouer { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font: 700 17px Inter, sans-serif; }
+  .exo { margin: 30px 0 6px; }
+</style>
+</head>
+<body>
+<header id="barre"></header>
+<main>
+<p class="etiquette">Systèmes embarqués</p>
+<h1>Préparer l'examen</h1>
+<p class="chapeau">Le professeur a annoncé deux choses : le TD semelle instrumentée et connectée, et la programmation des fonctions d'un objet connecté en MQTT (une fonction de traitement, le callback, la loop). Cette page rassemble tout ce qu'il faut savoir faire sur ces deux points, avec des exercices corrigés.</p>
+
+<div class="jouer"><span><small>Le cours</small>La semelle instrumentée et connectée : le pied diabétique, les 16 capteurs de force, le schéma bloc</span><a class="btn-jouer" href="chapitres/chapitre-1.html#n-semelle">Ouvrir</a></div>
+<div class="jouer"><span><small>Le programme du cours</small>MQTT sur l'ESP32 : le programme complet du lab 6, ligne par ligne</span><a class="btn-jouer" href="chapitres/chapitre-14.html">Ouvrir</a></div>
+
+<h2>Ce qui est annoncé</h2>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Ce qu'il faut savoir faire</th><th>Où c'est sur le site</th></tr>
+<tr><td>TD semelle instrumentée et connectée</td><td>Expliquer le besoin médical, lire la fiche des capteurs, refaire le schéma bloc, choisir les broches (tableau des entrées-sorties), dessiner l'organigramme, écrire le programme.</td><td><a href="chapitres/chapitre-1.html">Chapitre 1</a>, <a href="chapitres/chapitre-5.html">chapitre 5</a> (GPIO, ADC)</td></tr>
+<tr><td>Fonctions d'un objet connecté en MQTT</td><td>Écrire une fonction de traitement, le callback (lire le message et décider), la loop (reconnexion, acquisition, publication).</td><td><a href="chapitres/chapitre-7.html">Chapitre 7</a> (MQTT), <a href="chapitres/chapitre-14.html">lab 6</a>, <a href="chapitres/chapitre-10.html">lab 2</a> (JSON)</td></tr>
+</table></div>
+<p>Le sujet du TD semelle n'a pas été envoyé sur le site : la partie 1 ci-dessous part de l'exemple de la semelle du cours et de ce que le programme du module demande (tableau des GPIO, organigramme, programme). Les exercices et le programme de la semelle sont des <strong>exemples ajoutés</strong> pour s'entraîner. Si tu as l'énoncé du TD, dépose-le dans le dossier du module : la page sera refaite à partir de lui.</p>
+
+<h2>Partie 1 : la semelle instrumentée et connectée</h2>
+<h3>Ce que dit le cours</h3>
+<ul>
+<li><strong>Le besoin</strong> : chez le diabétique, les nerfs du pied sont abîmés. Le patient ne sent ni la surcharge ni la plaie qui commence. L'ulcère évolue en six stades, du stade 0 (pas de lésion) à la gangrène de tout le pied (stade 5). Le but est d'agir au stade 0.</li>
+<li><strong>Ce que la semelle mesure</strong> : la force d'appui en 16 points, la température et l'humidité, la bio-impédance des tissus (circuit MAX30009).</li>
+<li><strong>Les capteurs de force</strong> : 16 capteurs résistifs. Leur résistance baisse quand on appuie (plus de 1 MΩ au repos). Plage de 500 g à 10 kg, temps de réponse inférieur à 10 µs, IP67.</li>
+<li><strong>Le schéma bloc</strong> : trois blocs de mesure (BioZ, gestion des capteurs d'appui plantaire, température et humidité) reliés au µC, qui envoie par le bloc TX Radio et son antenne. La gestion de l'alimentation tire l'énergie d'un accumulateur.</li>
+<li><strong>Pourquoi c'est un système embarqué</strong> : une seule tâche, autonome sur accumulateur, très peu de place.</li>
+</ul>
+
+<p class="exo">1. Pourquoi une semelle et pas une simple consultation régulière chez le médecin ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Le patient ne sent plus la surcharge ni la plaie : il ne peut pas donner l'alerte lui-même.</p>
+<p>La plaie peut passer d'un stade à l'autre entre deux consultations.</p>
+<p>La semelle mesure en continu ce que le patient ne sent plus, pour agir au stade 0.</p>
+</details>
+
+<p class="exo">2. Un patient de 90 kg pose tout son poids sur le talon, porté par 3 capteurs. Le capteur suffit-il ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Charge par capteur = poids porté / nombre de capteurs chargés.</p>
+<p>Charge = 90 / 3</p>
+<p>Charge = 30 kg par capteur.</p>
+<p>La plage s'arrête à 10 kg : le capteur sature et lit 10 kg au plus. La fiche se vérifie pour le pire cas, pas pour le cas moyen.</p>
+</details>
+
+<p class="exo">3. Refais le schéma bloc de la semelle de mémoire, puis compare.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<div class="schema" id="sc-semelle-blocs"></div>
+</details>
+
+<h3>Le tableau des entrées-sorties</h3>
+<p>Pour l'entraînement, on simplifie : 4 capteurs d'appui seulement (talon, premier et cinquième métatarsiens, gros orteil), un capteur de température et d'humidité en I2C, une LED d'alerte. La vraie semelle en a 16 : ils passent par le bloc « gestion des capteurs d'appui plantaire », que le cours ne détaille pas.</p>
+<p>Les règles à appliquer viennent du <a href="chapitres/chapitre-5.html">chapitre 5</a> :</p>
+<ul>
+<li>la semelle envoie en Wi-Fi, donc les mesures analogiques vont sur l'<strong>ADC1</strong> (l'ADC2 est inutilisable avec le Wi-Fi) ;</li>
+<li>GPIO 34, 35, 36 et 39 sont des <strong>entrées seulement</strong> : parfaites pour des capteurs, impossibles pour une LED ;</li>
+<li>I2C par défaut : SDA sur GPIO 21, SCL sur GPIO 22.</li>
+</ul>
+
+<p class="exo">4. Remplis le tableau des entrées-sorties : broche, sens, type de signal.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Broche</th><th>Sens</th><th>Signal</th></tr>
+<tr><td>Capteur de force, talon</td><td>GPIO 36 (ADC1_CH0)</td><td>Entrée</td><td>Analogique</td></tr>
+<tr><td>Capteur de force, 1er métatarsien</td><td>GPIO 39 (ADC1_CH3)</td><td>Entrée</td><td>Analogique</td></tr>
+<tr><td>Capteur de force, 5e métatarsien</td><td>GPIO 34 (ADC1_CH6)</td><td>Entrée</td><td>Analogique</td></tr>
+<tr><td>Capteur de force, gros orteil</td><td>GPIO 35 (ADC1_CH7)</td><td>Entrée</td><td>Analogique</td></tr>
+<tr><td>Température et humidité, SDA</td><td>GPIO 21</td><td>Entrée et sortie</td><td>Numérique (I2C)</td></tr>
+<tr><td>Température et humidité, SCL</td><td>GPIO 22</td><td>Sortie</td><td>Horloge I2C</td></tr>
+<tr><td>LED d'alerte</td><td>GPIO 2 (LED bleue de la carte)</td><td>Sortie</td><td>Numérique</td></tr>
+</table></div>
+<p>Les quatre capteurs sont sur les quatre broches « entrée seule » : elles ne servent à rien d'autre, autant les utiliser.</p>
+<p>GPIO 32 et 33 (ADC1) restent libres pour deux capteurs de plus.</p>
+<p>Un capteur sur GPIO 4 (ADC2_CH0) ne marcherait plus dès que le Wi-Fi est lancé.</p>
+</details>
+
+<p class="exo">5. Un capteur donne 1,65 V. Quel code lit le programme (ADC 12 bits) ? Et quelle tension pour un code de 3276 ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(ADC\_OUT = 4095 \times \dfrac{ADC\_IN}{3{,}3\ \text{V}}\)</p>
+<p>\(ADC\_OUT = 4095 \times \dfrac{1{,}65}{3{,}3}\)</p>
+<p>\(ADC\_OUT \approx 2048\) (2047,5, arrondi par le convertisseur).</p>
+<p>À l'inverse : \(ADC\_IN = ADC\_OUT \times \dfrac{3{,}3}{4095}\)</p>
+<p>\(ADC\_IN = 3276 \times \dfrac{3{,}3}{4095}\)</p>
+<p>\(ADC\_IN \approx 2{,}64\) V.</p>
+</details>
+
+<h3>L'organigramme</h3>
+<p>L'organigramme suit l'ordre du programme : <code>setup()</code> une seule fois, puis <code>loop()</code> qui tourne sans fin. Le callback n'est pas dans la boucle : c'est <code>client.loop()</code> qui l'appelle quand un message arrive.</p>
+<p class="exo">6. Dessine l'organigramme du programme de la semelle avant de regarder.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<div class="schema" id="sc-semelle-organigramme"></div>
+<p>Après la publication (ou si la seconde n'est pas écoulée), on revient au début de <code>loop()</code>.</p>
+<p>Le « toutes les 1 s » se fait avec <code>millis()</code>, pas avec <code>delay(1000)</code> : pendant un <code>delay</code>, <code>client.loop()</code> ne tourne pas et les commandes attendent.</p>
+</details>
+
+<h2>Partie 2 : les fonctions d'un objet connecté en MQTT</h2>
+<h3>Le squelette du cours, en sept étapes</h3>
+<ol>
+<li>Déclaration des bibliothèques : <code>WiFi.h</code>, <code>PubSubClient.h</code>.</li>
+<li>Déclaration des paramètres : réseau Wi-Fi, serveur MQTT.</li>
+<li>Création des objets : <code>espClient</code>, <code>client</code>.</li>
+<li><code>setup()</code> : port série, Wi-Fi, <code>client.setServer(mqtt_server, 1883)</code>, <code>client.setCallback(callback)</code>, broches.</li>
+<li><code>callback()</code> : lecture du message et décision.</li>
+<li><code>reconnect()</code> : se reconnecter au broker et se réabonner.</li>
+<li><code>loop()</code> : reconnexion, acquisition, publication des messages.</li>
+</ol>
+<p>Chaque fonction a un seul rôle :</p>
+<div class="tableau"><table>
+<tr><th>Fonction</th><th>Quand elle tourne</th><th>Ce qu'elle fait</th></tr>
+<tr><td><code>setup()</code></td><td>Une fois, au démarrage</td><td>Prépare tout : Wi-Fi, broker, callback, broches.</td></tr>
+<tr><td><code>callback()</code></td><td>À chaque message reçu sur un topic abonné</td><td>Reconstruit le message caractère par caractère, regarde le topic, agit.</td></tr>
+<tr><td><code>reconnect()</code></td><td>Quand la connexion au broker est perdue</td><td>Se reconnecte avec un Client ID, se réabonne aux topics.</td></tr>
+<tr><td><code>loop()</code></td><td>Sans fin</td><td>Vérifie la connexion, fait tourner <code>client.loop()</code>, mesure et publie à intervalle régulier.</td></tr>
+<tr><td>Fonction de traitement</td><td>Appelée par <code>loop()</code> ou <code>callback()</code></td><td>Transforme une mesure brute en valeur utile ou en décision.</td></tr>
+</table></div>
+
+<h3>Le callback</h3>
+<p>Sa signature est imposée par la bibliothèque <code>PubSubClient</code> : le topic, le message en octets, sa longueur. Le message n'est pas une chaîne : on le reconstruit dans une <code>String</code>.</p>
+<pre class="code" data-titre="Le callback du lab 6, réduit à l'essentiel"><code>void callback(char* topic, byte* message, unsigned int length) {
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    messageTemp += (char)message[i];
+  }
+  if (String(topic) == "ensam/gbm/light") {
+    if (messageTemp == "on") {
+      digitalWrite(ledPin, HIGH);
+    }
+    else if (messageTemp == "off") {
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}</code></pre>
+
+<p class="exo">7. Écris le callback de la semelle : sur le topic <code>semelle/cmd</code>, « start » lance les mesures, « stop » les arrête (variable globale <code>bool mesure</code>).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>bool mesure = true;
+
+void callback(char* topic, byte* message, unsigned int length) {
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    messageTemp += (char)message[i];
+  }
+  if (String(topic) == "semelle/cmd") {
+    if (messageTemp == "start") {
+      mesure = true;
+    }
+    else if (messageTemp == "stop") {
+      mesure = false;
+    }
+  }
+}</code></pre>
+<p>Et dans <code>reconnect()</code>, juste après la connexion réussie : <code>client.subscribe("semelle/cmd");</code>. Sans abonnement, le callback n'est jamais appelé.</p>
+</details>
+
+<h3>La fonction de traitement</h3>
+<p>Une fonction de traitement prend une mesure et rend une valeur utile : une tension, une moyenne, un maximum, une alerte. On la sort de <code>loop()</code> pour que <code>loop()</code> reste lisible et pour la réutiliser.</p>
+
+<p class="exo">8. Écris <code>float tension(int code)</code> qui convertit un code ADC 12 bits en volts.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>float tension(int code) {
+  return 3.3 * code / 4095.0;
+}</code></pre>
+<p>C'est la formule du cours à l'envers : \(ADC\_IN = ADC\_OUT \times 3{,}3 / 4095\).</p>
+<p>Écrire <code>4095.0</code> et non <code>4095</code> : avec deux entiers, la division serait entière et tronquée.</p>
+</details>
+
+<p class="exo">9. Écris <code>int zoneMax(float v[], int n)</code> qui rend l'indice de la zone la plus chargée.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>int zoneMax(float v[], int n) {
+  int k = 0;
+  for (int i = 1; i &lt; n; i++) {
+    if (v[i] &gt; v[k]) {
+      k = i;
+    }
+  }
+  return k;
+}</code></pre>
+<p>On part de la zone 0, on garde l'indice de la plus grande valeur vue.</p>
+<p>On rend l'indice et pas la valeur : il dit où est la surcharge.</p>
+</details>
+
+<p class="exo">10. Écris <code>float moyenne(float v[], int n)</code>, puis dis comment l'utiliser pour lisser une mesure qui bruite.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>float moyenne(float v[], int n) {
+  float somme = 0;
+  for (int i = 0; i &lt; n; i++) {
+    somme += v[i];
+  }
+  return somme / n;
+}</code></pre>
+<p>Pour lisser : lire le même capteur plusieurs fois de suite (par exemple 10 fois), ranger les valeurs dans un tableau, publier la moyenne.</p>
+</details>
+
+<h3>La loop</h3>
+<p>Le cours lui donne trois rôles, dans cet ordre : reconnexion, acquisition, publication. L'intervalle se mesure avec <code>millis()</code> pour ne jamais bloquer <code>client.loop()</code>.</p>
+<pre class="code" data-titre="La loop du lab 6"><code>void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  long now = millis();
+  if (now - lastMsg &gt; 2000) {
+    lastMsg = now;
+    temp = 1.5 * analogRead(A0) / 600;
+    char tempString[8];
+    dtostrf(temp, 1, 2, tempString);
+    client.publish("ensam/gbm/temperature", tempString);
+  }
+}</code></pre>
+<p><code>publish</code> envoie du texte : <code>dtostrf(valeur, largeur, décimales, tableau)</code> écrit le nombre dans un tableau de caractères.</p>
+
+<p class="exo">11. Écris la loop de la semelle : toutes les secondes, si les mesures sont lancées, lire le capteur du talon (GPIO 36), le convertir en volts avec <code>tension()</code>, allumer la LED au-dessus de 2,5 V et publier la tension sur <code>semelle/talon</code>.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  long now = millis();
+  if (mesure &amp;&amp; now - lastMsg &gt; 1000) {
+    lastMsg = now;
+    float v = tension(analogRead(36));
+    if (v &gt; 2.5) {
+      digitalWrite(ledPin, HIGH);
+    }
+    else {
+      digitalWrite(ledPin, LOW);
+    }
+    char vString[8];
+    dtostrf(v, 1, 2, vString);
+    client.publish("semelle/talon", vString);
+  }
+}</code></pre>
+<p>Les trois rôles sont là, dans l'ordre : reconnexion, acquisition (et traitement), publication.</p>
+<p>Le seuil de 2,5 V est un choix pour l'exercice : le cours ne donne pas de seuil.</p>
+</details>
+
+<p class="exo">12. Trouve les quatre erreurs de ce programme. L'ESP32 se connecte, mais la LED ne réagit jamais aux commandes et, après une coupure du broker, plus rien n'arrive.</p>
+<pre class="code" data-titre="Programme à corriger"><code>void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  pinMode(ledPin, OUTPUT);
+  client.connect("ESP32-semelle");
+  client.subscribe("semelle/cmd");
+}
+
+void loop() {
+  if (!client.connected()) {
+    client.connect("ESP32-semelle");
+  }
+  float v = tension(analogRead(36));
+  char vString[8];
+  dtostrf(v, 1, 2, vString);
+  client.publish("semelle/talon", vString);
+  delay(5000);
+}</code></pre>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Pas de <code>client.setCallback(callback)</code> dans <code>setup()</code> : la bibliothèque ne sait pas quelle fonction appeler.</p>
+<p>Pas de <code>client.loop()</code> dans <code>loop()</code> : les messages reçus ne sont jamais traités, le callback n'est jamais appelé.</p>
+<p>La reconnexion ne se réabonne pas : après une coupure, l'ESP32 est reconnecté mais n'écoute plus <code>semelle/cmd</code>. C'est le rôle de <code>reconnect()</code> : se connecter puis s'abonner.</p>
+<p><code>delay(5000)</code> bloque tout pendant 5 s : remplacer par le test <code>now - lastMsg &gt; 5000</code> avec <code>millis()</code>.</p>
+</details>
+
+<h3>Le programme complet de la semelle</h3>
+<p class="exo">13. Assemble tout : quatre capteurs, traitement, alerte, commandes, et un seul message JSON par seconde sur <code>semelle/appui</code>. Essaie seul, puis compare.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code long" data-titre="Exemple ajouté : la semelle simplifiée en MQTT"><code>#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+#include &lt;ArduinoJson.h&gt;
+
+const char* ssid = "TON_WIFI";
+const char* password = "TON_MOT_DE_PASSE";
+const char* mqtt_server = "test.mosquitto.org";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+const int capteurs[4] = {36, 39, 34, 35};          // ADC1, entrées seules
+const char* zones[4] = {"talon", "m1", "m5", "orteil"};
+const int ledPin = 2;                              // LED d'alerte
+const float SEUIL = 2.5;                           // V, choisi pour l'exercice
+
+long lastMsg = 0;
+bool mesure = true;
+
+void setup_wifi() {
+  delay(10);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected");
+}
+
+// Fonctions de traitement
+float tension(int code) {
+  return 3.3 * code / 4095.0;
+}
+
+int zoneMax(float v[], int n) {
+  int k = 0;
+  for (int i = 1; i &lt; n; i++) {
+    if (v[i] &gt; v[k]) {
+      k = i;
+    }
+  }
+  return k;
+}
+
+// Callback : lecture du message et décision
+void callback(char* topic, byte* message, unsigned int length) {
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    messageTemp += (char)message[i];
+  }
+  if (String(topic) == "semelle/cmd") {
+    if (messageTemp == "start") {
+      mesure = true;
+    }
+    else if (messageTemp == "stop") {
+      mesure = false;
+    }
+  }
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    if (client.connect("ESP32-semelle")) {
+      client.subscribe("semelle/cmd");
+    } else {
+      delay(5000);
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+  pinMode(ledPin, OUTPUT);
+}
+
+// Loop : reconnexion, acquisition, traitement, publication
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  long now = millis();
+  if (mesure &amp;&amp; now - lastMsg &gt; 1000) {
+    lastMsg = now;
+    float v[4];
+    StaticJsonDocument&lt;200&gt; doc;
+    for (int i = 0; i &lt; 4; i++) {
+      v[i] = tension(analogRead(capteurs[i]));
+      doc[zones[i]] = v[i];
+    }
+    int k = zoneMax(v, 4);
+    bool alerte = v[k] &gt; SEUIL;
+    digitalWrite(ledPin, alerte ? HIGH : LOW);
+    doc["max"] = zones[k];
+    doc["alerte"] = alerte;
+    char msg[200];
+    serializeJson(doc, msg);
+    client.publish("semelle/appui", msg);
+  }
+}</code></pre>
+<p>Le message publié ressemble à <code>{"talon":2.71,"m1":0.84,"m5":0.40,"orteil":1.12,"max":"talon","alerte":true}</code>.</p>
+<p>Le lab 2 écrit le JSON sur le port série (<code>serializeJson(doc, Serial)</code>). Ici on l'écrit dans un tableau de caractères (<code>serializeJson(doc, msg)</code>) pour pouvoir le publier.</p>
+<p>Le capteur de température et d'humidité en I2C n'est pas dans le programme : le cours ne dit pas quel circuit la semelle utilise, donc pas quelle bibliothèque.</p>
+</details>
+
+<h2>Les pièges</h2>
+<ul>
+<li>Oublier <code>client.setCallback(callback)</code> ou <code>client.loop()</code> : aucun message reçu n'est traité.</li>
+<li>S'abonner dans <code>setup()</code> seulement : l'abonnement est perdu à la première reconnexion. On s'abonne dans <code>reconnect()</code>.</li>
+<li>Comparer le topic avec <code>topic == "…"</code> : <code>topic</code> est un <code>char*</code>, il faut <code>String(topic) == "…"</code>.</li>
+<li>Publier un <code>float</code> directement : <code>publish</code> veut du texte, d'où <code>dtostrf</code> ou le JSON.</li>
+<li>Mettre <code>delay()</code> dans <code>loop()</code> : tout est bloqué, on mesure l'intervalle avec <code>millis()</code>.</li>
+<li>Un capteur analogique sur l'ADC2 avec le Wi-Fi, ou une LED sur GPIO 34 à 39 (entrées seules).</li>
+<li>Deux cartes avec le même Client ID sur un broker public : elles se déconnectent l'une l'autre.</li>
+</ul>
+</main>
+<script src="../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../commun/js/schema.js"></script>
+<script src="schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME;
+  var sm = new URLSearchParams(location.search).get("sm") || "embarques";
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", sm) });
+  var b = String.fromCharCode(92);
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+  P.boutonsCopier(document.querySelector("main"));
+})();
+</script>
+</body>
+</html>
