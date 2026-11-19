@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La fiche du code · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+<style>
+  .exo { margin: 28px 0 6px; }
+  td code, th code { white-space: nowrap; }
+</style>
+</head>
+<body>
+<!-- Fiche du code : tout le code de l'évaluation (callback, loop, fonction de traitement) sur une page. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>La fiche du code</h1>
+<p class="court-lien">Tout le code à savoir écrire, sur une page. <a href="../examen.html">Préparer l'examen</a></p>
+<p>L'évaluation demande d'écrire les fonctions d'un objet connecté en MQTT : <strong>une fonction de traitement</strong>, <strong>le callback</strong> et <strong>la loop</strong>. Tout le code ci-dessous vient des deux programmes MQTT du cours (le lab 6 avec la LED et la température, le lab 4 avec ThingSpeak), sauf ce qui est marqué « exemple ajouté ». Lis d'abord les trois fonctions, puis le squelette, puis teste-toi en bas de page.</p>
+
+<h2>Ce qui tombe : trois fonctions</h2>
+<div class="tableau"><table>
+<tr><th>Fonction</th><th>Sa première ligne, par cœur</th><th>Ce qu'elle fait, dans l'ordre</th></tr>
+<tr><td><strong>callback</strong></td><td><code>void callback(char* topic, byte* message, unsigned int length)</code></td><td>1. reconstruire le message dans une <code>String</code><br>2. tester le topic<br>3. agir selon le message</td></tr>
+<tr><td><strong>loop</strong></td><td><code>void loop()</code></td><td>1. reconnexion si besoin<br>2. <code>client.loop()</code><br>3. à intervalle régulier : acquisition, traitement, publication</td></tr>
+<tr><td><strong>traitement</strong></td><td><code>float nom(int code)</code> (le type et les paramètres changent)</td><td>1. recevoir la mesure brute<br>2. calculer<br>3. <code>return</code> le résultat</td></tr>
+</table></div>
+<p>Les deux autres, <code>setup()</code> et <code>reconnect()</code>, sont toujours les mêmes : il suffit de les reconnaître et de savoir ce qu'elles doivent contenir.</p>
+
+<h2>Le squelette complet, à réécrire de mémoire</h2>
+<p>Le programme du lab 6, sans les affichages sur le port série. Les numéros sont les sept étapes du cours.</p>
+<pre class="code long" data-titre="Squelette MQTT du cours (lab 6)"><code>// 1. Bibliothèques
+#include &lt;WiFi.h&gt;
+#include &lt;PubSubClient.h&gt;
+
+// 2. Paramètres : Wi-Fi, serveur MQTT
+const char* ssid = "TON_WIFI";
+const char* password = "TON_MOT_DE_PASSE";
+const char* mqtt_server = "test.mosquitto.org";
+
+// 3. Objets
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+long lastMsg = 0;
+float temp = 0;
+const int ledPin = 2;
+
+void setup_wifi() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
+}
+
+// 5. Callback : lecture du message et décision
+void callback(char* topic, byte* message, unsigned int length) {
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    messageTemp += (char)message[i];
+  }
+  if (String(topic) == "ensam/gbm/light") {
+    if (messageTemp == "on") {
+      digitalWrite(ledPin, HIGH);
+    }
+    else if (messageTemp == "off") {
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}
+
+// 6. Reconnexion
+void reconnect() {
+  while (!client.connected()) {
+    if (client.connect("ESP8266Client")) {
+      client.subscribe("ensam/gbm/light");
+    } else {
+      delay(5000);
+    }
+  }
+}
+
+// 4. Setup
+void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+  pinMode(ledPin, OUTPUT);
+}
+
+// 7. Loop : reconnexion, acquisition, publication
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  long now = millis();
+  if (now - lastMsg &gt; 2000) {
+    lastMsg = now;
+    temp = 1.5 * analogRead(A0) / 600;
+    char tempString[8];
+    dtostrf(temp, 1, 2, tempString);
+    client.publish("ensam/gbm/temperature", tempString);
+  }
+}</code></pre>
+<p>Le moyen de le retenir : <strong>qui je suis</strong> (bibliothèques, paramètres, objets), <strong>je prépare</strong> (setup), <strong>j'écoute</strong> (callback), <strong>je me rattrape</strong> (reconnect), <strong>je travaille</strong> (loop).</p>
+
+<h2>Le callback</h2>
+<p>La bibliothèque <code>PubSubClient</code> l'appelle toute seule, depuis <code>client.loop()</code>, chaque fois qu'un message arrive sur un topic auquel on est abonné. Sa première ligne est imposée : seuls les noms peuvent changer.</p>
+<div class="tableau"><table>
+<tr><th>Ligne</th><th>Pourquoi</th></tr>
+<tr><td><code>char* topic</code></td><td>le topic du message reçu, en texte C</td></tr>
+<tr><td><code>byte* message</code>, <code>unsigned int length</code></td><td>le message en octets et son nombre d'octets : ce n'est pas une chaîne, il n'y a pas de fin de texte</td></tr>
+<tr><td><code>String messageTemp;</code></td><td>une chaîne vide pour reconstruire le message</td></tr>
+<tr><td><code>for (int i = 0; i &lt; length; i++)</code></td><td>un tour par octet</td></tr>
+<tr><td><code>messageTemp += (char)message[i];</code></td><td>chaque octet devient un caractère, ajouté à la fin</td></tr>
+<tr><td><code>if (String(topic) == "…")</code></td><td><code>String(…)</code> obligatoire : deux <code>char*</code> ne se comparent pas avec <code>==</code></td></tr>
+<tr><td><code>if (messageTemp == "on")</code></td><td>la décision : une action par message attendu</td></tr>
+</table></div>
+<p>Pour qu'il soit appelé, il faut trois choses : <code>client.setCallback(callback)</code> dans <code>setup()</code>, <code>client.subscribe("…")</code> dans <code>reconnect()</code>, et <code>client.loop()</code> dans <code>loop()</code>.</p>
+
+<h3>Les variantes possibles</h3>
+<p class="exo">Plusieurs topics : un <code>if</code> par topic (exemple ajouté).</p>
+<pre class="code" data-titre="Deux topics"><code>if (String(topic) == "semelle/led") {
+  if (messageTemp == "on") digitalWrite(ledPin, HIGH);
+  else if (messageTemp == "off") digitalWrite(ledPin, LOW);
+}
+else if (String(topic) == "semelle/cmd") {
+  if (messageTemp == "start") mesure = true;
+  else if (messageTemp == "stop") mesure = false;
+}</code></pre>
+<p>Chaque topic testé ici doit aussi être dans un <code>client.subscribe</code>.</p>
+
+<p class="exo">Un nombre dans le message, par exemple un nouveau seuil (exemple ajouté).</p>
+<pre class="code" data-titre="Message numérique"><code>if (String(topic) == "semelle/seuil") {
+  seuil = messageTemp.toFloat();   // "2.8" devient 2.8
+}</code></pre>
+
+<p class="exo">Un message JSON, lu avec ArduinoJson comme au lab 2 (exemple ajouté).</p>
+<pre class="code" data-titre="Message JSON"><code>if (String(topic) == "semelle/config") {
+  StaticJsonDocument&lt;200&gt; doc;
+  DeserializationError error = deserializeJson(doc, messageTemp);
+  if (error) {
+    return;                        // message abîmé : on ne fait rien
+  }
+  seuil = doc["seuil"];            // {"seuil":2.8,"periode":1000}
+  periode = doc["periode"];
+}</code></pre>
+
+<p class="exo">La version ThingSpeak du cours (lab 4) : mêmes paramètres, autres noms.</p>
+<pre class="code" data-titre="Callback du lab 4"><code>void mqttSubscriptionCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i = 0; i &lt; length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}</code></pre>
+<p>Ce callback ne décide rien : il affiche seulement le message. Dans <code>setup()</code> : <code>mqttClient.setCallback(mqttSubscriptionCallback);</code>.</p>
+
+<h2>La fonction de traitement</h2>
+<p>Elle transforme une mesure brute en valeur utile ou en décision. Elle reçoit ce qu'il faut en paramètres, calcule, et rend le résultat avec <code>return</code>. Le type devant le nom est le type du résultat : <code>float</code> pour un nombre à virgule, <code>int</code> pour un entier, <code>bool</code> pour oui ou non.</p>
+<p>Le traitement du cours est dans la loop du lab 6 : <code>temp = 1.5 * analogRead(A0) / 600;</code>. Mis en fonction, il donne :</p>
+<pre class="code" data-titre="Le traitement du lab 6, en fonction"><code>float temperature(int code) {
+  return 1.5 * code / 600;
+}
+// dans loop() :  temp = temperature(analogRead(A0));</code></pre>
+
+<p>Les modèles à savoir adapter (exemples ajoutés) :</p>
+<div class="tableau"><table>
+<tr><th>But</th><th>Code</th></tr>
+<tr><td>Code ADC 12 bits en volts</td><td><code>float tension(int code) { return 3.3 * code / 4095.0; }</code></td></tr>
+<tr><td>Tension en grandeur, droite \(y = a\,v + b\)</td><td><code>float grandeur(float v) { return a * v + b; }</code></td></tr>
+<tr><td>Dépassement d'un seuil</td><td><code>bool alerte(float v, float seuil) { return v &gt; seuil; }</code></td></tr>
+<tr><td>Moyenne de n valeurs</td><td>boucle <code>for</code> qui fait la somme, puis <code>return somme / n;</code></td></tr>
+<tr><td>Indice du maximum</td><td>boucle <code>for</code> qui garde l'indice de la plus grande valeur</td></tr>
+<tr><td>Moyenne de 10 lectures (lissage)</td><td>boucle de 10 <code>analogRead</code>, puis la moyenne</td></tr>
+</table></div>
+
+<pre class="code" data-titre="Moyenne et maximum (exemple ajouté)"><code>float moyenne(float v[], int n) {
+  float somme = 0;
+  for (int i = 0; i &lt; n; i++) {
+    somme += v[i];
+  }
+  return somme / n;
+}
+
+int zoneMax(float v[], int n) {
+  int k = 0;
+  for (int i = 1; i &lt; n; i++) {
+    if (v[i] &gt; v[k]) {
+      k = i;
+    }
+  }
+  return k;
+}</code></pre>
+
+<pre class="code" data-titre="Lissage : moyenne de 10 lectures (exemple ajouté)"><code>float lireLisse(int broche) {
+  long somme = 0;
+  for (int i = 0; i &lt; 10; i++) {
+    somme += analogRead(broche);
+  }
+  return tension(somme / 10);
+}</code></pre>
+<p>Où la ranger : avant <code>callback</code> et <code>loop</code> dans le fichier, pour qu'elle soit connue quand on l'appelle.</p>
+<p>Le piège : <code>3.3 * code / 4095</code> marche, mais <code>code / 4095 * 3.3</code> donne presque toujours 0, car <code>code / 4095</code> est une division d'entiers. Mettre un <code>.0</code> (<code>4095.0</code>) règle le problème.</p>
+
+<h2>La loop</h2>
+<pre class="code" data-titre="Le modèle de loop"><code>void loop() {
+  if (!client.connected()) {         // 1. reconnexion
+    reconnect();
+  }
+  client.loop();                     // 2. écoute : appelle le callback
+  long now = millis();
+  if (now - lastMsg &gt; 2000) {        // 3. toutes les 2 s
+    lastMsg = now;
+    float v = tension(analogRead(34));      // acquisition + traitement
+    char vString[8];
+    dtostrf(v, 1, 2, vString);              // nombre en texte
+    client.publish("mon/topic", vString);   // publication
+  }
+}</code></pre>
+<p>Pourquoi <code>millis()</code> et pas <code>delay(2000)</code> : pendant un <code>delay</code>, <code>client.loop()</code> ne tourne pas. Les messages reçus attendent et la connexion peut tomber.</p>
+<p>La loop du lab 4 (ThingSpeak) a les mêmes trois temps. Elle vérifie aussi le Wi-Fi, se réabonne dans la loop et publie un texte construit avec <code>String</code> :</p>
+<pre class="code" data-titre="Loop du lab 4"><code>void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWifi();
+  }
+  if (!mqttClient.connected()) {
+    mqttConnect();
+    mqttSubscribe(channelID);
+  }
+  mqttClient.loop();
+  if (abs(long(millis()) - lastPublishMillis) &gt; updateInterval * 1000) {
+    mqttPublish(channelID, (String("field1=") + String(HR) + String("&amp;field2=") + String(SPO2)));
+    lastPublishMillis = millis();
+  }
+}</code></pre>
+<p>Publier plusieurs valeurs d'un coup en JSON (exemple ajouté, d'après le lab 2) :</p>
+<pre class="code" data-titre="Publier un JSON"><code>StaticJsonDocument&lt;200&gt; doc;
+doc["talon"] = v0;
+doc["orteil"] = v1;
+char msg[200];
+serializeJson(doc, msg);              // {"talon":2.71,"orteil":1.12}
+client.publish("semelle/appui", msg);</code></pre>
+
+<h2>setup et reconnect : ce qu'elles doivent contenir</h2>
+<div class="tableau"><table>
+<tr><th>Fonction</th><th>Contenu obligatoire</th></tr>
+<tr><td><code>setup()</code></td><td><code>Serial.begin(115200);</code><br><code>setup_wifi();</code><br><code>client.setServer(mqtt_server, 1883);</code><br><code>client.setCallback(callback);</code><br><code>pinMode(…, OUTPUT);</code> pour chaque sortie</td></tr>
+<tr><td><code>reconnect()</code></td><td>boucle <code>while (!client.connected())</code><br><code>client.connect("ID")</code> réussi : <code>client.subscribe("…")</code> pour chaque topic écouté<br>échec : <code>delay(5000);</code> puis on réessaie</td></tr>
+<tr><td><code>setup_wifi()</code></td><td><code>WiFi.begin(ssid, password);</code><br><code>while (WiFi.status() != WL_CONNECTED) delay(500);</code></td></tr>
+</table></div>
+<p>Au lab 4, ThingSpeak demande un nom et un mot de passe : <code>mqttClient.connect(clientID, mqttUserName, mqttPass)</code>.</p>
+
+<h2>Le dictionnaire des instructions</h2>
+<div class="tableau"><table>
+<tr><th>Instruction</th><th>Ce qu'elle fait</th></tr>
+<tr><td colspan="2"><strong>Wi-Fi</strong></td></tr>
+<tr><td><code>WiFi.begin(ssid, password)</code></td><td>lance la connexion au réseau</td></tr>
+<tr><td><code>WiFi.status() != WL_CONNECTED</code></td><td>vrai tant que la carte n'est pas connectée</td></tr>
+<tr><td><code>WiFi.localIP()</code></td><td>l'adresse IP reçue</td></tr>
+<tr><td colspan="2"><strong>MQTT (PubSubClient)</strong></td></tr>
+<tr><td><code>WiFiClient espClient;</code><br><code>PubSubClient client(espClient);</code></td><td>la connexion réseau, puis le client MQTT qui passe par elle</td></tr>
+<tr><td><code>client.setServer(serveur, 1883)</code></td><td>le broker et son port (1883 : MQTT sans chiffrement)</td></tr>
+<tr><td><code>client.setCallback(callback)</code></td><td>la fonction à appeler à chaque message reçu</td></tr>
+<tr><td><code>client.connect("ID")</code></td><td>se connecte au broker ; rend vrai si c'est réussi. L'ID doit être unique</td></tr>
+<tr><td><code>client.connected()</code></td><td>vrai si la connexion au broker tient</td></tr>
+<tr><td><code>client.subscribe("topic")</code></td><td>s'abonner : les messages de ce topic arriveront au callback</td></tr>
+<tr><td><code>client.publish("topic", texte)</code></td><td>envoie un texte (jamais un <code>float</code> directement)</td></tr>
+<tr><td><code>client.loop()</code></td><td>garde la connexion et traite les messages reçus ; à chaque tour de loop</td></tr>
+<tr><td><code>client.state()</code></td><td>le code d'erreur après un échec de connexion</td></tr>
+<tr><td colspan="2"><strong>Entrées et sorties</strong></td></tr>
+<tr><td><code>pinMode(broche, OUTPUT)</code></td><td>la broche devient une sortie (<code>INPUT</code> : une entrée)</td></tr>
+<tr><td><code>digitalWrite(broche, HIGH)</code></td><td>met la sortie à 1 (<code>LOW</code> : à 0)</td></tr>
+<tr><td><code>digitalRead(broche)</code></td><td>lit une entrée : <code>HIGH</code> ou <code>LOW</code></td></tr>
+<tr><td><code>analogRead(broche)</code></td><td>lit une tension : un entier de 0 à 4095 (12 bits, 0 à 3,3 V)</td></tr>
+<tr><td colspan="2"><strong>Temps</strong></td></tr>
+<tr><td><code>millis()</code></td><td>le nombre de millisecondes depuis le démarrage</td></tr>
+<tr><td><code>delay(ms)</code></td><td>attend, en bloquant tout le programme</td></tr>
+<tr><td colspan="2"><strong>Texte</strong></td></tr>
+<tr><td><code>dtostrf(valeur, 1, 2, tableau)</code></td><td>écrit un nombre dans un tableau de caractères, avec 2 décimales</td></tr>
+<tr><td><code>String(topic)</code></td><td>transforme un <code>char*</code> en <code>String</code>, pour comparer avec <code>==</code></td></tr>
+<tr><td><code>(char)message[i]</code></td><td>un octet lu comme un caractère</td></tr>
+<tr><td><code>texte.c_str()</code></td><td>une <code>String</code> rendue en <code>char*</code>, quand une fonction le demande (lab 4)</td></tr>
+<tr><td colspan="2"><strong>JSON (ArduinoJson, lab 2)</strong></td></tr>
+<tr><td><code>StaticJsonDocument&lt;200&gt; doc;</code></td><td>un document JSON de 200 octets au plus</td></tr>
+<tr><td><code>doc["cle"] = valeur;</code></td><td>ajoute une paire clé-valeur</td></tr>
+<tr><td><code>serializeJson(doc, Serial)</code></td><td>écrit le JSON (sur le port série, ou dans un tableau <code>msg</code>)</td></tr>
+<tr><td><code>deserializeJson(doc, texte)</code></td><td>lit un texte JSON ; rend une erreur si le texte est abîmé</td></tr>
+<tr><td colspan="2"><strong>Port série</strong></td></tr>
+<tr><td><code>Serial.begin(115200)</code></td><td>ouvre le port série à 115 200 bauds</td></tr>
+<tr><td><code>Serial.print(x)</code>, <code>Serial.println(x)</code></td><td>affiche x (avec retour à la ligne pour <code>println</code>)</td></tr>
+</table></div>
+
+<h2>Le C qu'il faut</h2>
+<ul>
+<li><strong>Types</strong> : <code>int</code> (entier), <code>long</code> (grand entier, pour <code>millis()</code>), <code>float</code> (à virgule), <code>bool</code> (<code>true</code>, <code>false</code>), <code>char*</code> (texte C), <code>String</code> (texte Arduino), <code>char t[8]</code> (tableau de 8 caractères).</li>
+<li><strong>Variable globale</strong> : déclarée en haut, hors de toute fonction ; le callback et la loop la partagent (<code>bool mesure</code>, <code>long lastMsg</code>).</li>
+<li><strong>Constante</strong> : <code>const int ledPin = 2;</code></li>
+<li><strong>Tableau</strong> : <code>int capteurs[4] = {36, 39, 34, 35};</code>, indices de 0 à 3.</li>
+<li><strong>Boucle</strong> : <code>for (int i = 0; i &lt; n; i++) { … }</code></li>
+<li><strong>Test</strong> : <code>if (…) { … } else if (…) { … } else { … }</code></li>
+<li><code>=</code> donne une valeur, <code>==</code> compare. <code>&amp;&amp;</code> : et. <code>||</code> : ou. <code>!</code> : non.</li>
+<li>Une fonction qui ne rend rien commence par <code>void</code> ; les autres finissent par <code>return</code>.</li>
+<li>Chaque instruction finit par <code>;</code>, chaque <code>{</code> a sa <code>}</code>.</li>
+</ul>
+
+<h2>Teste-toi : écris de mémoire</h2>
+<p class="exo">1. Complète le callback.</p>
+<pre class="code" data-titre="À compléter"><code>void callback(char* topic, ____ message, unsigned int ____) {
+  String messageTemp;
+  for (int i = 0; i &lt; length; i++) {
+    messageTemp += ____;
+  }
+  if (____ == "ensam/gbm/light") {
+    if (messageTemp == "on") {
+      ____;
+    }
+  }
+}</code></pre>
+<details class="corrige"><summary>Voir la correction</summary>
+<p><code>byte*</code> et <code>length</code></p>
+<p><code>(char)message[i]</code></p>
+<p><code>String(topic)</code></p>
+<p><code>digitalWrite(ledPin, HIGH)</code></p>
+</details>
+
+<p class="exo">2. Complète la loop.</p>
+<pre class="code" data-titre="À compléter"><code>void loop() {
+  if (____) {
+    reconnect();
+  }
+  ____;
+  long now = ____;
+  if (now - lastMsg &gt; 2000) {
+    ____;
+    temp = 1.5 * analogRead(A0) / 600;
+    char tempString[8];
+    ____(temp, 1, 2, tempString);
+    client.____("ensam/gbm/temperature", tempString);
+  }
+}</code></pre>
+<details class="corrige"><summary>Voir la correction</summary>
+<p><code>!client.connected()</code></p>
+<p><code>client.loop()</code></p>
+<p><code>millis()</code></p>
+<p><code>lastMsg = now</code></p>
+<p><code>dtostrf</code></p>
+<p><code>publish</code></p>
+</details>
+
+<p class="exo">3. Complète setup et reconnect.</p>
+<pre class="code" data-titre="À compléter"><code>void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.____(mqtt_server, 1883);
+  client.____(callback);
+  pinMode(ledPin, ____);
+}
+
+void reconnect() {
+  while (____) {
+    if (client.connect("ESP32-semelle")) {
+      client.____("ensam/gbm/light");
+    } else {
+      delay(5000);
+    }
+  }
+}</code></pre>
+<details class="corrige"><summary>Voir la correction</summary>
+<p><code>setServer</code></p>
+<p><code>setCallback</code></p>
+<p><code>OUTPUT</code></p>
+<p><code>!client.connected()</code></p>
+<p><code>subscribe</code></p>
+</details>
+
+<p class="exo">4. Écris une fonction de traitement qui rend <code>true</code> si la moyenne de trois tensions dépasse 2 V.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="Exemple ajouté"><code>bool surcharge(float a, float b, float c) {
+  float m = (a + b + c) / 3;
+  return m &gt; 2.0;
+}</code></pre>
+</details>
+
+<p class="exo">5. Questions éclair.</p>
+<details class="corrige"><summary>Qui appelle le callback ?</summary>
+<p><code>client.loop()</code>, quand un message arrive sur un topic abonné.</p>
+</details>
+<details class="corrige"><summary>Pourquoi s'abonner dans reconnect() et pas dans setup() ?</summary>
+<p>Après une coupure, la reconnexion efface les abonnements : il faut se réabonner à chaque connexion.</p>
+</details>
+<details class="corrige"><summary>Pourquoi dtostrf avant publish ?</summary>
+<p><code>publish</code> n'envoie que du texte : le nombre doit d'abord être écrit en caractères.</p>
+</details>
+<details class="corrige"><summary>Que vaut analogRead pour 3,3 V ? Pour 0 V ?</summary>
+<p>4095 pour 3,3 V.</p>
+<p>0 pour 0 V.</p>
+</details>
+<details class="corrige"><summary>Deux cartes avec le même ID sur le broker : que se passe-t-il ?</summary>
+<p>Elles se déconnectent l'une l'autre en boucle : chaque ID doit être unique.</p>
+</details>
+<details class="corrige"><summary>Quel port pour MQTT, et où l'écrit-on ?</summary>
+<p>1883, dans <code>client.setServer(mqtt_server, 1883)</code>.</p>
+</details>
+
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../examen.html"><small>Ensuite</small>Les exercices corrigés de l'évaluation</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Fiche du code";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+  P.boutonsCopier(document.querySelector("main"));
+})();
+</script>
+</body>
+</html>
