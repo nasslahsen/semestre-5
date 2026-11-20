@@ -716,6 +716,23 @@ test("informatique médicale : réponses attendues dans les niveaux", () => {
   assert.strictEqual(S.niveauRisque(12), "élevé"); assert.strictEqual(S.niveauRisque(6), "moyen"); assert.strictEqual(S.niveauRisque(2), "faible");
   // séparateur : « BENNANI;Salma;37,8 » coupé aux virgules
   assert.strictEqual("BENNANI;Salma;37,8".split(",").length, 2); assert.strictEqual("A13;M;72,5;135;03/04/2026".split(",").length, 2);
+  // TD 1 CHU Atlas : criticité C = G × O × D (cotations proposées) et seuil 100
+  const lignes = [[9, 4, 4], [9, 5, 6], [9, 3, 3], [10, 3, 7], [9, 4, 5], [4, 6, 3], [7, 2, 6]];
+  assert.deepStrictEqual(lignes.map(l => S.criticite(...l)), [144, 270, 81, 210, 180, 72, 84]);
+  assert.deepStrictEqual(lignes.map((l, i) => i + 1).filter(i => S.criticite(...lignes[i - 1]) >= 100), [1, 2, 4, 5]);   // td1-amdec, étape 3
+  assert.strictEqual(S.criticite(8, 3, 5), 120); assert.strictEqual(S.criticite(8, 3, 2), 48);    // révision
+  assert.strictEqual(S.criticite(10, 3, 3), 90);                                                   // boss : scan de l'étiquette
+  // grille pondérée : notes proposées A et B, trois jeux de poids
+  const NA = [4, 2, 2, 3, 2], NB = [3, 5, 4, 3, 4], J1 = [35, 25, 15, 15, 10], J2 = [60, 15, 5, 15, 5], J3 = [25, 20, 35, 10, 10];
+  for (const w of [J1, J2, J3, [40, 20, 20, 10, 10]]) assert.strictEqual(w.reduce((a, b) => a + b, 0), 100);
+  proche(S.totalPondere(J1, NA), 2.85, 1e-12); proche(S.totalPondere(J1, NB), 3.75, 1e-12);
+  proche(S.totalPondere(J2, NA), 3.35, 1e-12); proche(S.totalPondere(J2, NB), 3.40, 1e-12);
+  proche(S.totalPondere(J3, NA), 2.60, 1e-12); proche(S.totalPondere(J3, NB), 3.85, 1e-12);
+  proche(S.totalPondere([40, 20, 20, 10, 10], NA), 2.90, 1e-12); proche(S.totalPondere([40, 20, 20, 10, 10], NB), 3.70, 1e-12);
+  proche(S.totalPondere(J2, [2, 5, 4, 3, 4]), 2.80, 1e-12);                                         // boss : sécurité de B à 2
+  // figure : bascule vers A au-delà d'environ 66 % sur la sécurité (autres poids en proportions 25 / 15 / 15 / 10)
+  const pw = ws => [ws, ...[25, 15, 15, 10].map(w => w * (100 - ws) / 65)];
+  assert.ok(S.totalPondere(pw(65), NB) > S.totalPondere(pw(65), NA)); assert.ok(S.totalPondere(pw(70), NA) > S.totalPondere(pw(70), NB));
   // panorama : quatre éditeurs, Enova sur cinq régions
   const SIS = require("../modules/informatique/sis.js");
   assert.strictEqual(SIS.EDITEURS.length, 4); assert.strictEqual(SIS.REGIONS.length, 12);

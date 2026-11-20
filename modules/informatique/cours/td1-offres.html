@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : choisir entre les deux offres · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : choisir entre les deux offres</h1>
+<p class="chapeau">L'offre A est robotisée et coûte 14 millions sur sept ans. L'offre B est modulaire, semi-automatisée, et coûte 9 millions. Si on additionne des notes sans réfléchir, le prix risque de cacher un défaut de sécurité.</p>
+
+<h2>Intuition</h2>
+<p>On trie en deux temps. D'abord les <b>critères éliminatoires</b> : ce qu'une offre doit garantir, quel que soit son prix. Une offre qui ne les remplit pas sort, ou ne reste qu'avec une condition écrite. Ensuite seulement, on compare ce qui reste avec une <b>grille pondérée</b>. Enfin, on change les poids pour voir si le classement tient : c'est l'<b>analyse de sensibilité</b>.</p>
+<div id="fig-td1-offres"></div>
+
+<h2>Formalisation</h2>
+<h3>Le dossier des deux offres</h3>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Offre A : robotisée et intégrée</th><th>Offre B : modulaire et semi-automatisée</th></tr>
+<tr><td>Conformité réglementaire</td><td>Certificats fournis pour tous les DM et le logiciel</td><td>Certificats fournis pour 2 modules sur 3 ; celui du logiciel de traçabilité est en cours</td></tr>
+<tr><td>Sécurité du patient</td><td>Double contrôle automatique ; rapport de validation fourni ; 2 incidents signalés sur d'autres sites, corrigés</td><td>Double contrôle manuel assisté par lecture de code ; rapport de validation fourni ; aucun incident signalé</td></tr>
+<tr><td>Sécurité du personnel</td><td>Poste confiné et robotisé ; rapport de qualification et mesures de contamination fournis</td><td>Isolateur à manipulation manuelle ; rapport de qualification partiel, mesures de contamination non fournies</td></tr>
+<tr><td>Intégration au SIH</td><td>Un site de référence avec un autre DPI ; tests avec identités fictives proposés à la recette, pas avant la signature</td><td>Un site de référence avec le même DPI que le CHU ; tests avec identités fictives acceptés avant la signature</td></tr>
+<tr><td>Cybersécurité</td><td>Accès à distance par un compte fournisseur partagé ; support garanti 5 ans</td><td>Comptes nominatifs et accès à distance encadré ; support garanti 7 ans</td></tr>
+<tr><td>Continuité</td><td>Aucune procédure de mode dégradé manuel (robot unique) ; intervention sous 4 h, pénalités prévues</td><td>Mode dégradé documenté et testé sur le site de référence ; intervention sous 24 h ouvrées, sans pénalités</td></tr>
+<tr><td>Maintenance et cycle de vie</td><td>Contrat de 7 ans ; consommables propriétaires</td><td>Contrat de 7 ans ; consommables auprès de plusieurs fournisseurs</td></tr>
+<tr><td>Ergonomie et formation</td><td>Interface complexe ; formation de 3 semaines</td><td>Interface simple ; formation de 1 semaine</td></tr>
+<tr><td>Coût complet sur 7 ans</td><td>14 millions d'unités monétaires (fictives)</td><td>9 millions d'unités monétaires (fictives)</td></tr>
+</table></div>
+<h3>Critères éliminatoires</h3>
+<p>On fixe trois critères avec un seuil, puis on donne à chaque offre un statut : <b>conforme</b>, <b>conditionnel</b> ou <b>non conforme</b>. Conditionnel veut dire que le manque peut être levé par une <b>condition suspensive</b> : une condition écrite dans le contrat, sans laquelle on ne signe pas (par exemple, un certificat remis avant la signature). Principe de l'énoncé : la sécurité se vérifie d'abord, elle ne se compense pas par un bon prix.</p>
+<h3>Grille pondérée</h3>
+<p>Cinq critères : sécurité patient et personnel, intégration au SIH et cybersécurité, coût complet sur 7 ans, maintenance et disponibilité, ergonomie et formation. On fixe les poids (total 100 %) <b>avant</b> de noter, sinon on risque de régler les poids pour obtenir l'offre qu'on préfère. Chaque offre reçoit une note de 1 à 5 par critère, et chaque note cite une ligne du dossier.</p>
+\[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
+<h3>Analyse de sensibilité</h3>
+<p>On refait le calcul avec deux autres jeux de poids. Si l'offre classée première ne change pas, le choix est robuste. Si elle change, on dit quel poids la fait basculer : c'est sur ce point que le comité doit trancher.</p>
+<h3>Où chercher dans le cours</h3>
+<p>Le compte fournisseur partagé de l'offre A se juge avec la <a href="regle-aaa.html">règle AAA</a> (chapitre 8) : un compte partagé ne permet pas de savoir qui s'est connecté. Le robot unique sans procédure manuelle est un <a href="incident-spof.html">point de défaillance unique</a> (chapitre 10). L'intégration au DPI et à l'identité renvoie aux chapitres 5 et 6. Le cours reçu ne présente ni les critères éliminatoires ni la grille pondérée : ils viennent de l'énoncé.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté : poids et notes proposés, à justifier en groupe.</p>
+<p>Poids : sécurité 35, intégration 25, coût 15, maintenance 15, ergonomie 10. Notes de l'offre B : 3, 5, 4, 3, 4 (sécurité moyenne faute de mesures de contamination, même DPI et tests avant signature, 9 millions, intervention lente mais mode dégradé testé, interface simple).</p>
+\[ \text{Total}_B = \frac{35 \times 3 + 25 \times 5 + 15 \times 4 + 15 \times 3 + 10 \times 4}{100} \]
+\[ \text{Total}_B = \frac{105 + 125 + 60 + 45 + 40}{100} \]
+\[ \text{Total}_B = 3{,}75 \]
+
+<h2>Formules clés</h2>
+\[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \qquad \sum \text{poids} = 100 \qquad 1 \leq \text{note} \leq 5 \]
+<p>Ordre : critères éliminatoires, puis poids, puis notes avec leur preuve, puis sensibilité.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/td1-offres.js"></script>
+</body>
+</html>
