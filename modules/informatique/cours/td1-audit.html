@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : plan d'audit et mode dégradé · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : plan d'audit et mode dégradé</h1>
+<p class="chapeau">Jeudi matin, le SIH est indisponible pendant 24 h. Douze patients sont programmés pour une chimiothérapie. Le choix de l'offre ne suffit pas : il faut vérifier ce qu'on achète, puis savoir travailler sans le système.</p>
+
+<h2>Intuition</h2>
+<p>Une preuve n'a de valeur que si quelqu'un la vérifie, au bon moment. Le <b>plan d'audit</b> place les vérifications à trois moments : avant l'achat, à la réception, après l'ouverture. Le <b>mode dégradé</b> est le plan B quand le système tombe : chaque contrôle automatique perdu est remplacé par un contrôle humain, et chaque décision a un responsable nommé.</p>
+<div id="fig-td1-audit"></div>
+
+<h2>Formalisation</h2>
+<h3>Plan d'audit</h3>
+<p>Pour chaque moment, on indique ce qu'il faut vérifier, la preuve attendue, le responsable et l'échéance.</p>
+<div class="tableau"><table>
+<tr><th>Moment</th><th>Ce qu'on vérifie (exemples)</th></tr>
+<tr><td>Avant l'achat</td><td>Certificats, tests de l'interface avec le DPI, qualification du poste de préparation, accès à distance</td></tr>
+<tr><td>À la réception</td><td>Installation et fonctionnement conformes, recette avec le SIH, essai du mode dégradé, formation</td></tr>
+<tr><td>Après l'ouverture</td><td>Indicateurs de l'AMDEC, incidents déclarés, contamination, journaux d'accès, exercice du mode dégradé</td></tr>
+</table></div>
+<h3>Mode dégradé : les six étapes de l'énoncé</h3>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Question</th></tr>
+<tr><td>Déclenchement</td><td>Qui décide d'entrer en mode dégradé, et qui prévient les services ?</td></tr>
+<tr><td>Priorisation</td><td>Quels patients sont traités en priorité, lesquels sont reportés, et qui décide ?</td></tr>
+<tr><td>Prescription et identité</td><td>Comment prescrire, valider et identifier les patients sans le SIH ?</td></tr>
+<tr><td>Préparation et étiquetage</td><td>Quels contrôles remplacent ceux du système, quelles étiquettes de secours ?</td></tr>
+<tr><td>Administration</td><td>Comment vérifie-t-on le patient, la poche et la programmation de la pompe ?</td></tr>
+<tr><td>Retour à la normale</td><td>Comment ressaisit-on les données, rapproche-t-on les dossiers, déclare-t-on l'événement ?</td></tr>
+</table></div>
+<h3>Où chercher dans le cours</h3>
+<p>Le rapprochement des identités après la panne est le travail de l'<a href="identitovigilance.html">identitovigilance</a> (chapitre 6). La panne du SIH est un <a href="incident-spof.html">incident</a> au sens du chapitre 10, et la <a href="triade-cid.html">disponibilité</a> est le critère du triangle CID qui tombe (chapitre 8). La prise en charge aux urgences sans dossier complet est au chapitre 5 (<a href="urgences-dpi.html">urgences</a>). Le cours reçu ne détaille pas de procédure de mode dégradé : les réponses ci-dessous sont un plan proposé.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté : une ligne du plan d'audit.</p>
+<p>Moment : avant l'achat. À vérifier : l'interface entre la solution et le DPI du CHU. Preuve : procès-verbal de tests avec des identités fictives (création, doublon, fusion), signé. Responsable : le DSI. Échéance : avant la signature. Une ligne vague comme « vérifier l'interface » ne suffit pas : il faut une preuve qu'on pourra montrer.</p>
+
+<h2>Formules clés</h2>
+<p>Audit : avant l'achat, à la réception, après l'ouverture. Pour chaque ligne : quoi, quelle preuve, qui, quand.</p>
+<p>Mode dégradé : déclencher, prioriser, prescrire et identifier, préparer et étiqueter, administrer, revenir à la normale. Chaque contrôle perdu est remplacé par un contrôle humain.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/td1-audit.js"></script>
+</body>
+</html>

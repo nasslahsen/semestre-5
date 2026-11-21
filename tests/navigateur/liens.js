@@ -23,6 +23,12 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
+  informatique: {
+    // TD 1 : le SPOF vers le cours de sécurité, les décisions vers le tableau du mode dégradé ou la recommandation du corrigé
+    "revision-td1": { 5: ["incident-spof", "formalisation", "Formalisation"] },
+    "td1-audit": { 3: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"], 4: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"] },
+    "boss-td1": { 3: ["td1-corrige", "consignes-4", "Consignes"] }
+  },
   langues: {
     // exercices de situation et TD : vers la liste du cours ou l'exercice du corrigé
     "soft-exemples": { 3: ["soft-exemples", "a-long-list", "A long list"] },

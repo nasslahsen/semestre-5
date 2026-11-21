@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : le cas et l'analyse de risques · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : le cas et l'analyse de risques</h1>
+<p class="chapeau">Le CHU Atlas ouvre un centre d'oncologie dans dix-huit mois. Deux éditeurs proposent une solution pour le circuit de chimiothérapie, de la prescription à la traçabilité. Avant de comparer les offres, le comité doit savoir ce qui peut mal tourner dans ce circuit.</p>
+
+<h2>Le TD en bref</h2>
+<p>Toutes les données du dossier sont fictives. Ton groupe joue le <b>comité de pilotage</b> : six rôles, chacun défend un point de vue.</p>
+<div class="tableau"><table>
+<tr><th>Rôle</th><th>Ce qu'il défend</th></tr>
+<tr><td>Directeur ou directrice générale</td><td>Préside le comité, arbitre entre sécurité, coût et calendrier</td></tr>
+<tr><td>Oncologue</td><td>Le besoin clinique et la continuité des traitements</td></tr>
+<tr><td>Pharmacien ou pharmacienne</td><td>La sécurité du circuit de préparation et d'administration</td></tr>
+<tr><td>DSI</td><td>L'intégration au SIH, à l'identité patient et au DPI</td></tr>
+<tr><td>Ingénieur ou ingénieure biomédical</td><td>Les exigences techniques, la qualification et la maintenance</td></tr>
+<tr><td>Cadre de santé ou qualité</td><td>La formation, le mode dégradé et le suivi des incidents</td></tr>
+</table></div>
+<p>Le TD a trois ateliers : l'analyse de risques du circuit (cette page), le choix entre les deux offres, puis le plan d'audit et le mode dégradé. On termine par un comité de pilotage simulé et une fiche de synthèse de trois pages.</p>
+<p>Règle de travail de l'énoncé : on raisonne en <b>exigences</b> (ce que le système doit garantir) et en <b>preuves</b> (comment le fournisseur le démontre).</p>
+
+<h2>Intuition</h2>
+<p>Un risque grave mais très rare, ou fréquent mais sans conséquence, ne demande pas le même effort qu'une erreur grave, assez fréquente et que personne ne voit passer. L'<b>AMDEC</b> (analyse des modes de défaillance, de leurs effets et de leur criticité) donne trois notes à chaque défaillance et les multiplie : la ligne qui sort en tête est celle à traiter d'abord. La troisième note est la plus surprenante : plus une erreur est difficile à détecter, plus sa note est haute.</p>
+<div id="fig-td1-amdec"></div>
+
+<h2>Formalisation</h2>
+<p>Pour chaque mode de défaillance, on note de 1 à 10 :</p>
+<div class="tableau"><table>
+<tr><th>Note</th><th>Gravité (G)</th><th>Occurrence (O)</th><th>Détectabilité (D)</th></tr>
+<tr><td>1</td><td>Aucune conséquence</td><td>Très rare</td><td>Détection quasi certaine avant l'effet</td></tr>
+<tr><td>10</td><td>Décès ou atteinte grave</td><td>Fréquent</td><td>Non détectable</td></tr>
+</table></div>
+<p>On calcule la <b>criticité</b>, on classe les lignes et on retient les trois plus critiques. Le seuil de priorité est fixé pour l'exercice à \(C \geq 100\).</p>
+<p>Pour chacune des trois, on propose une <b>barrière</b> (ce qui empêche l'erreur ou l'arrête avant le patient) et la <b>preuve</b> exigée du fournisseur (un document vérifiable, pas une promesse).</p>
+<h3>Les sept modes de défaillance du dossier</h3>
+<div class="tableau"><table>
+<tr><th>N°</th><th>Étape</th><th>Mode de défaillance</th><th>Effet</th></tr>
+<tr><td>1</td><td>Prescription</td><td>Dose ou protocole mal transcrit</td><td>Surdosage ou sous-dosage</td></tr>
+<tr><td>2</td><td>Identité</td><td>Identité provisoire non rapprochée du dossier</td><td>Mauvais patient, historique perdu</td></tr>
+<tr><td>3</td><td>Préparation</td><td>Erreur de produit ou de dosage à la préparation</td><td>Poche non conforme</td></tr>
+<tr><td>4</td><td>Étiquetage</td><td>Étiquette erronée ou saisie à la main (panne d'imprimante)</td><td>Poche administrée au mauvais patient</td></tr>
+<tr><td>5</td><td>Administration</td><td>Programmation erronée de la pompe</td><td>Débit ou volume incorrect</td></tr>
+<tr><td>6</td><td>Traçabilité</td><td>Administration non tracée dans le dossier</td><td>Chaîne de traçabilité rompue</td></tr>
+<tr><td>7</td><td>Exposition</td><td>Contamination du personnel lors de la préparation</td><td>Atteinte à la santé des opérateurs</td></tr>
+</table></div>
+<h3>Où chercher dans le cours</h3>
+<p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="identite.html">Création et vérification d'une identité</a>, <a href="appariement.html">Algorithmes d'appariement</a> et <a href="identitovigilance.html">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="dpi.html">DPI</a>, <a href="plan-soins.html">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="circuit-ris-pis.html">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="risque.html">risque</a> (chapitre 10) est la même idée, avec deux axes au lieu de trois.</p>
+<p>Le cours reçu ne présente pas l'AMDEC : la méthode et l'échelle viennent de l'énoncé du TD.</p>
+
+<h2>Exemple</h2>
+<p class="complement">Exemple ajouté : cotation proposée, à justifier en groupe.</p>
+<p>Ligne 1, dose mal transcrite. Gravité : un surdosage de chimiothérapie peut être grave, G = 9. Occurrence : la prescription est informatisée mais les protocoles sont nombreux, O = 4. Détectabilité : le pharmacien valide chaque ordonnance et peut repérer une dose anormale, D = 4.</p>
+\[ C = G \times O \times D \]
+\[ C = 9 \times 4 \times 4 \]
+\[ C = 144 \]
+<p>144 dépasse le seuil de 100 : la ligne est prioritaire. Si trois autres lignes ont une criticité plus forte, elle reste au-dessus du seuil mais n'entre pas dans les trois retenues ; on dit alors quelle barrière la couvre déjà (ici, la validation pharmaceutique).</p>
+
+<h2>Formules clés</h2>
+\[ C = G \times O \times D \qquad 1 \leq G,\ O,\ D \leq 10 \qquad \text{prioritaire si } C \geq 100 \]
+<p>Une barrière pour chaque risque retenu, et pour chaque barrière une preuve qu'on peut vérifier.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/td1-amdec.js"></script>
+</body>
+</html>

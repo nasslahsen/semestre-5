@@ -412,4 +412,44 @@ tous["boss-risque"] = async (a) => {
   await a.choix(0); await a.suite();
 };
 
+/* ---------- TD 1 : centre d'oncologie du CHU Atlas ---------- */
+tous["td1-amdec"] = async (a) => {
+  await a.nombres([270]); await a.suite();
+  await a.choix(1); await a.suite();
+  for (const y of [133, 195, 319, 381]) await a.svg([340, y]);
+  await a.suite();
+  await a.choix(2); await a.suite();
+  await paires(a, (i) => [145, 130 + 170 * i], (k) => [490, 130 + 170 * k], [1, 2, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["td1-offres"] = async (a) => {
+  await trier(a, grille(2, 20, 20, 640, 84, 14), (k) => [120 + 220 * k, 460], [0, 1, 2, 1, 0]); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.nombres([2.85]); await a.suite();
+  await a.nombres([3.35, 3.4]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["td1-audit"] = async (a) => {
+  await trier(a, grille(2, 20, 20, 640, 76, 12), (k) => [120 + 220 * k, 430], [0, 0, 1, 1, 2, 2]); await a.suite();
+  await ordre(a, (i) => [120 + 220 * (i % 3), 160 + 250 * Math.floor(i / 3)], [1, 4, 3, 5, 0, 2]); await a.suite();
+  await paires(a, (i) => [170, 95 + 130 * i], (k) => [520, 95 + 130 * k], [2, 3, 0, 1]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous["revision-td1"] = async (a) => {
+  await a.nombres([120]); await a.suite();
+  await a.nombres([48]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([2.9, 3.7]); await a.suite();
+  await a.choix(2); await a.suite();
+};
+tous["boss-td1"] = async (a) => {
+  await a.nombres([90]); await a.suite();
+  await a.choix(2); await a.suite();
+  await paires(a, (i) => [180, 95 + 130 * i], (k) => [530, 95 + 130 * k], [2, 3, 0, 1]); await a.suite();
+  await a.nombres([2.8]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+
 module.exports = tous;
