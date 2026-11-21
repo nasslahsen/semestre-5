@@ -20,19 +20,15 @@
 <h1>Interfaces I2C et SPI de l'ESP32</h1>
 <p class="chapeau">Le chapitre 3 a expliqué comment fonctionnent les bus I2C et SPI. Reste la question pratique quand on câble un capteur de température I2C ou une carte mémoire SPI sur l'ESP32 : sur quelles broches, et comment le dire au programme ?</p>
 
-<h2>Intuition</h2>
-<p>Grâce à la GPIO matrix, les signaux I2C et SPI peuvent sortir sur presque n'importe quelle broche. Mais pour ne pas avoir à tout choisir à chaque projet, des broches par défaut existent : si tu câbles là, il n'y a rien à préciser. Si ces broches sont déjà prises, tu en choisis d'autres et tu les indiques dans le code.</p>
-
 <div id="fig-bus"></div>
 
-<h2>Formalisation</h2>
-<h3>Interface I2C</h3>
+<h2>Interface I2C</h2>
 <ul>
 <li>L'ESP32 a <strong>deux canaux I2C</strong>, et n'importe quelle broche peut être réglée en SDA ou en SCL.</li>
 <li>Avec l'IDE Arduino, les broches I2C par défaut sont <strong>GPIO 21 (SDA)</strong> et <strong>GPIO 22 (SCL)</strong>.</li>
 <li>Pour utiliser d'autres broches avec la bibliothèque Wire, il suffit d'appeler <code>Wire.begin(SDA, SCL);</code></li>
 </ul>
-<h3>Interface SPI</h3>
+<h2>Interface SPI</h2>
 <ul>
 <li>Deux bus SPI (<i>Serial Peripheral Interface</i>) accessibles à l'utilisateur : <strong>HSPI (SPI2)</strong>, <i>High-Speed SPI</i>, et <strong>VSPI (SPI3)</strong>, <i>Variable and Configurable SPI</i>.</li>
 <li>SPI2 et SPI3 ont des bus de signaux indépendants, qui portent les mêmes noms.</li>
@@ -45,16 +41,14 @@
 </table></div>
 <p>Sur la diapositive, l'en-tête de la colonne MISO reprend par erreur « Master Out, Slave In » : MISO veut dire <i>Master In, Slave Out</i>, la ligne sur laquelle l'esclave répond au maître.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un thermomètre connecté a un capteur de température I2C et une carte SD en SPI.</p>
+<h2>À retenir</h2>
+<p>I2C :</p>
 <ul>
-<li>Capteur I2C sur les broches par défaut : SDA sur GPIO 21, SCL sur GPIO 22, <code>Wire.begin();</code> sans argument suffit. Si un écran occupe déjà ces broches sur un autre montage, on peut écrire <code>Wire.begin(16, 17);</code> pour SDA sur GPIO 16 et SCL sur GPIO 17.</li>
-<li>Carte SD sur VSPI : MOSI GPIO 23, MISO GPIO 19, CLK GPIO 18, CS GPIO 5. Deux autres esclaves pourraient partager ce bus avec leurs propres lignes CS.</li>
+<li>2 canaux, toute broche en SDA ou SCL.</li>
+<li>Défaut Arduino GPIO 21 (SDA), GPIO 22 (SCL).</li>
+<li><code>Wire.begin(SDA, SCL);</code>.</li>
 </ul>
-
-<h2>Formules clés</h2>
-<p>I2C : 2 canaux, toute broche en SDA ou SCL ; défaut Arduino GPIO 21 (SDA), GPIO 22 (SCL) ; <code>Wire.begin(SDA, SCL);</code>. SPI : HSPI = SPI2 (13, 12, 14, 15), VSPI = SPI3 (23, 19, 18, 5) pour MOSI, MISO, CLK, CS ; 3 esclaves par bus.</p>
+<p>SPI : HSPI = SPI2 (13, 12, 14, 15), VSPI = SPI3 (23, 19, 18, 5) pour MOSI, MISO, CLK, CS ; 3 esclaves par bus.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

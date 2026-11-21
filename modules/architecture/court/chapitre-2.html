@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Zones et flux (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 2 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Zones et flux</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-2.html">Lire le cours complet</a></p>
+<h2>La gradation des zones</h2>
+<div class="tableau"><table>
+<tr><th>Zone publique</th><th>Zone semi-restreinte</th><th>Zone restreinte</th></tr>
+<tr><td>accueil, attente, circulation générale</td><td>circulation du personnel, transfert des patients, préparation, stockage</td><td>salles d'opération, préparation stérile, espaces de l'intervention</td></tr>
+</table></div>
+<p>La propreté et le contrôle des accès augmentent du public au restreint. Le <strong>FGI</strong> : la salle d'opération est une zone restreinte <strong>accessible depuis une zone semi-restreinte</strong>.</p>
+
+<h2>Les cinq flux</h2>
+<div class="tableau"><table>
+<tr><th>Flux</th><th>Parcours</th></tr>
+<tr><td>Patient</td><td>hospitalisation → préparation → transfert → salle → SSPI → réanimation ou hospitalisation</td></tr>
+<tr><td>Personnel</td><td>vestiaires → semi-restreinte → restreinte (accès contrôlé)</td></tr>
+<tr><td>Propre</td><td>réception → stockage propre → préparation → salle</td></tr>
+<tr><td>Sale</td><td>salle → évacuation des déchets et instruments souillés → circuit sale</td></tr>
+<tr><td>Dispositifs médicaux</td><td>stérilisation → stockage stérile → bloc → utilisation → souillés → stérilisation</td></tr>
+</table></div>
+<p>Seul le flux des dispositifs médicaux forme une <strong>boucle</strong>.</p>
+
+<h2>La séparation propre / sale</h2>
+<p>À éviter : le propre, le patient et le sale sur la <strong>même circulation sans contrôle</strong>. Trois façons de séparer :</p>
+<ul>
+<li><strong>Physique</strong> : des circulations distinctes (la meilleure, quand le projet le permet).</li>
+<li><strong>Temporelle</strong> : au même endroit, à des moments différents.</li>
+<li><strong>Organisationnelle</strong> : règles et matériel (contenants fermés, circuits définis).</li>
+</ul>
+
+<h2>Déchets et stockage</h2>
+<p>Tri <strong>à la source</strong> : DASRI, assimilables aux ordures ménagères, piquants / coupants, anatomiques, chimiques éventuels. Les déchets contaminés ne croisent jamais les flux propres.</p>
+<p>Le stockage (DM stériles, consommables, champs, médicaments, anesthésie, secours) doit éviter la <strong>surcharge</strong>, l'<strong>obstruction des circulations</strong>, la <strong>contamination</strong> et la <strong>rupture de stock</strong>.</p>
+
+<h2>SSPI, réanimation, imagerie</h2>
+<ul>
+<li><strong>SSPI</strong> (salle de surveillance post-interventionnelle) : surveillance respiratoire, cardiovasculaire, neurologique, douleur, après anesthésie ; <strong>à proximité immédiate du bloc</strong>.</li>
+<li><strong>Bloc ↔ réanimation</strong> : limiter distance, obstacles, ascenseurs multiples, croisements avec le public.</li>
+<li><strong>Bloc ↔ imagerie</strong> : traumatologie, neurochirurgie, vasculaire, chirurgie hybride, gestes guidés par l'image.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Cite les trois zones du bloc, de la moins à la plus contrôlée.</p><details class="corrige"><summary>Voir la réponse</summary><p>Zone publique.</p><p>Zone semi-restreinte.</p><p>Zone restreinte.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Depuis quelle zone accède-t-on à la salle d'opération (FGI) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Depuis une zone semi-restreinte : la salle est une zone restreinte.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Décris le flux du personnel.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vestiaires → zone semi-restreinte → zone restreinte, avec un accès contrôlé.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quel flux forme une boucle, et pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Celui des dispositifs médicaux.</p><p>Après usage, les instruments souillés retournent en stérilisation, puis au stockage stérile, puis au bloc.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelles sont les trois façons de séparer les flux ? Laquelle préférer ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Physique, temporelle, organisationnelle.</p><p>La séparation physique, quand les contraintes du projet le permettent.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Cite trois filières de tri des déchets.</p><details class="corrige"><summary>Voir la réponse</summary><p>DASRI, déchets assimilables aux ordures ménagères, piquants / coupants (aussi : anatomiques, chimiques éventuels).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que doit éviter l'organisation du stockage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La surcharge.</p><p>L'obstruction des circulations.</p><p>La contamination.</p><p>La rupture de stock.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Où placer la SSPI, et que surveille-t-on ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À proximité immédiate du bloc.</p><p>Surveillance respiratoire, cardiovasculaire, neurologique, de la douleur, et après anesthésie.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Que faut-il limiter entre le bloc et la réanimation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La distance, les obstacles, les ascenseurs multiples et les croisements avec les flux publics.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-3.html"><small>Version courte suivante</small>La salle d'opération</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 2) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

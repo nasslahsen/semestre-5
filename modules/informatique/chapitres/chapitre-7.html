@@ -30,11 +30,8 @@
 <h4>Le chapitre en bref</h4>
 <p>Le deuxième sous-module, « Sécurité des réseaux informatiques hospitaliers », commence par une introduction à la cybersécurité. Ce chapitre part d'un scénario d'attaque, explique ce qui rend un hôpital différent face à la menace, puis fait le panorama des chiffres, des tendances et des attaques marquantes. Les chapitres suivants donnent les principes de la sécurité, le cadre réglementaire et le vocabulaire du risque. (Le plan du cours annonce aussi un « rappel des notions de base sur les réseaux », absent des diapositives fournies.)</p>
 
-<h4>Intuition</h4>
-<p>Une attaque ne coupe pas tout d'un coup : certaines parties sont compromises, d'autres continuent en mode dégradé. Dans l'heure qui suit, chaque service a un geste précis : continuer à soigner sans informatique, protéger ce qui marche encore, alerter.</p>
 <div id="fig-hopital"></div>
 
-<h4>Formalisation</h4>
 <div class="tableau"><table>
 <tr><th>Partie</th><th>État</th></tr>
 <tr><td>Administratif</td><td>compromis : postes chiffrés</td></tr>
@@ -51,10 +48,7 @@
 <tr><td>RSSI</td><td>alerter la DGSSI ; isoler le SI</td></tr>
 </table></div>
 
-<h4>Exemple</h4>
-<p>Le scanner fonctionne encore : l'imagerie l'isole du réseau pour que le rançongiciel ne l'atteigne pas, et garde ses images en local en attendant le retour du PACS. Les urgences continuent sur papier : la disponibilité des soins passe avant tout.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>Compromis ou dégradé ? Continuer les soins (papier), protéger ce qui marche (isoler), alerter (DSI, DGSSI).</p>
 </article>
 
@@ -68,11 +62,8 @@
 <article class="notion" id="n-hopital-different">
 <h3>Ce qui rend un hôpital différent</h3>
 <p class="chapeau">Un correctif urgent de Windows sort un vendredi. Dans une entreprise, on redémarre le soir même. À l'hôpital, le serveur du DPI ne s'arrête jamais, et l'échographe n'accepte pas qu'on y touche sans son fabricant.</p>
-<h4>Intuition</h4>
-<p>L'hôpital a des contraintes que d'autres organisations n'ont pas : il ne peut pas attendre, il ne s'arrête jamais, ses appareils durent longtemps et appartiennent un peu à leur fabricant, son parc est hétérogène, beaucoup de tiers y sont connectés, et ses données ne se « changent » pas. Chacune de ces contraintes a une conséquence pour la sécurité.</p>
 <div id="fig-specificites"></div>
 
-<h4>Formalisation</h4>
 <div class="tableau"><table>
 <tr><th>Caractéristique</th><th>Conséquence pour la sécurité</th></tr>
 <tr><td>Le retard pour une décision informatique n'est pas toléré lorsqu'il s'agit d'une erreur ou une panne informatique</td><td>la disponibilité et l'intégrité des données priment souvent sur leur confidentialité</td></tr>
@@ -84,11 +75,7 @@
 <tr><td>Les données de santé très recherchées et non modifiables (un dossier médical ne se « révoque » pas comme une carte bancaire)</td><td>un vol de données a des conséquences durables : chantage, usurpation, phishing ciblé</td></tr>
 </table></div>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Un échographe de 2014 tourne encore sous un Windows qui ne reçoit plus de correctifs. Le fabricant refuse qu'on installe un antivirus : on le protège autrement, en l'isolant sur un réseau dédié, et on exige du fabricant ses correctifs.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>À l'hôpital : disponibilité et intégrité souvent avant confidentialité ; correctifs retardés ; DM vieillissants et dépendants du fabricant ; parc hétérogène ; tiers nombreux ; données irrévocables.</p>
 </article>
 
@@ -102,11 +89,8 @@
 <article class="notion" id="n-panorama-menace">
 <h3>Panorama de la menace cyber</h3>
 <p class="chapeau">2025 marque un point de bascule : attaques plus sophistiquées, industrialisation des rançongiciels, exploitation massive de l'IA, et un coût économique record. Et le secteur le plus touché est celui de la santé.</p>
-<h4>Intuition</h4>
-<p>Les attaques contre les hôpitaux ne sont pas des hypothèses : le cours en liste une série, du ver WannaCry au NHS en 2017 jusqu'aux incidents de 2026. Chacune a laissé une leçon : corriger ses systèmes, ne pas dépendre d'un seul prestataire, exiger la transparence des fabricants, réagir vite.</p>
 <div id="fig-chronologie"></div>
 
-<h4>Formalisation</h4>
 <div class="tableau"><table>
 <tr><th>Chiffre (cours)</th><th>Ce qu'il mesure</th></tr>
 <tr><td>4,4 M$</td><td>coût moyen d'une fuite de données (IBM, 2025)</td></tr>
@@ -128,10 +112,7 @@
 </table></div>
 <p>Le cours montre aussi une revue de presse SecurityWeek du 23 février 2026 : un système hospitalier du Mississippi ferme toutes ses cliniques après un rançongiciel ; une entreprise américaine de diagnostic annonce 140 000 personnes touchées par une fuite de données.</p>
 
-<h4>Exemple</h4>
-<p>Change Healthcare et le prestataire de Santé publique France racontent la même chose : l'attaque a visé un tiers, et c'est toute la chaîne qui a été touchée. La sous-traitance reste le maillon faible.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>2025 : point de bascule (IA, rançongiciels industrialisés, coût record). Santé : secteur le plus touché.</p>
 <p>Leçons : corriger, isoler, exiger des fabricants (SBOM), surveiller les tiers, réagir vite.</p>
 </article>

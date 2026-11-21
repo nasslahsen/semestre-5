@@ -32,13 +32,12 @@
 <li>jeu, précharge et <strong>frottement</strong> : supprimer le jeu, au prix d'un peu de frottement.</li>
 </ul>
 
-<h2>Intuition</h2>
+<h2>Un seul mouvement utile</h2>
 <p>Un tiroir doit sortir et rentrer, mais ni monter, ni partir sur le côté, ni basculer. Ses glissières laissent un seul mouvement utile et bloquent les cinq autres. Un guidage en rotation fait pareil : l'arbre tourne autour de son axe, et rien d'autre.</p>
 <p>Bloquer, c'est résister à un effort. Aucune pièce n'est infiniment rigide : sous la charge, le chariot s'enfonce un peu. Plus il s'enfonce peu pour un même effort, plus le guidage est raide.</p>
 
 <div id="fig-ddl"></div>
 
-<h2>Formalisation</h2>
 <p>Un <strong>guidage</strong> doit autoriser les degrés de liberté utiles et contraindre les autres. Les paramètres principaux sont :</p>
 <div class="tableau"><table>
 <tr><th>Ce qu'il supporte</th><th>Comment il se comporte</th><th>Ce qui l'entoure</th></tr>
@@ -53,12 +52,12 @@
 
 <div class="schema" id="sc-guidage"></div>
 
-<h2>Exemple ajouté</h2>
+<h2>Exemple de calcul</h2>
 <p>Sous une charge de 200 N, le chariot d'un guidage linéaire s'enfonce de 0,05 mm :</p>
 \[ k = \frac{200}{0{,}05} = 4000 \ \text{N/mm} \]
 <p>Si la déformation ne doit pas dépasser 0,03 mm, la charge maximale vaut \(F = k\,\delta = 4000 \times 0{,}03 = 120\) N. Un second guidage qui ne s'enfonce que de 0,01 mm sous les mêmes 200 N a une raideur de 20 000 N/mm : cinq fois plus raide.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ k = \frac{F}{\delta} \ \ (\text{N/mm}) \qquad k_\theta = \frac{C}{\theta} \ \ (\text{N}\cdot\text{m/rad}) \]
 
 </main>

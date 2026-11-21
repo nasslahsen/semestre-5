@@ -20,12 +20,8 @@
 <h1>WebSockets et RPC</h1>
 <p class="chapeau">Un tableau de bord de réanimation doit afficher une alarme dès qu'elle survient. En HTTP, le navigateur devrait redemander sans cesse « du nouveau ? ». Il faut une ligne qui reste ouverte, où le serveur peut parler de lui-même.</p>
 
-<h2>Intuition</h2>
-<p>En HTTP, chaque échange commence par une demande du client. Pour être prévenu vite, le client doit redemander très souvent : beaucoup de requêtes pour rien. Une WebSocket ouvre une fois la connexion, puis client et serveur s'écrivent quand ils veulent, dans les deux sens à la fois.</p>
-
 <div id="fig-websocket"></div>
 
-<h2>Formalisation</h2>
 <p><b>WebSockets</b> : le serveur comme le client peuvent pousser un message à tout moment, sans lien avec une requête précédente. Le cours liste trois problèmes de HTTP qu'elles résolvent :</p>
 <ul>
 <li>protocole <b>bidirectionnel</b> : chacun peut envoyer un message à l'autre (en HTTP, la requête vient toujours du client et le serveur y répond : HTTP est unidirectionnel) ;</li>
@@ -34,11 +30,7 @@
 </ul>
 <p><b>Remote Procedure Call (RPC)</b> : une technique pour construire des applications distribuées client-serveur. Elle étend l'appel de procédure local habituel : la procédure appelée n'a pas besoin d'être dans le même espace d'adressage que l'appelant. Les deux processus peuvent être sur le même système, ou sur deux systèmes reliés par un réseau.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Le tableau de bord veut être prévenu en moins de 2 s. En HTTP, il redemande toutes les 2 s : 30 requêtes par minute, presque toutes pour rien. Avec une WebSocket : une seule connexion, et un message seulement quand une alarme survient. En RPC, l'application du médecin appellerait par exemple <code>dernierECG(patient)</code> comme une fonction locale, alors qu'elle s'exécute sur le serveur de l'hôpital.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{WebSocket : bidirectionnel} + \text{full duplex} + \text{une seule connexion TCP} \qquad \text{RPC : appel d'une procédure distante comme d'une procédure locale} \]
 
 </main>

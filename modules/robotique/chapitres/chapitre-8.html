@@ -39,12 +39,11 @@
 <li>Engrenages en cascade et trains : rapport, rendement et couple de sortie d'un réducteur complet.</li>
 </ul>
 
-<h4>Intuition</h4>
+<h4>Même puissance, vitesse ou couple</h4>
 <p>Un arbre transmet un couple en tournant. Pour une même puissance, il peut tourner vite avec peu de couple, ou lentement avec beaucoup de couple : le produit des deux reste la puissance. Sur la courbe ci-dessous, l'aire du rectangle coloré représente la puissance : quand on déplace le point, le rectangle s'allonge et s'aplatit, mais garde la même aire.</p>
 
 <div id="fig-arbre"></div>
 
-<h4>Formalisation</h4>
 <p>Pour une puissance \(P\) et une vitesse de rotation \(n\), le couple vaut :</p>
 \[ C = \frac{60P}{2\pi n} \qquad (4.1) \]
 <p>avec \(C\) le couple (N·m), \(P\) la puissance (W) et \(n\) la vitesse (tr/min). C'est la relation \(P = C\omega\) du chapitre 5, avec la vitesse angulaire \(\omega = 2\pi n/60\) en rad/s : le facteur 60 convertit les minutes en secondes, le \(2\pi\) les tours en radians.</p>
@@ -56,17 +55,17 @@
 <tr><td>Couple</td><td>\(C\)</td><td>N·m</td></tr>
 </table></div>
 
-<h4>Exemple du cours</h4>
+<h4>L'exemple du cours</h4>
 <p>Pour \(P = 100\) W à \(n = 3000\) tr/min :</p>
 \[ C = \frac{60 \times 100}{2\pi \times 3000} = 0{,}318 \text{ N}\cdot\text{m} \]
 
-<h4>Exemple ajouté : le moteur de la photo</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>La photo du cours montre un moteur de 15 HP à 1450 tr/min et demande le couple. Avec 1 HP (horse-power) ≈ 745,7 W :</p>
 \[ P = 15 \times 745{,}7 \approx 11\,186 \text{ W} \qquad C = \frac{60 \times 11\,186}{2\pi \times 1450} \approx 73{,}7 \text{ N}\cdot\text{m} \]
 <p>Un moteur plus puissant, mais surtout plus lent : son couple est environ 230 fois celui de l'exemple du cours.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ C = \frac{60P}{2\pi n} \qquad P = C\omega \qquad \omega = \frac{2\pi n}{60} \]
 </article>
 
@@ -74,13 +73,12 @@
 <h3>Résistance d'un arbre en torsion</h3>
 <p class="chapeau">L'arbre de sortie d'un réducteur transmet un couple important. S'il est trop fin, il se tord puis casse, comme l'arbre rompu en torsion de la photo du cours. Quel diamètre minimal lui donner ?</p>
 
-<h4>Intuition</h4>
+<h4>Ce qui se passe quand on tord un arbre</h4>
 <p>Trace un quadrillage sur un arbre (lignes le long de l'arbre, cercles autour), bloque un bout et tords l'autre. Les cercles restent des cercles et les rayons d'une section restent droits : chaque section tourne d'un petit angle, en bloc, par rapport à sa voisine. Seules les lignes longitudinales se tordent et deviennent des hélices.</p>
 <p>Ce glissement entre sections voisines est nul sur l'axe et maximal à la surface : c'est là que la matière est la plus sollicitée, et c'est là que la rupture commence.</p>
 
 <div id="fig-torsion"></div>
 
-<h4>Formalisation</h4>
 <p><strong>Condition de résistance en torsion d'un arbre cylindrique</strong> : la contrainte tangentielle maximale \(\tau_{max}\), induite par le moment (couple) de torsion \(M_t\), ne doit pas dépasser la résistance pratique au glissement \(R_{pg}\) du matériau.</p>
 \[ \tau_{max} \le R_{pg} \]
 <p>Pour dimensionner un arbre plein en torsion, on utilise la condition :</p>
@@ -97,13 +95,13 @@
 
 <div class="schema" id="sc-arbre"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté : le cours ne donne pas de valeur de \(R_{pg}\) ; 40 N/mm² est supposé ici.</p>
 <p>Arbre plein, \(M_t = 20\) N·m \(= 20\,000\) N·mm, \(R_{pg} = 40\) N/mm² :</p>
 \[ d > \sqrt[3]{\frac{16 \times 20\,000}{\pi \times 40}} = \sqrt[3]{2546} \approx 13{,}66 \text{ mm} \]
 <p>On choisit ensuite un diamètre normalisé au-dessus de cette valeur.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \tau_{max} \le R_{pg} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}} \quad (d \text{ en mm},\ M_t \text{ en N}\cdot\text{mm},\ R_{pg} \text{ en N/mm}^2) \]
 </article>
 
@@ -118,13 +116,12 @@
 <h3>Engrenages : généralités, familles, types</h3>
 <p class="chapeau">Dans l'articulation d'un robot chirurgical, le moteur tourne vite alors que l'instrument doit bouger lentement, avec précision et assez de force. Entre les deux, un réducteur à engrenages.</p>
 
-<h4>Intuition</h4>
+<h4>Des dents qui ne glissent pas</h4>
 <p>Deux roues dentées en prise se poussent dent après dent : aucune ne peut glisser par rapport à l'autre. La petite roue doit donc faire plus de tours que la grande pour faire passer le même nombre de dents. Le rapport entre leurs vitesses est fixé par la géométrie : il reste constant.</p>
 <p>Selon la manière dont les axes sont placés et dont les dents sont taillées, on obtient des familles d'engrenages différentes : <strong>axes parallèles</strong>, axes qui se coupent, axes qui se croisent sans se toucher.</p>
 
 <div id="fig-vocabulaire"></div>
 
-<h4>Formalisation</h4>
 <p>Un <strong>engrenage</strong> est un mécanisme composé de deux roues dentées en prise, qui transmet un mouvement de rotation et une puissance entre des arbres, selon un rapport de vitesse constant. Une combinaison d'engrenages est appelée <strong>train d'engrenages</strong>.</p>
 <div class="tableau"><table>
 <tr><th>Terme</th><th>Définition du cours</th></tr>
@@ -134,7 +131,7 @@
 <tr><td>Crémaillère</td><td>barre droite munie de dents qui s'engrènent avec un pignon ; ce mécanisme transforme la rotation du pignon en déplacement rectiligne de la crémaillère, ou inversement</td></tr>
 </table></div>
 
-<h5>Position relative des axes</h5>
+<h4>Position relative des axes</h4>
 <p>Suivant la position relative des axes des roues, on distingue :</p>
 <ul>
 <li>les engrenages <strong>parallèles</strong> (axes parallèles) ;</li>
@@ -144,7 +141,7 @@
 
 <div id="fig-axes"></div>
 
-<h5>Types d'engrenages</h5>
+<h4>Types d'engrenages</h4>
 <div class="tableau"><table>
 <tr><th>Type</th><th>Dents</th><th>Ce qu'il apporte</th></tr>
 <tr><td>Engrenages droits à denture droite</td><td>parallèles à l'axe de rotation</td><td>le cas de base (pignon, roue, couronne, crémaillère)</td></tr>
@@ -157,11 +154,11 @@
 
 <div class="schema" id="sc-engrenages"></div>
 
-<h4>Exemples du cours</h4>
+<h4>L'exemple du cours</h4>
 <p>Boîte de vitesses : elle contient plusieurs couples d'engrenages de tailles différentes. En sélectionnant une combinaison d'engrenages, on change le rapport entre la vitesse du moteur et celle des roues : un rapport faible favorise le couple pour démarrer ou monter une côte, tandis qu'un rapport important favorise une vitesse de déplacement plus élevée. Ici, le rapport s'entend vitesse de sortie sur vitesse d'entrée. Dans le schéma de principe du cours, des baladeurs (vitesses 1-2, 3-4 et 5) solidarisent avec l'arbre l'un des pignons fous montés sur l'arbre secondaire ; un pignon de marche arrière inverse le sens.</p>
 <p>Bras articulé d'un robot chirurgical : ses articulations orientent les instruments utilisés par le chirurgien. Dans ces articulations, des réducteurs à engrenages adaptent la rotation rapide des moteurs en un mouvement plus lent, précis et suffisamment puissant pour guider les instruments avec finesse.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>Engrenage : deux roues dentées en prise, rapport de vitesse constant. Train d'engrenages : une combinaison d'engrenages.</p>
 <p><strong>Axes parallèles</strong>, concourants ou gauches. <strong>Denture droite</strong>, hélicoïdale (progressive, silencieuse), coniques (arbres qui se croisent), <strong>roue et vis sans fin</strong> (grand rapport, souvent irréversible).</p>
 </article>
@@ -170,12 +167,11 @@
 <h3>Géométrie d'une denture et module</h3>
 <p class="chapeau">Pour commander une roue dentée, ou vérifier qu'elle engrène avec une autre, il faut savoir la décrire : quels cercles, quelles hauteurs, quel pas. Un seul nombre résume presque tout : le module.</p>
 
-<h4>Intuition</h4>
+<h4>La taille d'une dent</h4>
 <p>Deux roues qui engrènent doivent avoir des dents de même taille : la dent de l'une doit rentrer dans le creux de l'autre. Cette taille se mesure par le pas, la distance d'une dent à la suivante sur le cercle primitif. Le pas contient toujours le nombre π (une circonférence divisée par un nombre de dents), alors on préfère travailler avec le module, \(m = p/\pi\) : toutes les dimensions de la dent deviennent des multiples simples de \(m\).</p>
 
 <div id="fig-denture"></div>
 
-<h4>Formalisation</h4>
 <p>La géométrie des <strong>engrenages</strong> est décrite par un ensemble de paramètres : cercle primitif, cercle de base, angle de pression \(\alpha\), cercle de tête, cercle de pied, saillie \(h_a\), creux \(h_f\), hauteur \(h\), pas primitif \(p\), module \(m\), etc.</p>
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Signification</th><th>Valeur</th></tr>
@@ -196,7 +192,7 @@
 
 <div id="fig-roue"></div>
 
-<h5>Le module</h5>
+<h4>Le module</h4>
 <p>Le <strong>module</strong> est le quotient du pas exprimé en millimètres par le nombre \(\pi\). On choisit un module dans la série normalisée :</p>
 <div class="tableau"><table>
 <tr><th>Modules normalisés, série principale</th><td>0,3</td><td>0,5</td><td>0,8</td><td>1</td><td>1,25</td><td>1,5</td><td>2</td></tr>
@@ -208,7 +204,7 @@
 
 <div id="fig-module"></div>
 
-<h5>Nombre minimal de dents</h5>
+<h4>Nombre minimal de dents</h4>
 <p>Afin d'éviter l'<strong>interférence</strong> entre les dents de la roue et du pignon, un nombre minimal de dents est requis :</p>
 <div class="tableau"><table>
 <tr><th>\(Z_A\) (pignon)</th><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
@@ -220,13 +216,13 @@
 
 <div class="schema" id="sc-denture"></div>
 
-<h4>Exemple du cours</h4>
+<h4>L'exemple du cours</h4>
 <p>Roue 1 de la figure du cours, module \(m = 2\) mm, \(Z_1 = 17\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_{a1} = 34 + 2 \times 2 = 38 \text{ mm} \qquad d_{f1} = 34 - 2{,}5 \times 2 = 29 \text{ mm} \]
 <p class="complement">Les diamètres de tête et de pied sont calculés avec les formules de la figure ; le cours ne donne que \(d_1\).</p>
 <p>Exemple ajouté pour le module : \(F_t = 1000\) N, \(k = 8\), \(Rp_e = 100\) MPa donne \(m = 2{,}34\sqrt{1000/800} \approx 2{,}62\) mm, donc le module normalisé \(m = 3\).</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ d = mZ \qquad p = \pi m \qquad h_a = m \qquad h_f = 1{,}25\,m \qquad h = 2{,}25\,m \]
 \[ d_a = d + 2m \qquad d_f = d - 2{,}5\,m \qquad m = 2{,}34\sqrt{\frac{F_t}{k \cdot Rp_e}} \]
 </article>
@@ -242,13 +238,12 @@
 <h3>Engrenage cylindrique : rapport et entraxe</h3>
 <p class="chapeau">Un pignon de 17 dents entraîne une roue de 20 dents. Quand le pignon fait un tour, de combien tourne la roue ? Et à quelle distance faut-il placer les deux arbres ?</p>
 
-<h4>Intuition</h4>
+<h4>Compter les dents</h4>
 <p>Les dents passent une à une au point de contact : pendant un tour du pignon, ses 17 dents passent, donc 17 dents de la roue passent aussi. La roue, qui en a 20, ne fait que 17/20 de tour. La roue qui a le plus de dents tourne le moins vite.</p>
 <p>Les deux cercles primitifs roulent l'un sur l'autre sans glisser : ils se touchent, donc la distance entre les axes est la somme des deux rayons primitifs. Et au point de contact, une dent pousse l'autre dans la même direction : deux roues extérieures tournent en sens inverses.</p>
 
 <div id="fig-engrenage"></div>
 
-<h4>Formalisation</h4>
 <p>Pour un engrenage extérieur simple, en valeur absolue, le <strong>rapport de transmission</strong> (noté \(i_{12}\) ou \(r_{12}\)) est donné par :</p>
 \[ i_{12} = \left|\frac{\omega_2}{\omega_1}\right| = \left|\frac{n_2}{n_1}\right| = \frac{d_1}{d_2} = \frac{Z_1}{Z_2} \qquad (4.2) \]
 <div class="tableau"><table>
@@ -266,11 +261,11 @@
 
 <div class="schema" id="sc-conventions"></div>
 
-<h4>Exemple du cours</h4>
+<h4>L'exemple du cours</h4>
 <p>Pour \(m = 2\) mm, \(Z_1 = 17\), \(Z_2 = 20\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_2 = 2 \times 20 = 40 \text{ mm} \qquad i = \frac{17}{20} = 0{,}85 \qquad a = \frac{34 + 40}{2} = 37 \text{ mm} \]
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ i_{12} = \left|\frac{\omega_2}{\omega_1}\right| = \left|\frac{n_2}{n_1}\right| = \frac{d_1}{d_2} = \frac{Z_1}{Z_2} \qquad d = mZ \qquad a = m\,\frac{Z_1 + Z_2}{2} \]
 </article>
 
@@ -278,28 +273,27 @@
 <h3>Engrenages en cascade et trains</h3>
 <p class="chapeau">Un seul engrenage donnerait une roue énorme pour diviser la vitesse du moteur par 50. Le réducteur d'une articulation empile donc plusieurs étages : quel rapport, quel rendement et quel couple à la sortie ?</p>
 
-<h4>Intuition</h4>
+<h4>Les rapports se multiplient</h4>
 <p>Dans un train à deux étages, la roue 3 est fixée sur l'arbre de la roue 2 : elle tourne à la même vitesse. Le premier étage divise la vitesse, le second divise à nouveau le résultat : les <strong>rapports</strong> se multiplient. Chaque étage perd aussi un peu de puissance en frottement : les <strong>rendements</strong> se multiplient eux aussi, et un train de plusieurs étages perd plus qu'un seul étage.</p>
 <p>Chaque contact extérieur inverse le sens de rotation. Avec deux étages, la roue 4 tourne donc dans le même sens que la roue 1. Une roue intercalée de plus, dite inverseuse, change le sens sans changer la valeur du rapport.</p>
 
 <div id="fig-train"></div>
 
-<h4>Formalisation</h4>
 <p>Rendement et rapport d'engrenages en cascade. Pour plusieurs étages :</p>
 \[ i_{tot} = \prod_{k=1}^{N} i_k \quad (4.5) \qquad \eta_{tot} = \prod_{k=1}^{N} \eta_k \quad (4.6) \]
 <p>avec \(i_{tot}\) le rapport total, \(i_k\) le rapport du k-ième étage, \(\eta_{tot}\) le rendement total, \(\eta_k\) le rendement du k-ième étage et \(N\) le nombre d'étages. Le <strong>couple de sortie</strong> estimé est alors :</p>
 \[ C_s \simeq C_m\, i_{tot}\, \eta_{tot} \qquad (4.7) \]
 <p>avec \(C_s\) le couple de sortie et \(C_m\) le couple moteur.</p>
 
-<h5>Deux trains extérieurs</h5>
+<h4>Deux trains extérieurs</h4>
 <p>Les roues 1 et 3 sont menantes, 2 et 4 menées ; 2 et 3 sont sur le même arbre :</p>
 \[ R_{4/1} = \frac{n_4}{n_1} = R_{4/3} \cdot R_{2/1} = \frac{Z_3 \cdot Z_1}{Z_4 \cdot Z_2} = \frac{d_3 \cdot d_1}{d_4 \cdot d_2} \]
-<h5>Deux trains avec inverseur (5)</h5>
+<h4>Deux trains avec inverseur (5)</h4>
 <p>Une roue 5 est intercalée entre 3 et 4 :</p>
 \[ R_{4/1} = \frac{n_4}{n_1} = -R_{4/3} \cdot R_{2/1} = -\frac{Z_3 \cdot Z_1}{Z_4 \cdot Z_2} = -\frac{d_3 \cdot d_1}{d_4 \cdot d_2} \]
 <p>Le signe moins dit que la roue 4 tourne en sens inverse de la roue 1. \(Z_5\) n'apparaît pas : la roue 5 est menée par 3 puis menante pour 4, son nombre de dents se simplifie.</p>
 
-<h5>Attention : deux écritures du rapport dans le cours</h5>
+<h4>Attention : deux écritures du rapport dans le cours</h4>
 <div class="tableau"><table>
 <tr><th>Formule</th><th>Rapport utilisé</th><th>Pour un réducteur</th></tr>
 <tr><td>(1.3) \(C_s \simeq \eta\, i\, C_e\) et (4.7) \(C_s \simeq C_m\, i_{tot}\, \eta_{tot}\)</td><td>\(i = \omega_e/\omega_s\) (entrée sur sortie)</td><td>plus grand que 1</td></tr>
@@ -311,13 +305,13 @@
 
 <div class="schema" id="sc-trains"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté : le cours donne les formules sans valeurs numériques.</p>
 <p>\(Z_1 = 15\), \(Z_2 = 45\), \(Z_3 = 12\), \(Z_4 = 36\), \(n_1 = 900\) tr/min, rendement 0,97 par étage, \(C_m = 0{,}5\) N·m :</p>
 \[ R_{4/1} = \frac{12 \times 15}{36 \times 45} = \frac{1}{9} \qquad n_4 = \frac{900}{9} = 100 \text{ tr/min} \]
 \[ \eta_{tot} = 0{,}97^2 \approx 0{,}941 \qquad C_s \simeq 0{,}5 \times 9 \times 0{,}941 \approx 4{,}23 \text{ N}\cdot\text{m} \]
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ i_{tot} = \prod_{k=1}^{N} i_k \qquad \eta_{tot} = \prod_{k=1}^{N} \eta_k \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot} \]
 \[ R_{4/1} = \frac{n_4}{n_1} = \frac{Z_3 Z_1}{Z_4 Z_2} \qquad \text{avec inverseur : } R_{4/1} = -\frac{Z_3 Z_1}{Z_4 Z_2} \]
 </article>

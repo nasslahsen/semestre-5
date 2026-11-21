@@ -20,12 +20,8 @@
 <h1>MQTT : publish/subscribe, topics, QoS</h1>
 <p class="chapeau">Dix capteurs de température dans un bâtiment, trois écrans qui veulent chacun une partie des mesures. Avec MQTT, chaque capteur publie sur son propre topic, et chaque écran choisit ce qu'il reçoit grâce à un filtre.</p>
 
-<h2>Intuition</h2>
-<p>MQTT applique le modèle publish-subscribe. Le broker est la poste centrale : il reçoit chaque message avec son topic, une adresse en forme de chemin de fichier, et le transmet à tous ceux qui se sont abonnés à ce topic. Un abonné peut utiliser des jokers pour recevoir toute une famille de topics.</p>
-
 <div id="fig-mqtt"></div>
 
-<h2>Formalisation</h2>
 <p>MQTT est une architecture publish/subscribe conçue d'abord pour relier des appareils limités en bande passante et en énergie sur des réseaux sans fil. Protocole simple et léger, il fonctionne sur TCP/IP ou sur WebSockets. Le <b>broker</b> est le point central : il distribue tous les messages entre les émetteurs et les bons destinataires. Un <b>client</b> est tout appareil qui se connecte au broker pour publier ou s'abonner ; le broker confirme une connexion par CONNACK et un abonnement par SUBACK.</p>
 <p>Les <b>topics</b> fonctionnent comme des chemins de fichiers, et les messages peuvent être n'importe quoi (texte, images…). Exemples du cours : <code>home/groundfloor/kitchen/temperature</code>, <code>office/conferenceroom/luminance</code>. Deux jokers pour s'abonner :</p>
 <ul>
@@ -42,11 +38,7 @@
 
 <div id="fig-qos"></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Messages publiés : <code>home/groundfloor/kitchen/temperature</code> et <code>home/groundfloor/living/humidity</code>. L'abonné à <code>home/groundfloor/+/temperature</code> ne reçoit que le premier ; l'abonné à <code>home/groundfloor/#</code> reçoit les deux ; l'abonné à <code>home/+/temperature</code> n'en reçoit aucun, car <code>+</code> ne remplace qu'un seul niveau et il en manque un.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \texttt{+} \text{ : un niveau} \qquad \texttt{\#} \text{ : tous les niveaux suivants} \qquad \text{QoS } 0 \le 1 \le 2 \text{ : fiabilité} \uparrow,\ \text{coût} \uparrow \]
 
 </main>

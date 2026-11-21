@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le vocabulaire du risque (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 10 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le vocabulaire du risque</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-10.html">Lire le cours complet</a></p>
+<h2>Menace, vulnérabilité, attaque</h2>
+<ul>
+<li><strong>Menace</strong> : cause potentielle d'un incident ; délibérée ou accidentelle (un groupe de rançongiciel).</li>
+<li><strong>Vulnérabilité</strong> : faiblesse d'un bien (OS non corrigé, mot de passe faible).</li>
+<li><strong>Attaque</strong> : une menace qui se concrétise en exploitant une vulnérabilité.</li>
+</ul>
+<p><strong>Surface d'attaque</strong> : tous les points d'entrée, <strong>physiques</strong> (locaux), <strong>numériques</strong>, <strong>humains</strong> (ingénierie sociale).</p>
+
+<h2>La cyber kill chain</h2>
+<p>Reconnaissance → intrusion → exploitation → élévation de privilèges → déplacement latéral → obfuscation → déni de service → exfiltration. Chaque phase a son signal de détection : savoir où en est l'attaquant, c'est savoir quoi couper.</p>
+
+<h2>Risque, incident, SPOF</h2>
+\[ R = P \times I \]
+<p>Le <strong>risque</strong> combine la probabilité (très improbable à très probable) et l'impact (mineur à majeur). L'analogie : vulnérabilité = clés sous le tapis, menace = intrusion, incident = vol.</p>
+<p><strong>Incident</strong> : événement qui compromet la CID et perturbe le fonctionnement (risques financiers, juridiques, de réputation). <strong>SPOF</strong> : point de défaillance unique (matériel, logiciel, humain) ; le remède est la <strong>redondance</strong>.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Menace, vulnérabilité, attaque : définis chacune.</p><details class="corrige"><summary>Voir la réponse</summary><p>Menace : cause potentielle d'un incident.</p><p>Vulnérabilité : faiblesse d'un bien.</p><p>Attaque : menace qui se concrétise en exploitant une vulnérabilité.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Un serveur PACS sous Windows non corrigé : menace ou vulnérabilité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une vulnérabilité.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelles sont les trois surfaces d'attaque ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Physique, numérique, humaine.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Donne les phases de la cyber kill chain.</p><details class="corrige"><summary>Voir la réponse</summary><p>Reconnaissance, intrusion, exploitation, élévation de privilèges, déplacement latéral, obfuscation, déni de service, exfiltration.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Note de 1 à 4 : rançongiciel probable (3) et majeur (4), panne de climatisation très probable (4) et modérée (2). Lequel traiter d'abord ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( R = P \times I \)</p><p>Rançongiciel : \( 3 \times 4 = 12 \). Climatisation : \( 4 \times 2 = 8 \).</p><p>Le rançongiciel d'abord.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Explique l'analogie des clés sous le tapis.</p><details class="corrige"><summary>Voir la réponse</summary><p>Vulnérabilité : les clés sous le tapis.</p><p>Menace : l'intrusion.</p><p>Incident : le vol des objets de valeur.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'est-ce qu'un SPOF, et comment s'en protéger ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un point de défaillance unique (matériel, logiciel ou humain) dont la panne arrête tout.</p><p>La redondance.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Un antivirus bloque une pièce jointe piégée : incident ou événement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un événement : la CID n'est pas compromise et le fonctionnement n'est pas perturbé.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Fin des versions courtes</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 10) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

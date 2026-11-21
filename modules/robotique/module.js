@@ -8,6 +8,8 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("robotique", {
+  // Pages libres : le plan suit la matière ; les intuitions gardées sont celles qui font voir le calcul, sous un titre qui dit ce qu'elles expliquent.
+  pagesLibres: true,
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   // Page « Préparer l'examen » (examen.html, lien sur la carte), commune aux deux sous-modules ; elle ouvre « L'essentiel en schémas ».
   examen: { bio: true, meca: true },

@@ -28,12 +28,11 @@
 <h3>Changement de repère</h3>
 <p class="chapeau">La matrice de rotation sert de traducteur : elle convertit les composantes d'un vecteur d'un repère à l'autre. Avec la relation de Chasles, elle donne la position de n'importe quel point du solide dans le repère fixe.</p>
 
-<h4>Intuition</h4>
+<h4>Pourquoi changer de repère</h4>
 <p>Un même vecteur physique (la direction d'un instrument, le déplacement d'une pointe) a des composantes différentes selon le repère dans lequel on le décrit. On connaît souvent un point du solide dans le repère du solide (par construction), mais on en a besoin dans le repère fixe (pour commander le robot ou comparer à l'imagerie). On procède en trois étapes : partir des composantes connues dans \(R_s\), les traduire dans \(R_0\) avec \(R^{0,s}\), puis ajouter la position de l'origine du solide.</p>
 
 <div id="fig-cr"></div>
 
-<h4>Formalisation</h4>
 <p>Changement de repère d'un vecteur : si l'on connaît les coordonnées d'un vecteur dans le repère \(j\), on obtient ses coordonnées dans le repère \(i\) en multipliant par la matrice de rotation \(R^{i,j}\).</p>
 \[ V^i = R^{i,j} \cdot V^j \qquad (1.2) \]
 <p>En projetant la relation de Chasles \((1.1)\) dans \(R_0\) :</p>
@@ -44,13 +43,13 @@
 
 <div class="schema" id="sc-changement"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Un instrument fixé au solide \(S\) : origine en \(O_0O_s^0 = (1;\ 2;\ 0)^T\) m, repère tourné de \(\alpha = 90°\) autour de \(\vec{z}_0\), pointe \(M\) à \(O_sM^s = (0{,}5;\ 0;\ 0)^T\) m le long de \(\vec{x}_s\).</p>
 \[ O_0M^0 = \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 0{,}5 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0{,}5 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 2{,}5 \\ 0 \end{pmatrix} \text{ m} \]
 <p>Cohérent : après la rotation de 90°, l'axe \(\vec{x}_s\) de l'instrument pointe selon \(\vec{y}_0\). Bouton « Exemple de la page » sur la figure.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ V^i = R^{i,j}\,V^j \quad (1.2) \qquad O_0M^0 = O_0O_s^0 + R^{0,s}\,O_sM^s \quad (1.3) \qquad R^{s,0} = (R^{0,s})^T \]
 </article>
 
@@ -65,13 +64,12 @@
 <h3>Matrice homogène</h3>
 <p class="chapeau">Rotation et translation rangées dans une seule matrice 4 × 4 : la relation (1.3) devient une simple multiplication.</p>
 
-<h4>Intuition</h4>
+<h4>L'astuce de la quatrième coordonnée</h4>
 <p>La relation (1.3) mélange une multiplication (la rotation) et une addition (la translation). Dès qu'il y a plusieurs segments, ces opérations s'empilent et deviennent pénibles. L'astuce : ajouter une quatrième coordonnée égale à 1 à chaque point, et ranger la rotation et la position dans un même tableau 4 × 4. Tout devient alors une multiplication, et on pourra enchaîner les mouvements en multipliant les matrices.</p>
 <p>Le cours insiste sur un second intérêt : l'inverse de cette matrice permet de changer instantanément de point de vue, par exemple passer du repère de la caméra à celui de l'organe.</p>
 
 <div id="fig-homog"></div>
 
-<h4>Formalisation</h4>
 <p><strong>Pourquoi.</strong> Pour une étude géométrique, cinématique ou dynamique, il est commode de rassembler la position et l'orientation dans une seule représentation. Au lieu de manipuler séparément une matrice \(3 \times 3\) pour l'orientation (\(R^{0,S}\) ou \(R_0^S\)) et un vecteur \(3 \times 1\) pour la position (\(O_0O_s\)), on combine les deux dans une seule matrice \(4 \times 4\).</p>
 <p><strong>Définition.</strong> Si les coordonnées du centre \(O_s\) du repère \(R_s\) sont \(O_0O_s^0 = (X;\ Y;\ Z)\) et si l'orientation est définie par \(R^{0,S}\), la matrice homogène qui représente le solide \(S\) par rapport à \(R_0\) est :</p>
 \[ T^{0,s} = \begin{pmatrix} R^{0,S} & O_0O_s^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} = \begin{pmatrix} a_x & b_x & c_x & X \\ a_y & b_y & c_y & Y \\ a_z & b_z & c_z & Z \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
@@ -88,7 +86,7 @@
 
 <div class="schema" id="sc-homogene"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté (même situation que la page précédente).</p>
 <p>Origine en \((1;\ 2;\ 0)\), rotation de 90° autour de \(\vec{z}_0\), pointe en \(O_sM^s = (0{,}5;\ 0;\ 0)\) :</p>
 \[ T^{0,s} = \begin{pmatrix} 0 & -1 & 0 & 1 \\ 1 & 0 & 0 & 2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad T^{0,s}\begin{pmatrix} 0{,}5 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \times 0{,}5 + 1 \\ 1 \times 0{,}5 + 2 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 2{,}5 \\ 0 \\ 1 \end{pmatrix} \]
@@ -99,7 +97,7 @@
 \[ \begin{pmatrix} A & b \\ 0 & 1 \end{pmatrix}\begin{pmatrix} v \\ 1 \end{pmatrix} = \begin{pmatrix} A v + b \\ 1 \end{pmatrix} \qquad \begin{pmatrix} A_1 & b_1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} A_2 & b_2 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} A_1 A_2 & A_1 b_2 + b_1 \\ 0 & 1 \end{pmatrix} \]
 <p>La seconde formule sera utile à la page suivante : composer deux matrices homogènes, c'est multiplier les rotations et transporter la seconde position dans le premier repère.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ T^{0,s} = \begin{pmatrix} R^{0,S} & O_0O_s^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} \qquad \begin{pmatrix} O_0M^0 \\ 1 \end{pmatrix} = T^{0,s} \begin{pmatrix} O_sM^s \\ 1 \end{pmatrix} \qquad (T^{0,s})^{-1} = \begin{pmatrix} R^T & -R^T P \\ 0 & 1 \end{pmatrix} \]
 </article>
 
@@ -107,13 +105,12 @@
 <h3>Composition des transformations</h3>
 <p class="chapeau">Dans un bras, chaque segment est posé sur le précédent. Pour savoir où est l'outil par rapport à la base, on enchaîne les matrices homogènes, de la base vers l'outil.</p>
 
-<h4>Intuition</h4>
+<h4>Composer de proche en proche</h4>
 <p>Il est facile de décrire chaque segment par rapport à son voisin : « le segment 2 est au bout du segment 1, tourné de \(\theta_2\) ». Il est plus difficile de décrire directement l'outil par rapport à la base. La matrice homogène règle ce problème : on multiplie les transformations successives, et le produit donne la pose de l'outil dans le repère de base.</p>
 <p>La règle absolue du cours : <strong>l'ordre compte</strong>. Tourner puis avancer n'est pas pareil qu'avancer puis tourner, parce que chaque nouveau mouvement est exprimé dans le repère obtenu juste avant.</p>
 
 <div id="fig-ordre"></div>
 
-<h4>Formalisation</h4>
 <p>En robotique, l'étude d'un système multicorps en mouvement relatif nécessite un outil mathématique adapté ; les matrices homogènes offrent une représentation particulièrement efficace pour modéliser ces transformations géométriques. Considérons une chaîne cinématique ouverte composée de \(n\) solides articulés en série, de repères \(R_0, R_1, \dots, R_n\). La position et l'orientation du solide \(S_n\) par rapport au solide de base \(S_0\) (immobile) est donnée par :</p>
 \[ T^{0,n} = T^{0,1}\,T^{1,2} \cdots T^{n-1,n} \]
 <p>Cette relation est très utile en robotique puisqu'elle permet de définir les expressions géométriques concernant l'organe terminal du robot par rapport à la base fixe.</p>
@@ -124,13 +121,13 @@
 
 <div class="schema" id="sc-composition"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Rotation de \(\alpha = 90°\) autour de \(z\) et translation de \(d = 1\) le long de \(x\).</p>
 \[ \text{Rot}\cdot\text{Trans} = \begin{pmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad \text{Trans}\cdot\text{Rot} = \begin{pmatrix} 0 & -1 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p>Tourner puis avancer amène l'origine en \((0;\ 1;\ 0)\) : on avance selon le nouvel axe \(x\), qui pointe selon \(\vec{y}_0\). Avancer puis tourner l'amène en \((1;\ 0;\ 0)\). Même orientation finale, positions différentes.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ T^{0,n} = T^{0,1}\,T^{1,2} \cdots T^{n-1,n} \qquad T^{0,1}T^{1,2} = \begin{pmatrix} R^{0,1}R^{1,2} & R^{0,1}P^{1,2} + P^{0,1} \\ 0 & 1 \end{pmatrix} \qquad AB \neq BA \]
 </article>
 
@@ -145,13 +142,12 @@
 <h3>Modèle géométrique direct du bras 2R</h3>
 <p class="chapeau">Tout ce qui précède, appliqué à l'exemple du cours : un bras plan à deux segments. On obtient la position de l'organe terminal en fonction des deux angles articulaires.</p>
 
-<h4>Intuition</h4>
+<h4>Le problème</h4>
 <p>Le bras a deux pivots d'axes parallèles (vers vous). On connaît les angles \(\theta_1\) et \(\theta_2\) que lisent les capteurs des moteurs, et les longueurs \(l_1\), \(l_2\) des segments. On veut savoir où est la pince \(M\). On place un repère sur chaque segment, on écrit la matrice homogène qui passe d'un repère au suivant, et on multiplie. C'est le <strong>modèle géométrique direct</strong> (MGD), annoncé dans les objectifs du module sous la forme \(p = f(q)\), avec ici \(q = (\theta_1, \theta_2)\).</p>
 
 <div id="fig-2r"></div>
 
-<h4>Formalisation</h4>
-<h5>Les repères du cours</h5>
+<h4>Les repères du cours</h4>
 <ul>
 <li><strong>Repère fixe</strong> \(R_0(O_0, x_0, y_0, z_0)\) : repère de base fixe lié à la terre en \(O_0\) (\(O_0 = O_1\)).</li>
 <li><strong>Repère</strong> \(R_1(O_1, x_1, y_1, z_1)\) : centré en \(O_1\), son axe \(x_1\) est porté par le segment 1 de longueur \(l_1\) et orienté d'un angle \(\theta_1\) par rapport à \(x_0\) autour de l'axe commun \(z_0 = z_1\).</li>
@@ -159,7 +155,7 @@
 <li>\(M\) est l'extrémité du segment 2 (l'organe terminal).</li>
 </ul>
 
-<h5>Calcul</h5>
+<h4>Calcul</h4>
 <p><strong>Étape 1.</strong> \(R_1\) a la même origine que \(R_0\) et a tourné de \(\theta_1\) autour de \(z_0\) :</p>
 \[ T^{0,1} = \begin{pmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & 0 \\ \sin\theta_1 & \cos\theta_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p><strong>Étape 2.</strong> \(R_2\) a tourné de \(\theta_2\) autour de \(z_1\), et son origine \(O_2\) est au bout du segment 1, à \(l_1\) sur l'axe \(x_1\) : \(O_1O_2^1 = (l_1;\ 0;\ 0)\).</p>
@@ -174,7 +170,7 @@
 
 <div class="schema" id="sc-bras2r"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>\(l_1 = 0{,}4\) m, \(l_2 = 0{,}3\) m, \(\theta_1 = 30°\), \(\theta_2 = 45°\), donc \(\theta_1 + \theta_2 = 75°\).</p>
 \[ x_M = 0{,}4\cos 30° + 0{,}3\cos 75° = 0{,}4 \times 0{,}866 + 0{,}3 \times 0{,}259 = 0{,}346 + 0{,}078 = 0{,}424 \text{ m} \]
@@ -186,7 +182,7 @@
 \[ \cos(a + b) = \cos a\cos b - \sin a\sin b \qquad \sin(a + b) = \sin a\cos b + \cos a\sin b \]
 <p>Conséquence : \(R_z(\theta_1)\,R_z(\theta_2) = R_z(\theta_1 + \theta_2)\). Deux rotations successives autour d'axes parallèles s'additionnent, c'est pourquoi l'orientation finale du bras plan est simplement \(\theta_1 + \theta_2\). Exemple : \(\cos 75° = \cos 30°\cos 45° - \sin 30°\sin 45° = 0{,}612 - 0{,}354 = 0{,}259\).</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ T^{0,2} = T^{0,1}\,T^{1,2} \qquad x_M = l_1\cos\theta_1 + l_2\cos(\theta_1 + \theta_2) \qquad y_M = l_1\sin\theta_1 + l_2\sin(\theta_1 + \theta_2) \]
 \[ \text{orientation : } \theta_1 + \theta_2 \qquad |l_1 - l_2| \leq O_0M \leq l_1 + l_2 \]
 </article>

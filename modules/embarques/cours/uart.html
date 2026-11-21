@@ -20,14 +20,15 @@
 <h1>UART : transmission asynchrone</h1>
 <p class="chapeau">Un holter ECG doit vider sa mémoire vers un PC par un câble. Pas de fil d'horloge entre les deux : comment le PC sait-il où commence chaque octet, et à quel rythme lire les bits ?</p>
 
-<h2>Intuition</h2>
-<p>Les deux appareils se mettent d'accord à l'avance sur un débit, par exemple 9600 bits par seconde. Chacun a sa propre horloge réglée sur ce débit. Au repos, la ligne reste à 1. Pour annoncer un octet, l'émetteur la fait tomber à 0 pendant la durée d'un bit : c'est le start bit. Le récepteur, réveillé par ce front, lit ensuite les 8 bits au rythme convenu, puis attend le stop bit, à 1, qui rend la ligne au repos.</p>
-<p>Chaque octet voyage donc dans un petit paquet de 10 bits : la trame. Comme l'horloge n'est pas transmise, on parle de transmission asynchrone.</p>
-
 <div id="fig-trame"></div>
 
-<h2>Formalisation</h2>
-<p><strong>UART</strong> (<i>Universal Asynchronous Receiver Transmitter</i>) : fonction, <strong>transmission asynchrone de données</strong> ; mode half duplex ou full duplex ; couche physique RS232 ou RS485. Le plan du cours parle de communication série UART/USART (le S de l'USART ajoute un mode synchrone) ; l'exemple détaillé est l'UART du PIC18F4520.</p>
+<p><strong>UART</strong> (<i>Universal Asynchronous Receiver Transmitter</i>) :</p>
+<ul>
+<li>Fonction, <strong>transmission asynchrone de données</strong>.</li>
+<li>Mode half duplex ou full duplex.</li>
+<li>Couche physique RS232 ou RS485.</li>
+</ul>
+<p>Le plan du cours parle de communication série UART/USART (le S de l'USART ajoute un mode synchrone) ; l'exemple détaillé est l'UART du PIC18F4520.</p>
 <p>Le chronogramme d'émission du cours (PIC18F4520) envoie, sur la broche TX : le <strong>start bit</strong>, puis bit 0, bit 1, …, bit 7 (ou bit 8 en mode 9 bits), puis le <strong>stop bit</strong>. Le bit de poids faible part en premier. Chaque bit dure une période de l'horloge du générateur de baud (<i>BRG output, shift clock</i>).</p>
 <div class="tableau"><table>
 <tr><th>Mode</th><th>Ce que cela veut dire</th></tr>
@@ -37,11 +38,11 @@
 
 <div id="fig-duplex"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Un oxymètre envoie le pouls 75 = 01001011. Sur TX : start 0, puis 1, 1, 0, 1, 0, 0, 1, 0 (bit 0 d'abord), puis stop 1. À 9600 bps, la trame de 10 bits dure \(10 / 9600 \approx 1{,}04\) ms, et on envoie au plus \(9600 / 10 = 960\) octets par seconde. À 115200 bps, la même trame dure \(10 / 115200 \approx 86{,}8\ \mu\text{s}\).</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{trame} = \text{start (0)} + 8 \text{ bits (bit 0 d'abord)} + \text{stop (1)} \qquad t_{trame} = \frac{10}{\text{débit}} \qquad N_{octets/s} = \frac{\text{débit}}{10} \]
 
 </main>

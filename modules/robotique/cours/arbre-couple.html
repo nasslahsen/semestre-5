@@ -31,12 +31,11 @@
 <li>Engrenages en cascade et trains : rapport, rendement et couple de sortie d'un réducteur complet.</li>
 </ul>
 
-<h2>Intuition</h2>
+<h2>Même puissance, vitesse ou couple</h2>
 <p>Un arbre transmet un couple en tournant. Pour une même puissance, il peut tourner vite avec peu de couple, ou lentement avec beaucoup de couple : le produit des deux reste la puissance. Sur la courbe ci-dessous, l'aire du rectangle coloré représente la puissance : quand on déplace le point, le rectangle s'allonge et s'aplatit, mais garde la même aire.</p>
 
 <div id="fig-arbre"></div>
 
-<h2>Formalisation</h2>
 <p>Pour une puissance \(P\) et une vitesse de rotation \(n\), le couple vaut :</p>
 \[ C = \frac{60P}{2\pi n} \qquad (4.1) \]
 <p>avec \(C\) le couple (N·m), \(P\) la puissance (W) et \(n\) la vitesse (tr/min). C'est la relation \(P = C\omega\) du chapitre 5, avec la vitesse angulaire \(\omega = 2\pi n/60\) en rad/s : le facteur 60 convertit les minutes en secondes, le \(2\pi\) les tours en radians.</p>
@@ -48,17 +47,17 @@
 <tr><td>Couple</td><td>\(C\)</td><td>N·m</td></tr>
 </table></div>
 
-<h2>Exemple du cours</h2>
+<h2>L'exemple du cours</h2>
 <p>Pour \(P = 100\) W à \(n = 3000\) tr/min :</p>
 \[ C = \frac{60 \times 100}{2\pi \times 3000} = 0{,}318 \text{ N}\cdot\text{m} \]
 
-<h2>Exemple ajouté : le moteur de la photo</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>La photo du cours montre un moteur de 15 HP à 1450 tr/min et demande le couple. Avec 1 HP (horse-power) ≈ 745,7 W :</p>
 \[ P = 15 \times 745{,}7 \approx 11\,186 \text{ W} \qquad C = \frac{60 \times 11\,186}{2\pi \times 1450} \approx 73{,}7 \text{ N}\cdot\text{m} \]
 <p>Un moteur plus puissant, mais surtout plus lent : son couple est environ 230 fois celui de l'exemple du cours.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ C = \frac{60P}{2\pi n} \qquad P = C\omega \qquad \omega = \frac{2\pi n}{60} \]
 
 </main>

@@ -20,13 +20,12 @@
 <h1>Rotations élémentaires</h1>
 <p class="chapeau">Les briques de base de toute orientation : une rotation autour d'un seul axe principal, x, y ou z.</p>
 
-<h2>Intuition</h2>
+<h2>Tourner autour d'un seul axe</h2>
 <p>Une matrice de rotation contient 9 nombres : ce n'est pas intuitif. Mais une rotation autour d'un seul axe est très simple : l'axe de rotation ne bouge pas, et les deux autres axes tournent dans le plan qui lui est perpendiculaire, exactement comme dans le cas plan de la page précédente. Toute orientation pourra ensuite s'obtenir en enchaînant trois de ces rotations simples.</p>
 <p>Les noms viennent de l'aviation et de la navigation : rotation autour de \(z\) = <strong>lacet</strong> (yaw), autour de \(y\) = <strong>tangage</strong> (pitch), autour de \(x\) = <strong>roulis</strong> (roll).</p>
 
 <div id="fig-elem"></div>
 
-<h2>Formalisation</h2>
 <p>Sens positif : règle de la main droite autour de l'axe de rotation. Les trois matrices du cours :</p>
 \[ R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad \text{axe conservé : } \vec{z}_0 = \vec{z}_1 \]
 \[ R_y(\beta) = \begin{pmatrix} \cos\beta & 0 & \sin\beta \\ 0 & 1 & 0 \\ -\sin\beta & 0 & \cos\beta \end{pmatrix} \qquad \text{axe conservé : } \vec{y}_1 = \vec{y}_2 \]
@@ -36,7 +35,7 @@
 
 <div class="schema" id="sc-elementaires"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Rotation de \(90°\) autour de \(z\), puis de \(90°\) autour du nouvel axe \(x\) :</p>
 \[ R_z(90°) = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad R_x(90°) = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} \qquad R_z(90°)\,R_x(90°) = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix} \]
@@ -45,7 +44,7 @@
 <h2>Rappel : produit de deux matrices</h2>
 <p>Pour multiplier \(A\) par \(B\), le nombre de colonnes de \(A\) doit être égal au nombre de lignes de \(B\) : \([m \times n] \times [n \times p] = [m \times p]\). L'élément \((i, j)\) du produit est le produit de la ligne \(i\) de \(A\) par la colonne \(j\) de \(B\). En général \(A B \neq B A\) : l'ordre compte. Le produit est associatif, \((AB)C = A(BC)\), ce qui permet d'écrire des chaînes de rotations sans parenthèses.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ R_z(\alpha),\ R_y(\beta),\ R_x(\gamma) \text{ (ci-dessus)} \qquad \text{lacet (z), tangage (y), roulis (x)} \qquad A B \neq B A \]
 
 </main>

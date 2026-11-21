@@ -20,19 +20,15 @@
 <h1>Hexadécimal et registres</h1>
 <p class="chapeau">Les fiches techniques de l'ESP32 écrivent les registres et les adresses en hexadécimal : 0x88, 0x3FF44000. Un chiffre hexadécimal, c'est exactement quatre bits, ce qui rend l'écriture courte et facile à relire.</p>
 
-<h2>Intuition</h2>
-<p>Un registre de 32 bits écrit en binaire, c'est une ligne de 32 zéros et uns : illisible. En regroupant les bits par paquets de quatre, chaque paquet prend une valeur de 0 à 15, qu'on écrit avec un seul symbole. On passe de 32 caractères à 8, sans aucun calcul compliqué : on traduit paquet par paquet.</p>
-
 <div id="fig-hexa"></div>
 
-<h2>Formalisation</h2>
 <p>L'<strong>hexadécimal</strong> compte en base 16 : les chiffres 0 à 9, puis A (10), B (11), C (12), D (13), E (14), F (15). Un chiffre hexadécimal remplace exactement 4 bits. Le préfixe <code>0x</code> signale un nombre hexadécimal.</p>
 \[ \texttt{0xB2} = 11 \times 16 + 2 = 178 \qquad \texttt{B} = 1011_2,\ \texttt{2} = 0010_2 \]
 <p>Un <strong>registre</strong> est un mot de bits où chaque champ a un rôle. On lit un champ comme un nombre à part, en partant de son propre bit de poids faible. Mettre un bit à 1 ajoute son poids : mettre le bit 2 à 1 ajoute \(2^2 = 4\).</p>
 <p>Les registres 32 bits occupent 4 octets chacun : d'une broche à la suivante, l'adresse avance de 0x4. Le registre de la broche \(n\) est à l'offset \(\texttt{0x88} + \texttt{0x4} \times n\) (registre GPIO_PINn_REG, chapitre 5).</p>
 <p>Tailles mémoire : 1 KiB (kibioctet) vaut \(2^{10} = 1\,024\) octets. Les fiches écrivent souvent KB dans le même sens : « 520 KiB SRAM », « 448 KB ROM », « 16 KB SRAM in RTC ».</p>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <ul>
 <li>0x5E : 5 = 0101 et E = 1110, donc 01011110 ; en décimal \(5 \times 16 + 14 = 94\).</li>
@@ -41,7 +37,7 @@
 <li>8 KB de mémoire : \(8 \times 1\,024 = 8\,192\) octets.</li>
 </ul>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \texttt{0x}h_1h_0 = 16\,h_1 + h_0 \qquad \text{1 chiffre hexadécimal} = 4 \text{ bits} \qquad \text{offset}(n) = \texttt{0x88} + \texttt{0x4} \times n \]
 <p>1 KiB = \(2^{10}\) = 1 024 octets. Mettre le bit \(k\) à 1 : ajouter \(2^k\).</p>
 </main>

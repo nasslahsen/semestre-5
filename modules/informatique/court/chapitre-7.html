@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'hôpital face à la menace cyber (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 7 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>L'hôpital face à la menace cyber</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-7.html">Lire le cours complet</a></p>
+<h2>Le scénario du rançongiciel</h2>
+<p>Postes administratifs chiffrés, PACS indisponible, scanner actif, laboratoire qui ne transmet plus. Dans l'heure :</p>
+<ul>
+<li><strong>Urgences</strong> : bascule papier, tri.</li>
+<li><strong>Imagerie</strong> : isoler le scanner, stocker en local.</li>
+<li><strong>Laboratoire</strong> : résultats papier, contacter la DSI.</li>
+<li><strong>Biomédical</strong> : isoler le réseau, repérer les DM.</li>
+<li><strong>RSSI</strong> : alerter la DGSSI, isoler le SI.</li>
+</ul>
+
+<h2>Ce qui rend un hôpital différent</h2>
+<ul>
+<li>Pas de retard toléré : <strong>disponibilité et intégrité</strong> passent souvent avant la confidentialité.</li>
+<li>Ouvert 24 h / 24 : fenêtres de maintenance serrées, correctifs retardés.</li>
+<li>DM durables (10 à 15 ans) sur des systèmes qui vieillissent ; pas de correctif sans le <strong>fabricant</strong>.</li>
+<li>Parc hétérogène, nombreux tiers connectés (télémaintenance, éditeurs).</li>
+<li>Données de santé <strong>irrévocables</strong> : un dossier ne se révoque pas comme une carte bancaire.</li>
+</ul>
+
+<h2>Le panorama</h2>
+<p>2025 : point de bascule (IA, rançongiciels industrialisés, coût record) ; la santé est le secteur le plus touché. Coût moyen d'une fuite : 4,4 M$ (IBM, 2025) ; attaques multipliées par 2 depuis 2023.</p>
+<div class="tableau"><table>
+<tr><th>Attaque</th><th>Leçon</th></tr>
+<tr><td>WannaCry, NHS, 2017</td><td>imagerie sous Windows non corrigé atteinte</td></tr>
+<tr><td>CHU de Rouen, 2019</td><td>retour au papier des semaines</td></tr>
+<tr><td>CH Sud Francilien, 2022</td><td>double extorsion : données publiées</td></tr>
+<tr><td>Change Healthcare, 2024</td><td>un prestataire unique paralyse des milliers de structures</td></tr>
+<tr><td>Moniteurs Contec, 2025</td><td>porte dérobée : exiger la SBOM</td></tr>
+<tr><td>CNSS (Maroc), 2025</td><td>fuite des données de 2 millions de salariés</td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Le PACS est chiffré mais le scanner marche. Que fait l'imagerie ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Isoler le scanner du réseau et stocker les images en local.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qui alerte la DGSSI pendant une attaque ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le RSSI, qui isole aussi le SI.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi l'hôpital privilégie-t-il souvent disponibilité et intégrité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Parce qu'un retard ou une erreur informatique met directement le patient en danger.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Pourquoi ne peut-on pas corriger librement un dispositif médical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le DM relève de la responsabilité du fabricant et de la qualification des intervenants : pas de correctif ni d'antivirus à sa guise.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Pourquoi un vol de données de santé est-il si grave ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elles sont irrévocables : un dossier médical ne se change pas comme une carte bancaire (chantage, usurpation, phishing ciblé).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Quelle leçon tirer de WannaCry au NHS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Des équipements d'imagerie sous Windows non corrigé ont été atteints : il faut corriger et isoler.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'enseigne l'attaque de Change Healthcare ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un prestataire unique peut paralyser des milliers de structures : surveiller les tiers.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Qu'est-ce que la double extorsion ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le rançongiciel chiffre les données et menace de les publier ; au CH Sud Francilien, elles ont été publiées après le refus de payer.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-8.html"><small>Version courte suivante</small>Les principes de la sécurité</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 7) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

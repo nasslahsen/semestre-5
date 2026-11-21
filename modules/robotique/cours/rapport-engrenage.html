@@ -20,13 +20,12 @@
 <h1>Engrenage cylindrique : rapport et entraxe</h1>
 <p class="chapeau">Un pignon de 17 dents entraîne une roue de 20 dents. Quand le pignon fait un tour, de combien tourne la roue ? Et à quelle distance faut-il placer les deux arbres ?</p>
 
-<h2>Intuition</h2>
+<h2>Compter les dents</h2>
 <p>Les dents passent une à une au point de contact : pendant un tour du pignon, ses 17 dents passent, donc 17 dents de la roue passent aussi. La roue, qui en a 20, ne fait que 17/20 de tour. La roue qui a le plus de dents tourne le moins vite.</p>
 <p>Les deux cercles primitifs roulent l'un sur l'autre sans glisser : ils se touchent, donc la distance entre les axes est la somme des deux rayons primitifs. Et au point de contact, une dent pousse l'autre dans la même direction : deux roues extérieures tournent en sens inverses.</p>
 
 <div id="fig-engrenage"></div>
 
-<h2>Formalisation</h2>
 <p>Pour un engrenage extérieur simple, en valeur absolue, le <strong>rapport de transmission</strong> (noté \(i_{12}\) ou \(r_{12}\)) est donné par :</p>
 \[ i_{12} = \left|\frac{\omega_2}{\omega_1}\right| = \left|\frac{n_2}{n_1}\right| = \frac{d_1}{d_2} = \frac{Z_1}{Z_2} \qquad (4.2) \]
 <div class="tableau"><table>
@@ -44,11 +43,11 @@
 
 <div class="schema" id="sc-conventions"></div>
 
-<h2>Exemple du cours</h2>
+<h2>L'exemple du cours</h2>
 <p>Pour \(m = 2\) mm, \(Z_1 = 17\), \(Z_2 = 20\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_2 = 2 \times 20 = 40 \text{ mm} \qquad i = \frac{17}{20} = 0{,}85 \qquad a = \frac{34 + 40}{2} = 37 \text{ mm} \]
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ i_{12} = \left|\frac{\omega_2}{\omega_1}\right| = \left|\frac{n_2}{n_1}\right| = \frac{d_1}{d_2} = \frac{Z_1}{Z_2} \qquad d = mZ \qquad a = m\,\frac{Z_1 + Z_2}{2} \]
 
 </main>

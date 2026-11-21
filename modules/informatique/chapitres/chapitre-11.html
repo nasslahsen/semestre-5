@@ -42,11 +42,8 @@
 <p>Le TD a trois ateliers : l'analyse de risques du circuit (cette page), le choix entre les deux offres, puis le plan d'audit et le mode dégradé. On termine par un comité de pilotage simulé et une fiche de synthèse de trois pages.</p>
 <p>Règle de travail de l'énoncé : on raisonne en <b>exigences</b> (ce que le système doit garantir) et en <b>preuves</b> (comment le fournisseur le démontre).</p>
 
-<h4>Intuition</h4>
-<p>Un risque grave mais très rare, ou fréquent mais sans conséquence, ne demande pas le même effort qu'une erreur grave, assez fréquente et que personne ne voit passer. L'<b>AMDEC</b> (analyse des modes de défaillance, de leurs effets et de leur criticité) donne trois notes à chaque défaillance et les multiplie : la ligne qui sort en tête est celle à traiter d'abord. La troisième note est la plus surprenante : plus une erreur est difficile à détecter, plus sa note est haute.</p>
 <div id="fig-td1-amdec"></div>
 
-<h4>Formalisation</h4>
 <p>Pour chaque mode de défaillance, on note de 1 à 10 :</p>
 <div class="tableau"><table>
 <tr><th>Note</th><th>Gravité (G)</th><th>Occurrence (O)</th><th>Détectabilité (D)</th></tr>
@@ -55,7 +52,7 @@
 </table></div>
 <p>On calcule la <b>criticité</b>, on classe les lignes et on retient les trois plus critiques. Le seuil de priorité est fixé pour l'exercice à \(C \geq 100\).</p>
 <p>Pour chacune des trois, on propose une <b>barrière</b> (ce qui empêche l'erreur ou l'arrête avant le patient) et la <b>preuve</b> exigée du fournisseur (un document vérifiable, pas une promesse).</p>
-<h5>Les sept modes de défaillance du dossier</h5>
+<h4>Les sept modes de défaillance du dossier</h4>
 <div class="tableau"><table>
 <tr><th>N°</th><th>Étape</th><th>Mode de défaillance</th><th>Effet</th></tr>
 <tr><td>1</td><td>Prescription</td><td>Dose ou protocole mal transcrit</td><td>Surdosage ou sous-dosage</td></tr>
@@ -66,11 +63,11 @@
 <tr><td>6</td><td>Traçabilité</td><td>Administration non tracée dans le dossier</td><td>Chaîne de traçabilité rompue</td></tr>
 <tr><td>7</td><td>Exposition</td><td>Contamination du personnel lors de la préparation</td><td>Atteinte à la santé des opérateurs</td></tr>
 </table></div>
-<h5>Où chercher dans le cours</h5>
+<h4>Où chercher dans le cours</h4>
 <p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="chapitre-6.html#n-identite">Création et vérification d'une identité</a>, <a href="chapitre-6.html#n-appariement">Algorithmes d'appariement</a> et <a href="chapitre-6.html#n-identitovigilance">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="chapitre-5.html#n-dpi">DPI</a>, <a href="chapitre-5.html#n-plan-soins">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="chapitre-6.html#n-circuit-ris-pis">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="chapitre-10.html#n-risque">risque</a> (chapitre 10) est la même idée, avec deux axes au lieu de trois.</p>
 <p>Le cours reçu ne présente pas l'AMDEC : la méthode et l'échelle viennent de l'énoncé du TD.</p>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté : cotation proposée, à justifier en groupe.</p>
 <p>Ligne 1, dose mal transcrite. Gravité : un surdosage de chimiothérapie peut être grave, G = 9. Occurrence : la prescription est informatisée mais les protocoles sont nombreux, O = 4. Détectabilité : le pharmacien valide chaque ordonnance et peut repérer une dose anormale, D = 4.</p>
 \[ C = G \times O \times D \]
@@ -78,7 +75,7 @@
 \[ C = 144 \]
 <p>144 dépasse le seuil de 100 : la ligne est prioritaire. Si trois autres lignes ont une criticité plus forte, elle reste au-dessus du seuil mais n'entre pas dans les trois retenues ; on dit alors quelle barrière la couvre déjà (ici, la validation pharmaceutique).</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ C = G \times O \times D \qquad 1 \leq G,\ O,\ D \leq 10 \qquad \text{prioritaire si } C \geq 100 \]
 <p>Une barrière pour chaque risque retenu, et pour chaque barrière une preuve qu'on peut vérifier.</p>
 </article>
@@ -94,12 +91,9 @@
 <h3>TD 1 : choisir entre les deux offres</h3>
 <p class="chapeau">L'offre A est robotisée et coûte 14 millions sur sept ans. L'offre B est modulaire, semi-automatisée, et coûte 9 millions. Si on additionne des notes sans réfléchir, le prix risque de cacher un défaut de sécurité.</p>
 
-<h4>Intuition</h4>
-<p>On trie en deux temps. D'abord les <b>critères éliminatoires</b> : ce qu'une offre doit garantir, quel que soit son prix. Une offre qui ne les remplit pas sort, ou ne reste qu'avec une condition écrite. Ensuite seulement, on compare ce qui reste avec une <b>grille pondérée</b>. Enfin, on change les poids pour voir si le classement tient : c'est l'<b>analyse de sensibilité</b>.</p>
 <div id="fig-td1-offres"></div>
 
-<h4>Formalisation</h4>
-<h5>Le dossier des deux offres</h5>
+<h4>Le dossier des deux offres</h4>
 <div class="tableau"><table>
 <tr><th>Critère</th><th>Offre A : robotisée et intégrée</th><th>Offre B : modulaire et semi-automatisée</th></tr>
 <tr><td>Conformité réglementaire</td><td>Certificats fournis pour tous les DM et le logiciel</td><td>Certificats fournis pour 2 modules sur 3 ; celui du logiciel de traçabilité est en cours</td></tr>
@@ -112,24 +106,24 @@
 <tr><td>Ergonomie et formation</td><td>Interface complexe ; formation de 3 semaines</td><td>Interface simple ; formation de 1 semaine</td></tr>
 <tr><td>Coût complet sur 7 ans</td><td>14 millions d'unités monétaires (fictives)</td><td>9 millions d'unités monétaires (fictives)</td></tr>
 </table></div>
-<h5>Critères éliminatoires</h5>
+<h4>Critères éliminatoires</h4>
 <p>On fixe trois critères avec un seuil, puis on donne à chaque offre un statut : <b>conforme</b>, <b>conditionnel</b> ou <b>non conforme</b>. Conditionnel veut dire que le manque peut être levé par une <b>condition suspensive</b> : une condition écrite dans le contrat, sans laquelle on ne signe pas (par exemple, un certificat remis avant la signature). Principe de l'énoncé : la sécurité se vérifie d'abord, elle ne se compense pas par un bon prix.</p>
-<h5>Grille pondérée</h5>
+<h4>Grille pondérée</h4>
 <p>Cinq critères : sécurité patient et personnel, intégration au SIH et cybersécurité, coût complet sur 7 ans, maintenance et disponibilité, ergonomie et formation. On fixe les poids (total 100 %) <b>avant</b> de noter, sinon on risque de régler les poids pour obtenir l'offre qu'on préfère. Chaque offre reçoit une note de 1 à 5 par critère, et chaque note cite une ligne du dossier.</p>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
-<h5>Analyse de sensibilité</h5>
+<h4>Analyse de sensibilité</h4>
 <p>On refait le calcul avec deux autres jeux de poids. Si l'offre classée première ne change pas, le choix est robuste. Si elle change, on dit quel poids la fait basculer : c'est sur ce point que le comité doit trancher.</p>
-<h5>Où chercher dans le cours</h5>
+<h4>Où chercher dans le cours</h4>
 <p>Le compte fournisseur partagé de l'offre A se juge avec la <a href="chapitre-8.html#n-regle-aaa">règle AAA</a> (chapitre 8) : un compte partagé ne permet pas de savoir qui s'est connecté. Le robot unique sans procédure manuelle est un <a href="chapitre-10.html#n-incident-spof">point de défaillance unique</a> (chapitre 10). L'intégration au DPI et à l'identité renvoie aux chapitres 5 et 6. Le cours reçu ne présente ni les critères éliminatoires ni la grille pondérée : ils viennent de l'énoncé.</p>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté : poids et notes proposés, à justifier en groupe.</p>
 <p>Poids : sécurité 35, intégration 25, coût 15, maintenance 15, ergonomie 10. Notes de l'offre B : 3, 5, 4, 3, 4 (sécurité moyenne faute de mesures de contamination, même DPI et tests avant signature, 9 millions, intervention lente mais mode dégradé testé, interface simple).</p>
 \[ \text{Total}_B = \frac{35 \times 3 + 25 \times 5 + 15 \times 4 + 15 \times 3 + 10 \times 4}{100} \]
 \[ \text{Total}_B = \frac{105 + 125 + 60 + 45 + 40}{100} \]
 \[ \text{Total}_B = 3{,}75 \]
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \qquad \sum \text{poids} = 100 \qquad 1 \leq \text{note} \leq 5 \]
 <p>Ordre : critères éliminatoires, puis poids, puis notes avec leur preuve, puis sensibilité.</p>
 </article>
@@ -145,12 +139,9 @@
 <h3>TD 1 : plan d'audit et mode dégradé</h3>
 <p class="chapeau">Jeudi matin, le SIH est indisponible pendant 24 h. Douze patients sont programmés pour une chimiothérapie. Le choix de l'offre ne suffit pas : il faut vérifier ce qu'on achète, puis savoir travailler sans le système.</p>
 
-<h4>Intuition</h4>
-<p>Une preuve n'a de valeur que si quelqu'un la vérifie, au bon moment. Le <b>plan d'audit</b> place les vérifications à trois moments : avant l'achat, à la réception, après l'ouverture. Le <b>mode dégradé</b> est le plan B quand le système tombe : chaque contrôle automatique perdu est remplacé par un contrôle humain, et chaque décision a un responsable nommé.</p>
 <div id="fig-td1-audit"></div>
 
-<h4>Formalisation</h4>
-<h5>Plan d'audit</h5>
+<h4>Plan d'audit</h4>
 <p>Pour chaque moment, on indique ce qu'il faut vérifier, la preuve attendue, le responsable et l'échéance.</p>
 <div class="tableau"><table>
 <tr><th>Moment</th><th>Ce qu'on vérifie (exemples)</th></tr>
@@ -158,7 +149,7 @@
 <tr><td>À la réception</td><td>Installation et fonctionnement conformes, recette avec le SIH, essai du mode dégradé, formation</td></tr>
 <tr><td>Après l'ouverture</td><td>Indicateurs de l'AMDEC, incidents déclarés, contamination, journaux d'accès, exercice du mode dégradé</td></tr>
 </table></div>
-<h5>Mode dégradé : les six étapes de l'énoncé</h5>
+<h4>Mode dégradé : les six étapes de l'énoncé</h4>
 <div class="tableau"><table>
 <tr><th>Étape</th><th>Question</th></tr>
 <tr><td>Déclenchement</td><td>Qui décide d'entrer en mode dégradé, et qui prévient les services ?</td></tr>
@@ -168,14 +159,10 @@
 <tr><td>Administration</td><td>Comment vérifie-t-on le patient, la poche et la programmation de la pompe ?</td></tr>
 <tr><td>Retour à la normale</td><td>Comment ressaisit-on les données, rapproche-t-on les dossiers, déclare-t-on l'événement ?</td></tr>
 </table></div>
-<h5>Où chercher dans le cours</h5>
+<h4>Où chercher dans le cours</h4>
 <p>Le rapprochement des identités après la panne est le travail de l'<a href="chapitre-6.html#n-identitovigilance">identitovigilance</a> (chapitre 6). La panne du SIH est un <a href="chapitre-10.html#n-incident-spof">incident</a> au sens du chapitre 10, et la <a href="chapitre-8.html#n-triade-cid">disponibilité</a> est le critère du triangle CID qui tombe (chapitre 8). La prise en charge aux urgences sans dossier complet est au chapitre 5 (<a href="chapitre-5.html#n-urgences-dpi">urgences</a>). Le cours reçu ne détaille pas de procédure de mode dégradé : les réponses ci-dessous sont un plan proposé.</p>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté : une ligne du plan d'audit.</p>
-<p>Moment : avant l'achat. À vérifier : l'interface entre la solution et le DPI du CHU. Preuve : procès-verbal de tests avec des identités fictives (création, doublon, fusion), signé. Responsable : le DSI. Échéance : avant la signature. Une ligne vague comme « vérifier l'interface » ne suffit pas : il faut une preuve qu'on pourra montrer.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>Audit : avant l'achat, à la réception, après l'ouverture. Pour chaque ligne : quoi, quelle preuve, qui, quand.</p>
 <p>Mode dégradé : déclencher, prioriser, prescrire et identifier, préparer et étiqueter, administrer, revenir à la normale. Chaque contrôle perdu est remplacé par un contrôle humain.</p>
 </article>

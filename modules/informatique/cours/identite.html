@@ -19,11 +19,8 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Création et vérification d'une identité</h1>
 <p class="chapeau">Sans CIN, la recherche affiche trois « Fatima Idrissi ». Laquelle est la patiente devant le guichet ? Se tromper, c'est soigner la mauvaise personne.</p>
-<h2>Intuition</h2>
-<p>Avant de créer un dossier, l'agent d'admission cherche toujours s'il existe déjà. Ensuite tout dépend de ce qu'il trouve : une fiche avec la même CIN, aucune fiche, ou plusieurs fiches sans CIN. Chaque cas a sa règle, et quand le doute reste, on passe la main à l'identitovigilance.</p>
 <div id="fig-bpmn"></div>
 
-<h2>Formalisation</h2>
 <p>Processus de création / vérification d'une identité (cours, en BPMN) : le patient se présente au guichet correspondant à sa catégorie (AC/1) ; l'agent d'admission recherche l'identité du patient (AC/2), puis :</p>
 <ul>
 <li>si la recherche affiche des résultats avec CIN : contrôler la cohérence de l'identité à travers la CIN ; si cohérence, sélectionner l'identité ; si aucune cohérence, créer une nouvelle identité ;</li>
@@ -39,11 +36,7 @@
 <tr><td>Appariement (record linkage)</td><td>processus algorithmique qui détermine si deux enregistrements correspondent à la même personne</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Trois « Fatima Idrissi », pas de CIN, et la patiente confuse ne donne pas sa date de naissance : on ne choisit pas au hasard, on passe à l'identitovigilance. Choisir la mauvaise fiche créerait une collision : ses résultats iraient dans le dossier d'une autre.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Rechercher avant de créer. Avec CIN : contrôle par la CIN. Aucun résultat : création. Plusieurs sans CIN : contrôle par la date de naissance, sinon identitovigilance.</p>
 <p>Doublon = une personne, plusieurs dossiers. Collision = plusieurs personnes, un dossier.</p>
 

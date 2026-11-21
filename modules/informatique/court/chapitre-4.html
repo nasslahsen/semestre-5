@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les données de santé (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les données de santé</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>L'information personnelle de santé</h2>
+<p>Les informations relatives à la santé physique ou mentale d'une personne identifiable (<strong>ISO 27799</strong>). Elles incluent l'inscription aux soins, les paiements, l'identifiant du patient, tout ce qui est noté pendant les soins, les résultats d'examens et l'identité des soignants.</p>
+<p>Critères : <strong>confidentialité</strong>, <strong>intégrité</strong>, <strong>disponibilité</strong> (et maintenabilité, évolutivité, traçabilité). Elle impacte la décision médicale.</p>
+
+<h2>Le parcours d'une donnée</h2>
+<p>Mesure → saisie DPI → message HL7 → base de production → ETL (entrepôt) → analyse → décision. <strong>Chaque passage est un risque d'erreur</strong> ; la première qualité de l'analyste est le <strong>doute scientifique</strong>.</p>
+\[ P(\text{intacte}) = p^{\,n} \]
+
+<h2>Types et supports</h2>
+<ul>
+<li><strong>Structuré</strong> : base de données, CSV (identification).</li>
+<li><strong>Semi-structuré</strong> : messages d'interopérabilité (HL7 FHIR en JSON ou XML).</li>
+<li><strong>Non structuré</strong> : texte libre, voix.</li>
+</ul>
+<p>Un CSV : vérifier l'encodage (latin-1, utf-8) et le séparateur (; ou ,) avant l'import. HL7 v2, FHIR, DICOM demandent un parsing spécifique.</p>
+
+<h2>Six dimensions de la qualité</h2>
+<div class="tableau"><table>
+<tr><th>Dimension</th><th>Anomalie</th></tr>
+<tr><td>Complétude</td><td>glycémie manquante</td></tr>
+<tr><td>Exactitude</td><td>âge = 250, tension = 0</td></tr>
+<tr><td>Cohérence</td><td>sexe codé F, f, Masculin, M</td></tr>
+<tr><td>Unicité</td><td>lignes en double</td></tr>
+<tr><td>Validité</td><td>date « date inconnue »</td></tr>
+<tr><td>Actualité</td><td>dossier pas mis à jour</td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis l'information personnelle de santé (ISO 27799).</p><details class="corrige"><summary>Voir la réponse</summary><p>Les informations relatives à la santé physique ou mentale d'une personne identifiable.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Un numéro de dossier patient est-il une information de santé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Oui : un identifiant attribué pour les soins en fait partie, selon ISO 27799.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les étapes du parcours d'une donnée de santé.</p><details class="corrige"><summary>Voir la réponse</summary><p>Mesure, saisie DPI, message HL7, base de production, ETL vers l'entrepôt, analyse, décision.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Chaque passage est fiable à 98 %, sur 5 passages. Quelle chance que la valeur arrive intacte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( P = p^{n} \)</p><p>\( P = 0{,}98^{5} \)</p><p>\( P \approx 0{,}904 \), soit environ 90 %.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Range ces données : table SQL, message FHIR, compte rendu dicté.</p><details class="corrige"><summary>Voir la réponse</summary><p>Table SQL : structuré.</p><p>Message FHIR : semi-structuré.</p><p>Compte rendu dicté : non structuré.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que vérifier avant d'importer un CSV ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'encodage (latin-1 ou utf-8) et le séparateur (; ou ,).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Cite les six dimensions de la qualité des données.</p><details class="corrige"><summary>Voir la réponse</summary><p>Complétude, exactitude, cohérence, unicité, validité, actualité.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Le sexe est codé « F », « f » et « Masculin » : quelle dimension est atteinte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La cohérence : le même concept n'est pas codé de la même façon.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-5.html"><small>Version courte suivante</small>Le dossier patient informatisé</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "sis") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

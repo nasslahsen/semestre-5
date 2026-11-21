@@ -19,11 +19,8 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Qualité des données dans un SIH</h1>
 <p class="chapeau">Avant une étude sur le diabète, tu reçois un export du SIH : un sexe noté « Masculin » au milieu des « M », un âge de 250 ans, une glycémie vide. Que vaut la moyenne ?</p>
-<h2>Intuition</h2>
-<p>Juger un fichier avant de s'en servir, c'est se poser six questions : tout est-il là ? Est-ce réaliste ? Est-ce codé pareil partout ? Y a-t-il des doublons ? Le format est-il respecté ? Est-ce à jour ? Chaque anomalie répond « non » à l'une d'elles.</p>
 <div id="fig-qualite"></div>
 
-<h2>Formalisation</h2>
 <div class="tableau"><table>
 <tr><th>Dimension</th><th>Question</th><th>Exemples d'anomalies (cours)</th></tr>
 <tr><td>Complétude</td><td>les valeurs sont-elles présentes ?</td><td>glycémie manquante pour 40 patients</td></tr>
@@ -34,11 +31,7 @@
 <tr><td>Actualité</td><td>les données sont-elles à jour ?</td><td>dernière mise à jour du dossier ; traçabilité des modifications</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Dans l'export de la figure : « Masculin » (cohérence), 250 ans (exactitude), glycémie vide (complétude), « date inconnue » (validité), P01 deux fois (unicité). On les signale, on les fait corriger à la source dans le DPI, puis on relance l'export : on ne supprime pas en silence.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Complétude, exactitude, cohérence, unicité, validité, actualité.</p>
 
 </main>

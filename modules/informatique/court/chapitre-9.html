@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le cadre réglementaire (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 9 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le cadre réglementaire</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-9.html">Lire le cours complet</a></p>
+<h2>Au Maroc</h2>
+<ul>
+<li><strong>Loi 05-20</strong> sur la cybersécurité (2020) : les RSSI des <strong>infrastructures d'importance vitale</strong> (IIV) déclarent leurs SI sensibles à la DGSSI, cartographient les risques, font des audits, homologuent leurs SIS, font accepter les risques résiduels. Les hôpitaux publics et CHU sont concernés.</li>
+<li><strong>DGSSI</strong> : autorité nationale de cybersécurité ; le <strong>maCERT</strong> répond aux incidents.</li>
+<li><strong>DNSSI</strong> (2014) : socle de mesures pour les organismes publics, proche d'ISO 27001.</li>
+<li><strong>Loi 09-08</strong> et <strong>CNDP</strong> : les données de santé sont sensibles ; formalités préalables, information des patients, encadrement des transferts hors du Maroc.</li>
+</ul>
+
+<h2>Les textes internationaux</h2>
+<div class="tableau"><table>
+<tr><th>Texte</th><th>Objet</th></tr>
+<tr><td>MDR (marquage CE), FDA</td><td>sécurité des dispositifs, dont la cybersécurité</td></tr>
+<tr><td>IEC 80001-1</td><td>risques d'un réseau qui intègre des DM : partage établissement / fabricant</td></tr>
+<tr><td>ISO/IEC 27001, 27002, 27799, 27005</td><td>management de la sécurité, mesures, santé, risques</td></tr>
+<tr><td>RGPD, Convention 108</td><td>protection des données (Maroc : Convention 108 ratifiée en 2019)</td></tr>
+<tr><td>NIS2, CRA</td><td>cybersécurité des produits numériques (DM du MDR exclus du CRA)</td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Que doivent faire les RSSI des infrastructures d'importance vitale (loi 05-20) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Déclarer leurs SI sensibles à la DGSSI, cartographier les risques, faire des audits, homologuer leurs SIS, faire accepter les risques résiduels.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qui est l'autorité nationale de cybersécurité au Maroc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La DGSSI, avec le maCERT pour la réponse aux incidents.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Qu'est-ce que la DNSSI, et à quoi ressemble-t-elle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le socle de mesures de sécurité des organismes publics (2014), proche d'ISO 27001.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Un fabricant veut copier les données des moniteurs sur son cloud européen. Quel texte s'applique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La loi 09-08 : les données de santé sont sensibles, et leur transfert hors du Maroc est encadré par la CNDP.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelle norme est le métier de l'ingénieur biomédical pour les réseaux de DM ?</p><details class="corrige"><summary>Voir la réponse</summary><p>IEC 80001-1 : gestion des risques d'un réseau incorporant des dispositifs médicaux.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi le MDR européen compte-t-il au Maroc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La plupart des dispositifs importés portent le marquage CE : la documentation de sécurité du fabricant est exigible.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Le CRA s'applique-t-il aux dispositifs médicaux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : les DM relevant du MDR en sont exclus.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-10.html"><small>Version courte suivante</small>Le vocabulaire du risque</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 9) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

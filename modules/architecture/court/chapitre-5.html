@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Énergie, lumière, fluides et réseaux (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Énergie, lumière, fluides et réseaux</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<h2>Électricité</h2>
+<ul>
+<li><strong>Alimentation normale</strong> : réseau principal.</li>
+<li><strong>Alimentation de sécurité</strong> : groupes électrogènes.</li>
+<li><strong>Alimentation de secours</strong> : onduleur (UPS), sans coupure.</li>
+</ul>
+<p>Les <strong>équipements critiques</strong> (respirateur, moniteur, anesthésie, éclairage opératoire, table, informatique, imagerie) doivent être identifiés. Sécurité électrique, surtout sur un patient anesthésié : protection contre les contacts directs et indirects, <strong>équipotentialité</strong>, mise à la terre, différentiels adaptés, surveillance, contrôles périodiques (IEC 60364-7-710).</p>
+
+<h2>Éclairage</h2>
+<p>Éclairage <strong>général</strong> (circulation, préparation, nettoyage) et <strong>opératoire</strong> (champ opératoire, sans ombres, couleurs fidèles). Le <strong>scialytique</strong> : intense, peu d'ombre, réglable, stable, nettoyable ; coordonné avec le plafond, la ventilation, les bras plafonniers, l'électricité. Norme : EN 12464-1.</p>
+
+<h2>Fluides médicaux</h2>
+<ul>
+<li><strong>O₂</strong>, <strong>air médical</strong>, <strong>vide médical</strong>, parfois <strong>N₂O</strong>, évacuation des gaz anesthésiques, éventuellement air instrumental.</li>
+<li>Prises placées selon la table, la machine d'anesthésie, le bras plafonnier.</li>
+<li><strong>Vide</strong> : aspiration chirurgicale et anesthésique, drainage ; réseau, vannes, alarmes, <strong>source de secours</strong>.</li>
+<li><strong>Évacuation des gaz anesthésiques</strong> : limiter l'exposition du personnel ; pensée dès la conception.</li>
+<li>Norme : ISO 7396-1.</li>
+</ul>
+
+<h2>Réseaux et plafond technique</h2>
+<p>Réseau informatique, dossier patient, <strong>PACS</strong> (images), <strong>RIS</strong> (radiologie), traçabilité, vidéo, téléconsultation : données + <strong>cybersécurité</strong> + disponibilité + maintenance.</p>
+<p>Le <strong>plafond technique</strong> réunit ventilation, gaines, réseaux, gaz, évacuation, éclairage, supports : coordination <strong>architecture + CVC + électricité + fluides + biomédical</strong>.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelles sont les trois alimentations électriques du bloc, et leur source ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Normale : réseau principal.</p><p>Sécurité : groupes électrogènes.</p><p>Secours : onduleur UPS.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Pourquoi un onduleur en plus du groupe électrogène ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le groupe met un temps à démarrer ; l'onduleur alimente sans coupure les équipements critiques pendant ce temps.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Cite quatre mesures de sécurité électrique au bloc.</p><details class="corrige"><summary>Voir la réponse</summary><p>Protection contre les contacts directs et indirects, équipotentialité, mise à la terre, dispositifs différentiels (aussi : surveillance, contrôles périodiques).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Que doit permettre le scialytique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un éclairage intense, peu d'ombre, un réglage de position, de la stabilité, un nettoyage facile.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quels fluides médicaux un bloc nécessite-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>O₂, air médical, vide médical, parfois N₂O, évacuation des gaz anesthésiques, éventuellement air instrumental.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> À quoi sert l'évacuation des gaz anesthésiques ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À limiter l'exposition professionnelle aux agents anesthésiques.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que faut-il prévoir pour le vide médical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Réseau, vannes, alarmes, source de secours, maintenance.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Que signifient PACS et RIS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>PACS : archivage et transmission des images médicales.</p><p>RIS : système d'information de radiologie.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Qui doit se coordonner pour le plafond technique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Architecture, CVC, électricité, fluides médicaux et biomédical.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>Équipements, sécurité et méthode</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

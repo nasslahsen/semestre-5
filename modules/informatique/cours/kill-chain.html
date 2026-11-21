@@ -19,11 +19,8 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Le cycle de vie d'une attaque</h1>
 <p class="chapeau">L'équipe sécurité repère un scan du réseau. Ce n'est pas encore une attaque réussie, c'est son tout premier pas. Savoir où en est l'attaquant, c'est savoir quoi couper.</p>
-<h2>Intuition</h2>
-<p>Une attaque se déroule en phases. L'attaquant étudie sa cible, entre, exploite ses failles, gagne des droits, se déplace d'une machine à l'autre, efface ses traces, puis frappe : il rend des services indisponibles ou emporte les données. Chaque phase laisse un signal ; plus on le voit tôt, moins il y a de dégâts.</p>
 <div id="fig-killchain"></div>
 
-<h2>Formalisation</h2>
 <p>Le cours présente la <b>cyber kill chain</b> (schéma Varonis), en huit phases, chacune avec un signal de détection :</p>
 <div class="tableau"><table>
 <tr><th>Phase</th><th>Ce que fait l'attaquant</th><th>Signal</th></tr>
@@ -37,11 +34,7 @@
 <tr><td>Exfiltration</td><td>tentatives non autorisées d'accéder aux données, qui signalent une exfiltration en cours</td><td>suspicious mailbox activity</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Avec les identifiants volés d'un administrateur, l'attaquant passe du serveur du laboratoire au PACS, puis au DPI : c'est le déplacement latéral. Le cloisonnement du réseau (des couches) le freine, et des verrouillages de comptes inhabituels le trahissent.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Reconnaissance → intrusion → exploitation → élévation de privilèges → déplacement latéral → obfuscation → déni de service → exfiltration.</p>
 
 </main>

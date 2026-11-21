@@ -20,12 +20,11 @@
 <h1>Quadrants, signes et angles remarquables</h1>
 <p class="chapeau">Un calcul de matrice de rotation donne un sinus négatif : est-ce normal ? Sur le cercle, les signes du cosinus et du sinus se lisent d'un coup d'œil, et quelques valeurs reviennent sans cesse.</p>
 
-<h2>Intuition</h2>
+<h2>Les signes se lisent sur la figure</h2>
 <p>Les deux axes coupent le plan en quatre quadrants. Si le bras pointe vers la gauche, son avancée horizontale est négative ; s'il pointe vers le bas, sa hauteur est négative. Pas besoin de calculer : la figure donne les signes. C'est le meilleur moyen de vérifier un calcul.</p>
 
 <div id="fig-signes"></div>
 
-<h2>Formalisation</h2>
 <div class="tableau"><table>
 <tr><th>Quadrant</th><th>Position de M</th><th>\(\cos\theta\)</th><th>\(\sin\theta\)</th></tr>
 <tr><td>1</td><td>en haut à droite</td><td>+</td><td>+</td></tr>
@@ -38,10 +37,10 @@
 <p>Changer le signe de l'angle donne le reflet de \(M\) dans l'axe horizontal ; tourner d'un quart de tour échange les coordonnées et en change une de signe :</p>
 \[ \cos(-\alpha) = \cos\alpha \qquad \sin(-\alpha) = -\sin\alpha \qquad \cos(\alpha + 90°) = -\sin\alpha \qquad \sin(\alpha + 90°) = \cos\alpha \]
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p>Le 0,866 du cours, c'est \(\cos 30°\). Dans une matrice de rotation, passer de \(+\alpha\) à \(-\alpha\) ne change que le signe des sinus. Et quand un repère tourne de \(\alpha\), son deuxième axe est le premier tourné d'un quart de tour : ses coordonnées sont \((-\sin\alpha \,;\ \cos\alpha)\), la deuxième colonne de la matrice de rotation.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \cos 30° = \tfrac{\sqrt{3}}{2},\ \cos 45° = \tfrac{\sqrt{2}}{2},\ \cos 60° = \tfrac{1}{2} \qquad \sin(-\alpha) = -\sin\alpha \qquad (\cos(\alpha + 90°) \,;\ \sin(\alpha + 90°)) = (-\sin\alpha \,;\ \cos\alpha) \]
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

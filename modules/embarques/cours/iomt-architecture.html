@@ -20,12 +20,8 @@
 <h1>Architecture d'un système IoMT</h1>
 <p class="chapeau">Un hôpital veut suivre à distance l'ECG de ses patients sortis. Il faut choisir les capteurs, la façon de faire voyager leurs mesures, et l'endroit où les ranger et les analyser, sans exposer le dossier du patient.</p>
 
-<h2>Intuition</h2>
-<p>Un système IoMT se lit de gauche à droite, comme l'exemple du cours, un système de surveillance ECG basé sur l'IoT : un réseau de capteurs ECG sur le patient, le cloud de l'IoT, puis une interface graphique pour le médecin. Entre les deux premiers, il faut une liaison ; autour de tout, il faut de la sécurité.</p>
-
 <div id="fig-architecture"></div>
 
-<h2>Formalisation</h2>
 <p>Le cours définit l'architecture IoMT comme un cadre qui intègre et relie les dispositifs médicaux, les systèmes de santé et les plateformes d'analyse de données. Elle sert à collecter, gérer et analyser les données de santé de façon sûre et interopérable. Elle a trois composants principaux :</p>
 <ul>
 <li><b>Devices and sensors</b> (dispositifs et capteurs) : traqueurs de santé portés, dispositifs de suivi à distance, équipements de diagnostic. Ils collectent en temps réel les signes vitaux, le niveau d'activité, la prise des médicaments.</li>
@@ -35,10 +31,7 @@
 <p>S'y ajoutent la <b>sécurité et la confidentialité</b> (chiffrement, authentification, contrôle d'accès, conformité aux réglementations), et l'<b>interopérabilité</b> : des protocoles de communication et des standards d'échange de données de santé communs, pour que systèmes et dispositifs différents se comprennent. Les utilisateurs y accèdent par des interfaces : applications mobiles, portails web, logiciels de santé spécialisés.</p>
 <p>Le cours cite les bénéfices (suivi à distance, coûts réduits, suivi continu des maladies chroniques, services d'urgence personnels ou PERS qui réduisent le temps de réponse), des applications (hôpitaux intelligents, suivi à distance, télémédecine, imagerie médicale, applications de santé et de bien-être), et sept catégories de dispositifs : fitness wearables, clinical grade wearables, remote patient monitoring devices, smart pills, point of care devices and kiosks, clinical monitors, hospital devices.</p>
 
-<h2>Exemple</h2>
-<p>Exemple du cours : un système intelligent de suivi du glucose pour un patient diabétique. Le capteur de glycémie est le dispositif ; la communication se fait en Wi-Fi (module ESP8266), en Bluetooth ou Zigbee, ou en NFC ; les mesures arrivent dans le cloud où le patient et le médecin les consultent. Les trois composants sont là, et la sécurité aussi : la glycémie d'un patient est une donnée de santé protégée.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{IoMT} = \text{devices and sensors} + \text{connectivity} + \text{data management} \qquad (+\ \text{sécurité},\ \text{interopérabilité}) \]
 
 </main>

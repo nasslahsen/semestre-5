@@ -9,6 +9,10 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("embarques", {
+  // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
+  pagesLibres: true,
+  // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.
+  court: [0, 1, 2, 3, 4, 5, 6, 7, 8],
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [

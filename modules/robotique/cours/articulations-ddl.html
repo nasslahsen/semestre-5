@@ -20,12 +20,11 @@
 <h1>Articulations, DDL et configuration articulaire</h1>
 <p class="chapeau">Compter les mouvements indépendants d'un robot, et distinguer ce que commandent les articulations de ce que peut faire l'outil.</p>
 
-<h2>Intuition</h2>
+<h2>Compter les degrés de liberté</h2>
 <p>Compter les degrés de liberté (DDL), c'est compter combien de « boutons » indépendants on peut tourner pour faire bouger le robot : chaque moteur d'articulation en est un. La liste des valeurs de ces boutons décrit la posture du robot. Mais ce qui intéresse l'utilisateur, c'est l'outil : où il est et comment il est tourné. Ajouter des articulations ne donne pas toujours plus de liberté à l'outil.</p>
 
 <div id="fig-chaine"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Degré de liberté.</strong> Un <strong>degré de liberté</strong> représente un mouvement indépendant qu'un système mécanique peut réaliser. Articulation active → mouvement indépendant → 1 DDL. Une articulation rotoïde a une variable angulaire \(\theta_i\) (1 DDL angulaire), une prismatique une variable linéaire \(d_i\) (1 DDL linéaire). Chaque articulation active contribue généralement à un degré de liberté.</p>
 <p><strong>Pose complète dans l'espace.</strong> L'effecteur peut au maximum effectuer :</p>
 \[ 6 \text{ DDL} = 3 \text{ DDL de position } (x, y, z) + 3 \text{ DDL d'orientation } (R_x, R_y, R_z) \]
@@ -46,17 +45,7 @@
 
 <div class="schema" id="sc-configurations"></div>
 
-<h2>Exemple</h2>
-<p>Exemples du cours :</p>
-<div class="tableau"><table>
-<tr><th>Robot</th><th>Axes</th><th>DDL articulaires</th><th>DDL de l'effecteur</th></tr>
-<tr><td>Cartésien</td><td>3</td><td>3 translations</td><td>3 DDL de position</td></tr>
-<tr><td>Articulé</td><td>6</td><td>6 rotations</td><td>jusqu'à 6 DDL (position + orientation)</td></tr>
-<tr><td>Redondant</td><td>7</td><td>7 mouvements indépendants</td><td>au maximum 6 DDL, plus 1 DDL de redondance</td></tr>
-</table></div>
-<p>Exemple clé : 7 axes articulaires peuvent produire une pose d'effecteur limitée à 6 DDL, avec une redondance. Sur la figure, le bouton « Bras redondant » construit l'équivalent plan : 4 pivots pour 3 DDL de l'effecteur, soit 1 DDL de redondance ; on peut alors bouger le coude sans bouger la pince.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ q = [q_1, \dots, q_n]^T \qquad X = [x, y, z, \alpha, \beta, \gamma]^T \qquad 6 \text{ DDL} = 3 + 3 \qquad \text{DDL effecteur} \leq 6 \]
 
 </main>

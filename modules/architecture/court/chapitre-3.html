@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La salle d'opération (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>La salle d'opération</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>Surface et volume</h2>
+<p>La surface ne se calcule pas sur la table seule : <strong>patient + équipe + équipements + circulation + maintenance + sécurité</strong>. Il n'existe pas de valeur universelle : elle dépend du type de chirurgie, des opérateurs, des équipements, de l'imagerie, d'un microscope ou d'un robot, de l'anesthésie, des transferts.</p>
+<p><strong>Salle hybride</strong> (FGI 2022) : surface libre d'au moins <strong>55,74 m²</strong> et dimension libre d'au moins <strong>6,10 m</strong>.</p>
+\[ S = L \times \ell \geq 55{,}74\ \text{m}^2 \quad \text{et} \quad \min(L, \ell) \geq 6{,}10\ \text{m} \]
+<p>Le volume compte autant : ventilation, plafond technique, bras plafonniers, scialytiques, réseaux, câbles, imagerie. Erreur fréquente : dimensionner la salle visible et oublier l'<strong>espace technique au-dessus du plafond</strong>.</p>
+
+<h2>Sols, murs, plafond, portes</h2>
+<ul>
+<li><strong>Sol</strong> : résistant, antidérapant, imperméable, nettoyable, compatible désinfectants, résistant aux chocs ; plinthes intégrées.</li>
+<li><strong>Murs</strong> : lisses, lavables, non poreux, sans fissures ; pas de joints ouverts, d'angles difficiles ni de décoration inutile.</li>
+<li><strong>Plafond</strong> : étanche, nettoyable, sans dépôt de poussière, compatible avec les plafonniers ; ouvertures étanchées.</li>
+<li><strong>Portes</strong> : passage du brancard et des équipements ; automatiques, coulissantes, sans contact, à <strong>fermeture automatique</strong> (pour garder la cascade de pression).</li>
+</ul>
+
+<h2>Le bloc hybride</h2>
+<p><strong>Chirurgie + imagerie interventionnelle</strong> (angiographie, vasculaire, cardiaque). Plus d'espace pour l'arceau, l'angiographe, la table, l'anesthésie, les équipements et la protection radiologique.</p>
+<p><strong>Radioprotection</strong> : parois, portes, vitrages, plafond et plancher, position de la source, zones voisines, signalisation, contrôle réglementaire. Elle se <strong>calcule par une étude radiophysique</strong>, jamais avec une épaisseur standard.</p>
+
+<h2>Ergonomie et acoustique</h2>
+<ul>
+<li><strong>Ergonomie</strong> : suivre les mouvements réels (chirurgien → patient, patient → anesthésie → respirateur, instrumentiste → instruments) ; éviter croisements, câbles au sol, obstacles, déplacements excessifs, mauvaise visibilité.</li>
+<li><strong>Acoustique</strong> : bruit de la ventilation, des alarmes, des équipements, des portes, des chariots, des conversations ; une mauvaise acoustique <strong>augmente la fatigue</strong>. Réponses : isolation, moins de vibrations, CVC bien dimensionné, portes adaptées.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> De quoi dépend la surface d'une salle d'opération ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Patient + équipe + équipements + circulation + maintenance + sécurité.</p><p>Pas de valeur universelle : type de chirurgie, nombre d'opérateurs et d'équipements, imagerie, microscope, robot, anesthésie, transferts.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Une salle hybride de 9 m × 6 m convient-elle (FGI 2022) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( S = L \times \ell \)</p><p>\( S = 9 \times 6 = 54\ \text{m}^2 \)</p><p>Non : 54 m² est sous 55,74 m², et 6 m est sous la dimension minimale de 6,10 m.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelle erreur fréquente sur le volume de la salle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Dimensionner seulement la salle visible, en oubliant l'espace technique au-dessus du plafond.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Donne quatre exigences pour le sol.</p><details class="corrige"><summary>Voir la réponse</summary><p>Résistant, antidérapant, imperméable, facilement nettoyable (aussi : compatible désinfectants, résistant aux chocs, plinthes intégrées).</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Pourquoi des portes à fermeture automatique entre les zones ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour préserver la cascade de pression.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce qu'un bloc hybride ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une salle qui combine chirurgie et imagerie interventionnelle (angiographie, chirurgie vasculaire ou cardiaque).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Comment fixe-t-on l'épaisseur de la protection radiologique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par une étude radiophysique / radioprotection, jamais par une épaisseur standard appliquée partout.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Que cherche-t-on à éviter avec l'ergonomie ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les croisements inutiles, les câbles au sol, les obstacles, les déplacements excessifs, la mauvaise visibilité.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi soigner l'acoustique ? Cite deux réponses.</p><details class="corrige"><summary>Voir la réponse</summary><p>Une mauvaise acoustique augmente la fatigue du personnel.</p><p>Isolation acoustique, limitation des vibrations, CVC bien dimensionné, portes adaptées.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-4.html"><small>Version courte suivante</small>L'air du bloc</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

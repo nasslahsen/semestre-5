@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le dossier patient informatisé (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le dossier patient informatisé</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<h2>DPI, DPP, DSN</h2>
+<ul>
+<li><strong>DPI</strong> : le dossier informatique des données médicales d'un patient, et aussi le logiciel qui y donne accès (DSI et DMI en font partie).</li>
+<li><strong>Dossier communiquant</strong> : un DPI qui échange avec les autres systèmes de l'hôpital (le LIS envoie un résultat).</li>
+<li><strong>DPP</strong> : accessible par plusieurs acteurs, dans plusieurs établissements.</li>
+<li><strong>DSN</strong> : DPI de portée nationale (hôpital, ville, vaccination).</li>
+</ul>
+
+<h2>Utilité et séjours</h2>
+<p>Le DPI facilite la <strong>coordination des soins</strong>, l'<strong>exercice professionnel</strong> (retrouver vite par nature, date, nom, affection) et apporte une <strong>aide à la décision</strong> (protocoles). Bénéfices : temps, qualité, traçabilité.</p>
+<p>Chaque passage (consultation, urgences, hospitalisation) est un <strong>séjour</strong> avec un <strong>identifiant unique</strong> ; tout ce qui s'y fait y est rattaché.</p>
+
+<h2>Volets et échanges</h2>
+<p>Autour de la <strong>synthèse</strong> : volets administratif, médical, paramédical, pharmaceutique, social, GED. Côté médico-technique (RIS, PACS, LIS) : HL7, DICOM, SNOMED. Côté administratif : NGAP, NABM, CIM-10.</p>
+
+<h2>Plan de soins et pancarte</h2>
+<p>Le <strong>plan de soins</strong> découle des prescriptions : tâches, soins, examens, surveillances. La <strong>pancarte</strong> recueille les constantes (température, tension, fréquence cardiaque, saturation).</p>
+<div class="tableau"><table>
+<tr><th>Prescription</th><th>Plan de soins</th></tr>
+<tr><td>créée</td><td>ajout de tâches</td></tr>
+<tr><td>modifiée</td><td>mise à jour</td></tr>
+<tr><td>interrompue</td><td>suspension</td></tr>
+<tr><td>annulée</td><td>retrait</td></tr>
+</table></div>
+
+<h2>Portail national et urgences</h2>
+<p>SIH publics et SI privés → plateforme d'échange (HL7, FHIR, IHE, DICOM) → identification (CIN électronique) et base de consolidation (DPP) → portails patient et professionnel. Aux urgences : accueil → triage (score de l'<strong>IOA</strong>) → consultation → explorations → observation → sortie, DPI mis à jour à chaque étape.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> DPI, dossier communiquant, DPP, DSN : jusqu'où va chacun ?</p><details class="corrige"><summary>Voir la réponse</summary><p>DPI : le dossier d'un hôpital.</p><p>Dossier communiquant : échange dans l'hôpital.</p><p>DPP : plusieurs établissements.</p><p>DSN : portée nationale.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Donne les trois utilités du DPI.</p><details class="corrige"><summary>Voir la réponse</summary><p>Faciliter la coordination des soins.</p><p>Faciliter l'exercice professionnel.</p><p>Apporter une aide à la décision.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Comment le DPI s'organise-t-il en séjours ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Chaque passage est un séjour avec un identifiant unique, auquel sont rattachés soins, traitements, mouvements et décisions.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite les volets du DPI.</p><details class="corrige"><summary>Voir la réponse</summary><p>Synthèse au centre ; administratif, médical, paramédical, pharmaceutique, social, GED.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quels standards côté médico-technique ? Côté administratif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Médico-technique : HL7, DICOM, SNOMED.</p><p>Administratif : NGAP, NABM, CIM-10.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Une prescription est interrompue. Que devient le plan de soins ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La tâche est suspendue (pas retirée).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Différence entre plan de soins et pancarte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Plan de soins : ce qu'il faut faire, issu des prescriptions.</p><p>Pancarte : les constantes relevées.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Donne les étapes d'une prise en charge aux urgences.</p><details class="corrige"><summary>Voir la réponse</summary><p>Accueil, triage (IOA), consultation, explorations, observation, sortie.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>Circuits patient dans le SIH</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "sis") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

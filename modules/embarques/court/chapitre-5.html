@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Programmer les périphériques de l'ESP32 (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Programmer les périphériques de l'ESP32</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<h2>GPIO et pad</h2>
+<p>34 GPIO physiques, routés par l'<strong>IO MUX</strong>, le RTC IO MUX et la <strong>GPIO matrix</strong>. GPIO 34 à 39 : entrées seules, sans pull-up ni pull-down. Dans le pad : <strong>IE</strong> autorise la lecture, <strong>OE</strong> la sortie, <strong>WPU</strong> et <strong>WPD</strong> tirent faiblement vers 3,3 V ou la masse. Sans OE, WPU ni WPD, la broche est flottante.</p>
+
+<h2>Interruptions</h2>
+<p>INT_TYPE : 0 désactivée, 1 front montant, 2 front descendant, 3 tout front, 4 niveau bas, 5 niveau haut. Chaque CPU a 32 interruptions, dont 26 de périphériques, distribuées par l'<strong>Interrupt Matrix</strong>. Registre GPIO_PINn_REG à l'offset \(0x88 + 0x4 n\) : INT_ENA (bits 17 à 13), WAKEUP (10), INT_TYPE (9 à 7), PAD_DRIVER (2).</p>
+
+<h2>ADC et DAC</h2>
+<p>Deux ADC <strong>SAR 12 bits</strong>, 18 canaux, résolution réglable (9 à 12 bits). <strong>L'ADC2 est inutilisable quand le Wi-Fi tourne.</strong></p>
+\[ ADC\_OUT = 4095 \times \frac{ADC\_IN}{3{,}3\ \text{V}} \qquad DAC\_OUT = \frac{VDD3P3\_RTC \times PDAC}{255} \]
+
+<h2>Timers et watchdog</h2>
+<p>4 timers 64 bits, prescaler 16 bits (2 à 65 536), compteur montant ou descendant, rechargement automatique.</p>
+\[ T_{tic} = \frac{\text{prescaler}}{f_{horloge}} \qquad T_{alarme} = \text{alarme} \times T_{tic} \]
+<p>Trois <strong>watchdogs</strong> (2 MWDT, 1 RWDT) pour récupérer d'une faute imprévue : s'ils ne sont plus « nourris », ils redémarrent la puce.</p>
+
+<h2>PWM, I2C, SPI</h2>
+<p>16 canaux LED PWM ; on règle la <strong>fréquence</strong>, le <strong>rapport cyclique</strong>, le canal et la GPIO ; pas de PWM sur GPIO 34 à 39. \(V_{moy} = \alpha \times 3{,}3\) V. I2C : 2 canaux, par défaut SDA 21 et SCL 22 (Wire.begin(SDA, SCL)). SPI : HSPI (13, 12, 14, 15) et VSPI (23, 19, 18, 5), 3 esclaves par bus.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Que fait un bouton entre GPIO 4 et la masse avec IE = 1, OE = 0, WPU = 1 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Relâché : la résistance faible tire la broche à 1, on lit 1.</p><p>Appuyé : la broche est reliée à la masse, on lit 0.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle valeur de INT_TYPE pour un front descendant ?</p><details class="corrige"><summary>Voir la réponse</summary><p>2.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Un capteur donne 1,65 V sur l'ADC 12 bits. Quel code ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( ADC\_OUT = 4095 \times ADC\_IN / 3{,}3 \)</p><p>\( = 4095 \times 1{,}65 / 3{,}3 \)</p><p>\( \approx 2\,048 \)</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Pourquoi éviter l'ADC2 sur un appareil Wi-Fi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ses broches ne peuvent pas être utilisées quand le Wi-Fi est actif.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelle tension donne le DAC pour PDAC = 100 (référence 3,3 V) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( DAC\_OUT = 3{,}3 \times 100 / 255 \)</p><p>\( \approx 1{,}29\ \text{V} \)</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Horloge 80 MHz, prescaler 80 : quelle alarme pour une interruption toutes les 4 ms ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( T_{tic} = 80 / 80\ \text{MHz} = 1\ \mu\text{s} \)</p><p>\( \text{alarme} = 4\ \text{ms} / 1\ \mu\text{s} = 4\,000 \)</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> À quoi sert un watchdog ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À récupérer d'une faute imprévue : si le programme ne le nourrit plus avant la limite, il redémarre la puce.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Rapport cyclique de 40 % : quelle tension moyenne ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( V_{moy} = \alpha \times 3{,}3 = 0{,}40 \times 3{,}3 \)</p><p>\( V_{moy} = 1{,}32\ \text{V} \)</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Peut-on faire du PWM sur GPIO 35 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : GPIO 34 à 39 sont des entrées seules.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>L'IoMT : objets connectés en santé</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

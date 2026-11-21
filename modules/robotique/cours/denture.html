@@ -20,12 +20,11 @@
 <h1>Géométrie d'une denture et module</h1>
 <p class="chapeau">Pour commander une roue dentée, ou vérifier qu'elle engrène avec une autre, il faut savoir la décrire : quels cercles, quelles hauteurs, quel pas. Un seul nombre résume presque tout : le module.</p>
 
-<h2>Intuition</h2>
+<h2>La taille d'une dent</h2>
 <p>Deux roues qui engrènent doivent avoir des dents de même taille : la dent de l'une doit rentrer dans le creux de l'autre. Cette taille se mesure par le pas, la distance d'une dent à la suivante sur le cercle primitif. Le pas contient toujours le nombre π (une circonférence divisée par un nombre de dents), alors on préfère travailler avec le module, \(m = p/\pi\) : toutes les dimensions de la dent deviennent des multiples simples de \(m\).</p>
 
 <div id="fig-denture"></div>
 
-<h2>Formalisation</h2>
 <p>La géométrie des <strong>engrenages</strong> est décrite par un ensemble de paramètres : cercle primitif, cercle de base, angle de pression \(\alpha\), cercle de tête, cercle de pied, saillie \(h_a\), creux \(h_f\), hauteur \(h\), pas primitif \(p\), module \(m\), etc.</p>
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Signification</th><th>Valeur</th></tr>
@@ -46,7 +45,7 @@
 
 <div id="fig-roue"></div>
 
-<h3>Le module</h3>
+<h2>Le module</h2>
 <p>Le <strong>module</strong> est le quotient du pas exprimé en millimètres par le nombre \(\pi\). On choisit un module dans la série normalisée :</p>
 <div class="tableau"><table>
 <tr><th>Modules normalisés, série principale</th><td>0,3</td><td>0,5</td><td>0,8</td><td>1</td><td>1,25</td><td>1,5</td><td>2</td></tr>
@@ -58,7 +57,7 @@
 
 <div id="fig-module"></div>
 
-<h3>Nombre minimal de dents</h3>
+<h2>Nombre minimal de dents</h2>
 <p>Afin d'éviter l'<strong>interférence</strong> entre les dents de la roue et du pignon, un nombre minimal de dents est requis :</p>
 <div class="tableau"><table>
 <tr><th>\(Z_A\) (pignon)</th><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
@@ -70,13 +69,13 @@
 
 <div class="schema" id="sc-denture"></div>
 
-<h2>Exemple du cours</h2>
+<h2>L'exemple du cours</h2>
 <p>Roue 1 de la figure du cours, module \(m = 2\) mm, \(Z_1 = 17\) :</p>
 \[ d_1 = 2 \times 17 = 34 \text{ mm} \qquad d_{a1} = 34 + 2 \times 2 = 38 \text{ mm} \qquad d_{f1} = 34 - 2{,}5 \times 2 = 29 \text{ mm} \]
 <p class="complement">Les diamètres de tête et de pied sont calculés avec les formules de la figure ; le cours ne donne que \(d_1\).</p>
 <p>Exemple ajouté pour le module : \(F_t = 1000\) N, \(k = 8\), \(Rp_e = 100\) MPa donne \(m = 2{,}34\sqrt{1000/800} \approx 2{,}62\) mm, donc le module normalisé \(m = 3\).</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ d = mZ \qquad p = \pi m \qquad h_a = m \qquad h_f = 1{,}25\,m \qquad h = 2{,}25\,m \]
 \[ d_a = d + 2m \qquad d_f = d - 2{,}5\,m \qquad m = 2{,}34\sqrt{\frac{F_t}{k \cdot Rp_e}} \]
 

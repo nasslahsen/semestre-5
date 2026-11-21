@@ -20,13 +20,8 @@
 <h1>Le bus I2C</h1>
 <p class="chapeau">Sur la carte d'un moniteur de patient, un microcontrôleur doit parler à un capteur de température, une EEPROM, un convertisseur et un contrôleur de LED. Peut-on tout relier avec seulement deux fils ?</p>
 
-<h2>Intuition</h2>
-<p>Deux fils partagés par tout le monde : un pour les données (SDA), un pour l'horloge (SCL). Pour que plusieurs circuits puissent s'y brancher sans court-circuit, aucun ne force jamais la ligne à 1. Des résistances la tirent doucement vers l'alimentation ; chaque circuit peut seulement la relier à la masse.</p>
-<p>Conséquence : il suffit qu'un seul circuit tire la ligne pour qu'elle soit à 0, et elle n'est à 1 que si tous relâchent. Le 0 gagne toujours : c'est le niveau dominant.</p>
-
 <div id="fig-ligne"></div>
 
-<h2>Formalisation</h2>
 <ul>
 <li><strong>I2C</strong> : <i>Inter-Integrated Communication</i>.</li>
 <li>Fonction : interconnecter des circuits dans une carte électronique.</li>
@@ -47,11 +42,11 @@
 </table></div>
 <p>Dans chaque ligne du tableau, la valeur de Clock vaut 16 fois celle de Bus.</p>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Trois circuits sur SDA : le MCU relâche, le capteur de température tire à 0, l'EEPROM relâche. SDA = 0. Pour revenir à 1, il faut que le capteur relâche aussi : alors plus rien ne relie la ligne à la masse et les résistances \(R_P\) la ramènent à \(+V_{DD}\). Aucun circuit ne pousse jamais la ligne à 1, donc deux circuits qui écrivent en même temps ne se court-circuitent pas : le 0 l'emporte.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{SDA} = \text{sortie}_1 \cdot \text{sortie}_2 \cdots \text{sortie}_n \qquad (\text{relâché} = 1,\ \text{tiré} = 0) \]
 <p>2 fils : SDA et SCL. 0 dominant, 1 récessif. Résistances de tirage \(R_P\) vers \(+V_{DD}\).</p>
 

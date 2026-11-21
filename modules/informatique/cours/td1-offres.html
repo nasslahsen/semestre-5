@@ -20,12 +20,9 @@
 <h1>TD 1 : choisir entre les deux offres</h1>
 <p class="chapeau">L'offre A est robotisée et coûte 14 millions sur sept ans. L'offre B est modulaire, semi-automatisée, et coûte 9 millions. Si on additionne des notes sans réfléchir, le prix risque de cacher un défaut de sécurité.</p>
 
-<h2>Intuition</h2>
-<p>On trie en deux temps. D'abord les <b>critères éliminatoires</b> : ce qu'une offre doit garantir, quel que soit son prix. Une offre qui ne les remplit pas sort, ou ne reste qu'avec une condition écrite. Ensuite seulement, on compare ce qui reste avec une <b>grille pondérée</b>. Enfin, on change les poids pour voir si le classement tient : c'est l'<b>analyse de sensibilité</b>.</p>
 <div id="fig-td1-offres"></div>
 
-<h2>Formalisation</h2>
-<h3>Le dossier des deux offres</h3>
+<h2>Le dossier des deux offres</h2>
 <div class="tableau"><table>
 <tr><th>Critère</th><th>Offre A : robotisée et intégrée</th><th>Offre B : modulaire et semi-automatisée</th></tr>
 <tr><td>Conformité réglementaire</td><td>Certificats fournis pour tous les DM et le logiciel</td><td>Certificats fournis pour 2 modules sur 3 ; celui du logiciel de traçabilité est en cours</td></tr>
@@ -38,24 +35,24 @@
 <tr><td>Ergonomie et formation</td><td>Interface complexe ; formation de 3 semaines</td><td>Interface simple ; formation de 1 semaine</td></tr>
 <tr><td>Coût complet sur 7 ans</td><td>14 millions d'unités monétaires (fictives)</td><td>9 millions d'unités monétaires (fictives)</td></tr>
 </table></div>
-<h3>Critères éliminatoires</h3>
+<h2>Critères éliminatoires</h2>
 <p>On fixe trois critères avec un seuil, puis on donne à chaque offre un statut : <b>conforme</b>, <b>conditionnel</b> ou <b>non conforme</b>. Conditionnel veut dire que le manque peut être levé par une <b>condition suspensive</b> : une condition écrite dans le contrat, sans laquelle on ne signe pas (par exemple, un certificat remis avant la signature). Principe de l'énoncé : la sécurité se vérifie d'abord, elle ne se compense pas par un bon prix.</p>
-<h3>Grille pondérée</h3>
+<h2>Grille pondérée</h2>
 <p>Cinq critères : sécurité patient et personnel, intégration au SIH et cybersécurité, coût complet sur 7 ans, maintenance et disponibilité, ergonomie et formation. On fixe les poids (total 100 %) <b>avant</b> de noter, sinon on risque de régler les poids pour obtenir l'offre qu'on préfère. Chaque offre reçoit une note de 1 à 5 par critère, et chaque note cite une ligne du dossier.</p>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
-<h3>Analyse de sensibilité</h3>
+<h2>Analyse de sensibilité</h2>
 <p>On refait le calcul avec deux autres jeux de poids. Si l'offre classée première ne change pas, le choix est robuste. Si elle change, on dit quel poids la fait basculer : c'est sur ce point que le comité doit trancher.</p>
-<h3>Où chercher dans le cours</h3>
+<h2>Où chercher dans le cours</h2>
 <p>Le compte fournisseur partagé de l'offre A se juge avec la <a href="regle-aaa.html">règle AAA</a> (chapitre 8) : un compte partagé ne permet pas de savoir qui s'est connecté. Le robot unique sans procédure manuelle est un <a href="incident-spof.html">point de défaillance unique</a> (chapitre 10). L'intégration au DPI et à l'identité renvoie aux chapitres 5 et 6. Le cours reçu ne présente ni les critères éliminatoires ni la grille pondérée : ils viennent de l'énoncé.</p>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté : poids et notes proposés, à justifier en groupe.</p>
 <p>Poids : sécurité 35, intégration 25, coût 15, maintenance 15, ergonomie 10. Notes de l'offre B : 3, 5, 4, 3, 4 (sécurité moyenne faute de mesures de contamination, même DPI et tests avant signature, 9 millions, intervention lente mais mode dégradé testé, interface simple).</p>
 \[ \text{Total}_B = \frac{35 \times 3 + 25 \times 5 + 15 \times 4 + 15 \times 3 + 10 \times 4}{100} \]
 \[ \text{Total}_B = \frac{105 + 125 + 60 + 45 + 40}{100} \]
 \[ \text{Total}_B = 3{,}75 \]
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \qquad \sum \text{poids} = 100 \qquad 1 \leq \text{note} \leq 5 \]
 <p>Ordre : critères éliminatoires, puis poids, puis notes avec leur preuve, puis sensibilité.</p>
 

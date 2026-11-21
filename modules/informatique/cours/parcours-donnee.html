@@ -19,22 +19,19 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Le parcours d'une donnée de santé</h1>
 <p class="chapeau">La tension mesurée au lit de M. Alaoui finira dans une décision du comité médical. Entre les deux, elle traverse six à sept systèmes, et chacun peut l'abîmer.</p>
-<h2>Intuition</h2>
-<p>Une donnée ne saute pas du lit du patient au tableau de bord. Elle est mesurée, saisie, mise en message, enregistrée, copiée dans l'entrepôt, analysée, et enfin elle sert à décider. Chaque passage est une occasion d'erreur. Plus la chaîne est longue, plus il faut douter du chiffre final.</p>
 <div id="fig-parcours"></div>
 <div id="fig-chaine"></div>
 
-<h2>Formalisation</h2>
 <p>Le parcours d'une donnée de santé (exemple du cours) : 1 mesure (lit du patient) → 2 saisie DPI → 3 HL7 (message) → 4 base de données (production) → 5 ETL (entrepôt) → 6 analyse (interprétation) → 7 décision (comité médical).</p>
 <p>La donnée traverse 6 à 7 systèmes : <b>chaque passage est un risque d'erreur</b>. La <b>première qualité de l'analyste hospitalier est le doute scientifique</b>.</p>
 <p class="complement">Ajouté.</p>
 <p>Si chaque passage transmet la valeur sans erreur avec la probabilité \(p\), la chance qu'elle traverse \(n\) passages intacte est \(p^n\) (passages indépendants).</p>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Avec 6 passages fiables à 99 % : \(0{,}99^6 \approx 0{,}941\). Environ 6 valeurs sur 100 arrivent abîmées. Une durée moyenne de séjour de 0 jour en cardiologie doit donc faire douter : une date de sortie mal convertie à l'ETL, un champ vide lu comme zéro...</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Mesure → saisie DPI → HL7 → base de production → ETL → analyse → décision.</p>
 <p>\[ P(\text{intacte}) = p^n \]</p>
 <p>Première qualité de l'analyste : le doute scientifique.</p>

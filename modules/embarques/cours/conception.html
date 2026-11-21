@@ -20,13 +20,8 @@
 <h1>Exigences de conception (Requirements Design)</h1>
 <p class="chapeau">Tu dois concevoir la semelle connectée. Avant d'écrire une ligne de code, il faut choisir la puce, décrire le comportement attendu, décider du langage et fixer ce que le système doit garantir. Le cours range ces décisions en quatre familles.</p>
 
-<h2>Intuition</h2>
-<p>Concevoir un système embarqué, c'est répondre à quatre questions. Sur quoi tourne-t-il ? C'est le matériel. Comment se comporte-t-il ? On le dessine avant de le coder : c'est la modélisation. Comment le programme-t-on, et que fait le programme ? C'est le logiciel. Qu'est-ce qui doit être garanti, et à quel prix ? Ce sont les exigences.</p>
-<p>Les exigences pilotent tout le reste : un délai très court impose une puce rapide et des interruptions, une exigence de sécurité impose de vérifier chaque comportement, un coût bas impose une puce modeste.</p>
-
 <div id="fig-familles"></div>
 
-<h2>Formalisation</h2>
 <div class="tableau"><table>
 <tr><th>Famille</th><th>Contenu du cours</th></tr>
 <tr><td><i>Hardware</i> (matériel)</td><td><i>Microcontrollers, Embedded Controllers, DSP, …</i></td></tr>
@@ -41,7 +36,14 @@
 <li><i>internal data transfer and mathematical operations</i> : déplacer les données en interne et calculer ;</li>
 <li><i>timer interrupt facilities for timing the controller algorithm</i> : utiliser les interruptions d'un timer pour cadencer l'algorithme de commande.</li>
 </ul>
-<p>Les exigences, une à une : <i>Responsiveness (time)</i>, répondre dans un délai donné ; <i>Reliability</i>, fonctionner sans panne dans la durée ; <i>Safety</i>, ne pas mettre en danger le patient ou l'utilisateur ; <i>Verification</i>, pouvoir prouver que le système fait ce qu'il doit ; <i>Cost</i>, tenir un coût.</p>
+<p>Les exigences, une à une :</p>
+<ul>
+<li><i>Responsiveness (time)</i>, répondre dans un délai donné.</li>
+<li><i>Reliability</i>, fonctionner sans panne dans la durée.</li>
+<li><i>Safety</i>, ne pas mettre en danger le patient ou l'utilisateur.</li>
+<li><i>Verification</i>, pouvoir prouver que le système fait ce qu'il doit.</li>
+<li><i>Cost</i>, tenir un coût.</li>
+</ul>
 
 <div id="fig-boucle"></div>
 
@@ -49,17 +51,7 @@
 
 <div id="fig-etats"></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté : les quatre familles appliquées à la semelle connectée.</p>
-<div class="tableau"><table>
-<tr><th>Famille</th><th>Décision pour la semelle</th></tr>
-<tr><td><i>Hardware</i></td><td>un microcontrôleur sobre (µC), avec ADC pour les 16 capteurs et une radio</td></tr>
-<tr><td><i>Modelling</i></td><td>un organigramme de la boucle de mesure, une machine à états (repos, mesure, envoi)</td></tr>
-<tr><td><i>Software</i></td><td>du C, avec les quatre fonctions : lire les capteurs, calculer, envoyer, cadencer par timer</td></tr>
-<tr><td><i>Requirements</i></td><td>mesure toutes les 10 ms (<i>Responsiveness</i>), plusieurs jours sur accumulateur (<i>Cost</i> et ressources), jamais d'alerte manquée (<i>Safety</i>, <i>Verification</i>)</td></tr>
-</table></div>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Conception = <i>Hardware</i> + <i>Modelling</i> + <i>Software</i> + <i>Requirements</i>. Quatre fonctions du logiciel : lire les entrées, écrire les sorties, transférer et calculer, cadencer par interruption de timer. Exigences : temps de réponse, fiabilité, sécurité, vérification, coût.</p>
 
 </main>

@@ -20,12 +20,8 @@
 <h1>Coordonnées polaires et cylindriques</h1>
 <p class="chapeau">Un même point peut se décrire par « avance de x, puis de y », ou par « tourne d'un angle, puis avance d'une distance ». Le second langage est celui des robots à pivots.</p>
 
-<h2>Intuition</h2>
-<p>Une sonde d'échographie pivotante décrit naturellement une cible par une distance et une direction : « la cible est à 5 cm, dans la direction de 45° ». Ce sont des coordonnées <strong>polaires</strong>. Ajoutez une hauteur et vous obtenez les coordonnées <strong>cylindriques</strong> : « le pivot + la hauteur ». Un arceau d'imagerie autour d'un patient fonctionne ainsi : \(\theta\) pour tourner autour du patient, \(r\) pour avancer ou reculer le bras, \(z\) pour monter ou descendre le lit.</p>
-
 <div id="fig-cyl"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Coordonnées polaires (plan).</strong> Un point \(P\) est défini par \((r, \theta)\) : \(r = OP \geq 0\) est la distance à l'origine, \(\theta\) l'angle mesuré depuis l'axe \(X\), positif dans le sens trigonométrique.</p>
 <p><strong>Coordonnées cylindriques (espace).</strong> Un point \(P\) est défini par \((r, \theta, z)\) : \(r\) est la distance horizontale à l'axe central \(Z\), \(\theta\) l'angle autour de cet axe (azimut dans le plan \((X, Y)\)), \(z\) la hauteur comme en cartésien. Si \(Q\) est la projection de \(P\) dans le plan \((X, Y)\), alors \(r = OQ\).</p>
 <div class="tableau"><table>
@@ -36,7 +32,7 @@
 
 <div class="schema" id="sc-coordonnees"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>\(P = (-1;\ 1;\ 2)\).</p>
 \[ r = \sqrt{(-1)^2 + 1^2} = \sqrt{2} \approx 1{,}414 \qquad \theta = \operatorname{atan2}(1, -1) = 135° \qquad z = 2 \]
@@ -46,7 +42,7 @@
 <h2>Rappel : la fonction atan2</h2>
 <p>Pour retrouver un angle à partir de \(x\) et \(y\), \(\arctan(y/x)\) ne suffit pas : les points \((1, 1)\) et \((-1, -1)\) donnent le même quotient \(y/x = 1\), alors qu'ils sont dans des directions opposées. La fonction \(\operatorname{atan2}(y, x)\) regarde les signes de \(x\) et de \(y\) séparément et renvoie l'angle dans le bon quadrant, entre \(-180°\) et \(180°\). Sur la figure, faites passer \(Q\) à gauche de l'axe vertical : les deux calculs ne donnent plus le même angle. Attention à l'ordre des arguments : \(y\) d'abord.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ x = r\cos\theta \qquad y = r\sin\theta \qquad z = z \]
 \[ r = \sqrt{x^2 + y^2} \qquad \theta = \operatorname{atan2}(y, x) \]
 
