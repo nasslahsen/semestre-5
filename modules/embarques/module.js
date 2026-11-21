@@ -22,12 +22,13 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "instrumentation", titre: "JSON Format", couvre: "chapitre 3" },
       { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "lab 6" },
       { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "lab 7" },
-      { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" }
+      { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" },
+      { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
       "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté.",
-      "Évaluation : l'énoncé du TD semelle instrumentée et connectée (la page « Préparer l'examen » part de l'exemple du cours)."
+      "TD 1 semelle : les annexes DT1 à DT4 (fiches de la semelle, du FUTEK LSB200, de l'INA128, du NX3L4051), le document réponse DR1 (courbe d'un capteur) et les parties bio-impédance, transmission radio, synthèse : l'extrait reçu s'arrête à la question 14."
     ]
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : TD semelle et fonctions MQTT (traitement, callback, loop), annoncés par le professeur.
@@ -46,7 +47,7 @@ PLATEFORME.parcours("embarques", {
     { sousModule: "instrumentation", sujet: "Plateforme ThingSpeak : création de channels, écriture et lecture de données", chapitres: [8, 11, 12, 13] },
     { sousModule: "instrumentation", sujet: "Objet connecté sur ESP32 : serveur web embarqué", note: "pas de document sur le serveur web embarqué" },
     { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", chapitres: [7, 8, 10, 14] },
-    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15], note: "simulateur ECG : lab 7 ; la semelle est un exemple du chapitre 1 de Systèmes embarqués, travaillée pour l'évaluation sur la page « Préparer l'examen » (énoncé du TD pas encore reçu) ; rien sur l'oxymètre" },
+    { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15, 16], note: "simulateur ECG : lab 7 ; semelle : exemple du chapitre 1 de Systèmes embarqués et TD 1 (appui plantaire, questions 1 à 14), programme sur la page « Préparer l'examen » ; rien sur l'oxymètre" },
     { projet: true, sujet: "Polysomnographie CPAP : rapport technique (étude, conception, développement, test, limites), électronique et systèmes embarqués, objet connecté (acquisition, traitement, transmission, dashboard)" }
   ],
   chapitres: [
@@ -67,7 +68,8 @@ PLATEFORME.parcours("embarques", {
     { id: 12, lab: true, numero: "Lab 4", titre: "ThingSpeak en MQTT : MQTTX puis ESP32", ligne: "Device MQTT, publier, s'abonner", sousModule: "instrumentation" },
     { id: 13, lab: true, numero: "Lab 5", titre: "ThingSpeak : MATLAB Analysis et React", ligne: "Calculer un état, réagir aux données", sousModule: "instrumentation" },
     { id: 14, lab: true, numero: "Lab 6", titre: "MQTT sur l'ESP32 : LED et température", ligne: "Broker public, LED pilotée, mesure", sousModule: "instrumentation" },
-    { id: 15, lab: true, numero: "Lab 7", titre: "ECG en Bluetooth depuis l'ESP32", ligne: "Simulateur ECG, liaison Bluetooth", sousModule: "instrumentation" }
+    { id: 15, lab: true, numero: "Lab 7", titre: "ECG en Bluetooth depuis l'ESP32", ligne: "Simulateur ECG, liaison Bluetooth", sousModule: "instrumentation" },
+    { id: 16, td: true, numero: "TD 1", titre: "TD 1 : semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -141,7 +143,12 @@ PLATEFORME.parcours("embarques", {
     { id: "thingspeak", chapitre: 8, titre: "ThingSpeak : channels, écrire, lire", cours: true, pret: true },
     { id: "thingspeak-mqtt", chapitre: 8, titre: "ThingSpeak en MQTT", cours: true, pret: true },
     { id: "revision-thingspeak", chapitre: 8, titre: "Révision : JSON et ThingSpeak", revision: true, pret: true },
-    { id: "boss-thingspeak", chapitre: 8, titre: "L'oxymètre sur ThingSpeak", boss: true, pret: true }
+    { id: "boss-thingspeak", chapitre: 8, titre: "L'oxymètre sur ThingSpeak", boss: true, pret: true },
+
+    { id: "td1", chapitre: 16, titre: "Questions 1 à 3 : surface et pression d'un capteur", cours: true, pret: true },
+    { id: "td1-banc", chapitre: 16, titre: "Questions 4 à 8 : le banc et l'INA128", pret: true },
+    { id: "td1-montage", chapitre: 16, titre: "Questions 10 à 12 : multiplexeur et montage", pret: true },
+    { id: "td1-acquisition", chapitre: 16, titre: "Questions 13 et 14 : cadence, débit et CF", pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -194,7 +201,9 @@ PLATEFORME.parcours("embarques", {
     { id: "lab6-code", chapitre: 14, titre: "Le programme", notions: ["lab-mqtt-led"] },
     { id: "lab6-tester", chapitre: 14, titre: "Piloter la LED, lire la température", notions: ["lab-mqtt-tester"] },
     { id: "lab7-code", chapitre: 15, titre: "Le simulateur ECG", notions: ["lab-ecg-code"] },
-    { id: "lab7-afficher", chapitre: 15, titre: "Recevoir et tracer l'ECG", notions: ["lab-ecg-afficher"] }
+    { id: "lab7-afficher", chapitre: 15, titre: "Recevoir et tracer l'ECG", notions: ["lab-ecg-afficher"] },
+    { id: "td1", chapitre: 16, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
+    { id: "td1-corrige", chapitre: 16, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
   ],
   cours: [
     { chapitre: 0, id: "binaire", titre: "Bits et binaire" },
@@ -260,6 +269,8 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 14, id: "lab-mqtt-led", titre: "MQTT Implementation on ESP32 board : le programme" },
     { chapitre: 14, id: "lab-mqtt-tester", titre: "Piloter la LED, lire la température" },
     { chapitre: 15, id: "lab-ecg-code", titre: "Lab 2 : Bluetooth Biomedical Data Communication" },
-    { chapitre: 15, id: "lab-ecg-afficher", titre: "Recevoir et tracer l'ECG" }
+    { chapitre: 15, id: "lab-ecg-afficher", titre: "Recevoir et tracer l'ECG" },
+    { chapitre: 16, id: "td1", titre: "TD 1 : les réponses dans le cours" },
+    { chapitre: 16, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
   ]
 });

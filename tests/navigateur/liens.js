@@ -23,6 +23,12 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
+  embarques: {
+    // TD 1 : chaque étape vers sa question du corrigé
+    "td1": { 1: ["td1-corrige", "question-1-la-surface-d-un-capteur", "Question 1 : la surface d'un capteur"], 2: ["td1-corrige", "question-2-force-et-pression-maximales", "Question 2 : force et pression maximales"], 3: ["td1-corrige", "question-2-force-et-pression-maximales", "Question 2 : force et pression maximales"], 4: ["td1-corrige", "question-3-un-patient-de-70-kg", "Question 3 : un patient de 70 kg"] },
+    "td1-banc": { 4: ["td1-corrige", "question-6-la-caracteristique-vo-p", "Question 6 : la caractéristique Vo(P)"] },
+    "td1-montage": { 3: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 4: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 5: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 6: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"] }
+  },
   informatique: {
     // TD 1 : le SPOF vers le cours de sécurité, les décisions vers le tableau du mode dégradé ou la recommandation du corrigé
     "revision-td1": { 5: ["incident-spof", "", ""] },
