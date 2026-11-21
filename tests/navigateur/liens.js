@@ -25,7 +25,7 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 const CORRECTIONS = {
   informatique: {
     // TD 1 : le SPOF vers le cours de sécurité, les décisions vers le tableau du mode dégradé ou la recommandation du corrigé
-    "revision-td1": { 5: ["incident-spof", "formalisation", "Formalisation"] },
+    "revision-td1": { 5: ["incident-spof", "", ""] },
     "td1-audit": { 3: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"], 4: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"] },
     "boss-td1": { 3: ["td1-corrige", "consignes-4", "Consignes"] }
   },
@@ -39,32 +39,32 @@ const CORRECTIONS = {
   },
   biomateriaux: {
     // chapitres affichés 2 et 4 : vers le tableau ou l'exemple qui répond, plutôt que l'intuition
-    "exigences": { 2: ["exigences", "formalisation", "Formalisation"] },
-    "historique": { 2: ["historique", "formalisation", "Formalisation"] },
-    "domaines-application": { 2: ["domaines-application", "formalisation", "Formalisation"] },
-    "comparer-metaux": { 2: ["comparer-metaux", "exemple", "Exemple"] }
+    "exigences": { 2: ["exigences", "exigences-communes", "Exigences communes"] },
+    "historique": { 2: ["historique", "", ""] },
+    "domaines-application": { 2: ["domaines-application", "", ""] },
+    "comparer-metaux": { 2: ["comparer-metaux", "exemple-de-calcul", "Exemple de calcul"] }
   },
   robotique: {
     "boss-transformations": { 3: ["bras-2r", "calcul~10", "Calcul"], 4: ["bras-2r", "calcul~10", "Calcul"] }, // espace de travail du bras 2R
     // TD 1 : classement (cinq critères), calculs de la sonde (exemple du bras 2R de la page du TD)
     "td1-classer": { 1: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"], 3: ["robot-systeme", "classer-un-robot-cinq-criteres~0", "Classer un robot : cinq critères"] },
-    "td1-echo": { 3: ["td1", "exemple~4", "Exemple"], 4: ["td1", "exemple~4", "Exemple"] },
-    "revision-td1": { 2: ["performances", "formalisation~0", "Formalisation"], 3: ["td1", "exercice-1-la-convention-du-td~6", "Exercice 1 : la convention du TD"] },
+    "td1-echo": { 3: ["td1", "exemple-de-calcul~4", "Exemple de calcul"], 4: ["td1", "exemple-de-calcul~4", "Exemple de calcul"] },
+    "revision-td1": { 2: ["performances", "precision-et-repetabilite", "Précision et répétabilité"], 3: ["td1", "exercice-1-la-convention-du-td~6", "Exercice 1 : la convention du TD"] },
     // chapitre 5 : calculs du 2R vers l'exemple ajouté de la MGD, l'espace de travail vers le bras 2R du chapitre 4
-    mgd: { 4: ["mgd", "exemple~3", "Exemple"] },
+    mgd: { 4: ["mgd", "exemple-de-calcul~3", "Exemple de calcul"] },
     "dh-2r": { 5: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
-    "dh-parametres": { 4: ["dh-parametres", "exemple~1", "Exemple"], 5: ["dh-parametres", "la-matrice-de-transformation-homogene-dh", "La matrice de transformation homogène DH"] },
+    "dh-parametres": { 4: ["dh-parametres", "exemple-de-calcul~1", "Exemple de calcul"], 5: ["dh-parametres", "la-matrice-de-transformation-homogene-dh", "La matrice de transformation homogène DH"] },
     "revision-modelisation": { 2: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
-    "boss-modelisation": { 1: ["mgd", "exemple~3", "Exemple"], 2: ["bras-2r", "calcul~10", "Calcul"], 3: ["mgd", "exemple~3", "Exemple"], 4: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
+    "boss-modelisation": { 1: ["mgd", "exemple-de-calcul~3", "Exemple de calcul"], 2: ["bras-2r", "calcul~10", "Calcul"], 3: ["mgd", "exemple-de-calcul~3", "Exemple de calcul"], 4: ["dh-2r", "etape-4-la-matrice-homogene-finale", "Étape 4 : la matrice homogène finale"] },
     // chapitre 6 et suite du TD 1 : chaque calcul vers son étape de la méthode analytique, le MCD du TD vers sa partie
     mgi: { 2: ["mgi", "les-defis-de-la-mgi", "Les défis de la MGI"] },
     "mgi-2r": { 1: ["mgi-2r", "etape-1-verification-de-l-accessibilite", "Étape 1 : vérification de l'accessibilité"], 2: ["mgi-2r", "etape-2-calcul-de-theta-2-angle-du-coude", "Étape 2 : calcul de θ₂ (angle du coude)"], 3: ["mgi-2r", "etape-3-calcul-de-theta-1-angle-de-l-epaule", "Étape 3 : calcul de θ₁ (angle de l'épaule)"], 4: ["mgi-2r", "etape-3-calcul-de-theta-1-angle-de-l-epaule", "Étape 3 : calcul de θ₁ (angle de l'épaule)"], 5: ["mgi-2r", "etape-4-choisir-la-configuration-adaptee-a-l-environnement", "Étape 4 : choisir la configuration"] },
-    cinematique: { 5: ["cinematique", "exemple", "Exemple"] },
+    cinematique: { 5: ["cinematique", "exemple-de-calcul", "Exemple de calcul"] },
     "revision-inverse": { 1: ["mgi-2r", "etape-2-calcul-de-theta-2-angle-du-coude", "Étape 2 : calcul de θ₂ (angle du coude)"], 2: ["mgi", "les-defis-de-la-mgi", "Les défis de la MGI"] },
     "boss-inverse": { 1: ["mgi-2r", "etape-1-verification-de-l-accessibilite", "Étape 1 : vérification de l'accessibilité"], 2: ["mgi-2r", "etape-2-calcul-de-theta-2-angle-du-coude", "Étape 2 : calcul de θ₂ (angle du coude)"], 3: ["mgi-2r", "etape-3-calcul-de-theta-1-angle-de-l-epaule", "Étape 3 : calcul de θ₁ (angle de l'épaule)"], 4: ["mgi-2r", "etape-4-choisir-la-configuration-adaptee-a-l-environnement", "Étape 4 : choisir la configuration"] },
     "td1-mcd": { 1: ["td1", "exercice-2-le-modele-cinematique-direct", "Exercice 2 : le modèle cinématique direct"], 2: ["td1", "exercice-2-le-modele-cinematique-direct", "Exercice 2 : le modèle cinématique direct"], 3: ["td1", "exercice-2-le-modele-cinematique-direct", "Exercice 2 : le modèle cinématique direct"], 4: ["td1", "exercice-2-le-modele-cinematique-direct", "Exercice 2 : le modèle cinématique direct"], 5: ["td1", "exercice-2-le-modele-cinematique-direct", "Exercice 2 : le modèle cinématique direct"] },
     "td1-ex3": { 1: ["td1", "exercice-3-accessibilite-et-modele-inverse", "Exercice 3 : accessibilité et modèle inverse"], 2: ["td1", "exercice-3-accessibilite-et-modele-inverse", "Exercice 3 : accessibilité et modèle inverse"], 3: ["td1", "exercice-3-accessibilite-et-modele-inverse", "Exercice 3 : accessibilité et modèle inverse"], 4: ["td1", "exercice-3-accessibilite-et-modele-inverse", "Exercice 3 : accessibilité et modèle inverse"] },
-    "boss-td1": { 1: ["td1", "exemple~4", "Exemple"], 2: ["td1", "exemple~4", "Exemple"], 4: ["bras-2r", "calcul~10", "Calcul"] }
+    "boss-td1": { 1: ["td1", "exemple-de-calcul~4", "Exemple de calcul"], 2: ["td1", "exemple-de-calcul~4", "Exemple de calcul"], 4: ["bras-2r", "calcul~10", "Calcul"] }
   },
   laboratoire: {
     hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
