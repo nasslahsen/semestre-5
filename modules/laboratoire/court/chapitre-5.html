@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Microscopes et agitateurs chauffants (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 5 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Microscopes et agitateurs chauffants</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-5.html">Lire le cours complet</a></p>
+<h2>Les types de microscopes</h2>
+<p>Ce qui change d'un microscope à l'autre, c'est la façon de créer le <strong>contraste</strong>.</p>
+<div class="schema" id="sc-types-microscopes"></div>
+<ul>
+<li><strong>Fond clair</strong> : le plus utile au laboratoire, faible contraste, d'où la coloration.</li>
+<li><strong>Fluorescence</strong> : IFI, chambre noire, lampes au mercure ou au xénon.</li>
+<li><strong>Polarisant</strong> : cristaux (oxalate de calcium, acide urique, struvite, cystine).</li>
+<li><strong>Inversé</strong> : virologie, cultures cellulaires.</li>
+<li>Aussi : contraste de phase, interférentiel, stéréomicroscope (loupe binoculaire), effet tunnel (atomes, recherche).</li>
+</ul>
+<figure class="photo duo"><img src="../images/microscope-optique.jpg" alt="Microscope optique binoculaire à fond clair"><img src="../images/microscope-inverse.jpg" alt="Microscope inversé, objectifs sous la platine"><img src="../images/stereomicroscope.jpg" alt="Stéréomicroscope ou loupe binoculaire"><figcaption>Microscope optique, microscope inversé, stéréomicroscope. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<p>Repères : microscope composé vers 1590 (Jansen), cellule découverte par <strong>Hooke en 1665</strong>, microscope électronique en <strong>1931</strong> (Ruska et Knoll).</p>
+
+<h2>Le microscope optique</h2>
+<p>Deux lentilles <strong>convergentes</strong> aux deux bouts d'un tube.</p>
+<div class="schema" id="sc-microscope"></div>
+\[ G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \]
+<p>Les éléments :</p>
+<ul>
+<li><strong>Revolver</strong> : 3 à 5 objectifs ; l'objectif à <strong>immersion 100×</strong> s'utilise avec de l'huile.</li>
+<li><strong>Platine</strong> : déplace la lame en X et Y.</li>
+<li><strong>Condenseur et diaphragme</strong> : la quantité de lumière sur l'échantillon.</li>
+<li>Vis <strong>macrométrique</strong> et <strong>micrométrique</strong> : la mise au point.</li>
+<li>Éclairage, tête binoculaire (prismes), statif (bras et socle).</li>
+</ul>
+
+<h2>Installer et entretenir</h2>
+<p>Presque tous les défauts d'image viennent de ce qui se dépose sur le trajet de la lumière. Rayures en toile d'araignée sur un oculaire : il faut le remplacer.</p>
+<p>Installation : à l'abri de la poussière et de l'humidité, local fermé à clé, loin de l'eau, du soleil et des appareils qui vibrent ; housse si on ne s'en sert pas.</p>
+<p>Les interdits :</p>
+<ul>
+<li>pas d'<strong>éthanol</strong> sur l'optique ;</li>
+<li>pas de doigts, de papier ordinaire ni de tissu sur les lentilles : pinceau, poire, papier optique ;</li>
+<li>pas de démontage de l'optique ;</li>
+<li>ne pas appuyer l'objectif sur la lame ;</li>
+<li>porter à <strong>deux mains</strong>, bras et socle.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Entretien</th></tr>
+<tr><td>Chaque jour</td><td>essuyer l'huile du 100×, nettoyer platine et condenseur, éclairage au minimum, housse</td></tr>
+<tr><td>Chaque mois</td><td>dépoussiérer, nettoyer les lentilles (solution sur le papier, pas sur la lentille)</td></tr>
+<tr><td>Tous les six mois</td><td>inspection générale, local, électricité, ampoule</td></tr>
+</table></div>
+<p>Moisissures : contrôler l'humidité ; sinon coton imbibé d'antifongique (éther), en mouvements très légers.</p>
+
+<h2>L'agitateur chauffant</h2>
+<p>Une plaque (aluminium ou céramique) qui <strong>chauffe</strong> par une résistance et <strong>agite</strong> grâce à un aimant qui fait tourner un barreau dans le récipient.</p>
+<figure class="photo"><img src="../images/agitateur-chauffant.jpg" alt="Agitateur chauffant avec un bécher et son barreau aimanté"><figcaption>Un agitateur chauffant. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<ul>
+<li>De l'ambiante à environ <strong>500 °C</strong>, de <strong>60 à 1 200 tr/min</strong>.</li>
+<li>Prise à la terre, 230 V, surface horizontale, environ 15 cm libres autour.</li>
+<li>Débrancher avant l'entretien ; la plaque <strong>reste chaude</strong> longtemps après l'arrêt.</li>
+<li>Pas d'inflammables, ni de matériaux isolants ou de verrerie à bas point de fusion sur la plaque.</li>
+<li>Nettoyage chaque mois, appareil <strong>vertical</strong> ; si nécessaire, céramique ou fusible (mêmes caractéristiques).</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quel microscope pour identifier des cristaux urinaires ? Pour lire une IFI ? Pour suivre une culture cellulaire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Cristaux : microscope polarisant.</p><p>IFI : microscope à fluorescence, en chambre noire.</p><p>Culture cellulaire : microscope inversé.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle image donne l'objectif ? Et l'oculaire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Objectif : une image réelle, renversée et agrandie, dans le tube.</p><p>Oculaire : il agit comme une loupe et donne une image virtuelle.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Objectif à immersion et oculaire 10×. Quel grossissement ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( G_{\text{total}} = G_{\text{objectif}} \times G_{\text{oculaire}} \)</p><p>\( G_{\text{total}} = 100 \times 10 \)</p><p>\( G_{\text{total}} = 1\,000 \)</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> À quoi servent le condenseur et le diaphragme ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ils règlent la concentration et la quantité de lumière qui atteint l'échantillon.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qui a découvert la cellule, et quand ? Quand date le microscope électronique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Robert Hooke, en 1665.</p><p>Le microscope électronique : 1931, par Ruska et Knoll.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Cite trois interdits pour nettoyer l'optique d'un microscope.</p><details class="corrige"><summary>Voir la réponse</summary><p>Pas d'éthanol sur les éléments optiques.</p><p>Pas de doigts nus, de papier ordinaire ni de tissu sur les lentilles.</p><p>Ne pas démonter les éléments optiques.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que fait-on chaque jour après avoir utilisé le microscope ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Essuyer l'huile de l'objectif 100×.</p><p>Nettoyer la platine et le condenseur.</p><p>Éclairage au minimum puis éteint, housse.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Des ombres en toile d'araignée sur l'oculaire ne partent pas au nettoyage. Pourquoi, et que faire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ce sont des rayures, dues à un nettoyage négligent.</p><p>Il faut remplacer l'oculaire.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Donne les plages de température et de vitesse d'un agitateur chauffant.</p><details class="corrige"><summary>Voir la réponse</summary><p>De l'ambiante à environ 500 °C.</p><p>De 60 à environ 1 200 tr/min.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> La plaque ne chauffe pas alors qu'elle est branchée et allumée. Que faire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Interrupteur sur OFF et débrancher.</p><p>Ouvrir la boîte à fusibles et remplacer le fusible par un fusible de mêmes caractéristiques.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-6.html"><small>Version courte suivante</small>Le laboratoire d'anatomie et cytopathologie</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 5) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

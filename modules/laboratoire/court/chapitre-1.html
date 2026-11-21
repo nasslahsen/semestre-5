@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le laboratoire médical (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 1 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le laboratoire médical</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-1.html">Lire le cours complet</a></p>
+<h2>Le laboratoire et ses missions</h2>
+<p>Un <strong>laboratoire de biologie médicale</strong> (LBM) réalise les examens de biologie médicale : confirmer un diagnostic, surveiller une pathologie, évaluer un traitement. Il ne soigne pas, il mesure.</p>
+<p>Quatre missions :</p>
+<ul>
+<li><strong>Diagnostic</strong> : confirmer ou infirmer une pathologie suspectée.</li>
+<li><strong>Suivi thérapeutique</strong> : l'évolution de la maladie, l'efficacité du traitement.</li>
+<li><strong>Prévention et dépistage</strong> : détecter tôt.</li>
+<li><strong>Santé publique</strong> : vigilance sanitaire (épidémies, intoxications).</li>
+</ul>
+<p>Ce n'est pas l'analyse qui fixe la mission, c'est la raison de la demande : le même glucose sert au dépistage, au diagnostic ou au suivi.</p>
+
+<h2>Les types de laboratoires</h2>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Types</th></tr>
+<tr><td>Statut juridique</td><td>privé (biologistes médicaux) ou hospitalier (rattaché à un établissement)</td></tr>
+<tr><td>Organisation</td><td>mono-site ou réseau multisites (plateforme régionale et satellites)</td></tr>
+<tr><td>Spécialités</td><td>Core Lab (biochimie, hématologie, microbiologie en gros volumes, automatisé) ou laboratoire spécialisé</td></tr>
+</table></div>
+<figure class="photo duo"><img src="../images/laboratoire.jpg" alt="Plateau technique d'un laboratoire avec automates et postes de travail"><img src="../images/accueil.jpg" alt="Guichet d'accueil et d'enregistrement des patients d'un laboratoire"><figcaption>Le plateau technique, et l'accueil où commence la phase pré-analytique. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<p>Le laboratoire <strong>hospitalier</strong> tourne souvent 24 h sur 24 (urgences, hospitalisés) ; le laboratoire <strong>extra-hospitalier</strong> reçoit une patientèle externe.</p>
+
+<h2>Les secteurs : une logique de flux</h2>
+<p>Le plan suit le trajet de l'échantillon : <strong>réception</strong> (station pneumatique, guichet) → <strong>aire pré-analytique</strong> (prélèvement, tri, centrifugation, aliquotage, conservation) → <strong>aire analytique</strong> (toutes les spécialités). Autour : locaux spécialisés (morgue, salle d'autopsie), rangements, aires clinico-administratives <strong>en retrait</strong> (sans traverser les paillasses), soutien au personnel (vestiaires, EPI).</p>
+<p><strong>Aliquotage</strong> : diviser un échantillon en portions égales, plus petites et représentatives (les aliquotes).</p>
+
+<h2>Le circuit de l'échantillon</h2>
+<div class="schema" id="sc-circuit"></div>
+<p>Trois modes de transport : <strong>pédestre</strong> (tubes debout en portoir), <strong>pneumatique</strong>, <strong>tapis roulant</strong> ou guichet de tri automatisé.</p>
+<p>Trois règles d'or :</p>
+<ul>
+<li>tubes en <strong>position verticale</strong> (pas de contact du sérum avec le bouchon, pas de microcaillots) ;</li>
+<li><strong>délai court</strong>, souvent moins de 2 h ;</li>
+<li><strong>intégrité de la chaîne</strong> : triple emballage ou sachet par patient, codes-barres.</li>
+</ul>
+
+<h2>Les trois phases</h2>
+<div class="schema" id="sc-phases"></div>
+<p>La phase <strong>pré-analytique</strong> est la plus critique : la majorité des erreurs y naît. Elle vise l'<strong>identitovigilance</strong> (zéro erreur de patient). Pour un patient : accueil et enregistrement → ordre de prélèvement (SIL, code-barres) → appel et <strong>double vérification d'identité</strong> (obligation légale) → prélèvement, étiquetage immédiat, homogénéisation → transfert.</p>
+
+<h2>Biosécurité</h2>
+<div class="tableau"><table>
+<tr><th>Risque</th><th>Exemples</th><th>Prévention</th></tr>
+<tr><td>Biologique</td><td>bactéries, virus, parasites</td><td>EPI, formation, vaccination</td></tr>
+<tr><td>Chimique</td><td>corrosifs, toxiques, inflammables</td><td>signalisation, fiches de sécurité, ventilation, stockage</td></tr>
+<tr><td>Physique</td><td>bruit, chaleur, froid, rayonnements</td><td>protections, signalisation</td></tr>
+</table></div>
+<div class="schema" id="sc-bsl"></div>
+<p>Risques des équipements :</p>
+<ul>
+<li><strong>Automates</strong> : pièces mobiles, aiguilles.</li>
+<li><strong>Centrifugeuses</strong> : aérosols si un tube casse.</li>
+<li><strong>Congélateurs</strong> : explosion (azote liquide), brûlures par le froid.</li>
+<li><strong>Hottes et PSM</strong> : inefficaces si les filtres sont saturés.</li>
+</ul>
+<p>L'évaluation des risques est <strong>systématique et documentée</strong>. L'<strong>EPI</strong> est une barrière finale : la sécurité se conçoit dans le système.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne les quatre missions d'un laboratoire de biologie médicale.</p><details class="corrige"><summary>Voir la réponse</summary><p>Diagnostic.</p><p>Suivi thérapeutique.</p><p>Prévention et dépistage.</p><p>Santé publique (vigilance sanitaire).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qu'est-ce qu'un Core Lab ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un laboratoire regroupé, ou central : biochimie, hématologie et microbiologie en gros volumes, souvent automatisé.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Dans quel ordre l'échantillon traverse-t-il les secteurs du laboratoire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Unité de réception.</p><p>Aire pré-analytique.</p><p>Aire analytique.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite les sept étapes du circuit de l'échantillon.</p><details class="corrige"><summary>Voir la réponse</summary><p>Prescription, prélèvement, transport, réception et tri, préparation, analyse, validation et rendu.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelles sont les trois règles d'or du transfert des tubes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Tubes en position verticale.</p><p>Délai le plus court possible, souvent moins de 2 h.</p><p>Intégrité de la chaîne : triple emballage, traçabilité par code-barres.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Où commence et où finit la phase pré-analytique ? Pourquoi est-elle critique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>De la prescription jusqu'à l'arrivée de l'échantillon à l'analyseur.</p><p>C'est là que surviennent la majorité des erreurs de laboratoire.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Un résultat juste est envoyé dans le dossier d'un autre patient. Quelle phase est en cause ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La phase post-analytique : la mesure est bonne, c'est sa communication qui est fausse.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quel niveau de biosécurité pour la plupart des laboratoires cliniques ? Et pour Mycobacterium tuberculosis ?</p><details class="corrige"><summary>Voir la réponse</summary><p>BSL-2 pour la plupart des laboratoires cliniques.</p><p>BSL-3 pour M. tuberculosis : maladie grave par inhalation.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi la centrifugeuse est-elle rangée dans les risques liés aux équipements ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Si un tube se brise, la rotation projette des aérosols : un risque biologique créé par l'appareil.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Que veut dire « l'EPI est une barrière finale » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La sécurité doit être conçue dans le système dès le départ.</p><p>L'équipement de protection individuelle n'est que la dernière protection, pas la seule.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-2.html"><small>Version courte suivante</small>Échantillons et phase pré-analytique</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 1) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

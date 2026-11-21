@@ -15,14 +15,18 @@ PLATEFORME.parcours("laboratoire", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { titre: "Support du cours « Technologies de laboratoire d'analyses médicales » (Pr. EL BERGUI), en carte mentale", couvre: "chapitres 1 à 5, 7 et 8" }
+      { titre: "Support du cours « Technologies de laboratoire d'analyses médicales » (Pr. EL BERGUI), en carte mentale", couvre: "chapitres 1 à 5, 7 et 8" },
+      { titre: "Module : Technologies de laboratoire d'analyses médicales (Pr. EL BERGUI Mohamed, 07 octobre 2026), 634 diapositives", couvre: "les mêmes chapitres, et le chapitre VI sur le laboratoire d'anatomie et cytopathologie (version courte seulement) ; photos des versions courtes" }
     ],
     manque: [
-      "Chapitre VI, microbiologie et biologie moléculaire : seulement le titre dans le support.",
-      "Chapitre V, immunoanalyse : seulement le titre.",
+      "Immunoanalyse (ELISA, fluorescence, chimiluminescence) : seulement le titre, même dans le support de 634 diapositives.",
+      "Microbiologie et biologie moléculaire (identification, antibiogramme, PCR) : seulement le titre.",
+      "Laboratoire d'anatomie et cytopathologie : reçu, pas encore de cours complet ni d'exercices (version courte seulement).",
       "Chapitre VIII : seulement le sommaire ; construit avec la présentation « Le laboratoire médical vu par l'ingénieur biomédical »."
     ]
   },
+  // Versions courtes (court/chapitre-<n>.html) : l'essentiel du chapitre, puis les questions d'examen ; accès sous le titre du chapitre.
+  court: [1, 2, 3, 4, 5, 7, 8],
   chapitres: [
     { id: 1, titre: "Le laboratoire médical", sous: "Missions, types, secteurs, circuit de l'échantillon, trois phases, biosécurité", ligne: "Missions, secteurs, circuit, phases, biosécurité" },
     { id: 2, titre: "Échantillons et phase pré-analytique", sous: "Types d'échantillons, prélèvement, identification, conservation, centrifugation, erreurs", ligne: "Prélever, identifier, conserver, centrifuger" },

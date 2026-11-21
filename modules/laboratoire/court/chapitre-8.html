@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Maintenance et gestion des équipements (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 8 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Maintenance et gestion des équipements</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-8.html">Lire le cours complet</a></p>
+<h2>Le cycle de vie d'un équipement</h2>
+<p>Pour l'ingénieur biomédical, le laboratoire est une <strong>infrastructure technique critique</strong> : un résultat repose sur un système fiable, maîtrisé et documenté.</p>
+<div class="schema" id="sc-cycle-vie"></div>
+<p>Un équipement <strong>adapté</strong>, puis <strong>installé</strong>, <strong>fonctionnel</strong>, <strong>performant</strong>, <strong>maintenu</strong>, avec la traçabilité tout du long (manuel, SOP, qualification, calibration, CQ, maintenance, pannes).</p>
+<p>Trois textes : <strong>ISO 15189:2022</strong> (qualité et compétence), <strong>GBEA</strong> (bonnes pratiques), <strong>réglementation marocaine</strong>. Ils ne sont pas juridiquement équivalents.</p>
+
+<h2>Préventive et corrective</h2>
+<ul>
+<li><strong>Préventive</strong> : planifiée, avant la panne (nettoyage, pièces d'usure, calibrage, tests).</li>
+<li><strong>Corrective</strong> (curative) : sur incident, pour ne pas bloquer le service.</li>
+</ul>
+<div class="schema" id="sc-correctif"></div>
+<p>Rien n'est fini tant que le <strong>contrôle de qualité</strong> n'a pas confirmé que l'appareil mesure juste. Tout est consigné : l'ISO 15189 demande l'<strong>historique complet</strong> des interventions.</p>
+
+<h2>Métrologie et contrôle de qualité</h2>
+<p>Grandeurs critiques : température, temps, volume, vitesse, pression, masse, pH, conductivité, longueur d'onde. Pour chacune : <strong>étalonner, vérifier, tracer, enregistrer</strong>.</p>
+<ul>
+<li><strong>CQI</strong> : surveillance interne et continue de l'analyseur.</li>
+<li><strong>EEQ</strong> : comparaison entre laboratoires, pour la justesse.</li>
+<li><strong>Fonctionnement n'est pas performance</strong> : un appareil qui s'allume ne mesure pas forcément juste.</li>
+</ul>
+<p>Levey-Jennings (règles usuelles, pas dans le support) : \( z = (x - m)/s \). Au-delà de ± 2s : avertissement. Au-delà de ± 3s : série rejetée. Valeurs toutes du même côté : dérive.</p>
+
+<h2>Infrastructure et sécurité</h2>
+<div class="tableau"><table>
+<tr><th>Réseau</th><th>À maîtriser</th></tr>
+<tr><td>Électricité</td><td>terre, protections, onduleur (UPS), groupe électrogène</td></tr>
+<tr><td>Froid</td><td>2 à 8 °C, congélation, alarmes de dérive</td></tr>
+<tr><td>HVAC</td><td>température, humidité, renouvellement et pression de l'air</td></tr>
+<tr><td>Eau</td><td>qualité, traitement, surveillance</td></tr>
+<tr><td>Gaz, incendie, réseau, déchets</td><td>détection, protection, gestion</td></tr>
+</table></div>
+<p>Référentiels :</p>
+<ul>
+<li><strong>ISO 15189</strong> : qualité et compétence.</li>
+<li><strong>ISO 15190</strong> : sécurité des laboratoires.</li>
+<li><strong>ISO 22870</strong> : biologie délocalisée (POCT).</li>
+<li><strong>ISO 35001</strong> : biorisque.</li>
+<li><strong>IEC 61010</strong> : sécurité des équipements.</li>
+<li><strong>ISO 17025</strong> : essais et étalonnage.</li>
+</ul>
+<p>L'EPI est la barrière finale : la sécurité se conçoit dans le système.</p>
+
+<h2>Criticité et continuité</h2>
+<div class="schema" id="sc-criticite"></div>
+<p>L'évaluation vaut pour l'analyseur, mais aussi pour l'électricité, le LIS, les réactifs, le HVAC. Avec le POCT (ISO 22870), <strong>déplacer l'analyseur ne déplace pas la responsabilité qualité</strong>.</p>
+<p>Six domaines font un résultat fiable : <strong>clinique</strong>, <strong>analytique</strong>, <strong>technique</strong>, <strong>infrastructure</strong>, <strong>qualité et sécurité</strong>, <strong>continuité</strong>. Le patient ne voit jamais l'analyseur, il voit le résultat.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne les étapes du cycle de vie d'un équipement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Besoin (URS), sélection, installation, qualification, vérification des performances, mise en service, maintenance et métrologie, décommissionnement.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle différence entre qualification et vérification des performances ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Qualification : l'appareil est installé conformément.</p><p>Vérification des performances : il mesure juste.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> ISO 15189, GBEA et réglementation marocaine ont-ils la même valeur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : une norme, un référentiel de bonnes pratiques et une obligation réglementaire ne sont pas juridiquement équivalents.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Différence entre maintenance préventive et corrective ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Préventive : planifiée, avant la panne.</p><p>Corrective : sur incident, pour corriger un dysfonctionnement.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne les quatre étapes d'une intervention corrective.</p><details class="corrige"><summary>Voir la réponse</summary><p>Détection (codes d'erreur, alarmes).</p><p>Diagnostic (journaux).</p><p>Intervention (pièce, recalibration).</p><p>Vérification par le contrôle de qualité.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que veut dire « fonctionnement n'est pas performance » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un appareil qui s'allume et répond ne mesure pas forcément juste : il faut le prouver par la métrologie et le CQ.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Différence entre CQI et EEQ ?</p><details class="corrige"><summary>Voir la réponse</summary><p>CQI : surveillance interne et continue de l'analyseur.</p><p>EEQ : comparaison avec les autres laboratoires, pour valider la justesse.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Un contrôle de moyenne 4,0 et d'écart-type 0,1 donne 4,35. Que conclus-tu ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( z = (x - m)/s \)</p><p>\( z = (4{,}35 - 4{,}0)/0{,}1 \)</p><p>\( z = 3{,}5 \)</p><p>Au-delà de 3s : la série est rejetée.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Quelle norme pour la sécurité des laboratoires ? Pour le POCT ? Pour la sécurité des équipements ?</p><details class="corrige"><summary>Voir la réponse</summary><p>ISO 15190 : sécurité des laboratoires médicaux.</p><p>ISO 22870 : biologie délocalisée (POCT).</p><p>IEC 61010 : sécurité des équipements de laboratoire.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quels critères pour évaluer un équipement critique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Impact clinique.</p><p>Délai de réparation.</p><p>Plan de continuité (plan B).</p><p>Secours ou sous-traitance.</p><p>Traçabilité.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Fin des versions courtes</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 8) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Technologies de biochimie clinique (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Technologies de biochimie clinique</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>La lumière et la matière</h2>
+<p>La lumière est une onde : \( \nu = 1/T = C/\lambda \), avec \( C \approx 3 \times 10^8 \) m/s. Visible : <strong>400 à 700 nm</strong> ; UV en dessous, IR au-dessus. Une molécule absorbe certaines longueurs d'onde : son <strong>spectre</strong> d'absorption est une signature.</p>
+<p>La lumière incidente peut être réfléchie, transmise, diffusée, absorbée, ou réémise en fluorescence.</p>
+<div class="schema" id="sc-mesures-bio"></div>
+
+<h2>La loi de Beer-Lambert</h2>
+\[ T = \frac{I_t}{I_0} \qquad A = \log_{10}\frac{1}{T} = \log_{10}\frac{I_0}{I_t} = \varepsilon \times l \times c \]
+<p>\( \varepsilon \) : coefficient d'absorption molaire (L·mol⁻¹·cm⁻¹), \( l \) : trajet optique (cm), \( c \) : concentration (mol/L). Valide en lumière <strong>monochromatique</strong> et en solution <strong>diluée</strong>.</p>
+<ul>
+<li><strong>Point final</strong> : lecture à l'équilibre (glucose, protéines, cholestérol) ; à deux points, on élimine la couleur propre de l'échantillon.</li>
+<li><strong>Cinétique</strong> : vitesse de variation de l'absorbance (enzymes : ALT, AST, LDH).</li>
+</ul>
+<p>Avec un étalon dans les mêmes conditions : \( c = c_{\text{étalon}} \times A / A_{\text{étalon}} \).</p>
+
+<h2>Le spectrophotomètre</h2>
+<div class="schema" id="sc-spectro"></div>
+<figure class="photo duo"><img src="../images/spectrophotometre.jpg" alt="Spectrophotomètre de paillasse avec écran et clavier"><img src="../images/cuves.jpg" alt="Cuves rectangulaires transparentes remplies de solutions colorées"><figcaption>Un spectrophotomètre et ses cuves. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<ul>
+<li>Lampe au <strong>tungstène</strong> : visible (350 à 800 nm). Lampe au <strong>deutérium</strong> : UV (190 à 400 nm). Xénon possible.</li>
+<li>Cuve en <strong>quartz</strong> obligatoire sous 310 nm ; plastique ou verre dans le visible ; pas de plastique avec les solvants organiques.</li>
+<li>Détecteurs : <strong>photodiode</strong>, <strong>barrette de diodes</strong> (tout le spectre d'un coup), <strong>photomultiplicateur</strong> (jusqu'à 10⁶ électrons par électron arraché).</li>
+<li><strong>Simple faisceau</strong> ou <strong>double faisceau</strong> (référence et essai en alternance sur le même détecteur).</li>
+</ul>
+<p>Installation : table stable, loin des centrifugeuses. Entretien : environnement une fois par an (prise à moins de 1,5 m, tension à ± 5 %), inspection visuelle tous les six mois, cuves en quartz lavées NaOH 0,1 M puis HCl 0,1 M. Étalonner à chaque nouvelle série.</p>
+
+<h2>Turbidimétrie et néphélométrie</h2>
+<p>Pour les protéines qui ne colorent pas (CRP, immunoglobulines, complément, transferrine…) : leurs complexes antigène-anticorps troublent la solution.</p>
+<ul>
+<li><strong>Turbidimétrie</strong> : on mesure la lumière <strong>transmise</strong>, qui diminue (340 nm ou 435 à 480 nm).</li>
+<li><strong>Néphélométrie</strong> : on mesure la lumière <strong>diffusée</strong>, à un angle.</li>
+</ul>
+<p><strong>Effet crochet</strong> : un excès d'antigène fait paradoxalement baisser le signal. D'où une calibration <strong>multipoint</strong> et une régression non linéaire.</p>
+
+<h2>Potentiométrie et électrolytes</h2>
+<p>Une <strong>électrode sélective</strong> (ISE) donne une tension qui suit le logarithme de l'activité de l'ion (Nernst) :</p>
+\[ E = E^0 + \frac{RT}{nF} \ln(\gamma C) \]
+<p>Environ <strong>59 mV par décade</strong> à 25 °C pour un ion de charge 1. Électrodes : Na⁺ (verre), K⁺ (<strong>valinomycine</strong>), Cl⁻ (échangeuse d'ions), référence <strong>Ag/AgCl</strong>.</p>
+<p>Valeurs : Na⁺ 135 à 148, K⁺ 3,5 à 5,3, Cl⁻ 98 à 107, Li⁺ 0,30 à 1,20 mmol/L.</p>
+
+<h2>Les automates de biochimie</h2>
+<ul>
+<li><strong>Chimie sèche</strong> : réflectance sur bandelette, LED, sphère d'Ulbricht (ex. VITROS).</li>
+<li><strong>Chimie liquide</strong> : absorbance, Beer-Lambert, 304 à 670 nm (ex. Architect).</li>
+</ul>
+<figure class="photo"><img src="../images/analyseur-chimie-seche.jpg" alt="Analyseur de chimie sèche compact à écran"><figcaption>Un analyseur de chimie sèche. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<div class="schema" id="sc-automate-bio"></div>
+<p>Installation : loin du soleil et de la chaleur, prise à la terre, stabilisateur de tension. En chimie liquide, la <strong>mesure à blanc</strong> d'abord. Entretien chaque jour (éclaboussures, extinction) et tous les six mois (inspection, lampe).</p>
+
+<h2>La calibration</h2>
+<p>La <strong>calibration</strong> relie le signal à une concentration connue : multipoint (au moins 3 niveaux), calibrateurs traçables, courbe linéaire ou non. L'<strong>ajustement</strong> ramène l'appareil à ses performances. L'ISO 9001 exige une calibration traçable. On ne lit pas un patient au-delà du dernier calibrateur.</p>
+
+<h2>L'eau du laboratoire</h2>
+<p>Eau du laboratoire : sans pyrogènes, solides ≤ 1 ppm, pH 5,4 à 7,2, résistivité ≥ 3 × 10⁵ Ω·cm à 25 °C.</p>
+<figure class="photo duo"><img src="../images/distillateur.jpg" alt="Distillateur d'eau de laboratoire, modèle mural et modèle en verre"><img src="../images/purificateur.jpg" alt="Purificateur d'eau de laboratoire avec ses cartouches"><figcaption>Distillateurs et purificateur d'eau. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<p><strong>Distillateur</strong> : bouilleur à résistances (100 °C) → vapeur → condenseur refroidi → récipient en plastique. Bouilleur chaque mois (tartre), condenseur chaque année, récipient à l'eau de Javel de temps à autre.</p>
+<div class="tableau"><table>
+<tr><th>Technologie</th><th>Retire</th><th>Ne retire pas</th></tr>
+<tr><td>Filtration</td><td>particules (membranes 0,2 µm)</td><td>organiques, ions, gaz, pyrogènes</td></tr>
+<tr><td>Ultrafiltration</td><td>pyrogènes, nucléases, micro-organismes</td><td>ions, gaz, organiques</td></tr>
+<tr><td>Osmose inverse</td><td>jusqu'à 99 % (bactéries, 90 à 95 % des ions)</td><td>gaz dissous ; débit faible</td></tr>
+<tr><td>Déionisation, EDI</td><td>ions ; seule à atteindre 18 MΩ·cm</td><td>organiques, particules, bactéries</td></tr>
+<tr><td>Charbon actif</td><td>organiques, chlore</td><td>ions, particules</td></tr>
+<tr><td>UV</td><td>traces organiques, micro-organismes</td><td>ions, particules</td></tr>
+</table></div>
+<p>\( \rho\,(\text{M}\Omega\cdot\text{cm}) = 1/\sigma\,(\mu\text{S/cm}) \). Maximum théorique : <strong>18,2 MΩ·cm</strong> à 25 °C. COT : alimentation 2 à 5 ppm, ultrapure 1 à 5 ppb.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Énonce la loi de Beer-Lambert et ses conditions de validité.</p><details class="corrige"><summary>Voir la réponse</summary><p>\( A = \varepsilon \times l \times c \)</p><p>Lumière monochromatique et solution diluée.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Une solution transmet 25 % de la lumière. Quelle est son absorbance ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( A = \log_{10}(1/T) \)</p><p>\( A = \log_{10}(1/0{,}25) \)</p><p>\( A \approx 0{,}60 \)</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Un étalon à 5 mmol/L donne A = 0,25 ; un patient donne A = 0,40. Quelle concentration ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( c = c_{\text{étalon}} \times A / A_{\text{étalon}} \)</p><p>\( c = 5 \times 0{,}40 / 0{,}25 \)</p><p>\( c = 8 \) mmol/L</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Point final ou cinétique : lequel pour l'ALT ? Pour le cholestérol ?</p><details class="corrige"><summary>Voir la réponse</summary><p>ALT (enzyme) : cinétique.</p><p>Cholestérol : point final.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> On lit à 260 nm. Quelle lampe et quelle cuve ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Lampe au deutérium (UV).</p><p>Cuve en quartz, obligatoire sous 310 nm.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Différence entre turbidimétrie et néphélométrie ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Turbidimétrie : lumière transmise, qui diminue.</p><p>Néphélométrie : lumière diffusée, mesurée à un angle.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'est-ce que l'effet crochet ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un excès d'antigène fait paradoxalement diminuer le signal.</p><p>D'où une calibration multipoint et une régression non linéaire.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quelle électrode pour le potassium ? Combien de mV par décade à 25 °C pour un ion de charge 1 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Électrode à membrane de valinomycine.</p><p>Environ 59 mV par décade.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Cite les unités d'un automate de chimie clinique dans l'ordre du trajet.</p><details class="corrige"><summary>Voir la réponse</summary><p>Carrousel d'échantillons (ASP), pompes SPP et RPP avec carrousel de réactifs réfrigéré (RCU), carrousel de réaction à 37 °C avec agitation (MIX), photomètre, unité de lavage (WU).</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quelle technologie seule atteint la résistivité de l'eau de type 1 ? Que laisse passer l'osmose inverse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La déionisation (plus de 18 MΩ·cm).</p><p>L'osmose inverse laisse passer les gaz dissous.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-4.html"><small>Version courte suivante</small>Technologies d'hématologie et d'hémostase</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
