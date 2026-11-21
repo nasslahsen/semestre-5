@@ -289,7 +289,7 @@
     if (!t) return;
     document.querySelectorAll(".repere").forEach(function (x) { x.classList.remove("repere"); });
     if (t.tagName === "SECTION") { t.scrollIntoView({ block: "start" }); return; }
-    if (t.tagName === "ARTICLE") t = t.querySelector("h3");
+    if (t.tagName === "ARTICLE") { var h3 = t.querySelector("h3"); if (!h3) { t.scrollIntoView({ block: "start" }); return; } t = h3; }
     // les blocs d'un titre : jusqu'au titre suivant de même niveau ou plus haut, dans la notion (comme sur les anciennes pages)
     var seuil = t.tagName === "H5" ? /^(H3|H4|H5)$/ : t.tagName === "H4" ? /^(H3|H4)$/ : /^H3$/;
     var cibles = [t], n = t.nextElementSibling, bloc = parts[1] !== undefined ? +parts[1] : -1, blocs = [];
