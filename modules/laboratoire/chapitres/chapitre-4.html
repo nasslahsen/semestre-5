@@ -203,6 +203,24 @@
 <li>Prélèvement veineux sur EDTA (tube K2 ou K3) ; analyse dans les 4 heures ; homogénéisation douce par retournements ; conservation à température ambiante (20 à 25 °C) ; pas d'agitation violente (hémolyse) ; vérifier la concordance des résultats.</li>
 <li>Toujours un onduleur avec prise de terre ; 50 cm entre l'appareil et le mur pour la circulation d'air ; allumer et attendre environ 10 minutes avant l'emploi ; pas de bulles d'air dans les tuyaux de réactifs ; surveiller les fuites de réactifs, d'air ou de vide ; éviter les allumages et extinctions intempestifs et la poussière dans les réactifs ; bien mélanger les échantillons ; passer les contrôles ; suivre les procédures de démarrage et d'arrêt.</li>
 </ul>
+<h5>L'automate dans le circuit du résultat</h5>
+<p>Prescription clinique → prélèvement (identitovigilance, code-barres) → acheminement (traçabilité, température) → automate (impédance, optique) → validation (technique puis biologique) → transmission (LIS, HL7, ASTM) → résultat (interprétation clinique).</p>
+<h5>Perspectives</h5>
+<ul>
+<li><b>Intelligence artificielle</b> : aide à la validation, détection d'anomalies morphologiques (deep learning sur images).</li>
+<li><b>Miniaturisation</b> : automates de paillasse, biologie délocalisée (POCT), au lit du patient, avec un TAT réduit.</li>
+<li><b>Connectivité</b> : intégration totale au SIL, cybersécurité des données.</li>
+<li><b>Harmonisation</b> : résultats standardisés entre automates et entre laboratoires.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Année</th><th>Étape</th></tr>
+<tr><td>1980</td><td>impédance simple, 3 populations</td></tr>
+<tr><td>1990</td><td>impédance, optique et cytochimie, 5 populations</td></tr>
+<tr><td>2000</td><td>fluorescence, réticulocytes, NRBC</td></tr>
+<tr><td>2010</td><td>chaînes automatisées, gestion des tubes</td></tr>
+<tr><td>2020</td><td>intelligence artificielle, deep learning</td></tr>
+<tr><td>2026</td><td>automates connectés, POCT, télémédecine</td></tr>
+</table></div>
 <h5>Maintenance</h5>
 <div class="tableau"><table>
 <tr><th>Fréquence</th><th>Opérations</th></tr>
@@ -309,6 +327,8 @@
 <h5>Hémostase secondaire : la coagulation</h5>
 <p>Elle renforce le clou plaquettaire par la production de fibrine et aboutit à un caillot insoluble. Deux voies : <b>exogène</b> (facteur tissulaire des cellules endothéliales lésées) et <b>endogène</b> (plasma seul, activée au contact du verre ou du sous-endothélium ; moins importante). Elles convergent vers le facteur X ; le Xa transforme la prothrombine (II) en thrombine (IIa), qui transforme le fibrinogène (I) en fibrine.</p>
 <p>Les facteurs sont des protéines plasmatiques d'origine hépatique (sauf le facteur tissulaire), numérotées de I à XIII (plus PK et KHPM) : I fibrinogène, II prothrombine, IV Ca²⁺, V proaccélérine, VII proconvertine, VIII antihémophilique A, IX antihémophilique B, X Stuart, XI Rosenthal, XII Hageman, XIII stabilisant de la fibrine.</p>
+<p>Leurs rôles : des <b>zymogènes</b> ou pro-enzymes (II, IX, X, XI, XII, PK, XIII), des <b>cofacteurs</b> (V, VIII), un récepteur (facteur tissulaire), un substrat (fibrinogène), un transporteur (KHPM). Les facteurs II, VII, IX et X sont <b>vitamine K-dépendants</b>. PK est la prékallicréine (facteur de Fletcher) ; KHPM, le kininogène de haut poids moléculaire.</p>
+<p>La voie endogène part du <b>système contact</b> : facteur XII, prékallicréine, KHPM et facteur XI. Un déficit en XII, PK ou KHPM ne donne pas de syndrome hémorragique grave. Le Ca²⁺ fixe aussi les facteurs vitamine K-dépendants sur les phospholipides.</p>
 <ul>
 <li>Le <b>complexe prothrombinase</b> (Xa, Va, phospholipides des plaquettes activées, Ca²⁺) est 100 000 fois plus actif que le Xa seul.</li>
 <li>Le <b>Ca²⁺</b> intervient à plusieurs niveaux ; au laboratoire, un chélateur du Ca²⁺ (EDTA ou citrate) empêche le sang de coaguler.</li>
@@ -316,9 +336,21 @@
 <li>La <b>thrombine</b> transforme le fibrinogène en fibrine, active les plaquettes, entretient sa propre formation (V, VIII, IX, XI) et freine la coagulation (protéine C).</li>
 </ul>
 <p>Inhibiteurs : antithrombine (inactive la thrombine et le Xa ; activité multipliée par 2 000 à 3 000 par l'héparine), protéines C et S (inhibent l'activation du V et du VIII), TFPI (inhibe l'activation du X par le complexe VII-facteur tissulaire).</p>
+<p>Un déficit en antithrombine expose à des thromboses à répétition. Le lien entre les deux hémostases : la plaie fait adhérer les plaquettes (agrégation réversible, le clou), active le XII et libère le facteur tissulaire ; la thrombine formée rend l'agrégation irréversible et donne le caillot de fibrine.</p>
 <h5>Fibrinolyse</h5>
 <p>La <b>plasmine</b>, formée à partir du plasminogène par le tPA (activateur tissulaire) ou l'urokinase, dégrade la fibrine en produits de dégradation (PDF). Le PAI (inhibiteur de l'activateur du plasminogène) la freine.</p>
 
+<h5>Le rôle de l'endothélium</h5>
+<p>Un rôle majeur, en six points :</p>
+<ol>
+<li>libérer le facteur de von Willebrand, qui aide l'adhésion des plaquettes ;</li>
+<li>libérer le facteur tissulaire, qui active la voie extrinsèque ;</li>
+<li>libérer la thromboxane A2 et le PAF (platelet activating factor), qui augmentent l'agrégabilité des plaquettes ;</li>
+<li>libérer le PAI-1, inhibiteur de l'activateur du plasminogène ;</li>
+<li>libérer le tPA, qui active le plasminogène dans la fibrinolyse ;</li>
+<li>synthétiser les protéines C et S, qui règlent la production de thrombine.</li>
+</ol>
+<p>La question du cours : pourquoi les femmes ménopausées ont-elles plus de risque de thrombose ? Leur taux de PAI augmente, la fibrinolyse est moins efficace (d'où la question du traitement hormonal substitutif).</p>
 <h4>Exemple</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Un patient traité par antivitamine K produit des facteurs II, VII, IX et X peu actifs : sa voie exogène, qui dépend du VII, est ralentie, et son temps de coagulation s'allonge. C'est ce que les analyseurs surveillent avec le temps de prothrombine.</p>
