@@ -17,7 +17,7 @@ commun/                    système de design partagé (ne pas copier dans les m
   css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
   css/chapitres.css        carte des chapitres d'un module
   css/cours.css            pages de cours et pages de chapitre (sections, blocs « Jouer », fenêtre d'exercice)
-  css/barre.css            barre du site (retour d'un cran : la carte du module, ou le semestre depuis la carte ; nom du module vers sa carte)
+  css/barre.css            barre du site (retour d'un cran : la carte du module, ou le semestre depuis la carte ; « Accueil » vers le tableau de bord, partout où le retour n'y mène pas ; nom du module vers sa carte)
   css/tableau.css          tableau de bord
   js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
   js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »

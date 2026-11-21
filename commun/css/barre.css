@@ -4,6 +4,7 @@
 .site-marque { font: 800 20px "Bricolage Grotesque", Inter, sans-serif; letter-spacing: -0.01em; color: #15171f; text-decoration: none; white-space: nowrap; }
 .site-retour { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 12px; border: 2px solid #15171f; border-radius: 12px; font: 600 15px Inter, sans-serif; color: #15171f; text-decoration: none; white-space: nowrap; }
 .site-retour::before { content: ""; width: 9px; height: 9px; border-left: 2.5px solid #15171f; border-bottom: 2.5px solid #15171f; transform: rotate(45deg); margin-right: 2px; }
+.site-accueil { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; margin-left: -12px; border: 2px solid #d8dce6; border-radius: 12px; font: 600 15px Inter, sans-serif; color: #15171f; text-decoration: none; white-space: nowrap; }
 .site-module { display: inline-flex; align-items: center; gap: 10px; min-width: 0; font: 800 19px "Bricolage Grotesque", Inter, sans-serif; letter-spacing: -0.01em; color: #15171f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 a.site-module { text-decoration: none; }
 .site-module span { overflow: hidden; text-overflow: ellipsis; }

@@ -223,6 +223,8 @@
     el.innerHTML = '<div class="site-barre-int">' +
       (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t(window.REGISTRE.semestre) + "</a>"
                  : '<a class="site-retour" href="' + carte + '" aria-label="' + P.t("Carte du module") + '">' + P.t("Carte") + "</a>") +
+      // Accueil : toujours là, à côté du retour, sauf quand le retour mène déjà au tableau de bord
+      (o.accueil && !venu ? "" : '<a class="site-accueil" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t("Accueil") + "</a>") +
       '<a class="site-module" href="' + carte + '"><i></i><span>' + (P.lang === "en" && m.titreEn ? m.titreEn : m.titre) + "</span></a>" +
       '<div class="droite">' + (o.droite || "") + "</div></div>";
     if (venu) {
@@ -425,7 +427,7 @@
      La langue vient de <html lang> (pages de cours et de chapitre), ou du sous-module (carte, écran de niveau : P.reglerLangue).
      P.t(texte français) rend le texte anglais correspondant quand la page est en anglais. */
   var EN = {
-    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
+    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Accueil": "Home", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
     "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
     "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Exercices": "Exercises", "Chapitre": "Chapter",
     // carte
