@@ -27,6 +27,9 @@ function pageChapitre(mid, d, P, ch) {
         if (!sec) return tout;
         return 'href="chapitre-' + sec.chapitre + ".html#" + (ancre ? page + "-" + ancre : "n-" + page) + '"';
       });
+      // titre de la notion identique à celui de la section : on ne le répète pas
+      const norme = (t) => t.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+      m = m.replace(/<h1>([\s\S]*?)<\/h1>\s*/, (tout, t) => norme(t) === norme(s.titre) ? "" : tout);
       m = m.replace(/\s*<p class="etiquette" data-etiquette><\/p>\s*/, "\n")
         .replace(/<(\/?)h3>/g, "<$1h5>").replace(/<(\/?)h2>/g, "<$1h4>").replace(/<(\/?)h1>/g, "<$1h3>");
       corps += '<article class="notion" id="n-' + nid + '">' + m.replace(/\s+$/, "\n") + "</article>\n\n";

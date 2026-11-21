@@ -28,9 +28,6 @@
 <h3>GPIO Pins, IO MUX et GPIO Matrix</h3>
 <p class="chapeau">Un moniteur de chevet doit lire un bouton, mesurer une tension, faire biper un buzzer et parler à un écran. Tout passe par les broches de la puce. Combien y en a-t-il, et comment un même fil peut-il servir à tant de choses ?</p>
 
-<h4>Le chapitre en bref</h4>
-<p>Le chapitre 4 a présenté la puce ESP32. Ce chapitre apprend à s'en servir, périphérique par périphérique, dans l'ordre où un signal les rencontre. D'abord les <b>broches</b> : ce qu'elles savent faire et comment les signaux internes y sont aiguillés (cette page), puis ce qu'il y a derrière chaque broche, le pad. Ensuite les <b>interruptions</b>, qui préviennent le processeur qu'une broche a changé, et le registre qui les règle. Puis la <b>conversion</b> entre le monde analogique et les nombres : l'ADC mesure une tension, le DAC en produit une. Puis le <b>temps</b> : les timers comptent, les chiens de garde surveillent, le PWM fabrique une tension moyenne en découpant le temps. Enfin la <b>communication</b> : les bus I2C et SPI du chapitre 3, sur les broches de l'ESP32.</p>
-
 <div id="fig-brochage"></div>
 
 <h4>Les broches GPIO</h4>

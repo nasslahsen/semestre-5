@@ -20,9 +20,6 @@
 <h1>Problème de communication MCU, capteurs et actionneurs</h1>
 <p class="chapeau">Dans un tensiomètre, le microcontrôleur doit lire un capteur de pression, piloter une pompe, écrire sur un écran et parler au PC. Avec quels fils, et selon quelles règles ?</p>
 
-<h2>Le chapitre en bref</h2>
-<p>Ce chapitre répond à une question : comment les circuits d'une carte s'échangent des données. On part du problème (cette page) : beaucoup de composants, peu de place, donc des bus partagés et série. Puis on étudie trois bus du cours, du plus simple au plus partagé. L'<b>UART</b> envoie des trames sans horloge commune, entre deux appareils. Le <b>SPI</b> ajoute une horloge et échange les octets par registres à décalage, avec une ligne de sélection par esclave. L'<b>I2C</b> se contente de deux fils pour tous, grâce à des adresses. Le chapitre 5 retrouvera ces bus sur l'ESP32.</p>
-
 <div id="fig-reseau"></div>
 
 <p>Le schéma du cours montre le problème de communication d'un système embarqué : deux microcontrôleurs (MCU1, MCU2), une mémoire (RAM, EEPROM…), un ADC, des capteurs (<i>sensors</i>), des actionneurs (<i>actuators</i>) et un afficheur (<i>display</i> : LCD, OLED…). Ils sont reliés par trois niveaux de bus : BUS 1 entre les microcontrôleurs et la mémoire, BUS 2 qui distribue vers les périphériques, BUS 3 qui descend vers chaque périphérique.</p>
