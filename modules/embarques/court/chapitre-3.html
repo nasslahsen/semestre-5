@@ -43,6 +43,15 @@
 <p>Deux fils, <strong>SDA</strong> et <strong>SCL</strong>, tirés à +V_DD par des résistances ; <strong>0 dominant</strong>, 1 récessif (un circuit ne peut que tirer à 0). Message : <strong>START</strong> (SDA descend quand SCL est à 1), adresse 7 bits, R/W (1 lecture, 0 écriture), ACK, octets, ACK ou NACK, <strong>STOP</strong>.</p>
 \[ N_{SCL} = 9 \times N_{octets} \qquad 2^7 = 128 \text{ adresses} \]
 
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>UART</td><td>Rohde &amp; Schwarz</td><td><a href="https://www.youtube.com/results?search_query=Rohde+Schwarz+understanding+UART" target="_blank" rel="noopener">Rohde Schwarz understanding UART</a></td></tr>
+<tr><td>SPI</td><td>Rohde &amp; Schwarz</td><td><a href="https://www.youtube.com/results?search_query=Rohde+Schwarz+understanding+SPI" target="_blank" rel="noopener">Rohde Schwarz understanding SPI</a></td></tr>
+<tr><td>I2C</td><td>Rohde &amp; Schwarz</td><td><a href="https://www.youtube.com/results?search_query=Rohde+Schwarz+understanding+I2C" target="_blank" rel="noopener">Rohde Schwarz understanding I2C</a></td></tr>
+</table></div>
+
 <h2>Questions d'examen</h2>
 <p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
 <div class="question-court"><p class="q"><span>1.</span> Combien de bits dans une trame UART de 8 données, et lesquels ?</p><details class="corrige"><summary>Voir la réponse</summary><p>10 bits : un start (0), 8 bits de données (bit 0 d'abord), un stop (1).</p></details></div>

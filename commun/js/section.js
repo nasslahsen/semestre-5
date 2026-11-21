@@ -136,7 +136,7 @@
       var b = document.createElement("div");
       b.className = "jouer" + (defi ? " defi" : "");
       b.dataset.niveaux = ids.join(" ");
-      b.innerHTML = '<span><small>' + petit + "</small>" + esc(titre) + "</span>" + '<button type="button" class="btn-jouer"></button>';
+      b.innerHTML = "<span>" + (petit ? "<small>" + petit + "</small>" : "") + esc(titre) + "</span>" + '<button type="button" class="btn-jouer"></button>';
       b.querySelector("button").addEventListener("click", function () {
         var fait = P.chapitre(MID, ch.id).niveaux.filter(function (n) { return n.fait; }).map(function (n) { return n.id; });
         var k = ids.filter(function (id) { return fait.indexOf(id) < 0; })[0];
@@ -154,7 +154,8 @@
       var s = ch.sections[k], ids = s.notions.filter(function (nid) { return parId[nid]; });
       if (k === avecSansPage) ids = ids.concat(sansPage);
       var fin = partie.querySelector(".fin-partie");
-      if (ids.length) bloc(ids, P.t("Exercices"), s.titre, fin ? fin.parentNode : partie, fin);
+      // le titre de la section est juste au-dessus : le bloc ne le redit pas
+      if (ids.length) bloc(ids, "", P.t("Exercices"), fin ? fin.parentNode : partie, fin);
       var cs = cartesDe(s.id);
       if (cs.length) cartesRevision(fin ? fin.parentNode : partie, fin, cs, "s/" + s.id, s.titre);
     });

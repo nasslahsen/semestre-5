@@ -21,11 +21,9 @@
 <h1>JSON et la plateforme ThingSpeak</h1>
 
 <section class="partie" id="s-json">
-<p class="rang-partie">1 / 3</p>
 <h2>Le format JSON</h2>
 
 <article class="notion" id="n-json">
-<h3>JSON (JavaScript Object Notation)</h3>
 <p class="chapeau">Le compteur du lab envoie sa tension et son courant dans un seul message. Le récepteur doit savoir sans ambiguïté quelle valeur est V et laquelle est I, que ce récepteur soit Node-RED, un ESP32 ou une page web.</p>
 
 <div id="fig-json"></div>
@@ -58,11 +56,9 @@
 </section>
 
 <section class="partie" id="s-thingspeak">
-<p class="rang-partie">2 / 3</p>
 <h2>ThingSpeak : channels, écrire, lire</h2>
 
 <article class="notion" id="n-thingspeak">
-<h3>ThingSpeak : channels, écriture et lecture</h3>
 <p class="chapeau">L'ESP32 du lab mesure toutes les 5 secondes. Où ranger ces valeurs pour les retrouver, les tracer et les partager avec le médecin, sans monter son propre serveur ?</p>
 
 <div id="fig-thingspeak"></div>
@@ -85,11 +81,9 @@
 </section>
 
 <section class="partie" id="s-thingspeak-mqtt">
-<p class="rang-partie">3 / 3</p>
 <h2>ThingSpeak en MQTT</h2>
 
 <article class="notion" id="n-thingspeak-mqtt">
-<h3>ThingSpeak et MQTT</h3>
 <p class="chapeau">En HTTP, l'ESP32 doit ouvrir une requête à chaque envoi, et ne sait rien des nouvelles entrées du channel sans redemander. ThingSpeak a aussi un broker MQTT : on publie, et on peut s'abonner au channel.</p>
 
 <div id="fig-ts-mqtt"></div>

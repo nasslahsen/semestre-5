@@ -24,7 +24,7 @@ function pageChapitre(mid, d, P, ch) {
   ss.forEach((s, k) => {
     // pas de titre répété : la section ne redit pas le titre du chapitre
     const titreSection = mots(s.titre).join(" ") === mots(ch.titre).join(" ") ? "" : `<h2>${s.titre}</h2>\n`;
-    corps += `<section class="partie" id="s-${s.id}">\n<p class="rang-partie">${k + 1} / ${ss.length}</p>\n${titreSection}\n`;
+    corps += `<section class="partie" id="s-${s.id}">\n${titreSection}\n`;
     for (const nid of s.notions) {
       const html = fs.readFileSync(path.join(d, "cours", nid + ".html"), "utf8");
       lang = (html.match(/<html lang="([a-z]+)"/) || [0, lang])[1];
@@ -35,13 +35,18 @@ function pageChapitre(mid, d, P, ch) {
         if (!sec) return tout;
         return 'href="chapitre-' + sec.chapitre + ".html#" + (ancre ? page + "-" + ancre : "n-" + page) + '"';
       });
-      // titre de la notion : pas répété s'il redit celui du chapitre ou de la section, ou, pour la seule notion d'une
-      // section, s'il ne fait que le prolonger (« UART » puis « UART : transmission asynchrone »)
+      // titre de la notion : jamais pour la seule notion d'une section (le titre de la section suffit, deux titres collés
+      // redisent la même chose) ; ailleurs, pas répété s'il redit celui du chapitre ou de la section
       m = m.replace(/<h1>([\s\S]*?)<\/h1>\s*/, (tout, t) => {
         const a = mots(t), b = mots(s.titre), c = mots(ch.titre);
         const egal = (x, y) => x.join(" ") === y.join(" ");
-        const prolonge = s.notions.length === 1 && (egal(a.slice(0, b.length), b) || egal(b.slice(0, a.length), a));
-        return egal(a, b) || egal(a, c) || prolonge ? "" : tout;
+        // première notion d'une section : pas de titre s'il redit presque tout celui de la section, juste au-dessus
+        // (« Les microscopes » puis « Les types de microscopes »)
+        const vides = new Set("le la les l un une des de du d et a au aux en dans sur pour par avec ce ces son sa ses the of and to in an on for with".split(" "));
+        const racines = x => new Set(x.filter(w => !vides.has(w)).map(w => w.slice(0, 5)));
+        const rb = racines(b), ra = racines(a);
+        const redit = nid === s.notions[0] && rb.size > 0 && [...rb].filter(w => ra.has(w)).length / rb.size >= 0.75;
+        return s.notions.length === 1 || egal(a, b) || egal(a, c) || redit ? "" : tout;
       });
       m = m.replace(/\s*<p class="etiquette" data-etiquette><\/p>\s*/, "\n")
         .replace(/<(\/?)h3>/g, "<$1h5>").replace(/<(\/?)h2>/g, "<$1h4>").replace(/<(\/?)h1>/g, "<$1h3>");

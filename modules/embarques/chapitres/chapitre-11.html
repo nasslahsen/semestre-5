@@ -21,11 +21,9 @@
 <h1>ESP32 et ThingSpeak en HTTP</h1>
 
 <section class="partie" id="s-lab3-canal">
-<p class="rang-partie">1 / 3</p>
 <h2>Créer le channel</h2>
 
 <article class="notion" id="n-lab-ts-canal">
-<h3>Créer un channel ThingSpeak</h3>
 <p class="chapeau">ThingSpeak stocke les mesures de tes objets dans des channels, jusqu'à 8 champs (fields) chacun, et les trace tout seul. Avant de programmer l'ESP32, on crée le channel et on l'essaie depuis le navigateur.</p>
 
 <div class="etape-lab">
@@ -58,11 +56,9 @@
 </section>
 
 <section class="partie" id="s-lab3-ecrire">
-<p class="rang-partie">2 / 3</p>
 <h2>L'ESP32 écrit dans le channel</h2>
 
 <article class="notion" id="n-lab-ts-ecrire">
-<h3>Lab 1 : l'ESP32 écrit dans le channel</h3>
 <p class="chapeau">L'ESP32 fabrique deux valeurs (Val1 de 10 en 10, Val2 de 20 en 20) et les envoie dans Field 1 et Field 2 du channel, toutes les 5 secondes (CLK_TRANSMIT : 5 s dans le cours).</p>
 
 <div class="etape-lab">
@@ -154,11 +150,9 @@ void loop() {
 </section>
 
 <section class="partie" id="s-lab3-lire">
-<p class="rang-partie">3 / 3</p>
 <h2>L'ESP32 lit le channel</h2>
 
 <article class="notion" id="n-lab-ts-lire">
-<h3>Lire un champ du channel</h3>
 <p class="chapeau">Dans l'autre sens, une carte peut relire un channel : par exemple un afficheur au chevet qui montre la dernière fréquence cardiaque envoyée par un capteur.</p>
 
 <div class="etape-lab">

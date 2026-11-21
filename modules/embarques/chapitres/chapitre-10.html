@@ -21,7 +21,6 @@
 <h1>JSON sur l'ESP32 avec ArduinoJson</h1>
 
 <section class="partie" id="s-lab2-preparer">
-<p class="rang-partie">1 / 3</p>
 <h2>Préparer l'Arduino IDE</h2>
 
 <article class="notion" id="n-lab-arduino-esp32">
@@ -69,11 +68,9 @@
 </section>
 
 <section class="partie" id="s-lab2-generer">
-<p class="rang-partie">2 / 3</p>
 <h2>Générer un document JSON</h2>
 
 <article class="notion" id="n-lab-json-generer">
-<h3>JSON generator example</h3>
 <p class="chapeau">L'ESP32 doit envoyer une mesure à un serveur : il faut l'emballer en JSON. La bibliothèque ArduinoJson construit le document clé par clé, puis l'écrit en texte (partie 4.1 du cours).</p>
 
 <div class="etape-lab">
@@ -171,11 +168,9 @@ void loop() {
 </section>
 
 <section class="partie" id="s-lab2-lire">
-<p class="rang-partie">3 / 3</p>
 <h2>Lire un document JSON</h2>
 
 <article class="notion" id="n-lab-json-lire">
-<h3>JSON parser example</h3>
 <p class="chapeau">Dans l'autre sens, l'ESP32 reçoit un texte JSON (par exemple d'un serveur) et doit en tirer chaque valeur. ArduinoJson le lit, le vérifie, puis donne accès aux champs (partie 4.2 du cours).</p>
 
 <div class="etape-lab">
