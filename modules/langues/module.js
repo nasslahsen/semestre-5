@@ -102,11 +102,11 @@ PLATEFORME.parcours("langues", {
 
     { id: "td1", chapitre: 4, titre: "Before you start", notions: ["td1"] },
     { id: "td1-corrige", chapitre: 4, titre: "Answers", notions: ["td1-corrige"] },
-    { id: "td2", chapitre: 5, titre: "The text", notions: ["td2"] },
+    { id: "td2", chapitre: 5, titre: "Reading", notions: ["td2"] },
     { id: "td2-corrige", chapitre: 5, titre: "Answer key", notions: ["td2-corrige"] },
-    { id: "td3", chapitre: 6, titre: "The text", notions: ["td3"] },
+    { id: "td3", chapitre: 6, titre: "Reading", notions: ["td3"] },
     { id: "td3-corrige", chapitre: 6, titre: "Answers", notions: ["td3-corrige"] },
-    { id: "td4", chapitre: 7, titre: "The text", notions: ["td4"] },
+    { id: "td4", chapitre: 7, titre: "Reading", notions: ["td4"] },
     { id: "td4-corrige", chapitre: 7, titre: "Answers", notions: ["td4-corrige"] },
     { id: "td5", chapitre: 8, titre: "The rules", notions: ["td5"] },
     { id: "td5-corrige", chapitre: 8, titre: "Answers", notions: ["td5-corrige"] }

@@ -21,11 +21,9 @@
 <h1>MQTT sur l'ESP32 : LED et température</h1>
 
 <section class="partie" id="s-lab6-code">
-<p class="rang-partie">1 / 2</p>
 <h2>Le programme</h2>
 
 <article class="notion" id="n-lab-mqtt-led">
-<h3>MQTT Implementation on ESP32 board : le programme</h3>
 <p class="chapeau">Le modèle du cours : l'ESP32 lit une mesure sur A0 et la publie toutes les 2 s sur <code>ensam/gbm/temperature</code> ; il s'abonne à <code>ensam/gbm/light</code> pour allumer ou éteindre la LED de la broche 2. Le broker est public : <code>test.mosquitto.org</code>.</p>
 
 <div class="etape-lab">
@@ -176,7 +174,6 @@ void loop() {
 </section>
 
 <section class="partie" id="s-lab6-tester">
-<p class="rang-partie">2 / 2</p>
 <h2>Piloter la LED, lire la température</h2>
 
 <article class="notion" id="n-lab-mqtt-tester">

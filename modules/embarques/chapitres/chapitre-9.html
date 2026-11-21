@@ -21,11 +21,9 @@
 <h1>Node-RED, Mosquitto et dashboard</h1>
 
 <section class="partie" id="s-lab1-installer">
-<p class="rang-partie">1 / 4</p>
 <h2>Installer les outils</h2>
 
 <article class="notion" id="n-lab-installer">
-<h3>Installer Node.js, Node-RED, le dashboard et Mosquitto</h3>
 <p class="chapeau">Avant de câbler un flux, il te faut trois outils sur ton PC : Node.js, Node-RED (avec son dashboard) et le serveur MQTT Mosquitto. Liste du cours : Nodejs, Mosquitto Server, Arduino JSON Library, Proteus, Arduino IDE.</p>
 
 <div class="etape-lab">
@@ -82,7 +80,6 @@ dir *.exe</code></pre>
 </section>
 
 <section class="partie" id="s-lab1-flux">
-<p class="rang-partie">2 / 4</p>
 <h2>Un premier flux MQTT</h2>
 
 <article class="notion" id="n-lab-flux-mqtt">
@@ -247,11 +244,9 @@ mosquitto_pub -h localhost -t sensors/voltage -m 30</code></pre>
 </section>
 
 <section class="partie" id="s-lab1-json">
-<p class="rang-partie">3 / 4</p>
 <h2>Power meter : MQTT et JSON</h2>
 
 <article class="notion" id="n-lab-power-meter">
-<h3>Power meter : MQTT et format JSON</h3>
 <p class="chapeau">Un compteur envoie sa tension et son courant dans un seul message JSON, <code>{"V": 220, "I": 20}</code>. Node-RED doit le découper et calculer la puissance (partie 3 du cours, Power meter).</p>
 
 <div class="etape-lab">
@@ -472,7 +467,6 @@ return msg;</code></pre>
 </section>
 
 <section class="partie" id="s-lab1-dashboard">
-<p class="rang-partie">4 / 4</p>
 <h2>Le dashboard</h2>
 
 <article class="notion" id="n-lab-dashboard">

@@ -193,7 +193,6 @@ figure.photo figcaption small { display: block; font-size: 12.5px; margin-top: 2
 .cours-chapitre h2::before { content: none; }
 .partie { margin-top: 112px; padding-top: 26px; border-top: 3px solid var(--encre); scroll-margin-top: calc(var(--barre) + 8px); }
 .cours-chapitre h1 + .partie { margin-top: 40px; }
-.rang-partie { margin: 0; font: 700 14px "JetBrains Mono", monospace; letter-spacing: .06em; color: var(--jeu-texte); }
 .cours-chapitre h3 { font-size: 30px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; margin: 64px 0 12px; padding-top: 18px; border-top: 1.5px solid var(--trait); }
 .cours-chapitre h2 + .notion h3 { margin-top: 30px; padding-top: 0; border-top: 0; }
 .cours-chapitre h4 { font-family: "Bricolage Grotesque", Inter, sans-serif; font-size: 24px; font-weight: 800; margin: 40px 0 10px; }

@@ -21,11 +21,9 @@
 <h1>ThingSpeak en MQTT : MQTTX puis ESP32</h1>
 
 <section class="partie" id="s-lab4-mqttx">
-<p class="rang-partie">1 / 2</p>
 <h2>MQTTX et ThingSpeak</h2>
 
 <article class="notion" id="n-lab-mqttx">
-<h3>Lab 1 : ThingSpeak et MQTTX</h3>
 <p class="chapeau">ThingSpeak a son propre broker MQTT, <code>mqtt3.thingspeak.com</code>, port 1883. Avant de programmer une carte, on publie et on s'abonne à la main avec MQTTX, un client MQTT pour ordinateur (tâche du cours : use MQTTX tool to send and receive data from ThingSpeak).</p>
 
 <div class="etape-lab">
@@ -90,11 +88,9 @@
 </section>
 
 <section class="partie" id="s-lab4-esp32">
-<p class="rang-partie">2 / 2</p>
 <h2>L'ESP32 publie en MQTT</h2>
 
 <article class="notion" id="n-lab-ts-mqtt-esp32">
-<h3>Lab 2 : MQTT sur la carte ESP32</h3>
 <p class="chapeau">Même échange qu'avec MQTTX, mais c'est l'ESP32 qui publie HR et SPO2 toutes les 15 s sur <code>channels/channelID/publish</code>, et qui s'abonne à <code>channels/channelID/subscribe</code> pour relire chaque entrée.</p>
 
 <div class="etape-lab">
