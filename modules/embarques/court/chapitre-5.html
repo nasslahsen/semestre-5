@@ -39,6 +39,16 @@
 <h2>PWM, I2C, SPI</h2>
 <p>16 canaux LED PWM ; on règle la <strong>fréquence</strong>, le <strong>rapport cyclique</strong>, le canal et la GPIO ; pas de PWM sur GPIO 34 à 39. \(V_{moy} = \alpha \times 3{,}3\) V. I2C : 2 canaux, par défaut SDA 21 et SCL 22 (Wire.begin(SDA, SCL)). SPI : HSPI (13, 12, 14, 15) et VSPI (23, 19, 18, 5), 3 esclaves par bus.</p>
 
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>GPIO et interruptions</td><td>Random Nerd Tutorials</td><td><a href="https://www.youtube.com/results?search_query=Random+Nerd+Tutorials+ESP32+interrupts" target="_blank" rel="noopener">Random Nerd Tutorials ESP32 interrupts</a></td></tr>
+<tr><td>ADC</td><td>Random Nerd Tutorials</td><td><a href="https://www.youtube.com/results?search_query=Random+Nerd+Tutorials+ESP32+ADC" target="_blank" rel="noopener">Random Nerd Tutorials ESP32 ADC</a></td></tr>
+<tr><td>PWM</td><td>Random Nerd Tutorials</td><td><a href="https://www.youtube.com/results?search_query=Random+Nerd+Tutorials+ESP32+PWM" target="_blank" rel="noopener">Random Nerd Tutorials ESP32 PWM</a></td></tr>
+<tr><td>Timers et watchdog</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=ESP32+timer+watchdog+explained" target="_blank" rel="noopener">ESP32 timer watchdog explained</a></td></tr>
+</table></div>
+
 <h2>Questions d'examen</h2>
 <p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
 <div class="question-court"><p class="q"><span>1.</span> Que fait un bouton entre GPIO 4 et la masse avec IE = 1, OE = 0, WPU = 1 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Relâché : la résistance faible tire la broche à 1, on lit 1.</p><p>Appuyé : la broche est reliée à la masse, on lit 0.</p></details></div>
