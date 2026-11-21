@@ -41,6 +41,7 @@
 <div class="jouer"><span><small>Examen type</small>L'examen de mi-session corrigé : comme ton examen, problème par problème, avec le pourquoi de chaque réponse</span><a class="btn-jouer" href="court/examen-type.html">Ouvrir</a></div>
 <div class="jouer"><span><small>Contrôle du 19 novembre</small>La présentation de révision du professeur, expliquée partie par partie, avec ses photos, ses courbes et 65 questions</span><a class="btn-jouer" href="court/revision.html">Ouvrir</a></div>
 <div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : 25 schémas et les lignes à retenir, chapitre par chapitre</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
+<div class="jouer"><span><small>Vue d'ensemble</small>L'arbre du module en plein écran : parties, chapitres, notions, et les cartes de révision</span><a class="btn-jouer" href="vue-ensemble.html">Ouvrir</a></div>
 <div class="jouer"><span><small>Annales</small>Le partiel 2024–2025 et son corrigé, question par question, et ce que l'autre classe a eu au final</span><a class="btn-jouer" href="court/annales.html">Ouvrir</a></div>
 
 <div class="schema" id="sc-structure"></div>
@@ -415,7 +416,10 @@
 <li>Un polymère ne peut pas avoir \(T_f \le T_g\), ni des cristaux au-dessus de \(T_f\).</li>
 <li>Les étiquettes de log : 9 et 6 sont des logarithmes de pascals (\(10^9\) Pa = 1 GPa, \(10^6\) Pa = 1 MPa).</li>
 </ul>
+
+<div id="par-chapitre"></div>
 </main>
+<script src="../../commun/js/examen.js"></script>
 <script src="../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../commun/js/schema.js"></script>
@@ -424,7 +428,6 @@
 (function () {
   var P = PLATEFORME;
   var sm = new URLSearchParams(location.search).get("sm") || "biomateriaux";
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan("biomateriaux", sm) });
   var b = String.fromCharCode(92);
   renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
   // jours faits : une commodité sur cet iPad seulement (le vrai suivi reste dans « Mon suivi »)

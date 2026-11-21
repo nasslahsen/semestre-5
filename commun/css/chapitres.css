@@ -1,8 +1,13 @@
 /* Structure par chapitres : la carte d'un sous-module, un nœud par chapitre (styles de la carte habituelle, jeu.css). */
-.carte-chapitres .entete-ligne { align-items: center; margin-top: 4px; }
-.btn.reprendre { height: auto; min-height: 68px; padding: 10px 32px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  font-size: 20px; text-decoration: none; max-width: 520px; }
-.btn.reprendre small { font: 500 15px Inter, sans-serif; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 460px; }
+/* En-tête identique sur toutes les cartes : choix (sous-module, Cours / TD), le titre sur sa ligne, puis une rangée de deux boutons de même hauteur */
+.carte-chapitres .entete-ligne { display: block; margin-top: 4px; }
+.entete-boutons { display: flex; align-items: stretch; gap: 14px; margin-top: 22px; }
+.btn.reprendre { height: 72px; width: 460px; padding: 0 28px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  font-size: 20px; text-decoration: none; }
+.btn.reprendre small { font: 500 15px Inter, sans-serif; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.btn-examen { display: inline-flex; align-items: center; justify-content: center; height: 72px; padding: 0 28px; border: 2px solid #c9cdd6; border-radius: 16px; background: #fff;
+  color: #15171f; font: 600 18px Inter, sans-serif; text-decoration: none; white-space: nowrap; }
+.carte-chapitres .tout-fait { display: inline-flex; align-items: center; height: 72px; width: 460px; }
 .carte-chapitres .tout-fait { color: var(--ok); font-weight: 600; }
 .carte-chapitres #chapitres { max-width: 1180px; margin: 0 auto; padding: 22px 40px 40px; }
 .carte-chapitres .unites { row-gap: 70px; padding-top: 30px; }
@@ -16,5 +21,3 @@
 .carte-chapitres .onglets-carte { display: inline-flex; margin-left: auto; }
 .carte-chapitres .onglets-carte a { height: 44px; padding: 0 26px; }
 .carte-chapitres .td-vide { margin: 18px 0 0; color: var(--doux); font-size: 17px; }
-.carte-chapitres .lien-vue { display: inline-flex; align-items: center; min-height: 48px; margin-top: 6px; padding: 0 16px; border: 1.5px solid #c9cdd6; border-radius: 12px; color: #15171f; font: 600 16px Inter, sans-serif; text-decoration: none; }
-.carte-chapitres .lien-vue + .lien-vue { margin-left: 10px; }

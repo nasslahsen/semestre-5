@@ -34,7 +34,10 @@ commun/                    système de design partagé (ne pas copier dans les m
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
-  vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la carte ;
+  examen.html              « Préparer l'examen » (examen.html?sm=…), une par module, bouton à côté de « Reprendre » sur chaque carte :
+                           en haut ce que le professeur a annoncé (écrit à la main, s'il y en a), puis « Chapitre par chapitre »
+                           (commun/js/examen.js : version courte, révision, défi final)
+  vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la page d'examen ;
                            pas un chapitre, ne compte pas dans la progression)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
@@ -65,7 +68,9 @@ Le but : peu de choses à toucher. On lit en faisant défiler, on joue si on veu
 chapitre suivant.
 
 - **La carte** (`index.html`, `commun/js/chapitres.js`) : un nœud rond par chapitre, dans l'ordre, reliés par un
-  chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). Chapitre fait en vert, chapitre
+  chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). L'en-tête est le même sur toutes les cartes :
+  le choix du sous-module (s'il y en a plusieurs) et « Cours / TD », le titre sur sa ligne, puis deux boutons de même hauteur,
+  « Reprendre » et « Préparer l'examen ». Rien d'autre ne s'y ajoute. Chapitre fait en vert, chapitre
   conseillé en bleu ; rien n'est verrouillé. Un seul bouton principal, « Reprendre » (ou « Commencer »), qui rouvre
   l'endroit exact où l'on s'était arrêté. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
   Un sous-module est un cours à part entière (son professeur, ses documents) : ses chapitres sont numérotés à partir

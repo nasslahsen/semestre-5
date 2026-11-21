@@ -41,13 +41,13 @@
     '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>" +
     (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") + "</nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
-  // vue d'ensemble du module (vue-ensemble.html), quand module.js décrit un arbre pour ce sous-module : un lien discret sous le titre
-  var lienVue = !vueTD && MOD.arbre && MOD.arbre[sm.id] ? '<a class="lien-vue" href="vue-ensemble.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Vue d'ensemble du module") + "</a>" : "";
-  // page « Préparer l'examen » (examen.html), quand module.js l'annonce pour ce sous-module (examen: { <sm>: true })
-  if (!vueTD && MOD.examen && MOD.examen[sm.id]) lienVue += '<a class="lien-vue" href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a>";
-  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1>" + lienVue + "</div>" +
-    (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + P.t(r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
-      : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>") + "</div>";
+  // Le titre sur sa ligne, puis les mêmes boutons sur toutes les cartes : le bouton principal, « Reprendre » (côté cours),
+  // et « Préparer l'examen » (examen.html, une page par module). La vue d'ensemble d'un module est sur sa page d'examen.
+  var examen = '<a class="btn-examen" href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a>";
+  var principal = vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + P.t(r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
+    : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>";
+  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1></div>" +
+    '<div class="entete-boutons">' + principal + examen + "</div></div>";
   if (vue === "td" && !chs.length) h += '<p class="td-vide">' + P.t("Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.") + "</p>";
   document.getElementById("entete").innerHTML = h;
   // le grand titre redit le nom du module : la barre ne le répète pas
