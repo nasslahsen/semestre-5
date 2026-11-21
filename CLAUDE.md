@@ -72,7 +72,7 @@ chapitre suivant.
   de 1 (ou de 0 s'il commence par « Les bases ») partout où un numéro s'affiche (`PLATEFORME.numero`), même si leurs
   `id` dans `module.js` suivent ceux du sous-module précédent.
 - **Les TD ont leur propre espace** : un chapitre de TD porte `td: true` et son numéro affiché (`numero: "TD 1"`)
-  dans `chapitres`. Il n'est pas sur le chemin du cours : la carte a un choix discret « Cours / TD » (`index.html?sm=…&vue=td`),
+  dans `chapitres` ; ses titres (chapitre, sections, niveaux) ne répètent pas « TD 1 : », déjà affiché sur la carte et la page. Il n'est pas sur le chemin du cours : la carte a un choix discret « Cours / TD » (`index.html?sm=…&vue=td`),
   l'espace TD montre les séries reçues (ou dit qu'aucune n'est reçue), et « Chapitre suivant » reste dans le même espace
   (`PLATEFORME.chapitresDe(mid, sm, "cours" | "td")`). La page du TD dit où chercher chaque réponse dans le cours et
   signale ce que le cours reçu ne couvre pas ; ses sections comptent dans la progression comme les autres.
@@ -233,7 +233,8 @@ porte `pagesLibres: true` dans son `module.js` (le laboratoire, l'anglais) : `te
 qu'un titre et un chapeau. Le plan ci-dessous reste utile quand la notion se construit pas à pas (mathématiques,
 mécanique, robotique), sans être une obligation. Pas de redondance : pas de résumé « Le chapitre en bref » qui annonce
 les sections qui suivent, et un même titre n'apparaît jamais deux fois (`outils/regrouper.js` retire le titre d'une
-notion quand il est identique à celui de sa section).
+notion quand elle est seule dans sa section, ou quand elle est la première et que son titre redit celui de la section).
+Pas de phrase qui redit une étiquette (« Version courte : … » sous « Version courte »), ni de bloc qui redit le titre juste au-dessus.
 
 Une page par notion, pour relire. Structure classique (vérifiée par `tests/static-check.js` sauf `pagesLibres`) :
 titre, `chapeau` (la situation qui rend la notion nécessaire), **Intuition**, au moins une figure
