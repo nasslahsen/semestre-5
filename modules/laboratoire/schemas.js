@@ -157,5 +157,29 @@ window.SCHEMAS = {
            [{ id: "im", t: "Impact clinique" }, { id: "de", t: "Délai de réparation" }],
            [{ id: "pb", t: "Plan B", s: "secours ou sous-traitance", k: "doux" }],
            [{ id: "tr", t: "Traçabilité", s: "incident et actions", k: "fort" }]],
-    liens: [["e", "im"], ["e", "de"], ["im", "pb"], ["de", "pb"], ["pb", "tr"]] }
+    liens: [["e", "im"], ["e", "de"], ["im", "pb"], ["de", "pb"], ["pb", "tr"]] },
+
+  /* ---------- Chapitre 6 (anatomie et cytopathologie) ---------- */
+  "sc-anapath": { titre: "Le parcours d'un prélèvement en anapath",
+    cols: [[{ id: "r", t: "Réception, fixation", s: "numéro unique, formol tamponné" }],
+           [{ id: "m", t: "Macroscopie", s: "description, cassettes" }],
+           [{ id: "d", t: "Déshydratation, enrobage", s: "paraffine, bloc", k: "doux" }],
+           [{ id: "c", t: "Coupe, coloration", s: "microtome 3 à 5 µm, H&E" }],
+           [{ id: "l", t: "Lecture, compte rendu", s: "microscope ou scanner, archivage", k: "fort" }]],
+    liens: [["r", "m"], ["m", "d"], ["d", "c"], ["c", "l"]] },
+
+  "sc-ancillaires": { titre: "Les techniques complémentaires au H&E",
+    cols: [[{ id: "r", t: "Quand le H&E ne suffit pas" }],
+           [{ id: "ihc", t: "Immunohistochimie", s: "anticorps : récepteurs hormonaux, HER2" },
+            { id: "ish", t: "Hybridation in situ", s: "FISH, CISH : gène HER2, HPV" },
+            { id: "mol", t: "Tests moléculaires", s: "PCR, NGS : mutation BRAF V600E" },
+            { id: "col", t: "Colorations spéciales", s: "rouge Congo : amylose\nZiehl-Neelsen : tuberculose" }]],
+    liens: [["r", "ihc"], ["r", "ish"], ["r", "mol"], ["r", "col"]], deplier: false },
+
+  "sc-processeur": { titre: "Dans l'automate de déshydratation et d'imprégnation",
+    cols: [[{ id: "f", t: "Tissu fixé", s: "formol, en cassette" }],
+           [{ id: "d", t: "Déshydratation", s: "alcools de concentrations croissantes" }],
+           [{ id: "c", t: "Clarification", s: "xylène ou substitut", k: "doux" }],
+           [{ id: "i", t: "Imprégnation", s: "paraffine vers 60 °C, sous vide", k: "fort" }]],
+    liens: [["f", "d"], ["d", "c"], ["c", "i"]] }
 };

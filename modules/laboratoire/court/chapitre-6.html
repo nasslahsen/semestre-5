@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le laboratoire d'anatomie et cytopathologie (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 6 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le laboratoire d'anatomie et cytopathologie</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-6.html">Lire le cours complet</a></p>
+<p class="court-note">Chapitre VI du support reçu le 21 novembre (diapositives 548 à 634). Pas encore de cours complet ni d'exercices sur le site : cette version courte est tout ce qu'il y a pour l'instant.</p>
+<h2>L'anatomopathologie</h2>
+<p>L'<strong>anatomopathologie</strong> (« anapath ») examine des tissus ou des cellules prélevés sur un patient pour poser un diagnostic : lésions infectieuses, inflammatoires ou cancéreuses. Elle ne mesure pas des substances dans le sang : elle étudie la <strong>morphologie</strong> des tissus (<strong>histologie</strong>) et des cellules (<strong>cytologie</strong>) pour un <strong>diagnostic de certitude</strong>. En cancérologie, c'est le pathologiste qui confirme la nature d'une tumeur et guide le traitement (statut HER2 dans le cancer du sein).</p>
+<p>Ses missions :</p>
+<ul>
+<li><strong>Diagnostic</strong> : nature des lésions (cancers, tumeurs bénignes, inflammations, infections).</li>
+<li><strong>Cytologie</strong> : cellules isolées ou liquides (frottis, cytoponction de la thyroïde).</li>
+<li><strong>Histopathologie</strong> : tissus après fixation, inclusion en paraffine et coloration.</li>
+<li><strong>Analyses avancées</strong> : immunohistochimie, biologie moléculaire (pronostic, traitements ciblés).</li>
+</ul>
+
+<h2>Le parcours d'un prélèvement</h2>
+<div class="schema" id="sc-anapath"></div>
+<ul>
+<li><strong>Biopsie</strong> : petit prélèvement ciblé (aiguille, pince, endoscope) pour poser ou confirmer un diagnostic ; fixation 6 h minimum ; résultat en environ 4 jours.</li>
+<li><strong>Pièce opératoire</strong> : organe ou partie d'organe retiré au bloc, avec une marge saine ; elle donne le stade et dit si les bords sont sains ; fixation 24 h ou plus ; résultat en 8 jours ou plus.</li>
+<li><strong>Fixation</strong> : immersion immédiate dans le <strong>formol tamponné</strong>, pour stopper la dégradation.</li>
+<li><strong>Coupe</strong> au microtome : <strong>3 à 5 µm</strong>, posée sur une lame de verre.</li>
+<li><strong>Coloration H&amp;E</strong> (hématoxyline-éosine) : noyaux en <strong>bleu-violet</strong>, cytoplasme en <strong>rose</strong>. HES : avec le safran.</li>
+<li>Post-analytique : compte rendu validé par le pathologiste ; <strong>archivage</strong> des lames et des blocs, et des images numériques.</li>
+</ul>
+<figure class="photo"><img src="../images/pot-biopsie.jpg" alt="Pot de prélèvement contenant une pièce fixée dans le formol"><figcaption>Une pièce fixée dans le formol. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>Quand le H&amp;E ne suffit pas</h2>
+<div class="schema" id="sc-ancillaires"></div>
+<p><strong>Pathologie numérique</strong> : les lames sont scannées en « lames virtuelles », lues à l'écran, partagées à distance. L'<strong>IA</strong> quantifie les marqueurs (pourcentage de cellules positives), une tâche longue et variable à l'œil nu.</p>
+
+<h2>Les équipements, étape par étape</h2>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Équipements</th></tr>
+<tr><td>Réception</td><td>étiquetage, impression laser des cassettes</td></tr>
+<tr><td>Fixation, macroscopie</td><td>table de macroscopie, distributeur de formol, armoire ventilée</td></tr>
+<tr><td>Déshydratation, inclusion</td><td>automate d'imprégnation, station d'enrobage, plaque froide</td></tr>
+<tr><td>Coupe</td><td>microtome, cryostat (examen extemporané, tissu congelé pendant l'opération)</td></tr>
+<tr><td>Coloration</td><td>automate de coloration, automate d'IHC, colleuse de lames</td></tr>
+<tr><td>Lecture, archivage</td><td>microscopes, scanners de lames, armoires ventilées</td></tr>
+</table></div>
+
+<h2>La table de macroscopie</h2>
+<p>Un <strong>poste de dissection ventilé</strong> pour examiner, disséquer et mettre en cassette les pièces et les biopsies. L'air contaminé est aspiré par une grille filtrée, puis rejeté ou recyclé.</p>
+<figure class="photo duo"><img src="../images/table-macroscopie.jpg" alt="Table de macroscopie en inox avec hotte et parois transparentes"><img src="../images/table-macroscopie-2.jpg" alt="Table de macroscopie aspirante avec évier et douchette"><figcaption>Tables de macroscopie. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<ul>
+<li>Trois rôles : <strong>protection contre les vapeurs</strong> (aspiration dorsale ou frontale), <strong>sécurité physique</strong> (visière en verre Securit), <strong>ergonomie</strong> (hauteur réglable).</li>
+<li>Composants : hotte et grilles d'aspiration, éclairage, distributeur de formol, table de dissection, évier, porte-instruments magnétique, caméra et loupe, lave-yeux.</li>
+<li><strong>Pompe à formol</strong> : commande au pied, membrane résistante au formol, environ 0,5 à 1 L/min, sans toucher les bidons.</li>
+<li><strong>Détecteur de formol</strong> : sonde sur la table, alarme sonore et visuelle à <strong>0,5 ppm</strong>.</li>
+<li>Station d'imagerie (caméra HD au-dessus du plan) et dictée vocale, mains libres.</li>
+<li>Examen macroscopique : identifier la pièce, la décrire (type, dimensions, poids), surface externe, coupe et description interne, prélever les zones d'intérêt.</li>
+</ul>
+
+<h2>Le formol, un agent CMR</h2>
+<p>Le formol (formaldéhyde) est <strong>cancérogène, mutagène, reprotoxique</strong>. Prévention à la source, confinement, ventilation.</p>
+<ul>
+<li>VLEP : <strong>0,3 ppm sur 8 h</strong>, <strong>0,6 ppm sur 15 min</strong>.</li>
+<li>Vitesse de captage d'au moins <strong>0,5 m/s</strong> au point le plus éloigné de l'aspiration.</li>
+<li>Captage <strong>par le bas</strong> ou par un dosseret aspirant ; jamais vers le haut (les vapeurs passeraient devant le visage).</li>
+<li>Air rejeté dehors, ou filtré au charbon actif (ETRAF).</li>
+<li>Pièce en <strong>dépression</strong> d'au moins −10 Pa.</li>
+</ul>
+<p>Maintenance de la table : filtres tous les 6 mois, calibration du détecteur, débit de ventilation, tuyaux, pompe.</p>
+<div class="tableau"><table>
+<tr><th>Panne</th><th>Cause</th></tr>
+<tr><td>Aspiration faible</td><td>filtre saturé</td></tr>
+<tr><td>Alarme muette</td><td>sonde à remplacer ou mal connectée</td></tr>
+<tr><td>Pas de lumière</td><td>lampe grillée ou alimentation</td></tr>
+<tr><td>Fuite de liquide</td><td>tuyau ou cuve fissurés</td></tr>
+<tr><td>Pompe inefficace</td><td>moteur</td></tr>
+</table></div>
+<p><strong>Armoire ventilée</strong> : stocke les pièces fixées au formol et les réactifs ; vapeurs aspirées vers le haut et évacuées, ou filtre à charbon actif ; étagères ajourées en inox, bac de rétention. Les armoires anti-feu séparent solvants, acides et bases (NF EN 14470-1).</p>
+<figure class="photo"><img src="../images/armoire-formol.jpg" alt="Armoire ventilée vitrée remplie de flacons de pièces fixées"><figcaption>Une armoire ventilée de stockage. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>L'automate de déshydratation et d'imprégnation</h2>
+<p>Le <strong>processeur de tissus</strong> prépare les tissus fixés pour l'inclusion en paraffine.</p>
+<div class="schema" id="sc-processeur"></div>
+<ul>
+<li><strong>Carrousel</strong> : les paniers de cassettes passent de station en station disposées en cercle (par exemple 10 stations de réactifs de 1,8 L, 2 ou 3 de paraffine chauffées). Le moteur fait monter, descendre, vibrer et tourner les paniers.</li>
+<li><strong>Sous vide à cuve unique</strong> : les tissus restent dans une cuve fermée (jusqu'à 200 cassettes) et les liquides y sont pompés tour à tour ; le vide accélère la pénétration. Filtre à charbon actif.</li>
+</ul>
+<figure class="photo duo"><img src="../images/processeur-carrousel.jpg" alt="Processeur de tissus à carrousel avec ses bacs disposés en cercle"><img src="../images/processeur-sous-vide.jpg" alt="Processeur de tissus sous vide à cuve unique"><figcaption>Processeur à carrousel et processeur sous vide. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>La station d'enrobage</h2>
+<p>Après l'automate, le technicien met le tissu dans un <strong>moule</strong>, verse de la paraffine fondue (environ 60 °C) et forme un <strong>bloc</strong> que le microtome pourra couper. L'automate prépare l'<strong>intérieur</strong> du tissu ; la station crée le <strong>bloc extérieur</strong>.</p>
+<figure class="photo duo"><img src="../images/station-enrobage.jpg" alt="Station d'enrobage modulaire avec réservoir de paraffine et plaque froide"><img src="../images/enrobage-plaque.jpg" alt="Plaque chauffante d'une station d'enrobage avec ses moules"><figcaption>Station d'enrobage. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+<ul>
+<li>Réservoir de paraffine filtré (6 L), réglable de <strong>50 à 75 °C</strong>, deux capteurs de niveau.</li>
+<li>Distribution par <strong>capteur ultrasonique</strong> (détecte le moule), manuelle ou à la pédale ; débit réglable.</li>
+<li>Plaque chauffante (aluminium) et <strong>plaque froide</strong> : −20 °C en 10 min.</li>
+<li>Automatisé : le <strong>Tissue-Tek AutoTEC a120</strong> enrobe jusqu'à 120 cassettes par heure, deux fois plus vite qu'à la main ; cassettes Paraform (orientation fixée dès la macroscopie, jusqu'à 44 % d'erreurs en moins), SMARTair, lecteur de codes-barres relié au LIS.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> En quoi l'anatomopathologie diffère-t-elle de la biologie clinique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle ne mesure pas des substances dans le sang.</p><p>Elle étudie la morphologie des tissus (histologie) et des cellules (cytologie) pour un diagnostic de certitude.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Différence entre une biopsie et une pièce opératoire ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Biopsie : petit fragment ciblé, pour poser ou confirmer un diagnostic ; résultat en environ 4 jours.</p><p>Pièce opératoire : organe ou partie d'organe retiré au bloc avec une marge saine ; donne le stade et l'état des bords ; 8 jours ou plus.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les étapes techniques d'un prélèvement, de la fixation à la lecture.</p><details class="corrige"><summary>Voir la réponse</summary><p>Fixation au formol.</p><p>Macroscopie et mise en cassette.</p><p>Déshydratation et imprégnation de paraffine.</p><p>Enrobage en bloc.</p><p>Coupe au microtome (3 à 5 µm).</p><p>Coloration.</p><p>Lecture au microscope ou au scanner.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Que colorent l'hématoxyline et l'éosine ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Hématoxyline : les noyaux, en bleu-violet.</p><p>Éosine : le cytoplasme et les structures extracellulaires, en rose.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Cite quatre techniques complémentaires au H&amp;E.</p><details class="corrige"><summary>Voir la réponse</summary><p>Immunohistochimie (anticorps : récepteurs hormonaux, HER2).</p><p>Hybridation in situ, FISH ou CISH (amplification de HER2, HPV).</p><p>Tests moléculaires, PCR et NGS (mutation BRAF V600E).</p><p>Colorations spéciales (rouge Congo pour l'amylose, Ziehl-Neelsen pour la tuberculose).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Quelles sont les VLEP du formol ? À quel seuil sonne le détecteur de la table ?</p><details class="corrige"><summary>Voir la réponse</summary><p>0,3 ppm sur 8 h.</p><p>0,6 ppm sur 15 min.</p><p>Alarme à 0,5 ppm.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi l'aspiration d'une table de macroscopie ne doit-elle pas se faire vers le haut ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les vapeurs de formol passeraient devant les voies respiratoires du technicien.</p><p>On capte par le bas ou par un dosseret aspirant, à au moins 0,5 m/s.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> L'aspiration de la table faiblit. Cause probable ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un filtre saturé (filtres à remplacer tous les 6 mois).</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Quelles sont les trois étapes de l'automate d'imprégnation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Déshydratation : alcools de concentrations croissantes.</p><p>Clarification : xylène ou substitut, miscible à l'alcool et à la paraffine.</p><p>Imprégnation : paraffine fondue vers 60 °C, souvent sous vide.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Différence entre l'automate d'imprégnation et la station d'enrobage ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'automate remplace l'eau du tissu par de la paraffine : il prépare l'intérieur du tissu.</p><p>La station d'enrobage coule la paraffine autour du tissu dans un moule : elle crée le bloc que coupe le microtome.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-7.html"><small>Version courte suivante</small>Automatisation et informatisation du laboratoire</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = "Chapitre 6" + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
