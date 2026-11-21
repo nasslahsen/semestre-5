@@ -101,7 +101,7 @@ window.SCHEMAS = {
   "sc-modules": function (boite, S) {
     var el = S.el;
     var tt = document.createElement("p"); tt.className = "schema-titre"; tt.textContent = "Modules d'Young (GPa) : plus la tige est rigide, moins l'os travaille"; boite.appendChild(tt);
-    var data = [["Os", 20], ["Nitinol", 48], ["Titane", 110], ["Tantale", 190], ["Inox 316L", 200], ["Cobalt-chrome", 230]];
+    var data = [["Os", 20], ["Nitinol", 48], ["Titane", 110], ["Tantale", 190], ["Inox 316L", 210], ["Cobalt-chrome", 230]];
     var svg = el("svg", { viewBox: "0 0 1000 " + (data.length * 46 + 20), role: "img", "aria-label": "échelle des modules" }, boite);
     data.forEach(function (d, i) {
       var y = 10 + i * 46, w = d[1] / 230 * 700;
