@@ -94,6 +94,11 @@ for (const id of modules) {
     const slug = path.basename(f, ".html"), html = lire(f);
     if (!(P.cours || []).some(c => c.id === slug)) err(`${f} absente de la liste cours de module.js`);
     if (!html.includes(`data-module="${id}"`)) err(`${f} : <html data-module="${id}"> manquant`);
+    // listes, tableaux et blocs bien fermés (une balise fermante orpheline casse la mise en page de la page de chapitre)
+    for (const t of ["ul", "ol", "table", "details", "figure", "section"]) {
+      const o = (html.match(new RegExp(`<${t}[\\s>]`, "g")) || []).length, fe = (html.match(new RegExp(`</${t}>`, "g")) || []).length;
+      if (o !== fe) err(`${f} : ${o} <${t}> pour ${fe} </${t}>`);
+    }
     // page d'un lab (chapitre lab: true) : des étapes à suivre, pas la structure d'une notion
     const c0 = (P.cours || []).find(c => c.id === slug), chLab = c0 && P.chapitres.find(ch => ch.id === c0.chapitre && ch.lab);
     if (chLab) {
