@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Automatisation et informatisation du laboratoire (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 7 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Automatisation et informatisation du laboratoire</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-7.html">Lire le cours complet</a></p>
+<h2>L'automatisation</h2>
+<p>L'<strong>automatisation</strong> : un appareil réalise beaucoup d'examens avec une intervention minimale de l'opérateur, sans augmenter les effectifs en proportion.</p>
+<ul>
+<li>Trois âges : <strong>fixe</strong> (une tâche), <strong>programmable</strong> (plusieurs tâches), <strong>intelligente</strong> (se surveille seule).</li>
+<li><strong>Automate</strong> : machine isolée. <strong>Laboratoire automatisé</strong> : tout le circuit relié par convoyeurs et logiciels (ex. cobas 8100).</li>
+<li>Avantages : moins de variabilité et d'erreurs, meilleure reproductibilité.</li>
+<li>Elle englobe le transport, le chargement, l'évaluation des résultats et le stockage.</li>
+</ul>
+<p>Chaînes d'automatisation totale (TLA) : Abbott (GLP systems), Beckman Coulter (Power Express), Roche (CCM), Siemens (Aptio), Thermo Fisher (TCAutomation).</p>
+
+<h2>Le LIS et le SIH</h2>
+<p>Le <strong>LIS</strong> (SIL, LIMS) pilote le laboratoire : échantillons et codes-barres, connexion aux automates, dossiers, qualité (ISO 15189 : qui a fait quoi, quand, avec quel instrument), comptes rendus.</p>
+<p>Le <strong>SIH</strong> a trois couches : <strong>clinique</strong> (dossier, prescriptions, résultats), <strong>administrative et financière</strong> (admissions, facturation), <strong>technique et logistique</strong> (réseaux, serveurs, sécurité).</p>
+<div class="schema" id="sc-sih-lis"></div>
+
+<h2>L'automate d'étiquetage</h2>
+<p>Il colle une étiquette droite, sans pli ni bulle, à la bonne hauteur : sécurité et traçabilité, gain de temps, précision, moins de manipulations.</p>
+<div class="schema" id="sc-etiquetage"></div>
+<ul>
+<li><strong>Thermique directe</strong> : sans ruban, mais l'impression s'altère (lumière, chaleur, frottements).</li>
+<li><strong>Transfert thermique</strong> : la tête fait fondre l'encre d'un ruban sur l'étiquette.</li>
+<li>Au laboratoire : transfert thermique sur <strong>ruban en résine pure</strong>, lisible après −80 °C, azote liquide et centrifugation, insensible aux solvants et au sang.</li>
+</ul>
+<p>Entretien : chaque jour (surfaces, tête à l'alcool isopropylique, rouleaux), chaque semaine (capteurs, bande), chaque mois à trimestre (lubrification, calibration).</p>
+
+<h2>Le transport pneumatique</h2>
+<p>Un réseau de tubes (PVC, 110 ou 160 mm) où des cartouches sont poussées ou aspirées par des turbines, avec des aiguillages et un logiciel de contrôle.</p>
+<ul>
+<li><strong>Freinage</strong> : coussin d'air (une vanne se ferme, l'air piégé freine la cartouche), puis amortisseurs.</li>
+<li>Environ <strong>5,5 m/s</strong>, avec ralentissement près des stations contre l'hémolyse.</li>
+<li>Cartouches : <strong>rouge</strong> urgence (STAT), bleu ou vert routine, <strong>jaune</strong> risque biologique.</li>
+<li>Filtres HEPA, 8 à 11 stations par ligne, priorité aux urgences (gaz du sang, troponines).</li>
+<li>Maintenance préventive (souvent annuelle) et corrective (condensats, cartouches coincées).</li>
+</ul>
+
+<h2>Robots coursiers et caissons</h2>
+<p><strong>Robot coursier</strong> : environ 9 km/h, cartographie SLAM, LiDAR et caméras, ascenseurs par Wi-Fi, casiers verrouillés par code ou badge, batteries avec BMS.</p>
+<p><strong>Caisson</strong> : <strong>triple emballage</strong> (ONU 3373, ADR) et traçabilité (ISO 15189) : enregistreurs de température, capteurs connectés qui alertent hors de +2 / +8 °C, RFID, codes-barres, GPS.</p>
+
+<h2>Le tri pré-analytique</h2>
+<div class="schema" id="sc-tri"></div>
+<ul>
+<li>Caméra 3D : type de tube par ses dimensions et la <strong>couleur du bouchon</strong>.</li>
+<li><strong>Gel-Check</strong> : barrière de gel et indices de sérum (hémolyse, ictère, lipémie).</li>
+<li>Le tube <strong>EDTA (NFS)</strong> ne passe pas par la centrifugeuse.</li>
+<li>Plus de <strong>1 000 tubes par heure</strong>, pistes magnétiques sans secousse, décapsulage en circuit fermé (moins d'aérosols).</li>
+<li>Un capteur de pression détecte un <strong>caillot</strong> pendant l'aspiration, arrête et alerte.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Différence entre un automate et un laboratoire automatisé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Automate : un équipement isolé qui fait une ou plusieurs étapes.</p><p>Laboratoire automatisé : tout le circuit, de la réception à la validation, relié par convoyeurs et logiciels.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Cite les trois âges de l'automatisation.</p><details class="corrige"><summary>Voir la réponse</summary><p>Fixe, programmable, intelligente.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelles sont les trois couches du SIH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Clinique.</p><p>Administrative et financière.</p><p>Technique et logistique.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Dans quel sens circulent la prescription et le résultat entre SIH et LIS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La prescription va du SIH vers le LIS.</p><p>Le résultat validé revient du LIS vers le SIH.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Par quels protocoles les automates parlent-ils au LIS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>HL7 ou ASTM, souvent par un middleware.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi le transfert thermique sur résine, et pas la thermique directe, pour les tubes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La thermique directe s'altère avec le temps, la lumière, le froid et les frottements.</p><p>Le transfert sur résine reste lisible après −80 °C, la centrifugation, les solvants et le sang.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Comment une cartouche pneumatique est-elle freinée à l'arrivée ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une vanne d'échappement se ferme : l'air piégé devant la cartouche se comprime et la freine (coussin d'air).</p><p>Puis des amortisseurs absorbent le reste.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Que signifient les cartouches rouges et jaunes ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rouge : urgence vitale (STAT).</p><p>Jaune : risque biologique.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Quels sont les trois emballages d'un caisson de transport ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Récipient primaire étanche avec absorbant.</p><p>Récipient secondaire rigide ou étanche.</p><p>Emballage extérieur rigide, souvent isotherme.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Un trieur reçoit un tube EDTA, un tube sec et un citrate. Lesquels vont à la centrifugeuse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le tube sec et le citrate.</p><p>L'EDTA (NFS) part directement en hématologie, sans centrifugation.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-8.html"><small>Version courte suivante</small>Maintenance et gestion des équipements</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 7) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

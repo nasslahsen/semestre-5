@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Échantillons et phase pré-analytique (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 2 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Échantillons et phase pré-analytique</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-2.html">Lire le cours complet</a></p>
+<h2>Les échantillons</h2>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Ce que c'est</th><th>Tube</th></tr>
+<tr><td>Sang total</td><td>cellules et plasma</td><td>anticoagulant (EDTA, citrate, héparine)</td></tr>
+<tr><td>Plasma</td><td>liquide du sang anticoagulé, centrifugé</td><td>EDTA, citrate ou héparine</td></tr>
+<tr><td>Sérum</td><td>liquide après coagulation complète, centrifugé</td><td>tube sec ou à gel</td></tr>
+</table></div>
+<p>Le sérum a perdu les protéines de la coagulation (consommées par le caillot) : la coagulation se dose sur <strong>plasma citraté</strong>, la numération sur <strong>sang total</strong>.</p>
+<p>Urines : <strong>premier jet</strong> (cytologie), <strong>milieu de jet</strong> après toilette (ECBU), <strong>stériles</strong> (cathétérisme, ponction sus-pubienne), <strong>24 heures</strong> (bilan métabolique). Autres : selles, crachats, LCR (stérile, immédiat), liquides de ponction, moelle, biopsies, écouvillons.</p>
+
+<h2>Prélever</h2>
+<p><strong>Avant</strong> : vérifier la prescription, identifier le patient, jeûne de 8 à 12 h (bilan lipidique et glycémique), noter les traitements, préparer des tubes non périmés (la couleur du bouchon dit l'additif).</p>
+<div class="schema" id="sc-ordre"></div>
+<p><strong>Pendant</strong> :</p>
+<ul>
+<li>garrot <strong>moins d'une minute</strong> (sinon hémolyse et stase) ;</li>
+<li>tube citrate rempli jusqu'au <strong>trait de jauge</strong> ;</li>
+<li><strong>8 à 10 retournements doux</strong>, jamais secouer.</li>
+</ul>
+<p><strong>Après</strong> : étiqueter <strong>au chevet, tout de suite</strong>, jamais à l'avance ni hors de la présence du patient ; aiguilles au collecteur <strong>DASRI jaune</strong> ; noter date et heure.</p>
+
+<h2>Identifier et tracer</h2>
+<p>Mentions obligatoires (CSP, art. D. 6211-2) :</p>
+<ul>
+<li><strong>Patient</strong> : nom de naissance, nom d'usage, prénoms, date de naissance, sexe, numéro unique.</li>
+<li><strong>Préleveur</strong> : nom, qualité, numéro RPPS ou ADELI.</li>
+<li><strong>Échantillon</strong> : examen, date et heure, conditions (jeûne, traitement).</li>
+</ul>
+<p>Chaîne de traçabilité : prélèvement → transport → réception → enregistrement → analyse → résultat → archivage. Les dérivés (ADN, aliquotes) restent liés au tube d'origine. Données gardées <strong>au moins 5 ans</strong>. L'<strong>ISO 15189</strong> exige une procédure d'identification et la gestion des non-conformités.</p>
+<p><strong>Règle absolue</strong> : non identifié ou mal identifié, jamais analysé. On le détruit et on refait le prélèvement.</p>
+
+<h2>Conserver et transporter</h2>
+<div class="tableau"><table>
+<tr><th>Température</th><th>Usage</th></tr>
+<tr><td>15 à 25 °C</td><td>transport court, hématologie, cytologie</td></tr>
+<tr><td>+2 à +8 °C</td><td>courte durée : biochimie, sérologie, ECBU</td></tr>
+<tr><td>−20 °C</td><td>moyenne durée : aliquotes de sérum ou plasma</td></tr>
+<tr><td>−70 à −80 °C</td><td>longue durée : biologie moléculaire, virologie</td></tr>
+<tr><td>−196 °C (azote liquide)</td><td>cellules et tissus, PMA</td></tr>
+</table></div>
+<p>Les cas particuliers à connaître :</p>
+<ul>
+<li><strong>Gaz du sang</strong> : glace, analyse en moins de 30 min.</li>
+<li><strong>Hémoculture</strong> : 35 à 37 °C, <strong>jamais au froid</strong>.</li>
+<li><strong>Coagulation</strong> : ambiante, moins de 4 h.</li>
+<li><strong>Ammoniémie</strong> : glace, immédiat.</li>
+<li><strong>Urines</strong> : 2 h, sinon +4 °C au plus 24 h.</li>
+</ul>
+<p>Transport : <strong>triple emballage</strong> (UN 3373) et bordereau séparé des tubes. Éviter les <strong>cycles de congélation et décongélation</strong>.</p>
+
+<h2>Réfrigérateurs et congélateurs</h2>
+<p>Classes : conservateurs <strong>2 à 8 °C</strong>, basse température <strong>−15 à −35 °C</strong>, ultra-basse température <strong>−60 à −86 °C</strong>. Un réfrigérateur ne fabrique pas de froid : il déplace la chaleur.</p>
+<div class="schema" id="sc-froid"></div>
+<p>Entretien : intérieur et <strong>joint</strong> chaque trimestre (test de la bande de papier de 5 cm), <strong>condenseur</strong> et dégivrage tous les six mois. Alarmes à <strong>± 10 %</strong> de la température de fonctionnement. Prise directe avec terre, jamais de multiprise.</p>
+
+<h2>Centrifuger</h2>
+<p>La centrifugation sépare selon la <strong>densité</strong> et la <strong>taille</strong>. La force dépend de la vitesse et du rayon : on l'exprime en × g.</p>
+\[ \text{RCF} = 1{,}118 \times 10^{-5} \times r\,(\text{cm}) \times N^2\,(\text{tr/min}) \]
+<ul>
+<li>Sérum ou plasma : <strong>2 000 à 2 500 × g, 10 à 15 min</strong> ; pour le sérum, attendre 30 à 60 min de coagulation.</li>
+<li>PBMC : Ficoll (1,077 g/mL), 400 à 450 × g, 30 min, <strong>frein désactivé</strong>.</li>
+<li>Aliquotes de 200 à 500 µL.</li>
+<li>Toujours <strong>équilibrer</strong> : masses égales face à face.</li>
+</ul>
+<p>Rotors : <strong>angle fixe</strong> (20 à 45°, usage courant), <strong>godets oscillants</strong> (meilleure résolution), <strong>verticaux</strong> (temps court), quasi verticaux (gradients). Jamais ouvrir en marche ni freiner à la main ; désinfecter avant toute intervention. Préventif : chaque mois (propreté, couvercle, joints), chaque année (commandes, température, minuteur à ± 10 %, frein).</p>
+
+<h2>Les erreurs pré-analytiques</h2>
+<p><strong>60 à 70 %</strong> des erreurs totales. Coût de la non-qualité : environ <strong>25 %</strong> du budget des consommables de prélèvement. Cause principale : la <strong>formation insuffisante</strong>.</p>
+<div class="schema" id="sc-erreurs"></div>
+<ul>
+<li>Citrate sous-rempli : TP et TCA faussés.</li>
+<li>Garrot de plus d'une minute : protéines, potassium, lactate augmentés.</li>
+<li>Délai avant centrifugation : glucose diminué (consommé par les cellules).</li>
+<li>Lumière : bilirubine, vitamines, porphyrines dégradées.</li>
+</ul>
+<p>Prévention : formation, procédures, audits et indicateurs (taux de rejets), traçabilité informatisée, matériel adapté, communication.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelle différence entre plasma et sérum ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Plasma : liquide du sang anticoagulé, centrifugé.</p><p>Sérum : liquide qui reste après coagulation complète, centrifugé : il n'a plus les protéines de la coagulation.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Donne l'ordre de remplissage des tubes (CLSI).</p><details class="corrige"><summary>Voir la réponse</summary><p>Hémoculture, tube sec, citrate, héparine, EDTA, fluorure, autres additifs.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi le garrot doit-il rester moins d'une minute ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Au-delà, la stase veineuse augmente protéines, potassium et lactate, et il y a un risque d'hémolyse.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quelle est l'erreur majeure d'étiquetage à éviter ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Étiqueter les tubes à l'avance, ou hors de la présence du patient.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Un tube arrive mal identifié. Que fait-on ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On ne l'analyse pas.</p><p>On le détruit selon la procédure.</p><p>On demande un nouveau prélèvement.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Comment conserver une hémoculture ? Un gaz du sang ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Hémoculture : 35 à 37 °C, jamais au réfrigérateur.</p><p>Gaz du sang : dans la glace, analysé en moins de 30 minutes.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Quels sont les quatre éléments du circuit frigorifique, et le rôle de chacun ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Évaporateur : absorbe la chaleur de l'enceinte, le fluide se vaporise.</p><p>Compresseur : comprime la vapeur de BP à HP.</p><p>Condenseur : cède la chaleur à la pièce, le fluide redevient liquide.</p><p>Détendeur : fait chuter la pression.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Un rotor de 10 cm tourne à 4 000 tr/min. Quelle force centrifuge relative ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( \text{RCF} = 1{,}118 \times 10^{-5} \times r \times N^2 \)</p><p>\( \text{RCF} = 1{,}118 \times 10^{-5} \times 10 \times 4\,000^2 \)</p><p>\( \text{RCF} \approx 1\,789 \times g \)</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi centrifuge-t-on les PBMC frein désactivé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un freinage brutal perturberait le gradient de Ficoll, et l'anneau de cellules à l'interface se mélangerait.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Quelle part des erreurs vient du pré-analytique, et quelle en est la cause principale ?</p><details class="corrige"><summary>Voir la réponse</summary><p>60 à 70 % des erreurs totales.</p><p>Cause principale : une formation insuffisante du personnel, même expérimenté.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-3.html"><small>Version courte suivante</small>Technologies de biochimie clinique</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 2) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

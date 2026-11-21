@@ -23,6 +23,8 @@ PLATEFORME.parcours("laboratoire", {
       "Chapitre VIII : seulement le sommaire ; construit avec la présentation « Le laboratoire médical vu par l'ingénieur biomédical »."
     ]
   },
+  // Versions courtes (court/chapitre-<n>.html) : l'essentiel du chapitre, puis les questions d'examen ; accès sous le titre du chapitre.
+  court: [1, 2, 3, 4, 5, 7, 8],
   chapitres: [
     { id: 1, titre: "Le laboratoire médical", sous: "Missions, types, secteurs, circuit de l'échantillon, trois phases, biosécurité", ligne: "Missions, secteurs, circuit, phases, biosécurité" },
     { id: 2, titre: "Échantillons et phase pré-analytique", sous: "Types d'échantillons, prélèvement, identification, conservation, centrifugation, erreurs", ligne: "Prélever, identifier, conserver, centrifuger" },

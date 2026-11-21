@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Technologies d'hématologie et d'hémostase (version courte) · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Technologies d'hématologie et d'hémostase</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>L'hémogramme</h2>
+<p>L'examen le plus prescrit (NFS). Une partie est <strong>mesurée</strong>, l'autre <strong>calculée</strong> :</p>
+<ul>
+<li>Mesurés : <strong>GR, GB, PLT, Hb, VGM</strong>.</li>
+<li>Calculés : <strong>Ht, TCMH, CCMH, IDR</strong>.</li>
+</ul>
+\[ \text{Ht} = \frac{\text{GR} \times \text{VGM}}{10} \qquad \text{TCMH} = \frac{\text{Hb} \times 10}{\text{GR}} \qquad \text{CCMH} = \frac{\text{Hb} \times 100}{\text{Ht}} \qquad \text{IDR} = \frac{\sigma_{\text{VGM}}}{\text{VGM}} \times 100 \]
+<p>Unités : GR en 10¹²/L, Hb en g/dL, VGM en fL, Ht en %, TCMH en pg. Histogramme des GR : une cloche centrée sur le VGM (environ 90 fL) ; plus elle est large, plus l'IDR est grand.</p>
+
+<h2>L'impédance (principe de Coulter)</h2>
+<p>Le sang dilué dans un liquide conducteur passe par un micro-orifice entre deux électrodes. Chaque cellule fait une <strong>impulsion</strong> : on compte les impulsions, et leur <strong>amplitude est proportionnelle au volume</strong>.</p>
+<ul>
+<li>Seuils : <strong>plaquettes 2 à 20 fL</strong>, bruit 20 à 35 fL, <strong>GR 35 à 360 fL</strong>.</li>
+<li><strong>Coïncidence</strong> : deux cellules ensemble comptent pour une ; correction \( N_c = N_m \, e^{N_m \tau} \).</li>
+<li>Référence pour GR et plaquettes ; ne différencie pas finement les GB ; sensible aux agrégats et aux fragments.</li>
+</ul>
+
+<h2>La cytométrie en flux</h2>
+<p>Le <strong>liquide de gaine</strong> aligne les cellules une par une devant un laser (488 nm).</p>
+<ul>
+<li><strong>FSC</strong> (0 à 10°) : la <strong>taille</strong>.</li>
+<li><strong>SSC</strong> (90°) : la <strong>granulosité</strong>.</li>
+<li><strong>Fluorescences</strong> FL1 à FL4 : acides nucléiques, ARN, ADN, marquages.</li>
+</ul>
+<p>FSC/SSC séparent 3 populations (lymphocytes, monocytes, granulocytes) ; avec la fluorescence, 5 (neutrophiles, éosinophiles, basophiles en plus). L'<strong>hémoglobine</strong> se dose par spectrophotométrie à 525 à 550 nm après lyse.</p>
+
+<h2>L'automate d'hématologie</h2>
+<div class="schema" id="sc-hemato"></div>
+<p>Types : impédance (Sysmex KX-21), optique (CELL-DYN, ADVIA), <strong>mixtes</strong> (la majorité des modernes : Sysmex XN, DxH). Paillasse : moins de 60 tests/h ; grande série : plus de 100 tests/h.</p>
+<p>Bonnes pratiques : <strong>EDTA</strong> K2/K3, analyse en <strong>moins de 4 h</strong>, 20 à 25 °C, retournements doux. Onduleur avec terre, 50 cm du mur, 10 min de chauffe, pas de bulles dans les tuyaux.</p>
+<div class="tableau"><table>
+<tr><th>Fréquence</th><th>Maintenance</th></tr>
+<tr><td>Jour</td><td>nettoyage, contrôle de qualité, réactifs</td></tr>
+<tr><td>Semaine</td><td>sondes, pompes, bacs de mesure</td></tr>
+<tr><td>Mois</td><td>filtres, calibration</td></tr>
+<tr><td>Semestre</td><td>cordons des pompes</td></tr>
+<tr><td>An</td><td>maintenance constructeur, métrologie, tuyaux, joints</td></tr>
+</table></div>
+
+<h2>Qualité et interférences</h2>
+<p>CQ interne : <strong>au moins 2 niveaux</strong> (normal, pathologique), règles de <strong>Westgard</strong>, graphique de <strong>Levey-Jennings</strong>.</p>
+<div class="tableau"><table>
+<tr><th>Interférence</th><th>Effet</th><th>Pourquoi</th></tr>
+<tr><td>Agrégats plaquettaires</td><td>PLT ↓ GB ↑</td><td>amas comptés comme GB</td></tr>
+<tr><td>Hyperlipémie, bilirubine</td><td>Hb ↑</td><td>trouble ou absorbance parasite</td></tr>
+<tr><td>Schizocytes</td><td>PLT ↑</td><td>fragments de la taille d'une plaquette</td></tr>
+<tr><td>Cryoglobulines</td><td>GB ↑ Hb ↑</td><td>précipitation</td></tr>
+<tr><td>Caillots</td><td>GR ↓ PLT ↓</td><td>échantillon non homogène</td></tr>
+<tr><td>Dilution (perfusion)</td><td>tout ↓</td><td>prélèvement non conforme</td></tr>
+</table></div>
+<p>Vérifier si GB &lt; 2,0 × 10⁹/L, PLT &lt; 50 × 10⁹/L (lame), Hb &lt; 7 g/dL. <strong>L'automate mesure, le biologiste interprète</strong> et reste le garant.</p>
+
+<h2>L'hémostase</h2>
+<div class="schema" id="sc-hemostase"></div>
+<p>Hémostase primaire : <strong>vasoconstriction</strong>, <strong>adhésion</strong> (le facteur de von Willebrand relie collagène et plaquettes), <strong>activation</strong>, <strong>agrégation</strong> (ponts de fibrinogène) : le clou plaquettaire.</p>
+<div class="schema" id="sc-coagulation"></div>
+<ul>
+<li><strong>Prothrombinase</strong> (Xa, Va, phospholipides, Ca²⁺) : 100 000 fois plus active que le Xa seul.</li>
+<li><strong>Vitamine K</strong> : facteurs II, VII, IX, X (les AVK les bloquent).</li>
+<li><strong>EDTA et citrate</strong> captent le Ca²⁺ : le sang ne coagule pas dans le tube.</li>
+<li>Inhibiteurs : antithrombine (renforcée par l'héparine), protéines C et S, TFPI.</li>
+<li>Fibrinolyse : la <strong>plasmine</strong> (activée par le tPA) dégrade la fibrine en PDF.</li>
+</ul>
+
+<h2>Les analyseurs de coagulation</h2>
+<p>Ils mesurent TP, TCA, fibrinogène, facteurs, inhibiteurs, dans des <strong>cupules à usage unique</strong> (pas de contamination croisée).</p>
+<ul>
+<li><strong>Viscosimétrie</strong> : une bille magnétique s'arrête quand le caillot se forme ; insensible à l'ictère et à l'hémolyse.</li>
+<li><strong>Chromogénique</strong> : un substrat libère une couleur jaune (pNA) ; antithrombine, facteur Xa.</li>
+<li><strong>Immunologique</strong> : latex et turbidité ; D-dimères.</li>
+</ul>
+\[ \text{INR} = \left( \frac{\text{TP}_{\text{patient}}}{\text{TP}_{\text{témoin}}} \right)^{\text{ISI}} \]
+<p>L'<strong>ISI</strong> est propre à chaque lot de réactif : l'INR rend le suivi des AVK comparable d'un laboratoire à l'autre. Fibrinogène (Clauss) : plus il y en a, plus le caillot est rapide (droite log-log).</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quels paramètres de l'hémogramme sont mesurés, lesquels sont calculés ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Mesurés : GR, GB, plaquettes, hémoglobine, VGM.</p><p>Calculés : hématocrite, TCMH, CCMH, IDR.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> GR = 5,0 × 10¹²/L et VGM = 84 fL. Quel hématocrite ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( \text{Ht} = \text{GR} \times \text{VGM} / 10 \)</p><p>\( \text{Ht} = 5{,}0 \times 84 / 10 \)</p><p>\( \text{Ht} = 42 \) %</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Explique le principe de Coulter en deux phrases.</p><details class="corrige"><summary>Voir la réponse</summary><p>Chaque cellule qui passe dans le micro-orifice augmente un instant l'impédance : une impulsion par cellule, on les compte.</p><p>L'amplitude de l'impulsion est proportionnelle au volume de la cellule.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Une impulsion correspond à 15 fL. Qu'est-ce que c'est ? Et à 90 fL ?</p><details class="corrige"><summary>Voir la réponse</summary><p>15 fL : une plaquette (2 à 20 fL).</p><p>90 fL : un globule rouge (35 à 360 fL).</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> En cytométrie en flux, que mesurent FSC et SSC ?</p><details class="corrige"><summary>Voir la réponse</summary><p>FSC, diffusion vers l'avant : la taille.</p><p>SSC, diffusion à 90° : la granulosité.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Plaquettes basses et GB un peu hauts chez un patient qui ne saigne pas. Que soupçonnes-tu, et que fais-tu ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Des agrégats plaquettaires, comptés comme des globules blancs.</p><p>Contrôle sur lame (PLT &lt; 50 × 10⁹/L).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi un plasma laiteux fausse-t-il l'hémoglobine ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'hémoglobine se dose par absorbance : la turbidité de la lipémie augmente l'absorbance, donc Hb ↑.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Cite les trois temps de l'hémostase avec leur durée.</p><details class="corrige"><summary>Voir la réponse</summary><p>Hémostase primaire : 3 à 5 min.</p><p>Coagulation : 5 à 10 min.</p><p>Fibrinolyse : 48 à 72 h.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi le sang ne coagule-t-il pas dans un tube citrate ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le citrate capte le Ca²⁺, indispensable à plusieurs étapes de la coagulation.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> TP patient 30 s, témoin 12 s, ISI 1,0. Quel INR ? Pourquoi l'ISI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( \text{INR} = (\text{TP}_{\text{patient}}/\text{TP}_{\text{témoin}})^{\text{ISI}} \)</p><p>\( \text{INR} = (30/12)^{1{,}0} \)</p><p>\( \text{INR} = 2{,}5 \)</p><p>L'ISI corrige la sensibilité du réactif : il rend l'INR comparable entre laboratoires.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-5.html"><small>Version courte suivante</small>Microscopes et agitateurs chauffants</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("laboratoire") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("laboratoire", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
