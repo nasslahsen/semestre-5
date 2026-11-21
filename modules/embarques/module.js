@@ -69,7 +69,7 @@ PLATEFORME.parcours("embarques", {
     { id: 13, lab: true, numero: "Lab 5", titre: "ThingSpeak : MATLAB Analysis et React", ligne: "Calculer un état, réagir aux données", sousModule: "instrumentation" },
     { id: 14, lab: true, numero: "Lab 6", titre: "MQTT sur l'ESP32 : LED et température", ligne: "Broker public, LED pilotée, mesure", sousModule: "instrumentation" },
     { id: 15, lab: true, numero: "Lab 7", titre: "ECG en Bluetooth depuis l'ESP32", ligne: "Simulateur ECG, liaison Bluetooth", sousModule: "instrumentation" },
-    { id: 16, td: true, numero: "TD 1", titre: "TD 1 : semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" }
+    { id: 16, td: true, numero: "TD 1", titre: "Semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -202,7 +202,7 @@ PLATEFORME.parcours("embarques", {
     { id: "lab6-tester", chapitre: 14, titre: "Piloter la LED, lire la température", notions: ["lab-mqtt-tester"] },
     { id: "lab7-code", chapitre: 15, titre: "Le simulateur ECG", notions: ["lab-ecg-code"] },
     { id: "lab7-afficher", chapitre: 15, titre: "Recevoir et tracer l'ECG", notions: ["lab-ecg-afficher"] },
-    { id: "td1", chapitre: 16, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
+    { id: "td1", chapitre: 16, titre: "Où chercher chaque réponse", notions: ["td1"] },
     { id: "td1-corrige", chapitre: 16, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
   ],
   cours: [
@@ -270,7 +270,7 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 14, id: "lab-mqtt-tester", titre: "Piloter la LED, lire la température" },
     { chapitre: 15, id: "lab-ecg-code", titre: "Lab 2 : Bluetooth Biomedical Data Communication" },
     { chapitre: 15, id: "lab-ecg-afficher", titre: "Recevoir et tracer l'ECG" },
-    { chapitre: 16, id: "td1", titre: "TD 1 : les réponses dans le cours" },
-    { chapitre: 16, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
+    { chapitre: 16, id: "td1", titre: "Les réponses dans le cours" },
+    { chapitre: 16, id: "td1-corrige", titre: "Énoncé et corrigé" }
   ]
 });

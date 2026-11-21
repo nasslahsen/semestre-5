@@ -27,7 +27,7 @@ PLATEFORME.parcours("architecture", {
     { id: 4, titre: "L'air du bloc", sous: "Objectifs de la ventilation, pression, renouvellement, distribution, filtration", ligne: "Pression, renouvellement, filtration" },
     { id: 5, titre: "Énergie, lumière, fluides et réseaux", sous: "Électricité, éclairage, fluides médicaux, réseaux, plafond technique", ligne: "Électricité, éclairage, fluides, réseaux" },
     { id: 6, titre: "Équipements, sécurité et méthode", sous: "Intégration biomédicale, sécurité, normes, méthode en dix étapes, erreurs à éviter", ligne: "Intégration, sécurité, normes, méthode" },
-    { id: 7, td: true, numero: "TD 1", titre: "TD 1 : bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD", ligne: "QCM, calcul et études de cas" }
+    { id: 7, td: true, numero: "TD 1", titre: "Bloc opératoire", sous: "QCM, calcul de renouvellement d'air et quatre études de cas du TD", ligne: "QCM, calcul et études de cas" }
   ],
   niveaux: [
     { id: "architecture-hospitaliere", chapitre: 1, titre: "Ce que l'architecture organise", cours: true, pret: true },
@@ -73,10 +73,10 @@ PLATEFORME.parcours("architecture", {
     { id: "revision-conception", chapitre: 6, titre: "Révision : équipements, sécurité, méthode", revision: true, pret: true },
     { id: "boss-conception", chapitre: 6, titre: "Le dossier du nouveau bloc", boss: true, pret: true },
 
-    { id: "td1", chapitre: 7, titre: "TD 1 : questions de cours", cours: true, pret: true },
-    { id: "td-qcm-1", chapitre: 7, titre: "TD 1 : QCM, questions 1 à 5", pret: true },
-    { id: "td-qcm-2", chapitre: 7, titre: "TD 1 : QCM, questions 6 à 10", pret: true },
-    { id: "td-calcul", chapitre: 7, titre: "TD 1 : débit et renouvellement d'air", pret: true },
+    { id: "td1", chapitre: 7, titre: "Questions de cours", cours: true, pret: true },
+    { id: "td-qcm-1", chapitre: 7, titre: "QCM, questions 1 à 5", pret: true },
+    { id: "td-qcm-2", chapitre: 7, titre: "QCM, questions 6 à 10", pret: true },
+    { id: "td-calcul", chapitre: 7, titre: "Débit et renouvellement d'air", pret: true },
     { id: "td-cas-flux", chapitre: 7, titre: "Cas 1 : réorganiser un bloc", pret: true },
     { id: "td-cas-air", chapitre: 7, titre: "Cas 2 : température et humidité", pret: true },
     { id: "td-cas-hybride", chapitre: 7, titre: "Cas 3 : projet de salle hybride", pret: true },
@@ -104,7 +104,7 @@ PLATEFORME.parcours("architecture", {
     { id: "integration-securite", chapitre: 6, titre: "Intégration biomédicale et sécurité", notions: ["integration-biomedicale", "securite"] },
     { id: "normes", chapitre: 6, titre: "Normes et référentiels", notions: ["normes"] },
     { id: "methode-ingenieur", chapitre: 6, titre: "Méthode de conception et rôle de l'ingénieur", notions: ["methode-conception", "ingenieur-erreurs"] },
-    { id: "td1", chapitre: 7, titre: "TD 1 : bloc opératoire", notions: ["td1"] }
+    { id: "td1", chapitre: 7, titre: "Bloc opératoire", notions: ["td1"] }
   ],
   cours: [
     { chapitre: 1, id: "architecture-hospitaliere", titre: "Ce que l'architecture hospitalière organise" },
@@ -132,6 +132,6 @@ PLATEFORME.parcours("architecture", {
     { chapitre: 6, id: "normes", titre: "Normes et référentiels à connaître" },
     { chapitre: 6, id: "methode-conception", titre: "Méthode de conception et validation" },
     { chapitre: 6, id: "ingenieur-erreurs", titre: "Rôle de l'ingénieur biomédical et erreurs fréquentes" },
-    { chapitre: 7, id: "td1", titre: "TD 1 : questions, calcul et synthèse" }
+    { chapitre: 7, id: "td1", titre: "Questions, calcul et synthèse" }
   ]
 });
