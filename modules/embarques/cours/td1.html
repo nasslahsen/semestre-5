@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>TD 1 : les réponses dans le cours · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>TD 1 : les réponses dans le cours</h1>
+<p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » reprend la semelle du chapitre 1 et descend jusqu'à l'électronique : on vérifie que les capteurs de force tiennent le poids du patient, on règle le banc qui les caractérise, puis on dimensionne le montage qui les lit un par un. Cette page te dit où chercher chaque réponse, et ce que le cours reçu ne couvre pas encore.</p>
+
+<h2>Intuition</h2>
+<p>Un capteur de la semelle est une <strong>résistance qui baisse quand on appuie</strong>. Pour le lire, le microcontrôleur choisit un des 8 capteurs avec un <strong>multiplexeur analogique</strong> (trois fils de commande S1, S2, S3, un nombre binaire de 0 à 7), puis un amplificateur opérationnel transforme cette résistance en une tension \(V_A\) que l'ADC convertit.</p>
+<p>Tout le TD tourne autour de deux vérifications : la grandeur reste-t-elle dans la plage (du capteur, puis de l'ADC entre 0 et 3,3 V) ? Et lit-on assez vite pour suivre un pas ?</p>
+<div id="fig-td1"></div>
+
+<h2>Formalisation</h2>
+<div class="tableau"><table>
+<tr><th>Questions</th><th>Ce qu'on demande</th><th>Où chercher</th></tr>
+<tr><td>1 à 3</td><td>surface d'un capteur, force et pression maximales, patient de 70 kg</td><td><a href="semelle.html">Exemple 1 : la semelle</a> (cotes du capteur, fiche : 500 g à 10 kg)</td></tr>
+<tr><td>4 à 6</td><td>capteur FUTEK LSB200 : schéma, 4 fils, technologie, caractéristique \(V_o(P)\)</td><td>pas dans le cours reçu : capteurs et pont de Wheatstone sont au programme mais pas encore envoyés ; la fiche DT2 non plus</td></tr>
+<tr><td>7 et 8</td><td>gain de l'INA128, valeur de \(R_G\), CMR</td><td>pas dans le cours reçu (amplificateur d'instrumentation) ; la formule du gain vient de la fiche du circuit, rappelée dans le corrigé</td></tr>
+<tr><td>9</td><td>modèle \(R_{FSR}(F) = R_0 + \beta / F\) à partir de la courbe DR1</td><td>DR1 pas reçu : le corrigé donne la méthode</td></tr>
+<tr><td>10 à 12</td><td>multiplexeur parfait, entrée /E, expression de \(V_A\)</td><td><a href="binaire.html">Bits et binaire</a> (le code S3 S2 S1), <a href="gpio.html">GPIO</a> (les sorties P1.0 à P1.2) ; l'AOP et le multiplexeur ne sont pas dans le cours reçu</td></tr>
+<tr><td>13 et 14</td><td>chronogramme de S1 à S3, débit binaire, rôle de \(C_F\)</td><td><a href="adc.html">ADC</a> (résolution, échantillonnage), <a href="signaux.html">Signaux logiques et horloge</a></td></tr>
+</table></div>
+<p>Trois idées suffisent pour presque tout le TD :</p>
+<ul>
+<li>une pression, c'est une force sur une surface : \(P = F/S\), et 1 N/mm² = 1 MPa ;</li>
+<li>dans le montage de la figure 5, l'entrée + est fixée par le pont \(R_A\), \(R_B\), et le courant qui traverse le capteur traverse aussi \(R_G\) ;</li>
+<li>8 capteurs lus l'un après l'autre : chaque voie n'a que le huitième de la période d'échantillonnage.</li>
+</ul>
+
+<div class="schema" id="sc-td1-chaine"></div>
+
+<h2>Exemple</h2>
+<p>Exemple ajouté, avec une valeur de résistance qui n'est pas celle du TD : le capteur sélectionné vaut \(R_{FSR} = 150\) kΩ.</p>
+\[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
+\[V^+ = 3{,}3 \times \frac{10}{110 + 10} = 0{,}275\ \text{V}\]
+\[V_A = V^+ \left(1 + \frac{R_G}{R_{FSR}}\right)\]
+\[V_A = 0{,}275 \times \left(1 + \frac{750}{150}\right) = 1{,}65\ \text{V}\]
+<p>1,65 V : au milieu de la plage de l'ADC. Plus on appuie, plus \(R_{FSR}\) baisse et plus \(V_A\) monte.</p>
+
+<h2>Formules clés</h2>
+\[P = \frac{F}{S} \qquad V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR}}\right) \qquad G_{INA128} = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
+\[\text{débit} = N_{capteurs} \times f_e \times n_{bits} \qquad f_c = \frac{1}{2\pi R_G C_F}\]
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td1.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

@@ -910,6 +910,32 @@ test("instrumentation connectée : réponses attendues des niveaux et valeurs de
   assert.strictEqual("E" + tab[0] / 2 + "," + (tab[0] / 2 + 200), "E24,224");
 });
 
+test("embarques, TD 1 semelle : réponses des niveaux td1 et du corrigé", () => {
+  const fs = require("fs"), path = require("path");
+  const lireNiv = id => fs.readFileSync(path.join(__dirname, "../modules/embarques/niveaux/" + id + ".js"), "utf8");
+  const attendus = id => [...lireNiv(id).matchAll(/attendu: ([0-9.]+)/g)].map(m => Number(m[1]));
+  const g = 9.81;
+  // questions 1 à 3 : surface, force et pression maximales, patient de 70 kg
+  const S = 15 * 11 + Math.PI * 11 * 11 / 4, Fmax = 10 * g, Pmax = Fmax / (S * 1e-6) / 1000;
+  const [aS, aP] = attendus("td1");
+  proche(aS, S, 0.01); proche(aP, Pmax, 0.1); proche(Fmax, 98.1, 1e-9);
+  proche(70 * g / 16, 42.92, 0.01); proche(70 * g / 2, 343.35, 0.01);
+  // questions 6 et 7 : sensibilité supposée 2 mV/V sous 5 V, 1 V à 100 N, G = 1 + 50 kΩ / RG
+  const Vo = 2 * 5 * 100 / 445, G = 1000 / Vo, RG = 50000 / (G - 1);
+  const [aVo, aG, aRG] = attendus("td1-banc");
+  proche(aVo, Vo, 0.001); proche(aG, G, 1e-6); proche(aRG, RG, 0.02);
+  // questions 11 et 12 : voie 111 = 7, V+ par le pont, RFSR minimale pour VA = 3,3 V
+  const Vp = 3.3 * 10 / 120, Rmin = 750 / (3.3 / Vp - 1);
+  const [aK, aVp, aR] = attendus("td1-montage");
+  assert.strictEqual(aK, 0b111); proche(aVp, Vp, 1e-9); proche(aR, Rmin, 0.01);
+  proche(Vp * (1 + 750 / 150), 1.65, 1e-9); // exemple de la page td1
+  // questions 13 et 14 : cadence, durée d'une voie, débit, CF maximal
+  const fe = 120 / 60 * 20, tv = 1000 / fe / 8, D = 16 * fe * 8, CF = 3.125e-3 / (5 * 750e3) * 1e12;
+  const [aFe, aTv, aD, aCF] = attendus("td1-acquisition");
+  assert.strictEqual(aFe, fe); assert.strictEqual(aTv, tv); assert.strictEqual(aD, D); proche(aCF, CF, 0.05);
+  proche(1 / (2 * Math.PI * 750e3 * 470e-12), 451.5, 0.1);
+});
+
 test("robotique, corrigé du TD 1 : valeurs de la page td1-corrige", () => {
   const r = d => d * Math.PI / 180;
   const mgd = (L1, L2, a, b) => [L1 * Math.cos(r(a)) + L2 * Math.cos(r(a + b)), L1 * Math.sin(r(a)) + L2 * Math.sin(r(a + b))];

@@ -523,4 +523,36 @@ tous['boss-thingspeak'] = async (a) => {
 };
 }
 
+// TD 1 : semelle instrumentée, appui plantaire
+tous.td1 = async (a) => {
+  await a.nombres([260.03]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([377.3]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['td1-banc'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.jetons(['exc', 'sig']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([2.247]); await a.suite();
+  await a.nombres([445, 112.6]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['td1-montage'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([7]); await a.suite();
+  await a.nombres([0.275]); await a.suite();
+  await a.jetons(['rg', 'fsr']); await a.suite();
+  await a.nombres([68.18]); await a.suite();
+};
+tous['td1-acquisition'] = async (a) => {
+  await a.nombres([40]); await a.suite();
+  await a.nombres([3.125]); await a.suite();
+  await a.choix(3); await a.suite();
+  await a.nombres([5120]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([833.3]); await a.suite();
+};
+
 module.exports = tous;
