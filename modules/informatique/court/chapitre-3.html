@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le système d'information hospitalier (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le système d'information hospitalier</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>Définition et apports</h2>
+<p>Le <strong>SIH</strong> gère l'ensemble des informations médicales et administratives d'un hôpital : des modules en interaction pour <strong>rassembler</strong>, <strong>traiter</strong> et <strong>fournir</strong> l'information.</p>
+<p>Apports : pilotage des indicateurs, satisfaction des patients et des professionnels, qualité et sécurité des soins, respect des réglementations, maîtrise des coûts, partage de l'information entre services.</p>
+
+<h2>Les composants</h2>
+<div class="tableau"><table>
+<tr><th>Composant</th><th>Rôle</th></tr>
+<tr><td>DPI</td><td>saisir les données du patient (CIM-10, diagnostics, paramètres)</td></tr>
+<tr><td>Médico-administratif</td><td>RDV, admission, séjours, cotation et facturation (NGAP, NABM)</td></tr>
+<tr><td>Médico-technique</td><td>biologie, radiologie, pharmacie, transfusion</td></tr>
+<tr><td>Plateforme d'intégration</td><td>transporter les messages (HL7)</td></tr>
+<tr><td>SGBD</td><td>stocker</td></tr>
+<tr><td>Entrepôt de données</td><td>consolider pour l'analyse</td></tr>
+<tr><td>Portail / BI</td><td>tableaux de bord</td></tr>
+</table></div>
+
+<h2>Architecture en couches</h2>
+<p><strong>Présentation</strong> (modules RDV, consultation, biologie) → <strong>métiers</strong> (vigilances, aide à la prescription, protocoles) → <strong>données</strong> → <strong>interopérabilité interne</strong> (HL7 V2, MWL) → <strong>interopérabilité externe</strong> (DPI national, télémédecine, identité). Dans les centres hospitaliers publics, les modules échangent avec le <strong>DPP</strong> au centre ; à l'extérieur, la CNSS (éligibilité, recouvrement).</p>
+
+<h2>Au Maroc</h2>
+<p>Quatre éditeurs pour douze régions : <strong>Enova</strong> (5 régions), <strong>Sivsa</strong> (4), <strong>Belmed</strong> (2), <strong>Dedalus</strong> (1, Rabat-Salé-Kénitra).</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis le SIH.</p><details class="corrige"><summary>Voir la réponse</summary><p>Un SI qui gère les informations médicales et administratives d'un hôpital : des modules en interaction pour rassembler, traiter et fournir l'information.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Cite quatre apports d'un SIH.</p><details class="corrige"><summary>Voir la réponse</summary><p>Pilotage des indicateurs, satisfaction des patients, qualité et sécurité des soins, maîtrise des coûts (aussi : satisfaction des professionnels, partage de l'information).</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quel composant transporte les messages entre applications, et avec quel standard ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La plateforme d'intégration, avec HL7.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> À quoi sert l'entrepôt de données ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À consolider les données pour l'analyse et le pilotage.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quels modules sont médico-administratifs ?</p><details class="corrige"><summary>Voir la réponse</summary><p>RDV, admission, mouvements de séjour, cotation des actes et facturation (NGAP, NABM, TNR).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Donne les couches de l'architecture fonctionnelle d'un SIH.</p><details class="corrige"><summary>Voir la réponse</summary><p>Présentation, métiers, données, interopérabilité interne, interopérabilité externe.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Qu'y a-t-il au centre du SIH des centres hospitaliers publics ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le dossier patient partagé (DPP), avec lequel échangent les modules.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quels éditeurs équipent les régions du Maroc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Enova (5 régions), Sivsa (4), Belmed (2), Dedalus (1).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-4.html"><small>Version courte suivante</small>Les données de santé</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "sis") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

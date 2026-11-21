@@ -20,12 +20,11 @@
 <h1>Spécificités de la robotique médicale</h1>
 <p class="chapeau">Les mêmes technologies que dans l'industrie, mais de nouvelles exigences : la pièce est un patient qui respire, l'opérateur est au contact, et une erreur peut être irréversible.</p>
 
-<h2>Intuition</h2>
+<h2>Une cible qui bouge</h2>
 <p>Un robot industriel vise une pièce posée, immobile, toujours au même endroit. Un robot médical vise une cible dans un corps qui bouge : respiration, battements cardiaques, mouvements involontaires. S'il vise le point planifié sans suivre ce mouvement, il le manque. D'où le besoin d'une <strong>perception adaptative</strong> : imagerie en temps réel, recalage anatomique, suivi des mouvements physiologiques.</p>
 
 <div id="fig-respiration"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Robotique médicale</strong> : application particulière de la robotique dans laquelle les robots sont utilisés pour assister les professionnels de santé, améliorer la précision des interventions et faciliter la prise en charge des patients. Robotique médicale = robot + professionnel de santé + patient + environnement clinique.</p>
 <div class="tableau"><table>
 <tr><th>Critère</th><th>Robotique industrielle</th><th>Robotique médicale</th></tr>
@@ -68,15 +67,25 @@
 <h2>Classification et historique</h2>
 <p>Quatre critères complémentaires et indépendants : <strong>domaine</strong> (chirurgicaux, rééducation, exosquelettes et orthèses, assistance et mobilité, diagnostic et navigation, téléprésence, logistique hospitalière), <strong>autonomie</strong> (téléopérés, programmés, adaptatifs, autonomes supervisés), <strong>mode d'interaction</strong> (sans contact, contact externe, invasif, <strong>co-manipulation</strong>), <strong>fonction médicale</strong> (assister, diagnostiquer, traiter, rééduquer).</p>
 <figure class="photo duo"><img src="../images/rosa-one.jpg" alt="Bras robotique ROSA One, blanc, avec son guide d'instrument"><img src="../images/exosquelette-ekso.jpg" alt="Patient debout dans un exosquelette Ekso, aidé d'un kinésithérapeute"><img src="../images/cyberknife.jpg" alt="CyberKnife : bras robotique qui porte un accélérateur de radiothérapie"><figcaption>ROSA, cité dans le cours (chirurgie guidée) ; un exosquelette Ekso (rééducation de la marche) ; le CyberKnife, exemple ajouté (radiothérapie : un bras robotique déplace la source autour du patient).<small>Photos Wikimedia Commons : LucileBssg (CC BY-SA 4.0), AriceEB (CC BY-SA 4.0), St. Mary's of Michigan (CC BY 2.0).</small></figcaption></figure>
-<p>Historique : 1985, PUMA 200 pour une biopsie cérébrale guidée par scanner ; 1992, ROBODOC (prothèse de hanche) ; 1994–1996, AESOP (porte-endoscope, commande vocale) ; 1997–2000, da Vinci ; 1998–2001, ZEUS ; 2001, opération Lindbergh (téléchirurgie New York – Strasbourg) ; depuis 2010, Mako, ROSA, Lokomat, exosquelettes, micro-robots, IA. Écosystème : marché de plus de 16 milliards de dollars ; acteurs : patients et soignants, ingénieurs, fabricants, hôpitaux, autorités (au Maroc, l'AMMPS pour les dispositifs médicaux).</p>
+<p>Historique :</p>
+<ul>
+<li>1985, PUMA 200 pour une biopsie cérébrale guidée par scanner.</li>
+<li>1992, ROBODOC (prothèse de hanche).</li>
+<li>1994–1996, AESOP (porte-endoscope, commande vocale).</li>
+<li>1997–2000, da Vinci.</li>
+<li>1998–2001, ZEUS.</li>
+<li>2001, opération Lindbergh (téléchirurgie New York – Strasbourg).</li>
+<li>Depuis 2010, Mako, ROSA, Lokomat, exosquelettes, micro-robots, IA.</li>
+</ul>
+<p>Écosystème : marché de plus de 16 milliards de dollars ; acteurs : patients et soignants, ingénieurs, fabricants, hôpitaux, autorités (au Maroc, l'AMMPS pour les dispositifs médicaux).</p>
 
 <div class="schema" id="sc-ruptures"></div>
 <div class="schema" id="sc-ihm"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p>Mise à l'échelle du cours : avec un rapport 1 cm → 3 mm, un mouvement de la main de 2 cm donne un mouvement de l'instrument de \(2 \times 3 = 6\) mm, et un tremblement de la main de 1 mm n'en fait plus que \(0{,}3\) mm à l'instrument, avant même tout filtrage. Sur la figure, réglez le rapport sur 0,3 et activez le tremblement pour le constater.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Robotique médicale = robot + professionnel de santé + patient + environnement clinique. Cinq axes de rupture : perception, sécurité, commande, précision, validation. Mise à l'échelle : déplacement instrument = rapport × déplacement de la main.</p>
 
 </main>

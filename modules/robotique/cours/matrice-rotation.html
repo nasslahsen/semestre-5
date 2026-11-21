@@ -20,13 +20,12 @@
 <h1>Matrice de rotation</h1>
 <p class="chapeau">Pour dire comment un objet est tourné, on donne les directions des axes de son repère, vues depuis le repère fixe. Rangées en colonnes, elles forment la matrice de rotation.</p>
 
-<h2>Intuition</h2>
+<h2>Les colonnes sont les axes</h2>
 <p>Attachez un repère \(R_1\) à un objet. Quand l'objet tourne, ses axes \(\vec{x}_1\), \(\vec{y}_1\), \(\vec{z}_1\) tournent avec lui. Pour décrire son orientation, il suffit de dire où pointent ces trois axes, en coordonnées du repère fixe \(R_0\). Chaque axe donne trois nombres, d'où une matrice \(3 \times 3\).</p>
 <p>Ces nombres, vous les avez déjà calculés : ce sont les produits scalaires de l'exercice des deux repères. La matrice de rotation n'est que leur rangement.</p>
 
 <div id="fig-rot"></div>
 
-<h2>Formalisation</h2>
 <p>Deux repères de même origine \(O\) : \(A\) (repère fixe) et \(B\) (repère de l'objet). La matrice de rotation \(R^{A,B}\) a pour colonnes les coordonnées des axes de \(B\) exprimées dans \(A\) :</p>
 \[ R^{A,B} = \begin{bmatrix} r_{11} & r_{12} & r_{13} \\ r_{21} & r_{22} & r_{23} \\ r_{31} & r_{32} & r_{33} \end{bmatrix} \qquad \text{colonne 1 : } \vec{x}_B,\ \text{colonne 2 : } \vec{y}_B,\ \text{colonne 3 : } \vec{z}_B \]
 <p>Notations équivalentes utilisées dans le cours : \(R^{i,j} = {}^iR_j = R_{ij} = R^i_j\).</p>
@@ -37,7 +36,7 @@
 \[ R^{0,1} = R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \]
 <p><strong>À quoi elle sert.</strong> Un vecteur fixe dans \(R_1\) (par exemple la direction d'un instrument tenu par le robot) a des composantes connues \(V^1\). Ses composantes dans \(R_0\) s'obtiennent en multipliant par la matrice : \(V^0 = R^{0,1}\,V^1\). C'est la relation (1.2), détaillée dans la page « Changement de repère ».</p>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>\(\alpha = 30°\) et un vecteur \(V^1 = (2;\ 1;\ 0)^T\), fixe dans \(R_1\).</p>
 \[ R^{0,1} = \begin{pmatrix} 0{,}866 & -0{,}5 & 0 \\ 0{,}5 & 0{,}866 & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad V^0 = \begin{pmatrix} 0{,}866 \times 2 + (-0{,}5) \times 1 \\ 0{,}5 \times 2 + 0{,}866 \times 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1{,}232 \\ 1{,}866 \\ 0 \end{pmatrix} \]
@@ -48,7 +47,7 @@
 \[ \begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} u \\ v \end{pmatrix} = \begin{pmatrix} a u + b v \\ c u + d v \end{pmatrix} = u \begin{pmatrix} a \\ c \end{pmatrix} + v \begin{pmatrix} b \\ d \end{pmatrix} \]
 <p>Ainsi \(R^{0,1}\,(1;\ 0;\ 0)^T\) est la première colonne : c'est bien \([\vec{x}_1]_{R_0}\). Le bouton « Détailler le produit » de la figure parcourt les lignes une par une.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ R^{(0,S)} = \Big[\ [\vec{x}_S]_{R_0}\ \ [\vec{y}_S]_{R_0}\ \ [\vec{z}_S]_{R_0}\ \Big] \qquad R^{i,j} = {}^iR_j = R_{ij} = R^i_j \]
 \[ R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad V^0 = R^{0,1}\,V^1 \]
 

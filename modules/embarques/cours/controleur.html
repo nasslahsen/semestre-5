@@ -20,17 +20,9 @@
 <h1>Architecture d'un contrôleur embarqué</h1>
 <p class="chapeau">Un tensiomètre reçoit la tension d'un capteur de pression, décide quand ouvrir la valve, garde ses mesures et les envoie par USB. Qu'y a-t-il dans la puce qui fait tout cela, et comment les morceaux se parlent-ils ?</p>
 
-<h2>Le chapitre en bref</h2>
-<p>Le chapitre 1 a dit ce qu'est un système embarqué ; celui-ci ouvre la boîte. D'abord les blocs d'un contrôleur embarqué : entrées, sorties, CPU, mémoires, bus (cette page). Ensuite la façon dont le CPU parle à ses mémoires : une mémoire commune (Von Neumann) ou deux mémoires séparées (Harvard). Puis le jeu d'instructions que comprend le CPU : complexe (CISC) ou réduit (RISC). Enfin deux familles réelles de processeurs RISC, AVR et ARM, avec leurs gammes et leur organisation interne. Au chapitre 4, l'ESP32 servira de cas concret : on y retrouvera un CPU de type Harvard, des bus, des mémoires et des périphériques.</p>
-
-<h2>Intuition</h2>
-<p>Un contrôleur embarqué ressemble à un petit atelier. Par une porte entrent les signaux du monde (tension d'un capteur, état d'un bouton), par l'autre sortent les ordres (tension vers un moteur, niveau logique vers une LED). Au centre, le CPU suit un programme rangé dans une mémoire et note ses résultats dans une autre. Deux couloirs relient tout : un pour dire « où » (l'adresse), un pour transporter « quoi » (la donnée).</p>
-<p>Autour, des services : des timers pour mesurer le temps, un chien de garde (watchdog) qui surveille que le programme ne s'est pas bloqué, et des liaisons de communication (USB, IIC, SPI, CAN) vers les autres systèmes.</p>
-
 <div id="fig-controleur"></div>
 
-<h2>Formalisation</h2>
-<h3>Les blocs de la diapositive 6</h3>
+<h2>Les blocs de la diapositive 6</h2>
 <div class="tableau"><table>
 <tr><th>Bloc</th><th>Rôle</th></tr>
 <tr><td>Analog Front End</td><td>reçoit les entrées analogiques (<i>INPUTS</i>)</td></tr>
@@ -48,20 +40,22 @@
 </table></div>
 <p>Une <strong>interruption</strong> (<i>interrupt</i>) est un signal qu'un bloc envoie au CPU pour lui dire qu'un événement attend d'être traité. Le chapitre 5 détaille celles de l'ESP32.</p>
 
-<h3>CompactRIO (diapositive 7)</h3>
+<h2>CompactRIO (diapositive 7)</h2>
 <p>Le CompactRIO de National Instruments associe un <strong>Processor</strong> et un <strong>FPGA</strong>. Le FPGA est relié aux Analog I/O, Digital I/O, Industrial Communication et Custom I/O. <i>The main processor and FPGA run separate LabVIEW VIs</i> : chacun exécute son propre programme LabVIEW.</p>
 
-<h3>Embedded Controllers (diapositive 21)</h3>
-<p>Schéma d'un contrôleur embarqué du commerce (Texas Instruments, NXP Semiconductors, Freescale) : l'alimentation <i>Bat (Supply)</i> entre par un <strong>Voltage Supply</strong> (<i>incl. reverse polarity protection and input filter</i>) ; au centre, le <strong>Microcontroller</strong> (Cores, NVM, SRAM, Peripherals : ADC, SCI, PWM…) ; à gauche la <strong>Sensor Interface</strong>, à droite l'<strong>Actuator Driver</strong> ; en bas l'<strong>IVN</strong> (Ethernet, FlexRay, CAN, LIN), puis GND.</p>
+<h2>Embedded Controllers (diapositive 21)</h2>
+<p>Schéma d'un contrôleur embarqué du commerce (Texas Instruments, NXP Semiconductors, Freescale) :</p>
+<ul>
+<li>L'alimentation <i>Bat (Supply)</i> entre par un <strong>Voltage Supply</strong> (<i>incl. reverse polarity protection and input filter</i>).</li>
+<li>Au centre, le <strong>Microcontroller</strong> (Cores, NVM, SRAM, Peripherals : ADC, SCI, PWM…).</li>
+<li>À gauche la <strong>Sensor Interface</strong>, à droite l'<strong>Actuator Driver</strong>.</li>
+<li>En bas l'<strong>IVN</strong> (Ethernet, FlexRay, CAN, LIN), puis GND.</li>
+</ul>
 <p class="complement">IVN se lit <i>In-Vehicle Network</i> : ce schéma vient de l'électronique automobile, où les calculateurs se parlent par CAN, LIN, FlexRay ou Ethernet.</p>
 
 <div id="fig-autres"></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un pousse-seringue sur un contrôleur embarqué. Le capteur d'occlusion donne une tension : il entre par l'Analog Front End. Le bouton d'arrêt donne 0 ou 1 : il entre par un Digital inp Port, et peut lever une interruption. Le CPU lit le programme en Program Memory, range la pression en Data Memory, et commande le moteur par un Digital oup Port (ou une tension, par le bloc D/A). Un timer cadence la poussée, le watchdog relance tout si le programme se bloque, et la liaison USB envoie l'historique au poste de soins.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Entrées : Analog Front End, Digital inp Ports. Sorties : D/A et isolation, Digital oup Ports. Centre : CPU, Data Bus (la donnée), Address Bus (l'adresse), Data Memory, Program Memory. Services : Timers, Watchdog. Comms : USB, IIC, SPI, CAN. CompactRIO = Processor + FPGA, deux VI LabVIEW séparés.</p>
 
 </main>

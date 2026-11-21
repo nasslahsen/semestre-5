@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'air du bloc (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>L'air du bloc</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>Ce que doit faire la ventilation</h2>
+<p>Contrôler la <strong>contamination particulaire</strong>, évacuer les <strong>gaz anesthésiques</strong>, maintenir la <strong>température</strong>, contrôler l'<strong>humidité</strong>, maintenir les <strong>gradients de pression</strong>, assurer le confort, prévenir les infections. Ce n'est pas de la climatisation.</p>
+<p>L'humidité est contrôlée contre la condensation, le développement microbien, la dégradation des équipements, l'inconfort. Les plages exactes sont fixées par le référentiel.</p>
+
+<h2>Pression et cascade</h2>
+<p>La salle est en <strong>pression positive</strong> par rapport aux espaces voisins : à l'ouverture de la porte, l'air sort au lieu d'entrer. <strong>Cascade</strong> : salle (pression la plus haute) → zone intermédiaire → circulation. Les valeurs exactes viennent du référentiel et du programme de ventilation. Une salle est en surpression quand on y souffle plus qu'on n'extrait.</p>
+
+<h2>Renouvellement et distribution</h2>
+<p>Air neuf, air recyclé, air filtré, air extrait. Le renouvellement se compte en <strong>ACH</strong> (renouvellements par heure) :</p>
+\[ \text{ACH} = \frac{Q\ (\text{m}^3/\text{h})}{V\ (\text{m}^3)} \qquad V = L \times \ell \times h \]
+<ul>
+<li>Environ <strong>15 ACH</strong> (CDC, systèmes conventionnels).</li>
+<li><strong>Plus de 22 ACH</strong> en conception (Healthcare Infection Society, 2026), pour tenir compte de l'usure.</li>
+<li>Règle du cours : <strong>jamais un chiffre sans son référentiel</strong>.</li>
+</ul>
+<p>Distribution classique : air filtré <strong>soufflé au plafond</strong>, <strong>extraction près du sol</strong>.</p>
+
+<h2>Filtration et UCV</h2>
+<p>Préfiltration, filtration fine, et <strong>éventuellement HEPA</strong> selon le système, le risque, le référentiel et la chirurgie. Le HEPA n'est pas obligatoire partout (HIS 2026). L'<strong>UCV</strong> (ultraclean ventilation, flux unidirectionnel) sert à certaines interventions à haut risque (orthopédie avec implants), sans être une solution universelle.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Cite cinq objectifs de la ventilation du bloc.</p><details class="corrige"><summary>Voir la réponse</summary><p>Contrôler la contamination particulaire, évacuer les gaz anesthésiques, maintenir la température, contrôler l'humidité, maintenir les gradients de pression (aussi : confort, prévention des infections).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Pourquoi la salle est-elle en pression positive ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Quand la porte s'ouvre, l'air sort de la salle vers les zones moins propres au lieu d'y entrer.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Décris la cascade de pression.</p><details class="corrige"><summary>Voir la réponse</summary><p>Salle opératoire (pression la plus haute) → zone intermédiaire → circulation.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Une salle de 7 m × 6 m × 3 m reçoit 2 520 m³/h. Combien d'ACH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( V = L \times \ell \times h = 7 \times 6 \times 3 = 126\ \text{m}^3 \)</p><p>\( \text{ACH} = Q / V = 2\,520 / 126 \)</p><p>\( \text{ACH} = 20 \)</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelles valeurs d'ACH cite le cours, et quelle est la règle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Environ 15 ACH (CDC, systèmes conventionnels).</p><p>Plus de 22 ACH en conception (HIS 2026).</p><p>Ne jamais retenir un chiffre sans son référentiel.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Comment l'air est-il distribué dans une salle conventionnelle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Air filtré soufflé par le plafond, extraction près du sol.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> « Toute salle opératoire doit avoir un filtre HEPA. » Vrai ou faux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Faux : selon la HIS 2026, le HEPA n'est pas indispensable en salle conventionnelle si la filtration appropriée donne la qualité d'air requise.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Qu'est-ce que l'UCV, et quand l'utiliser ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une ventilation ultra-propre en flux unidirectionnel : de l'air très propre descend sur la zone opératoire, extraction basse.</p><p>Pour certaines interventions à haut risque (orthopédie avec implants) ; ce n'est pas une solution universelle.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-5.html"><small>Version courte suivante</small>Énergie, lumière, fluides et réseaux</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

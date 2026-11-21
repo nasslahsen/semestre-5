@@ -20,13 +20,12 @@
 <h1>Résistance d'un arbre en torsion</h1>
 <p class="chapeau">L'arbre de sortie d'un réducteur transmet un couple important. S'il est trop fin, il se tord puis casse, comme l'arbre rompu en torsion de la photo du cours. Quel diamètre minimal lui donner ?</p>
 
-<h2>Intuition</h2>
+<h2>Ce qui se passe quand on tord un arbre</h2>
 <p>Trace un quadrillage sur un arbre (lignes le long de l'arbre, cercles autour), bloque un bout et tords l'autre. Les cercles restent des cercles et les rayons d'une section restent droits : chaque section tourne d'un petit angle, en bloc, par rapport à sa voisine. Seules les lignes longitudinales se tordent et deviennent des hélices.</p>
 <p>Ce glissement entre sections voisines est nul sur l'axe et maximal à la surface : c'est là que la matière est la plus sollicitée, et c'est là que la rupture commence.</p>
 
 <div id="fig-torsion"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Condition de résistance en torsion d'un arbre cylindrique</strong> : la contrainte tangentielle maximale \(\tau_{max}\), induite par le moment (couple) de torsion \(M_t\), ne doit pas dépasser la résistance pratique au glissement \(R_{pg}\) du matériau.</p>
 \[ \tau_{max} \le R_{pg} \]
 <p>Pour dimensionner un arbre plein en torsion, on utilise la condition :</p>
@@ -43,13 +42,13 @@
 
 <div class="schema" id="sc-arbre"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté : le cours ne donne pas de valeur de \(R_{pg}\) ; 40 N/mm² est supposé ici.</p>
 <p>Arbre plein, \(M_t = 20\) N·m \(= 20\,000\) N·mm, \(R_{pg} = 40\) N/mm² :</p>
 \[ d > \sqrt[3]{\frac{16 \times 20\,000}{\pi \times 40}} = \sqrt[3]{2546} \approx 13{,}66 \text{ mm} \]
 <p>On choisit ensuite un diamètre normalisé au-dessus de cette valeur.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \tau_{max} \le R_{pg} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}} \quad (d \text{ en mm},\ M_t \text{ en N}\cdot\text{mm},\ R_{pg} \text{ en N/mm}^2) \]
 
 </main>

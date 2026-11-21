@@ -20,22 +20,10 @@
 <h1>Contrainte, déformation et module</h1>
 <p class="chapeau">Le cours compare des matériaux par leur module (0,001 à 3 GPa pour un polymère, 200 GPa pour une céramique), lit des courbes de traction et calcule des masses volumiques de mélanges. Ces outils ne sont pas rappelés dans les diapositives : les voici, sur l'exemple d'une tige de prothèse de hanche.</p>
 
-<h2>Le chapitre en bref</h2>
-<p>Les deux premiers chapitres disaient ce qu'est un biomatériau et ce qu'on lui demande. Avant de comparer les familles de matériaux (chapitre 4), ce chapitre rassemble les prérequis de mécanique et de calcul dont le cours se sert sans les redéfinir. Pourquoi c'est utile : choisir le matériau d'un implant, c'est comparer des rigidités, des résistances et des densités. Comment les notions s'enchaînent :</p>
-<ul>
-<li><strong>Contrainte et déformation</strong> (cette page) : on ramène la force à la section (\(\sigma\)) et l'allongement à la longueur (\(\varepsilon\)) pour comparer des pièces de tailles différentes.</li>
-<li><strong>La courbe de traction</strong> : la relation \(\sigma(\varepsilon)\) d'un matériau, avec sa pente (le module), ses seuils (\(R_e\), \(R_{max}\), \(R_r\)) et son aire (la <strong>ténacité</strong>).</li>
-<li><strong>Modules et échelle logarithmique</strong> : les modules vont du MPa à la centaine de GPa ; on les compare sur un axe en \(\log E\), comme les courbes \(\log E_r(T)\) des chapitres 7 et 9.</li>
-<li><strong>Masse volumique et mélanges</strong> : \(\rho = m/V\) et la moyenne pondérée par les volumes, qui deviendra \(\rho = \rho_c X + \rho_a(1-X)\) (chapitre 7) et la loi des mélanges des composites (chapitre 11).</li>
 </ul>
-
-<h2>Intuition</h2>
-<p>Tire avec la même force sur deux tiges du même alliage, l'une fine, l'autre épaisse : la fine souffre davantage, car la force se répartit sur moins de matière. Mesure l'allongement d'une tige courte et d'une tige longue sous la même contrainte : la longue s'allonge davantage, mais chaque millimètre s'allonge autant. D'où l'idée de diviser : la force par la section, l'allongement par la longueur. On obtient deux grandeurs propres au matériau, et la courbe qui les relie.</p>
-
 
 <div id="fig-contrainte"></div>
 
-<h2>Formalisation</h2>
 <p>Une éprouvette de section initiale \(S_0\) et de longueur utile \(l_0\) est tirée par une force \(F\) ; elle s'allonge de \(\Delta l\).</p>
 <ul>
 <li><strong>Contrainte</strong> : \(\sigma = \dfrac{F}{S_0}\). Avec \(F\) en N et \(S_0\) en mm², \(\sigma\) est en MPa (1 MPa = 1 N/mm² = \(10^6\) Pa).</li>
@@ -44,10 +32,9 @@
 </ul>
 <p>Pour un matériau <strong>isotrope</strong> (alliages métalliques, céramiques, polymères), il suffit de deux constantes élastiques indépendantes parmi le module d'Young \(E\), le coefficient de Poisson \(\nu\) et le module de cisaillement \(G\), reliées par \(G = \dfrac{E}{2(1+\nu)}\). Un composite n'est pas isotrope : il en faut davantage (chapitre 11).</p>
 
-
 <figure class="photo"><img src="../images/essai-flexion.jpg" alt="Barre posée sur deux appuis et chargée en son milieu par un poinçon : essai de flexion trois points"><figcaption>Un essai mécanique : on charge une éprouvette et on mesure comment elle se déforme (ici, en flexion trois points).<small>Photo du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 
 <p>Exemple ajouté, avec les valeurs du Ti-6Al-4V du tableau du cours (4,43 g/cm³, 110 GPa, 1 171 MPa). Une éprouvette de longueur utile \(l_0 = 50\) mm et de section \(S_0 = 20\) mm² est tirée par \(F = 4\,400\) N ; elle s'allonge de \(\Delta l = 0{,}1\) mm.</p>
 <ul>
@@ -57,7 +44,7 @@
 <li>Avec \(\nu = 0{,}34\) (valeur ajoutée), \(G = 110 / (2 \times 1{,}34) \approx 41\) GPa.</li>
 </ul>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>\[\sigma = \frac{F}{S_0} \qquad \varepsilon = \frac{\Delta l}{l_0} \qquad \sigma = E\,\varepsilon \qquad G = \frac{E}{2(1+\nu)}\]</p>
 <p>1 MPa = 1 N/mm² = \(10^6\) Pa ; \(\varepsilon\) sans unité (souvent en %).</p>
 </main>

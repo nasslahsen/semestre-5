@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'ESP32 : la carte et la puce (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 4 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>L'ESP32 : la carte et la puce</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-4.html">Lire le cours complet</a></p>
+<h2>L'ESP32</h2>
+<p>Microcontrôleur d'Espressif avec <strong>Wi-Fi</strong> et <strong>Bluetooth</strong> intégrés, de −40 °C à +125 °C, programmé avec ESP-IDF. Son nom se lit champ par champ : ESP32-D0WD-V3 = série, cœur (D/U double, S simple), flash intégrée (0, 2, 4 MB), connexion WD (Wi-Fi + Bluetooth), PSRAM (R2), boîtier (Q6 = QFN 6×6), révision.</p>
+
+<h2>La carte DEV KIT V1</h2>
+<p>Module ESP-WROOM-32, régulateur 3,3 V, <strong>CP2102</strong> (USB vers UART), boutons RESET/EN et BOOT, LED rouge (alimentation), LED bleue (GPIO2).</p>
+<ul>
+<li>Entrée seule : <strong>GPIO 34, 35, 36, 39</strong>.</li>
+<li>DAC1 : GPIO25 ; DAC2 : GPIO26.</li>
+<li>I2C : SDA GPIO21, SCL GPIO22.</li>
+<li>VSPI : MOSI 23, MISO 19, SCK 18, SS 5.</li>
+</ul>
+
+<h2>Spécifications</h2>
+<ul>
+<li>2 cœurs <strong>Xtensa LX6</strong> 32 bits, 160 ou 240 MHz, 600 DMIPS ; coprocesseur ULP.</li>
+<li>520 KiB de SRAM, 448 KB de ROM, 16 KB de SRAM RTC.</li>
+<li>Wi-Fi b/g/n 2,4 GHz, Bluetooth 4.2 et BLE.</li>
+<li>34 GPIO, ADC 12 bits sur 18 canaux, 2 DAC 8 bits, 10 capteurs tactiles, 4 SPI, 2 I2C, 3 UART, CAN, 16 canaux PWM.</li>
+<li>Accélération matérielle SHA, RSA, AES.</li>
+</ul>
+
+<h2>Cœurs, DMA, alimentation</h2>
+<p>Deux CPU Harvard : <strong>PRO_CPU</strong> (protocole) et <strong>APP_CPU</strong> (application), interchangeables. Le <strong>DMA</strong> transfère périphérique ↔ mémoire sans le CPU. Trois domaines d'alimentation : VDD3P3_RTC, VDD3P3_CPU, VDD_SDIO ; cœur et RTC à 1,1 V par des <strong>LDO</strong> (Low Dropout Regulator) ; VDD_SDIO à 3,3 V ou 1,8 V.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Que veut dire la référence ESP32-D0WD-V3 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>D : double cœur.</p><p>0 : pas de flash intégrée.</p><p>WD : Wi-Fi + Bluetooth.</p><p>V3 : révision 3.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> À quoi sert le CP2102 de la carte ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il convertit l'USB de l'ordinateur en UART pour l'ESP32 (programmation et liaison série).</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelles broches sont en entrée seule ?</p><details class="corrige"><summary>Voir la réponse</summary><p>GPIO 34, 35, 36 et 39.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Sur quelles broches sont le DAC1 et le DAC2 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>DAC1 : GPIO25.</p><p>DAC2 : GPIO26.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Combien de DMIPS par MHz à 240 MHz ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( 600 / 240 = 2{,}5 \) DMIPS par MHz.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que sont PRO_CPU et APP_CPU ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les deux cœurs Xtensa LX6 de l'ESP32 (protocole et application), interchangeables pour la plupart des usages.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> À quoi sert le DMA ?</p><details class="corrige"><summary>Voir la réponse</summary><p>À transférer des données entre périphériques et mémoire, ou de mémoire à mémoire, sans le CPU.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Le LDO du domaine CPU reçoit 3,3 V et sort 1,1 V. Quelle tension retranche-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( V_{chute} = 3{,}3 - 1{,}1 = 2{,}2\ \text{V} \)</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-5.html"><small>Version courte suivante</small>Programmer les périphériques de l'ESP32</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 4) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

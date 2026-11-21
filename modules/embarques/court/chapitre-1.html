@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le système embarqué (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 1 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Le système embarqué</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-1.html">Lire le cours complet</a></p>
+<h2>Définition</h2>
+<p>Un <strong>système embarqué</strong> est un système électronique et informatique <strong>autonome</strong>, <strong>dédié à une tâche précise</strong>, aux <strong>ressources limitées</strong> (énergie, place). Le terme désigne le matériel et le logiciel. En anglais, trois critères : il contient un microprocesseur, il commande directement le matériel, il fait une fonction précise.</p>
+
+<h2>Concevoir</h2>
+<ul>
+<li><strong>Hardware</strong> : microcontrôleurs, contrôleurs embarqués, DSP.</li>
+<li><strong>Modelling</strong> : organigrammes, machines à états, UML temps réel, SysML.</li>
+<li><strong>Software</strong> : assembleur, C/C++, Python.</li>
+<li><strong>Requirements</strong> : temps de réponse, fiabilité, sécurité, vérification, coût.</li>
+</ul>
+<p>Le logiciel <strong>lit les entrées</strong>, <strong>écrit les sorties</strong>, <strong>transfère et calcule</strong>, et se <strong>cadence par interruption de timer</strong>.</p>
+
+<h2>Les couches</h2>
+<p>Du haut vers le bas : code de l'application → pilotes (API) → RTOS ou OS embarqué → couche d'abstraction du matériel (HAL) → initialisation (Boot) → matériel (entrées, sorties).</p>
+
+<h2>Deux exemples du cours</h2>
+<ul>
+<li><strong>Semelle connectée</strong> (pied diabétique, ulcère du stade 0 au stade 5) : 16 capteurs résistifs de force (500 g à 10 kg, plus de 1 MΩ au repos), mesure de bio-impédance (MAX30009), température et humidité, µC, radio, accumulateur.</li>
+<li><strong>Tensiomètre</strong> : capteur de pression → AMP → PGA → ADC → filtrage → MCU ; MCU → PWM → pompe et valve ; MCU → DAC → haut-parleur ; écran, USB, batterie.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis un système embarqué.</p><details class="corrige"><summary>Voir la réponse</summary><p>Un système électronique et informatique autonome, dédié à une tâche précise, aux ressources limitées (énergie, place).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Donne les trois critères de la définition en anglais.</p><details class="corrige"><summary>Voir la réponse</summary><p>Il contient un microprocesseur.</p><p>Il commande directement le matériel.</p><p>Il est limité à une fonction précise.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelles sont les quatre familles de décisions de conception ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Hardware, Modelling, Software, Requirements.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite trois exigences d'un système embarqué.</p><details class="corrige"><summary>Voir la réponse</summary><p>Temps de réponse, fiabilité, sécurité, vérification, coût (trois au choix).</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne les couches du logiciel embarqué, du haut vers le bas.</p><details class="corrige"><summary>Voir la réponse</summary><p>Application, pilotes (API), RTOS / OS embarqué, HAL, Boot, matériel.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Un patient de 70 kg en appui sur deux capteurs de la semelle : le capteur tient-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( 70 / 2 = 35 \) kg par capteur.</p><p>Au-delà de 10 kg : le capteur sature.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Dans le tensiomètre, à quoi sert le PGA ?</p><details class="corrige"><summary>Voir la réponse</summary><p>C'est un amplificateur à gain programmable : le MCU règle son gain pour que le signal occupe bien la plage de l'ADC.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> ADC et DAC : quel sens chacun ?</p><details class="corrige"><summary>Voir la réponse</summary><p>ADC : tension → nombre.</p><p>DAC : nombre → tension.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-2.html"><small>Version courte suivante</small>Architectures matérielles</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 1) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

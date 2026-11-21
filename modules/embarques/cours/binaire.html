@@ -20,12 +20,8 @@
 <h1>Bits et binaire</h1>
 <p class="chapeau">Un thermomètre connecté envoie la température au microcontrôleur sous forme de bits. Pour lire ce qu'il envoie, ou ce qu'un convertisseur 12 bits peut mesurer, il faut savoir compter en binaire.</p>
 
-<h2>Intuition</h2>
-<p>Un fil ne transporte que deux états : tension haute ou tension basse, 1 ou 0. Pour écrire un nombre plus grand, on aligne plusieurs fils, plusieurs bits. Comme en décimal où chaque chiffre vaut dix fois celui de sa droite, en binaire chaque bit vaut deux fois celui de sa droite : 1, 2, 4, 8, 16…</p>
-
 <div id="fig-octet"></div>
 
-<h2>Formalisation</h2>
 <p>Un <strong>bit</strong> vaut 0 ou 1. Huit bits forment un <strong>octet</strong>. Le bit de rang \(k\) (compté depuis la droite, en partant de 0) pèse \(2^k\) : la valeur d'un mot binaire est la somme des poids des bits à 1.</p>
 \[ 00010011_2 = 2^4 + 2^1 + 2^0 = 16 + 2 + 1 = 19 \]
 <p>Le <strong>MSB</strong> (<em>most significant bit</em>) est le bit de poids fort, à gauche ; dans un octet, il pèse \(2^7 = 128\). Le <strong>LSB</strong> (<em>least significant bit</em>) est le bit de poids faible, à droite, qui pèse 1. Le cours écrit aussi MSb et LSb sur les registres.</p>
@@ -37,11 +33,11 @@
 <tr><td>12 bits</td><td>4 096</td><td>4 095</td><td>ADC 12 bits de l'ESP32</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Un capteur doit envoyer 42 sur un octet : \(42 = 32 + 8 + 2\), on allume les bits de rang 5, 3 et 1, soit 00101010. Dans l'autre sens, un capteur renvoie 10010110 : les bits à 1 sont ceux de rang 7, 4, 2 et 1, donc \(128 + 16 + 4 + 2 = 150\).</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{valeur} = \sum_k b_k\, 2^k \qquad v_{max} = 2^n - 1 \]
 <p>Octet : 8 bits, MSB à gauche (\(2^7 = 128\)), LSB à droite (1). 8 bits : 255 ; 10 bits : 1 023 ; 12 bits : 4 095.</p>
 </main>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architectures matérielles (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 2 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Architectures matérielles</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-2.html">Lire le cours complet</a></p>
+<h2>Le contrôleur embarqué</h2>
+<p>Entrées (frontal analogique, ports numériques), sorties (D/A, ports numériques), <strong>CPU</strong>, <strong>bus de données</strong> (la donnée) et <strong>bus d'adresses</strong> (la case visée), mémoire de données et de programme, timers et <strong>watchdog</strong>, liaisons (USB, I2C, SPI, CAN). Une <strong>interruption</strong> signale au CPU qu'un événement attend.</p>
+
+<h2>Von Neumann, Harvard</h2>
+<ul>
+<li><strong>Von Neumann</strong> : une seule mémoire pour les données et les instructions.</li>
+<li><strong>Harvard</strong> : deux mémoires et deux bus séparés : plus rapide.</li>
+<li><strong>Super Harvard</strong> : Harvard + cache d'instructions + contrôleur d'E/S dédié.</li>
+</ul>
+<p>Modèle du cours : Von Neumann \(2N\) cycles, Harvard \(N + 1\). Les deux cœurs de l'ESP32 sont Harvard.</p>
+
+<h2>CISC et RISC</h2>
+<div class="tableau"><table>
+<tr><th>CISC</th><th>RISC</th></tr>
+<tr><td>complexité dans le matériel</td><td>complexité dans le logiciel</td></tr>
+<tr><td>instructions multi-cycles</td><td>instructions d'un cycle</td></tr>
+<tr><td>mémoire à mémoire</td><td>registre à registre (LOAD, STORE à part)</td></tr>
+<tr><td>code court</td><td>code long, plus de registres</td></tr>
+</table></div>
+
+<h2>AVR et ARM</h2>
+<p><strong>AVR</strong> (Advanced Virtual RISC, Atmel) : 8 bits, faible coût et consommation, 32 registres généraux, Arduino ; AVR32 pour plus de calcul. Familles : tinyAVR, megaAVR, XMEGA, UC3, AP7.</p>
+<p><strong>ARM</strong> (Acorn RISC Machine), vendu sous forme de fichier à intégrer. Options : <strong>MMU</strong> (adressage virtuel, Linux), <strong>MPU</strong> (protection simplifiée), <strong>DSP</strong> (signal), <strong>FPU</strong> (flottants). Cortex-A (application), Cortex-R (temps réel), Cortex-M (embarqué). Bus AMBA : AHB (système) et APB (périphériques), reliés par un pont.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Différence entre bus de données et bus d'adresses ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le bus de données transporte la donnée.</p><p>Le bus d'adresses indique la case mémoire visée.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Von Neumann et Harvard : quelle différence, et laquelle est plus rapide ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Von Neumann : une mémoire commune aux données et aux instructions.</p><p>Harvard : deux mémoires et deux bus séparés, donc plus rapide.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Une boucle de 20 instructions avec chacune une donnée : combien de cycles en Von Neumann et en Harvard ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Von Neumann : \( 2N = 40 \) cycles.</p><p>Harvard : \( N + 1 = 21 \) cycles.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Qu'ajoute la Super Harvard ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un cache d'instructions et un contrôleur d'E/S dédié.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne deux différences entre CISC et RISC.</p><details class="corrige"><summary>Voir la réponse</summary><p>CISC : instructions complexes multi-cycles, mémoire à mémoire, code court.</p><p>RISC : instructions d'un cycle, registre à registre, code plus long.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que signifie AVR, et pour quelles applications ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Advanced Virtual RISC Architecture (Atmel, Microchip).</p><p>Applications à faible consommation et faible coût (Arduino).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> À quoi servent la MMU et le DSP d'un ARM ?</p><details class="corrige"><summary>Voir la réponse</summary><p>MMU : adressage virtuel, pour faire tourner Linux.</p><p>DSP : traitement du signal (filtrage).</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quel Cortex pour un glucomètre sur pile ? Pour une tablette d'échographe sous Linux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Glucomètre : Cortex-M.</p><p>Tablette : Cortex-A avec MMU.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-3.html"><small>Version courte suivante</small>Bus de communication</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 2) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

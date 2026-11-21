@@ -28,12 +28,9 @@
 <h3>TD 1 : les réponses dans le cours</h3>
 <p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » reprend la semelle du chapitre 1 et descend jusqu'à l'électronique : on vérifie que les capteurs de force tiennent le poids du patient, on règle le banc qui les caractérise, puis on dimensionne le montage qui les lit un par un. Cette page te dit où chercher chaque réponse, et ce que le cours reçu ne couvre pas encore.</p>
 
-<h4>Intuition</h4>
-<p>Un capteur de la semelle est une <strong>résistance qui baisse quand on appuie</strong>. Pour le lire, le microcontrôleur choisit un des 8 capteurs avec un <strong>multiplexeur analogique</strong> (trois fils de commande S1, S2, S3, un nombre binaire de 0 à 7), puis un amplificateur opérationnel transforme cette résistance en une tension \(V_A\) que l'ADC convertit.</p>
-<p>Tout le TD tourne autour de deux vérifications : la grandeur reste-t-elle dans la plage (du capteur, puis de l'ADC entre 0 et 3,3 V) ? Et lit-on assez vite pour suivre un pas ?</p>
 <div id="fig-td1"></div>
 
-<h4>Formalisation</h4>
+<h4>Les questions et où chercher</h4>
 <div class="tableau"><table>
 <tr><th>Questions</th><th>Ce qu'on demande</th><th>Où chercher</th></tr>
 <tr><td>1 à 3</td><td>surface d'un capteur, force et pression maximales, patient de 70 kg</td><td><a href="chapitre-1.html#n-semelle">Exemple 1 : la semelle</a> (cotes du capteur, fiche : 500 g à 10 kg)</td></tr>
@@ -52,7 +49,7 @@
 
 <div class="schema" id="sc-td1-chaine"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p>Exemple ajouté, avec une valeur de résistance qui n'est pas celle du TD : le capteur sélectionné vaut \(R_{FSR} = 150\) kΩ.</p>
 \[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
 \[V^+ = 3{,}3 \times \frac{10}{110 + 10} = 0{,}275\ \text{V}\]
@@ -60,7 +57,7 @@
 \[V_A = 0{,}275 \times \left(1 + \frac{750}{150}\right) = 1{,}65\ \text{V}\]
 <p>1,65 V : au milieu de la plage de l'ADC. Plus on appuie, plus \(R_{FSR}\) baisse et plus \(V_A\) monte.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[P = \frac{F}{S} \qquad V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR}}\right) \qquad G_{INA128} = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
 \[\text{débit} = N_{capteurs} \times f_e \times n_{bits} \qquad f_c = \frac{1}{2\pi R_G C_F}\]
 </article>

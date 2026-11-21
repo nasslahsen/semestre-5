@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les principes de la sécurité (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 8 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les principes de la sécurité</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-8.html">Lire le cours complet</a></p>
+<h2>La défense en profondeur</h2>
+<p><strong>Rien n'est sécurisé à 100 %.</strong> On empile donc les protections : <strong>sécurité en couches</strong>, <strong>durcissement</strong>, <strong>veille et sensibilisation</strong>.</p>
+
+<h2>Le triangle CID</h2>
+<div class="tableau"><table>
+<tr><th>Critère</th><th>Exemples</th><th>Si atteint</th></tr>
+<tr><td>Confidentialité</td><td>DPI, imagerie, génétique</td><td>atteinte à la vie privée</td></tr>
+<tr><td>Intégrité</td><td>posologie, résultats de labo</td><td>erreur de soins, souvent invisible</td></tr>
+<tr><td>Disponibilité</td><td>monitorage, PACS</td><td>retard de prise en charge</td></tr>
+</table></div>
+<p>En anglais : CIA. <strong>Données des patients = sécurité du patient.</strong></p>
+
+<h2>La règle AAA</h2>
+<ul>
+<li><strong>Authentification</strong> : qui es-tu ?</li>
+<li><strong>Autorisation</strong> : à quoi as-tu droit ?</li>
+<li><strong>Traçabilité</strong> (accounting) : qu'as-tu fait ?</li>
+</ul>
+<p>Il faut savoir <strong>agir comme un hacker</strong> (sécurité offensive) et défendre, avec le dilemme de la défensive : une seule faille suffit à l'attaquant, et il faut arbitrer entre sécurité rigide et ouverture du SI.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Pourquoi parle-t-on de défense en profondeur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rien n'est sécurisé à 100 % : on empile des couches de protection.</p><p>Couches, durcissement, veille et sensibilisation.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Que signifie CID ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Confidentialité, intégrité, disponibilité.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Une posologie modifiée par erreur : quel critère est atteint, et quelle conséquence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'intégrité.</p><p>Une erreur de soins, souvent non détectable.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Le PACS est en panne : quel critère, quelle conséquence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La disponibilité.</p><p>Un retard de prise en charge.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne les trois A de la règle AAA.</p><details class="corrige"><summary>Voir la réponse</summary><p>Authentification, autorisation, traçabilité (accounting).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce que le dilemme de la défensive ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une seule faille suffit à l'attaquant, alors qu'on ne peut pas tout protéger.</p><p>Et il faut arbitrer entre une sécurité rigide et l'ouverture du SI.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que résume la formule « données des patients = sécurité du patient » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Protéger la confidentialité, l'intégrité et la disponibilité des données, c'est protéger le patient lui-même.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-9.html"><small>Version courte suivante</small>Le cadre réglementaire</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 8) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

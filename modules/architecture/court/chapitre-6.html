@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Équipements, sécurité et méthode (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 6 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Équipements, sécurité et méthode</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-6.html">Lire le cours complet</a></p>
+<h2>L'intégration biomédicale</h2>
+<p>L'architecte travaille avec l'ingénieur biomédical <strong>dès la conception</strong>. Chaque équipement (table, scialytique, respirateur, moniteur, bistouri, défibrillateur, colonne vidéo, robot, arceau…) a des <strong>dimensions</strong>, un <strong>poids</strong>, une <strong>alimentation</strong>, des <strong>dégagements</strong>, des <strong>besoins thermiques</strong>, des <strong>interfaces</strong>, des <strong>contraintes de maintenance</strong> : d'où un <strong>plan d'implantation biomédical</strong>.</p>
+<p>Prévoir l'accès aux filtres, tableaux, vannes, réseaux, le démontage et le chemin des pièces de rechange. Un équipement qu'on ne peut pas maintenir est un équipement <strong>mal intégré</strong>.</p>
+
+<h2>Sécurité</h2>
+<ul>
+<li><strong>Incendie</strong> : détection, compartimentage, évacuation, signalisation, matériaux, accès pompiers, alimentation de sécurité ; risques de l'oxygène, de l'électricité, des inflammables.</li>
+<li><strong>Patient</strong> : chute, erreur d'identification, infection, brûlure électrique, incendie, coupure, mauvaise connexion des gaz, défaut de ventilation.</li>
+<li><strong>Personnel</strong> : électricité, rayonnements, gaz anesthésiques, agents biologiques, manutention, bruit, chaleur.</li>
+</ul>
+
+<h2>Les normes, par domaine</h2>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Référentiel</th></tr>
+<tr><td>Conception</td><td>FGI Guidelines</td></tr>
+<tr><td>Ventilation</td><td>ASHRAE 170, HTM 03-01</td></tr>
+<tr><td>Électricité</td><td>IEC 60364-7-710</td></tr>
+<tr><td>Éclairage</td><td>EN 12464-1</td></tr>
+<tr><td>Fluides médicaux</td><td>ISO 7396-1</td></tr>
+<tr><td>Appareils électromédicaux</td><td>IEC 60601-1</td></tr>
+<tr><td>Stérilisation</td><td>ISO 17665, 11135, 11140, 11607</td></tr>
+</table></div>
+
+<h2>La méthode en dix étapes</h2>
+<p>Besoins → programme fonctionnel → flux → zonage → architecture → CVC → électricité → fluides → implantation biomédicale → <strong>validation</strong>.</p>
+<p>La fin des travaux n'est pas la fin du projet : avant ouverture, on vérifie la CVC (débits, pression, filtration), l'électricité (continuité, terre, secours), les gaz (pression, identification, étanchéité), le biomédical (essais, formation) et l'hygiène. L'équipe de prévention des infections est là dès la conception.</p>
+
+<h2>L'ingénieur biomédical</h2>
+<p>Il intervient <strong>avant la construction</strong> : besoins, spécifications, implantation, interfaces, alimentations, gaz, CVC, accès de maintenance, réception, sécurité électrique, formation, <strong>GMAO</strong>, cycle de vie.</p>
+<p>Les erreurs à éviter : construire avant de connaître les équipements, oublier le volume technique, les accès de maintenance, mélanger propre et sale, installer de l'imagerie sans étude radiologique, sous-dimensionner l'électricité, oublier le secours, intégrer les fluides trop tard, traiter la ventilation comme de la climatisation.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelles caractéristiques d'un équipement faut-il connaître pour l'implanter ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Dimensions, poids, alimentation, dégagements, besoins thermiques, interfaces, contraintes de maintenance.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Que veut dire « un équipement mal intégré architecturalement » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un équipement qu'on ne peut pas correctement maintenir : pas d'accès aux filtres, tableaux, vannes, réseaux, pas de démontage possible.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Cite cinq contraintes incendie du bloc.</p><details class="corrige"><summary>Voir la réponse</summary><p>Détection, compartimentage, évacuation, signalisation, matériaux adaptés (aussi : accès pompiers, alimentation de sécurité).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Contre quels risques protéger le personnel ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Électrique, rayonnements ionisants, gaz anesthésiques, agents biologiques, manutention manuelle, bruit, température excessive.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quelle norme pour l'électricité des locaux médicaux ? Pour la ventilation ? Pour les gaz médicaux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>IEC 60364-7-710.</p><p>ASHRAE 170 (et HTM 03-01).</p><p>ISO 7396-1.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Donne les dix étapes de la méthode de conception.</p><details class="corrige"><summary>Voir la réponse</summary><p>Besoins, programme fonctionnel, flux, zonage, architecture, CVC, électricité, fluides médicaux, implantation biomédicale, validation.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que vérifie-t-on pour la CVC avant l'ouverture ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Température, humidité, débits, renouvellement d'air, pression différentielle, filtration, alarmes.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quand l'ingénieur biomédical doit-il intervenir ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Avant la construction, et pas seulement à la réception des équipements.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Cite quatre erreurs fréquentes de conception.</p><details class="corrige"><summary>Voir la réponse</summary><p>Construire la salle avant de connaître les équipements, oublier le volume technique, ne pas prévoir les accès de maintenance, mélanger flux propres et sales (aussi : imagerie sans étude, électricité sous-dimensionnée, pas de secours, fluides trop tard, ventilation vue comme de la climatisation).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Fin des versions courtes</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 6) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

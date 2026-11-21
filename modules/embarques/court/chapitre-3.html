@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Bus de communication (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 3 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Bus de communication</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-3.html">Lire le cours complet</a></p>
+<h2>Pourquoi des bus</h2>
+<p>Beaucoup de composants, peu de place : des liaisons <strong>série</strong> et partagées.</p>
+<div class="tableau"><table>
+<tr><th>Bus</th><th>Synchro</th><th>Fils</th><th>Organisation</th></tr>
+<tr><td>UART</td><td>asynchrone</td><td>TX, RX</td><td>entre deux appareils</td></tr>
+<tr><td>SPI</td><td>synchrone (SCK)</td><td>MOSI, MISO, SCK, + un SS par esclave</td><td>maître / esclaves</td></tr>
+<tr><td>I2C</td><td>synchrone (SCL)</td><td>SDA, SCL</td><td>multi-maître, adresses 7 bits</td></tr>
+</table></div>
+
+<h2>UART</h2>
+<p>Trame : <strong>start</strong> (0) + 8 bits (bit 0 d'abord) + <strong>stop</strong> (1), soit 10 bits. Half ou full duplex, couche RS232 ou RS485.</p>
+\[ t_{trame} = \frac{10}{\text{débit}} \]
+<p>Dans le PIC18F4520 : TXREG → registre à décalage TSR → TX ; RX → RSR → RCREG. TXIF : TXREG vide ; TRMT : trame partie ; FERR : stop bit faux ; OERR : débordement.</p>
+
+<h2>SPI</h2>
+<p>Registres à décalage : <strong>8 bits avec 3 fils</strong>, écriture et lecture <strong>simultanées</strong>, plus de 1 Mbit/s. Après 8 coups d'horloge, maître et esclave ont <strong>échangé</strong> leurs octets. Le maître choisit l'esclave en mettant sa ligne \(\overline{SS}\) à <strong>0</strong>.</p>
+\[ t_{octet} = \frac{8}{f_{SCK}} \qquad N_{fils} = 3 + N_{esclaves} \]
+
+<h2>I2C</h2>
+<p>Deux fils, <strong>SDA</strong> et <strong>SCL</strong>, tirés à +V_DD par des résistances ; <strong>0 dominant</strong>, 1 récessif (un circuit ne peut que tirer à 0). Message : <strong>START</strong> (SDA descend quand SCL est à 1), adresse 7 bits, R/W (1 lecture, 0 écriture), ACK, octets, ACK ou NACK, <strong>STOP</strong>.</p>
+\[ N_{SCL} = 9 \times N_{octets} \qquad 2^7 = 128 \text{ adresses} \]
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Combien de bits dans une trame UART de 8 données, et lesquels ?</p><details class="corrige"><summary>Voir la réponse</summary><p>10 bits : un start (0), 8 bits de données (bit 0 d'abord), un stop (1).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> À 19 200 bps, combien dure une trame UART ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( t = 10 / \text{débit} \)</p><p>\( t = 10 / 19\,200 \)</p><p>\( t \approx 0{,}52\ \text{ms} \)</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Que signalent FERR et OERR ?</p><details class="corrige"><summary>Voir la réponse</summary><p>FERR : erreur de trame, le stop bit est lu à 0.</p><p>OERR : débordement, un octet arrive alors que la FIFO est pleine.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Que se passe-t-il après 8 coups d'horloge SPI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les registres du maître et de l'esclave ont échangé leur contenu.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Combien de fils pour un SPI à 5 esclaves ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( N = 3 + N_{esclaves} = 3 + 5 = 8 \) fils.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Comment le maître SPI choisit-il l'esclave ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il met à 0 la ligne SS de cet esclave, toutes les autres restant à 1.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi deux circuits I2C ne se court-circuitent-ils pas ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Aucun ne pousse la ligne à 1 : ils peuvent seulement la tirer à 0 (0 dominant), les résistances de tirage la ramènent à 1.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Un maître I2C lit 3 octets. Combien d'impulsions SCL entre START et STOP ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Adresse + 3 octets = 4 octets.</p><p>\( 9 \times 4 = 36 \) impulsions.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Que vaut le bit R/W pour une lecture ?</p><details class="corrige"><summary>Voir la réponse</summary><p>1 pour une lecture, 0 pour une écriture.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-4.html"><small>Version courte suivante</small>L'ESP32 : la carte et la puce</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 3) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

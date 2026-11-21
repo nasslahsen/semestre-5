@@ -28,23 +28,14 @@
 <h3>Polymères biomédicaux : la viscoélasticité</h3>
 <p class="chapeau">Appuie sur un insert en polyéthylène : il s'enfonce un peu tout de suite, puis continue à s'enfoncer lentement si tu maintiens l'effort. Un polymère est à la fois un peu ressort et un peu pâte. Comment décrire ce double comportement ?</p>
 
-<h4>Le chapitre en bref</h4>
-<p>Le chapitre 7 a décrit la structure des polymères (macromolécules, masse moléculaire, Tg, cristallinité). Celui-ci regarde ceux qu'on implante et ceux qu'on tire du vivant :</p>
-<ul>
-<li>La viscoélasticité (cette page) : <strong>ressort</strong>, <strong>amortisseur</strong>, et pourquoi les polymères sont les deux à la fois.</li>
-<li>Les polymères des dispositifs médicaux : UHMWPE, PEEK, PC, PEI, PSU, silicone, PTFE..., leurs applications et leurs problèmes.</li>
-<li>Les biomatériaux naturels : collagène, chitine, fucanes, cellulose, corail.</li>
 </ul>
 
-<h4>Intuition</h4>
-<p>Un ressort répond tout de suite : tu tires, il s'allonge ; tu lâches, il revient. Un amortisseur (un piston dans de l'huile) répond avec le temps : plus tu pousses vite, plus il résiste ; si tu maintiens l'effort, il continue d'avancer. Les chaînes d'un polymère font les deux : elles se déforment comme des ressorts, et glissent les unes sur les autres comme un liquide visqueux. Selon la température et la vitesse, l'un ou l'autre domine.</p>
 <div id="fig-modeles"></div>
 
-<h4>Formalisation</h4>
 <p>Un <strong>polymère</strong> est un matériau formé par un ensemble de macromolécules de même nature chimique, issu de l'enchaînement covalent d'un grand nombre de motifs (unités) monomères identiques ou différents. Les biomatériaux polymériques sont des polymères organiques (chaînes de carbone et d'hydrogène). L'enchaînement peut être linéaire (polymères linéaires), présenter des ramifications aléatoires (polymères branchés) ou systématiques et régulières (dendrimères). Les polyoléfines, surtout le polyéthylène (PE) et le polypropylène (PP), forment la plus importante famille de polymères.</p>
 <p>Avantages des biomatériaux polymériques sur les métalliques et les céramiques : simplicité de fabrication, coût raisonnable, possibilité d'adapter les propriétés mécaniques et physiques.</p>
 
-<h5>Trois comportements mécaniques</h5>
+<h4>Trois comportements mécaniques</h4>
 <div class="tableau"><table>
 <tr><th>Comportement</th><th>Ce qui se passe</th></tr>
 <tr><td>élastique</td><td>après une déformation sous sollicitation, il reprend instantanément sa forme dès que celle-ci cesse</td></tr>
@@ -57,7 +48,7 @@
 <li>Comportement visqueux prépondérant aux températures élevées (état fluide) ou aux vitesses très lentes : la contrainte est liée à la vitesse de déformation. Cela concerne surtout les polymères non réticulés chimiquement, pour que l'écoulement puisse avoir lieu.</li>
 </ul>
 
-<h5>Deux modèles élémentaires</h5>
+<h4>Deux modèles élémentaires</h4>
 <p><strong>Le ressort</strong> (solide élastique) : \(F = K\,(L - L_0) = K\,X\). En divisant par la section \(A\) et en rapportant l'allongement à la longueur : loi de Hooke,</p>
 <p>\[\sigma = E\,\varepsilon\]</p>
 <p><strong>L'amortisseur</strong> (comportement visqueux) : la force est proportionnelle à la vitesse de déplacement, \(F = K\,\dfrac{dX}{dt}\). En contraintes : loi de Newton,</p>
@@ -66,10 +57,10 @@
 
 <div class="schema" id="sc-viscoelasticite"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p>Exemple ajouté. Un polymère de module \(E = 2\) GPa, sollicité à basse température (comportement élastique), déformé de \(\varepsilon = 0{,}005\) : \(\sigma = 2000 \times 0{,}005 = 10\) MPa. À haute température, modélisé par un amortisseur de viscosité \(\eta = 500\) MPa·s sous \(\sigma = 1\) MPa constant : la vitesse de déformation vaut \(1/500 = 0{,}002\) s⁻¹, et après 60 s, \(\varepsilon = 0{,}002 \times 60 = 0{,}12\).</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>Polymère : macromolécules issues de l'enchaînement covalent de monomères ; linéaire, branché ou dendrimère.</p>
 <p>Élastique : revient tout de suite. Plastique : déformation permanente. Visqueux : déformation qui évolue avec le temps sous charge constante.</p>
 <p>\[\text{ressort (Hooke)} : \sigma = E\,\varepsilon \qquad \text{amortisseur (Newton)} : \sigma = \eta\,\frac{d\varepsilon}{dt}\]</p>
@@ -84,21 +75,25 @@
 <h2>Les polymères des dispositifs médicaux</h2>
 
 <article class="notion" id="n-polymeres-medicaux">
-<h3>Les polymères des dispositifs médicaux</h3>
 <p class="chapeau">Un cotyle de hanche, une poignée d'instrument passée mille fois à l'autoclave, un boîtier où l'on doit voir circuler le sang, une prothèse mammaire : tous en polymère, mais jamais le même. Comment choisir le bon ?</p>
 
-<h4>Intuition</h4>
-<p>On part de l'usage. Faut-il voir à travers ? Passer à l'<strong>autoclave</strong> encore et encore ? Frotter sans s'user ? Être <strong>visible aux rayons X</strong> ? Rester <strong>souple</strong> ? Chaque polymère du cours répond à quelques-unes de ces questions, et c'est son profil qui décide de sa place.</p>
 <div id="fig-fiches"></div>
 
-<h4>Formalisation</h4>
-<h5>Ce qu'on exige d'un polymère médical</h5>
-<p>Les fabricants de dispositifs médicaux doivent respecter la norme <strong>ISO 10993</strong> (près de 20 parties, dont quatre sur la sélection des matières ; la partie 10993-13 est la plus pertinente pour les polymères). Les polymères choisis doivent : résister à la corrosion, aux attaques chimiques et aux températures élevées ; être non absorbants et inertes ; résister à des cycles de stérilisation répétés en autoclave ; ne pas réagir avec les fluides corporels et les tissus ; ne pas provoquer d'irritation ou de sensibilité cutanée.</p>
+<h4>Ce qu'on exige d'un polymère médical</h4>
+<p>Les fabricants de dispositifs médicaux doivent respecter la norme <strong>ISO 10993</strong> (près de 20 parties, dont quatre sur la sélection des matières ; la partie 10993-13 est la plus pertinente pour les polymères).</p>
+<p>Les polymères choisis doivent :</p>
+<ul>
+<li>Résister à la corrosion, aux attaques chimiques et aux températures élevées.</li>
+<li>Être non absorbants et inertes.</li>
+<li>Résister à des cycles de stérilisation répétés en autoclave.</li>
+<li>Ne pas réagir avec les fluides corporels et les tissus.</li>
+<li>Ne pas provoquer d'irritation ou de sensibilité cutanée.</li>
+</ul>
 
-<h5>Le polyéthylène et l'UHMWPE</h5>
+<h4>Le polyéthylène et l'UHMWPE</h4>
 <p>Le polyéthylène (PE) est une paraffine (hydrocarbure saturé à chaîne droite, \(\mathrm{C_nH_{2n+2}}\)) inerte et biocompatible. Il se caractérise par sa masse moléculaire (motif de 28 g/mol, répété \(n\) fois : \(M = 28 \times n\)) et sa cristallinité (50 % en moyenne, proportionnelle à la densité) ; masse moléculaire et cristallinité donnent les propriétés mécaniques. Le PE de très haute masse moléculaire, <strong>UHMWPE</strong> : un poids moléculaire élevé donne la résistance à la friction et peu d'oxydation ; une densité élevée, une meilleure résistance aux chocs et au cisaillement. Dense, au plus faible coefficient de frottement de la famille des PE, résistant à l'usure, aux chocs, à l'abrasion, éminemment biocompatible : c'est le polymère à retenir pour les implants orthopédiques (genou, hanche). Dans les prothèses totales de hanche, le PE est réservé au versant cotyloïdien.</p>
 
-<h5>Les polymères techniques</h5>
+<h4>Les polymères techniques</h4>
 <div class="tableau"><table>
 <tr><th>Polymère</th><th>Profil</th><th>Applications</th></tr>
 <tr><td>PC (polycarbonate)</td><td>optiquement transparent, robuste, stable, résiste à la chaleur, aux produits chimiques et de stérilisation ; pas à l'intérieur du corps</td><td>voir le sang, les médicaments et les fluides qui circulent dans un appareil</td></tr>
@@ -107,9 +102,17 @@
 <tr><td>PSU (polysulfone)</td><td>ambré, robuste et rigide à chaud, moins solide que le PEI mais plus résistant aux chocs ; un des rares polymères à supporter plus de 1000 cycles de stérilisation à la vapeur</td><td>boîtiers de filtres, orifices de cathéters, plateaux d'instruments, calibreurs pour valves cardiaques</td></tr>
 <tr><td>silicone</td><td>de souple à rigide ; de −55 °C à 210 °C ; hydrophobe ; résiste aux solvants et aux acides ; perméable à la vapeur ; existe en version optique (OSLR) et liquide (LSR)</td><td>prothèses dentaires, lentilles, nombreux composants moulés ou imprimés en 3D</td></tr>
 </table></div>
-<p>Autres : le <strong>PTFE</strong> (Téflon), superlubrifiant, des cathéters aux stents et aux machines cœur-poumon ; l'ABS, résistant aux chocs et aux produits chimiques, qui remplace des pièces structurelles métalliques ; l'acétal (Delrin) ; le PVC, version flexible du PC dans certains usages ; le PET, résistant aux micro-organismes ; le PP, plastique de base des flacons, récipients et seringues jetables (excellent pour les charnières intégrées).</p>
+<p>Autres :</p>
+<ul>
+<li>Le <strong>PTFE</strong> (Téflon), superlubrifiant, des cathéters aux stents et aux machines cœur-poumon.</li>
+<li>L'ABS, résistant aux chocs et aux produits chimiques, qui remplace des pièces structurelles métalliques.</li>
+<li>L'acétal (Delrin).</li>
+<li>Le PVC, version flexible du PC dans certains usages.</li>
+<li>Le PET, résistant aux micro-organismes.</li>
+<li>Le PP, plastique de base des flacons, récipients et seringues jetables (excellent pour les charnières intégrées).</li>
+</ul>
 
-<h5>Applications des polymères implantés</h5>
+<h4>Applications des polymères implantés</h4>
 <div class="tableau"><table>
 <tr><th>Polymère</th><th>Applications</th></tr>
 <tr><td>polytétrafluoroéthylène (PTFE)</td><td>implants vasculaires, chirurgie faciale</td></tr>
@@ -125,17 +128,26 @@
 </table></div>
 <p>Exemples de prothèses : tige en titane, tête fémorale en céramique et cotyle en polyéthylène ; bouclier fémoral en CoCr qui glisse sur un <strong>plateau tibial</strong> en polyéthylène. On trouve aussi souvent les polymères dans les implants qui remplacent les tissus mous.</p>
 
-<h5>Problèmes mal résolus</h5>
-<p>Pour les polymères non résorbables : instabilité au rayonnement gamma (stérilisation) ; réactivité à certains médicaments ; variabilité d'un lot à l'autre ; stabilité hydrolytique ; calcification ; risques liés aux additifs, aux composants de bas poids moléculaire, aux produits de dégradation in vivo et aux résidus de stérilisation ; manque de bases de données et de standards.</p>
+<h4>Problèmes mal résolus</h4>
+<p>Pour les polymères non résorbables :</p>
+<ul>
+<li>Instabilité au rayonnement gamma (stérilisation).</li>
+<li>Réactivité à certains médicaments.</li>
+<li>Variabilité d'un lot à l'autre.</li>
+<li>Stabilité hydrolytique.</li>
+<li>Calcification.</li>
+<li>Risques liés aux additifs, aux composants de bas poids moléculaire, aux produits de dégradation in vivo et aux résidus de stérilisation.</li>
+<li>Manque de bases de données et de standards.</li>
+</ul>
 
 <figure class="photo duo"><img src="../images/hanche-pe.jpg" alt="Tige en titane, tête fémorale en céramique et cotyle en polyéthylène"><img src="../images/genou-pe.jpg" alt="Bouclier fémoral en CoCr glissant sur un plateau tibial en polyéthylène"><figcaption>Le polyéthylène dans deux prothèses : le cotyle d'une hanche, le plateau tibial d'un genou.<small>Photos du cours « Classes des biomatériaux, Céramiques et Polymères ».</small></figcaption></figure>
 
 <div class="schema" id="sc-medicaux"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p>Exemple ajouté. Une chaîne de polyéthylène de \(n = 50\,000\) motifs a une masse moléculaire \(M = 28 \times 50\,000 = 1{,}4 \cdot 10^6\) g/mol. Un plateau d'instruments stérilisé deux fois par jour, 300 jours par an, subit 600 cycles par an : en PSU (plus de 1000 cycles), il tient plus d'un an et demi ; \(1000 / 600 \approx 1{,}7\) an au minimum.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>ISO 10993 (10993-13 pour les polymères) : inertes, non absorbants, stérilisables à répétition, sans réaction avec les tissus.</p>
 <p>\[M_{PE} = 28 \times n \ \ \text{g/mol}\]</p>
 <p><strong>UHMWPE</strong> : frottement faible, usure, chocs ; cotyles et plateaux tibiaux. <strong>PEEK</strong> : radio-opaque, <strong>rachis</strong>. PC : transparent, <strong>hors du corps</strong>. PEI : 180 °C, poignées. <strong>PSU</strong> : plus de 1000 cycles de vapeur. <strong>Silicone</strong> : −55 à 210 °C, <strong>souple</strong>, implants mammaires. <strong>PTFE</strong> : superlubrifiant, vasculaire. <strong>PMMA</strong> : <strong>lentilles</strong>, ciment. PLA/PGA : biodégradables.</p>
@@ -149,15 +161,11 @@
 <h2>Les biomatériaux naturels</h2>
 
 <article class="notion" id="n-biomateriaux-naturels">
-<h3>Les biomatériaux naturels</h3>
 <p class="chapeau">Pour être sûr qu'un implant soit bien toléré, pourquoi ne pas le prendre dans le vivant ? Du collagène de peau animale, de la chitine de carapace de crabe, de la cellulose, du corail. Que sait-on en faire ?</p>
 
-<h4>Intuition</h4>
-<p>Le souci de biocompatibilité a orienté les chercheurs vers des matériaux logiquement biocompatibles, puisque d'origine naturelle. Le corps connaît déjà ces molécules, ou des molécules très proches. En contrepartie, elles viennent d'êtres vivants : il faut les extraire, les purifier, les traiter, et elles se dégradent souvent avec le temps.</p>
 <div id="fig-naturels"></div>
 
-<h4>Formalisation</h4>
-<h5>Le collagène</h5>
+<h4>Le collagène</h4>
 <p>D'origine animale (extrait de la peau) ou humaine (extrait du placenta), avec des applications existantes ou envisageables très nombreuses :</p>
 <ul>
 <li>cosmétologie et chirurgie esthétique ;</li>
@@ -166,9 +174,15 @@
 <li>reconstitution de tissus mous et durs avec des mélanges <strong>collagène</strong>, facteurs de croissance, hydroxyapatite ;</li>
 <li><strong>peau artificielle</strong> (derme).</li>
 </ul>
-<p>Ses avantages : c'est un produit <strong>hémostatique</strong> (il arrête les saignements) ; il a des propriétés mécaniques qui permettent de le manipuler ; il est indispensable au développement cellulaire ; il est <strong>biodégradable</strong>.</p>
+<p>Ses avantages :</p>
+<ul>
+<li>C'est un produit <strong>hémostatique</strong> (il arrête les saignements).</li>
+<li>Il a des propriétés mécaniques qui permettent de le manipuler.</li>
+<li>Il est indispensable au développement cellulaire.</li>
+<li>Il est <strong>biodégradable</strong>.</li>
+</ul>
 
-<h5>Autres matériaux naturels</h5>
+<h4>Autres matériaux naturels</h4>
 <div class="tableau"><table>
 <tr><th>Matériau</th><th>Origine</th><th>Applications</th></tr>
 <tr><td>chitine</td><td>polysaccharide extrait des coquilles de crabe</td><td>fils de suture, chirurgie reconstructive, peau artificielle</td></tr>
@@ -180,10 +194,7 @@
 
 <div class="schema" id="sc-naturels"></div>
 
-<h4>Exemple</h4>
-<p>Exemple ajouté. Après une extraction dentaire qui saigne, on place une éponge de collagène : elle est hémostatique, se manipule facilement, aide les cellules à recoloniser la plaie, puis se dégrade d'elle-même. Pour combler une perte osseuse de la mâchoire, on peut penser au corail, que les cellules osseuses recolonisent ; pour une dialyse, à une membrane de <strong>cellulose</strong>.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p><strong>Collagène</strong> (peau animale ou placenta humain) : <strong>hémostatique</strong>, manipulable, indispensable aux cellules, biodégradable ; esthétique, <strong>pansements</strong>, ophtalmologie, reconstitution de tissus, <strong>peau artificielle</strong>.</p>
 <p><strong>Chitine</strong> (crabe) : <strong>sutures</strong>, reconstruction, <strong>peau artificielle</strong>. <strong>Fucanes</strong> (algues) : <strong>anticoagulants</strong>. Cellulose : <strong>membranes de dialyse</strong>. Corail : <strong>os recolonisable</strong>.</p>
 </article>

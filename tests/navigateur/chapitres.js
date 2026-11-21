@@ -62,7 +62,9 @@ const dc = `${BASE}modules/${mid}/`;
     noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte ${sm} : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${coursSm[i]}.html`)) pb(`carte ${sm} : nœud ${i} mène à ${n.href}`); });
     if (await pg.$$eval(".btn.reprendre", l => l.length) !== 1) pb(`carte ${sm} : pas un seul bouton Reprendre`);
     const liens = await pg.$$eval("#entete a, #chapitres a", l => l.length);
-    if (liens > coursSm.length + 6) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
+    // sous-modules, Cours / TD, « Préparer l'examen », Reprendre, plus l'onglet « Labs » quand le sous-module a des labs
+    const aLabs = chs.some(c => smDe(c) === sm && estLab(c));
+    if (liens > coursSm.length + 6 + (aLabs ? 1 : 0)) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
     await pg.screenshot({ path: path.join(out, `carte${sm ? "-" + sm : ""}.png`), fullPage: true });
 
     for (const [ic, ch] of chsm.entries()) {

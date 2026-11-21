@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>JSON et la plateforme ThingSpeak (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 8 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>JSON et la plateforme ThingSpeak</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-8.html">Lire le cours complet</a></p>
+<h2>JSON</h2>
+<p>Format léger d'échange : des paires <strong>nom/valeur</strong> dans des accolades { } (objets) et des listes dans des crochets [ ] (tableaux). Noms et chaînes entre guillemets doubles. Types : nombre, chaîne, booléen (true, false), tableau, objet, null.</p>
+
+<h2>ThingSpeak</h2>
+<ul>
+<li>Un <strong>channel</strong> a un Channel ID et jusqu'à <strong>8 fields</strong>.</li>
+<li>Deux clés : <strong>Write API Key</strong> (écrire) et <strong>Read API Key</strong> (lire un channel privé).</li>
+<li>Écrire en HTTP : GET https://api.thingspeak.com/update?api_key=CLE&amp;field1=valeur.</li>
+<li>Sur l'ESP32 : setField(1, v), puis writeFields(...) ; <strong>200</strong> veut dire réussi.</li>
+<li>Apps : <strong>MATLAB Analysis</strong> (calculer sur les données), <strong>React</strong> (agir quand une condition est remplie).</li>
+</ul>
+
+<h2>ThingSpeak en MQTT</h2>
+<p>Broker mqtt3.thingspeak.com, port 1883 ; un <strong>device MQTT</strong> porte Client ID, Username, Password. Le broker répond CONNACK à la connexion, SUBACK à l'abonnement.</p>
+<ul>
+<li>Publier tous les champs : channels/ID/publish, message field1=45&amp;field2=60.</li>
+<li>Publier un champ : channels/ID/publish/fields/field1.</li>
+<li>S'abonner : channels/ID/subscribe : chaque entrée arrive en JSON.</li>
+<li>ESP32 (PubSubClient) : setServer, connect, publish, subscribe, setCallback, loop().</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Comment JSON écrit-il un objet ? Un tableau ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Objet : paires nom/valeur entre accolades { }.</p><p>Tableau : valeurs séparées par des virgules entre crochets [ ].</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Ce JSON est-il valide : {'hr': 72} ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : les noms et les chaînes doivent être entre guillemets doubles, {"hr": 72}.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Combien de champs a un channel ThingSpeak ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Jusqu'à 8.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quelle clé pour écrire ? Pour lire un channel privé ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Write API Key pour écrire.</p><p>Read API Key pour lire.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Écris l'URL qui met 37 dans le champ 2.</p><details class="corrige"><summary>Voir la réponse</summary><p>https://api.thingspeak.com/update?api_key=CLE&amp;field2=37</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que veut dire writeFields(...) == 200 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'écriture dans le channel a réussi.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Sur quel topic publier tous les champs en MQTT ?</p><details class="corrige"><summary>Voir la réponse</summary><p>channels/ID/publish, avec un message du type field1=45&amp;field2=60.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Pourquoi appeler loop() dans le programme MQTT de l'ESP32 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour garder la connexion au broker et traiter les messages reçus (callback).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Fin des versions courtes</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "instrumentation") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 8) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

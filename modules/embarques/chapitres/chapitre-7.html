@@ -28,15 +28,8 @@
 <h3>Modèles de communication</h3>
 <p class="chapeau">Un moniteur de chevet mesure la SpO2. L'infirmière, le médecin de garde et le dossier du patient veulent tous la recevoir. Le moniteur doit-il connaître chacun d'eux, ou envoyer à un intermédiaire qui distribue ?</p>
 
-<h4>Le chapitre en bref</h4>
-<p>Ce chapitre suit la partie « IoT and Protocols » du cours : quatre modèles de communication (cette page), puis les protocoles HTTP, MQTT, WebSockets et RPC. Les labs s'en servent tout le temps : HTTP pour écrire dans ThingSpeak, MQTT avec Mosquitto, Node-RED et l'ESP32.</p>
-
-<h4>Intuition</h4>
-<p>Pour échanger des données, deux programmes peuvent se parler de quatre façons. Le client demande et le serveur répond. Ou bien un émetteur publie sur un sujet et un intermédiaire distribue à tous les intéressés. Ou bien l'émetteur dépose dans une file et chacun vient se servir. Ou bien les deux gardent une ligne ouverte et parlent quand ils veulent.</p>
-
 <div id="fig-modeles"></div>
 
-<h4>Formalisation</h4>
 <ul>
 <li><b>Request-Response</b> : le client envoie des requêtes au serveur, qui y répond. À chaque requête, le serveur décide comment répondre, va chercher les données, prépare la réponse et l'envoie au client.</li>
 <li><b>Publish-Subscribe</b> : il fait intervenir des publishers, des brokers et des consumers. Les publishers sont la source des données ; ils envoient les données sur des topics gérés par le broker, sans connaître les consumers. Les consumers s'abonnent aux topics ; quand le broker reçoit une donnée sur un topic, il l'envoie à tous les abonnés.</li>
@@ -44,11 +37,7 @@
 <li><b>Exclusive Pair</b> : modèle bidirectionnel, full duplex, avec une connexion persistante entre client et serveur. Une fois établie, elle reste ouverte jusqu'à ce que le client demande sa fermeture ; client et serveur peuvent alors s'envoyer des messages.</li>
 </ul>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Le moniteur de SpO2 du chapeau, en publish-subscribe : il publie sur le topic <code>chambre12/spo2</code> ; l'infirmière, le médecin et le dossier s'abonnent à ce topic auprès du broker. Un nouvel écran peut s'abonner demain sans que l'on touche au moniteur. En request-response, il faudrait au contraire que chaque écran vienne demander la valeur, encore et encore.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{Request-Response : client} \rightleftarrows \text{serveur} \qquad \text{Publish-Subscribe : publisher} \rightarrow \text{broker (topics)} \rightarrow \text{abonnés} \]
 \[ \text{Push-Pull : producteur} \rightarrow \text{file} \rightarrow \text{consommateur} \qquad \text{Exclusive Pair : connexion persistante, full duplex} \]
 </article>
@@ -61,15 +50,10 @@
 <h2>HTTP</h2>
 
 <article class="notion" id="n-http">
-<h3>HTTP : requêtes, méthodes, REST</h3>
 <p class="chapeau">Une application de suivi doit lire la dernière tension d'un patient sur un serveur, en ajouter une nouvelle, corriger une erreur. Comment dit-on au serveur ce qu'on veut faire de la ressource ?</p>
-
-<h4>Intuition</h4>
-<p>Le web fonctionne en request-response. Le navigateur (ou l'ESP32) envoie une requête à une adresse, le serveur répond. La requête porte un verbe qui dit l'intention : lire, envoyer, remplacer, supprimer.</p>
 
 <div id="fig-http"></div>
 
-<h4>Formalisation</h4>
 <p>Une application web s'appuie sur des protocoles comme <b>HTTP</b>, FTP ou WebSocket. Une ressource se désigne par son <b>URL</b> (Uniform Resource Locator), par exemple <code>https://sites.google.com/view/atmjbari/home</code>.</p>
 <p>HTTP prend en charge 8 types de requêtes, appelés méthodes ou verbes :</p>
 <div class="tableau"><table>
@@ -88,10 +72,10 @@
 
 <div id="fig-osi"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p>L'écriture dans ThingSpeak des labs est une requête GET dont l'URL porte la clé et la valeur : <code>https://api.thingspeak.com/update?api_key=…&amp;field5=70</code>. Le serveur répond par le numéro de l'entrée créée.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{requête : méthode} + \text{URL} \;\longrightarrow\; \text{réponse du serveur} \qquad \text{GET lire, POST envoyer, PUT remplacer, DELETE supprimer} \]
 </article>
 
@@ -103,15 +87,10 @@
 <h2>MQTT</h2>
 
 <article class="notion" id="n-mqtt">
-<h3>MQTT : publish/subscribe, topics, QoS</h3>
 <p class="chapeau">Dix capteurs de température dans un bâtiment, trois écrans qui veulent chacun une partie des mesures. Avec MQTT, chaque capteur publie sur son propre topic, et chaque écran choisit ce qu'il reçoit grâce à un filtre.</p>
-
-<h4>Intuition</h4>
-<p>MQTT applique le modèle publish-subscribe. Le broker est la poste centrale : il reçoit chaque message avec son topic, une adresse en forme de chemin de fichier, et le transmet à tous ceux qui se sont abonnés à ce topic. Un abonné peut utiliser des jokers pour recevoir toute une famille de topics.</p>
 
 <div id="fig-mqtt"></div>
 
-<h4>Formalisation</h4>
 <p>MQTT est une architecture publish/subscribe conçue d'abord pour relier des appareils limités en bande passante et en énergie sur des réseaux sans fil. Protocole simple et léger, il fonctionne sur TCP/IP ou sur WebSockets. Le <b>broker</b> est le point central : il distribue tous les messages entre les émetteurs et les bons destinataires. Un <b>client</b> est tout appareil qui se connecte au broker pour publier ou s'abonner ; le broker confirme une connexion par CONNACK et un abonnement par SUBACK.</p>
 <p>Les <b>topics</b> fonctionnent comme des chemins de fichiers, et les messages peuvent être n'importe quoi (texte, images…). Exemples du cours : <code>home/groundfloor/kitchen/temperature</code>, <code>office/conferenceroom/luminance</code>. Deux jokers pour s'abonner :</p>
 <ul>
@@ -128,11 +107,7 @@
 
 <div id="fig-qos"></div>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Messages publiés : <code>home/groundfloor/kitchen/temperature</code> et <code>home/groundfloor/living/humidity</code>. L'abonné à <code>home/groundfloor/+/temperature</code> ne reçoit que le premier ; l'abonné à <code>home/groundfloor/#</code> reçoit les deux ; l'abonné à <code>home/+/temperature</code> n'en reçoit aucun, car <code>+</code> ne remplace qu'un seul niveau et il en manque un.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \texttt{+} \text{ : un niveau} \qquad \texttt{\#} \text{ : tous les niveaux suivants} \qquad \text{QoS } 0 \le 1 \le 2 \text{ : fiabilité} \uparrow,\ \text{coût} \uparrow \]
 </article>
 
@@ -144,15 +119,10 @@
 <h2>WebSockets et RPC</h2>
 
 <article class="notion" id="n-websockets-rpc">
-<h3>WebSockets et RPC</h3>
 <p class="chapeau">Un tableau de bord de réanimation doit afficher une alarme dès qu'elle survient. En HTTP, le navigateur devrait redemander sans cesse « du nouveau ? ». Il faut une ligne qui reste ouverte, où le serveur peut parler de lui-même.</p>
-
-<h4>Intuition</h4>
-<p>En HTTP, chaque échange commence par une demande du client. Pour être prévenu vite, le client doit redemander très souvent : beaucoup de requêtes pour rien. Une WebSocket ouvre une fois la connexion, puis client et serveur s'écrivent quand ils veulent, dans les deux sens à la fois.</p>
 
 <div id="fig-websocket"></div>
 
-<h4>Formalisation</h4>
 <p><b>WebSockets</b> : le serveur comme le client peuvent pousser un message à tout moment, sans lien avec une requête précédente. Le cours liste trois problèmes de HTTP qu'elles résolvent :</p>
 <ul>
 <li>protocole <b>bidirectionnel</b> : chacun peut envoyer un message à l'autre (en HTTP, la requête vient toujours du client et le serveur y répond : HTTP est unidirectionnel) ;</li>
@@ -161,11 +131,7 @@
 </ul>
 <p><b>Remote Procedure Call (RPC)</b> : une technique pour construire des applications distribuées client-serveur. Elle étend l'appel de procédure local habituel : la procédure appelée n'a pas besoin d'être dans le même espace d'adressage que l'appelant. Les deux processus peuvent être sur le même système, ou sur deux systèmes reliés par un réseau.</p>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Le tableau de bord veut être prévenu en moins de 2 s. En HTTP, il redemande toutes les 2 s : 30 requêtes par minute, presque toutes pour rien. Avec une WebSocket : une seule connexion, et un message seulement quand une alarme survient. En RPC, l'application du médecin appellerait par exemple <code>dernierECG(patient)</code> comme une fonction locale, alors qu'elle s'exécute sur le serveur de l'hôpital.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{WebSocket : bidirectionnel} + \text{full duplex} + \text{une seule connexion TCP} \qquad \text{RPC : appel d'une procédure distante comme d'une procédure locale} \]
 </article>
 

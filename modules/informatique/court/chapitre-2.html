@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les cinq composants d'un SI (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 2 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Les cinq composants d'un SI</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-2.html">Lire le cours complet</a></p>
+<h2>Cinq composants</h2>
+<p>SI = <strong>organisation</strong> + <strong>logiciels</strong> + <strong>données</strong> + <strong>matériel</strong> + <strong>personnels</strong>. Un SI ne marche que si les cinq tiennent.</p>
+
+<h2>L'organisation</h2>
+<ul>
+<li><strong>Processus</strong> : activités qui transforment des entrées en sorties, avec une valeur ajoutée (ISO 9000:2000).</li>
+<li><strong>Procédure</strong> : manière spécifiée d'effectuer une activité.</li>
+<li><strong>Workflow</strong> : qui fait quoi et quand, avec un déclencheur.</li>
+</ul>
+<p>Maturité : <strong>1 initial</strong> (aléatoire), <strong>2 géré</strong>, <strong>3 défini</strong>, <strong>4 quantifié</strong>, <strong>5 optimisé</strong>. La <strong>cartographie</strong> range les processus en trois macroprocessus : management / pilotage, opérationnel / métier, support.</p>
+<p>Le <strong>schéma directeur</strong> (SDSI) : établi par la DSI, validé par la direction, valable <strong>3 à 5 ans</strong>. Phases : cadrage → analyse de l'existant → axes stratégiques → élaboration.</p>
+
+<h2>Les logiciels</h2>
+<p>Logiciels <strong>système</strong> (OS, hyperviseurs, systèmes de fichiers) et <strong>métiers</strong> (ERP / PGI comme SAP, CRM, développement spécifique). Progiciel ou spécifique selon l'enjeu (stratégique, normé, autre) et la taille. Un sujet normé : progiciel ; un sujet stratégique : souvent spécifique.</p>
+<p>Qualité : <strong>conformité aux besoins</strong>, <strong>ergonomie</strong>, <strong>flexibilité</strong>, <strong>maintenabilité</strong>, <strong>sécurité d'usage</strong>.</p>
+
+<h2>Les données</h2>
+<p>Une <strong>base de données</strong> : indépendance, cohérence, redondance minimale, accès simultané (modélisation UML, Merise). Le <strong>SGBD</strong> (Oracle, MySQL, PostgreSQL…) assure :</p>
+<ul>
+<li><strong>LDD</strong>, définition : CREATE, ALTER.</li>
+<li><strong>LMD</strong>, manipulation : INSERT, UPDATE.</li>
+<li><strong>LCD</strong>, contrôle d'accès : GRANT, DENY.</li>
+<li>L'intégrité (contraintes, verrous) et la disponibilité (réplication, sauvegarde).</li>
+</ul>
+
+<h2>Matériel et personnel</h2>
+<p>Serveurs (locaux ou cloud : <strong>SaaS</strong>, <strong>PaaS</strong>, <strong>IaaS</strong>), postes, imprimantes ; réseau <strong>actif</strong> (switch, routeur, borne wifi) et <strong>passif</strong> (câbles, fibre, prises), filaire ou sans fil.</p>
+<p>Acteurs <strong>internes</strong> (direction de gestion, direction métier, DSI : RSSI, administrateurs, développeurs…) et <strong>externes</strong> (partenaires, clients, fournisseurs, régulateurs).</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Cite les cinq composants d'un SI.</p><details class="corrige"><summary>Voir la réponse</summary><p>Organisation, logiciels, données, matériel, personnels.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Processus, procédure, workflow : à quelle question répond chacun ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Processus : quoi transformer en quoi ?</p><p>Procédure : comment faire cette activité ?</p><p>Workflow : qui fait quoi, et quand ?</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les cinq niveaux de maturité d'un processus.</p><details class="corrige"><summary>Voir la réponse</summary><p>1 initial, 2 géré, 3 défini, 4 quantifié, 5 optimisé.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quels sont les trois macroprocessus d'une cartographie ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Management / pilotage, opérationnel / métier, support.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qui établit le schéma directeur, et pour combien de temps ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La DSI, validé par la direction générale et métier.</p><p>Pour 3 à 5 ans.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Cite trois critères de qualité d'un logiciel.</p><details class="corrige"><summary>Voir la réponse</summary><p>Conformité aux besoins, ergonomie, flexibilité, maintenabilité, sécurité d'usage (trois au choix).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que font les commandes CREATE, INSERT et GRANT d'un SGBD ?</p><details class="corrige"><summary>Voir la réponse</summary><p>CREATE : définir une base ou un objet (LDD).</p><p>INSERT : manipuler les données (LMD).</p><p>GRANT : contrôler l'accès (LCD).</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Différence entre équipement réseau actif et passif ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Actif : alimenté, il traite le signal (switch, routeur, borne wifi).</p><p>Passif : il transporte (câbles, fibre, prises).</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Que gère l'hôpital en SaaS ? En IaaS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>SaaS : seulement l'usage du logiciel (un DPI loué dans le navigateur).</p><p>IaaS : le système, la base et les applications sur des machines louées.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-3.html"><small>Version courte suivante</small>Le système d'information hospitalier</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "sis") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 2) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

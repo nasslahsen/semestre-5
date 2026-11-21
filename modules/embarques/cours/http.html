@@ -20,12 +20,8 @@
 <h1>HTTP : requêtes, méthodes, REST</h1>
 <p class="chapeau">Une application de suivi doit lire la dernière tension d'un patient sur un serveur, en ajouter une nouvelle, corriger une erreur. Comment dit-on au serveur ce qu'on veut faire de la ressource ?</p>
 
-<h2>Intuition</h2>
-<p>Le web fonctionne en request-response. Le navigateur (ou l'ESP32) envoie une requête à une adresse, le serveur répond. La requête porte un verbe qui dit l'intention : lire, envoyer, remplacer, supprimer.</p>
-
 <div id="fig-http"></div>
 
-<h2>Formalisation</h2>
 <p>Une application web s'appuie sur des protocoles comme <b>HTTP</b>, FTP ou WebSocket. Une ressource se désigne par son <b>URL</b> (Uniform Resource Locator), par exemple <code>https://sites.google.com/view/atmjbari/home</code>.</p>
 <p>HTTP prend en charge 8 types de requêtes, appelés méthodes ou verbes :</p>
 <div class="tableau"><table>
@@ -44,10 +40,10 @@
 
 <div id="fig-osi"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p>L'écriture dans ThingSpeak des labs est une requête GET dont l'URL porte la clé et la valeur : <code>https://api.thingspeak.com/update?api_key=…&amp;field5=70</code>. Le serveur répond par le numéro de l'entrée créée.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{requête : méthode} + \text{URL} \;\longrightarrow\; \text{réponse du serveur} \qquad \text{GET lire, POST envoyer, PUT remplacer, DELETE supprimer} \]
 
 </main>

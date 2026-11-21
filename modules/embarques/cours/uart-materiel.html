@@ -20,14 +20,9 @@
 <h1>UART du PIC18F4520 et UART du PSoC 5</h1>
 <p class="chapeau">Écrire un octet dans un registre suffit pour qu'il parte sur le câble. Que fait le matériel entre les deux, et comment le programme sait-il qu'il peut envoyer le suivant ou qu'une trame est arrivée abîmée ?</p>
 
-<h2>Intuition</h2>
-<p>L'émetteur a deux étages. Le programme dépose l'octet dans une boîte aux lettres (TXREG). Le matériel le transfère aussitôt dans un registre à décalage (TSR) qui le pousse bit par bit sur la broche. Dès que la boîte aux lettres est vide, un drapeau le signale : on peut y glisser l'octet suivant pendant que le précédent part encore.</p>
-<p>Le récepteur fait l'inverse : il guette le start bit sur RX, échantillonne les bits, les range dans un registre à décalage (RSR), puis dépose l'octet dans une petite file d'attente (RCREG) où le programme vient le lire. S'il trouve un stop bit à 0, ou si la file déborde, il lève un bit d'erreur.</p>
-
 <div id="fig-emission"></div>
 
-<h2>Formalisation</h2>
-<h3>Bloc d'émission (PIC18F4520)</h3>
+<h2>Bloc d'émission (PIC18F4520)</h2>
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Rôle</th></tr>
 <tr><td>TXREG Register</td><td>reçoit l'octet du bus de données (8 bits en parallèle)</td></tr>
@@ -42,7 +37,7 @@
 </table></div>
 <p>Chronogramme d'émission : l'écriture dans TXREG (<i>Write to TXREG</i>) charge le mot 1 ; il passe dans le registre à décalage (<i>Word 1 → Transmit Shift Reg</i>). TXIF (<i>Transmit Buffer Reg. Empty Flag</i>) retombe pendant 1 \(T_{CY}\) puis remonte ; TRMT (<i>Transmit Shift Reg. Empty Flag</i>) passe à 0 et ne remonte qu'après le stop bit. Sur TX : start bit, bit 0, bit 1, …, bit 7/8, stop bit, au rythme de la sortie du BRG (<i>shift clock</i>).</p>
 
-<h3>Bloc de réception (PIC18F4520)</h3>
+<h2>Bloc de réception (PIC18F4520)</h2>
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Rôle</th></tr>
 <tr><td>RX, Pin Buffer and Control, SPEN</td><td>entrée de la broche RX, active si SPEN = 1</td></tr>
@@ -58,7 +53,7 @@
 
 <div id="fig-reception"></div>
 
-<h3>UART embarqué du PSoC 5</h3>
+<h2>UART embarqué du PSoC 5</h2>
 <ul>
 <li>mode adresse 9 bits avec détection matérielle d'adresse ;</li>
 <li>débits de 110 à 921600 bps, ou quelconque jusqu'à 4 Mbps ;</li>
@@ -73,11 +68,7 @@
 
 <div id="fig-vote"></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un holter envoie trois octets à la suite. Il écrit le premier dans TXREG : il passe dans le TSR, TXIF remonte presque aussitôt, et le programme écrit le deuxième octet pendant que le premier sort encore. TRMT ne remontera qu'après le stop bit du dernier octet. Côté PC, si le câble est parasité et qu'un stop bit est lu à 0, FERR passe à 1 ; si le programme oublie de lire RCREG et que la FIFO déborde, c'est OERR.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ \text{Data Bus} \rightarrow \text{TXREG} \rightarrow \text{TSR} \rightarrow \text{TX} \qquad \text{RX} \rightarrow \text{RSR} \rightarrow \text{RCREG} \rightarrow \text{Data Bus} \qquad \text{Interrupt} = \text{TXIF} \cdot \text{TXIE} \]
 <p>TXIF : TXREG vide. TRMT : TSR vide. FERR : stop bit faux. OERR : débordement. PSoC 5 : vote 2 sur 3, suréchantillonnage 8x ou 16x.</p>
 

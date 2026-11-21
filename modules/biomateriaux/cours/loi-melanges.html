@@ -20,12 +20,8 @@
 <h1>Loi des mélanges et module longitudinal</h1>
 <p class="chapeau">On sait le module de la fibre de verre (70 GPa) et celui de la résine (3 GPa). Quelle rigidité aura une plaque qui contient 40 % de fibres, tirée dans le sens des fibres ? Pas la moyenne simple : il faut savoir comment fibres et matrice se partagent la charge.</p>
 
-<h2>Intuition</h2>
-<p>Tirée dans le sens des fibres, la plaque s'allonge d'un bloc : fibres et matrice, collées l'une à l'autre, ont le même allongement. C'est comme deux ressorts côte à côte entre deux plaques : ils s'allongent pareil et leurs forces s'ajoutent. Le ressort raide (la fibre) porte presque toute la force.</p>
-
 <div id="fig-parallele"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Monocouche unidirectionnelle</strong> chargée parallèlement aux fibres (direction L). Matrice : \(E_m, \sigma_m, \varepsilon_m\) ; fibre : \(E_f, \sigma_f, \varepsilon_f\). Sections : \(A_c = A_f + A_m\). Fractions volumiques : \(\phi_f = A_f/A_c\) et \(\phi_m = A_m/A_c = 1 - \phi_f\).</p>
 <ul>
 <li>Même déformation : \(\varepsilon_{CL} = \varepsilon_f = \varepsilon_m\).</li>
@@ -40,7 +36,7 @@
 
 <div id="fig-rupture"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p>Exemple du cours : \(E_f = 70\) GPa, \(E_m = 3\) GPa, \(\phi_f = 0{,}4\), \(\varepsilon = 0{,}01\).</p>
 <ul>
 <li>\(\sigma_f = 70\,000 \times 0{,}01 = 700\) MPa et \(\sigma_m = 3\,000 \times 0{,}01 = 30\) MPa.</li>
@@ -48,7 +44,7 @@
 <li>\(E_{CL} = 70 \times 0{,}4 + 3 \times 0{,}6 = 29{,}8\) GPa \(\approx E_f\,\phi_f = 28\) GPa : la contribution de la matrice est presque négligeable.</li>
 </ul>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>\[\varepsilon_{CL} = \varepsilon_f = \varepsilon_m \qquad \phi_m = 1 - \phi_f\]</p>
 <p>\[\sigma_{CL} = \sigma_f\,\phi_f + \sigma_m\,\phi_m \qquad E_{CL} = E_f\,\phi_f + E_m\,\phi_m\]</p>
 <p>La fibre rompt la première (\(\varepsilon_{fu} < \varepsilon_{mu}\)) ; le mode de rupture reste difficile à prévoir.</p>

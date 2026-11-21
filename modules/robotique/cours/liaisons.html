@@ -20,13 +20,12 @@
 <h1>DDL d'un solide et liaisons normalisées</h1>
 <p class="chapeau">Un solide libre peut bouger de six façons indépendantes. Une liaison en bloque certaines : ce qui reste, ce sont les mouvements possibles entre les deux pièces.</p>
 
-<h2>Intuition</h2>
+<h2>Les mouvements qu'une liaison bloque</h2>
 <p>Tenez un objet en l'air : vous pouvez le déplacer selon trois directions et le tourner autour de trois axes. Posez-le maintenant sur une charnière : il ne peut plus que tourner autour de l'axe de la charnière. La charnière a « supprimé » cinq mouvements. Les liaisons normalisées sont un catalogue de ces façons de relier deux solides, chacune caractérisée par les mouvements qu'elle laisse.</p>
 <p>On suppose les solides <strong>indéformables</strong> : la distance entre deux points quelconques d'un solide reste constante au cours du temps, quel que soit son mouvement. En réalité les bras fléchissent un peu sous la charge, mais ces déformations sont négligées pour la modélisation géométrique de base. Le mouvement d'un solide se réduit alors à une rotation et une translation : \(\mathbf{p}_2 = \mathbf{R}\,\mathbf{p}_1 + \mathbf{t}\).</p>
 
 <div id="fig-liaisons"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Degrés de liberté d'un solide</strong> : nombre de paramètres indépendants nécessaires pour définir complètement la situation (position + orientation) d'un solide par rapport à un repère de référence.</p>
 \[ \text{dans l'espace : } 3 \text{ translations } (T_x, T_y, T_z) + 3 \text{ rotations } (R_x, R_y, R_z) = 6 \text{ DDL} \]
 \[ \text{dans un plan : } 2 \text{ translations } (T_x, T_y) + 1 \text{ rotation } (R_z) = 3 \text{ DDL} \]
@@ -51,10 +50,10 @@
 
 <div class="schema" id="sc-liaisons"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p>Exemple du cours : une liaison pivot d'axe \(z\) entre un solide \(A\) fixe et un solide \(B\) impose 5 contraintes. Autorisé : \(R_z\). Bloqués : \(T_x, T_y, T_z, R_x, R_y\). DDL relatif restant : \(6 - 5 = 1\). Sur la figure, choisissez « Pivot » : un seul curseur reste actif.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ 6 \text{ DDL (espace)} \qquad 3 \text{ DDL (plan)} \qquad \text{DDL restants} = 6 - \text{contraintes} \qquad \text{mobilité} + \text{liaison} = 6 \]
 
 </main>

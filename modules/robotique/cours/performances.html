@@ -20,13 +20,12 @@
 <h1>Précision, répétabilité et temps de cycle</h1>
 <p class="chapeau">Trois chiffres pour juger un robot : atteint-il le bon point, y revient-il à chaque fois, et en combien de temps fait-il un cycle ?</p>
 
-<h2>Intuition</h2>
+<h2>Précision et répétabilité</h2>
 <p>Pensez à un joueur de fléchettes. La précision, c'est viser juste : les fléchettes autour du centre. La répétabilité, c'est viser pareil : les fléchettes groupées, même si le groupe est à côté du centre. Un robot peut être très répétable sans être précis : il pose toujours la pièce au même endroit, mais à 2 mm de la cible.</p>
 <p>Pour la cadence, un cycle complet de pick and place enchaîne des mouvements et des temps fixes (saisir, déposer, attendre l'automate). Aller plus vite raccourcit les mouvements, pas les temps fixes.</p>
 
 <div id="fig-precision"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Précision</strong> : indique si le robot atteint le point demandé ; c'est la proximité de la cible (écart entre position atteinte et position demandée). <strong>Répétabilité</strong> : capacité du robot à reproduire plusieurs fois le même mouvement et à regrouper ses positions autour d'un même point (même mouvement + positions peu dispersées). Un robot peut être très répétable sans être parfaitement précis.</p>
 <div class="tableau"><table>
 <tr><th>Cas</th><th>Précision</th><th>Répétabilité</th><th>Résultat</th></tr>
@@ -45,7 +44,7 @@
 <div class="schema" id="sc-precision"></div>
 <div class="schema" id="sc-cycle"></div>
 
-<h2>Exemple du cours</h2>
+<h2>L'exemple du cours</h2>
 <p>Robot pick and place : <strong>approche</strong> 0,30 s, <strong>prise</strong> 0,20 s, <strong>transfert</strong> 0,55 s, <strong>dépose</strong> 0,15 s, <strong>retour</strong> 0,45 s, synchronisation 0,35 s.</p>
 \[ T_{cycle} = 0{,}30 + 0{,}20 + 0{,}55 + 0{,}15 + 0{,}45 + 0{,}35 = 2{,}00 \text{ s/cycle} \qquad N = \frac{3600}{2{,}00} = 1800 \text{ cycles/h, soit } 30 \text{ cycles/min} \]
 <p>Cette cadence est théorique : en production, elle est réduite par les arrêts, les défauts, la maintenance et l'alimentation en pièces. <span class="complement">Si l'on double la vitesse, seuls l'<strong>approche</strong>, le <strong>transfert</strong> et le <strong>retour</strong> sont divisés par deux : \(T_{cycle} = 1{,}35\) s et \(N \approx 2667\) cycles/h. La cadence n'est pas doublée (vérifiable sur la figure avec « vitesse × 2 »).</span></p>
@@ -55,7 +54,7 @@
 
 <div id="fig-derivee"></div>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ T_{cycle} = \sum T_i \qquad N = \frac{3600}{T_{cycle}} \qquad v_{moy} = \frac{d}{t} \qquad v(t) = \frac{dx}{dt} \]
 
 </main>

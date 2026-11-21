@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr" data-module="architecture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'hôpital et son bloc (version courte) · Architecture hospitalière</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 1 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>L'hôpital et son bloc</h1>
+<p class="court-lien">Version courte : l'essentiel, puis les questions. <a href="../chapitres/chapitre-1.html">Lire le cours complet</a></p>
+<h2>Ce que l'architecture hospitalière organise</h2>
+<p>Elle organise en même temps :</p>
+<ul>
+<li><strong>Les personnes</strong> : patients, professionnels de santé.</li>
+<li><strong>Ce qui circule</strong> : flux propres et sales, déchets, logistique.</li>
+<li><strong>Ce qui alimente</strong> : équipements médicaux, fluides médicaux, électricité et secours, ventilation et qualité de l'air.</li>
+<li><strong>Ce qui protège et fait durer</strong> : sécurité incendie, maintenance, hygiène et prévention des infections.</li>
+</ul>
+<p><strong>Objectif général</strong> : le bon soin + au bon endroit + dans des conditions sûres + avec des flux maîtrisés + une continuité de fonctionnement.</p>
+<p>L'OMS : la conception associe <strong>architectes</strong>, <strong>ingénieurs</strong>, <strong>exploitants</strong> et <strong>prévention des infections</strong>. Chaque local a une fonction précise, une surface suffisante, une position cohérente.</p>
+
+<h2>Les huit familles de contraintes</h2>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Contrainte</th></tr>
+<tr><td>Fonctionnel</td><td>organisation des activités</td></tr>
+<tr><td>Architectural</td><td>surfaces, volumes, circulations</td></tr>
+<tr><td>Hygiène</td><td>séparation propre / sale</td></tr>
+<tr><td>Technique</td><td>électricité, CVC, fluides médicaux</td></tr>
+<tr><td>Biomédical</td><td>installation et maintenance des équipements</td></tr>
+<tr><td>Sécurité</td><td>incendie, évacuation, risques techniques</td></tr>
+<tr><td>Logistique</td><td>approvisionnement, déchets, linge</td></tr>
+<tr><td>Réglementaire</td><td>normes et prescriptions</td></tr>
+</table></div>
+<p>La synthèse du professeur : pour chaque domaine, une exigence et le risque si elle est mal conçue.</p>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Exigence</th><th>Risque</th></tr>
+<tr><td>Flux</td><td>séparation propre / sale</td><td>contamination</td></tr>
+<tr><td>Ventilation</td><td>filtration + pression + renouvellement</td><td>infection</td></tr>
+<tr><td>Électricité</td><td>continuité + sécurité</td><td>arrêt équipement</td></tr>
+<tr><td>Gaz médicaux</td><td>disponibilité + sécurité</td><td>risque patient</td></tr>
+<tr><td>Éclairage</td><td>visibilité adaptée</td><td>erreur opératoire</td></tr>
+<tr><td>Sols / murs</td><td>surfaces lavables</td><td>contamination</td></tr>
+<tr><td>Incendie</td><td>compartimentage + évacuation</td><td>catastrophe</td></tr>
+<tr><td>Biomédical</td><td>implantation adaptée</td><td>panne, maintenance difficile</td></tr>
+<tr><td>Maintenance</td><td>accessibilité technique</td><td>indisponibilité</td></tr>
+<tr><td>Ergonomie</td><td>circulation adaptée</td><td>fatigue, accidents</td></tr>
+</table></div>
+
+<h2>Le bloc opératoire</h2>
+<p>Le <strong>bloc opératoire</strong> est une unité fonctionnelle hautement spécialisée pour les interventions chirurgicales, dans un environnement maîtrisé. Il concentre patients à risque, actes invasifs, personnel nombreux, équipements complexes, produits stériles, gaz médicaux, électricité, ventilation, et les risques infectieux, électriques et incendie.</p>
+<p>Conséquence : on le conçoit à partir d'un <strong>programme fonctionnel et technique</strong>, pas d'un plan. Trois piliers : <strong>fonctionnel</strong> (flux, zonage), <strong>technique</strong> (CVC, électricité, gaz, informatique), <strong>sécurité</strong> (incendie, évacuation, radioprotection). But : la qualité et la continuité des soins.</p>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne l'objectif général de l'architecture hospitalière.</p><details class="corrige"><summary>Voir la réponse</summary><p>Le bon soin, au bon endroit, dans des conditions sûres, avec des flux maîtrisés et une continuité de fonctionnement.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qui doit être associé à la conception, selon l'OMS ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les architectes.</p><p>Les ingénieurs.</p><p>Les exploitants.</p><p>Les professionnels de la prévention des infections.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Cite les huit familles de contraintes.</p><details class="corrige"><summary>Voir la réponse</summary><p>Fonctionnel, architectural, hygiène, technique, biomédical, sécurité, logistique, réglementaire.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Quel risque si la ventilation est mal conçue ? Et l'électricité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ventilation : infection.</p><p>Électricité : arrêt des équipements.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Quel risque pour une maintenance sans accessibilité technique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>L'indisponibilité des équipements.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Définis le bloc opératoire.</p><details class="corrige"><summary>Voir la réponse</summary><p>Une unité fonctionnelle hautement spécialisée, destinée aux interventions chirurgicales, dans un environnement maîtrisé.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi le bloc est-il la zone la plus exigeante ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il concentre patients à risque, actes invasifs, personnel nombreux, équipements complexes, produits stériles, gaz médicaux, électricité et ventilation.</p><p>Et donc les risques infectieux, électriques et incendie.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> À partir de quoi conçoit-on un bloc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>D'un programme fonctionnel et technique, et pas simplement d'un plan architectural.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Quels sont les trois piliers qui convergent vers le bloc ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Fonctionnel : flux, zonage.</p><p>Technique : CVC, électricité, gaz médicaux, informatique.</p><p>Sécurité : incendie, évacuation, radioprotection.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-2.html"><small>Version courte suivante</small>Zones et flux</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("architecture") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("architecture", 1) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

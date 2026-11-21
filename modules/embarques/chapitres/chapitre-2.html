@@ -28,17 +28,9 @@
 <h3>Architecture d'un contrôleur embarqué</h3>
 <p class="chapeau">Un tensiomètre reçoit la tension d'un capteur de pression, décide quand ouvrir la valve, garde ses mesures et les envoie par USB. Qu'y a-t-il dans la puce qui fait tout cela, et comment les morceaux se parlent-ils ?</p>
 
-<h4>Le chapitre en bref</h4>
-<p>Le chapitre 1 a dit ce qu'est un système embarqué ; celui-ci ouvre la boîte. D'abord les blocs d'un contrôleur embarqué : entrées, sorties, CPU, mémoires, bus (cette page). Ensuite la façon dont le CPU parle à ses mémoires : une mémoire commune (Von Neumann) ou deux mémoires séparées (Harvard). Puis le jeu d'instructions que comprend le CPU : complexe (CISC) ou réduit (RISC). Enfin deux familles réelles de processeurs RISC, AVR et ARM, avec leurs gammes et leur organisation interne. Au chapitre 4, l'ESP32 servira de cas concret : on y retrouvera un CPU de type Harvard, des bus, des mémoires et des périphériques.</p>
-
-<h4>Intuition</h4>
-<p>Un contrôleur embarqué ressemble à un petit atelier. Par une porte entrent les signaux du monde (tension d'un capteur, état d'un bouton), par l'autre sortent les ordres (tension vers un moteur, niveau logique vers une LED). Au centre, le CPU suit un programme rangé dans une mémoire et note ses résultats dans une autre. Deux couloirs relient tout : un pour dire « où » (l'adresse), un pour transporter « quoi » (la donnée).</p>
-<p>Autour, des services : des timers pour mesurer le temps, un chien de garde (watchdog) qui surveille que le programme ne s'est pas bloqué, et des liaisons de communication (USB, IIC, SPI, CAN) vers les autres systèmes.</p>
-
 <div id="fig-controleur"></div>
 
-<h4>Formalisation</h4>
-<h5>Les blocs de la diapositive 6</h5>
+<h4>Les blocs de la diapositive 6</h4>
 <div class="tableau"><table>
 <tr><th>Bloc</th><th>Rôle</th></tr>
 <tr><td>Analog Front End</td><td>reçoit les entrées analogiques (<i>INPUTS</i>)</td></tr>
@@ -56,20 +48,22 @@
 </table></div>
 <p>Une <strong>interruption</strong> (<i>interrupt</i>) est un signal qu'un bloc envoie au CPU pour lui dire qu'un événement attend d'être traité. Le chapitre 5 détaille celles de l'ESP32.</p>
 
-<h5>CompactRIO (diapositive 7)</h5>
+<h4>CompactRIO (diapositive 7)</h4>
 <p>Le CompactRIO de National Instruments associe un <strong>Processor</strong> et un <strong>FPGA</strong>. Le FPGA est relié aux Analog I/O, Digital I/O, Industrial Communication et Custom I/O. <i>The main processor and FPGA run separate LabVIEW VIs</i> : chacun exécute son propre programme LabVIEW.</p>
 
-<h5>Embedded Controllers (diapositive 21)</h5>
-<p>Schéma d'un contrôleur embarqué du commerce (Texas Instruments, NXP Semiconductors, Freescale) : l'alimentation <i>Bat (Supply)</i> entre par un <strong>Voltage Supply</strong> (<i>incl. reverse polarity protection and input filter</i>) ; au centre, le <strong>Microcontroller</strong> (Cores, NVM, SRAM, Peripherals : ADC, SCI, PWM…) ; à gauche la <strong>Sensor Interface</strong>, à droite l'<strong>Actuator Driver</strong> ; en bas l'<strong>IVN</strong> (Ethernet, FlexRay, CAN, LIN), puis GND.</p>
+<h4>Embedded Controllers (diapositive 21)</h4>
+<p>Schéma d'un contrôleur embarqué du commerce (Texas Instruments, NXP Semiconductors, Freescale) :</p>
+<ul>
+<li>L'alimentation <i>Bat (Supply)</i> entre par un <strong>Voltage Supply</strong> (<i>incl. reverse polarity protection and input filter</i>).</li>
+<li>Au centre, le <strong>Microcontroller</strong> (Cores, NVM, SRAM, Peripherals : ADC, SCI, PWM…).</li>
+<li>À gauche la <strong>Sensor Interface</strong>, à droite l'<strong>Actuator Driver</strong>.</li>
+<li>En bas l'<strong>IVN</strong> (Ethernet, FlexRay, CAN, LIN), puis GND.</li>
+</ul>
 <p class="complement">IVN se lit <i>In-Vehicle Network</i> : ce schéma vient de l'électronique automobile, où les calculateurs se parlent par CAN, LIN, FlexRay ou Ethernet.</p>
 
 <div id="fig-autres"></div>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Un pousse-seringue sur un contrôleur embarqué. Le capteur d'occlusion donne une tension : il entre par l'Analog Front End. Le bouton d'arrêt donne 0 ou 1 : il entre par un Digital inp Port, et peut lever une interruption. Le CPU lit le programme en Program Memory, range la pression en Data Memory, et commande le moteur par un Digital oup Port (ou une tension, par le bloc D/A). Un timer cadence la poussée, le watchdog relance tout si le programme se bloque, et la liaison USB envoie l'historique au poste de soins.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>Entrées : Analog Front End, Digital inp Ports. Sorties : D/A et isolation, Digital oup Ports. Centre : CPU, Data Bus (la donnée), Address Bus (l'adresse), Data Memory, Program Memory. Services : Timers, Watchdog. Comms : USB, IIC, SPI, CAN. CompactRIO = Processor + FPGA, deux VI LabVIEW séparés.</p>
 </article>
 
@@ -84,13 +78,8 @@
 <h3>Von Neumann, Harvard et Super Harvard</h3>
 <p class="chapeau">Un holter doit lire son programme et, en même temps, ranger des milliers d'échantillons ECG. Si les instructions et les données passent par le même chemin, elles font la queue. Faut-il un chemin pour chacune ?</p>
 
-<h4>Intuition</h4>
-<p>Imagine une bibliothèque avec un seul guichet : pour lire la recette (l'instruction) puis chercher l'ingrédient (la donnée), tu passes deux fois au même guichet, l'un après l'autre. C'est l'architecture Von Neumann : simple, une seule mémoire, mais un seul passage à la fois.</p>
-<p>Avec deux guichets, un pour les recettes et un pour les ingrédients, tu peux demander la recette suivante pendant qu'on te sert l'ingrédient de la recette en cours. C'est l'architecture Harvard : deux mémoires et deux jeux de bus, d'où la vitesse. La Super Harvard ajoute un petit stock de recettes près de toi (un cache d'instructions) et un employé qui reçoit les livraisons sans te déranger (un contrôleur d'entrées-sorties dédié).</p>
-
 <div id="fig-memoires"></div>
 
-<h4>Formalisation</h4>
 <div class="tableau"><table>
 <tr><th>Architecture</th><th>Mémoires</th><th>Bus</th><th>Ce que dit le cours</th></tr>
 <tr><td><strong>Von Neumann</strong></td><td>une seule : <i>Memory, Data and instructions</i></td><td>Address bus, Data bus</td><td><i>Single Memory for both Data and Instructions</i></td></tr>
@@ -101,11 +90,11 @@
 <p class="complement">Modèle simple pour compter (ajouté) : chaque instruction est lue en mémoire, puis lit ou écrit une donnée, et chaque accès occupe un bus pendant un cycle. En Von Neumann, ces accès se suivent sur le même bus. En Harvard, pendant que la donnée de l'instruction \(k\) passe sur le DM Data bus, l'instruction \(k + 1\) arrive sur le PM Data bus.</p>
 \[ \text{Von Neumann : } 2N \text{ cycles} \qquad \text{Harvard : } N + 1 \text{ cycles} \]
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>Une boucle de filtrage ECG de \(N = 10\) instructions, chacune avec une donnée. En Von Neumann : \(2 \times 10 = 20\) cycles de bus. En Harvard : \(10 + 1 = 11\) cycles. Le gain tend vers un facteur 2 quand \(N\) grandit : \(\dfrac{2N}{N+1} \to 2\). C'est pour cela que les processeurs de traitement du signal et beaucoup de microcontrôleurs sont de type Harvard ; c'est le cas des deux cœurs de l'ESP32 (chapitre 4).</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{VN} = 2N \qquad \text{Harvard} = N + 1 \qquad \text{Super Harvard} = \text{Harvard} + \text{Instruction cache} + \text{I/O Controller} \]
 </article>
 
@@ -113,13 +102,8 @@
 <h3>CISC et RISC</h3>
 <p class="chapeau">Deux processeurs font la même multiplication. L'un le fait avec une seule instruction compliquée, l'autre avec quatre instructions toutes simples. Lequel choisir pour un appareil embarqué, et qu'est-ce que cela change à la puce ?</p>
 
-<h4>Intuition</h4>
-<p>Le jeu d'instructions, c'est le vocabulaire que comprend le processeur. Un vocabulaire riche (CISC) permet de dire beaucoup en peu de mots : une seule instruction va chercher deux nombres en mémoire, les multiplie et range le résultat. Mais chaque mot est long à exécuter, et le processeur doit contenir de quoi comprendre tous ces mots compliqués.</p>
-<p>Un vocabulaire réduit (RISC) n'a que des mots courts : charger, calculer, ranger. Il faut plus de mots pour la même phrase, mais chacun s'exécute en un cycle, et la puce peut consacrer ses transistors à des registres. Les AVR et les ARM des pages suivantes sont des processeurs RISC.</p>
-
 <div id="fig-mult"></div>
 
-<h4>Formalisation</h4>
 <p><strong>CISC</strong> : <i>Complex Instruction Set Computer</i>. <strong>RISC</strong> : <i>Reduced Instruction Set Computer</i>. Le tableau du cours (diapositive 10) :</p>
 <div class="tableau"><table>
 <tr><th>CISC</th><th>RISC</th></tr>
@@ -131,16 +115,7 @@
 </table></div>
 <p>En français : le CISC met la complexité dans le matériel, avec des instructions qui durent plusieurs cycles et vont d'une case mémoire à une autre ; son code est court. Le RISC met la complexité dans le logiciel (le compilateur), avec des instructions d'un cycle qui travaillent de registre à registre, LOAD et STORE étant des instructions à part ; son code est plus long.</p>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Multiplier le nombre de la case mémoire 2:3 par celui de la case 5:2 et ranger le résultat en 2:3.</p>
-<div class="tableau"><table>
-<tr><th>CISC</th><th>RISC</th></tr>
-<tr><td><code>MULT 2:3, 5:2</code> (une instruction, plusieurs cycles)</td><td><code>LOAD A, 2:3</code><br><code>LOAD B, 5:2</code><br><code>PROD A, B</code><br><code>STORE 2:3, A</code><br>(quatre instructions d'un cycle)</td></tr>
-</table></div>
-<p>Le CISC a le code le plus court (1 instruction contre 4) ; le RISC ne touche la mémoire qu'avec LOAD et STORE, et PROD ne travaille que sur les registres A et B.</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>CISC : complexité dans le matériel, instructions multi-cycles, mémoire à mémoire, code court. RISC : complexité dans le logiciel, instructions d'un cycle, registre à registre (LOAD et STORE séparés), code long, plus de registres.</p>
 </article>
 
@@ -155,14 +130,9 @@
 <h3>Architecture AVR et gamme de produits</h3>
 <p class="chapeau">Tu dois choisir le microcontrôleur d'un holter, d'un tensiomètre ou d'une semelle. Chez Atmel (aujourd'hui Microchip), la famille AVR va de la petite puce à 8 broches jusqu'au processeur 32 bits à 256 broches. Comment lire ce qu'il y a dedans et choisir la bonne ?</p>
 
-<h4>Intuition</h4>
-<p>Un microcontrôleur AVR, c'est le contrôleur embarqué de la page précédente gravé sur une seule puce : un cœur RISC (l'AVR CPU), ses mémoires (FLASH pour le programme, SRAM pour les variables, EEPROM pour ce qui doit survivre à une coupure), et autour, des périphériques reliés par un bus de données : convertisseur analogique-numérique, liaisons série, timers, ports d'entrées-sorties.</p>
-<p>Choisir une puce, c'est compter ce dont l'appareil a besoin (combien de voies analogiques, de liaisons série, de mémoire, de broches) puis lire un tableau comme celui de Microchip, colonne par colonne.</p>
-
 <div id="fig-avr"></div>
 
-<h4>Formalisation</h4>
-<h5>Le sigle et le schéma bloc (diapositive 12)</h5>
+<h4>Le sigle et le schéma bloc (diapositive 12)</h4>
 <p><strong>AVR</strong> : <i>Advanced Virtual RISC Architecture</i> (Atmel, puis Microchip). Autour de l'<strong>AVR CPU</strong> et du DATABUS :</p>
 <ul>
 <li>mémoires : SRAM, FLASH, EEPROM (par EEPROMIF), NVM programming (programmation série), PARPROG ;</li>
@@ -174,7 +144,7 @@
 </ul>
 <p class="complement">Pour lire le schéma : POR veut dire <i>Power-On Reset</i> et BOD <i>Brown-Out Detection</i> (remise à zéro à la mise sous tension et quand la tension baisse) ; AC est un comparateur analogique ; TWI (<i>Two-Wire Interface</i>) est le nom de l'I2C chez Atmel ; TC désigne un Timer/Counter.</p>
 
-<h5>Deux gammes (diapositive 13)</h5>
+<h4>Deux gammes (diapositive 13)</h4>
 <div class="tableau"><table>
 <tr><th>AVR (8 bits)</th><th>AVR32 (32 bits)</th></tr>
 <tr><td>idéal pour les applications à faible consommation et faible coût</td><td>pour les applications plus exigeantes en calcul</td></tr>
@@ -184,7 +154,7 @@
 <tr><td>très utilisé dans Arduino</td><td>industriel, réseau, multimédia ; sécurité, timers avancés, temps réel</td></tr>
 </table></div>
 
-<h5>Les familles (diapositive 14)</h5>
+<h4>Les familles (diapositive 14)</h4>
 <p class="complement">Sur les diapositives, cette page et la suivante portent le titre « Architecture ARM », mais leur contenu concerne les AVR d'Atmel.</p>
 <div class="tableau"><table>
 <tr><th>Famille</th><th>Mémoire</th><th>Boîtiers</th></tr>
@@ -198,7 +168,7 @@
 
 <div id="fig-familles"></div>
 
-<h5>Le tableau Microchip (diapositive 15)</h5>
+<h4>Le tableau Microchip (diapositive 15)</h4>
 <div class="tableau"><table>
 <tr><th>Product</th><th>Status</th><th>Flash (KB)</th><th>EEPROM (Bytes)</th><th>RAM (Bytes)</th><th>picoPower</th><th>I/O pins</th><th>UART/USART</th><th>SPI</th><th>TWI</th><th>8-bit Timers</th><th>16-bit Timers</th><th>PWM</th><th>10-bit A/D</th><th>Vcc</th></tr>
 <tr><td>ATmega6450</td><td>I</td><td>64</td><td>2K</td><td>4K</td><td></td><td>69</td><td>1</td><td>1+USI</td><td>USI</td><td>2</td><td>1</td><td>4</td><td>8</td><td>1.8-5.5V / 2.7-5.5V</td></tr>
@@ -213,11 +183,7 @@
 
 <div id="fig-choix"></div>
 
-<h4>Exemple</h4>
-<p class="complement">Exemple ajouté.</p>
-<p>Un holter à 12 électrodes demande au moins 12 canaux A/D 10 bits. Colonne « 10-bit A/D » : seuls l'ATmega1280 et l'ATmega2560 en ont 16. S'il faut le plus de flash, on prend l'ATmega2560 (256 KB) ; si 128 KB suffisent, l'ATmega1280. Une semelle sur accumulateur qui veut la technologie basse consommation picoPower n'a qu'un choix dans ce tableau : l'ATmega1284P, qui a aussi la plus grande RAM (16K).</p>
-
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 <p>AVR = <i>Advanced Virtual RISC Architecture</i> (Atmel, Microchip). AVR 8 bits : faible consommation, faible coût, 32 registres généraux, Arduino. AVR32 : 32 bits, exécution dans le désordre, Ethernet, USB. Choisir une puce : filtrer par colonne (A/D, UART, flash, picoPower), puis comparer.</p>
 </article>
 
@@ -232,15 +198,10 @@
 <h3>Architecture ARM : composants et évolution</h3>
 <p class="chapeau">Un glucomètre, un holter et la tablette d'un échographe peuvent tous contenir un cœur ARM, et pourtant ils n'ont pas les mêmes besoins. Qu'est-ce qu'un ARM, quels composants peut-on lui ajouter, et quelle famille choisir ?</p>
 
-<h4>Intuition</h4>
-<p>ARM ne vend pas de puces : la société vend le plan de son processeur, sous forme de fichier. Chaque fabricant de microcontrôleurs l'intègre dans sa propre puce, avec ses mémoires et ses périphériques. C'est pour cela que l'on trouve des cœurs ARM partout.</p>
-<p>Autour du cœur, on ajoute ce dont l'appareil a besoin : une unité de gestion de la mémoire pour faire tourner Linux, une unité de protection plus simple, un bloc de traitement du signal pour filtrer, une unité de calcul en virgule flottante. Au fil des générations, les cœurs se sont rangés en trois familles : application (A), temps réel (R) et embarqué (M).</p>
-
 <div id="fig-composants"></div>
 
-<h4>Formalisation</h4>
 <p><strong>ARM</strong> = Acorn (<i>Advanced</i>) RISC Machine. Processeur RISC de la société ACORN vendu sous forme de fichier pour l'intégrer dans les microcontrôleurs ou des systèmes embarqués.</p>
-<h5>Composants essentiels</h5>
+<h4>Composants essentiels</h4>
 <div class="tableau"><table>
 <tr><th>Composant</th><th>Rôle (diapositive 16)</th></tr>
 <tr><td><strong>MMU</strong> (<i>Memory Management Unit</i>)</td><td>gestionnaire de mémoire permettant l'adressage virtuel ; nécessaire pour faire fonctionner certains systèmes d'exploitation comme Windows CE ou la plupart des Linux</td></tr>
@@ -250,7 +211,7 @@
 </table></div>
 <p>La diapositive annonce « trois composants essentiels » et en liste quatre (MMU, MPU, DSP, FPU).</p>
 
-<h5>Évolution des ARM (diapositives 17 et 18)</h5>
+<h4>Évolution des ARM (diapositives 17 et 18)</h4>
 <div class="tableau"><table>
 <tr><th>Famille</th><th>Ce qu'en dit le cours</th></tr>
 <tr><td>ARM1 (1985)</td><td>premier prototype de cœur ARM</td></tr>
@@ -271,11 +232,11 @@
 
 <div id="fig-evolution"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>ARM2 adresse sur 24 bits des mots de 32 bits : \(2^{24} = 16 \times 2^{20}\) mots, soit 16 mébimots ; chaque mot fait 4 octets, donc \(16 \times 4 = 64\) Mio adressables. Pour un glucomètre sur pile, on choisit un Cortex-M ; pour la tablette d'un échographe sous Linux, un Cortex-A avec MMU ; pour filtrer l'ECG d'un holter, on cherche un cœur avec DSP.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ 2^{24} \text{ mots} \times 4 \text{ octets} = 64 \text{ Mio} \]
 <p>ARM = Acorn (Advanced) RISC Machine, vendu sous forme de fichier. MMU : adressage virtuel (Linux). MPU : protection simplifiée. DSP : traitement du signal. FPU : flottants. Cortex-A : application, Cortex-R : temps réel, Cortex-M : embarqué.</p>
 </article>
@@ -284,14 +245,9 @@
 <h3>Système ARM (AMBA) et cœur ARM</h3>
 <p class="chapeau">Dans la puce d'un moniteur, le cœur ARM doit parler vite à sa mémoire, et plus tranquillement à un timer ou au contrôleur d'interruptions. Et dans le cœur lui-même, une instruction traverse des registres, un décaleur et une unité de calcul. Comment tout cela est-il organisé ?</p>
 
-<h4>Intuition</h4>
-<p>Autour du cœur, il y a deux autoroutes. La première, rapide, relie le cœur, la RAM et l'interface vers les mémoires externes : c'est le bus système. La seconde, plus lente et plus simple, dessert les périphériques comme le timer : c'est le bus périphérique. Un pont fait passer les échanges de l'une à l'autre. Cette organisation porte un nom : AMBA.</p>
-<p>Dans le cœur, une instruction comme « additionner R1 et R2 décalé de deux bits » lit deux registres dans le banc, fait passer l'un dans le barrel shifter, additionne dans l'ALU, puis réécrit le résultat dans le banc. Pour parler à la mémoire, le cœur place l'adresse dans un registre d'adresse et échange les données par deux registres de données.</p>
-
 <div id="fig-amba"></div>
 
-<h4>Formalisation</h4>
-<h5>Le système ARM (diapositive 19)</h5>
+<h4>Le système ARM (diapositive 19)</h4>
 <p>Blocs : ARM et son <i>Bus Interface</i>, <i>Arbiter</i>, <i>Reset</i>, <i>TIC</i>, <i>External Bus Interface</i> (vers <i>External ROM</i> et <i>External RAM</i>), <i>Decoder</i>, <i>On-chip RAM</i>, <i>Bridge</i>, <i>Timer</i>, <i>Remap/Pause</i>, <i>Interrupt Controller</i>.</p>
 <div class="tableau"><table>
 <tr><th>Bus</th><th>Nom</th><th>Côté</th></tr>
@@ -306,7 +262,7 @@
 </ul>
 <p class="complement">Pour lire le schéma (ajouté) : l'Arbiter décide quel maître utilise le bus système quand plusieurs le demandent ; le Decoder décode l'adresse pour sélectionner le bloc visé ; le Bridge relie le bus système au bus périphérique.</p>
 
-<h5>Le cœur ARM (diapositive 20)</h5>
+<h4>Le cœur ARM (diapositive 20)</h4>
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Rôle</th></tr>
 <tr><td><strong>Ensemble registres</strong> (<i>register bank</i>)</td><td>2 ports de lecture et 1 port d'écriture ; R15 est réservé pour le PC</td></tr>
@@ -316,17 +272,27 @@
 <tr><td><strong>Memory data in/out registers</strong></td><td>registres pour envoyer ou récupérer les données de la mémoire (D[31:0])</td></tr>
 <tr><td><strong>Instruction decoder and associated control logic</strong></td><td>décodage des instructions</td></tr>
 </table></div>
-<p>Sur le schéma : <i>address register</i> et <i>incrementer</i> en haut, <i>register bank</i>, <i>multiply register</i>, <i>barrel shifter</i>, <i>ALU</i>, reliés par l'A bus, le B bus et l'ALU bus ; <i>data out register</i> et <i>data in register</i> en bas ; <i>instruction decode &amp; control</i> à droite, avec ses signaux <i>control</i>.</p>
+<p>Sur le schéma :</p>
+<ul>
+<li><i>Address register</i> et <i>incrementer</i> en haut, <i>register bank</i>, <i>multiply register</i>, <i>barrel shifter</i>, <i>ALU</i>, reliés par l'A bus, le B bus et l'ALU bus.</li>
+<li><i>Data out register</i> et <i>data in register</i> en bas.</li>
+<li><i>Instruction decode &amp; control</i> à droite, avec ses signaux <i>control</i>.</li>
+</ul>
 
 <div id="fig-coeur"></div>
 
-<h4>Exemple</h4>
+<h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
 <p>L'instruction <code>ADD R0, R1, R2, LSL #2</code> calcule \(R0 = R1 + 4 \times R2\) : décaler R2 de 2 bits vers la gauche le multiplie par \(2^2 = 4\). Avec \(R1 = 10\) et \(R2 = 3\) : R1 sort par l'A bus, R2 par le B bus, le barrel shifter donne 12, l'ALU calcule \(10 + 12 = 22\), et l'ALU bus réécrit 22 dans R0, par l'unique port d'écriture du banc. Le décalage ne coûte pas d'instruction en plus : il est fait au passage.</p>
 
-<h4>Formules clés</h4>
+<h4>À retenir</h4>
 \[ \text{LSL } \#k : x \mapsto x \times 2^k \qquad R15 = PC \]
-<p>AHB ou ASB = System Bus ; APB = Peripheral Bus ; Bridge entre les deux. AMBA, ADK, ACT, PrimeCell. Banc de registres : 2 lectures, 1 écriture. Barrel shifter : décalage ou rotation. ALU : arithmétique et logique.</p>
+<ul>
+<li>AHB ou ASB = System Bus.</li>
+<li>APB = Peripheral Bus.</li>
+<li>Bridge entre les deux.</li>
+</ul>
+<p>AMBA, ADK, ACT, PrimeCell. Banc de registres : 2 lectures, 1 écriture. Barrel shifter : décalage ou rotation. ALU : arithmétique et logique.</p>
 </article>
 
 <div class="fin-partie" data-section="arm"></div>

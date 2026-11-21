@@ -19,11 +19,8 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Base de données et SGBD</h1>
 <p class="chapeau">Chaque service gardait son fichier Excel des patients : quatre adresses différentes pour la même personne. Une base de données règle ce désordre, à condition d'être bien gérée.</p>
-<h2>Intuition</h2>
-<p>Une base de données rassemble les données en un seul endroit structuré, que plusieurs personnes utilisent en même temps. Le SGBD est le logiciel qui la crée et la fait vivre : il définit sa structure, laisse manipuler les données, contrôle qui y accède, garde les données justes et disponibles.</p>
 <div id="fig-sgbd"></div>
 
-<h2>Formalisation</h2>
 <p><b>Base de données</b> : collection de données structurées, enregistrée sur la mémoire de stockage, accessible simultanément par plusieurs utilisateurs. Avantages : indépendance de logiciels d'applications particulières ; cohérence ; redondance minimale ; accessibilité simultanée par plusieurs utilisateurs. Méthodes de modélisation : UML, Merise.</p>
 <p><b>Système de gestion de base de données</b> (SGBD) : logiciel (ou ensemble de logiciels) capable d'assurer la création et l'utilisation des bases de données. Exemples : Oracle, SQL Server, MySQL, PostgreSQL, DB2...</p>
 <div class="tableau"><table>
@@ -35,11 +32,7 @@
 <tr><td>la disponibilité</td><td>réplication, backup</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Deux infirmières modifient la même prescription au même instant : un verrou garde la donnée cohérente (intégrité). Le disque du serveur lâche : la copie répliquée prend le relais (disponibilité). Un stagiaire termine son stage : DENY lui retire l'accès (LCD).</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Base de données : indépendance, cohérence, redondance minimale, accès simultané.</p>
 <p>SGBD : LDD (CREATE, ALTER), LMD (INSERT, UPDATE), LCD (GRANT, DENY), intégrité, disponibilité.</p>
 

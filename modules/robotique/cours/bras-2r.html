@@ -20,13 +20,12 @@
 <h1>Modèle géométrique direct du bras 2R</h1>
 <p class="chapeau">Tout ce qui précède, appliqué à l'exemple du cours : un bras plan à deux segments. On obtient la position de l'organe terminal en fonction des deux angles articulaires.</p>
 
-<h2>Intuition</h2>
+<h2>Le problème</h2>
 <p>Le bras a deux pivots d'axes parallèles (vers vous). On connaît les angles \(\theta_1\) et \(\theta_2\) que lisent les capteurs des moteurs, et les longueurs \(l_1\), \(l_2\) des segments. On veut savoir où est la pince \(M\). On place un repère sur chaque segment, on écrit la matrice homogène qui passe d'un repère au suivant, et on multiplie. C'est le <strong>modèle géométrique direct</strong> (MGD), annoncé dans les objectifs du module sous la forme \(p = f(q)\), avec ici \(q = (\theta_1, \theta_2)\).</p>
 
 <div id="fig-2r"></div>
 
-<h2>Formalisation</h2>
-<h3>Les repères du cours</h3>
+<h2>Les repères du cours</h2>
 <ul>
 <li><strong>Repère fixe</strong> \(R_0(O_0, x_0, y_0, z_0)\) : repère de base fixe lié à la terre en \(O_0\) (\(O_0 = O_1\)).</li>
 <li><strong>Repère</strong> \(R_1(O_1, x_1, y_1, z_1)\) : centré en \(O_1\), son axe \(x_1\) est porté par le segment 1 de longueur \(l_1\) et orienté d'un angle \(\theta_1\) par rapport à \(x_0\) autour de l'axe commun \(z_0 = z_1\).</li>
@@ -34,7 +33,7 @@
 <li>\(M\) est l'extrémité du segment 2 (l'organe terminal).</li>
 </ul>
 
-<h3>Calcul</h3>
+<h2>Calcul</h2>
 <p><strong>Étape 1.</strong> \(R_1\) a la même origine que \(R_0\) et a tourné de \(\theta_1\) autour de \(z_0\) :</p>
 \[ T^{0,1} = \begin{pmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & 0 \\ \sin\theta_1 & \cos\theta_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p><strong>Étape 2.</strong> \(R_2\) a tourné de \(\theta_2\) autour de \(z_1\), et son origine \(O_2\) est au bout du segment 1, à \(l_1\) sur l'axe \(x_1\) : \(O_1O_2^1 = (l_1;\ 0;\ 0)\).</p>
@@ -49,7 +48,7 @@
 
 <div class="schema" id="sc-bras2r"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>\(l_1 = 0{,}4\) m, \(l_2 = 0{,}3\) m, \(\theta_1 = 30°\), \(\theta_2 = 45°\), donc \(\theta_1 + \theta_2 = 75°\).</p>
 \[ x_M = 0{,}4\cos 30° + 0{,}3\cos 75° = 0{,}4 \times 0{,}866 + 0{,}3 \times 0{,}259 = 0{,}346 + 0{,}078 = 0{,}424 \text{ m} \]
@@ -61,7 +60,7 @@
 \[ \cos(a + b) = \cos a\cos b - \sin a\sin b \qquad \sin(a + b) = \sin a\cos b + \cos a\sin b \]
 <p>Conséquence : \(R_z(\theta_1)\,R_z(\theta_2) = R_z(\theta_1 + \theta_2)\). Deux rotations successives autour d'axes parallèles s'additionnent, c'est pourquoi l'orientation finale du bras plan est simplement \(\theta_1 + \theta_2\). Exemple : \(\cos 75° = \cos 30°\cos 45° - \sin 30°\sin 45° = 0{,}612 - 0{,}354 = 0{,}259\).</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ T^{0,2} = T^{0,1}\,T^{1,2} \qquad x_M = l_1\cos\theta_1 + l_2\cos(\theta_1 + \theta_2) \qquad y_M = l_1\sin\theta_1 + l_2\sin(\theta_1 + \theta_2) \]
 \[ \text{orientation : } \theta_1 + \theta_2 \qquad |l_1 - l_2| \leq O_0M \leq l_1 + l_2 \]
 

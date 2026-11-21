@@ -19,11 +19,8 @@
 <p class="etiquette" data-etiquette></p>
 <h1>Types et supports de données</h1>
 <p class="chapeau">Une table SQL, un message FHIR, une dictée vocale : trois données de santé, trois façons de les lire. Et un fichier CSV mal ouvert peut couper une température en deux.</p>
-<h2>Intuition</h2>
-<p>Une donnée <b>structurée</b> a sa case fixe, comme une colonne de table. Une donnée <b>semi-structurée</b> est nommée par des balises ou des clés, comme un message d'échange. Une donnée <b>non structurée</b> n'a ni case ni clé : son sens est dans les mots ou dans la voix. Chaque support a ensuite ses pièges.</p>
 <div id="fig-types"></div>
 
-<h2>Formalisation</h2>
 <div class="tableau"><table>
 <tr><th>Catégorie</th><th>Type</th><th>Exemples</th></tr>
 <tr><td>Structuré</td><td>BD (SGBDR), CSV</td><td>données d'identification</td></tr>
@@ -40,11 +37,7 @@
 <tr><td>Entrepôts / data marts</td><td>analyse des indicateurs</td><td>schéma en étoile</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>La ligne « BENNANI;Salma;37,8 » est écrite avec le séparateur « ; » et la virgule décimale. Un outil qui coupe à chaque virgule y voit deux colonnes : « BENNANI;Salma;37 » et « 8 ». Et un fichier écrit en utf-8, lu comme du latin-1, transforme « Hélène » en « HÃ©lÃ¨ne ».</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Structuré (BD, CSV) ; semi-structuré (HL7, FHIR en JSON / XML) ; non structuré (texte libre, voix).</p>
 <p>CSV : vérifier encodage et séparateur avant tout import.</p>
 

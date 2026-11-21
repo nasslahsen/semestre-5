@@ -20,12 +20,11 @@
 <h1>Matrice fois vecteur</h1>
 <p class="chapeau">Tout le cours de robotique fait tourner et déplacer des vecteurs avec des matrices : \(R^{0,1}\), \(T^{0,s}\). Il faut savoir calculer un produit matrice-vecteur, et surtout savoir le lire.</p>
 
-<h2>Intuition</h2>
+<h2>Deux façons de calculer</h2>
 <p>Une matrice est une machine qui transforme un vecteur en un autre. Il y a deux façons de voir le calcul. <strong>Ligne par ligne</strong> : chaque case du résultat se calcule à part. <strong>Colonne par colonne</strong> : les colonnes de la matrice sont des vecteurs, et le résultat est un mélange de ces colonnes, dosé par les composantes du vecteur.</p>
 
 <div id="fig-matrice-vecteur"></div>
 
-<h2>Formalisation</h2>
 <p>Ligne par ligne : chaque case du résultat, c'est une ligne de la matrice « fois » le vecteur, terme à terme puis additionné.</p>
 \[ \begin{pmatrix} 2 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = \begin{pmatrix} 2 \times 1 + 1 \times 2 \\ 1 \times 1 + 3 \times 2 \end{pmatrix} = \begin{pmatrix} 4 \\ 7 \end{pmatrix} \]
 <p>Colonne par colonne : multiplier une matrice par un vecteur, c'est combiner ses colonnes avec les composantes du vecteur.</p>
@@ -34,12 +33,12 @@
 
 <div class="schema" id="sc-lecture-matrice"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 \[ \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ 1 \\ 4 \end{pmatrix} = \begin{pmatrix} -1 \\ 2 \\ 4 \end{pmatrix} \]
 <p>Cette matrice fait tourner tout vecteur d'un quart de tour autour du troisième axe : x et y tournent, z ne bouge pas. C'est \(R_z(90°)\), que tu retrouveras dans le chapitre sur les orientations.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ (MV)_i = \sum_j m_{ij}\, v_j \qquad MV = v_1 \cdot \text{colonne}_1 + v_2 \cdot \text{colonne}_2 \ (+\, v_3 \cdot \text{colonne}_3) \]
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

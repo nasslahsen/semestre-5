@@ -20,13 +20,12 @@
 <h1>Matrice homogène</h1>
 <p class="chapeau">Rotation et translation rangées dans une seule matrice 4 × 4 : la relation (1.3) devient une simple multiplication.</p>
 
-<h2>Intuition</h2>
+<h2>L'astuce de la quatrième coordonnée</h2>
 <p>La relation (1.3) mélange une multiplication (la rotation) et une addition (la translation). Dès qu'il y a plusieurs segments, ces opérations s'empilent et deviennent pénibles. L'astuce : ajouter une quatrième coordonnée égale à 1 à chaque point, et ranger la rotation et la position dans un même tableau 4 × 4. Tout devient alors une multiplication, et on pourra enchaîner les mouvements en multipliant les matrices.</p>
 <p>Le cours insiste sur un second intérêt : l'inverse de cette matrice permet de changer instantanément de point de vue, par exemple passer du repère de la caméra à celui de l'organe.</p>
 
 <div id="fig-homog"></div>
 
-<h2>Formalisation</h2>
 <p><strong>Pourquoi.</strong> Pour une étude géométrique, cinématique ou dynamique, il est commode de rassembler la position et l'orientation dans une seule représentation. Au lieu de manipuler séparément une matrice \(3 \times 3\) pour l'orientation (\(R^{0,S}\) ou \(R_0^S\)) et un vecteur \(3 \times 1\) pour la position (\(O_0O_s\)), on combine les deux dans une seule matrice \(4 \times 4\).</p>
 <p><strong>Définition.</strong> Si les coordonnées du centre \(O_s\) du repère \(R_s\) sont \(O_0O_s^0 = (X;\ Y;\ Z)\) et si l'orientation est définie par \(R^{0,S}\), la matrice homogène qui représente le solide \(S\) par rapport à \(R_0\) est :</p>
 \[ T^{0,s} = \begin{pmatrix} R^{0,S} & O_0O_s^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} = \begin{pmatrix} a_x & b_x & c_x & X \\ a_y & b_y & c_y & Y \\ a_z & b_z & c_z & Z \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
@@ -43,7 +42,7 @@
 
 <div class="schema" id="sc-homogene"></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté (même situation que la page précédente).</p>
 <p>Origine en \((1;\ 2;\ 0)\), rotation de 90° autour de \(\vec{z}_0\), pointe en \(O_sM^s = (0{,}5;\ 0;\ 0)\) :</p>
 \[ T^{0,s} = \begin{pmatrix} 0 & -1 & 0 & 1 \\ 1 & 0 & 0 & 2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \qquad T^{0,s}\begin{pmatrix} 0{,}5 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \times 0{,}5 + 1 \\ 1 \times 0{,}5 + 2 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 2{,}5 \\ 0 \\ 1 \end{pmatrix} \]
@@ -54,7 +53,7 @@
 \[ \begin{pmatrix} A & b \\ 0 & 1 \end{pmatrix}\begin{pmatrix} v \\ 1 \end{pmatrix} = \begin{pmatrix} A v + b \\ 1 \end{pmatrix} \qquad \begin{pmatrix} A_1 & b_1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} A_2 & b_2 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} A_1 A_2 & A_1 b_2 + b_1 \\ 0 & 1 \end{pmatrix} \]
 <p>La seconde formule sera utile à la page suivante : composer deux matrices homogènes, c'est multiplier les rotations et transporter la seconde position dans le premier repère.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ T^{0,s} = \begin{pmatrix} R^{0,S} & O_0O_s^0 \\ 0\ 0\ 0 & 1 \end{pmatrix} \qquad \begin{pmatrix} O_0M^0 \\ 1 \end{pmatrix} = T^{0,s} \begin{pmatrix} O_sM^s \\ 1 \end{pmatrix} \qquad (T^{0,s})^{-1} = \begin{pmatrix} R^T & -R^T P \\ 0 & 1 \end{pmatrix} \]
 
 </main>
