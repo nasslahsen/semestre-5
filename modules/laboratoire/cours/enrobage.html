@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La station d'enrobage · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La station d'enrobage</h1>
+<p class="chapeau">Sortie du processeur, la cassette contient un tissu imprégné de paraffine, mais encore mou et sans forme. Il faut l'orienter dans un moule et couler de la paraffine autour pour obtenir un bloc que le microtome pourra trancher.</p>
+
+<h2>Définition</h2>
+<p>La <strong>station d'enrobage</strong> (appareil d'enrobage) enveloppe les tissus, déjà fixés et déshydratés, dans de la <b>paraffine fondue</b> (vers 60 °C). Elle forme un <b>bloc solide</b> qui protège la structure du tissu et permet de le couper en tranches de quelques micromètres au microtome.</p>
+
+<h2>Automate de déshydratation ou station d'enrobage ?</h2>
+<div class="tableau"><table>
+<tr><th></th><th>Automate de déshydratation</th><th>Station d'enrobage</th></tr>
+<tr><td>Quand</td><td>Avant</td><td>Après l'automate</td></tr>
+<tr><td>Rôle</td><td>Prépare l'intérieur du tissu : remplace l'eau par la paraffine</td><td>Crée le bloc solide externe</td></tr>
+<tr><td>Fonctionnement</td><td>Bains successifs automatiques : alcools croissants, solvant, paraffine chaude</td><td>Poste de travail : le technicien sort le tissu de sa cassette, le place dans un moule, verse la paraffine et forme le bloc</td></tr>
+</table></div>
+<p>L'automate rend le tissu « prêt à être solidifié » ; la station en fait un bloc manipulable.</p>
+
+<h2>Composants</h2>
+<ul>
+<li><strong>Réservoir de paraffine</strong> : environ 6 L, avec filtration ; deux capteurs de niveau intégrés.</li>
+<li><strong>Dispensation automatique</strong> : un capteur (ultrasonique ou de proximité) détecte le moule sous le bras, ou commande manuelle, ou pédale ; débit réglable.</li>
+<li><strong>Plaques chauffantes</strong> : à droite et à gauche, pour les moules et les cassettes ; grande plaque de travail, souvent en aluminium.</li>
+<li><strong>Plaque froide</strong> : <b>−20 °C en 10 minutes</b>, refroidit jusqu'à 65 cassettes en moins de 30 minutes (jusqu'à 126 selon la configuration).</li>
+<li><strong>Interface de commande</strong> : zone de travail et réservoir réglables de <b>50 à 75 °C</b>.</li>
+<li>Support chauffant et amovible pour les pinces, éclairage LED à intensité réglable.</li>
+</ul>
+<figure class="photo duo"><img src="../images/station-enrobage.jpg" alt="Station d'enrobage modulaire avec réservoir de paraffine et plaque froide"><img src="../images/enrobage-plaque.jpg" alt="Plaque chauffante d'une station d'enrobage avec ses moules"><figcaption>Station d'enrobage. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>Deux types</h2>
+<ul>
+<li><strong>Stations modulaires ou manuelles</strong> : une zone chauffante (réservoir, surface pour orienter l'échantillon dans le moule) et une plaque froide intégrée.</li>
+<li><strong>Systèmes entièrement automatisés</strong> : orientent et enrobent seuls, à un rythme élevé.</li>
+</ul>
+<h3>L'exemple du Tissue-Tek AutoTEC a120 (Sakura Finetek)</h3>
+<p>Présenté comme le premier système d'enrobage entièrement automatisé :</p>
+<ul>
+<li>Jusqu'à <b>120 cassettes par heure</b>, en moyenne deux fois plus vite qu'à la main, chargement en continu.</li>
+<li>Cassettes sectionnables <b>Paraform</b> : l'orientation est fixée dès la macroscopie, la cassette n'est plus rouverte, jusqu'à 44 % d'erreurs de manipulation en moins.</li>
+<li><b>SMARTair</b> : de l'air soufflé retire l'excès de paraffine, plus de grattage manuel des blocs.</li>
+<li>Lecteur de codes-barres relié au LIS pour suivre chaque cassette ; écran tactile de 15 pouces ; télésurveillance.</li>
+<li>Coût : environ 1 million de dirhams.</li>
+</ul>
+
+<h2>À retenir</h2>
+<p>La station forme le bloc : moule, paraffine fondue, plaque froide.</p>
+<p>Réservoir environ 6 L, réglable de 50 à 75 °C ; plaque froide −20 °C en 10 min.</p>
+<p>AutoTEC a120 : 120 cassettes par heure, cassettes Paraform, SMARTair.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+</body>
+</html>

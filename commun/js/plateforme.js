@@ -25,6 +25,12 @@
   var script = document.currentScript;
   // racine du site : l'adresse de ce fichier sans « commun/js/plateforme.js »
   var racine = script ? script.src.replace(/commun\/js\/plateforme\.js(\?.*)?$/, "") : "";
+  // Icône du site (onglet et écran d'accueil de l'iPad), la même sur toutes les pages
+  [["icon", "commun/favicon.png"], ["apple-touch-icon", "commun/icone.png"]].forEach(function (x) {
+    if (document.head && !document.head.querySelector('link[rel="' + x[0] + '"]')) {
+      var l = document.createElement("link"); l.rel = x[0]; l.href = racine + x[1]; document.head.appendChild(l);
+    }
+  });
   var parcours = {};
 
   function lireTout() { try { return JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { return {}; } }
@@ -223,6 +229,8 @@
     el.innerHTML = '<div class="site-barre-int">' +
       (o.accueil ? '<a class="site-retour" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t(window.REGISTRE.semestre) + "</a>"
                  : '<a class="site-retour" href="' + carte + '" aria-label="' + P.t("Carte du module") + '">' + P.t("Carte") + "</a>") +
+      // Accueil : toujours là, à côté du retour, sauf quand le retour mène déjà au tableau de bord
+      (o.accueil && !venu ? "" : '<a class="site-accueil" href="' + racine + 'index.html" aria-label="' + P.t("Tableau de bord") + '">' + P.t("Accueil") + "</a>") +
       '<a class="site-module" href="' + carte + '"><i></i><span>' + (P.lang === "en" && m.titreEn ? m.titreEn : m.titre) + "</span></a>" +
       '<div class="droite">' + (o.droite || "") + "</div></div>";
     if (venu) {
@@ -425,7 +433,7 @@
      La langue vient de <html lang> (pages de cours et de chapitre), ou du sous-module (carte, écran de niveau : P.reglerLangue).
      P.t(texte français) rend le texte anglais correspondant quand la page est en anglais. */
   var EN = {
-    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
+    "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Accueil": "Home", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
     "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
     "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Exercices": "Exercises", "Chapitre": "Chapter",
     // carte

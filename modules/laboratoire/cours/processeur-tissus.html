@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'automate de déshydratation et d'imprégnation · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'automate de déshydratation et d'imprégnation</h1>
+<p class="chapeau">La paraffine ne se mélange pas à l'eau, et un tissu fixé en est plein. Avant de l'enrober, il faut donc chasser l'eau, puis l'alcool, et faire entrer la paraffine jusqu'au cœur des cellules : c'est le travail, souvent de nuit, du processeur de tissus.</p>
+
+<div id="fig-processeur"></div>
+
+<h2>Définition</h2>
+<p>L'<strong>automate de déshydratation et d'imprégnation</strong> (ou <strong>processeur de tissus</strong>) prépare automatiquement les tissus (biopsies ou pièces opératoires) après leur fixation au formol, pour qu'ils puissent être inclus en paraffine et coupés au microtome. On le trouve en anatomie pathologique, en histologie et en cytologie.</p>
+
+<h2>Trois étapes</h2>
+<div class="schema" id="sc-processeur"></div>
+<ol>
+<li><strong>Déshydratation</strong> : l'eau est retirée peu à peu par des bains d'<b>alcools de concentrations croissantes</b> (éthanol, puis parfois isopropanol).</li>
+<li><strong>Clarification</strong> (ou diaphanisation) : l'alcool est remplacé par un agent miscible à la fois avec l'alcool et la paraffine (<b>xylène</b>, toluène, ou substituts sans xylène).</li>
+<li><strong>Imprégnation</strong> : les tissus sont plongés dans la <b>paraffine fondue</b>, vers <b>60 °C</b>, souvent sous vide, pour qu'elle pénètre au cœur des cellules et remplace l'agent de clarification.</li>
+</ol>
+
+<h2>Deux types d'automates</h2>
+<div class="tableau"><table>
+<tr><th></th><th>Carrousel</th><th>Sous vide à cuve unique</th></tr>
+<tr><td>Ce qui bouge</td><td>Les paniers de cassettes passent de station en station, disposées en cercle</td><td>Les tissus restent immobiles dans une cuve hermétique ; les liquides sont pompés tour à tour dans la cuve</td></tr>
+<tr><td>Capacité (exemples du cours)</td><td>10 stations de réactifs de 1,8 L, 2 ou 3 stations de paraffine, 1 ou 2 paniers de 20 cassettes</td><td>Jusqu'à 200 cassettes par cycle</td></tr>
+<tr><td>Particularité</td><td>Rotations bidirectionnelles, vibration verticale et centrifugation du panier pour homogénéiser</td><td>Le vide accélère la pénétration des réactifs ; filtre à charbon actif</td></tr>
+</table></div>
+<p>Exemples d'automates sous vide cités : Logos One (Thermo Fisher), Tissue-Tek VIP 6 AI (Sakura), Leica HistoCore Pearl.</p>
+<figure class="photo duo"><img src="../images/processeur-carrousel.jpg" alt="Processeur de tissus à carrousel avec ses bacs disposés en cercle"><img src="../images/processeur-sous-vide.jpg" alt="Processeur de tissus sous vide à cuve unique"><figcaption>Processeur à carrousel et processeur sous vide. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>Composants</h2>
+<div class="tableau"><table>
+<tr><th>Carrousel</th><th>Cuve unique</th></tr>
+<tr><td>Stations de réactifs</td><td>Chambre de réaction (autoclave, ou retorte)</td></tr>
+<tr><td>Stations de paraffine, chauffées par des résistances avec contrôle de température</td><td>Compartiment des réactifs et de la paraffine, bains de paraffine</td></tr>
+<tr><td>Paniers porte-échantillons</td><td>Panier des échantillons</td></tr>
+<tr><td>Système électromécanique de motorisation</td><td>Filtre à charbon actif</td></tr>
+<tr><td>Unité de commande, contrôle et programmation</td><td>Écran de commande</td></tr>
+</table></div>
+<p>Dans la cuve unique, l'automate pompe les réactifs de leurs réservoirs vers la chambre, puis les vidange, selon un programme précis.</p>
+
+<h2>À retenir</h2>
+<p>Déshydratation (alcools croissants), clarification (xylène), imprégnation (paraffine vers 60 °C, sous vide).</p>
+<p>Carrousel : les paniers bougent. Cuve unique : les liquides bougent, jusqu'à 200 cassettes.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/processeur.js"></script>
+</body>
+</html>

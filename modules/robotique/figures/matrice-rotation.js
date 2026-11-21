@@ -45,7 +45,7 @@
     var v0s = m.scale([V0[0], V0[1]], 0.7);
     R.fleche(g, P.p([0, 0]), P.p(v0s), { couleur: C.v, epaisseur: 3.5 });
     R.texte(g, "V", m.add(P.p(v0s), [14, -14]), { couleur: C.v, gras: true });
-    R.texte(g, "z₀ = z₁ vers vous", [20, 412], { italique: false, taille: 15, couleur: C.doux, ancre: "start" });
+    R.texte(g, "z₀ = z₁ vers toi", [20, 412], { italique: false, taille: 16, couleur: C.doux, ancre: "start" });
 
     var cols = [C.x, C.y, C.z];
     var cell = function (i, j, t) { return (ligne > 0 && i === ligne - 1) ? R.couleur(C.acc, "\\mathbf{" + t + "}") : R.couleur(cols[j], t); };

@@ -132,7 +132,7 @@
         var groupe = x.projet ? "Projet" : sm ? sm.titre : "";
         var chs = (x.chapitres || []).map(function (id) { return P.chapitre(m.id, id); }).filter(Boolean);
         var etat = x.projet ? ["projet", "Projet"] : chs.length ? ["recu", "Sur le site"] : x.recu ? ["partiel", "Reçu, à construire"] : ["manque", "Pas encore reçu"];
-        var detail = chs.map(function (c) { return P.nomChapitre(m.id, c.id) + " · " + c.titre; }).join(" ; ");
+        var detail = chs.map(function (c) { var nm = P.nomChapitre(m.id, c.id); return c.titre.indexOf(nm) === 0 ? c.titre : nm + " · " + c.titre; }).join(" ; ");
         if (x.note) detail = detail ? detail + " ; " + x.note : x.note;
         var lien = chs.length ? ' href="' + P.urlChapitre(m.id, chs[0].id) + '"' : "";
         lignes += '<li class="' + etat[0] + '">' + (groupe !== dernier ? '<span class="sv-sm">' + esc(groupe) + "</span>" : "") +

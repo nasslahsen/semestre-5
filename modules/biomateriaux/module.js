@@ -878,7 +878,7 @@ PLATEFORME.parcours("biomateriaux", {
     { id: 5, numero: 10, titre: "Additifs, charges et renforts", sous: "Adjuvants, plastifiants, charges, verre, carbone et aramide", ligne: "Adjuvants, plastifiants, charges, fibres", sousModule: "biomateriaux" },
     { id: 6, numero: 11, titre: "Les matériaux composites", sous: "Renfort et matrice, loi des mélanges, module transversal, orientation des fibres", ligne: "Loi des mélanges, orientation des fibres", sousModule: "biomateriaux" },
     { id: 7, numero: 12, titre: "Procédés de fabrication des plastiques", sous: "Extrusion, injection, soufflage, rotomoulage, thermoformage, compression", ligne: "Extrusion, injection, soufflage, moulage", sousModule: "biomateriaux" },
-    { id: 12, td: true, numero: "TD 1", titre: "TD 1 : applications matériaux polymères", sous: "Tg, Tf et taux de cristallinité, adjuvants du PVC, devoir 1", ligne: "Tg, Tf, cristallinité, adjuvants, devoir 1", sousModule: "biomateriaux" }
+    { id: 12, td: true, numero: "TD 1", titre: "Applications matériaux polymères", sous: "Tg, Tf et taux de cristallinité, adjuvants du PVC, devoir 1", ligne: "Tg, Tf, cristallinité, adjuvants, devoir 1", sousModule: "biomateriaux" }
   ],
   niveaux: [
     { id: "contrainte-deformation", chapitre: 0, titre: "Contrainte et déformation", cours: true, pret: true },
@@ -1026,7 +1026,7 @@ PLATEFORME.parcours("biomateriaux", {
     { id: "viscoelasticite", chapitre: 11, titre: "La viscoélasticité", notions: ["viscoelasticite"] },
     { id: "polymeres-medicaux", chapitre: 11, titre: "Les polymères des dispositifs médicaux", notions: ["polymeres-medicaux"] },
     { id: "biomateriaux-naturels", chapitre: 11, titre: "Les biomatériaux naturels", notions: ["biomateriaux-naturels"] },
-    { id: "td1", chapitre: 12, titre: "TD 1 : où chercher chaque réponse", notions: ["td1"] },
+    { id: "td1", chapitre: 12, titre: "Où chercher chaque réponse", notions: ["td1"] },
     { id: "td1-corrige", chapitre: 12, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
   ],
   cours: [
@@ -1089,7 +1089,7 @@ PLATEFORME.parcours("biomateriaux", {
     { chapitre: 11, id: "viscoelasticite", titre: "Polymères biomédicaux : la viscoélasticité" },
     { chapitre: 11, id: "polymeres-medicaux", titre: "Les polymères des dispositifs médicaux" },
     { chapitre: 11, id: "biomateriaux-naturels", titre: "Les biomatériaux naturels" },
-    { chapitre: 12, id: "td1", titre: "TD 1 : les réponses dans le cours" },
-    { chapitre: 12, id: "td1-corrige", titre: "TD 1 : énoncé et corrigé" }
+    { chapitre: 12, id: "td1", titre: "Les réponses dans le cours" },
+    { chapitre: 12, id: "td1-corrige", titre: "Énoncé et corrigé" }
   ]
 });

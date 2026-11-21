@@ -36,7 +36,17 @@
 <tr><td>TRACE</td><td>renvoyer le message en boucle (loop-back)</td></tr>
 </table></div>
 <p>Exemple du cours, un interrupteur hypothétique en HTTP RESTful : le téléphone envoie une requête à <code>api.example.com/turnoff</code> ; l'interrupteur Wi-Fi, lui, interroge <code>api.example.com/shoulditurnoff</code> (« dois-je m'éteindre ? »), traite la réponse, et s'éteint si elle est oui. En HTTP, c'est toujours le client qui parle le premier : l'interrupteur doit venir demander.</p>
-<p>Le modèle <b>OSI</b> (Open Systems Interconnection Reference Model) est un modèle en couches qui décrit comment l'information passe d'un programme sur un ordinateur à un programme sur un autre. Couches hautes (host layers) : Application, Presentation, Session (données), Transport (segments). Couches basses (media layers) : Network (paquets, adressage IP), Data Link (trames, adresses physiques MAC), Physical (bits). HTTP est un protocole de la couche Application.</p>
+<p>Le modèle <b>OSI</b> (Open Systems Interconnection Reference Model) est un modèle en couches qui décrit comment l'information passe d'un programme sur un ordinateur à un programme sur un autre. HTTP est un protocole de la couche <b>Application</b>.</p>
+<div class="tableau"><table>
+<tr><th></th><th>Couche</th><th>Unité de données</th></tr>
+<tr><td rowspan="4">Couches hautes (host layers)</td><td>Application</td><td rowspan="3">données</td></tr>
+<tr><td>Presentation</td></tr>
+<tr><td>Session</td></tr>
+<tr><td>Transport</td><td>segments</td></tr>
+<tr><td rowspan="3">Couches basses (media layers)</td><td>Network</td><td>paquets, adressage IP</td></tr>
+<tr><td>Data Link</td><td>trames, adresses physiques MAC</td></tr>
+<tr><td>Physical</td><td>bits</td></tr>
+</table></div>
 
 <div id="fig-osi"></div>
 

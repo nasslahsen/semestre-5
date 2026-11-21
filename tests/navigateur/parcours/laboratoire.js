@@ -322,6 +322,74 @@ tous["boss-microscopes"] = async (a) => {
   await a.choix(1); await a.suite();
 };
 
+// ---------- Chapitre 6 : le laboratoire d'anatomie et cytopathologie ----------
+const c2 = (i) => [180 + 320 * (i % 2), 115 + 180 * Math.floor(i / 2)];
+const c3 = (i) => [120 + 220 * (i % 3), 115 + 180 * Math.floor(i / 3)];
+tous.anapath = async (a) => {
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [185, 122 + 130 * i], (k) => [530, 122 + 130 * k], [2, 3, 1, 0]); await a.suite();
+  await classer(a, c2, [1, 2, 1, 2, 1, 2]); await a.suite();
+  await a.nombres([6]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["anapath-techniques"] = async (a) => {
+  await tracer(a, (i) => [340, 72 + 110 * i], [1, 3, 4, 2, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [185, 122 + 130 * i], (k) => [530, 122 + 130 * k], [1, 3, 2, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["anapath-flux"] = async (a) => {
+  await classer(a, c3, [1, 2, 3, 1, 2, 3, 1, 2, 1]); await a.suite();
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [170, 122 + 130 * i], (k) => [520, 122 + 130 * k], [2, 3, 0, 1]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["table-macroscopie"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await tracer(a, (i) => [340, 59 + 94 * i], [1, 3, 5, 0, 4, 2]); await a.suite();
+  await a.nombres([0.5]); await a.suite();
+  await paires(a, (i) => [170, 75 + 108 * i], (k) => [520, 75 + 108 * k], [2, 4, 0, 3, 1]); await a.suite();
+  await a.nombres([6]); await a.suite();
+};
+tous.formol = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([0.3]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([0.5]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["processeur-tissus"] = async (a) => {
+  await tracer(a, (i) => [340, 98 + 130 * i], [1, 3, 2, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([60]); await a.suite();
+  await classer(a, c2, [1, 2, 2, 1, 2, 1]); await a.suite();
+};
+tous.enrobage = async (a) => {
+  await a.choix(0); await a.suite();
+  await tracer(a, (i) => [340, 98 + 130 * i], [2, 3, 0, 1]); await a.suite();
+  await a.nombres([-20]); await a.suite();
+  await a.nombres([120]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["revision-anapath"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+  await paires(a, (i) => [185, 122 + 130 * i], (k) => [530, 122 + 130 * k], [2, 3, 0, 1]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([4]); await a.suite();
+};
+tous["boss-anapath"] = async (a) => {
+  await tracer(a, (i) => [180 + 320 * (i % 2), 80 + 140 * Math.floor(i / 2)], [1, 5, 3, 7, 0, 4, 2, 6]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([0.6]); await a.suite();
+  await a.choix(1); await a.suite();
+  await classer(a, c2, [1, 2, 2, 1, 1, 2]); await a.suite();
+};
+
 // ---------- Chapitre 7 : automatisation et informatisation ----------
 tous.automatisation = async (a) => {
   await tracer(a, (i) => [340, 135 + 150 * i], [1, 2, 0]); await a.suite();

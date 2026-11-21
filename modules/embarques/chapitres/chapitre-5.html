@@ -195,7 +195,20 @@
 
 <h4>Organisation interne</h4>
 <div id="fig-domaines"></div>
-<p>Les schémas du cours (<i>SAR ADC Depiction</i> et <i>SAR ADC Outline of Function</i>) répartissent l'ADC en trois domaines. Domaine analogique : les entrées, un amplificateur faible bruit (<i>Low Noise Amplifier</i>) devant SAR ADC1, et les deux convertisseurs SAR ADC1 et SAR ADC2. Domaine RTC : les contrôleurs RTC ADC1 et RTC ADC2. Domaine numérique : les contrôleurs DIG ADC1 et DIG ADC2, le DMA, et le contrôleur Power / Peak Detect (PWDET). Des multiplexeurs choisissent qui commande chaque convertisseur : SENS_SAR1_DIG_FORCE pour SAR ADC1 (0 : RTC ADC1 CTRL, 1 : DIG ADC1 CTRL), SENS_SAR2_DIG_FORCE pour SAR ADC2 (sur le schéma, 1 : RTC ADC2 CTRL, 0 : vers le domaine numérique), et APB_SARADC_SAR2_MUX (1 : DIG ADC2 CTRL, 0 : PWDET CTRL). Les entrées de SAR ADC1 sont pad_in[7:0] et le capteur à effet Hall (<i>hall sensor</i>) ; celles de SAR ADC2 sont pad_in[9:0], pa_pkdet1, pa_pkdet2 et vdd33.</p>
+<p>Les schémas du cours (<i>SAR ADC Depiction</i> et <i>SAR ADC Outline of Function</i>) répartissent l'ADC en trois domaines :</p>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Ce qu'il contient</th></tr>
+<tr><td>Analogique</td><td>Les entrées, un amplificateur faible bruit (<i>Low Noise Amplifier</i>) devant SAR ADC1, et les deux convertisseurs SAR ADC1 et SAR ADC2</td></tr>
+<tr><td>RTC</td><td>Les contrôleurs RTC ADC1 et RTC ADC2</td></tr>
+<tr><td>Numérique</td><td>Les contrôleurs DIG ADC1 et DIG ADC2, le DMA, et le contrôleur Power / Peak Detect (PWDET)</td></tr>
+</table></div>
+<p>Des multiplexeurs choisissent qui commande chaque convertisseur :</p>
+<ul>
+<li><b>SENS_SAR1_DIG_FORCE</b> pour SAR ADC1 : 0 pour RTC ADC1 CTRL, 1 pour DIG ADC1 CTRL.</li>
+<li><b>SENS_SAR2_DIG_FORCE</b> pour SAR ADC2 (sur le schéma) : 1 pour RTC ADC2 CTRL, 0 vers le domaine numérique.</li>
+<li><b>APB_SARADC_SAR2_MUX</b> : 1 pour DIG ADC2 CTRL, 0 pour PWDET CTRL.</li>
+</ul>
+<p>Les entrées de SAR ADC1 sont pad_in[7:0] et le capteur à effet Hall (<i>hall sensor</i>) ; celles de SAR ADC2 sont pad_in[9:0], pa_pkdet1, pa_pkdet2 et vdd33.</p>
 
 <h4>Exemple de calcul</h4>
 <p class="complement">Exemple ajouté.</p>
@@ -243,7 +256,6 @@
 <h2>Timers et watchdog</h2>
 
 <article class="notion" id="n-timer">
-<h3>Timers</h3>
 <p class="chapeau">Lire un ECG 500 fois par seconde, pas une de plus, pas une de moins. Attendre 30 s avant de relancer une pompe. Le programme ne peut pas compter le temps en comptant ses propres instructions : il s'appuie sur des timers, des compteurs qui avancent au rythme d'une horloge.</p>
 
 <div id="fig-timer"></div>

@@ -149,7 +149,11 @@ body.niveau { overflow: hidden; height: 100dvh; }
 .etoiles .pleine:nth-child(2) path { animation-delay: .25s; }
 .etoiles .pleine:nth-child(3) path { animation-delay: .5s; }
 @keyframes etoile { from { transform: scale(0) rotate(-40deg); } }
-.resultat .carte { max-height: 92dvh; overflow-y: auto; }
+/* la carte tient dans l'écran : la liste des questions à revoir défile, les boutons restent visibles */
+.resultat .carte { max-height: 92dvh; overflow: hidden; display: flex; flex-direction: column; }
+.resultat .carte > * { flex: none; }
+.resultat .carte > .a-revoir { flex: 0 1 auto; min-height: 0; overflow-y: auto; padding: 0 6px 4px 0; }
+.resultat .carte > .kicker { align-self: center; }
 .a-revoir { margin: -6px 0 22px; text-align: left; border-top: 1px solid var(--trait); }
 .a-revoir:empty { display: none; }
 .a-revoir > div { display: flex; align-items: center; gap: 14px; min-height: 64px; border-bottom: 1px solid var(--trait); }

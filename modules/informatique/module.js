@@ -34,7 +34,7 @@ PLATEFORME.parcours("informatique", {
     { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", ligne: "Défense en profondeur, CID, AAA", sousModule: "securite" },
     { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", ligne: "Loi 05-20, loi 09-08, normes", sousModule: "securite" },
     { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", ligne: "Menace, vulnérabilité, risque, SPOF", sousModule: "securite" },
-    { id: 11, td: true, numero: "TD 1", titre: "TD 1 : centre d'oncologie du CHU Atlas", sous: "AMDEC du circuit de chimiothérapie, choix entre deux offres, plan d'audit et mode dégradé", ligne: "AMDEC, choix d'offre, audit, mode dégradé", sousModule: "sis" }
+    { id: 11, td: true, numero: "TD 1", titre: "Centre d'oncologie du CHU Atlas", sous: "AMDEC du circuit de chimiothérapie, choix entre deux offres, plan d'audit et mode dégradé", ligne: "AMDEC, choix d'offre, audit, mode dégradé", sousModule: "sis" }
   ],
   niveaux: [
     { id: "informatique-medicale", chapitre: 1, titre: "Informatique médicale, matériel et logiciel", cours: true, pret: true },
@@ -203,9 +203,9 @@ PLATEFORME.parcours("informatique", {
     { chapitre: 10, id: "kill-chain", titre: "Le cycle de vie d'une attaque" },
     { chapitre: 10, id: "risque", titre: "Le risque" },
     { chapitre: 10, id: "incident-spof", titre: "Incident de sécurité et SPOF" },
-    { chapitre: 11, id: "td1-amdec", titre: "TD 1 : le cas et l'analyse de risques" },
-    { chapitre: 11, id: "td1-offres", titre: "TD 1 : choisir entre les deux offres" },
-    { chapitre: 11, id: "td1-audit", titre: "TD 1 : plan d'audit et mode dégradé" },
-    { chapitre: 11, id: "td1-corrige", titre: "TD 1 : consignes et corrigé" }
+    { chapitre: 11, id: "td1-amdec", titre: "Le cas et l'analyse de risques" },
+    { chapitre: 11, id: "td1-offres", titre: "Choisir entre les deux offres" },
+    { chapitre: 11, id: "td1-audit", titre: "Plan d'audit et mode dégradé" },
+    { chapitre: 11, id: "td1-corrige", titre: "Consignes et corrigé" }
   ]
 });

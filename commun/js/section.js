@@ -161,9 +161,10 @@
     });
     var fin = document.createElement("section");
     fin.className = "fin-chapitre";
-    fin.innerHTML = "<h2>" + P.t("Fin du chapitre") + "</h2><p>" + P.t("Pour tout mélanger, si tu en as envie : la révision, puis le défi final.") + "</p>";
+    fin.innerHTML = "<h2>" + P.t("Fin du chapitre") + "</h2>";
     var finIds = ch.niveaux.filter(function (n) { return n.revision; }).concat(ch.niveaux.filter(function (n) { return n.boss; })).map(function (n) { return n.id; });
-    if (finIds.length) bloc(finIds, P.t("Fin du chapitre"), P.t("Révision et défi final"), fin, null, true);
+    // le titre « Fin du chapitre » est juste au-dessus : le bloc ne le redit pas
+    if (finIds.length) bloc(finIds, "", P.t("Révision et défi final"), fin, null, true);
     var toutes = ch.sections.reduce(function (t, x) { return t.concat(cartesDe(x.id)); }, []);
     if (!toutes.length && MOD.cartesFinChapitre && MOD.arbre && MOD.arbre[ch.sm]) {
       var ca = MOD.arbre[ch.sm].chapitres.filter(function (x) { return x.id === ch.id; })[0];
