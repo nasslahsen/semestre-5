@@ -14,6 +14,16 @@
 PLATEFORME.parcours("laboratoire", {
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
+  // Podcasts des chapitres (NotebookLM, AAC mono 64 kb/s) : lecteur sous le titre de la page du chapitre ; chapitre 6 : sur sa version courte.
+  podcasts: {
+    1: { titre: "Le laboratoire médical", duree: "22 min", fichier: "audio/chapitre-1.m4a" },
+    2: { titre: "Échantillons et phase pré-analytique", duree: "24 min", fichier: "audio/chapitre-2.m4a" },
+    3: { titre: "Technologies de biochimie clinique", duree: "25 min", fichier: "audio/chapitre-3.m4a" },
+    4: { titre: "Technologies d'hématologie et d'hémostase", duree: "18 min", fichier: "audio/chapitre-4.m4a" },
+    5: { titre: "Microscopes et agitateurs chauffants", duree: "24 min", fichier: "audio/chapitre-5.m4a" },
+    7: { titre: "Automatisation et informatisation du laboratoire", duree: "27 min", fichier: "audio/chapitre-7.m4a" },
+    8: { titre: "Maintenance et gestion des équipements", duree: "27 min", fichier: "audio/chapitre-8.m4a" }
+  },
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
