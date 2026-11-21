@@ -25,6 +25,12 @@
   var script = document.currentScript;
   // racine du site : l'adresse de ce fichier sans « commun/js/plateforme.js »
   var racine = script ? script.src.replace(/commun\/js\/plateforme\.js(\?.*)?$/, "") : "";
+  // Icône du site (onglet et écran d'accueil de l'iPad), la même sur toutes les pages
+  [["icon", "commun/favicon.png"], ["apple-touch-icon", "commun/icone.png"]].forEach(function (x) {
+    if (document.head && !document.head.querySelector('link[rel="' + x[0] + '"]')) {
+      var l = document.createElement("link"); l.rel = x[0]; l.href = racine + x[1]; document.head.appendChild(l);
+    }
+  });
   var parcours = {};
 
   function lireTout() { try { return JSON.parse(localStorage.getItem(CLE) || "{}") || {}; } catch (e) { return {}; } }
