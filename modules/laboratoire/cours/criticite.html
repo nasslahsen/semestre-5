@@ -20,15 +20,11 @@
 <h1>Criticité et continuité</h1>
 <p class="chapeau">Un analyseur de gaz du sang tombe en panne un dimanche soir, alors que la réanimation attend. Tous les équipements ne se valent pas : certains peuvent attendre lundi, d'autres non. Il faut le savoir avant la panne, et avoir prévu un plan B.</p>
 
-<h2>Intuition</h2>
-<p>Pour chaque équipement, on se pose trois questions : si il tombe, qui en souffre et à quel point ? combien de temps faut-il pour le réparer ? que fait-on en attendant ? Les réponses disent où mettre les pièces de rechange, les contrats, les appareils de secours. Le laboratoire doit continuer à rendre des résultats malgré une défaillance.</p>
-
 <div id="fig-criticite"></div>
 
-<h2>Formalisation</h2>
-<h3>Un laboratoire distribué</h3>
+<h2>Un laboratoire distribué</h2>
 <p>Le laboratoire devient distribué : l'<strong>ISO 22870</strong> encadre les examens de biologie médicale délocalisée (POCT), au plus près du patient. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
-<h3>Évaluer chaque équipement critique</h3>
+<h2>Évaluer chaque équipement critique</h2>
 <ul>
 <li><b>Impact clinique</b> : conséquence d'une panne sur la prise en charge (urgences, réanimation, bloc opératoire, services).</li>
 <li><b>Délai de réparation</b> : temps de remise en service estimé.</li>
@@ -37,7 +33,7 @@
 <li><b>Traçabilité</b> : enregistrement de l'incident et des actions.</li>
 </ul>
 <p>Cette évaluation concerne l'analyseur, mais aussi l'électricité, le LIS, les réactifs, le traitement de l'air (HVAC).</p>
-<h3>Six domaines pour un résultat fiable</h3>
+<h2>Six domaines pour un résultat fiable</h2>
 <ol>
 <li><b>Clinique</b> : pertinence du processus.</li>
 <li><b>Analytique</b> : performance des méthodes.</li>
@@ -48,11 +44,9 @@
 </ol>
 <p>Le patient ne voit jamais l'analyseur : il voit le résultat. Chacun de ces domaines conditionne sa fiabilité.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Deux appareils tombent en panne le même jour : l'analyseur de gaz du sang qui sert la réanimation, et un agitateur chauffant de préparation. Le premier a un fort impact clinique et ne peut pas attendre : on passe sur l'appareil de secours ou on sous-traite, et on enregistre l'incident. Le second peut attendre la réparation sans conséquence pour les patients.</p>
+<div class="schema" id="sc-criticite"></div>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Pour chaque équipement critique : impact clinique, délai de réparation, plan B, secours ou sous-traitance, traçabilité.</p>
 <p>ISO 22870 : POCT. Déplacer l'analyseur ne déplace pas la responsabilité qualité.</p>
 <p>Clinique, analytique, technique, infrastructure, qualité et sécurité, continuité.</p>
@@ -61,6 +55,8 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 <script src="../labo.js"></script>
 <script src="../figures/criticite.js"></script>
 </body>

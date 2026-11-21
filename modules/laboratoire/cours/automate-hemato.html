@@ -20,13 +20,9 @@
 <h1>L'automate d'hématologie</h1>
 <p class="chapeau">Impédance, cytométrie, spectrophotométrie : un compteur d'hématologie réunit ces mesures dans un seul appareil, qui aspire le tube, prépare les dilutions, mesure, calcule et transmet. Le connaître module par module, c'est savoir où chercher quand il se plaint.</p>
 
-<h2>Intuition</h2>
-<p>Le sang suit un trajet, du tube jusqu'au système informatique : on le prélève, on le dilue, on le mesure, on transforme le signal en chiffres, on vérifie, on transmet. Chaque étape a son module, ses pièces et son entretien. Et l'appareil n'est fiable que si l'échantillon l'est : le bon tube, analysé à temps.</p>
-
 <div id="fig-automate-hemato"></div>
 
-<h2>Formalisation</h2>
-<h3>Modules constitutifs</h3>
+<h2>Modules constitutifs</h2>
 <div class="tableau"><table>
 <tr><th>Module</th><th>Fonction</th><th>Composants</th></tr>
 <tr><td>Aspiration</td><td>Prélèvement du sang</td><td>Aiguille, sonde capacitive, détection de niveau</td></tr>
@@ -38,7 +34,9 @@
 <tr><td>Interface LIS</td><td>Communication</td><td>HL7, ASTM, middleware</td></tr>
 </table></div>
 <p>S'y ajoutent la gestion des réactifs et celle des déchets.</p>
-<h3>Types d'automates</h3>
+<figure class="photo"><img src="../images/automate-hematologie.jpg" alt="Automate d'hématologie avec portoir de tubes et écran"><figcaption>Un automate d'hématologie. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>Types d'automates</h2>
 <ol>
 <li>À impédance (Coulter) : Sysmex KX-21, ABX Micros 60.</li>
 <li>Optiques (cytométrie) : Abbott CELL-DYN, Siemens ADVIA.</li>
@@ -46,16 +44,16 @@
 <li>De paillasse (bench-top) : faible débit, moins de 60 tests par heure.</li>
 <li>De grande série (high-throughput) : plus de 100 tests par heure, chaînes modulaires.</li>
 </ol>
-<h3>Chaînes automatisées</h3>
+<h2>Chaînes automatisées</h2>
 <p>Entrée des tubes, centrifugeuse, débouchage, hématologie, biochimie, puis stockage et tri. Avantages : moins d'erreurs d'identification (code-barres), temps de rendu (TAT) réduit, ressources humaines optimisées, traçabilité complète.</p>
-<h3>Bonnes pratiques</h3>
+<h2>Bonnes pratiques</h2>
 <ul>
 <li>Prélèvement veineux sur EDTA (tube K2 ou K3) ; analyse dans les 4 heures ; homogénéisation douce par retournements ; conservation à température ambiante (20 à 25 °C) ; pas d'agitation violente (hémolyse) ; vérifier la concordance des résultats.</li>
 <li>Toujours un onduleur avec prise de terre ; 50 cm entre l'appareil et le mur pour la circulation d'air ; allumer et attendre environ 10 minutes avant l'emploi ; pas de bulles d'air dans les tuyaux de réactifs ; surveiller les fuites de réactifs, d'air ou de vide ; éviter les allumages et extinctions intempestifs et la poussière dans les réactifs ; bien mélanger les échantillons ; passer les contrôles ; suivre les procédures de démarrage et d'arrêt.</li>
 </ul>
-<h3>L'automate dans le circuit du résultat</h3>
+<h2>L'automate dans le circuit du résultat</h2>
 <p>Prescription clinique → prélèvement (identitovigilance, code-barres) → acheminement (traçabilité, température) → automate (impédance, optique) → validation (technique puis biologique) → transmission (LIS, HL7, ASTM) → résultat (interprétation clinique).</p>
-<h3>Perspectives</h3>
+<h2>Perspectives</h2>
 <ul>
 <li><b>Intelligence artificielle</b> : aide à la validation, détection d'anomalies morphologiques (deep learning sur images).</li>
 <li><b>Miniaturisation</b> : automates de paillasse, biologie délocalisée (POCT), au lit du patient, avec un TAT réduit.</li>
@@ -71,7 +69,7 @@
 <tr><td>2020</td><td>intelligence artificielle, deep learning</td></tr>
 <tr><td>2026</td><td>automates connectés, POCT, télémédecine</td></tr>
 </table></div>
-<h3>Maintenance</h3>
+<h2>Maintenance</h2>
 <div class="tableau"><table>
 <tr><th>Fréquence</th><th>Opérations</th></tr>
 <tr><td>Quotidienne</td><td>Nettoyage, contrôle de qualité, vérification des réactifs ; nettoyer l'appareil avant et après l'analyse (eau distillée, solution de nettoyage préconisée), essuyer toute trace de sang.</td></tr>
@@ -82,11 +80,9 @@
 </table></div>
 <p><b>Maintenance curative</b> : détection des pannes (codes d'erreur, alarmes), diagnostic (journaux), intervention (pièces, recalibration), puis contrôle qualité après réparation.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un tube EDTA prélevé à 8 h arrive à 14 h : il a dépassé les 4 heures recommandées, le résultat doit être interprété avec prudence ou le prélèvement refait. Le même matin, l'appareil signale des bulles dans le circuit du diluant : on vérifie les tuyaux de réactifs et les fuites d'air avant de relancer la série.</p>
+<div class="schema" id="sc-hemato"></div>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Aspiration, dilution, mesure, acquisition, gestion des données, contrôle qualité, interface LIS.</p>
 <p>Paillasse : moins de 60 tests/h. Grande série : plus de 100 tests/h.</p>
 <p>EDTA K2/K3, analyse en moins de 4 h, 20 à 25 °C. Onduleur, 50 cm du mur, 10 minutes de chauffe.</p>
@@ -95,6 +91,8 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 <script src="../labo.js"></script>
 <script src="../figures/automate-hemato.js"></script>
 </body>

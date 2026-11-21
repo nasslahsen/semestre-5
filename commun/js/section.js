@@ -70,7 +70,7 @@
     });
     // Formules clés : regroupées dans une carte, comme sur les anciennes pages
     [].forEach.call(art.querySelectorAll("h4"), function (t) {
-      if (t.textContent.trim() !== "Formules clés") return;
+      var nomT = t.textContent.trim(); if (nomT !== "Formules clés" && nomT !== "À retenir") return;
       var carte = document.createElement("div"), n = t.nextSibling;
       carte.className = "cles-carte";
       while (n && !/^(H3|H4|NAV|SCRIPT)$/.test(n.nodeName)) { var suivant = n.nextSibling; carte.appendChild(n); n = suivant; }

@@ -20,25 +20,21 @@
 <h1>Potentiométrie et électrolytes</h1>
 <p class="chapeau">Le sodium, le potassium, le chlorure ne donnent ni couleur ni trouble. Pour les doser, on ne mesure pas de lumière mais une tension : celle qui apparaît entre une électrode sensible à un seul ion et une électrode de référence.</p>
 
-<h2>Intuition</h2>
-<p>Une membrane qui ne laisse interagir qu'un seul ion se charge plus ou moins selon la quantité de cet ion autour d'elle. La tension qui en résulte ne suit pas la concentration en ligne droite : elle augmente d'un même pas chaque fois que la concentration est multipliée par dix. C'est une réponse logarithmique, comme une échelle de décibels.</p>
-
 <div id="fig-potentiometrie"></div>
 
-<h2>Formalisation</h2>
-<h3>Électrodes sélectives</h3>
+<h2>Électrodes sélectives</h2>
 <p>Les <strong>électrodes sélectives aux ions</strong> (ISE) sont des capteurs qui produisent une réponse potentiométrique sélective à un ion donné. Au contact d'une solution contenant l'ion à doser, le potentiel de membrane varie en fonction logarithmique de l'activité ionique, selon l'équation de Nernst, telle que l'écrit le cours :</p>
 \[ E = E^{0} + \frac{RT}{nF} \times \log(\gamma \times C) \]
 <p>avec \(E\) le potentiel d'électrode, \(E^{0}\) le potentiel standard, \(R\) la constante des gaz parfaits, \(T\) la température absolue, \(n\) la charge de l'ion, \(F\) la constante de Faraday, \(\gamma\) le coefficient d'activité et \(C\) la concentration.</p>
 <p>Rappel : dans cette formule, \(\log\) est le logarithme népérien. Avec le logarithme décimal, le facteur devient \(\dfrac{RT \ln 10}{nF}\), soit environ 59 mV par décade de concentration à 25 °C pour un ion de charge 1 (\(R = 8{,}314\) J·mol⁻¹·K⁻¹, \(F = 96\,485\) C·mol⁻¹).</p>
-<h3>Types d'électrodes</h3>
+<h2>Types d'électrodes</h2>
 <ul>
 <li>Électrode à sodium : membrane de verre ou membrane liquide sensible à Na⁺.</li>
 <li>Électrode à potassium : membrane à la valinomycine, hautement sélective pour K⁺.</li>
 <li>Électrode à chlorure : membrane échangeuse d'ions.</li>
 <li>Électrode de référence : argent / chlorure d'argent à double jonction, qui fournit une tension de référence stable.</li>
 </ul>
-<h3>Analyse des électrolytes</h3>
+<h2>Analyse des électrolytes</h2>
 <p>Le <b>ionogramme</b> est l'un des examens les plus fréquents. Le rôle de chaque ion :</p>
 <ul>
 <li><b>Na⁺</b> : principal cation <b>extracellulaire</b> ; il règle l'osmolarité et l'équilibre hydrique.</li>
@@ -56,15 +52,20 @@
 <tr><td>Li⁺</td><td>0,30 à 1,20</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>À 25 °C (298,15 K), pour un ion de charge 1, la pente vaut \(\dfrac{8{,}314 \times 298{,}15 \times \ln 10}{96\,485} \approx 0{,}0592\) V, soit 59,2 mV par décade. Si la concentration est multipliée par 4, le potentiel augmente de \(59{,}2 \times \log_{10} 4 \approx 35{,}6\) mV.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ E = E^{0} + \frac{RT}{nF} \ln(\gamma C) = E^{0} + \frac{RT\ln 10}{nF}\log_{10}(\gamma C) \]
 <p>Environ 59 mV par décade à 25 °C pour n = 1 ; deux fois moins pour n = 2.</p>
 <p>Na⁺ : verre ou membrane liquide. K⁺ : valinomycine. Cl⁻ : échangeuse d'ions. Référence : Ag/AgCl à double jonction.</p>
-<p>Na⁺ 135 à 148 ; K⁺ 3,5 à 5,3 ; Cl⁻ 98 à 107 ; Li⁺ 0,30 à 1,20 mmol/L.</p>
+<ul>
+<li>Na⁺ 135 à 148.</li>
+<li>K⁺ 3,5 à 5,3.</li>
+<li>Cl⁻ 98 à 107.</li>
+<li>Li⁺ 0,30 à 1,20 mmol/L.</li>
+</ul>
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>

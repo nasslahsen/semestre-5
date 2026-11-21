@@ -20,13 +20,9 @@
 <h1>Robots coursiers et caissons de transport</h1>
 <p class="chapeau">Tous les services ne sont pas reliés au pneumatique, et certains échantillons ne doivent pas y passer. Il reste à les porter : par un robot qui roule seul dans les couloirs, ou dans un caisson qui prouve, à l'arrivée, que la température et les délais ont été respectés.</p>
 
-<h2>Intuition</h2>
-<p>Un robot coursier doit savoir où il est, voir ce qui l'entoure et ouvrir ses casiers à la bonne personne. Un caisson de transport doit protéger les tubes, garder le froid, et garder la preuve de tout cela. Dans les deux cas, la question est la même : l'échantillon est-il arrivé intact, à temps, et peut-on le prouver ?</p>
-
 <div id="fig-transport-robot"></div>
 
-<h2>Formalisation</h2>
-<h3>Le robot coursier</h3>
+<h2>Le robot coursier</h2>
 <p>Les <strong>robots mobiles autonomes</strong> (robots coursiers) roulent seuls dans les couloirs (vitesse moyenne 9 km/h). Les tubes sont dans une enceinte fermée : pas de chute, de renversement ni d'exposition aux liquides biologiques. Ils déchargent le personnel des allers-retours entre les unités de soins et le plateau technique.</p>
 <ul>
 <li><b>Navigation</b> : cartographie numérique des couloirs à l'installation (cartographie 3D, SLAM) ; radars, caméras et scrutateurs laser ; algorithmes de déplacement qui contournent les obstacles ou arrêtent le robot en cas de danger ; ascenseurs par Wi-Fi, portes automatiques par un badge simulé.</li>
@@ -34,7 +30,9 @@
 <li><b>Missions</b> : appel depuis une tablette ou un poste ; tournées planifiées ou courses urgentes ; tableau de bord de supervision (position, batterie).</li>
 <li><b>Composants</b> : châssis résistant aux désinfectants (aluminium anodisé, acier passivé), coques lisses ; moteurs électriques (souvent brushless) ; batteries lithium avec système de gestion (BMS) et recharge automatique ; perception (LiDAR à 360°, caméras 3D, ultrasons, centrale inertielle) ; ordinateur embarqué ; armoire sécurisée (badge RFID, tiroirs réfrigérés ou étanches).</li>
 </ul>
-<h3>Le caisson de transport</h3>
+<figure class="photo"><img src="../images/robot-coursier.jpg" alt="Trois robots coursiers autonomes à casiers"><figcaption>Robots coursiers. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>Le caisson de transport</h2>
 <p>Il repose sur le <b>triple emballage</b> et les normes de sécurité biologique (ONU 3373, ADR) : récipient primaire étanche entouré d'un absorbant ; récipient secondaire rigide ou étanche, résistant à la pression ; emballage extérieur rigide, souvent isotherme, contre les chocs, les vibrations et la température.</p>
 <p>La <b>traçabilité</b> intégrée répond à l'ISO 15189 : chaîne du froid, sécurité des données, preuve des délais.</p>
 <ul>
@@ -42,12 +40,14 @@
 <li><b>Logistique</b> : puces RFID (heure de départ, identité du coursier, heure de dépôt) ; codes-barres et QR codes scannés à chaque étape ; géolocalisation GPS pour les malles interhospitalières.</li>
 </ul>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un caisson de prélèvements de biochimie arrive d'un centre de prélèvement. Le capteur connecté a déjà signalé, pendant le trajet, une montée à +11 °C pendant vingt minutes : le laboratoire sait, avant même l'ouverture, quels tubes devront être examinés de près ou refusés.</p>
-
-<h2>Formules clés</h2>
-<p>Robot coursier : environ 9 km/h ; SLAM, LiDAR, caméras ; casiers verrouillés par code ou badge ; BMS et recharge automatique.</p>
+<h2>À retenir</h2>
+<p>Robot coursier :</p>
+<ul>
+<li>Environ 9 km/h.</li>
+<li>SLAM, LiDAR, caméras.</li>
+<li>Casiers verrouillés par code ou badge.</li>
+<li>BMS et recharge automatique.</li>
+</ul>
 <p>Caisson : triple emballage (ONU 3373, ADR) ; traçabilité thermique (boutons, capteurs connectés) et logistique (RFID, codes, GPS) ; ISO 15189.</p>
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
