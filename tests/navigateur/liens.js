@@ -86,7 +86,15 @@ const CORRECTIONS = {
     "automate-tri": { 4: ["automate-tri", "technologies", "Technologies"] },
     coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] },
     circuit: { 2: ["circuit", "les-sept-etapes", "Les sept étapes"] },
-    pneumatique: { 5: ["pneumatique", "le-reseau", "Le réseau"] }
+    pneumatique: { 5: ["pneumatique", "le-reseau", "Le réseau"] },
+    // chapitre 6 : chaque étape vers le passage qui l'explique, plutôt que vers « À retenir »
+    "anapath-techniques": { 2: ["anapath-techniques", "les-techniques-de-base", "Les techniques de base"], 4: ["anapath-techniques", "quand-le-h-e-ne-suffit-pas-les-tests-ancillaires", "Quand le H&E ne suffit pas : les tests ancillaires"] },
+    "anapath-flux": { 1: ["anapath-flux", "trois-phases", "Trois phases"], 2: ["anapath-flux", "les-equipements-etape-par-etape", "Les équipements, étape par étape"], 3: ["anapath-flux", "les-equipements-etape-par-etape", "Les équipements, étape par étape"], 4: ["anapath-flux", "trois-phases", "Trois phases"] },
+    "table-macroscopie": { 4: ["table-macroscopie", "maintenance-et-pannes", "Maintenance et pannes"], 5: ["table-macroscopie", "maintenance-et-pannes", "Maintenance et pannes"] },
+    formol: { 3: ["formol", "ventilation-et-captage-regles-inrs", "Ventilation et captage (règles INRS)"] },
+    enrobage: { 2: ["enrobage", "automate-de-deshydratation-ou-station-d-enrobage", "Automate de déshydratation ou station d'enrobage ?"] },
+    "revision-anapath": { 1: ["anapath", "biopsie-ou-piece-operatoire", "Biopsie ou pièce opératoire"], 3: ["anapath-flux", "les-equipements-etape-par-etape", "Les équipements, étape par étape"] },
+    "boss-anapath": { 1: ["anapath-flux", "trois-phases", "Trois phases"] }
   }
 };
 const VIDES = new Set(("les des une un le la de du et en est sur pour par que qui dans au aux ce cette ces son sa ses il elle on se ne pas plus "

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Du tissu à la lame : les techniques · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Du tissu à la lame : les techniques</h1>
+<p class="chapeau">Un fragment de tissu mou ne se coupe pas en tranches de quelques micromètres. Il faut le fixer, le durcir dans la paraffine, le couper, puis le colorer : sans coloration, la coupe est presque transparente au microscope.</p>
+
+<h2>Les techniques de base</h2>
+<ol>
+<li><strong>Examen macroscopique et échantillonnage</strong> : le pathologiste décrit l'échantillon à l'œil nu (forme, taille, couleur), repère les zones suspectes et prélève des fragments représentatifs, placés dans des <b>cassettes</b> et fixés, en général au formol.</li>
+<li><strong>Déshydratation, inclusion et coupe</strong> : les tissus fixés sont déshydratés puis imprégnés de <b>paraffine</b> pour former des blocs solides. Au <strong>microtome</strong>, on réalise des coupes très fines, de <b>3 à 5 micromètres</b>, déposées sur des lames de verre.</li>
+<li><strong>Coloration standard, Hématoxyline-Éosine (H&amp;E)</strong> : la coloration de routine. L'<b>hématoxyline</b> colore les noyaux en bleu-violet, l'<b>éosine</b> colore le cytoplasme et les structures extracellulaires en rose. Le pathologiste voit ainsi la morphologie générale des cellules et des tissus.</li>
+</ol>
+
+<h2>Quand le H&amp;E ne suffit pas : les tests ancillaires</h2>
+<div class="schema" id="sc-ancillaires"></div>
+<div class="tableau"><table>
+<tr><th>Technique</th><th>Principe</th><th>Exemple du cours</th></tr>
+<tr><td>Immunohistochimie (IHC)</td><td>Des anticorps dirigés contre des protéines spécifiques : la tumeur exprime-t-elle tel marqueur ? Aide à classer la maladie et à guider les thérapies ciblées.</td><td>Récepteurs hormonaux, HER2 dans le cancer du sein</td></tr>
+<tr><td>Hybridation in situ (FISH, CISH)</td><td>Des sondes marquées détectent la présence ou l'amplification de séquences d'ADN ou d'ARN dans les cellules. FISH : en fluorescence.</td><td>Amplification du gène HER2, papillomavirus (HPV)</td></tr>
+<tr><td>Tests moléculaires (PCR, séquençage)</td><td>Analyse directe de l'ADN ou de l'ARN extrait des tissus. La PCR amplifie des séquences pour détecter des mutations ; le séquençage de nouvelle génération (NGS) analyse de nombreux gènes à la fois, même sur échantillons fixés.</td><td>Mutation BRAF V600E dans le mélanome</td></tr>
+<tr><td>Colorations spéciales</td><td>Colorations chimiques autres que le H&amp;E, pour un composant précis.</td><td>Rouge Congo : amylose. Ziehl-Neelsen : bacilles de la tuberculose</td></tr>
+</table></div>
+
+<h2>Le numérique et l'intelligence artificielle</h2>
+<ul>
+<li>Des <strong>scanners</strong> haute résolution numérisent les lames en « <b>lames virtuelles</b> » : lecture sur écran, avis à distance, archivage plus simples.</li>
+<li>L'<strong>intelligence artificielle</strong> quantifie des marqueurs (par exemple le pourcentage de cellules positives pour un anticorps) : une tâche longue et variable quand elle est faite à l'œil nu.</li>
+<li>Exemple du cours : le CHU de Lille a remplacé l'usage systématique du microscope par des scanners et des logiciels d'IA pour lire les lames.</li>
+</ul>
+
+<h2>À retenir</h2>
+<p>Macroscopie et cassettes, puis paraffine et microtome (coupes de 3 à 5 µm), puis H&amp;E.</p>
+<p>H&amp;E : hématoxyline, noyaux bleu-violet ; éosine, cytoplasme rose.</p>
+<p>Tests ancillaires : IHC (HER2), FISH ou CISH (gène HER2, HPV), PCR ou NGS (BRAF V600E), colorations spéciales (rouge Congo, Ziehl-Neelsen).</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+<script src="../labo.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="laboratoire">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le formol et le stockage ventilé · Laboratoire d'analyses médicales</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le formol et le stockage ventilé</h1>
+<p class="chapeau">Le formol fixe parfaitement les tissus, et c'est justement ce qui le rend dangereux pour ceux qui le respirent. Toute l'organisation de la macroscopie et du stockage vise à garder ses vapeurs loin du visage du technicien.</p>
+
+<div id="fig-formol"></div>
+
+<h2>Un agent CMR</h2>
+<p>Le formol (formaldéhyde, CH₂O) est classé <strong>CMR</strong> : <b>cancérogène</b>, <b>mutagène</b>, <b>reprotoxique</b>. La réglementation impose la prévention à la source, le confinement et la ventilation. La <b>protection collective</b> passe avant la protection individuelle.</p>
+
+<h2>Valeurs limites d'exposition professionnelle (VLEP)</h2>
+<div class="tableau"><table>
+<tr><th>Exposition</th><th>Limite</th></tr>
+<tr><td>8 heures (exposition longue)</td><td>0,3 ppm (0,37 mg/m³)</td></tr>
+<tr><td>15 minutes (pics)</td><td>0,6 ppm (0,74 mg/m³)</td></tr>
+</table></div>
+
+<h2>Ventilation et captage (règles INRS)</h2>
+<ul>
+<li><strong>Vitesse de captage</strong> : au moins <b>0,5 m/s</b>, mesurée au point de manipulation le plus éloigné de l'aspiration.</li>
+<li><strong>Sens du captage</strong> : par le bas ou par un dosseret aspirant. L'aspiration vers le haut (type hotte de cuisine) est à proscrire : elle fait passer les vapeurs devant les voies respiratoires du technicien.</li>
+<li><strong>Traitement de l'air</strong> : rejet à l'extérieur du bâtiment (après filtration si nécessaire), ou passage dans une enceinte à recyclage d'air filtré (<b>ETRAF</b>) avec filtres à charbon actif spécifiques au formaldéhyde.</li>
+<li><strong>Dépression du local</strong> : la pièce d'anapath reste en dépression constante, d'au moins <b>10 Pa</b> par rapport aux circulations communes, pour que le gaz ne se propage pas.</li>
+</ul>
+
+<h2>L'armoire ventilée de stockage</h2>
+<p>Les pièces et flacons fixés au formol émettent des vapeurs. L'<strong>armoire ventilée</strong>, souvent en acier inoxydable, stocke en sécurité les échantillons fixés et les réactifs : ses vapeurs sont aspirées vers le haut et évacuées dehors par un ventilateur externe ou intégré.</p>
+<ul>
+<li><strong>Stockage des échantillons au formol</strong> : pas d'accumulation de vapeurs dans le laboratoire.</li>
+<li><strong>Ventilation et dépression</strong> : armoire en dépression, raccordée à l'extraction, ou équipée d'un caisson de filtration au charbon actif à remplacer régulièrement.</li>
+<li><strong>Conformité</strong> : normes de ventilation et de résistance au feu, comme la NF EN 14470-1 pour les liquides inflammables.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Type</th><th>Particularité</th></tr>
+<tr><td>Armoire spéciale formol (filtrée ou raccordée)</td><td>Étagères ajourées en inox (AISI 304) pour que l'air circule autour des bacs, bac de rétention au fond</td></tr>
+<tr><td>Armoire de sécurité multirisque ou anti-feu</td><td>Sépare les solvants inflammables des acides et des bases, compartiments ventilés indépendants</td></tr>
+</table></div>
+<p>Variantes : modèle de base sans fond perforé, modèle à double fond perforé (ventilation homogène sur toute la hauteur), modèle sur mesure.</p>
+<figure class="photo"><img src="../images/armoire-formol.jpg" alt="Armoire ventilée vitrée remplie de flacons de pièces fixées"><figcaption>Une armoire ventilée de stockage. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>À retenir</h2>
+<p>Formol : CMR. VLEP : 0,3 ppm sur 8 h, 0,6 ppm sur 15 min.</p>
+<p>Captage par le bas ou par l'arrière, jamais vers le haut ; au moins 0,5 m/s au point le plus éloigné.</p>
+<p>Local en dépression d'au moins 10 Pa ; air rejeté dehors ou filtré au charbon actif (ETRAF).</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../labo.js"></script>
+<script src="../figures/formol.js"></script>
+</body>
+</html>

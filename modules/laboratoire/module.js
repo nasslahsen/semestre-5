@@ -1,8 +1,8 @@
 /*
  * Module Technologies de laboratoire d'analyses médicales : ordre des pages. Couleurs et statut : registre.js.
  * Source : le support du cours (Pr. EL BERGUI), modules/laboratoire/sources/ (jamais publié).
- * Les chapitres gardent la numérotation du cours. Le chapitre VI (microbiologie et biologie moléculaire) n'a que son titre
- * dans le support : il n'est pas construit. Le chapitre V ne garde que les microscopes et les agitateurs chauffants
+ * Les chapitres gardent la numérotation du cours. Le chapitre VI est le laboratoire d'anatomie et cytopathologie
+ * (diapositives 548 à 634 du support de 634 diapositives) ; la microbiologie et la biologie moléculaire n'ont que leur titre. Le chapitre V ne garde que les microscopes et les agitateurs chauffants
  * (l'immunoanalyse n'a que son titre). Le chapitre VIII n'a que son sommaire : il est construit à partir de la présentation
  * « Le laboratoire médical vu par l'ingénieur biomédical » du même support.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
@@ -14,13 +14,14 @@
 PLATEFORME.parcours("laboratoire", {
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
-  // Podcasts des chapitres (NotebookLM, AAC mono 64 kb/s) : lecteur sous le titre de la page du chapitre ; chapitre 6 : sur sa version courte.
+  // Podcasts des chapitres (NotebookLM, AAC mono 64 kb/s) : lecteur sous le titre de la page du chapitre.
   podcasts: {
     1: { titre: "Le laboratoire médical", duree: "22 min", fichier: "audio/chapitre-1.m4a" },
     2: { titre: "Échantillons et phase pré-analytique", duree: "24 min", fichier: "audio/chapitre-2.m4a" },
     3: { titre: "Technologies de biochimie clinique", duree: "25 min", fichier: "audio/chapitre-3.m4a" },
     4: { titre: "Technologies d'hématologie et d'hémostase", duree: "18 min", fichier: "audio/chapitre-4.m4a" },
     5: { titre: "Microscopes et agitateurs chauffants", duree: "24 min", fichier: "audio/chapitre-5.m4a" },
+    6: { titre: "Le laboratoire d'anatomie et cytopathologie", duree: "25 min", fichier: "audio/chapitre-6.m4a" },
     7: { titre: "Automatisation et informatisation du laboratoire", duree: "27 min", fichier: "audio/chapitre-7.m4a" },
     8: { titre: "Maintenance et gestion des équipements", duree: "27 min", fichier: "audio/chapitre-8.m4a" }
   },
@@ -28,23 +29,23 @@ PLATEFORME.parcours("laboratoire", {
   documents: {
     recus: [
       { titre: "Support du cours « Technologies de laboratoire d'analyses médicales » (Pr. EL BERGUI), en carte mentale", couvre: "chapitres 1 à 5, 7 et 8" },
-      { titre: "Module : Technologies de laboratoire d'analyses médicales (Pr. EL BERGUI Mohamed, 07 octobre 2026), 634 diapositives", couvre: "les mêmes chapitres, et le chapitre VI sur le laboratoire d'anatomie et cytopathologie (version courte seulement) ; photos des versions courtes" }
+      { titre: "Module : Technologies de laboratoire d'analyses médicales (Pr. EL BERGUI Mohamed, 07 octobre 2026), 634 diapositives", couvre: "les mêmes chapitres, et le chapitre VI sur le laboratoire d'anatomie et cytopathologie ; photos du cours" }
     ],
     manque: [
       "Immunoanalyse (ELISA, fluorescence, chimiluminescence) : seulement le titre, même dans le support de 634 diapositives.",
       "Microbiologie et biologie moléculaire (identification, antibiogramme, PCR) : seulement le titre.",
-      "Laboratoire d'anatomie et cytopathologie : reçu, pas encore de cours complet ni d'exercices (version courte seulement).",
       "Chapitre VIII : seulement le sommaire ; construit avec la présentation « Le laboratoire médical vu par l'ingénieur biomédical »."
     ]
   },
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel du chapitre, puis les questions d'examen ; accès sous le titre du chapitre.
-  court: [1, 2, 3, 4, 5, 7, 8],
+  court: [1, 2, 3, 4, 5, 6, 7, 8],
   chapitres: [
     { id: 1, titre: "Le laboratoire médical", sous: "Missions, types, secteurs, circuit de l'échantillon, trois phases, biosécurité", ligne: "Missions, secteurs, circuit, phases, biosécurité" },
     { id: 2, titre: "Échantillons et phase pré-analytique", sous: "Types d'échantillons, prélèvement, identification, conservation, centrifugation, erreurs", ligne: "Prélever, identifier, conserver, centrifuger" },
     { id: 3, titre: "Technologies de biochimie clinique", sous: "Photométrie, spectrophotomètre, turbidimétrie, potentiométrie, automates, calibration, eau pure", ligne: "Mesurer par la lumière, les ions, l'eau pure" },
     { id: 4, titre: "Technologies d'hématologie et d'hémostase", sous: "Hémogramme, impédance, cytométrie en flux, automates, interférences, hémostase, coagulation", ligne: "Compter les cellules, mesurer la coagulation" },
     { id: 5, titre: "Microscopes et agitateurs chauffants", sous: "Types de microscopes, microscope optique, installation et entretien, agitateur chauffant", ligne: "Voir au microscope, chauffer et agiter" },
+    { id: 6, titre: "Le laboratoire d'anatomie et cytopathologie", sous: "Anapath, techniques, flux de travail, macroscopie, formol, processeur de tissus, enrobage", ligne: "Macroscopie, formol, processeur, enrobage" },
     { id: 7, titre: "Automatisation et informatisation du laboratoire", sous: "Automatisation, LIS et SIH, étiquetage, transport pneumatique, robots, tri pré-analytique", ligne: "Automates, systèmes d'information, transport, tri" },
     { id: 8, titre: "Maintenance et gestion des équipements", sous: "Cycle de vie, maintenance, métrologie et CQI, infrastructure, criticité et continuité", ligne: "Du besoin au retrait, mesurer juste, tenir" }
   ],
@@ -92,6 +93,15 @@ PLATEFORME.parcours("laboratoire", {
     { id: "agitateur", chapitre: 5, titre: "L'agitateur chauffant", cours: true, pret: true },
     { id: "revision-microscopes", chapitre: 5, titre: "Révision : microscopes et agitateurs", revision: true, pret: true },
     { id: "boss-microscopes", chapitre: 5, titre: "Remettre la paillasse en état", boss: true, pret: true },
+    { id: "anapath", chapitre: 6, titre: "L'anatomopathologie", cours: true, pret: true },
+    { id: "anapath-techniques", chapitre: 6, titre: "Du tissu à la lame : les techniques", cours: true, pret: true },
+    { id: "anapath-flux", chapitre: 6, titre: "Le flux de travail et ses équipements", cours: true, pret: true },
+    { id: "table-macroscopie", chapitre: 6, titre: "La table de macroscopie", cours: true, pret: true },
+    { id: "formol", chapitre: 6, titre: "Le formol et le stockage ventilé", cours: true, pret: true },
+    { id: "processeur-tissus", chapitre: 6, titre: "L'automate de déshydratation et d'imprégnation", cours: true, pret: true },
+    { id: "enrobage", chapitre: 6, titre: "La station d'enrobage", cours: true, pret: true },
+    { id: "revision-anapath", chapitre: 6, titre: "Révision : le laboratoire d'anapath", revision: true, pret: true },
+    { id: "boss-anapath", chapitre: 6, titre: "Une journée en anapath", boss: true, pret: true },
     { id: "automatisation", chapitre: 7, titre: "L'automatisation", cours: true, pret: true },
     { id: "lis-sih", chapitre: 7, titre: "Le LIS et le SIH", cours: true, pret: true },
     { id: "etiqueteuse", chapitre: 7, titre: "L'automate d'étiquetage", cours: true, pret: true },
@@ -129,6 +139,10 @@ PLATEFORME.parcours("laboratoire", {
     { id: "microscopes", chapitre: 5, titre: "Les microscopes", notions: ["microscopes-types", "microscope-optique"] },
     { id: "entretien-microscope", chapitre: 5, titre: "Installer et entretenir", notions: ["microscope-entretien"] },
     { id: "agitateur", chapitre: 5, titre: "L'agitateur chauffant", notions: ["agitateur"] },
+    { id: "anapath", chapitre: 6, titre: "L'anatomopathologie", notions: ["anapath", "anapath-techniques"] },
+    { id: "flux-anapath", chapitre: 6, titre: "Du flacon au compte rendu", notions: ["anapath-flux"] },
+    { id: "macroscopie", chapitre: 6, titre: "La macroscopie et le formol", notions: ["table-macroscopie", "formol"] },
+    { id: "inclusion", chapitre: 6, titre: "Déshydrater et enrober", notions: ["processeur-tissus", "enrobage"] },
     { id: "automatiser", chapitre: 7, titre: "Automatiser et informatiser", notions: ["automatisation", "lis-sih"] },
     { id: "etiqueter", chapitre: 7, titre: "Identifier les tubes", notions: ["etiqueteuse"] },
     { id: "transporter", chapitre: 7, titre: "Transporter les échantillons", notions: ["pneumatique", "transport-robot"] },
@@ -172,6 +186,13 @@ PLATEFORME.parcours("laboratoire", {
     { chapitre: 5, id: "microscope-optique", titre: "Le microscope optique" },
     { chapitre: 5, id: "microscope-entretien", titre: "Installer et entretenir un microscope" },
     { chapitre: 5, id: "agitateur", titre: "L'agitateur chauffant" },
+    { chapitre: 6, id: "anapath", titre: "L'anatomopathologie" },
+    { chapitre: 6, id: "anapath-techniques", titre: "Du tissu à la lame : les techniques" },
+    { chapitre: 6, id: "anapath-flux", titre: "Le flux de travail et ses équipements" },
+    { chapitre: 6, id: "table-macroscopie", titre: "La table de macroscopie" },
+    { chapitre: 6, id: "formol", titre: "Le formol et le stockage ventilé" },
+    { chapitre: 6, id: "processeur-tissus", titre: "L'automate de déshydratation et d'imprégnation" },
+    { chapitre: 6, id: "enrobage", titre: "La station d'enrobage" },
     { chapitre: 7, id: "automatisation", titre: "L'automatisation du laboratoire" },
     { chapitre: 7, id: "lis-sih", titre: "Le LIS et le SIH" },
     { chapitre: 7, id: "etiqueteuse", titre: "L'automate d'étiquetage des tubes" },
