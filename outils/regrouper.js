@@ -45,7 +45,9 @@ function pageChapitre(mid, d, P, ch) {
         const vides = new Set("le la les l un une des de du d et a au aux en dans sur pour par avec ce ces son sa ses the of and to in an on for with".split(" "));
         const racines = x => new Set(x.filter(w => !vides.has(w)).map(w => w.slice(0, 5)));
         const rb = racines(b), ra = racines(a);
-        const redit = nid === s.notions[0] && rb.size > 0 && [...rb].filter(w => ra.has(w)).length / rb.size >= 0.75;
+        // ou dont chaque mot est déjà dans celui de la section (« Timers et watchdog » puis « Timers »)
+        const dedans = ra.size > 0 && [...ra].every(w => rb.has(w));
+        const redit = nid === s.notions[0] && rb.size > 0 && ([...rb].filter(w => ra.has(w)).length / rb.size >= 0.75 || dedans);
         return s.notions.length === 1 || egal(a, b) || egal(a, c) || redit ? "" : tout;
       });
       m = m.replace(/\s*<p class="etiquette" data-etiquette><\/p>\s*/, "\n")
