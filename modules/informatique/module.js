@@ -1,6 +1,7 @@
 /*
  * Module Informatique médicale : ordre des pages. Couleurs, sous-modules et statut : registre.js.
  * Sources : « Systèmes d'informations de santé » séances 1-2 (S1S2) et 3 (S3, circuits patient), M. Sfaira ;
+ *           TD « Centre d'oncologie du CHU Atlas » (dossier étudiant, données fictives) ;
  *           « Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité » (S1).
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
@@ -14,7 +15,8 @@ PLATEFORME.parcours("informatique", {
   documents: {
     recus: [
       { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "6 chapitres" },
-      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" }
+      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" },
+      { sousModule: "sis", titre: "TD « Centre d'oncologie du CHU Atlas » : dossier étudiant et modèle de fiche de synthèse", couvre: "TD 1" }
     ]
   },
   chapitres: [
@@ -27,7 +29,8 @@ PLATEFORME.parcours("informatique", {
     { id: 7, titre: "L'hôpital face à la menace cyber", sous: "Scénario de rançongiciel, spécificités de l'hôpital, panorama des attaques", ligne: "Rançongiciel, panorama de la menace", sousModule: "securite" },
     { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", ligne: "Défense en profondeur, CID, AAA", sousModule: "securite" },
     { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", ligne: "Loi 05-20, loi 09-08, normes", sousModule: "securite" },
-    { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", ligne: "Menace, vulnérabilité, risque, SPOF", sousModule: "securite" }
+    { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", ligne: "Menace, vulnérabilité, risque, SPOF", sousModule: "securite" },
+    { id: 11, td: true, numero: "TD 1", titre: "TD 1 : centre d'oncologie du CHU Atlas", sous: "AMDEC du circuit de chimiothérapie, choix entre deux offres, plan d'audit et mode dégradé", ligne: "AMDEC, choix d'offre, audit, mode dégradé", sousModule: "sis" }
   ],
   niveaux: [
     { id: "informatique-medicale", chapitre: 1, titre: "Informatique médicale, matériel et logiciel", cours: true, pret: true },
@@ -103,7 +106,13 @@ PLATEFORME.parcours("informatique", {
     { id: "risque", chapitre: 10, titre: "Le risque", cours: true, pret: true },
     { id: "incident-spof", chapitre: 10, titre: "Incident et point de défaillance unique", cours: true, pret: true },
     { id: "revision-risque", chapitre: 10, titre: "Révision : le risque", revision: true, pret: true },
-    { id: "boss-risque", chapitre: 10, titre: "L'analyse de risque du PACS", boss: true, pret: true }
+    { id: "boss-risque", chapitre: 10, titre: "L'analyse de risque du PACS", boss: true, pret: true },
+
+    { id: "td1-amdec", chapitre: 11, titre: "Atelier 1 : analyse de risques du circuit", cours: true, pret: true },
+    { id: "td1-offres", chapitre: 11, titre: "Atelier 2 : choisir entre les offres", cours: true, pret: true },
+    { id: "td1-audit", chapitre: 11, titre: "Atelier 3 : plan d'audit et mode dégradé", cours: true, pret: true },
+    { id: "revision-td1", chapitre: 11, titre: "Révision : le TD en situations nouvelles", revision: true, pret: true },
+    { id: "boss-td1", chapitre: 11, titre: "Le comité de pilotage", boss: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -138,7 +147,11 @@ PLATEFORME.parcours("informatique", {
     { id: "referentiels", chapitre: 9, titre: "Normes et règlements internationaux", notions: ["referentiels"] },
     { id: "menace-surface", chapitre: 10, titre: "Menace, vulnérabilité et surface d'attaque", notions: ["menace-vulnerabilite", "surface-attaque"] },
     { id: "kill-chain", chapitre: 10, titre: "Le cycle de vie d'une attaque", notions: ["kill-chain"] },
-    { id: "risque-incident", chapitre: 10, titre: "Risque, incident et SPOF", notions: ["risque", "incident-spof"] }
+    { id: "risque-incident", chapitre: 10, titre: "Risque, incident et SPOF", notions: ["risque", "incident-spof"] },
+    { id: "td1-amdec", chapitre: 11, titre: "Le cas et l'analyse de risques", notions: ["td1-amdec"] },
+    { id: "td1-offres", chapitre: 11, titre: "Choisir entre les deux offres", notions: ["td1-offres"] },
+    { id: "td1-audit", chapitre: 11, titre: "Plan d'audit et mode dégradé", notions: ["td1-audit"] },
+    { id: "td1-corrige", chapitre: 11, titre: "Consignes et corrigé, atelier par atelier", notions: ["td1-corrige"] }
   ],
   cours: [
     { chapitre: 1, id: "informatique-medicale", titre: "Informatique médicale et dualité DM / logiciel" },
@@ -185,6 +198,10 @@ PLATEFORME.parcours("informatique", {
     { chapitre: 10, id: "surface-attaque", titre: "La surface d'attaque" },
     { chapitre: 10, id: "kill-chain", titre: "Le cycle de vie d'une attaque" },
     { chapitre: 10, id: "risque", titre: "Le risque" },
-    { chapitre: 10, id: "incident-spof", titre: "Incident de sécurité et SPOF" }
+    { chapitre: 10, id: "incident-spof", titre: "Incident de sécurité et SPOF" },
+    { chapitre: 11, id: "td1-amdec", titre: "TD 1 : le cas et l'analyse de risques" },
+    { chapitre: 11, id: "td1-offres", titre: "TD 1 : choisir entre les deux offres" },
+    { chapitre: 11, id: "td1-audit", titre: "TD 1 : plan d'audit et mode dégradé" },
+    { chapitre: 11, id: "td1-corrige", titre: "TD 1 : consignes et corrigé" }
   ]
 });

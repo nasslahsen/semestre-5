@@ -20,12 +20,9 @@
 <h1>Phases pré-analytique, analytique et post-analytique</h1>
 <p class="chapeau">Un automate de pointe peut donner un chiffre faux s'il reçoit le mauvais tube, ou un tube mal conservé. Pour savoir où chercher l'erreur, on découpe le travail du laboratoire en trois phases.</p>
 
-<h2>Intuition</h2>
-<p>Avant la mesure, pendant la mesure, après la mesure. Avant : tout ce qui amène un bon échantillon jusqu'à l'analyseur. Pendant : la mesure elle-même. Après : transformer un chiffre brut en résultat validé, compris et transmis. L'analyseur est au milieu, mais la plupart des erreurs naissent avant lui.</p>
-
 <div id="fig-phases"></div>
 
-<h2>Formalisation</h2>
+<h2>Les trois phases</h2>
 <div class="tableau"><table>
 <tr><th>Phase</th><th>Définition</th><th>Actes concernés</th></tr>
 <tr><td>Pré-analytique</td><td>Ensemble des étapes depuis la prescription jusqu'à l'arrivée de l'échantillon à l'analyseur.</td><td>Prélèvement d'un échantillon biologique sur un être humain ; recueil des éléments cliniques pertinents et des traitements ; préparation, transport et conservation de l'échantillon jusqu'au lieu d'analyse.</td></tr>
@@ -34,7 +31,7 @@
 </table></div>
 <p>La phase pré-analytique est une <strong>phase critique</strong> : c'est là que surviennent la majorité des erreurs de laboratoire. Chaque étape vise à garantir l'<b>identitovigilance</b> (zéro erreur de patient) et la conformité médicale.</p>
 
-<h3>Les cinq grandes étapes du pré-analytique pour un patient</h3>
+<h2>Les cinq grandes étapes du pré-analytique pour un patient</h2>
 <ol>
 <li><b>Accueil et enregistrement au secrétariat</b> : vérification de l'identité, lecture et saisie de l'ordonnance, recueil des conditions cliniques, facturation. Pour les patients hospitalisés : réception des échantillons venus des services, contrôle de conformité (identification, traçabilité, critères d'acceptation ou de rejet), enregistrement dans le SIH ou le SIL, tri vers les pôles analytiques.</li>
 <li>Pour les échantillons venus des services de soins (unités d'hospitalisation, urgences, soins intensifs), acheminés par du personnel dédié ou un dispositif sécurisé (pneumatique, navette), on vérifie aussitôt l'<b>intégrité</b> : respect de la chaîne du froid, absence de fuite, contenant adapté à l'analyse (EDTA, sec, citrate…). Puis on contrôle la correspondance entre le prélèvement et la prescription avant toute validation.</li>
@@ -44,14 +41,12 @@
 <li><b>Transfert à la salle d'analyse</b> : pédestre, pneumatique, tapis roulant ou guichet de tri.</li>
 </ol>
 
-<h3>Où se crée le risque</h3>
+<h2>Où se crée le risque</h2>
 <p>Vu par l'ingénieur biomédical, chaque phase a ses points de risque. Pré-analytique : identification, prélèvement, transport, température, préparation, critères de rejet. Analytique : analyseur, réactifs, calibration, contrôle de qualité interne (CQI), maintenance, environnement. Post-analytique : validation, autovérification, résultats critiques, système d'information du laboratoire (LIS), traçabilité.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un potassium revient très élevé. Le tube avait attendu trois heures sur un chariot au soleil avant d'arriver : erreur pré-analytique. Le même chiffre, obtenu parce que l'automate n'avait pas été calibré après un changement de lot de réactif : erreur analytique. Un résultat juste mais envoyé dans le dossier d'un autre patient : erreur post-analytique.</p>
+<div class="schema" id="sc-phases"></div>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Pré-analytique : de la prescription à l'arrivée de l'échantillon à l'analyseur ; la phase la plus critique.</p>
 <p>Analytique : la mesure. Post-analytique : du résultat brut à sa communication (validation, interprétation, communication).</p>
 <p>Pré-analytique d'un patient : accueil et enregistrement → ordre de prélèvement → appel et préparation (double vérification d'identité) → prélèvement et étiquetage → transfert.</p>
@@ -60,6 +55,8 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 <script src="../labo.js"></script>
 <script src="../figures/phases.js"></script>
 </body>

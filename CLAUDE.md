@@ -224,7 +224,16 @@ d'erreur. `tests/navigateur/reveler.js` vérifie que chaque étape de chaque niv
 
 ## 6. Pages de cours
 
-Une page par notion, pour relire. Structure (vérifiée par `tests/static-check.js`) :
+**Règle permanente (demandée par l'utilisatrice) : le plan suit la matière, pas un modèle.** Elle lit tout pour
+comprendre ; ce qui n'aide pas à comprendre casse son attention. Pas d'« Intuition » ni d'exemple inventé quand la
+notion n'en a pas besoin : on garde un exemple seulement s'il y a un calcul à montrer. Des titres qui disent de quoi
+parle la section, des listes à puces plutôt que des phrases enchaînées par des « ; », des tableaux, des schémas en
+blocs, les photos du cours, les mots qui comptent en gras, et « À retenir » en fin de page. Un module construit ainsi
+porte `pagesLibres: true` dans son `module.js` (le laboratoire, l'anglais) : `tests/static-check.js` ne demande alors
+qu'un titre et un chapeau. Le plan ci-dessous reste utile quand la notion se construit pas à pas (mathématiques,
+mécanique, robotique), sans être une obligation.
+
+Une page par notion, pour relire. Structure classique (vérifiée par `tests/static-check.js` sauf `pagesLibres`) :
 titre, `chapeau` (la situation qui rend la notion nécessaire), **Intuition**, au moins une figure
 (`<div id="fig-...">`), **Formalisation**, **Exemple**, **Formules clés**. Un rappel de prérequis va sur la page,
 sous « Rappel : ... ». Pas de section de questions : l'entraînement est dans le jeu.

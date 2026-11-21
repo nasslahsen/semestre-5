@@ -29,6 +29,12 @@ const CORRECTIONS = {
     "td1-banc": { 4: ["td1-corrige", "question-6-la-caracteristique-vo-p", "Question 6 : la caractéristique Vo(P)"] },
     "td1-montage": { 3: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 4: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 5: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"], 6: ["td1-corrige", "question-12-l-expression-de-va", "Question 12 : l'expression de VA"] }
   },
+  informatique: {
+    // TD 1 : le SPOF vers le cours de sécurité, les décisions vers le tableau du mode dégradé ou la recommandation du corrigé
+    "revision-td1": { 5: ["incident-spof", "formalisation", "Formalisation"] },
+    "td1-audit": { 3: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"], 4: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"] },
+    "boss-td1": { 3: ["td1-corrige", "consignes-4", "Consignes"] }
+  },
   langues: {
     // exercices de situation et TD : vers la liste du cours ou l'exercice du corrigé
     "soft-exemples": { 3: ["soft-exemples", "a-long-list", "A long list"] },
@@ -70,7 +76,7 @@ const CORRECTIONS = {
     hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
     interferences: { 4: ["interferences", "principales-interferences", "Principales interférences"] },
     "revision-hemato": { 4: ["interferences", "principales-interferences", "Principales interférences"] },
-    "erreurs-preanalytiques": { 2: ["erreurs-preanalytiques", "formalisation", "Formalisation"] },
+    "erreurs-preanalytiques": { 2: ["erreurs-preanalytiques", "les-erreurs-par-origine", "Les erreurs, par origine"] },
     impedance: { 4: ["impedance", "principe-de-coulter", "Principe de Coulter"] },
     "boss-automatisation": { 2: ["pneumatique", "le-reseau", "Le réseau"] },
     "boss-microscopes": { 4: ["agitateur", "utilisation-et-precautions", "Utilisation et précautions"] },
@@ -78,7 +84,9 @@ const CORRECTIONS = {
     distillateur: { 3: ["distillateur", "definition", "Définition"] },
     "revision-automatisation": { 4: ["automate-tri", "technologies", "Technologies"] },
     "automate-tri": { 4: ["automate-tri", "technologies", "Technologies"] },
-    coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] }
+    coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] },
+    circuit: { 2: ["circuit", "les-sept-etapes", "Les sept étapes"] },
+    pneumatique: { 5: ["pneumatique", "le-reseau", "Le réseau"] }
   }
 };
 const VIDES = new Set(("les des une un le la de du et en est sur pour par que qui dans au aux ce cette ces son sa ses il elle on se ne pas plus "

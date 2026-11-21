@@ -388,6 +388,10 @@
     tat: function (total) { return [total * 0.60, total * 0.25, total * 0.15]; },
     // Chaîne de n passages qui transmettent chacun la donnée sans erreur avec la probabilité p (exemple ajouté)
     chaine: function (p, n) { return Math.pow(p, n); },
+    // TD 1 CHU Atlas : criticité d'un mode de défaillance (AMDEC), C = G × O × D, chaque note de 1 à 10
+    criticite: function (g, o, d) { return g * o * d; },
+    // TD 1 : total d'une offre dans la grille pondérée, somme (poids × note) / 100, poids en % (total 100)
+    totalPondere: function (poids, notes) { return poids.reduce(function (s, w, i) { return s + w * notes[i]; }, 0) / 100; },
     // Âge en années révolues à une date
     age: function (naissance, date) {
       var a = date[0] - naissance[0];

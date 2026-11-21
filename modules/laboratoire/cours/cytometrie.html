@@ -20,17 +20,13 @@
 <h1>Méthodes optiques et cytométrie en flux</h1>
 <p class="chapeau">L'impédance compte et mesure le volume, mais elle distingue mal les globules blancs entre eux. Pour faire la formule leucocytaire, il faut regarder les cellules autrement : avec un laser, une par une.</p>
 
-<h2>Intuition</h2>
-<p>Éclaire une cellule avec un laser. Vers l'avant, presque dans l'axe, la lumière déviée dit sa taille ; sur le côté, à angle droit, elle dit ce qu'il y a dedans : des granulations, un noyau compliqué. Si la cellule a été marquée par un colorant fluorescent, elle renvoie en plus une couleur. Un point par cellule sur un graphique, et les populations se rangent en nuages séparés.</p>
-
 <div id="fig-cytometrie"></div>
 
-<h2>Formalisation</h2>
-<h3>Principe</h3>
+<h2>Principe</h2>
 <p>La <strong>cytométrie en flux</strong> combine une hydrodynamique focalisée et une analyse optique cellule par cellule. La source peut être un laser (488 nm) ou une lampe au tungstène. Lors de leur passage dans le faisceau, les cellules émettent des signaux (diffraction liée à la taille, fluorescence) analysés par l'ordinateur.</p>
-<h3>Focalisation hydrodynamique</h3>
+<h2>Focalisation hydrodynamique</h2>
 <p>Le liquide de gaine (sheath fluid) comprime l'échantillon en un filet central où les cellules défilent une par une, en file indienne.</p>
-<h3>Paramètres optiques mesurés</h3>
+<h2>Paramètres optiques mesurés</h2>
 <div class="tableau"><table>
 <tr><th>Signal</th><th>Mesure</th><th>Information</th></tr>
 <tr><td>FSC (forward scatter)</td><td>Diffusion à faible angle (0 à 10°)</td><td>Taille cellulaire</td></tr>
@@ -40,23 +36,19 @@
 <tr><td>FL3 (670 nm)</td><td>Fluorescence rouge</td><td>ADN (iodure de propidium)</td></tr>
 <tr><td>FL4 (800 nm)</td><td>Fluorescence infrarouge</td><td>Marquages spécifiques</td></tr>
 </table></div>
-<h3>Diagrammes de dispersion</h3>
+<h2>Diagrammes de dispersion</h2>
 <p>Les analyseurs construisent des nuages de points (scattergrammes) en 2D ou 3D. En FSC / SSC, trois grandes populations se séparent : lymphocytes (petits, peu granuleux), monocytes, granulocytes (neutrophiles, éosinophiles : très granuleux). En combinant FSC, SSC et fluorescence, on obtient une formule à 5 populations : lymphocytes, monocytes, neutrophiles, éosinophiles, basophiles (exemples cités : Siemens ADVIA, Abbott CELL-DYN Sapphire).</p>
-<h3>Méthodes optiques complémentaires</h3>
+<h2>Méthodes optiques complémentaires</h2>
 <ul>
 <li>Diffusion laser : taille et granulosité sans coloration.</li>
 <li>Imagerie cellulaire : photographie numérique de chaque cellule (exemple : CellaVision).</li>
 <li>Spectrophotométrie : dosage de l'hémoglobine, après lyse des hématies, entre 525 et 550 nm (méthode cyanméthémoglobine ou SLS).</li>
 <li>Fluorescence : marquage des réticulocytes (thiazole orange, auramine O).</li>
 </ul>
-<h3>Avantages et limites</h3>
+<h2>Avantages et limites</h2>
 <p>Avantages : différenciation fine des GB, détection des cellules anormales, comptage des réticulocytes, analyse multiparamétrique. Limites : coût plus élevé, maintenance plus complexe, sensibilité aux interférences fluorescentes, réactifs spécifiques nécessaires.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>Un point en bas à gauche du scattergramme FSC / SSC (petite taille, peu de granulations) est un lymphocyte ; un point haut placé en SSC, avec une taille moyenne à grande, est un granulocyte. Pour séparer ensuite neutrophiles, éosinophiles et basophiles, on ajoute la fluorescence.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Gaine liquide : cellules une par une. Laser 488 nm.</p>
 <p>FSC (0 à 10°) : taille. SSC (90°) : granulosité. FL1 à FL4 : fluorescences (530, 585, 670, 800 nm).</p>
 <p>FSC / SSC : 3 populations. Avec la fluorescence : 5 populations.</p>

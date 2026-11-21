@@ -20,13 +20,9 @@
 <h1>Le LIS et le SIH</h1>
 <p class="chapeau">Un médecin prescrit dans le dossier du patient ; quelques heures plus tard, le résultat y apparaît, validé. Entre les deux, aucune feuille de papier : deux systèmes d'information, celui de l'hôpital et celui du laboratoire, se parlent en continu.</p>
 
-<h2>Intuition</h2>
-<p>L'hôpital a son grand système, qui connaît le patient, ses admissions, ses prescriptions. Le laboratoire a le sien, qui connaît les tubes, les automates, les résultats. La demande descend du premier vers le second ; le résultat validé remonte du second vers le premier. Tout le reste est affaire de traçabilité.</p>
-
 <div id="fig-lis-sih"></div>
 
-<h2>Formalisation</h2>
-<h3>Le LIS</h3>
+<h2>Le LIS</h2>
 <p>Le <strong>système d'information du laboratoire</strong> (SIL, ou LIS / LIMS en anglais, <i>Laboratory Information Management System</i>) est un progiciel de gestion intégré qui pilote les activités, les flux de travail et les données du laboratoire. Ses fonctions :</p>
 <ul>
 <li><b>Gestion des échantillons</b> : enregistrement, étiquetage (code-barres), traçabilité de la réception à l'élimination ou l'archivage.</li>
@@ -35,9 +31,9 @@
 <li><b>Contrôle qualité et conformité</b> : normes (ISO 15189, bonnes pratiques GxP), traçabilité complète : qui a fait quoi, quand, avec quel instrument.</li>
 <li><b>Édition et diffusion des rapports</b> : validation biologique ou technique, envoi automatisé des comptes rendus aux prescripteurs ou aux patients.</li>
 </ul>
-<h3>Le SIH</h3>
+<h2>Le SIH</h2>
 <p>Le <strong>système d'information hospitalier</strong> (SIH) est l'ensemble des logiciels, réseaux, données et processus qui permettent à un établissement de centraliser, traiter, stocker et partager les informations médicales, administratives et financières. Trois couches : <b>clinique</b> (dossier médical, prescriptions, résultats de laboratoire et d'imagerie), <b>administrative et financière</b> (admissions, sorties, facturation, assurance maladie), <b>technique et logistique</b> (réseaux, serveurs, sécurité des données, matériel).</p>
-<h3>Intégration et interopérabilité</h3>
+<h2>Intégration et interopérabilité</h2>
 <p>L'intégration entre le système hospitalier central et le LIS garantit un flux fluide, sécurisé et instantané :</p>
 <ol>
 <li><b>Prescription</b> (SIH vers LIS) : le médecin saisit la demande dans le dossier patient ; elle est transmise automatiquement au LIS.</li>
@@ -46,11 +42,9 @@
 </ol>
 <p>Les automates communiquent avec le LIS par des protocoles standardisés comme HL7 ou ASTM, souvent par l'intermédiaire d'un middleware.</p>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>À 9 h, un interne prescrit un ionogramme dans le dossier du patient (couche clinique du SIH). La demande arrive dans le LIS, qui édite l'étiquette à code-barres. À 10 h 30, l'automate envoie son résultat au LIS ; le biologiste le valide ; il apparaît aussitôt dans le dossier, et la facturation (couche administrative) est déclenchée.</p>
+<div class="schema" id="sc-sih-lis"></div>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>LIS : échantillons, automates, patients, qualité et conformité, rapports.</p>
 <p>SIH : couches clinique, administrative et financière, technique et logistique.</p>
 <p>Prescription : SIH vers LIS. Résultat validé : LIS vers SIH. Protocoles : HL7, ASTM, middleware.</p>
@@ -59,6 +53,8 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
 <script src="../labo.js"></script>
 <script src="../figures/lis-sih.js"></script>
 </body>
