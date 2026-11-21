@@ -7,6 +7,12 @@
 "use strict";
 const fs = require("fs"), path = require("path");
 
+// Mots d'un titre, sans balises, accents ni ponctuation : pour repérer les titres qui se répètent.
+function mots(t) {
+  return t.replace(/<[^>]+>|\\\(.*?\\\)/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    .replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(Boolean);
+}
+
 // Page du cours du chapitre ch du module mid (dossier d, module.js P).
 function pageChapitre(mid, d, P, ch) {
   const profond = "../../../", local = "../";
@@ -16,7 +22,9 @@ function pageChapitre(mid, d, P, ch) {
   let avecSchemas = false; // une page de cours au moins a des schémas en blocs (commun/js/schema.js)
   let lang = "fr"; // la langue des pages de cours réunies (le cours d'anglais : en)
   ss.forEach((s, k) => {
-    corps += `<section class="partie" id="s-${s.id}">\n<p class="rang-partie">${k + 1} / ${ss.length}</p>\n<h2>${s.titre}</h2>\n\n`;
+    // pas de titre répété : la section ne redit pas le titre du chapitre
+    const titreSection = mots(s.titre).join(" ") === mots(ch.titre).join(" ") ? "" : `<h2>${s.titre}</h2>\n`;
+    corps += `<section class="partie" id="s-${s.id}">\n<p class="rang-partie">${k + 1} / ${ss.length}</p>\n${titreSection}\n`;
     for (const nid of s.notions) {
       const html = fs.readFileSync(path.join(d, "cours", nid + ".html"), "utf8");
       lang = (html.match(/<html lang="([a-z]+)"/) || [0, lang])[1];
@@ -27,9 +35,14 @@ function pageChapitre(mid, d, P, ch) {
         if (!sec) return tout;
         return 'href="chapitre-' + sec.chapitre + ".html#" + (ancre ? page + "-" + ancre : "n-" + page) + '"';
       });
-      // titre de la notion identique à celui de la section : on ne le répète pas
-      const norme = (t) => t.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toLowerCase();
-      m = m.replace(/<h1>([\s\S]*?)<\/h1>\s*/, (tout, t) => norme(t) === norme(s.titre) ? "" : tout);
+      // titre de la notion : pas répété s'il redit celui du chapitre ou de la section, ou, pour la seule notion d'une
+      // section, s'il ne fait que le prolonger (« UART » puis « UART : transmission asynchrone »)
+      m = m.replace(/<h1>([\s\S]*?)<\/h1>\s*/, (tout, t) => {
+        const a = mots(t), b = mots(s.titre), c = mots(ch.titre);
+        const egal = (x, y) => x.join(" ") === y.join(" ");
+        const prolonge = s.notions.length === 1 && (egal(a.slice(0, b.length), b) || egal(b.slice(0, a.length), a));
+        return egal(a, b) || egal(a, c) || prolonge ? "" : tout;
+      });
       m = m.replace(/\s*<p class="etiquette" data-etiquette><\/p>\s*/, "\n")
         .replace(/<(\/?)h3>/g, "<$1h5>").replace(/<(\/?)h2>/g, "<$1h4>").replace(/<(\/?)h1>/g, "<$1h3>");
       corps += '<article class="notion" id="n-' + nid + '">' + m.replace(/\s+$/, "\n") + "</article>\n\n";

@@ -110,7 +110,7 @@
 <p>Ce qu'on cherche : chaque \(T^{i-1,i}\), écrite avec les valeurs de sa ligne du tableau.</p>
 <p>D'où viennent les valeurs : la ligne \(i\) du tableau donne \(d_i = L_i\), \(\alpha_i = 0\), \(r_i = 0\). On remplace dans la matrice générale de l'énoncé. Avec \(\alpha_i = 0\) : \(\cos\alpha_i = 1\) et \(\sin\alpha_i = 0\), donc les termes en \(\sin\alpha_i\) disparaissent et \(\cos\theta_i\cos\alpha_i\) devient \(\cos\theta_i\). Avec \(r_i = 0\), la case \((3,4)\) vaut 0. On note \(c_i = \cos\theta_i\), \(s_i = \sin\theta_i\).</p>
 \[ T^{0,1} = \begin{pmatrix} c_1 & -s_1 & 0 & L_1 c_1 \\ s_1 & c_1 & 0 & L_1 s_1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{1,2} = \begin{pmatrix} c_2 & -s_2 & 0 & L_2 c_2 \\ s_2 & c_2 & 0 & L_2 s_2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \quad T^{2,3} = \begin{pmatrix} c_3 & -s_3 & 0 & L_3 c_3 \\ s_3 & c_3 & 0 & L_3 s_3 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p>Intuition : chaque matrice dit « je tourne de \(\theta_i\) autour de \(z\), puis j'avance de \(L_i\) le long du segment ». Le bloc 2×2 en haut à gauche est la rotation, la dernière colonne est le bout du segment.</p>
+<p>Chaque matrice dit « je tourne de \(\theta_i\) autour de \(z\), puis j'avance de \(L_i\) le long du segment ». Le bloc 2×2 en haut à gauche est la rotation, la dernière colonne est le bout du segment.</p>
 
 <h3>Question 2 : le produit \(T^{0,3}\)</h3>
 <p>Ce qu'on cherche : la pose de \(R_3\) vue depuis \(R_0\).</p>
@@ -118,12 +118,12 @@
 \[ T^{0,2} = \begin{pmatrix} c_{12} & -s_{12} & 0 & L_1 c_1 + L_2 c_{12} \\ s_{12} & c_{12} & 0 & L_1 s_1 + L_2 s_{12} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
 <p>On recommence avec \(T^{0,3} = T^{0,2}\,T^{2,3}\) : les angles s'ajoutent encore (\(c_{12}c_3 - s_{12}s_3 = c_{123}\)) et la translation gagne le terme \(L_3c_{123}\).</p>
 \[ T^{0,3} = \begin{pmatrix} c_{123} & -s_{123} & 0 & L_1 c_1 + L_2 c_{12} + L_3 c_{123} \\ s_{123} & c_{123} & 0 & L_1 s_1 + L_2 s_{12} + L_3 s_{123} \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix} \]
-<p>Intuition : tous les axes \(z_i\) sont parallèles, donc les rotations s'empilent dans le même plan et leurs angles s'additionnent, comme on additionne des virages.</p>
+<p>Tous les axes \(z_i\) sont parallèles, donc les rotations s'empilent dans le même plan et leurs angles s'additionnent, comme on additionne des virages.</p>
 
 <h3>Question 3 : position et orientation de \(P\)</h3>
 <p>D'où viennent les valeurs : \(P\) est l'origine de \(R_3\), donc sa position est la dernière colonne de \(T^{0,3}\) ; l'orientation se lit dans le bloc de rotation, qui est une rotation d'angle \(\theta_1 + \theta_2 + \theta_3\).</p>
 \[ p_x = L_1 c_1 + L_2 c_{12} + L_3 c_{123} \qquad p_y = L_1 s_1 + L_2 s_{12} + L_3 s_{123} \qquad \varphi = \theta_1 + \theta_2 + \theta_3 \]
-<p>Intuition : on part de la base et on ajoute les trois segments bout à bout ; chacun pointe dans la direction donnée par la somme des angles qui le précèdent.</p>
+<p>On part de la base et on ajoute les trois segments bout à bout ; chacun pointe dans la direction donnée par la somme des angles qui le précèdent.</p>
 
 <h3>Question 4 : la configuration zéro</h3>
 <p>D'où viennent les valeurs : \(\cos 0 = 1\) et \(\sin 0 = 0\), donc tous les \(c\) valent 1 et tous les \(s\) valent 0.</p>
@@ -161,23 +161,23 @@
 <li>Écrire les matrices élémentaires \(T^{0,1}\) et \(T^{1,2}\) avec ces valeurs.</li>
 <li>Les multiplier de la base vers l'outil, simplifier, puis lire la position dans la dernière colonne de \(T^{0,2}\).</li>
 </ol>
-<p>Intuition : c'est exactement ce que tu as fait à l'exercice 1 avec trois segments ; ici il n'y en a que deux, et les formules de l'énoncé sont la dernière colonne de \(T^{0,2}\).</p>
+<p>C'est exactement ce que tu as fait à l'exercice 1 avec trois segments ; ici il n'y en a que deux, et les formules de l'énoncé sont la dernière colonne de \(T^{0,2}\).</p>
 
 <h3>Question 2 : pourquoi \(\theta_1 + \theta_2\)</h3>
 <p>\(\theta_1 + \theta_2\) est l'angle absolu du segment 2, mesuré depuis l'axe \(x_0\) du repère fixe. Le segment 2 est porté par le segment 1 : quand l'épaule tourne de \(\theta_1\), tout l'avant-bras tourne avec elle, puis le coude ajoute \(\theta_2\) par-dessus.</p>
-<p>Intuition : lève le bras de 30° sans plier le coude, ta main monte aussi de 30°. Plie ensuite le coude de 45° : ta main est inclinée de 75° par rapport à l'horizontale, pas de 45°.</p>
+<p>Lève le bras de 30° sans plier le coude, ta main monte aussi de 30°. Plie ensuite le coude de 45° : ta main est inclinée de 75° par rapport à l'horizontale, pas de 45°.</p>
 
 <h3>Question 3 : où est la sonde ?</h3>
 <p>D'où viennent les valeurs : \(L_1 = 40\) et \(L_2 = 35\) (description du robot), \(\theta_1 = 30°\) et \(\theta_2 = 45°\) (les capteurs), donc \(\theta_1 + \theta_2 = 75°\). On remplace dans les formules de l'énoncé :</p>
 \[ x = 40\cos 30° + 35\cos 75° = 40 \times 0{,}866 + 35 \times 0{,}259 = 34{,}64 + 9{,}06 = 43{,}70 \text{ cm} \]
 \[ y = 40\sin 30° + 35\sin 75° = 40 \times 0{,}5 + 35 \times 0{,}966 = 20{,}00 + 33{,}81 = 53{,}81 \text{ cm} \]
-<p>Intuition : le premier terme de chaque somme est le coude, le second ce que l'avant-bras ajoute. Le coude est en \((34{,}64 ; 20)\) ; l'avant-bras, très incliné (75°), ajoute surtout de la hauteur.</p>
+<p>Le premier terme de chaque somme est le coude, le second ce que l'avant-bras ajoute. Le coude est en \((34{,}64 ; 20)\) ; l'avant-bras, très incliné (75°), ajoute surtout de la hauteur.</p>
 
 <h3>Question 4 : l'erreur à corriger</h3>
 <p>D'où viennent les valeurs : la cible \((45 ; 50)\) vient de l'énoncé, la position \((43{,}70 ; 53{,}81)\) de la question 3. Le vecteur erreur va de la sonde à la cible : cible moins position.</p>
 \[ \Delta x = 45 - 43{,}70 = 1{,}30 \text{ cm} \qquad \Delta y = 50 - 53{,}81 = -3{,}81 \text{ cm} \qquad \|\Delta\| = \sqrt{1{,}30^2 + 3{,}81^2} \approx 4{,}02 \text{ cm} \]
 <p>Non, la sonde n'est pas sur la cible : il faut la décaler de 1,30 cm vers les \(x\) positifs et de 3,81 cm vers les \(y\) négatifs, soit environ 4 cm en tout.</p>
-<p>Intuition : le signe dit dans quel sens bouger. \(\Delta y\) négatif : la sonde est trop « haute » par rapport à la cible.</p>
+<p>Le signe dit dans quel sens bouger. \(\Delta y\) négatif : la sonde est trop « haute » par rapport à la cible.</p>
 
 <h3>Question 5 : 80 cm, est-ce possible ?</h3>
 <p>D'où vient le raisonnement : le point le plus loin est atteint bras tendu, segments alignés ; le plus proche, bras replié (chapitre 1, <a href="architectures.html">Architectures et espace de travail</a>, et exemple du SCARA). Avec \(L_1 = 40\) et \(L_2 = 35\) :</p>
@@ -203,7 +203,7 @@
 <p>D'où vient la méthode : chapitre 6, <a href="cinematique.html">Modélisation cinématique et matrice jacobienne</a> : \(V = J(q)\,\dot q\). Chaque case de \(J\) est la dérivée d'une coordonnée (\(x\) ou \(y\)) par rapport à un angle. On dérive les formules de la MGD ; la dérivée de \(\cos u\) est \(-\sin u\), celle de \(\sin u\) est \(\cos u\), et \(\theta_1 + \theta_2\) dépend des deux angles :</p>
 \[ \frac{\partial x}{\partial \theta_1} = -L_1 s_1 - L_2 s_{12} \qquad \frac{\partial x}{\partial \theta_2} = -L_2 s_{12} \qquad \frac{\partial y}{\partial \theta_1} = L_1 c_1 + L_2 c_{12} \qquad \frac{\partial y}{\partial \theta_2} = L_2 c_{12} \]
 \[ J(q) = \begin{pmatrix} -L_1 s_1 - L_2 s_{12} & -L_2 s_{12} \\ L_1 c_1 + L_2 c_{12} & L_2 c_{12} \end{pmatrix} \]
-<p>Intuition : la deuxième colonne ne contient que \(L_2\), car bouger le coude ne fait tourner que l'avant-bras ; la première contient les deux segments, car l'épaule fait tourner tout le bras.</p>
+<p>La deuxième colonne ne contient que \(L_2\), car bouger le coude ne fait tourner que l'avant-bras ; la première contient les deux segments, car l'épaule fait tourner tout le bras.</p>
 
 <h3>Question 2 : la jacobienne en nombres</h3>
 <p>D'où viennent les valeurs : \(\theta_1 = 23{,}8°\), \(\theta_2 = 48{,}19°\), donc \(\theta_1 + \theta_2 = 71{,}99°\). On calcule d'abord les quatre morceaux :</p>
@@ -216,7 +216,7 @@
 \[ v_x = (-49{,}43)(0{,}1) + (-33{,}29)(-0{,}05) = -4{,}94 + 1{,}66 = -3{,}28 \text{ cm/s} \]
 \[ v_y = (47{,}42)(0{,}1) + (10{,}82)(-0{,}05) = 4{,}74 - 0{,}54 = 4{,}20 \text{ cm/s} \]
 \[ \|V\| = \sqrt{v_x^2 + v_y^2} = \sqrt{3{,}28^2 + 4{,}20^2} \approx 5{,}33 \text{ cm/s} \]
-<p>Intuition : l'épaule et le coude tournent en sens contraires ; leurs effets se compensent en partie sur \(v_x\) (-4,94 + 1,66).</p>
+<p>L'épaule et le coude tournent en sens contraires ; leurs effets se compensent en partie sur \(v_x\) (-4,94 + 1,66).</p>
 
 <h3>Question 4 : la contrainte de sécurité</h3>
 <p>Non : \(5{,}33 &gt; 2\) cm/s. L'aiguille irait plus de deux fois et demie trop vite.</p>
@@ -269,7 +269,7 @@
 <p>D'où viennent les valeurs : la cible \((55 ; 35)\) et les longueurs 35, 25 et 10 de l'énoncé. Distance à la base, par Pythagore :</p>
 \[ r = \sqrt{55^2 + 35^2} = \sqrt{3025 + 1225} = \sqrt{4250} \approx 65{,}19 \text{ cm} \]
 <p>Portée du 3R, bras tendu : \(35 + 25 + 10 = 70\) cm. \(65{,}19 &lt; 70\) : la cible est accessible, avec moins de 5 cm de marge.</p>
-<p>Intuition : comme pour la sonde, on compare la distance à atteindre au bras tendu.</p>
+<p>Comme pour la sonde, on compare la distance à atteindre au bras tendu.</p>
 
 <h3>Question 2 : les angles (MGI du 2R simplifié)</h3>
 <p>D'où vient la méthode : chapitre 6, <a href="mgi-2r.html">le MGI du robot 2R</a>. Le triangle base, coude, cible a pour côtés \(L_1 = 40\), \(L_2 = 30\) et \(r\). Al-Kashi donne l'angle du coude :</p>
@@ -284,7 +284,7 @@
 <p>D'où viennent les valeurs : le centre \(C = (40 ; 50)\) et le rayon 15 cm de l'énoncé. L'énoncé ne donne pas le point de départ de l'aiguille : on suppose ici une trajectoire rectiligne de la base vers la cible, \(M(t) = t\,(55 ; 35)\) pour \(0 \le t \le 1\). Le point le plus proche de \(C\) est la projection de \(C\) sur la droite :</p>
 \[ t^* = \frac{40 \times 55 + 50 \times 35}{55^2 + 35^2} = \frac{3950}{4250} = 0{,}929 \qquad M(t^*) = (51{,}12 ; 32{,}53) \qquad d_{min} = \sqrt{(40 - 51{,}12)^2 + (50 - 32{,}53)^2} \approx 20{,}71 \text{ cm} \]
 <p>\(20{,}71 &gt; 15\) : la trajectoire ne coupe pas la zone interdite (marge de 5,7 cm). En configuration \(\theta_1 = 14{,}12°\), le coude est en \((38{,}79 ; 9{,}76)\) ; le segment 1 passe à 40,26 cm du centre et le segment 2 à 21,21 cm : le bras lui-même reste aussi hors de la zone.</p>
-<p>Intuition : un cercle est évité si la distance de son centre à la trajectoire est plus grande que son rayon.</p>
+<p>Un cercle est évité si la distance de son centre à la trajectoire est plus grande que son rayon.</p>
 
 <h3>Question 4 : la jacobienne</h3>
 <p>D'où viennent les valeurs : la formule de \(J\) de l'exercice 2, avec \(L_1 = 40\), \(L_2 = 30\), \(\theta_1 = 14{,}12°\), \(\theta_1 + \theta_2 = 57{,}30°\). On réutilise les morceaux de la vérification : \(L_1s_1 = 9{,}76\), \(L_2s_{12} = 25{,}24\), \(L_1c_1 = 38{,}79\), \(L_2c_{12} = 16{,}21\).</p>
