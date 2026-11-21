@@ -1,6 +1,6 @@
 /*
  * Tableau de bord : une carte par module du registre, avec ses sous-modules, sa couleur, sa progression
- * (sections faites : exercices réussis) et un bouton « Continuer » qui rouvre le cours là où l'on s'est arrêté.
+ * (sections faites : exercices réussis) et un bouton « Continuer » (« Commencer » si rien n'est ouvert) qui rouvre le cours là où l'on s'est arrêté.
  * Les modules actifs chargent leur module.js pour compter leurs étapes.
  */
 (function () {
@@ -38,7 +38,8 @@
         "<h1>" + esc(suite.titre) + "</h1>" + barre(c) + "</div>" +
         '<a class="btn-continuer grand" href="' + suite.url + '">Continuer</a></section>';
     } else {
-      zr.innerHTML = '<section class="accueil"><h1>' + esc(R.semestre) + "</h1><p>Tous les modules du semestre, au même endroit. Choisis un module pour commencer.</p></section>";
+      // rien d'ouvert encore : la barre dit déjà « Semestre 5 », les cartes suffisent
+      zr.innerHTML = "";
     }
 
     // Cartes des modules
@@ -47,14 +48,15 @@
       var m = P.module(m0.id), actif = m.statut === "actif";
       // un sous-module construit mène directement à sa carte
       var construits = actif ? P.sousModules(m.id).filter(function (s) { return s.chapitres.length; }).map(function (s) { return s.id; }) : [];
-      var sms = (m.sousModules || []).map(function (sm) {
+      // un seul sous-module : son étiquette redirait le titre du module
+      var sms = ((m.sousModules || []).length > 1 ? m.sousModules : []).map(function (sm) {
         if (construits.indexOf(sm.id) >= 0) return '<a class="sm" href="' + P.urlCarte(m.id, sm.id) + '">' + esc(sm.titre) + "</a>";
         return '<span class="sm' + (sm.statut === "a-venir" || actif ? " sm-vide" : "") + '">' + esc(sm.titre) + "</span>";
       }).join("");
       var bas;
       if (actif) {
         var c = P.compte(m.id), suite = P.continuer(m.id);
-        bas = barre(c) + '<a class="btn-continuer" href="' + suite.url + '">Continuer</a>';
+        bas = barre(c) + '<a class="btn-continuer" href="' + suite.url + '">' + (c.faits || P.dernier(m.id) ? "Continuer" : "Commencer") + "</a>";
       } else {
         bas = '<span class="badge-avenir">À venir</span>';
       }

@@ -17,6 +17,7 @@ body.tableau { min-height: 100dvh; background: #fff; }
 .accueil p { margin: 0; color: var(--doux); font-size: 18px; }
 
 .tableau-titre { margin: 44px 0 16px; padding-top: 14px; border-top: 2px solid var(--encre); font-size: 28px; font-weight: 800; letter-spacing: -0.015em; }
+#reprendre-module:empty + .tableau-titre { margin-top: 0; padding-top: 0; border-top: 0; }
 
 /* Grille des modules */
 .grille-modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }

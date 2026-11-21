@@ -21,8 +21,8 @@
 <p class="chapeau">Pour dire comment un objet est tourné, on donne les directions des axes de son repère, vues depuis le repère fixe. Rangées en colonnes, elles forment la matrice de rotation.</p>
 
 <h2>Les colonnes sont les axes</h2>
-<p>Attachez un repère \(R_1\) à un objet. Quand l'objet tourne, ses axes \(\vec{x}_1\), \(\vec{y}_1\), \(\vec{z}_1\) tournent avec lui. Pour décrire son orientation, il suffit de dire où pointent ces trois axes, en coordonnées du repère fixe \(R_0\). Chaque axe donne trois nombres, d'où une matrice \(3 \times 3\).</p>
-<p>Ces nombres, vous les avez déjà calculés : ce sont les produits scalaires de l'exercice des deux repères. La matrice de rotation n'est que leur rangement.</p>
+<p>Attache un repère \(R_1\) à un objet. Quand l'objet tourne, ses axes \(\vec{x}_1\), \(\vec{y}_1\), \(\vec{z}_1\) tournent avec lui. Pour décrire son orientation, il suffit de dire où pointent ces trois axes, en coordonnées du repère fixe \(R_0\). Chaque axe donne trois nombres, d'où une matrice \(3 \times 3\).</p>
+<p>Ces nombres, tu les as déjà calculés : ce sont les produits scalaires de l'exercice des deux repères. La matrice de rotation n'est que leur rangement.</p>
 
 <div id="fig-rot"></div>
 
@@ -40,7 +40,7 @@
 <p class="complement">Exemple ajouté.</p>
 <p>\(\alpha = 30°\) et un vecteur \(V^1 = (2;\ 1;\ 0)^T\), fixe dans \(R_1\).</p>
 \[ R^{0,1} = \begin{pmatrix} 0{,}866 & -0{,}5 & 0 \\ 0{,}5 & 0{,}866 & 0 \\ 0 & 0 & 1 \end{pmatrix} \qquad V^0 = \begin{pmatrix} 0{,}866 \times 2 + (-0{,}5) \times 1 \\ 0{,}5 \times 2 + 0{,}866 \times 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1{,}232 \\ 1{,}866 \\ 0 \end{pmatrix} \]
-<p>Réglez la figure sur \(\alpha = 30°\), \(V^1_x = 2\), \(V^1_y = 1\) pour retrouver ce résultat.</p>
+<p>Règle la figure sur \(\alpha = 30°\), \(V^1_x = 2\), \(V^1_y = 1\) pour retrouver ce résultat.</p>
 
 <h2>Rappel : produit d'une matrice par un vecteur</h2>
 <p>Chaque composante du résultat est le produit d'une <strong>ligne</strong> de la matrice par la <strong>colonne</strong> du vecteur : on multiplie terme à terme et on additionne. Une autre lecture, très utile ici : \(R\,V\) est une combinaison des colonnes de \(R\), avec pour coefficients les composantes de \(V\).</p>

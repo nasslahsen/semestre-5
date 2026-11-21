@@ -116,7 +116,7 @@
         R.el("circle", { cx: O[0], cy: O[1], r: 4, fill: C.acc }, g);
         R.arc(g, O, 70, 0, t, { couleur: C.acc, epaisseur: 3 });
         R.texte(g, "θ", [O[0] + 90 * Math.cos(t / 2), O[1] - 90 * Math.sin(t / 2)], { couleur: C.acc, gras: true });
-        R.texte(g, "axe de rotation (vers vous)", [O[0] - 6, O[1] + 46], { italique: false, couleur: C.acc, taille: 15, ancre: "end" });
+        R.texte(g, "axe de rotation (vers toi)", [O[0] - 6, O[1] + 46], { italique: false, couleur: C.acc, taille: 16, ancre: "end" });
         R.point(g, fin, { couleur: C.acc, r: 6 });
         R.rendre(zone, "\\text{Articulation rotoïde : } q = \\theta = " + R.tn(cq.v, 0) + "° \\quad \\text{(1 DDL angulaire)}");
       } else {

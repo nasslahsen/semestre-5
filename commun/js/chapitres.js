@@ -50,6 +50,9 @@
       : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>") + "</div>";
   if (vue === "td" && !chs.length) h += '<p class="td-vide">' + P.t("Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.") + "</p>";
   document.getElementById("entete").innerHTML = h;
+  // le grand titre redit le nom du module : la barre ne le répète pas
+  var nomBarre = document.querySelector("#barre .site-module span"), h1 = document.querySelector("#entete h1");
+  if (nomBarre && h1 && nomBarre.textContent.trim() === h1.textContent.trim()) nomBarre.parentNode.style.visibility = "hidden";
 
   // Les chapitres (ou les TD), en rangées de trois, reliés par le chemin pointillé
   var zone = document.getElementById("chapitres");

@@ -192,7 +192,8 @@ figure.photo figcaption small { display: block; font-size: 12.5px; margin-top: 2
 .cours-chapitre h2 { font-size: 40px; line-height: 1.12; margin: 18px 0 8px; padding-top: 0; border-top: 0; }
 .cours-chapitre h2::before { content: none; }
 .partie { margin-top: 112px; padding-top: 26px; border-top: 3px solid var(--encre); scroll-margin-top: calc(var(--barre) + 8px); }
-.cours-chapitre h1 + .partie { margin-top: 40px; }
+.cours-chapitre > .partie:first-of-type { margin-top: 64px; }
+.cours-chapitre > h1 + .partie:first-of-type { margin-top: 40px; }
 .cours-chapitre h3 { font-size: 30px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; margin: 64px 0 12px; padding-top: 18px; border-top: 1.5px solid var(--trait); }
 .cours-chapitre h2 + .notion h3 { margin-top: 30px; padding-top: 0; border-top: 0; }
 .cours-chapitre h4 { font-family: "Bricolage Grotesque", Inter, sans-serif; font-size: 24px; font-weight: 800; margin: 40px 0 10px; }
@@ -308,7 +309,7 @@ html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bo
 
 /* Version courte d'un chapitre (modules/<id>/court/) : l'essentiel, puis les questions à réponse cachée */
 .court-lien { margin: 4px 0 28px; color: #4a4f5c; font-size: 17px; }
-.court-lien a { font-weight: 600; margin-left: 6px; }
+.court-lien a { font-weight: 600; }
 .court-note { color: #4a4f5c; margin: 0 0 6px; }
 .question-court { margin: 22px 0 0; }
 .question-court .q { margin: 0 0 2px; font-weight: 600; font-size: 18px; line-height: 1.4; }

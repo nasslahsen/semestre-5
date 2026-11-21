@@ -163,7 +163,7 @@
 <p class="chapeau">Un solide libre peut bouger de six façons indépendantes. Une liaison en bloque certaines : ce qui reste, ce sont les mouvements possibles entre les deux pièces.</p>
 
 <h4>Les mouvements qu'une liaison bloque</h4>
-<p>Tenez un objet en l'air : vous pouvez le déplacer selon trois directions et le tourner autour de trois axes. Posez-le maintenant sur une charnière : il ne peut plus que tourner autour de l'axe de la charnière. La charnière a « supprimé » cinq mouvements. Les liaisons normalisées sont un catalogue de ces façons de relier deux solides, chacune caractérisée par les mouvements qu'elle laisse.</p>
+<p>Tiens un objet en l'air : tu peux le déplacer selon trois directions et le tourner autour de trois axes. Pose-le maintenant sur une charnière : il ne peut plus que tourner autour de l'axe de la charnière. La charnière a « supprimé » cinq mouvements. Les liaisons normalisées sont un catalogue de ces façons de relier deux solides, chacune caractérisée par les mouvements qu'elle laisse.</p>
 <p>On suppose les solides <strong>indéformables</strong> : la distance entre deux points quelconques d'un solide reste constante au cours du temps, quel que soit son mouvement. En réalité les bras fléchissent un peu sous la charge, mais ces déformations sont négligées pour la modélisation géométrique de base. Le mouvement d'un solide se réduit alors à une rotation et une translation : \(\mathbf{p}_2 = \mathbf{R}\,\mathbf{p}_1 + \mathbf{t}\).</p>
 
 <div id="fig-liaisons"></div>
@@ -290,7 +290,7 @@
 <p class="chapeau">Trois chiffres pour juger un robot : atteint-il le bon point, y revient-il à chaque fois, et en combien de temps fait-il un cycle ?</p>
 
 <h4>Précision et répétabilité</h4>
-<p>Pensez à un joueur de fléchettes. La précision, c'est viser juste : les fléchettes autour du centre. La répétabilité, c'est viser pareil : les fléchettes groupées, même si le groupe est à côté du centre. Un robot peut être très répétable sans être précis : il pose toujours la pièce au même endroit, mais à 2 mm de la cible.</p>
+<p>Pense à un joueur de fléchettes. La précision, c'est viser juste : les fléchettes autour du centre. La répétabilité, c'est viser pareil : les fléchettes groupées, même si le groupe est à côté du centre. Un robot peut être très répétable sans être précis : il pose toujours la pièce au même endroit, mais à 2 mm de la cible.</p>
 <p>Pour la cadence, un cycle complet de pick and place enchaîne des mouvements et des temps fixes (saisir, déposer, attendre l'automate). Aller plus vite raccourcit les mouvements, pas les temps fixes.</p>
 
 <div id="fig-precision"></div>
@@ -394,7 +394,7 @@
 <div class="schema" id="sc-ihm"></div>
 
 <h4>Exemple de calcul</h4>
-<p>Mise à l'échelle du cours : avec un rapport 1 cm → 3 mm, un mouvement de la main de 2 cm donne un mouvement de l'instrument de \(2 \times 3 = 6\) mm, et un tremblement de la main de 1 mm n'en fait plus que \(0{,}3\) mm à l'instrument, avant même tout filtrage. Sur la figure, réglez le rapport sur 0,3 et activez le tremblement pour le constater.</p>
+<p>Mise à l'échelle du cours : avec un rapport 1 cm → 3 mm, un mouvement de la main de 2 cm donne un mouvement de l'instrument de \(2 \times 3 = 6\) mm, et un tremblement de la main de 1 mm n'en fait plus que \(0{,}3\) mm à l'instrument, avant même tout filtrage. Sur la figure, règle le rapport sur 0,3 et active le tremblement pour le constater.</p>
 
 <h4>À retenir</h4>
 <p>Robotique médicale = robot + professionnel de santé + patient + environnement clinique. Cinq axes de rupture : perception, sécurité, commande, précision, validation. Mise à l'échelle : déplacement instrument = rapport × déplacement de la main.</p>

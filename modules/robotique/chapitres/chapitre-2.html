@@ -69,7 +69,7 @@
 <p class="chapeau">Le produit scalaire mesure à quel point deux vecteurs vont dans la même direction. C'est lui qui donne les coordonnées d'un vecteur dans un repère, et ce sont ces nombres qui rempliront plus tard les matrices de rotation.</p>
 
 <h4>Une ombre sur une direction</h4>
-<p>Éclairez un vecteur \(\vec{b}\) perpendiculairement à la direction de \(\vec{a}\) : son ombre sur cette direction est sa projection. Le produit scalaire vaut cette ombre multipliée par la longueur de \(\vec{a}\). Il est grand quand les vecteurs sont alignés, nul quand ils sont perpendiculaires, négatif quand ils sont opposés.</p>
+<p>Éclaire un vecteur \(\vec{b}\) perpendiculairement à la direction de \(\vec{a}\) : son ombre sur cette direction est sa projection. Le produit scalaire vaut cette ombre multipliée par la longueur de \(\vec{a}\). Il est grand quand les vecteurs sont alignés, nul quand ils sont perpendiculaires, négatif quand ils sont opposés.</p>
 <p>En robotique, on s'en sert pour calculer l'angle d'un instrument par rapport à un os, pour projeter une force sur une direction, et pour vérifier que deux axes d'un repère sont bien orthogonaux.</p>
 
 <div id="fig-ps"></div>
@@ -120,7 +120,7 @@
 <p class="chapeau">Le produit vectoriel de deux vecteurs fabrique un troisième vecteur, perpendiculaire aux deux premiers. C'est ainsi que l'on construit l'axe \(\vec{z}\) d'un repère à partir de \(\vec{x}\) et \(\vec{y}\).</p>
 
 <h4>Une flèche qui sort du plan</h4>
-<p>Prenez deux vecteurs \(\vec{u}\) et \(\vec{v}\) qui partent du même point. Ils définissent un plan et un parallélogramme. Le produit vectoriel \(\vec{w} = \vec{u} \wedge \vec{v}\) est la flèche qui sort de ce plan, perpendiculairement, avec une longueur égale à l'aire du parallélogramme. Plus les vecteurs sont « en travers » l'un de l'autre, plus l'aire est grande ; s'ils sont alignés, l'aire et le produit sont nuls.</p>
+<p>Prends deux vecteurs \(\vec{u}\) et \(\vec{v}\) qui partent du même point. Ils définissent un plan et un parallélogramme. Le produit vectoriel \(\vec{w} = \vec{u} \wedge \vec{v}\) est la flèche qui sort de ce plan, perpendiculairement, avec une longueur égale à l'aire du parallélogramme. Plus les vecteurs sont « en travers » l'un de l'autre, plus l'aire est grande ; s'ils sont alignés, l'aire et le produit sont nuls.</p>
 <p>Le sens de \(\vec{w}\) est donné par la main droite : on enroule les doigts de \(\vec{u}\) vers \(\vec{v}\), le pouce indique \(\vec{w}\). Si l'on inverse l'ordre, \(\vec{w}\) change de sens.</p>
 
 <div id="fig-pv"></div>
@@ -199,7 +199,7 @@
 <p>L'analogie du cours : « la cible est à 5 cm dans la direction de 45° » correspond à \(x = 5\cos 45° \approx 3{,}54\) cm et \(y = 5\sin 45° \approx 3{,}54\) cm, si l'angle est mesuré depuis l'axe \(X\).</p>
 
 <h4>Rappel : la fonction atan2</h4>
-<p>Pour retrouver un angle à partir de \(x\) et \(y\), \(\arctan(y/x)\) ne suffit pas : les points \((1, 1)\) et \((-1, -1)\) donnent le même quotient \(y/x = 1\), alors qu'ils sont dans des directions opposées. La fonction \(\operatorname{atan2}(y, x)\) regarde les signes de \(x\) et de \(y\) séparément et renvoie l'angle dans le bon quadrant, entre \(-180°\) et \(180°\). Sur la figure, faites passer \(Q\) à gauche de l'axe vertical : les deux calculs ne donnent plus le même angle. Attention à l'ordre des arguments : \(y\) d'abord.</p>
+<p>Pour retrouver un angle à partir de \(x\) et \(y\), \(\arctan(y/x)\) ne suffit pas : les points \((1, 1)\) et \((-1, -1)\) donnent le même quotient \(y/x = 1\), alors qu'ils sont dans des directions opposées. La fonction \(\operatorname{atan2}(y, x)\) regarde les signes de \(x\) et de \(y\) séparément et renvoie l'angle dans le bon quadrant, entre \(-180°\) et \(180°\). Sur la figure, fais passer \(Q\) à gauche de l'axe vertical : les deux calculs ne donnent plus le même angle. Attention à l'ordre des arguments : \(y\) d'abord.</p>
 
 <h4>À retenir</h4>
 \[ x = r\cos\theta \qquad y = r\sin\theta \qquad z = z \]
