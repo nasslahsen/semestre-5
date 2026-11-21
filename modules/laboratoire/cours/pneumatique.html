@@ -20,24 +20,30 @@
 <h1>Le transport pneumatique</h1>
 <p class="chapeau">Un gaz du sang prélevé en réanimation doit être analysé vite. Plutôt que de l'apporter à pied, l'infirmière le glisse dans une cartouche, tape une destination, et la cartouche file dans un réseau de tubes jusqu'au laboratoire. Rapide, mais il faut freiner à l'arrivée sans casser ni hémolyser le prélèvement.</p>
 
-<h2>Intuition</h2>
-<p>Une cartouche dans un tube, et de l'air qui la pousse ou l'aspire, comme une sarbacane. Des aiguillages choisissent la bonne ligne, un logiciel gère qui passe en premier. À l'arrivée, l'air piégé devant la cartouche sert de frein, comme quand on bouche une seringue et qu'on pousse le piston.</p>
-
 <div id="fig-pneumatique"></div>
 
-<h2>Formalisation</h2>
-<h3>Rôle et composants</h3>
-<p>Un <strong>système pneumatique</strong> est un réseau de transport par tube, à air comprimé ou par aspiration, qui achemine rapidement et en sécurité les échantillons biologiques (sang, urine, tissus) et les médicaments entre les unités de soins et le laboratoire central. Composants : stations d'envoi et de réception ; réseau de tuyauterie ; unités de soufflerie et d'aspiration (APU, turbines) ; diviseurs et aiguillages ; capsules de transport ; centre de contrôle logiciel.</p>
-<h3>À la station</h3>
+<h2>Rôle et composants</h2>
+<p>Un <strong>système pneumatique</strong> est un réseau de transport par tube, à air comprimé ou par aspiration, qui achemine rapidement et en sécurité les échantillons biologiques (sang, urine, tissus) et les médicaments entre les unités de soins et le laboratoire central. Composants :</p>
+<ul>
+<li>Stations d'envoi et de réception.</li>
+<li>Réseau de tuyauterie.</li>
+<li>Unités de soufflerie et d'aspiration (APU, turbines).</li>
+<li>Diviseurs et aiguillages.</li>
+<li>Capsules de transport.</li>
+<li>Centre de contrôle logiciel.</li>
+</ul>
+<figure class="photo duo"><img src="../images/station-pneumatique.jpg" alt="Station de transport pneumatique murale avec cartouches de couleurs"><img src="../images/cartouche-pneumatique.jpg" alt="Cartouche de transport pneumatique transparente aux bagues rouges"><figcaption>Une station pneumatique et une cartouche. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
+
+<h2>À la station</h2>
 <ul>
 <li><b>Envoi</b> : l'objet est placé dans une cartouche hermétique (souvent avec puce RFID) ; on choisit la destination (clavier, badge, code à quatre chiffres) ; la cartouche entre dans le sas, le système se verrouille et elle part.</li>
 <li><b>Transit</b> : l'automate positionne les aiguillages et démarre la turbine.</li>
 <li><b>Réception</b> : un amortissement ralentit la cartouche, qui tombe doucement dans le bac ; un voyant ou un son prévient le personnel, qui valide la réception ; la cartouche vide peut repartir automatiquement.</li>
 </ul>
 <p>Le laboratoire et la pharmacie ont souvent des stations séparées pour l'envoi et pour la réception. Électronique de la station : écran tactile, lecture RFID ou code-barres, communication avec l'ordinateur central, capteurs optiques qui vérifient que la cartouche est en place et la trappe fermée avant de lancer l'air. Partie pneumatique : vannes et distributeurs, sas étanche (vérins) qui isole la station du réseau.</p>
-<h3>Le freinage</h3>
+<h2>Le freinage</h2>
 <p><b>Coussin d'air</b> : la cartouche pousse l'air devant elle ; juste avant l'arrivée (capteur optique ou magnétique), une vanne d'échappement sous la station se ferme ; l'air piégé, qui ne s'échappe que très lentement, se comprime et freine progressivement la cartouche (effet piston). Puis l'<b>amortissement physique</b> absorbe le reste : butées et toboggans en élastomère, ou amortisseur à gaz ou à ressort. Les capteurs valident l'arrêt, la turbine est coupée, un clapet laisse glisser la cartouche dans le bac.</p>
-<h3>Le réseau</h3>
+<h2>Le réseau</h2>
 <ul>
 <li>Tubes en PVC spécial, en général de 110 ou 160 mm de diamètre, avec des coudes à grand rayon (par exemple 48 pouces).</li>
 <li>Zones (urgences, soins intensifs, hospitalisation, pharmacie, laboratoire), en général de 8 à 11 stations par ligne ; lignes prioritaires directes vers le laboratoire pour les services à fort volume.</li>
@@ -45,14 +51,24 @@
 <li>Capsules étanches avec bagues d'amortissement, verrouillage, RFID ; couleurs : rouge pour les urgences vitales (STAT), bleu ou vert pour la routine, jaune pour le risque biologique.</li>
 <li>Logiciel : suivi en temps réel, priorité absolue aux urgences (gaz du sang, troponines), vitesse réglée autour de 5,5 m/s avec ralentissement à l'approche des stations pour éviter l'hémolyse.</li>
 </ul>
-<h3>Maintenance</h3>
-<p><b>Préventive</b> (planifiée, souvent annuelle) : nettoyage et désinfection des stations ; étanchéité des tuyaux, joints et aiguillages ; filtres, huile, courroies, pressions et débits des turbines ; mises à jour logicielles et calibrage des capteurs ; envois tests entre services. <b>Corrective</b> (quotidienne ou sur incident) : purge de l'humidité et des condensats ; extraction des cartouches coincées et des débris ; réparation des portes, verrous et cellules optiques ; dépannage des turbines et électrovannes.</p>
+<h2>Maintenance</h2>
+<p><b>Préventive</b> (planifiée, souvent annuelle) :</p>
+<ul>
+<li>Nettoyage et désinfection des stations.</li>
+<li>Étanchéité des tuyaux, joints et aiguillages.</li>
+<li>Filtres, huile, courroies, pressions et débits des turbines.</li>
+<li>Mises à jour logicielles et calibrage des capteurs.</li>
+<li>Envois tests entre services.</li>
+</ul>
+<p><b>Corrective</b> (quotidienne ou sur incident) :</p>
+<ul>
+<li>Purge de l'humidité et des condensats.</li>
+<li>Extraction des cartouches coincées et des débris.</li>
+<li>Réparation des portes, verrous et cellules optiques.</li>
+<li>Dépannage des turbines et électrovannes.</li>
+</ul>
 
-<h2>Exemple</h2>
-<p class="complement">Exemple ajouté.</p>
-<p>À 5,5 m/s, une cartouche parcourt 330 m en une minute : un trajet qui prendrait plusieurs minutes à pied. Si un tube arrive hémolysé de façon répétée depuis une même station, on soupçonne un freinage insuffisant à l'arrivée ou une vitesse trop élevée sur cette ligne.</p>
-
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 <p>Stations, tuyauterie (110 ou 160 mm), turbines (APU), aiguillages, capsules, logiciel.</p>
 <p>Freinage : coussin d'air (vanne fermée, air comprimé), puis amortisseurs. Vitesse autour de 5,5 m/s.</p>
 <p>Rouge : urgence (STAT). Bleu ou vert : routine. Jaune : risque biologique. 8 à 11 stations par ligne.</p>

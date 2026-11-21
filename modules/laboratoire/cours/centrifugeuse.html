@@ -20,23 +20,26 @@
 <h1>La centrifugeuse : principe, rotors et maintenance</h1>
 <p class="chapeau">Une centrifugeuse tourne à plusieurs milliers de tours par minute avec des tubes de sang à bord. Bien choisie, bien chargée et bien entretenue, elle est l'un des appareils les plus sûrs du laboratoire ; négligée, elle devient l'un des plus dangereux.</p>
 
-<h2>Intuition</h2>
-<p>Une goutte de sang au repos sédimente lentement : les globules rouges finissent par tomber, mais il faut des heures. En faisant tourner le tube, on remplace la pesanteur par une force des milliers de fois plus grande, et la même séparation prend quelques minutes. Le rotor fixe la géométrie du trajet : tube incliné, tube qui bascule à l'horizontale, ou tube vertical. Et un rotor qui tourne si vite ne pardonne ni le déséquilibre, ni la corrosion, ni un couvercle ouvert en marche.</p>
-
 <div id="fig-centrifugeuse"></div>
 
-<h2>Formalisation</h2>
-<h3>Définition et principe</h3>
+<h2>Définition et principe</h2>
 <p>Une <strong>centrifugeuse</strong> est un appareil qui imprime une accélération, par un mouvement de rotation, à un mélange non homogène pour en séparer les différentes phases, selon leur différence de densité. Au laboratoire, elle sépare par sédimentation les éléments solides des liquides biologiques, en particulier les éléments figurés du sang (globules rouges, globules blancs, plaquettes). On trouve des centrifugeuses de paillasse, des ultracentrifugeuses, des centrifugeuses à hématocrite et des centrifugeuses sur pied.</p>
 <p>Le mot vient de « centrifuger », du latin <i>fugere</i>, « fuir », et de « centre ». La centrifugation sert bien au-delà du laboratoire : essorage du linge ou de la salade, extraction des jus, dessiccation des boues des eaux usées, écrémage du lait, enrichissement de l'uranium en isotope 235. Au laboratoire, elle récupère un précipité (urines, biologie moléculaire) et sépare les éléments figurés du sang.</p>
 <p>Elle applique la loi de Newton : un corps de masse \(M\) qui tourne à la vitesse angulaire \(\omega\) à la distance \(R\) de l'axe subit une force centrifuge dirigée vers l'extérieur :</p>
 \[ F = M\,\omega^2 R \]
 <p>Les particules les plus denses se déposent au fond du tube en peu de temps ; les plus légères mettent plus longtemps et se déposent au-dessus. En réalité, un composé à la distance \(r\) de l'axe subit plusieurs forces : la pesanteur \(F_p\) (descendante), la poussée d'Archimède \(F_a\) (ascendante), une force de friction \(F_v\), la force centripète \(F'_c\) et la force centrifuge \(F_c\). La séparation s'opère par l'action de la force centrifuge \(F_c\). Pour un même volume, la pesanteur dépend de la densité mais pas la poussée d'Archimède : la particule flotte si \(F_a &gt; F_p\) et coule si \(F_a &lt; F_p\).</p>
 
-<h3>Éléments</h3>
-<p>Panneau de contrôle (interrupteur marche-arrêt, minuteur, réglage de la vitesse, de la température sur les modèles réfrigérés, contrôle des vibrations, système de freinage) ; système de réfrigération (modèles réfrigérés) ; base, couvercle, boîtier, moteur électrique ; rotor. Les modèles récents ont des microprocesseurs, des programmes en mémoire et des moteurs à induction (sans charbons).</p>
+<figure class="photo duo"><img src="../images/centrifugeuse.jpg" alt="Centrifugeuse de paillasse ouverte, avec son rotor"><img src="../images/rotor-angle-fixe.jpg" alt="Rotor à angle fixe noir, logements inclinés"><img src="../images/rotor-godets.jpg" alt="Rotor à godets oscillants chargé de tubes"><figcaption>Centrifugeuse de paillasse, rotor à angle fixe, rotor à godets oscillants. Photos du cours « Technologies de laboratoire d'analyses médicales ».</figcaption></figure>
 
-<h3>Types de rotors</h3>
+<h2>Éléments</h2>
+<ul>
+<li>Panneau de contrôle (interrupteur marche-arrêt, minuteur, réglage de la vitesse, de la température sur les modèles réfrigérés, contrôle des vibrations, système de freinage).</li>
+<li>Système de réfrigération (modèles réfrigérés).</li>
+<li>Base, couvercle, boîtier, moteur électrique.</li>
+<li>Rotor. Les modèles récents ont des microprocesseurs, des programmes en mémoire et des moteurs à induction (sans charbons).</li>
+</ul>
+
+<h2>Types de rotors</h2>
 <div class="tableau"><table>
 <tr><th>Rotor</th><th>Caractéristiques</th></tr>
 <tr><td>À angle fixe (angulaire)</td><td>D'usage courant. Tubes maintenus à un angle fixe, entre 20 et 45 degrés selon le modèle. Pour sédimenter des particules infracellulaires ; l'angle raccourcit la trajectoire et le temps de sédimentation par rapport aux godets oscillants.</td></tr>
@@ -46,10 +49,15 @@
 </table></div>
 <p>Le fabricant spécifie pour chaque rotor : son type, sa capacité nominale (en litres ou sous-multiples), sa vitesse maximale (tr/min) et sa force centrifuge relative maximale.</p>
 
-<h3>Installation</h3>
-<p>Alimentation électrique de capacité adaptée ; environnement propre, sans poussière, plancher ferme et horizontal ; espace libre du côté du condenseur pour les modèles réfrigérés ; armoire de rangement pour les accessoires et les rotors.</p>
+<h2>Installation</h2>
+<ul>
+<li>Alimentation électrique de capacité adaptée.</li>
+<li>Environnement propre, sans poussière, plancher ferme et horizontal.</li>
+<li>Espace libre du côté du condenseur pour les modèles réfrigérés.</li>
+<li>Armoire de rangement pour les accessoires et les rotors.</li>
+</ul>
 
-<h3>Entretien et maintenance</h3>
+<h2>Entretien et maintenance</h2>
 <ul>
 <li>Toujours <b>désinfecter</b> la cuve, la tête, les godets et les joints avant toute intervention sur une centrifugeuse utilisée pour des échantillons biologiques ou infectieux. Ne jamais intervenir sur une centrifugeuse non décontaminée.</li>
 <li><b>Rotors</b> : enregistrer la date d'achat, le modèle et le numéro de série ; ne les utiliser qu'avec la centrifugeuse prévue ; respecter vitesse maximale et densité des échantillons ; pas de détergents alcalins ; brosses en plastique, jamais métalliques ; laver immédiatement après une projection corrosive, sécher à l'air ; stocker au sec, pas dans la centrifugeuse ; charger et décharger dans une enceinte de sécurité biologique pour le groupe de risque 2 ou plus.</li>
@@ -62,11 +70,11 @@
 <tr><td>Une fois par an</td><td>Cartes électroniques propres et connectées ; test des commandes (vitesse, durée, température, alarmes) ; température vérifiée au thermomètre électronique (modèles réfrigérés) ; minuteur contrôlé : le temps mesuré ne doit pas s'écarter de plus de ± 10 % du temps programmé ; système de freinage.</td></tr>
 </table></div>
 
-<h2>Exemple</h2>
+<h2>Exemple de calcul</h2>
 <p class="complement">Exemple ajouté.</p>
 <p>Contrôle annuel du minuteur : on programme 5 minutes et on chronomètre 5 min 24 s, soit 324 s au lieu de 300 s. L'écart vaut \(\frac{324 - 300}{300} = 8\,\%\) : c'est dans la tolérance de ± 10 %. À 5 min 36 s, l'écart serait de 12 % : il faudrait intervenir.</p>
 
-<h2>Formules clés</h2>
+<h2>À retenir</h2>
 \[ F = M\,\omega^2 R \qquad \text{écart du minuteur} = \frac{t_{\text{mesuré}} - t_{\text{programmé}}}{t_{\text{programmé}}} \le \pm 10\,\% \]
 <p>Rotors : angle fixe (20 à 45°, usage courant), godets oscillants (résolution maximale), verticaux (temps court), quasi verticaux (gradients).</p>
 <p>Désinfecter avant toute intervention ; jamais ouvrir en marche ni freiner à la main. Préventif : chaque mois (propreté, couvercle, joints), chaque année (commandes, température, minuteur à ± 10 %, frein).</p>

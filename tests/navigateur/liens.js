@@ -64,7 +64,7 @@ const CORRECTIONS = {
     hemogramme: { 5: ["hemogramme", "hemogramme-standard", "Hémogramme standard"] },
     interferences: { 4: ["interferences", "principales-interferences", "Principales interférences"] },
     "revision-hemato": { 4: ["interferences", "principales-interferences", "Principales interférences"] },
-    "erreurs-preanalytiques": { 2: ["erreurs-preanalytiques", "formalisation", "Formalisation"] },
+    "erreurs-preanalytiques": { 2: ["erreurs-preanalytiques", "les-erreurs-par-origine", "Les erreurs, par origine"] },
     impedance: { 4: ["impedance", "principe-de-coulter", "Principe de Coulter"] },
     "boss-automatisation": { 2: ["pneumatique", "le-reseau", "Le réseau"] },
     "boss-microscopes": { 4: ["agitateur", "utilisation-et-precautions", "Utilisation et précautions"] },
@@ -72,7 +72,9 @@ const CORRECTIONS = {
     distillateur: { 3: ["distillateur", "definition", "Définition"] },
     "revision-automatisation": { 4: ["automate-tri", "technologies", "Technologies"] },
     "automate-tri": { 4: ["automate-tri", "technologies", "Technologies"] },
-    coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] }
+    coagulometres: { 1: ["coagulometres", "principes-de-detection", "Principes de détection"] },
+    circuit: { 2: ["circuit", "les-sept-etapes", "Les sept étapes"] },
+    pneumatique: { 5: ["pneumatique", "le-reseau", "Le réseau"] }
   }
 };
 const VIDES = new Set(("les des une un le la de du et en est sur pour par que qui dans au aux ce cette ces son sa ses il elle on se ne pas plus "
