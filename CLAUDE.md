@@ -231,7 +231,9 @@ parle la section, des listes à puces plutôt que des phrases enchaînées par d
 blocs, les photos du cours, les mots qui comptent en gras, et « À retenir » en fin de page. Un module construit ainsi
 porte `pagesLibres: true` dans son `module.js` (le laboratoire, l'anglais) : `tests/static-check.js` ne demande alors
 qu'un titre et un chapeau. Le plan ci-dessous reste utile quand la notion se construit pas à pas (mathématiques,
-mécanique, robotique), sans être une obligation.
+mécanique, robotique), sans être une obligation. Pas de redondance : pas de résumé « Le chapitre en bref » qui annonce
+les sections qui suivent, et un même titre n'apparaît jamais deux fois (`outils/regrouper.js` retire le titre d'une
+notion quand il est identique à celui de sa section).
 
 Une page par notion, pour relire. Structure classique (vérifiée par `tests/static-check.js` sauf `pagesLibres`) :
 titre, `chapeau` (la situation qui rend la notion nécessaire), **Intuition**, au moins une figure
