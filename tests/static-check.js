@@ -121,6 +121,15 @@ for (const id of modules) {
     if (!/<h2>Exemple/.test(html)) err(`${f} : section Exemple manquante`);
     if (html.includes("<h2>Questions</h2>")) err(`${f} : les questions sont dans le jeu, pas dans les pages de cours`);
   }
+  // chaque chapitre de cours a ses vidéos à chercher (page « Préparer l'examen ») : videos de module.js ou section de sa version courte
+  if (id !== "_modele" && (P.sections || []).length) {
+    for (const c of P.chapitres) {
+      if (c.td || c.lab || !P.sections.some(x => x.chapitre === c.id)) continue;
+      const v = (P.videos || {})[c.id], fc = `${d}/court/chapitre-${c.id}.html`;
+      if (v) { for (const e of v) if (!Array.isArray(e) || e.length !== 3 || e.some(x => typeof x !== "string" || !x.trim())) err(`${d} : vidéo mal écrite au chapitre ${c.id} (attendu [sujet, chaîne, recherche])`); }
+      else if (!(existe(fc) && lire(fc).includes("<h2>Vidéos à chercher</h2>"))) err(`${d} : chapitre ${c.id} sans vidéos à chercher (videos de module.js ou version courte)`);
+    }
+  }
   // chaque carte a son bouton « Préparer l'examen » : la page existe pour chaque module, et remplit son tableau par chapitre
   if (id !== "_modele" && (P.sections || []).length) {
     if (!existe(d + "/examen.html")) err(`${d} : examen.html manquant (bouton « Préparer l'examen » de la carte)`);

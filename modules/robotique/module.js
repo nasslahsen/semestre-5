@@ -8,6 +8,20 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("robotique", {
+  // vidéos à chercher sur YouTube, chapitre par chapitre (page « Préparer l'examen ») : [sujet, chaîne, recherche]
+  videos: {
+    0: [["Cercle trigonométrique", "Khan Academy", "Khan Academy unit circle"], ["Vecteurs", "3Blue1Brown", "3Blue1Brown vectors essence of linear algebra"], ["Multiplication de matrices", "3Blue1Brown", "3Blue1Brown matrix multiplication as composition"]],
+    1: [["Qu'est-ce qu'un robot industriel", "Au choix", "industrial robot types explained"], ["Robot chirurgical da Vinci", "Au choix", "da Vinci surgical robot how it works"], ["Degrés de liberté", "Au choix", "robot degrees of freedom explained"]],
+    2: [["Produit scalaire", "3Blue1Brown", "3Blue1Brown dot products and duality"], ["Produit vectoriel", "3Blue1Brown", "3Blue1Brown cross products"], ["Repères et coordonnées 3D", "Au choix", "3D coordinate frames robotics"]],
+    3: [["Matrice de rotation", "Angela Sodemann", "Angela Sodemann rotation matrices"], ["Angles d'Euler", "Au choix", "Euler angles explained"], ["Rotations en 3D", "3Blue1Brown", "3Blue1Brown three dimensional linear transformations"]],
+    4: [["Matrice homogène", "Angela Sodemann", "Angela Sodemann homogeneous transformation matrices"], ["Changement de repère", "Au choix", "robotics frame transformation explained"], ["Bras plan 2R", "Au choix", "2 link planar robot arm forward kinematics"]],
+    10: [["Paramètres de Denavit-Hartenberg", "Angela Sodemann", "Angela Sodemann Denavit Hartenberg"], ["Modèle géométrique direct", "Au choix", "forward kinematics robot arm DH"], ["Cours de robotique moderne", "Kevin Lynch", "Modern Robotics Kevin Lynch forward kinematics"]],
+    11: [["Modèle géométrique inverse", "Angela Sodemann", "Angela Sodemann inverse kinematics"], ["Jacobienne d'un robot", "Angela Sodemann", "Angela Sodemann Jacobian"], ["Loi des cosinus (Al-Kashi)", "Khan Academy", "Khan Academy law of cosines"]],
+    5: [["Couple et puissance d'un moteur", "The Efficient Engineer", "The Efficient Engineer torque power"], ["Réducteur de vitesse", "Au choix", "gearbox speed reducer how it works"], ["Jeu mécanique (backlash)", "Au choix", "backlash in gears explained"]],
+    6: [["Vis et boulons", "The Efficient Engineer", "The Efficient Engineer bolted joints"], ["Clavettes et goupilles", "Au choix", "keys and keyways shaft explained"], ["Anneaux élastiques (circlips)", "Au choix", "circlip retaining ring how it works"]],
+    7: [["Roulements", "Lesics", "Lesics ball bearing"], ["Types de roulements", "SKF", "SKF bearing types"], ["Guidage linéaire", "Au choix", "linear guide rail how it works"]],
+    8: [["Engrenages", "Lesics", "Lesics gears"], ["Rapport de transmission", "Au choix", "gear ratio explained"], ["Train épicycloïdal", "Lesics", "Lesics planetary gear"]],
+  },
   // Pages libres : le plan suit la matière ; les intuitions gardées sont celles qui font voir le calcul, sous un titre qui dit ce qu'elles expliquent.
   pagesLibres: true,
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».

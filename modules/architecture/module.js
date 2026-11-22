@@ -9,6 +9,15 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("architecture", {
+  // vidéos à chercher sur YouTube, chapitre par chapitre (page « Préparer l'examen ») : [sujet, chaîne, recherche]
+  videos: {
+    1: [["Le bloc opératoire", "Au choix", "operating room design hospital"], ["Conception d'un hôpital", "Au choix", "hospital design planning"], ["Visite d'un bloc opératoire", "Au choix", "visite bloc opératoire"]],
+    2: [["Zones et circulations du bloc", "Au choix", "operating theatre zoning clean dirty corridor"], ["Marche en avant", "Au choix", "marche en avant hôpital"], ["Déchets hospitaliers", "Au choix", "DASRI déchets hospitaliers"]],
+    3: [["Salle d'opération", "Au choix", "operating room layout"], ["Bloc hybride", "Au choix", "hybrid operating room"], ["Ergonomie au bloc", "Au choix", "operating room ergonomics"]],
+    4: [["Flux laminaire", "Au choix", "laminar airflow operating room"], ["Filtres HEPA", "Au choix", "HEPA filter how it works"], ["Cascade de pression", "Au choix", "cleanroom pressure cascade"]],
+    5: [["Gaz médicaux", "Au choix", "medical gas pipeline system hospital"], ["Éclairage opératoire", "Au choix", "surgical light operating room"], ["Alimentation de secours", "Au choix", "hospital emergency power"]],
+    6: [["Bras plafonniers", "Au choix", "ceiling pendant operating room"], ["Normes du bloc", "Au choix", "operating room standards ISO 14644"], ["Sécurité électrique", "Au choix", "electrical safety operating room isolated power"]],
+  },
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.

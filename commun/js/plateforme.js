@@ -435,7 +435,8 @@
   var EN = {
     "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Accueil": "Home", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
     "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
-    "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Version courte": "Short version", "Défi final": "Final challenge", "Préparer l'examen": "Exam prep", "Chapitre par chapitre": "Chapter by chapter",
+    "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Version courte": "Short version", "Défi final": "Final challenge", "Préparer l'examen": "Exam prep", "Chapitre par chapitre": "Chapter by chapter", "Vidéos à chercher": "Videos to look up", "Sujet": "Topic", "Chaîne": "Channel", "Recherche": "Search", "Au choix": "Any",
+    "Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.": "Each search opens YouTube. These videos have not been checked one by one: the course remains the reference.",
     "Pour chaque chapitre : l'essentiel et ses questions d'examen, puis la révision et le défi final, sans aide avant le premier essai.": "For each chapter: the key points and exam questions, then the review and the final challenge, with no hint before the first try.", "Exercices": "Exercises", "Chapitre": "Chapter",
     // carte
     "TD": "Practice", "Labs": "Labs", "Cours, TD ou labs": "Lessons or practice", "Sous-modules": "Courses", "Reprendre": "Resume", "Commencer": "Start",

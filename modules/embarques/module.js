@@ -13,6 +13,13 @@ PLATEFORME.parcours("embarques", {
   pagesLibres: true,
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.
   court: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  // podcasts des chapitres (lecteur sous le titre de la page du chapitre)
+  podcasts: {
+    1: { titre: "Le système embarqué", duree: "22 min", fichier: "audio/chapitre-1.m4a" },
+    2: { titre: "Architectures matérielles", duree: "22 min", fichier: "audio/chapitre-2.m4a" },
+    3: { titre: "Bus de communication", duree: "24 min", fichier: "audio/chapitre-3.m4a" },
+    4: { titre: "L'ESP32 : la carte et la puce", duree: "24 min", fichier: "audio/chapitre-4.m4a" },
+  },
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
