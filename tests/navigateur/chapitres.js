@@ -63,6 +63,10 @@ const dc = `${BASE}modules/${mid}/`;
     // pas de bouton Reprendre sur la carte (demandé par l'utilisatrice) ; « Préparer l'examen » dans le choix Cours / TD
     if (await pg.$$eval(".btn.reprendre", l => l.length)) pb(`carte ${sm} : un bouton Reprendre sur la carte`);
     if (!(await pg.$$eval('.onglets-carte a[href^="examen.html"]', l => l.length))) pb(`carte ${sm} : pas de « Préparer l'examen » à côté de Cours / TD`);
+    // un cours à labs sans TD : pas d'onglet TD (les labs en tiennent lieu)
+    const ongletTD = await pg.$$eval('.onglets-carte a[href*="vue=td"]', l => l.length);
+    const sansTD = chs.some(c => smDe(c) === sm && estLab(c)) && !chs.some(c => smDe(c) === sm && estTD(c));
+    if (sansTD ? ongletTD : !ongletTD) pb(`carte ${sm} : onglet TD ${sansTD ? "en trop (cours à labs sans TD)" : "manquant"}`);
     const liens = await pg.$$eval("#entete a, #chapitres a", l => l.length);
     // sous-modules, Cours / TD, « Préparer l'examen », plus l'onglet « Labs » quand le sous-module a des labs
     const aLabs = chs.some(c => smDe(c) === sm && estLab(c));

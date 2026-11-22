@@ -35,10 +35,11 @@
       return '<a href="' + url + '"' + (x.id === sm.id ? ' aria-current="page"' : "") + ">" + esc(nomSm(x)) + "</a>";
     }).join("") + "</nav>";
   }
-  // Cours, TD, et Labs quand le cours en a
+  // Cours, TD (sauf un cours à labs sans TD), Labs quand le cours en a, puis « Préparer l'examen »
   var avecLabs = P.chapitresDe(MID, sm.id, "lab").length > 0;
   h += '<nav class="onglets onglets-carte" aria-label="' + P.t("Cours, TD ou labs") + '"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + ">" + P.t("Cours") + "</a>" +
-    '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>" +
+    // un cours qui a des labs et aucun TD : pas d'onglet TD, les labs en tiennent lieu (demandé par l'utilisatrice)
+    (avecLabs && !P.chapitresDe(MID, sm.id, "td").length && vue !== "td" ? "" : '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>") +
     (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") +
     '<a href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a></nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");

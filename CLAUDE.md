@@ -85,7 +85,8 @@ chapitre suivant.
   par exercice, la correction cachée dans `<details class="corrige"><summary>Voir la correction</summary>…</details>`,
   et ce qui attend une partie du cours pas encore reçue, signalé. Les exercices du TD restent dans la section d'avant.
 - **Les labs ont aussi leur propre espace** : un chapitre de lab porte `lab: true` et `numero: "Lab 1"`. La carte ajoute
-  alors « Labs » au choix « Cours / TD » (`&vue=lab`). Une page de lab (`cours/<page>.html`, dans une section comme les
+  alors « Labs » au choix « Cours / TD » (`&vue=lab`) ; un cours qui a des labs et aucun TD n'a pas d'onglet « TD » (les labs
+  en tiennent lieu, demandé par l'utilisatrice). Une page de lab (`cours/<page>.html`, dans une section comme les
   autres) n'a pas la structure d'une notion : des étapes `<div class="etape-lab"><h2>Étape 1 : …</h2> … </div>`, avec
   le code à copier dans `<pre class="code" data-titre="…"><code>…</code></pre>` (le `<` échappé ; bouton « Copier »
   ajouté par `PLATEFORME.boutonsCopier`), ce qu'on doit voir (`<p class="attendu">`), les pièges (`<p class="attention">`).
