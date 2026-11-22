@@ -26,8 +26,8 @@
   document.title = (vueTD ? NOM[vue] + " · " : "") + (nomSm(sm) || MOD.titre) + " · " + P.t(REGISTRE.semestre);
   P.barre(document.getElementById("barre"), { accueil: true, carte: P.urlPlan(MID, sm.id) });
 
-  // En-tête : choix du sous-module, choix Cours / TD, titre, un seul bouton (côté cours)
-  var r = vueTD ? null : P.reprendre(MID, sm.id), h = '<div class="choix-ligne">';
+  // En-tête : choix du sous-module, choix Cours / TD / Préparer l'examen, puis le titre
+  var r = vueTD ? null : P.reprendre(MID, sm.id), h = '<div class="choix-ligne">'; // r : le chapitre conseillé, en bleu sur la carte
   if (P.sousModules(MID).length > 1) {
     h += '<nav class="choix-sm" aria-label="' + P.t("Sous-modules") + '">' + P.sousModules(MID).map(function (x) {
       if (!x.chapitres.length) return '<span class="sm-vide">' + esc(nomSm(x)) + "</span>";
@@ -39,15 +39,11 @@
   var avecLabs = P.chapitresDe(MID, sm.id, "lab").length > 0;
   h += '<nav class="onglets onglets-carte" aria-label="' + P.t("Cours, TD ou labs") + '"><a href="' + P.urlPlan(MID, sm.id) + '"' + (vueTD ? "" : ' aria-current="page"') + ">" + P.t("Cours") + "</a>" +
     '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>" +
-    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") + "</nav></div>";
+    (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") +
+    '<a href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a></nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
-  // vue d'ensemble du module (vue-ensemble.html), quand module.js décrit un arbre pour ce sous-module : un lien discret sous le titre
-  var lienVue = !vueTD && MOD.arbre && MOD.arbre[sm.id] ? '<a class="lien-vue" href="vue-ensemble.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Vue d'ensemble du module") + "</a>" : "";
-  // page « Préparer l'examen » (examen.html), quand module.js l'annonce pour ce sous-module (examen: { <sm>: true })
-  if (!vueTD && MOD.examen && MOD.examen[sm.id]) lienVue += '<a class="lien-vue" href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a>";
-  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1>" + lienVue + "</div>" +
-    (vueTD ? "" : r ? '<a class="btn reprendre" href="' + r.url + '">' + P.t(r.deja ? "Reprendre" : "Commencer") + "<small>" + esc(r.titre) + "</small></a>"
-      : '<span class="tout-fait">' + P.t("Tout le cours est lu.") + "</span>") + "</div>";
+  // Le titre seul : pas de bouton sous ni à côté (on touche le chapitre conseillé, en bleu, sur la carte)
+  h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1></div></div>";
   if (vue === "td" && !chs.length) h += '<p class="td-vide">' + P.t("Aucun TD reçu pour ce cours. Envoie la série de TD : elle apparaîtra ici, avec ses exercices.") + "</p>";
   document.getElementById("entete").innerHTML = h;
   // le grand titre redit le nom du module : la barre ne le répète pas

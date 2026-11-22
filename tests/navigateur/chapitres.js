@@ -1,5 +1,5 @@
 // Structure par chapitres : la carte (un nœud par chapitre) et la grande page de chaque chapitre.
-// Vérifie : aucune erreur ; carte : un nœud par chapitre, un seul bouton Reprendre, nœuds dans l'écran ;
+// Vérifie : aucune erreur ; carte : un nœud par chapitre, pas de bouton Reprendre, « Préparer l'examen » à côté de Cours / TD, nœuds dans l'écran ;
 // page du chapitre : sections et notions dans l'ordre, aucun bouton entre les sections, « 2 / 4 » dans la barre qui suit la lecture,
 // section lue quand on passe sa fin, un bloc « Jouer » facultatif après chaque notion qui a un niveau, révision et défi final en fin
 // de chapitre, « Chapitre suivant » ; un exercice s'ouvre par-dessus la page et « Revenir au cours » la retrouve à la même place ;
@@ -60,9 +60,11 @@ const dc = `${BASE}modules/${mid}/`;
     const noeuds = await pg.$$eval(".noeud-chapitre", l => l.map(a => { const r = a.getBoundingClientRect(); return { href: a.href, r: [r.left, r.right] }; }));
     if (noeuds.length !== coursSm.length) pb(`carte ${sm} : ${noeuds.length} nœuds pour ${coursSm.length} chapitres`);
     noeuds.forEach((n, i) => { if (n.r[0] < 0 || n.r[1] > W) pb(`carte ${sm} : nœud ${i} hors de l'écran`); if (!n.href.endsWith(`chapitre-${coursSm[i]}.html`)) pb(`carte ${sm} : nœud ${i} mène à ${n.href}`); });
-    if (await pg.$$eval(".btn.reprendre", l => l.length) !== 1) pb(`carte ${sm} : pas un seul bouton Reprendre`);
+    // pas de bouton Reprendre sur la carte (demandé par l'utilisatrice) ; « Préparer l'examen » dans le choix Cours / TD
+    if (await pg.$$eval(".btn.reprendre", l => l.length)) pb(`carte ${sm} : un bouton Reprendre sur la carte`);
+    if (!(await pg.$$eval('.onglets-carte a[href^="examen.html"]', l => l.length))) pb(`carte ${sm} : pas de « Préparer l'examen » à côté de Cours / TD`);
     const liens = await pg.$$eval("#entete a, #chapitres a", l => l.length);
-    // sous-modules, Cours / TD, « Préparer l'examen », Reprendre, plus l'onglet « Labs » quand le sous-module a des labs
+    // sous-modules, Cours / TD, « Préparer l'examen », plus l'onglet « Labs » quand le sous-module a des labs
     const aLabs = chs.some(c => smDe(c) === sm && estLab(c));
     if (liens > coursSm.length + 6 + (aLabs ? 1 : 0)) pb(`carte ${sm} : ${liens} liens, trop de choses à toucher`);
     await pg.screenshot({ path: path.join(out, `carte${sm ? "-" + sm : ""}.png`), fullPage: true });
@@ -117,7 +119,8 @@ const dc = `${BASE}modules/${mid}/`;
       [mid, P.niveaux.filter(n => n.pret && chsm.includes(n.chapitre)).map(n => n.id)]);
     await pg.reload({ waitUntil: "networkidle" }); await pg.waitForTimeout(200);
     if (await pg.$$eval(".noeud-chapitre.fait", l => l.length) !== coursSm.length) pb(`carte ${sm} : les chapitres aux exercices réussis ne sont pas marqués faits`);
-    const rep = await pg.$eval(".btn.reprendre", a => a.href);
+    // « Reprendre » (tableau de bord) : la dernière section lue
+    const rep = await pg.evaluate(([m, s]) => { const r = PLATEFORME.reprendre(m, s); return new URL(r.url, location.href).href; }, [mid, sm]);
     const der = chsm[chsm.length - 1];
     if (!rep.endsWith(`chapitre-${der}.html#s-` + P.sections.filter(s => s.chapitre === der).pop().id)) pb(`carte ${sm} : Reprendre ne mène pas à la dernière section lue : ` + rep);
   }

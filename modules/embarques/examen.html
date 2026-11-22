@@ -402,7 +402,10 @@ void loop() {
 <li>Un capteur analogique sur l'ADC2 avec le Wi-Fi, ou une LED sur GPIO 34 à 39 (entrées seules).</li>
 <li>Deux cartes avec le même Client ID sur un broker public : elles se déconnectent l'une l'autre.</li>
 </ul>
+
+<div id="par-chapitre"></div>
 </main>
+<script src="../../commun/js/examen.js"></script>
 <script src="../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../commun/js/schema.js"></script>
@@ -411,7 +414,6 @@ void loop() {
 (function () {
   var P = PLATEFORME;
   var sm = new URLSearchParams(location.search).get("sm") || "embarques";
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", sm) });
   var b = String.fromCharCode(92);
   renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
   P.boutonsCopier(document.querySelector("main"));

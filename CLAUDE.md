@@ -20,7 +20,7 @@ commun/                    système de design partagé (ne pas copier dans les m
   css/barre.css            barre du site (retour d'un cran : la carte du module, ou le semestre depuis la carte ; « Accueil » vers le tableau de bord, partout où le retour n'y mène pas ; nom du module vers sa carte)
   css/tableau.css          tableau de bord
   js/plateforme.js         chemins, couleur du module, progression (localStorage « s5-progres »), chapitres, reprise
-  js/chapitres.js          carte d'un module : un nœud par chapitre, bouton « Reprendre »
+  js/chapitres.js          carte d'un module : un nœud par chapitre, choix Cours / TD / Préparer l'examen
   js/arbre.js, css/arbre.css   arbre d'un module (parties, chapitres, notions qui ouvrent le cours, à retenir, cartes), données `arbre` de module.js
   js/section.js            page de chapitre : indicateur « 2 / 4 », sections lues, un bloc « Jouer » par section, fin de chapitre
   js/nav.js                anciennes pages de cours isolées : ancres des sections (repris par les pages de chapitre)
@@ -34,7 +34,10 @@ commun/                    système de design partagé (ne pas copier dans les m
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
-  vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la carte ;
+  examen.html              « Préparer l'examen » (examen.html?sm=…), une par module, dans le choix « Cours / TD » de chaque carte :
+                           en haut ce que le professeur a annoncé (écrit à la main, s'il y en a), puis « Chapitre par chapitre »
+                           (commun/js/examen.js : version courte, révision, défi final)
+  vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la page d'examen ;
                            pas un chapitre, ne compte pas dans la progression)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
   jouer.html               écran de niveau (jouer.html#<niveau>, jouer.html?cadre=1#<niveau> dans la fenêtre)
@@ -65,9 +68,11 @@ Le but : peu de choses à toucher. On lit en faisant défiler, on joue si on veu
 chapitre suivant.
 
 - **La carte** (`index.html`, `commun/js/chapitres.js`) : un nœud rond par chapitre, dans l'ordre, reliés par un
-  chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). Chapitre fait en vert, chapitre
-  conseillé en bleu ; rien n'est verrouillé. Un seul bouton principal, « Reprendre » (ou « Commencer »), qui rouvre
-  l'endroit exact où l'on s'était arrêté. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
+  chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). L'en-tête est le même sur toutes les cartes
+  (demandé par l'utilisatrice) : le choix du sous-module (s'il y en a plusieurs) et « Cours / TD / Préparer l'examen », puis le
+  titre seul. Pas de bouton « Reprendre » ni « Commencer » sur la carte : on touche le chapitre conseillé (en bleu) ; « Reprendre »
+  reste sur le tableau de bord. Rien d'autre ne s'ajoute à l'en-tête. Chapitre fait en vert, chapitre
+  conseillé en bleu ; rien n'est verrouillé. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
   Un sous-module est un cours à part entière (son professeur, ses documents) : ses chapitres sont numérotés à partir
   de 1 (ou de 0 s'il commence par « Les bases ») partout où un numéro s'affiche (`PLATEFORME.numero`), même si leurs
   `id` dans `module.js` suivent ceux du sous-module précédent.
@@ -139,7 +144,7 @@ Un niveau est fait quand ses défis sont finis
 Chaque question a aussi « Voir la réponse » et « Passer » (ajoutés par le moteur). Une question passée ou dont la
 réponse a été vue ne compte pas comme trouvée : le niveau se termine quand même, avec au plus 1 étoile (aucune, et
 non marqué terminé, si rien n'a été trouvé seul), et l'écran de fin liste ces questions avec « Réessayer ».
-« Reprendre » (tableau de bord et carte) rouvre la dernière position notée dans une page de chapitre
+« Reprendre » (tableau de bord) rouvre la dernière position notée dans une page de chapitre
 (`PLATEFORME.noterPlan`, `reprendre`), ou le premier chapitre pas fait. Tout passe par `PLATEFORME` (`chapitresDe`,
 `chapitre`, `marquer`, `marquerSection`, `compte`, `reprendre`, `continuer`, `effacer`). La progression déjà
 enregistrée est toujours gardée.

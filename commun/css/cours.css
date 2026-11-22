@@ -322,3 +322,11 @@ html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bo
 .court-acces > span { flex: 1; min-width: 0; font-weight: 600; font-size: 18px; line-height: 1.35; }
 .court-acces small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
 .court-acces a.btn-jouer { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+/* Page « Préparer l'examen » (commun/js/examen.js) : un chapitre par ligne, ses liens de révision à droite */
+.ex-chapitres { list-style: none; padding: 0; margin: 18px 0 8px; }
+.ex-chapitres li { display: flex; align-items: center; gap: 20px; padding: 14px 0; border-top: 1.5px solid var(--trait, #e6e8ee); }
+.ex-chapitres li:last-child { border-bottom: 1.5px solid var(--trait, #e6e8ee); }
+.ex-chapitres .ex-chap { flex: 1; min-width: 0; color: #15171f; text-decoration: none; font: 700 19px/1.3 "Bricolage Grotesque", Inter, sans-serif; }
+.ex-chapitres .ex-chap small { display: block; font: 700 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--jeu-texte); margin-bottom: 2px; }
+.ex-liens { flex: none; display: flex; gap: 10px; }
+.ex-liens a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 16px; border: 1.5px solid #c9cdd6; border-radius: 12px; color: #15171f; font: 600 16px Inter, sans-serif; text-decoration: none; white-space: nowrap; }

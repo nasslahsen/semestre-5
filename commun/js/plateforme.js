@@ -435,7 +435,8 @@
   var EN = {
     "Tableau de bord": "Dashboard", "Carte du module": "Module map", "Carte": "Map", "Accueil": "Home", "Retour": "Back", "Revenir à la page précédente": "Back to the previous page", "Semestre 5": "Semester 5",
     "Toutes les sections sont faites. Revois la carte.": "All sections are done. Look back at the map.", "Tout est fait. Revois la carte.": "All done. Look back at the map.",
-    "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Exercices": "Exercises", "Chapitre": "Chapter",
+    "Cours": "Lessons", "Boss": "Boss", "Révision": "Review", "Version courte": "Short version", "Défi final": "Final challenge", "Préparer l'examen": "Exam prep", "Chapitre par chapitre": "Chapter by chapter",
+    "Pour chaque chapitre : l'essentiel et ses questions d'examen, puis la révision et le défi final, sans aide avant le premier essai.": "For each chapter: the key points and exam questions, then the review and the final challenge, with no hint before the first try.", "Exercices": "Exercises", "Chapitre": "Chapter",
     // carte
     "TD": "Practice", "Labs": "Labs", "Cours, TD ou labs": "Lessons or practice", "Sous-modules": "Courses", "Reprendre": "Resume", "Commencer": "Start",
     "Tout le cours est lu.": "You have read the whole course.", "Effacer ma progression": "Reset my progress",

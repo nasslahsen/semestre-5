@@ -121,6 +121,11 @@ for (const id of modules) {
     if (!/<h2>Exemple/.test(html)) err(`${f} : section Exemple manquante`);
     if (html.includes("<h2>Questions</h2>")) err(`${f} : les questions sont dans le jeu, pas dans les pages de cours`);
   }
+  // chaque carte a son bouton « Préparer l'examen » : la page existe pour chaque module, et remplit son tableau par chapitre
+  if (id !== "_modele" && (P.sections || []).length) {
+    if (!existe(d + "/examen.html")) err(`${d} : examen.html manquant (bouton « Préparer l'examen » de la carte)`);
+    else if (!lire(d + "/examen.html").includes('<div id="par-chapitre"></div>') || !lire(d + "/examen.html").includes("commun/js/examen.js")) err(`${d}/examen.html : sans <div id="par-chapitre"> ni commun/js/examen.js`);
+  }
   for (const f of [d + "/index.html", d + "/jouer.html", d + "/cours/index.html"].concat(["examen.html", "essentiel.html"].map(x => d + "/" + x).filter(existe), pagesCours)) {
     if (!existe(f)) continue;
     const html = lire(f); nbPages++;

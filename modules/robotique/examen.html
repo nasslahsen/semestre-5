@@ -353,7 +353,10 @@
 <details class="corrige"><summary>Voir la réponse</summary>
 <ul><li>Axes parallèles : denture droite, denture hélicoïdale (progressive, silencieuse).</li><li>Axes concourants : engrenages coniques.</li><li>Axes gauches : roue et vis sans fin (grand rapport, souvent irréversible).</li></ul>
 </details>
+
+<div id="par-chapitre"></div>
 </main>
+<script src="../../commun/js/examen.js"></script>
 <script src="../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../commun/js/schema.js"></script>
@@ -362,7 +365,6 @@
 (function () {
   var P = PLATEFORME;
   var sm = new URLSearchParams(location.search).get("sm") || "bio";
-  P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", sm) });
   var b = String.fromCharCode(92);
   renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
   var CLE = "s5-examen-robotique", faits = {};
