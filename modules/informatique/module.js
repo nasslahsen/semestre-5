@@ -15,6 +15,13 @@ PLATEFORME.parcours("informatique", {
   pagesLibres: true,
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.
   court: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  // podcasts des chapitres (lecteur sous le titre de la page du chapitre)
+  podcasts: {
+    7: { titre: "L'hôpital face à la menace cyber", duree: "21 min", fichier: "audio/chapitre-7.m4a" },
+    8: { titre: "Les principes de la sécurité", duree: "22 min", fichier: "audio/chapitre-8.m4a" },
+    9: { titre: "Le cadre réglementaire", duree: "24 min", fichier: "audio/chapitre-9.m4a" },
+    10: { titre: "Le vocabulaire du risque", duree: "22 min", fichier: "audio/chapitre-10.m4a" },
+  },
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
