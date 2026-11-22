@@ -36,7 +36,8 @@ modules/<id>/              un dossier par module actif
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)
   examen.html              « Préparer l'examen » (examen.html?sm=…), une par module, dans le choix « Cours / TD » de chaque carte :
                            en haut ce que le professeur a annoncé (écrit à la main, s'il y en a), puis « Chapitre par chapitre »
-                           (commun/js/examen.js : version courte, révision, défi final)
+                           (commun/js/examen.js : version courte, révision, défi final), puis toutes les « Vidéos à chercher » des
+                           versions courtes, chapitre par chapitre (reprises de court/, une seule source)
   vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la page d'examen ;
                            pas un chapitre, ne compte pas dans la progression)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
