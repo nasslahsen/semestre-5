@@ -135,7 +135,7 @@ for (const id of modules) {
     if (!existe(d + "/examen.html")) err(`${d} : examen.html manquant (bouton « Préparer l'examen » de la carte)`);
     else if (!lire(d + "/examen.html").includes('<div id="par-chapitre"></div>') || !lire(d + "/examen.html").includes("commun/js/examen.js")) err(`${d}/examen.html : sans <div id="par-chapitre"> ni commun/js/examen.js`);
   }
-  for (const f of [d + "/index.html", d + "/jouer.html", d + "/cours/index.html"].concat(["examen.html", "essentiel.html"].map(x => d + "/" + x).filter(existe), pagesCours)) {
+  for (const f of [d + "/index.html", d + "/jouer.html", d + "/cours/index.html"].concat(["examen.html", "essentiel.html", "podcasts.html"].map(x => d + "/" + x).filter(existe), pagesCours)) {
     if (!existe(f)) continue;
     const html = lire(f); nbPages++;
     verifierLiens(f, html); verifierMaths(f, html, false); verifierEcriture(f, html);

@@ -12,9 +12,6 @@ Utilisation : uniquement sur iPad, en paysage, au doigt et parfois à l'Apple Pe
 ```
 index.html                 tableau de bord : une carte par module, bandeau « Reprendre », lien « Mon suivi »
 suivi.html                 Mon suivi : progression par module et chapitre, questions à revoir, documents reçus
-podcasts.html              Podcasts (podcasts.html?m=<module>) : tous les podcasts d'un module sur une page, lien sur le tableau de bord ;
-                           seule page pensée aussi pour le téléphone ; reprise d'écoute partagée avec la page du chapitre, épisode
-                           suivant enchaîné, titre sur l'écran verrouillé (commun/js/podcasts.js, css/podcasts.css)
 registre.js                registre central : modules, sous-modules, couleurs, statut
 commun/                    système de design partagé (ne pas copier dans les modules)
   css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
@@ -42,6 +39,10 @@ modules/<id>/              un dossier par module actif
                            (commun/js/examen.js : version courte, révision, défi final), puis les « Vidéos à chercher » de chaque
                            chapitre de cours (demandé par l'utilisatrice) : `videos` de module.js ({ chapitre: [[sujet, chaîne,
                            recherche YouTube]] }), sinon la section « Vidéos à chercher » de sa version courte ; vérifié par static-check
+  podcasts.html            « Podcasts » (demandé par l'utilisatrice) : tous les podcasts du module sur une page, cours après cours,
+                           dans le choix « Cours / TD / Préparer l'examen / Podcasts » de la carte quand le module en a ; seule page
+                           pensée aussi pour le téléphone ; reprise d'écoute partagée avec la page du chapitre, un seul épisode à la
+                           fois, le suivant enchaîné, titre sur l'écran verrouillé (commun/js/podcasts.js, css/podcasts.css)
   vue-ensemble.html        vue d'ensemble : l'arbre du module en plein écran, cartes de révision (lien sur la page d'examen ;
                            pas un chapitre, ne compte pas dans la progression)
   chapitres/chapitre-<n>.html   une grande page par chapitre (générée, voir outils/regrouper.js)
@@ -74,8 +75,8 @@ chapitre suivant.
 
 - **La carte** (`index.html`, `commun/js/chapitres.js`) : un nœud rond par chapitre, dans l'ordre, reliés par un
   chemin ; sous le titre de chaque chapitre, sa `ligne` (60 caractères au plus). L'en-tête est le même sur toutes les cartes
-  (demandé par l'utilisatrice) : le choix du sous-module (s'il y en a plusieurs) et « Cours / TD / Préparer l'examen », puis le
-  titre seul. Pas de bouton « Reprendre » ni « Commencer » sur la carte : on touche le chapitre conseillé (en bleu) ; « Reprendre »
+  (demandé par l'utilisatrice) : le choix du sous-module (s'il y en a plusieurs) et « Cours / TD / Préparer l'examen » (plus « Podcasts » quand le
+  module en a), sur une ligne, ou sur deux, alignés à droite, quand ils n'y tiennent pas ; puis le titre seul. Pas de bouton « Reprendre » ni « Commencer » sur la carte : on touche le chapitre conseillé (en bleu) ; « Reprendre »
   reste sur le tableau de bord. Rien d'autre ne s'ajoute à l'en-tête. Chapitre fait en vert, chapitre
   conseillé en bleu ; rien n'est verrouillé. Un sous-module par carte (choix discret en haut quand il y en a plusieurs).
   Un sous-module est un cours à part entière (son professeur, ses documents) : ses chapitres sont numérotés à partir
@@ -130,7 +131,7 @@ Chaque page d'un module porte `<html lang="fr" data-module="<id>">` et charge da
 
 ## 2. Registre et couleurs
 
-Chaque module du registre a : `id`, `titre`, `abrege` (nom court, pour le choix du module sur la page « Podcasts »), `statut` (`actif` ou `a-venir`), `couleur` (forte : accents, barres,
+Chaque module du registre a : `id`, `titre`, `statut` (`actif` ou `a-venir`), `couleur` (forte : accents, barres,
 bandeaux, boutons), `clair` (étiquettes des sous-modules), `texte` (même teinte assombrie pour le petit texte
 sur fond blanc, contraste au moins 4,5), `sousModules` (`id`, `titre`, éventuellement `statut: "a-venir"`).
 Couleurs : celles du schéma Notion de l'utilisatrice, déjà saisies. Ne jamais en inventer d'autres.

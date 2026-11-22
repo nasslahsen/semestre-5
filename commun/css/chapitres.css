@@ -7,12 +7,12 @@
 .carte-chapitres .unite .nomn { font: 800 21px/1.2 "Bricolage Grotesque", Inter, sans-serif; max-width: 270px; }
 .carte-chapitres .unite .nomn small { display: block; margin-top: 6px; font: 400 15px/1.4 Inter, sans-serif; color: var(--doux); }
 /* Choix Cours / TD : discret, sous le choix du sous-module */
-.carte-chapitres .choix-ligne { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+.carte-chapitres .choix-ligne { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px 16px; margin-bottom: 22px; }
 .carte-chapitres .choix-ligne .choix-sm { margin-bottom: 0; }
 .carte-chapitres .onglets-carte { display: inline-flex; margin-left: auto; }
 .carte-chapitres .onglets-carte { flex: none; }
 .carte-chapitres .onglets-carte a { height: 44px; padding: 0 18px; white-space: nowrap; }
 /* le choix du sous-module et Cours / TD / Préparer l'examen tiennent sur une ligne */
-.carte-chapitres .choix-ligne .choix-sm { flex-wrap: nowrap; min-width: 0; }
+.carte-chapitres .choix-ligne .choix-sm { flex-wrap: nowrap; max-width: 100%; }
 .carte-chapitres .choix-sm a { padding: 0 14px; white-space: nowrap; }
 .carte-chapitres .td-vide { margin: 18px 0 0; color: var(--doux); font-size: 17px; }
