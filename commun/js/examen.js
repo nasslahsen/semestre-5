@@ -33,4 +33,31 @@
   zone.innerHTML = "<h2>" + P.t("Chapitre par chapitre") + "</h2>" +
     "<p>" + P.t("Pour chaque chapitre : l'essentiel et ses questions d'examen, puis la révision et le défi final, sans aide avant le premier essai.") + "</p>" +
     '<ol class="ex-chapitres">' + lignes.join("") + "</ol>";
+
+  // Toutes les vidéos du cours au même endroit : la section « Vidéos à chercher » de chaque version courte, reprise
+  // chapitre par chapitre (une seule source : la version courte ; rien ne s'affiche si aucune n'en a)
+  var avecCourt = P.chapitresDe(mid, sm.id, "cours").filter(function (ch) { return court.indexOf(ch.id) >= 0; });
+  if (!avecCourt.length || !window.fetch || !window.DOMParser) return;
+  Promise.all(avecCourt.map(function (ch) {
+    return fetch("court/chapitre-" + ch.id + ".html").then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; }).then(function (txt) {
+      var doc = new DOMParser().parseFromString(txt, "text/html");
+      var h2 = Array.prototype.filter.call(doc.querySelectorAll("h2"), function (h) { return /^Vidéos à chercher/.test(h.textContent.trim()); })[0];
+      if (!h2) return null;
+      var el = h2.nextElementSibling;
+      while (el && !el.querySelector("table") && el.tagName !== "H2") el = el.nextElementSibling;
+      var rows = el && el.querySelector("table") ? Array.prototype.slice.call(el.querySelectorAll("tr")).filter(function (tr) { return tr.querySelector("td"); }) : [];
+      return rows.length ? { ch: ch, rows: rows.map(function (tr) { return tr.innerHTML; }) } : null;
+    });
+  })).then(function (res) {
+    res = res.filter(Boolean);
+    if (!res.length) return;
+    var s = document.createElement("div");
+    s.id = "videos";
+    s.innerHTML = "<h2>" + P.t("Vidéos à chercher") + "</h2><p>" + P.t("Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.") + "</p>" +
+      res.map(function (x) {
+        return "<h3>" + esc(P.nomChapitre(mid, x.ch.id)) + " · " + esc(x.ch.titre) + "</h3>" +
+          '<div class="tableau"><table><tr><th>' + P.t("Sujet") + "</th><th>" + P.t("Chaîne") + "</th><th>" + P.t("Recherche") + "</th></tr><tr>" + x.rows.join("</tr><tr>") + "</tr></table></div>";
+      }).join("");
+    zone.parentNode.insertBefore(s, zone.nextSibling);
+  });
 })();
