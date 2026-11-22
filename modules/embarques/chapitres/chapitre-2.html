@@ -164,15 +164,22 @@
 <div id="fig-familles"></div>
 
 <h4>Le tableau Microchip (diapositive 15)</h4>
-<div class="tableau"><table>
-<tr><th>Product</th><th>Status</th><th>Flash (KB)</th><th>EEPROM (Bytes)</th><th>RAM (Bytes)</th><th>picoPower</th><th>I/O pins</th><th>UART/USART</th><th>SPI</th><th>TWI</th><th>8-bit Timers</th><th>16-bit Timers</th><th>PWM</th><th>10-bit A/D</th><th>Vcc</th></tr>
-<tr><td>ATmega6450</td><td>I</td><td>64</td><td>2K</td><td>4K</td><td></td><td>69</td><td>1</td><td>1+USI</td><td>USI</td><td>2</td><td>1</td><td>4</td><td>8</td><td>1.8-5.5V / 2.7-5.5V</td></tr>
-<tr><td>ATmega1284P</td><td>I</td><td>128</td><td>4K</td><td>16K</td><td>Y</td><td>32</td><td>2</td><td>1+USART</td><td>Y</td><td>1</td><td>2</td><td>6</td><td>8</td><td>1.8-5.5V</td></tr>
-<tr><td>ATmega128</td><td>P</td><td>128</td><td>4K</td><td>4K</td><td></td><td>53</td><td>2</td><td>1</td><td>Y</td><td>2</td><td>2</td><td>6+2</td><td>8</td><td>2.7-5.5V / 4.5-5.5V</td></tr>
-<tr><td>ATmega1280</td><td>P</td><td>128</td><td>4K</td><td>8K</td><td></td><td>86</td><td>4</td><td>1+USART</td><td>Y</td><td>2</td><td>4</td><td>12+4</td><td>16</td><td>1.8-5.5V / 2.7-5.5V</td></tr>
-<tr><td>ATmega1281</td><td>P</td><td>128</td><td>4K</td><td>8K</td><td></td><td>54</td><td>2</td><td>1+USART</td><td>Y</td><td>2</td><td>4</td><td>6+4</td><td>8</td><td>1.8-5.5V / 2.7-5.5V</td></tr>
-<tr><td>ATmega2560</td><td>P</td><td>256</td><td>4K</td><td>8K</td><td></td><td>86</td><td>4</td><td>1+USART</td><td>Y</td><td>2</td><td>4</td><td>12+4</td><td>16</td><td>1.8-5.5V / 4.5-5.5V</td></tr>
-<tr><td>ATmega2561</td><td>P</td><td>256</td><td>4K</td><td>8K</td><td></td><td>54</td><td>2</td><td>1+USART</td><td>Y</td><td>2</td><td>4</td><td>6+4</td><td>8</td><td>1.8-5.5V / 4.5-5.5V</td></tr>
+<div class="tableau serre"><table>
+<tr><th>Product</th><th>ATmega6450</th><th>ATmega1284P</th><th>ATmega128</th><th>ATmega1280</th><th>ATmega1281</th><th>ATmega2560</th><th>ATmega2561</th></tr>
+<tr><th>Status</th><td>I</td><td>I</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td></tr>
+<tr><th>Flash (KB)</th><td>64</td><td>128</td><td>128</td><td>128</td><td>128</td><td>256</td><td>256</td></tr>
+<tr><th>EEPROM (Bytes)</th><td>2K</td><td>4K</td><td>4K</td><td>4K</td><td>4K</td><td>4K</td><td>4K</td></tr>
+<tr><th>RAM (Bytes)</th><td>4K</td><td>16K</td><td>4K</td><td>8K</td><td>8K</td><td>8K</td><td>8K</td></tr>
+<tr><th>picoPower</th><td></td><td>Y</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>I/O pins</th><td>69</td><td>32</td><td>53</td><td>86</td><td>54</td><td>86</td><td>54</td></tr>
+<tr><th>UART/USART</th><td>1</td><td>2</td><td>2</td><td>4</td><td>2</td><td>4</td><td>2</td></tr>
+<tr><th>SPI</th><td>1+USI</td><td>1+USART</td><td>1</td><td>1+USART</td><td>1+USART</td><td>1+USART</td><td>1+USART</td></tr>
+<tr><th>TWI</th><td>USI</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+<tr><th>8-bit Timers</th><td>2</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+<tr><th>16-bit Timers</th><td>1</td><td>2</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+<tr><th>PWM</th><td>4</td><td>6</td><td>6+2</td><td>12+4</td><td>6+4</td><td>12+4</td><td>6+4</td></tr>
+<tr><th>10-bit A/D</th><td>8</td><td>8</td><td>8</td><td>16</td><td>8</td><td>16</td><td>8</td></tr>
+<tr><th>Vcc</th><td>1.8–5.5 V<br>2.7–5.5 V</td><td>1.8–5.5 V</td><td>2.7–5.5 V<br>4.5–5.5 V</td><td>1.8–5.5 V<br>2.7–5.5 V</td><td>1.8–5.5 V<br>2.7–5.5 V</td><td>1.8–5.5 V<br>4.5–5.5 V</td><td>1.8–5.5 V<br>4.5–5.5 V</td></tr>
 </table></div>
 <p>Le tableau de la diapositive a aussi les colonnes SPI/TWI by USI, Analog Gain Stage, DebugWIRE/OCD et JTAG/OCD, et deux lignes par puce (deux plages de tension Vcc).</p>
 

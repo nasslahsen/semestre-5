@@ -486,6 +486,27 @@
     return x ? (P.lang === "en" && x.titreEn ? x.titreEn : x.titre) : "";
   };
 
+  // Typographie française : une espace insécable avant ; : ? ! » et après «, pour qu'un signe ne parte jamais seul à la ligne
+  // (après une formule surtout). Sur les pages en français, hors code et formules ; relancée après le rendu des formules.
+  P.typographie = function (racine) {
+    if ((document.documentElement.getAttribute("lang") || "fr").slice(0, 2) !== "fr") return;
+    var w = document.createTreeWalker(racine || document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) { return n.parentNode && n.parentNode.closest && n.parentNode.closest("code,pre,script,style,textarea,.katex,svg") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }
+    }), n, liste = [];
+    while ((n = w.nextNode())) if (/ [;:?!»]|« |^\u00a0[;:?!»]/.test(n.nodeValue)) liste.push(n);
+    liste.forEach(function (t) {
+      t.nodeValue = t.nodeValue.replace(/ ([;:?!»])/g, " $1").replace(/« /g, "« ");
+      // juste après une formule (une boîte : la ligne peut casser après elle), la formule et le signe vont ensemble
+      var av = t.previousSibling, m = t.nodeValue.match(/^ [;:?!»]+/);
+      if (m && av && av.nodeType === 1 && (av.classList.contains("katex") || av.firstElementChild && av.firstElementChild.classList.contains("katex") && av.children.length === 1) && !av.parentNode.classList.contains("colle")) {
+        var s = document.createElement("span"); s.className = "colle"; s.style.whiteSpace = "nowrap";
+        av.parentNode.insertBefore(s, av); s.appendChild(av); s.appendChild(document.createTextNode(m[0]));
+        t.nodeValue = t.nodeValue.slice(m[0].length);
+      }
+    });
+  };
+  window.addEventListener("load", function () { P.typographie(); setTimeout(function () { P.typographie(); }, 600); });
+
   // Couleur du module courant, appliquée avant l'affichage.
   var m = P.module(P.courant);
   if (m) {

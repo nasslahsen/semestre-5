@@ -241,7 +241,7 @@ main p .katex:has(.mfrac), main li .katex:has(.mfrac) { display: inline-block; m
 .etape-lab.faite h4 { color: var(--ok); }
 .code-bloc { position: relative; margin: 14px 0 16px; border: 1.5px solid var(--trait); border-radius: 14px; background: var(--fond-doux); }
 .code-titre { margin: 0; padding: 10px 120px 0 18px; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .04em; color: var(--doux); }
-pre.code { margin: 0; padding: 14px 120px 16px 18px; overflow-x: auto; font: 500 15px/1.55 "JetBrains Mono", monospace; color: var(--encre); white-space: pre; -webkit-overflow-scrolling: touch; }
+pre.code { margin: 0; padding: 14px 120px 16px 18px; overflow-x: auto; font: 500 15px/1.55 "JetBrains Mono", monospace; color: var(--encre); white-space: pre-wrap; overflow-wrap: anywhere; -webkit-overflow-scrolling: touch; }
 pre.code code { font: inherit; }
 pre.code.long { max-height: 60vh; overflow-y: auto; }
 .copier { position: absolute; top: 8px; right: 8px; min-width: 96px; height: 48px; padding: 0 16px; border: 2px solid var(--encre); border-radius: 12px; background: #fff;
@@ -334,3 +334,5 @@ html[data-module="biomateriaux"] details.corrige p { margin-top: 10px; margin-bo
 #videos table { table-layout: fixed; width: 100%; }
 #videos th:nth-child(1) { width: 36%; }
 #videos th:nth-child(2) { width: 22%; }
+/* tableau à beaucoup de colonnes (tableau.serre) : cellules plus étroites pour tenir dans la colonne sans défiler */
+.tableau.serre th, .tableau.serre td { padding-left: 10px; padding-right: 10px; font-size: 15px; }

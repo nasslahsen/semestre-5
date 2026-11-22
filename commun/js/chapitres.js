@@ -41,7 +41,9 @@
     // un cours qui a des labs et aucun TD : pas d'onglet TD, les labs en tiennent lieu (demandé par l'utilisatrice)
     (avecLabs && !P.chapitresDe(MID, sm.id, "td").length && vue !== "td" ? "" : '<a href="' + P.urlPlan(MID, sm.id, "td") + '"' + (vue === "td" ? ' aria-current="page"' : "") + ">" + NOM.td + "</a>") +
     (avecLabs ? '<a href="' + P.urlPlan(MID, sm.id, "lab") + '"' + (vue === "lab" ? ' aria-current="page"' : "") + ">" + NOM.lab + "</a>" : "") +
-    '<a href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a></nav></div>";
+    '<a href="examen.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Préparer l'examen") + "</a>" +
+    // tous les podcasts du module sur une page (podcasts.html), quand il en a
+    (MOD.podcasts && Object.keys(MOD.podcasts).length ? '<a href="podcasts.html?sm=' + encodeURIComponent(sm.id) + '">' + P.t("Podcasts") + "</a>" : "") + "</nav></div>";
   var chs = P.chapitresDe(MID, sm.id, vue || "cours");
   // Le titre seul : pas de bouton sous ni à côté (on touche le chapitre conseillé, en bleu, sur la carte)
   h += '<div class="entete-ligne"><div class="entete-titre"><h1>' + (vueTD ? NOM[vue] + " · " : "") + esc(nomSm(sm) || MOD.titre) + "</h1></div></div>";

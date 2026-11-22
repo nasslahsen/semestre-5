@@ -1,0 +1,19 @@
+/* Page « Podcasts » d'un module (modules/<id>/podcasts.html) : la seule page pensée aussi pour un téléphone. */
+.pc-cours { margin: 34px 0 2px; padding: 0; border: 0; font: 700 13px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }
+.pc-cours::before { content: none; }
+.pc-ep { padding: 18px 0; border-bottom: 1.5px solid #eceef3; }
+.pc-ep.en-cours h3 { color: var(--jeu-texte); }
+.pc-num { display: block; font: 700 12px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--jeu-texte); }
+.podcasts .pc-ep h3 { margin: 2px 0 2px; font: 700 21px/1.25 "Bricolage Grotesque", Inter, sans-serif; }
+.pc-info { margin: 0 0 10px; color: #5c6170; font-size: 15px; }
+.pc-ep audio { display: block; width: 100%; height: 48px; }
+.pc-lien { display: inline-block; margin-top: 8px; padding: 6px 0; color: #3b5bdb; font: 500 15px Inter, sans-serif; }
+.pc-vide { color: #5c6170; }
+/* le nom du module est l'étiquette au-dessus du titre : la barre ne le redit pas */
+body:has(main.podcasts) .site-module { display: none; }
+/* téléphone : marges serrées */
+@media (max-width: 640px) {
+  main.podcasts { padding: 24px 16px 48px; }
+  .podcasts h1 { font-size: 30px; }
+  .podcasts .pc-ep h3 { font-size: 18px; }
+}
