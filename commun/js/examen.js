@@ -34,11 +34,15 @@
     "<p>" + P.t("Pour chaque chapitre : l'essentiel et ses questions d'examen, puis la révision et le défi final, sans aide avant le premier essai.") + "</p>" +
     '<ol class="ex-chapitres">' + lignes.join("") + "</ol>";
 
-  // Toutes les vidéos du cours au même endroit : la section « Vidéos à chercher » de chaque version courte, reprise
-  // chapitre par chapitre (une seule source : la version courte ; rien ne s'affiche si aucune n'en a)
-  var avecCourt = P.chapitresDe(mid, sm.id, "cours").filter(function (ch) { return court.indexOf(ch.id) >= 0; });
-  if (!avecCourt.length || !window.fetch || !window.DOMParser) return;
-  Promise.all(avecCourt.map(function (ch) {
+  // Toutes les vidéos du cours au même endroit, chapitre par chapitre : la liste videos de module.js
+  // ([sujet, chaîne, recherche]), sinon la section « Vidéos à chercher » de la version courte (rien ne s'affiche sans aucune vidéo)
+  var vids = M.videos || {};
+  function lien(q) { return '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(q).replace(/%20/g, "+") + '" target="_blank" rel="noopener">' + esc(q) + "</a>"; }
+  var chVideo = P.chapitresDe(mid, sm.id, "cours").filter(function (ch) { return vids[ch.id] || court.indexOf(ch.id) >= 0; });
+  if (!chVideo.length) return;
+  Promise.all(chVideo.map(function (ch) {
+    if (vids[ch.id]) return Promise.resolve({ ch: ch, rows: vids[ch.id].map(function (v) { return "<td>" + esc(v[0]) + "</td><td>" + esc(P.t(v[1])) + "</td><td>" + lien(v[2]) + "</td>"; }) });
+    if (!window.fetch || !window.DOMParser) return Promise.resolve(null);
     return fetch("court/chapitre-" + ch.id + ".html").then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; }).then(function (txt) {
       var doc = new DOMParser().parseFromString(txt, "text/html");
       var h2 = Array.prototype.filter.call(doc.querySelectorAll("h2"), function (h) { return /^Vidéos à chercher/.test(h.textContent.trim()); })[0];

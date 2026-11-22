@@ -12,6 +12,17 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("laboratoire", {
+  // vidéos à chercher sur YouTube, chapitre par chapitre (page « Préparer l'examen ») : [sujet, chaîne, recherche]
+  videos: {
+    1: [["Le laboratoire médical", "Au choix", "medical laboratory tour"], ["Phases pré-analytique, analytique, post-analytique", "Au choix", "pre analytical analytical post analytical phase laboratory"], ["Poste de sécurité microbiologique", "Au choix", "biosafety cabinet how it works"]],
+    2: [["Ordre des tubes de prélèvement", "Au choix", "order of draw blood tubes"], ["Centrifugation", "Au choix", "centrifuge blood sample"], ["Erreurs pré-analytiques", "Au choix", "pre analytical errors laboratory"]],
+    3: [["Loi de Beer-Lambert", "Khan Academy", "Khan Academy Beer Lambert law"], ["Spectrophotomètre", "Au choix", "spectrophotometer how it works"], ["Électrodes sélectives (ISE)", "Au choix", "ion selective electrode explained"]],
+    4: [["Automate d'hématologie", "Au choix", "hematology analyzer how it works"], ["Principe de Coulter", "Au choix", "Coulter principle impedance cell counting"], ["Tests de coagulation", "Au choix", "PT aPTT coagulation test explained"]],
+    5: [["Microscope optique", "Au choix", "how a light microscope works"], ["Microscope électronique", "Au choix", "electron microscope explained"], ["Agitateur magnétique chauffant", "Au choix", "magnetic stirrer hot plate"]],
+    6: [["Histologie : du prélèvement à la lame", "Leica Biosystems", "Leica Biosystems tissue processing"], ["Coloration H&E", "Au choix", "H and E staining explained"], ["Inclusion en paraffine", "Au choix", "paraffin embedding histology"]],
+    7: [["Automatisation du laboratoire", "Au choix", "total laboratory automation"], ["Système d'information de laboratoire (LIS)", "Au choix", "laboratory information system explained"], ["Transport pneumatique", "Au choix", "pneumatic tube system hospital"]],
+    8: [["Maintenance des équipements biomédicaux", "Au choix", "biomedical equipment maintenance"], ["Étalonnage et métrologie", "Au choix", "calibration metrology explained"], ["Contrôle qualité au laboratoire", "Au choix", "laboratory quality control Levey Jennings"]],
+  },
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
   // Podcasts des chapitres (NotebookLM, AAC mono 64 kb/s) : lecteur sous le titre de la page du chapitre.

@@ -10,6 +10,12 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("langues", {
+  // vidéos à chercher sur YouTube, chapitre par chapitre (page « Préparer l'examen ») : [sujet, chaîne, recherche]
+  videos: {
+    1: [["Soft skills vs hard skills", "Au choix", "soft skills vs hard skills"], ["Soft skills for engineers", "Au choix", "soft skills for engineers"], ["Teamwork and communication", "Au choix", "communication skills at work"]],
+    2: [["Common interview questions", "Linda Raynier", "Linda Raynier tell me about yourself"], ["The STAR method", "Au choix", "STAR method interview answers"], ["Engineering interview tips", "Au choix", "engineering job interview tips"]],
+    3: [["Presentation skills", "Alexander Lyon", "Alexander Lyon presentation skills"], ["How to start a presentation", "Au choix", "how to start a presentation"], ["Body language when speaking", "Au choix", "body language public speaking"]],
+  },
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [

@@ -8,6 +8,21 @@
  * sections : le cours de chaque chapitre en sections (une idée chacune) ; chaque section réunit des pages de cours, dans l'ordre.
  */
 PLATEFORME.parcours("biomateriaux", {
+  // vidéos à chercher sur YouTube, chapitre par chapitre (page « Préparer l'examen ») : [sujet, chaîne, recherche]
+  videos: {
+    1: [["Qu'est-ce qu'un biomatériau", "Au choix", "what are biomaterials introduction"], ["Classes des dispositifs médicaux", "Au choix", "medical device classification EU MDR class I IIa IIb III"], ["Biocompatibilité", "Au choix", "biocompatibility explained"]],
+    8: [["Histoire des implants", "Au choix", "history of medical implants"], ["Prothèse de hanche", "Au choix", "hip replacement implant materials"], ["Implants dentaires", "Au choix", "dental implant titanium osseointegration"]],
+    0: [["Contrainte et déformation", "The Efficient Engineer", "The Efficient Engineer stress strain"], ["Module de Young", "Au choix", "Young's modulus explained"], ["Essai de traction", "Au choix", "tensile test explained"]],
+    2: [["Liaisons atomiques", "Au choix", "metallic ionic covalent bonding materials"], ["Familles de matériaux", "DoITPoMS", "DoITPoMS classes of materials"], ["Céramiques", "Au choix", "ceramics materials science explained"]],
+    9: [["Titane en médecine", "Au choix", "titanium medical implants"], ["Alliage à mémoire de forme NiTi", "Au choix", "nitinol shape memory alloy stent"], ["Corrosion des implants", "Au choix", "corrosion of metal implants"]],
+    10: [["Biocéramiques", "Au choix", "bioceramics alumina zirconia"], ["Hydroxyapatite", "Au choix", "hydroxyapatite bone graft"], ["Tête de prothèse en céramique", "Au choix", "ceramic femoral head hip"]],
+    3: [["Structure des polymères", "Au choix", "polymer structure explained"], ["Température de transition vitreuse", "Au choix", "glass transition temperature polymers"], ["Polymères amorphes et semi-cristallins", "Au choix", "amorphous vs semi crystalline polymers"]],
+    11: [["Viscoélasticité", "Au choix", "viscoelasticity explained creep relaxation"], ["UHMWPE dans les prothèses", "Au choix", "UHMWPE joint replacement"], ["PEEK en médecine", "Au choix", "PEEK medical implants"]],
+    4: [["Élastomères", "Au choix", "elastomers explained"], ["Vulcanisation", "Au choix", "vulcanization rubber explained"], ["Silicone médical", "Au choix", "medical grade silicone"]],
+    5: [["Additifs des plastiques", "Au choix", "plastic additives plasticizers fillers"], ["Plastifiants", "Au choix", "how plasticizers work PVC"], ["Renforts fibres", "Au choix", "fiber reinforced plastics"]],
+    6: [["Matériaux composites", "The Efficient Engineer", "The Efficient Engineer composite materials"], ["Loi des mélanges", "Au choix", "rule of mixtures composites"], ["Orientation des fibres", "Au choix", "fiber orientation composite strength"]],
+    7: [["Extrusion", "Au choix", "plastic extrusion process"], ["Moulage par injection", "Au choix", "injection molding process explained"], ["Soufflage", "Au choix", "blow molding process"]],
+  },
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
