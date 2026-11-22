@@ -14,7 +14,7 @@ window.REGISTRE = {
   semestre: "Semestre 5",
   modules: [
     {
-      id: "robotique", titre: "Robotique médicale", statut: "actif",
+      id: "robotique", titre: "Robotique médicale", abrege: "Robotique", statut: "actif",
       couleur: "#D44C47", clair: "#FFE2DD", texte: "#CB4844",
       sousModules: [
         { id: "bio", titre: "Robotique biomédicale" },
@@ -22,14 +22,14 @@ window.REGISTRE = {
       ]
     },
     {
-      id: "biomateriaux", titre: "Biomatériaux, biomécanique et prothèses", statut: "actif",
+      id: "biomateriaux", titre: "Biomatériaux, biomécanique et prothèses", abrege: "Biomatériaux", statut: "actif",
       couleur: "#9065B0", clair: "#E8DEEE", texte: "#8D62AC",
       sousModules: [
         { id: "biomateriaux", titre: "Biomatériaux et biocompatibilité" }
       ]
     },
     {
-      id: "embarques", titre: "Systèmes embarqués et instrumentation biomédicale intelligente", statut: "actif",
+      id: "embarques", titre: "Systèmes embarqués et instrumentation biomédicale intelligente", abrege: "Embarqués et IoT", statut: "actif",
       couleur: "#337EA9", clair: "#D3E5EF", texte: "#317BA5",
       sousModules: [
         { id: "embarques", titre: "Systèmes embarqués" },
@@ -37,7 +37,7 @@ window.REGISTRE = {
       ]
     },
     {
-      id: "informatique", titre: "Informatique médicale", statut: "actif",
+      id: "informatique", titre: "Informatique médicale", abrege: "Informatique", statut: "actif",
       couleur: "#CB912F", clair: "#FDECC8", texte: "#9A6E23",
       sousModules: [
         { id: "sis", titre: "Systèmes d'informations de santé" },
@@ -45,17 +45,17 @@ window.REGISTRE = {
       ]
     },
     {
-      id: "architecture", titre: "Architecture hospitalière, contraintes d'installation et exigences réglementaires", statut: "actif",
+      id: "architecture", titre: "Architecture hospitalière, contraintes d'installation et exigences réglementaires", abrege: "Architecture", statut: "actif",
       couleur: "#448361", clair: "#DBEDDB", texte: "#448361",
       sousModules: []
     },
     {
-      id: "laboratoire", titre: "Technologies de laboratoire d'analyses médicales", statut: "actif",
+      id: "laboratoire", titre: "Technologies de laboratoire d'analyses médicales", abrege: "Laboratoire", statut: "actif",
       couleur: "#D9730D", clair: "#FADEC9", texte: "#B6600A",
       sousModules: []
     },
     {
-      id: "langues", titre: "Langues étrangères 5", titreEn: "Foreign languages 5", statut: "actif",
+      id: "langues", titre: "Langues étrangères 5", abrege: "Langues", titreEn: "Foreign languages 5", statut: "actif",
       couleur: "#C14C8A", clair: "#F5E0E9", texte: "#BD4A87",
       sousModules: [
         { id: "francais", titre: "Français", titreEn: "French", statut: "a-venir" },

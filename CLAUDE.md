@@ -12,6 +12,9 @@ Utilisation : uniquement sur iPad, en paysage, au doigt et parfois à l'Apple Pe
 ```
 index.html                 tableau de bord : une carte par module, bandeau « Reprendre », lien « Mon suivi »
 suivi.html                 Mon suivi : progression par module et chapitre, questions à revoir, documents reçus
+podcasts.html              Podcasts (podcasts.html?m=<module>) : tous les podcasts d'un module sur une page, lien sur le tableau de bord ;
+                           seule page pensée aussi pour le téléphone ; reprise d'écoute partagée avec la page du chapitre, épisode
+                           suivant enchaîné, titre sur l'écran verrouillé (commun/js/podcasts.js, css/podcasts.css)
 registre.js                registre central : modules, sous-modules, couleurs, statut
 commun/                    système de design partagé (ne pas copier dans les modules)
   css/jeu.css              écran de niveau (et styles des nœuds repris par la carte)
@@ -127,7 +130,7 @@ Chaque page d'un module porte `<html lang="fr" data-module="<id>">` et charge da
 
 ## 2. Registre et couleurs
 
-Chaque module du registre a : `id`, `titre`, `statut` (`actif` ou `a-venir`), `couleur` (forte : accents, barres,
+Chaque module du registre a : `id`, `titre`, `abrege` (nom court, pour le choix du module sur la page « Podcasts »), `statut` (`actif` ou `a-venir`), `couleur` (forte : accents, barres,
 bandeaux, boutons), `clair` (étiquettes des sous-modules), `texte` (même teinte assombrie pour le petit texte
 sur fond blanc, contraste au moins 4,5), `sousModules` (`id`, `titre`, éventuellement `statut: "a-venir"`).
 Couleurs : celles du schéma Notion de l'utilisatrice, déjà saisies. Ne jamais en inventer d'autres.
