@@ -1,14 +1,5 @@
 /* Structure par chapitres : la carte d'un sous-module, un nœud par chapitre (styles de la carte habituelle, jeu.css). */
-/* En-tête identique sur toutes les cartes : choix (sous-module, Cours / TD), le titre sur sa ligne, puis une rangée de deux boutons de même hauteur */
-.carte-chapitres .entete-ligne { display: block; margin-top: 4px; }
-.entete-boutons { display: flex; align-items: stretch; gap: 14px; margin-top: 22px; }
-.btn.reprendre { height: 72px; width: 460px; padding: 0 28px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  font-size: 20px; text-decoration: none; }
-.btn.reprendre small { font: 500 15px Inter, sans-serif; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-.btn-examen { display: inline-flex; align-items: center; justify-content: center; height: 72px; padding: 0 28px; border: 2px solid #c9cdd6; border-radius: 16px; background: #fff;
-  color: #15171f; font: 600 18px Inter, sans-serif; text-decoration: none; white-space: nowrap; }
-.carte-chapitres .tout-fait { display: inline-flex; align-items: center; height: 72px; width: 460px; }
-.carte-chapitres .tout-fait { color: var(--ok); font-weight: 600; }
+.carte-chapitres .entete-ligne { align-items: center; margin-top: 4px; }
 .carte-chapitres #chapitres { max-width: 1180px; margin: 0 auto; padding: 22px 40px 40px; }
 .carte-chapitres .unites { row-gap: 70px; padding-top: 30px; }
 .noeud-chapitre .forme { width: 92px; height: 92px; font-size: 34px; }
@@ -19,5 +10,9 @@
 .carte-chapitres .choix-ligne { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
 .carte-chapitres .choix-ligne .choix-sm { margin-bottom: 0; }
 .carte-chapitres .onglets-carte { display: inline-flex; margin-left: auto; }
-.carte-chapitres .onglets-carte a { height: 44px; padding: 0 26px; }
+.carte-chapitres .onglets-carte { flex: none; }
+.carte-chapitres .onglets-carte a { height: 44px; padding: 0 18px; white-space: nowrap; }
+/* le choix du sous-module et Cours / TD / Préparer l'examen tiennent sur une ligne */
+.carte-chapitres .choix-ligne .choix-sm { flex-wrap: nowrap; min-width: 0; }
+.carte-chapitres .choix-sm a { padding: 0 14px; white-space: nowrap; }
 .carte-chapitres .td-vide { margin: 18px 0 0; color: var(--doux); font-size: 17px; }
