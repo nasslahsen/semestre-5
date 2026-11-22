@@ -516,6 +516,8 @@
         ignoredClasses: ["direct"]
       });
     }
+    // typographie française une fois les formules posées (un « ; » ne part pas seul à la ligne après une formule)
+    if (global.PLATEFORME && PLATEFORME.typographie) PLATEFORME.typographie();
   }
 
   var RM = {

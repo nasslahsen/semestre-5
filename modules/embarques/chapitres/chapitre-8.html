@@ -74,7 +74,9 @@
 </ul>
 
 <h4>À retenir</h4>
-\[ \texttt{GET api.thingspeak.com/update?api\_key=CLE\&field1=v} \qquad \texttt{writeFields(...) == 200} \Rightarrow \text{écriture réussie} \qquad 8 \text{ fields par channel} \]
+\[ \texttt{GET api.thingspeak.com/update?api\_key=CLE\&field1=v} \]
+\[ \texttt{writeFields(...) == 200} \Rightarrow \text{écriture réussie} \]
+\[ 8 \text{ fields par channel} \]
 </article>
 
 <div class="fin-partie" data-section="thingspeak"></div>
@@ -102,7 +104,9 @@
 <p>Lab 2 du cours : l'ESP32 publie <code>field1=</code> HR <code>&amp;field2=</code> SPO2 toutes les 15 s sur <code>channels/&lt;ID&gt;/publish</code> ; HR va de 50 à 110 par pas de 5, SPO2 de 80 à 100 par pas de 2. Abonné à <code>channels/&lt;ID&gt;/subscribe</code>, il reçoit chaque entrée en retour dans son callback. Le tampon passe à 2048 octets (<code>setBufferSize(2048)</code>) : sinon le JSON reçu déborde et le callback n'est jamais appelé.</p>
 
 <h4>À retenir</h4>
-\[ \texttt{channels/ID/publish} \quad \texttt{field1=..\&field2=..} \qquad \texttt{channels/ID/publish/fields/fieldN} \qquad \texttt{channels/ID/subscribe} \rightarrow \text{JSON de l'entrée} \]
+\[ \texttt{channels/ID/publish} \quad \texttt{field1=..\&field2=..} \]
+\[ \texttt{channels/ID/publish/fields/fieldN} \]
+\[ \texttt{channels/ID/subscribe} \rightarrow \text{JSON de l'entrée} \]
 </article>
 
 <div class="fin-partie" data-section="thingspeak-mqtt"></div>

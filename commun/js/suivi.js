@@ -51,7 +51,8 @@
         };
         var autre = function (quoi, nom) {
           var l = P.chapitresDe(m.id, sm.id, quoi);
-          return l.length ? '<h4 class="sv-cours">' + (sm.titre && sms.length > 1 ? nom + " · " + esc(sm.titre) : nom) + "</h4>" + l.map(ligne).join("") : "";
+          // juste « TD » ou « Labs » : la rangée suit déjà les chapitres de son cours
+          return l.length ? '<h4 class="sv-cours sv-autre">' + nom + "</h4>" + l.map(ligne).join("") : "";
         };
         return (sm.titre && sms.length > 1 ? '<h4 class="sv-cours">' + esc(sm.titre) + "</h4>" : "") + P.chapitresDe(m.id, sm.id, "cours").map(ligne).join("") +
           autre("td", "TD") + autre("lab", "Labs");

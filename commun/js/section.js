@@ -45,8 +45,10 @@
   if (pod && titre1) {
     var bp = document.createElement("div");
     bp.className = "podcast";
-    bp.innerHTML = '<p><small>' + P.t("Écouter le podcast du chapitre") + "</small>" + esc(pod.titre) +
-      (pod.duree ? " · " + esc(pod.duree) : "") + (pod.langue === "en" && P.lang !== "en" ? " · en anglais" : "") + "</p>" +
+    // le nom du podcast, sauf s'il redit le titre du chapitre juste au-dessus : alors seulement sa durée
+    var norm = function (t) { return String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); };
+    var infos = [norm(pod.titre) === norm(ch.titre) ? "" : esc(pod.titre), pod.duree ? esc(pod.duree) : "", pod.langue === "en" && P.lang !== "en" ? "en anglais" : ""].filter(Boolean);
+    bp.innerHTML = '<p><small>' + P.t("Écouter le podcast du chapitre") + "</small>" + infos.join(" · ") + "</p>" +
       '<audio controls preload="metadata" src="../' + esc(pod.fichier) + '"></audio>';
     titre1.parentNode.insertBefore(bp, titre1.nextSibling);
     var audio = bp.querySelector("audio"), CLEP = "s5-podcast", cleP = MID + "/" + ch.id, posP = {};

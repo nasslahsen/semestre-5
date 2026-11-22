@@ -275,7 +275,10 @@
 <p>D'où vient la méthode : chapitre 6, <a href="mgi-2r.html">le MGI du robot 2R</a>. Le triangle base, coude, cible a pour côtés \(L_1 = 40\), \(L_2 = 30\) et \(r\). Al-Kashi donne l'angle du coude :</p>
 \[ \cos\theta_2 = \frac{x_c^2 + y_c^2 - L_1^2 - L_2^2}{2 L_1 L_2} = \frac{4250 - 1600 - 900}{2 \times 40 \times 30} = \frac{1750}{2400} = 0{,}7292 \qquad \theta_2 = \pm 43{,}18° \]
 <p>Deux signes, car le coude peut se plier d'un côté ou de l'autre de la droite base-cible. Puis deux angles auxiliaires : \(\alpha\), la direction de la cible vue de la base, et \(\beta\), l'angle entre cette direction et le segment 1 :</p>
-\[ \alpha = \operatorname{atan2}(35, 55) = 32{,}47° \qquad \beta = \operatorname{atan2}(L_2\sin|\theta_2|,\ L_1 + L_2\cos\theta_2) = \operatorname{atan2}(30 \times 0{,}684,\ 40 + 30 \times 0{,}729) = \operatorname{atan2}(20{,}53,\ 61{,}88) = 18{,}36° \]
+\[ \alpha = \operatorname{atan2}(35, 55) = 32{,}47° \]
+\[ \beta = \operatorname{atan2}(L_2\sin|\theta_2|,\ L_1 + L_2\cos\theta_2) \]
+\[ \beta = \operatorname{atan2}(30 \times 0{,}684,\ 40 + 30 \times 0{,}729) \]
+\[ \beta = \operatorname{atan2}(20{,}53,\ 61{,}88) = 18{,}36° \]
 <p>Avec le nom du tableau du cours, « coude bas » : \(\theta_2 = 43{,}18°\) et \(\theta_1 = \alpha - \beta = 14{,}12°\). L'autre solution : \(\theta_2 = -43{,}18°\), \(\theta_1 = \alpha + \beta = 50{,}83°\).</p>
 <p>Vérification par la MGD (toujours la faire) : \(40\cos 14{,}12° + 30\cos 57{,}30° = 38{,}79 + 16{,}21 = 55{,}0\) et \(40\sin 14{,}12° + 30\sin 57{,}30° = 9{,}76 + 25{,}24 = 35{,}0\).</p>
 <p>La figure de l'énoncé a son axe \(y_0\) vers le bas : demande à ton enseignante laquelle des deux solutions elle appelle « coude vers le bas ».</p>
