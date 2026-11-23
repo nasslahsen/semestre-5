@@ -181,5 +181,39 @@ window.SCHEMAS = {
            [{ id: "d", t: "Déshydratation", s: "alcools de concentrations croissantes" }],
            [{ id: "c", t: "Clarification", s: "xylène ou substitut", k: "doux" }],
            [{ id: "i", t: "Imprégnation", s: "paraffine vers 60 °C, sous vide", k: "fort" }]],
-    liens: [["f", "d"], ["d", "c"], ["c", "i"]] }
+    liens: [["f", "d"], ["d", "c"], ["c", "i"]] },
+
+  /* ---------- Page « Préparer l'examen » ---------- */
+  "sc-ex-secteurs": { titre: "Les secteurs suivent le trajet de l'échantillon", deplier: false,
+    cols: [[{ id: "rec", t: "Réception", s: "guichet, station pneumatique" }],
+           [{ id: "pre", t: "Aire pré-analytique", s: "tri, centrifugation,\naliquotage, conservation", k: "doux" }],
+           [{ id: "ana", t: "Aire analytique", s: "biochimie, hématologie,\nmicrobiologie…", k: "fort" }],
+           [{ id: "aut", t: "Autour", s: "locaux spécialisés, dépôts,\nadministratif, personnel", k: "neutre" }]],
+    liens: [["rec", "pre"], ["pre", "ana"]] },
+
+  "sc-ex-serum-plasma": { titre: "Même sang, deux tubes, deux liquides", deplier: false,
+    cols: [[{ id: "s", t: "Sang prélevé", s: "cellules + liquide" }],
+           [{ id: "ac", t: "Tube avec anticoagulant", s: "EDTA, citrate, héparine\nle sang ne coagule pas" },
+            { id: "sec", t: "Tube sec ou à gel", s: "on laisse coaguler\n30 à 60 min" }],
+           [{ id: "c1", t: "Centrifugation", s: "tout de suite\n2 000 à 2 500 × g, 10 à 15 min", k: "doux" },
+            { id: "c2", t: "Centrifugation", s: "après le caillot\n2 000 à 2 500 × g, 10 à 15 min", k: "doux" }],
+           [{ id: "pl", t: "Plasma", s: "liquide au-dessus des cellules", k: "fort" },
+            { id: "se", t: "Sérum", s: "liquide au-dessus du caillot", k: "fort" }]],
+    liens: [["s", "ac"], ["s", "sec"], ["ac", "c1"], ["sec", "c2"], ["c1", "pl"], ["c2", "se"]] },
+
+  "sc-ex-pneumatique": { titre: "Un envoi pneumatique, d'une station à l'autre", deplier: false,
+    cols: [[{ id: "env", t: "Station d'envoi", s: "capsule, destination,\nsas verrouillé" }],
+           [{ id: "log", t: "Centre de contrôle", s: "logiciel : priorités,\nsuivi RFID", k: "neutre" }],
+           [{ id: "apu", t: "Turbine (APU)", s: "pression ou dépression", k: "doux" },
+            { id: "aig", t: "Aiguillages", s: "choisissent la ligne", k: "doux" }],
+           [{ id: "tub", t: "Tuyauterie", s: "PVC 110 ou 160 mm,\n≈ 5,5 m/s" }],
+           [{ id: "rec", t: "Station de réception", s: "coussin d'air, bac,\nvoyant, acquittement", k: "fort" }]],
+    liens: [["env", "log"], ["log", "apu"], ["log", "aig"], ["apu", "tub"], ["aig", "tub"], ["tub", "rec"]] },
+
+  "sc-ex-coussin": { titre: "Le freinage à l'arrivée, en trois temps", deplier: false,
+    cols: [[{ id: "c", t: "Compression", s: "la capsule pousse\nl'air devant elle" }],
+           [{ id: "v", t: "Vanne fermée", s: "un capteur détecte l'arrivée,\nl'échappement se ferme", k: "doux" }],
+           [{ id: "p", t: "Effet piston", s: "l'air piégé se comprime :\nun coussin qui freine", k: "fort" }],
+           [{ id: "a", t: "Amortissement", s: "élastomère ou vérin,\npuis le bac" }]],
+    liens: [["c", "v"], ["v", "p"], ["p", "a"]] }
 };
