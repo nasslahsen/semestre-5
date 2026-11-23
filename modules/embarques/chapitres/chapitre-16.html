@@ -35,6 +35,7 @@
 <li>une mesure de <strong>bio-impédance</strong> (circuit MAX30009) ;</li>
 <li>un microcontrôleur et un émetteur radio, le tout sur accumulateur.</li>
 </ul>
+<figure class="photo duo"><img src="../images/semelle-fs-ins-16z.jpg" alt="La semelle FS-INS-16Z, film souple avec 16 zones sensibles et sa nappe de connexion"><img src="../images/semelle-plan-capteurs.jpg" alt="Plan de la semelle FS-INS-16Z : 16 zones sensibles, longueur 253 mm, épaisseur 0,4 mm"><figcaption>La semelle FS-INS-16Z et son plan : 16 zones sensibles, dont deux sous le talon, 253 mm de long, 0,4 mm d'épaisseur.<small>Documents du cours, TD « Semelle instrumentée pour le suivi médical » : documentation commerciale DT1.</small></figcaption></figure>
 <p>Le sujet complet a quatre parties : appui plantaire, bio-impédance, transmission radio, synthèse. L'extrait reçu contient la première, « Analyse de l'appui plantaire », en trois temps :</p>
 <div class="tableau"><table>
 <tr><th>Partie</th><th>Questions</th><th>Ce qu'on fait</th></tr>
@@ -57,12 +58,13 @@
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Valeur</th></tr>
 <tr><td>Capteur de la semelle</td><td>deux disques de diamètre \(D = 11\) mm, centres à \(L = 15\) mm, longueur totale \(LT = 26\) mm</td></tr>
-<tr><td>Plage d'un capteur (fiche)</td><td>de 500 g à 10 kg</td></tr>
+<tr><td>Semelle FS-INS-16Z (DT1)</td><td>16 points de mesure, 20 bornes (16 propres, 2 communes, 2 non utilisées), 253 mm de long, 0,4 mm d'épaisseur</td></tr>
+<tr><td>Un capteur (DT1)</td><td>déclenchement à 500 g, plage de 500 g à 10 kg, plus de 1 MΩ au repos, réponse en moins de 10 µs, répétabilité ±10 % à 2 kg</td></tr>
 <tr><td>Capteur de référence du banc</td><td>FUTEK LSB200, modèle FSH00107, pleine échelle 445 N, excitation 5 V</td></tr>
 <tr><td>Montage de la figure 5</td><td>\(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ</td></tr>
 <tr><td>Acquisition</td><td>marche intense : 120 pas par minute, au moins 20 points par pas, ADC 8 bits</td></tr>
 </table></div>
-<p>Les annexes DT1 à DT4 (fiches de la semelle, du FUTEK, de l'INA128, du NX3L4051) et le document réponse DR1 ne sont pas dans l'extrait reçu. Quand une réponse en dépend, c'est dit, et la méthode est donnée.</p>
+<p>Les réponses s'appuient sur les documents du sujet : DT1 (semelle), DT2 (FUTEK LSB200), DT3 (INA128), DT4 (NX3L4051) et DR1 (courbe d'un capteur).</p>
 
 <h4>Question 1 : la surface d'un capteur</h4>
 <p><strong>On te demande.</strong> La surface active a la forme de deux disques de diamètre \(D = 11\) mm dont les centres sont à \(L = 15\) mm, reliés par un rectangle (\(LT = 26\) mm). Détermine sa surface en mm².</p>
@@ -82,7 +84,7 @@
 <p><strong>On te demande.</strong> Avec la documentation commerciale, détermine la force maximale en newtons pour rester dans la zone de mesure, puis la pression maximale en kPa.</p>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
-<li>La fiche donne une <strong>masse</strong> (de 500 g à 10 kg) : la force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
+<li>La fiche DT1 donne une <strong>masse</strong> : plage de sensibilité de 500 g à 10 kg (« sensitivity range »), déclenchement à 500 g (« actuation force »). La force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
 <li>Une <strong>pression</strong>, c'est une force répartie sur une surface : \(P = F / S\), en pascals si \(F\) est en newtons et \(S\) en m².</li>
 <li>Conversion : 1 mm² = \(10^{-6}\) m², et 1 kPa = 1 000 Pa.</li>
 </ul>
@@ -113,7 +115,8 @@
 <p>Dans la plage. Mais à l'attaque du talon, la charge se concentre sur les deux capteurs du talon :</p>
 \[F_{capteur} = \frac{686{,}7}{2} \approx 343\ \text{N} > 98{,}1\ \text{N}\]
 <p>Plus de trois fois la limite : ces capteurs <strong>saturent</strong>, ils lisent 98,1 N au plus.</p>
-<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La géométrie exacte est dans l'annexe DT1, pas reçue : le raisonnement suit l'exemple du cours (charge partagée à parts égales entre les capteurs chargés).</p>
+<p>Le plan de la semelle (DT1, photo plus haut) le confirme : le talon ne porte que <strong>deux zones sensibles</strong>, sur 48 mm de large.</p>
+<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La fiche le dit d'ailleurs : répétabilité de ±10 % à 2 kg, trop peu précis pour une mesure absolue, assez pour un suivi.</p>
 </article>
 
 <div class="fin-partie" data-section="td1"></div>
@@ -140,34 +143,43 @@
 <li><strong>+Excitation</strong> et <strong>−Excitation</strong> : l'alimentation du pont, sur une diagonale (ici 5 V) ;</li>
 <li><strong>+Signal</strong> et <strong>−Signal</strong> : la mesure, sur l'autre diagonale, une tension différentielle de quelques millivolts.</li>
 </ul>
-<p>Sous charge, deux jauges s'allongent et deux se raccourcissent, placées pour que leurs effets s'ajoutent : les deux fils de signal, partis tous deux de 2,5 V, s'écartent. La fiche DT2 (couleurs des fils, sensibilité) n'est pas dans l'extrait reçu.</p>
+<p>La fiche DT2 (« wiring code ») donne les couleurs :</p>
+<div class="tableau"><table>
+<tr><th>Fil</th><th>Couleur</th><th>Rôle</th></tr>
+<tr><td>+Excitation</td><td>rouge</td><td>alimentation + du pont (5 V au banc, 10 V au plus)</td></tr>
+<tr><td>−Excitation</td><td>noir</td><td>alimentation − du pont (0 V)</td></tr>
+<tr><td>+Signal</td><td>vert</td><td>sortie + de la mesure</td></tr>
+<tr><td>−Signal</td><td>blanc</td><td>sortie − de la mesure</td></tr>
+</table></div>
+<p>Le blindage du câble est laissé flottant. Résistance du pont : 350 Ω nominal. Sous charge, deux jauges s'allongent et deux se raccourcissent, placées pour que leurs effets s'ajoutent : les deux fils de signal, partis tous deux de 2,5 V, s'écartent. La fiche précise le sens : sortie positive en traction, négative en compression.</p>
 
 <h4>Question 5 : le modèle FSH00107 convient-il ?</h4>
 <p><strong>On te demande.</strong> Justifie que le modèle FSH00107 du FUTEK LSB200 convient pour caractériser les capteurs de la semelle.</p>
 <p><strong>Ce qu'il faut savoir.</strong> Un capteur de référence doit couvrir toute la plage du capteur qu'on teste, avec de la marge, et travailler dans le même sens (ici en compression).</p>
 <p><strong>Réponse.</strong></p>
 <ul>
-<li>Sa pleine échelle est de 445 N ; les capteurs de la semelle saturent vers 98,1 N (question 2). Toute leur plage tient dans celle du FUTEK, avec une marge d'environ 4,5 (\(445 / 98{,}1\)).</li>
+<li>Le tableau de DT2 donne pour le FSH00107 une capacité de 100 lb, soit 445 N ; les capteurs de la semelle saturent vers 98,1 N (question 2). Toute leur plage tient dans celle du FUTEK, avec une marge d'environ 4,5 (\(445 / 98{,}1\)).</li>
 <li>On peut même pousser au-delà de 98,1 N pour voir la saturation, sans risque pour le capteur de référence.</li>
-<li>Il travaille en compression, comme sur le banc où il appuie sur la semelle.</li>
+<li>Il travaille en traction et en compression, et un étalonnage en compression est proposé (« calibration available : compression »), comme sur le banc où il appuie sur la semelle.</li>
+<li>Il est bien plus précis que ce qu'il contrôle : non-linéarité ±0,1 %, hystérésis ±0,1 %, non-répétabilité ±0,05 % de la pleine échelle, contre ±10 % de répétabilité pour la semelle (DT1).</li>
+<li>Il est petit (19,1 × 16,5 mm, 9 g) et en acier inoxydable pour les modèles de 25 à 100 lb.</li>
 </ul>
-<p>Les autres arguments (précision, dimensions) sont sur la fiche DT2, pas reçue.</p>
 
 <h4>Question 6 : la caractéristique Vo(P)</h4>
 <p><strong>On te demande.</strong> Le LSB200 est utilisé en compression seulement, sous une excitation de 5 V. Capteur supposé linéaire, \(V_o\) toujours positive : représente \(V_o\) en fonction de \(P\) sur la pleine échelle (445 N).</p>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
 <li>La sortie d'un pont de jauges est proportionnelle à l'excitation et à la charge.</li>
-<li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output ») : la sortie à pleine échelle, par volt d'excitation.</li>
+<li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output », R.O.) : la sortie à pleine échelle, par volt d'excitation. Pour le FSH00107, DT2 donne 2 mV/V.</li>
 </ul>
 <div id="fig-td1-vo"></div>
 <p><strong>Réponse.</strong></p>
 \[V_o(P) = S\,V_{exc}\,\frac{P}{445\ \text{N}}\]
-<p>C'est une droite qui part de l'origine (0 N, 0 V) et monte jusqu'à \(V_{o,max} = S \times 5\) V à 445 N. La valeur de \(S\) est sur DT2, pas reçue. Avec une sensibilité supposée de 2 mV/V, pour fixer les idées :</p>
+<p>C'est une droite qui part de l'origine (0 N, 0 V) et monte jusqu'à \(V_{o,max}\) à 445 N, avec \(S = 2\) mV/V (DT2) :</p>
 \[V_{o,max} = S\,V_{exc}\]
 \[V_{o,max} = 2 \times 5\]
 \[V_{o,max} = 10\ \text{mV}\]
-<p>Si ta fiche donne une autre valeur, garde la même méthode.</p>
+<p>La fiche donne une sortie négative en compression : l'énoncé demande \(V_o\) positive, ce qui revient à croiser les deux fils de signal (ou à tracer la valeur absolue).</p>
 
 <h4>Question 7 : le gain de l'INA128</h4>
 <p><strong>On te demande.</strong> Retrouve l'expression du gain de l'INA128. \(R_G\) est fixée pour obtenir 1 V en sortie pour 100 N sur la semelle. Calcule \(R_G\).</p>
@@ -178,7 +190,7 @@
 </ul>
 <p><strong>Réponse.</strong> Gain de l'INA128 :</p>
 \[G = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
-<p>Sortie du capteur à 100 N (sensibilité supposée de 2 mV/V, question 6) :</p>
+<p>Sortie du capteur à 100 N (sensibilité de 2 mV/V, question 6) :</p>
 \[V_o(100\ \text{N}) = S\,V_{exc}\,\frac{100}{445}\]
 \[V_o(100\ \text{N}) = 10 \times \frac{100}{445}\]
 \[V_o(100\ \text{N}) \approx 2{,}25\ \text{mV}\]
@@ -190,7 +202,6 @@
 \[R_G = \frac{50\ \text{k}\Omega}{G - 1}\]
 \[R_G = \frac{50\,000}{444}\]
 \[R_G \approx 113\ \Omega\]
-<p>Avec la vraie sensibilité de DT2, seul \(V_o(100\ \text{N})\) change.</p>
 
 <h4>Question 8 : le CMR</h4>
 <p><strong>On te demande.</strong> Que signifie CMR dans les spécifications de l'amplificateur d'instrumentation ? Pourquoi utiliser cet amplificateur plutôt qu'un simple montage à amplificateur opérationnel ?</p>
@@ -202,6 +213,11 @@
 <li>une impédance d'entrée très élevée, qui ne charge pas le pont ;</li>
 <li>un gain réglé par une seule résistance \(R_G\).</li>
 </ul>
+<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum, soit un rapport de \(10^{6}\).</p>
+\[V_{erreur} = \frac{V_{mode\ commun}}{10^{CMR/20}}\]
+\[V_{erreur} = \frac{2{,}5}{10^{6}}\]
+\[V_{erreur} = 2{,}5\ \mu\text{V}\]
+<p>Les 2,5 V communs ne pèsent pas plus que 2,5 µV de signal utile, mille fois moins que les 2,25 mV mesurés à 100 N.</p>
 </article>
 
 <div class="fin-partie" data-section="td1-banc"></div>
@@ -214,7 +230,7 @@
 <p class="chapeau">Sur la semelle, chaque réseau de 8 capteurs passe par un multiplexeur, puis par un montage à AOP qui transforme la résistance du capteur choisi en une tension \(V_A\), lue par l'ADC. Il faut d'abord un modèle du capteur, puis comprendre le circuit de la figure 5.</p>
 
 <h4>Question 9 : le modèle du capteur</h4>
-<p><strong>On te demande.</strong> La caractéristique d'un capteur (document DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
+<p><strong>On te demande.</strong> La caractéristique d'un capteur (document réponse DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
 <li>Deux inconnues : il faut deux équations, donc deux points de la courbe. On les prend éloignés (un à faible force, un à forte force) pour limiter l'erreur de lecture.</li>
@@ -222,7 +238,11 @@
 <li>Tracé en fonction de \(1/F\), le modèle devient une <strong>droite</strong> : c'est le moyen le plus simple de le vérifier.</li>
 </ul>
 <div id="fig-td1-fsr"></div>
-<p><strong>Réponse.</strong> Le document DR1 n'est pas dans l'extrait reçu : voici la méthode, à appliquer sur ta courbe.</p>
+<p><strong>Réponse.</strong> Attention, DR1 est tracé en échelles <strong>logarithmiques</strong> sur les deux axes : chaque décade (de 1 à 10, de 10 à 100) a la même longueur. Lecture de la courbe :</p>
+<div class="tableau"><table>
+<tr><th>F (N)</th><td>0,5</td><td>1</td><td>2</td><td>5</td><td>10</td><td>20</td><td>50</td><td>100</td><td>400</td></tr>
+<tr><th>R lue (kΩ)</th><td>1 250</td><td>700</td><td>375</td><td>198</td><td>134</td><td>102</td><td>83</td><td>77</td><td>71</td></tr>
+</table></div>
 <p>Unités :</p>
 <ul>
 <li>\(R_0\) en ohms : la résistance vers laquelle tend le capteur aux fortes charges ;</li>
@@ -231,7 +251,22 @@
 <p>Avec deux points \((F_1, R_1)\) et \((F_2, R_2)\), on écrit \(R_1 = R_0 + \beta / F_1\) et \(R_2 = R_0 + \beta / F_2\). En soustrayant, \(R_0\) disparaît :</p>
 \[\beta = \frac{R_1 - R_2}{\dfrac{1}{F_1} - \dfrac{1}{F_2}}\]
 \[R_0 = R_1 - \frac{\beta}{F_1}\]
-<p>Vérification : calcule \(R_0 + \beta / F\) pour deux ou trois autres forces et compare à la courbe, ou trace les points en fonction de \(1/F\) et vérifie qu'ils s'alignent.</p>
+<p>Points choisis, éloignés et faciles à lire : \(F_1 = 1\) N, \(R_1 = 700\) kΩ, et \(F_2 = 100\) N, \(R_2 = 77\) kΩ.</p>
+\[\beta = \frac{700 - 77}{\dfrac{1}{1} - \dfrac{1}{100}}\]
+\[\beta = \frac{623}{0{,}99}\]
+\[\beta \approx 629\ \text{k}\Omega \cdot \text{N} \approx 6{,}3 \times 10^{5}\ \Omega \cdot \text{N}\]
+\[R_0 = 700 - \frac{629}{1}\]
+\[R_0 \approx 71\ \text{k}\Omega\]
+<p>Vérification sur d'autres points :</p>
+<div class="tableau"><table>
+<tr><th>F (N)</th><th>R lue (kΩ)</th><th>\(R_0 + \beta / F\) (kΩ)</th><th>Écart</th></tr>
+<tr><td>5</td><td>198</td><td>197</td><td>moins de 1 %</td></tr>
+<tr><td>10</td><td>134</td><td>134</td><td>moins de 1 %</td></tr>
+<tr><td>20</td><td>102</td><td>102</td><td>moins de 1 %</td></tr>
+<tr><td>400</td><td>71</td><td>72</td><td>moins de 2 %</td></tr>
+<tr><td>0,5</td><td>1 250</td><td>1 330</td><td>environ 7 %</td></tr>
+</table></div>
+<p>Le modèle colle très bien de 2 à 400 N. Il s'écarte un peu à 0,5 N, juste au seuil de déclenchement du capteur : c'est sans importance pour le suivi de la marche. Les valeurs dépendent de ta lecture de la courbe, à quelques pour cent près.</p>
 
 <h4>Question 10 : un multiplexeur parfait</h4>
 <p><strong>On te demande.</strong> Le multiplexeur analogique est considéré comme parfait. Explique cette hypothèse.</p>
@@ -242,14 +277,14 @@
 <li>les voies non sélectionnées sont des circuits ouverts : résistance infinie, aucun courant de fuite ;</li>
 <li>le passage d'une voie à l'autre est instantané.</li>
 </ul>
-<p>Dans la réalité, la fiche DT4 donne une petite résistance à l'état passant, négligeable devant les centaines de kΩ du capteur.</p>
+<p>La fiche DT4 justifie l'hypothèse : c'est un multiplexeur « low-ohmic », de résistance à l'état passant 0,5 Ω typique pour \(V_{CC}\) entre 2,7 V et 4,3 V (ici 3,3 V). Devant le capteur, qui ne descend pas sous 71 kΩ (question 9), c'est plus de cent mille fois plus petit : négligeable. Elle note aussi un passage « break-before-make » : l'ancienne voie s'ouvre avant que la nouvelle se ferme, jamais deux capteurs reliés en même temps.</p>
 
 <h4>Question 11 : l'entrée /E</h4>
 <p><strong>On te demande.</strong> Le NX3L4051 a une entrée /E non représentée. Comment la câbler ?</p>
 <p><strong>Ce qu'il faut savoir.</strong> Une barre sur le nom d'une broche (/E, \(\overline{E}\)) signale une entrée <strong>active au niveau bas</strong> : elle agit quand on y met 0. E signifie « enable », mise en service.</p>
 <p><strong>Réponse.</strong></p>
 <ul>
-<li>Le circuit est en service quand /E = 0.</li>
+<li>D'après la table de fonctionnement de DT4 : /E au niveau bas (L), la voie choisie par S3 S2 S1 est reliée à Z ; /E au niveau haut (H), tous les interrupteurs sont ouverts, quelles que soient S1 à S3.</li>
 <li>On la relie à la masse (0 V) : le multiplexeur est toujours actif, et seules S1 à S3 choisissent la voie.</li>
 <li>Variante : la relier à une sortie du microcontrôleur, pour couper le multiplexeur entre deux mesures.</li>
 </ul>
@@ -284,7 +319,14 @@
 <p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
 \[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
 \[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
-<p>Le dimensionnement est bon si la courbe DR1 donne au moins 68,2 kΩ à 100 N : \(V_A\) reste alors entre 0,275 V et 3,3 V, la plage de l'ADC. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal. Les valeurs numériques de \(V_A\) se calculent avec \(R_0\) et \(\beta\) de DR1, pas reçu.</p>
+<p>La courbe DR1 donne 77 kΩ à 100 N, au-dessus de 68,2 kΩ : pas de saturation. Valeurs extrêmes, avec les résistances lues sur DR1 :</p>
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right)\]
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times 1{,}6\]
+\[V_A(0{,}5\ \text{N}) = 0{,}44\ \text{V}\]
+\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right)\]
+\[V_A(100\ \text{N}) = 0{,}275 \times 10{,}74\]
+\[V_A(100\ \text{N}) \approx 2{,}95\ \text{V}\]
+<p>Le dimensionnement est validé : \(V_A\) va de 0,44 V à 2,95 V, dans la plage de l'ADC (0 à 3,3 V), avec une marge en haut. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal.</p>
 </article>
 
 <div class="fin-partie" data-section="td1-montage"></div>

@@ -21,7 +21,7 @@
 <p class="chapeau">Sur la semelle, chaque réseau de 8 capteurs passe par un multiplexeur, puis par un montage à AOP qui transforme la résistance du capteur choisi en une tension \(V_A\), lue par l'ADC. Il faut d'abord un modèle du capteur, puis comprendre le circuit de la figure 5.</p>
 
 <h2>Question 9 : le modèle du capteur</h2>
-<p><strong>On te demande.</strong> La caractéristique d'un capteur (document DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
+<p><strong>On te demande.</strong> La caractéristique d'un capteur (document réponse DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
 <li>Deux inconnues : il faut deux équations, donc deux points de la courbe. On les prend éloignés (un à faible force, un à forte force) pour limiter l'erreur de lecture.</li>
@@ -29,7 +29,11 @@
 <li>Tracé en fonction de \(1/F\), le modèle devient une <strong>droite</strong> : c'est le moyen le plus simple de le vérifier.</li>
 </ul>
 <div id="fig-td1-fsr"></div>
-<p><strong>Réponse.</strong> Le document DR1 n'est pas dans l'extrait reçu : voici la méthode, à appliquer sur ta courbe.</p>
+<p><strong>Réponse.</strong> Attention, DR1 est tracé en échelles <strong>logarithmiques</strong> sur les deux axes : chaque décade (de 1 à 10, de 10 à 100) a la même longueur. Lecture de la courbe :</p>
+<div class="tableau"><table>
+<tr><th>F (N)</th><td>0,5</td><td>1</td><td>2</td><td>5</td><td>10</td><td>20</td><td>50</td><td>100</td><td>400</td></tr>
+<tr><th>R lue (kΩ)</th><td>1 250</td><td>700</td><td>375</td><td>198</td><td>134</td><td>102</td><td>83</td><td>77</td><td>71</td></tr>
+</table></div>
 <p>Unités :</p>
 <ul>
 <li>\(R_0\) en ohms : la résistance vers laquelle tend le capteur aux fortes charges ;</li>
@@ -38,7 +42,22 @@
 <p>Avec deux points \((F_1, R_1)\) et \((F_2, R_2)\), on écrit \(R_1 = R_0 + \beta / F_1\) et \(R_2 = R_0 + \beta / F_2\). En soustrayant, \(R_0\) disparaît :</p>
 \[\beta = \frac{R_1 - R_2}{\dfrac{1}{F_1} - \dfrac{1}{F_2}}\]
 \[R_0 = R_1 - \frac{\beta}{F_1}\]
-<p>Vérification : calcule \(R_0 + \beta / F\) pour deux ou trois autres forces et compare à la courbe, ou trace les points en fonction de \(1/F\) et vérifie qu'ils s'alignent.</p>
+<p>Points choisis, éloignés et faciles à lire : \(F_1 = 1\) N, \(R_1 = 700\) kΩ, et \(F_2 = 100\) N, \(R_2 = 77\) kΩ.</p>
+\[\beta = \frac{700 - 77}{\dfrac{1}{1} - \dfrac{1}{100}}\]
+\[\beta = \frac{623}{0{,}99}\]
+\[\beta \approx 629\ \text{k}\Omega \cdot \text{N} \approx 6{,}3 \times 10^{5}\ \Omega \cdot \text{N}\]
+\[R_0 = 700 - \frac{629}{1}\]
+\[R_0 \approx 71\ \text{k}\Omega\]
+<p>Vérification sur d'autres points :</p>
+<div class="tableau"><table>
+<tr><th>F (N)</th><th>R lue (kΩ)</th><th>\(R_0 + \beta / F\) (kΩ)</th><th>Écart</th></tr>
+<tr><td>5</td><td>198</td><td>197</td><td>moins de 1 %</td></tr>
+<tr><td>10</td><td>134</td><td>134</td><td>moins de 1 %</td></tr>
+<tr><td>20</td><td>102</td><td>102</td><td>moins de 1 %</td></tr>
+<tr><td>400</td><td>71</td><td>72</td><td>moins de 2 %</td></tr>
+<tr><td>0,5</td><td>1 250</td><td>1 330</td><td>environ 7 %</td></tr>
+</table></div>
+<p>Le modèle colle très bien de 2 à 400 N. Il s'écarte un peu à 0,5 N, juste au seuil de déclenchement du capteur : c'est sans importance pour le suivi de la marche. Les valeurs dépendent de ta lecture de la courbe, à quelques pour cent près.</p>
 
 <h2>Question 10 : un multiplexeur parfait</h2>
 <p><strong>On te demande.</strong> Le multiplexeur analogique est considéré comme parfait. Explique cette hypothèse.</p>
@@ -49,14 +68,14 @@
 <li>les voies non sélectionnées sont des circuits ouverts : résistance infinie, aucun courant de fuite ;</li>
 <li>le passage d'une voie à l'autre est instantané.</li>
 </ul>
-<p>Dans la réalité, la fiche DT4 donne une petite résistance à l'état passant, négligeable devant les centaines de kΩ du capteur.</p>
+<p>La fiche DT4 justifie l'hypothèse : c'est un multiplexeur « low-ohmic », de résistance à l'état passant 0,5 Ω typique pour \(V_{CC}\) entre 2,7 V et 4,3 V (ici 3,3 V). Devant le capteur, qui ne descend pas sous 71 kΩ (question 9), c'est plus de cent mille fois plus petit : négligeable. Elle note aussi un passage « break-before-make » : l'ancienne voie s'ouvre avant que la nouvelle se ferme, jamais deux capteurs reliés en même temps.</p>
 
 <h2>Question 11 : l'entrée /E</h2>
 <p><strong>On te demande.</strong> Le NX3L4051 a une entrée /E non représentée. Comment la câbler ?</p>
 <p><strong>Ce qu'il faut savoir.</strong> Une barre sur le nom d'une broche (/E, \(\overline{E}\)) signale une entrée <strong>active au niveau bas</strong> : elle agit quand on y met 0. E signifie « enable », mise en service.</p>
 <p><strong>Réponse.</strong></p>
 <ul>
-<li>Le circuit est en service quand /E = 0.</li>
+<li>D'après la table de fonctionnement de DT4 : /E au niveau bas (L), la voie choisie par S3 S2 S1 est reliée à Z ; /E au niveau haut (H), tous les interrupteurs sont ouverts, quelles que soient S1 à S3.</li>
 <li>On la relie à la masse (0 V) : le multiplexeur est toujours actif, et seules S1 à S3 choisissent la voie.</li>
 <li>Variante : la relier à une sortie du microcontrôleur, pour couper le multiplexeur entre deux mesures.</li>
 </ul>
@@ -91,7 +110,14 @@
 <p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
 \[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
 \[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
-<p>Le dimensionnement est bon si la courbe DR1 donne au moins 68,2 kΩ à 100 N : \(V_A\) reste alors entre 0,275 V et 3,3 V, la plage de l'ADC. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal. Les valeurs numériques de \(V_A\) se calculent avec \(R_0\) et \(\beta\) de DR1, pas reçu.</p>
+<p>La courbe DR1 donne 77 kΩ à 100 N, au-dessus de 68,2 kΩ : pas de saturation. Valeurs extrêmes, avec les résistances lues sur DR1 :</p>
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right)\]
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times 1{,}6\]
+\[V_A(0{,}5\ \text{N}) = 0{,}44\ \text{V}\]
+\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right)\]
+\[V_A(100\ \text{N}) = 0{,}275 \times 10{,}74\]
+\[V_A(100\ \text{N}) \approx 2{,}95\ \text{V}\]
+<p>Le dimensionnement est validé : \(V_A\) va de 0,44 V à 2,95 V, dans la plage de l'ADC (0 à 3,3 V), avec une marge en haut. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

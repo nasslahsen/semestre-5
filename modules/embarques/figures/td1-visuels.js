@@ -63,18 +63,18 @@
     }
     function dessiner() {
       EMB.vider(g);
-      var F = cf.v, d = 2e-3 * 5 * F / 445 / 2; // demi-écart en volts, sensibilité supposée 2 mV/V
+      var F = cf.v, d = 2e-3 * 5 * F / 445 / 2; // demi-écart en volts, sensibilité 2 mV/V (DT2)
       jauge(H, Gp, true, 1); jauge(Gp, B, false, 2); jauge(H, Dp, false, 3); jauge(Dp, B, true, 4);
       // alimentation sur la diagonale haut-bas
       el("path", { d: "M480 90 V50 H120 M480 450 V490 H120", fill: "none", stroke: C.encre, "stroke-width": 2.5 }, g);
-      tx(g, "+Excitation (5 V)", [126, 34], { taille: 17, ancre: "start", coul: C.ko });
-      tx(g, "−Excitation (0 V)", [126, 512], { taille: 17, ancre: "start" });
+      tx(g, "+Excitation : fil rouge, 5 V", [126, 34], { taille: 17, ancre: "start", coul: C.ko });
+      tx(g, "−Excitation : fil noir, 0 V", [126, 512], { taille: 17, ancre: "start" });
       // mesure sur la diagonale gauche-droite
-      el("path", { d: "M300 270 H230 V200 H740 M660 270 H740", fill: "none", stroke: C.encre, "stroke-width": 2.5 }, g);
+      el("path", { d: "M300 270 H110 M660 270 H740", fill: "none", stroke: C.encre, "stroke-width": 2.5 }, g);
       [H, B, Gp, Dp].forEach(function (p) { el("circle", { cx: p[0], cy: p[1], r: 6, fill: C.encre }, g); });
-      tx(g, "−Signal : " + vg(2.5 - d, 4) + " V", [752, 200], { taille: 16, ancre: "start", mono: true });
-      tx(g, "+Signal : " + vg(2.5 + d, 4) + " V", [752, 270], { taille: 16, ancre: "start", mono: true, coul: C.acc });
-      R.rendre(zone, "V_o = V_{+} - V_{-} = " + R.tc(2 * d * 1000, 2) + "\\ \\text{mV} \\quad (\\text{sensibilité supposée } 2\\ \\text{mV/V})");
+      tx(g, "−Signal (blanc)\n" + vg(2.5 - d, 4) + " V", [110, 228], { taille: 16, ancre: "start", mono: true });
+      tx(g, "+Signal (vert) : " + vg(2.5 + d, 4) + " V", [752, 270], { taille: 16, ancre: "start", mono: true, coul: C.acc });
+      R.rendre(zone, "V_o = V_{+} - V_{-} = " + R.tc(2 * d * 1000, 2) + "\\ \\text{mV} \\quad (S = 2\\ \\text{mV/V, DT2})");
     }
     dessiner();
   })();
@@ -105,18 +105,19 @@
   /* ---------- Question 9 : le modèle R(F) = R0 + β/F ---------- */
   if (place("fig-td1-fsr")) (function () {
     var f = R.figure("fig-td1-fsr", { largeur: 960, hauteur: 540, titre: "Le modèle du capteur : une hyperbole, ou une droite en 1/F",
-      essai: "<strong>Essaie</strong> : coche « Tracer en 1/F ». <strong>Observe</strong> : la même courbe devient une droite ; sa pente est \\(\\beta\\), son ordonnée à l'origine \\(R_0\\). Valeurs d'exemple : la courbe DR1 n'a pas été reçue.", direct: true });
+      essai: "<strong>Essaie</strong> : coche « Tracer en 1/F ». <strong>Observe</strong> : les points lus sur DR1 s'alignent sur une droite ; sa pente est \\(\\beta\\), son ordonnée à l'origine \\(R_0\\).", direct: true });
     var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct);
     var inv = R.bascule(f.reglages, "Tracer en 1/F", false, dessiner);
-    var R0 = 50, beta = 2000; // exemple ajouté : kΩ et kΩ·N
+    var R0 = 71, beta = 629; // kΩ et kΩ·N, tirés de DR1 (question 9)
+    var DR1 = [[1, 700], [2, 375], [5, 198], [10, 134], [20, 102], [50, 83], [100, 77]]; // points lus sur DR1
     var x0 = 120, y0 = 460, w = 760, h = 380;
     function dessiner() {
       EMB.vider(g);
-      var en1 = inv.checked, xmax = en1 ? 2 : 100, Rmax = 4100;
+      var en1 = inv.checked, xmax = en1 ? 2 : 100, Rmax = 1400;
       var X = function (v) { return x0 + v / xmax * w; }, Y = function (r) { return y0 - r / Rmax * h; };
       axes(g, x0, y0, w, h, en1 ? "1/F (1/N)" : "F (N)", "RFSR (kΩ)");
       (en1 ? [0, 0.5, 1, 1.5, 2] : [0, 25, 50, 75, 100]).forEach(function (v) { tx(g, vg(v), [X(v), y0 + 26], { taille: 16, gras: false, mono: true }); });
-      [0, 2000, 4000].forEach(function (r) { tx(g, String(r), [x0 - 14, Y(r)], { taille: 16, gras: false, mono: true, ancre: "end" }); });
+      [0, 500, 1000].forEach(function (r) { tx(g, String(r), [x0 - 14, Y(r)], { taille: 16, gras: false, mono: true, ancre: "end" }); });
       var d = "", n = 120;
       for (var i = 0; i <= n; i++) {
         var F = en1 ? 1 / (0.5 + (2 - 0.5) * i / n) * 1 : 0.5 + (100 - 0.5) * i / n;
@@ -124,17 +125,20 @@
         d += (i ? " L" : "M") + X(x).toFixed(1) + " " + Y(Math.min(r, Rmax)).toFixed(1);
       }
       el("path", { d: d, fill: "none", stroke: C.acc, "stroke-width": 4 }, g);
+      DR1.forEach(function (p) { var x = en1 ? 1 / p[0] : p[0]; el("circle", { cx: X(x), cy: Y(p[1]), r: 7, fill: "#fff", stroke: C.encre, "stroke-width": 2.5 }, g); });
+      tx(g, "○ points lus sur DR1", [x0 + w, y0 - h + 6], { taille: 16, ancre: "end", gras: false });
       if (en1) {
         el("line", { x1: X(0), y1: Y(R0), x2: X(0.5), y2: Y(R0 + beta * 0.5), stroke: C.acc, "stroke-width": 3, "stroke-dasharray": "6 5" }, g);
-        tx(g, "ordonnée à l'origine : R0", [X(0) + 14, Y(R0) - 22], { taille: 17, ancre: "start", coul: C.v });
+        el("line", { x1: X(0), y1: Y(R0), x2: X(0.55), y2: Y(R0), stroke: C.v, "stroke-width": 2, "stroke-dasharray": "5 5" }, g);
+        tx(g, "ordonnée à l'origine : R0 ≈ 71 kΩ", [X(0.58), Y(R0)], { taille: 17, ancre: "start", coul: C.v });
         tx(g, "pente : β", [X(1.2), Y(R0 + beta * 1.2) - 30], { taille: 17, ancre: "end", coul: C.v });
       } else {
-        [[5, "faible force : R grande", "start"], [80, "forte force : R tend vers R0", "end"]].forEach(function (p) {
+        [[3, "faible force : R grande", "start"], [80, "forte force : R tend vers R0", "end"]].forEach(function (p) {
           var r = R0 + beta / p[0]; el("circle", { cx: X(p[0]), cy: Y(r), r: 8, fill: C.v }, g);
           tx(g, p[1], [X(p[0]) + (p[2] === "end" ? 10 : 16), Y(r) - 26], { taille: 17, ancre: p[2], coul: C.v });
         });
       }
-      R.rendre(zone, en1 ? "R_{FSR} = R_0 + \\beta \\cdot \\tfrac{1}{F} \\quad \\text{(droite en } 1/F)" : "R_{FSR}(F) = R_0 + \\frac{\\beta}{F} \\quad \\text{exemple : } R_0 = 50\\ \\text{k}\\Omega,\\ \\beta = 2000\\ \\text{k}\\Omega \\cdot \\text{N}");
+      R.rendre(zone, (en1 ? "R_{FSR} = R_0 + \\beta \\cdot \\tfrac{1}{F}" : "R_{FSR}(F) = R_0 + \\frac{\\beta}{F}") + " \\quad R_0 \\approx 71\\ \\text{k}\\Omega,\\ \\beta \\approx 629\\ \\text{k}\\Omega \\cdot \\text{N}");
     }
     dessiner();
   })();

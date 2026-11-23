@@ -29,6 +29,7 @@
 <li>une mesure de <strong>bio-impédance</strong> (circuit MAX30009) ;</li>
 <li>un microcontrôleur et un émetteur radio, le tout sur accumulateur.</li>
 </ul>
+<figure class="photo duo"><img src="../images/semelle-fs-ins-16z.jpg" alt="La semelle FS-INS-16Z, film souple avec 16 zones sensibles et sa nappe de connexion"><img src="../images/semelle-plan-capteurs.jpg" alt="Plan de la semelle FS-INS-16Z : 16 zones sensibles, longueur 253 mm, épaisseur 0,4 mm"><figcaption>La semelle FS-INS-16Z et son plan : 16 zones sensibles, dont deux sous le talon, 253 mm de long, 0,4 mm d'épaisseur.<small>Documents du cours, TD « Semelle instrumentée pour le suivi médical » : documentation commerciale DT1.</small></figcaption></figure>
 <p>Le sujet complet a quatre parties : appui plantaire, bio-impédance, transmission radio, synthèse. L'extrait reçu contient la première, « Analyse de l'appui plantaire », en trois temps :</p>
 <div class="tableau"><table>
 <tr><th>Partie</th><th>Questions</th><th>Ce qu'on fait</th></tr>
@@ -51,12 +52,13 @@
 <div class="tableau"><table>
 <tr><th>Élément</th><th>Valeur</th></tr>
 <tr><td>Capteur de la semelle</td><td>deux disques de diamètre \(D = 11\) mm, centres à \(L = 15\) mm, longueur totale \(LT = 26\) mm</td></tr>
-<tr><td>Plage d'un capteur (fiche)</td><td>de 500 g à 10 kg</td></tr>
+<tr><td>Semelle FS-INS-16Z (DT1)</td><td>16 points de mesure, 20 bornes (16 propres, 2 communes, 2 non utilisées), 253 mm de long, 0,4 mm d'épaisseur</td></tr>
+<tr><td>Un capteur (DT1)</td><td>déclenchement à 500 g, plage de 500 g à 10 kg, plus de 1 MΩ au repos, réponse en moins de 10 µs, répétabilité ±10 % à 2 kg</td></tr>
 <tr><td>Capteur de référence du banc</td><td>FUTEK LSB200, modèle FSH00107, pleine échelle 445 N, excitation 5 V</td></tr>
 <tr><td>Montage de la figure 5</td><td>\(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ</td></tr>
 <tr><td>Acquisition</td><td>marche intense : 120 pas par minute, au moins 20 points par pas, ADC 8 bits</td></tr>
 </table></div>
-<p>Les annexes DT1 à DT4 (fiches de la semelle, du FUTEK, de l'INA128, du NX3L4051) et le document réponse DR1 ne sont pas dans l'extrait reçu. Quand une réponse en dépend, c'est dit, et la méthode est donnée.</p>
+<p>Les réponses s'appuient sur les documents du sujet : DT1 (semelle), DT2 (FUTEK LSB200), DT3 (INA128), DT4 (NX3L4051) et DR1 (courbe d'un capteur).</p>
 
 <h2>Question 1 : la surface d'un capteur</h2>
 <p><strong>On te demande.</strong> La surface active a la forme de deux disques de diamètre \(D = 11\) mm dont les centres sont à \(L = 15\) mm, reliés par un rectangle (\(LT = 26\) mm). Détermine sa surface en mm².</p>
@@ -76,7 +78,7 @@
 <p><strong>On te demande.</strong> Avec la documentation commerciale, détermine la force maximale en newtons pour rester dans la zone de mesure, puis la pression maximale en kPa.</p>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
-<li>La fiche donne une <strong>masse</strong> (de 500 g à 10 kg) : la force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
+<li>La fiche DT1 donne une <strong>masse</strong> : plage de sensibilité de 500 g à 10 kg (« sensitivity range »), déclenchement à 500 g (« actuation force »). La force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
 <li>Une <strong>pression</strong>, c'est une force répartie sur une surface : \(P = F / S\), en pascals si \(F\) est en newtons et \(S\) en m².</li>
 <li>Conversion : 1 mm² = \(10^{-6}\) m², et 1 kPa = 1 000 Pa.</li>
 </ul>
@@ -107,7 +109,8 @@
 <p>Dans la plage. Mais à l'attaque du talon, la charge se concentre sur les deux capteurs du talon :</p>
 \[F_{capteur} = \frac{686{,}7}{2} \approx 343\ \text{N} > 98{,}1\ \text{N}\]
 <p>Plus de trois fois la limite : ces capteurs <strong>saturent</strong>, ils lisent 98,1 N au plus.</p>
-<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La géométrie exacte est dans l'annexe DT1, pas reçue : le raisonnement suit l'exemple du cours (charge partagée à parts égales entre les capteurs chargés).</p>
+<p>Le plan de la semelle (DT1, photo plus haut) le confirme : le talon ne porte que <strong>deux zones sensibles</strong>, sur 48 mm de large.</p>
+<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La fiche le dit d'ailleurs : répétabilité de ±10 % à 2 kg, trop peu précis pour une mesure absolue, assez pour un suivi.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

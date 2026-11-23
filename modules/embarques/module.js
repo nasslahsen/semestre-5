@@ -31,12 +31,13 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "lab 6" },
       { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "lab 7" },
       { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" },
-      { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" }
+      { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" },
+      { sousModule: "embarques", titre: "Application N°1 : documents constructeurs (DT1 à DT6) et documents réponses (DR1 à DR3)", couvre: "TD 1 : fiches de la semelle FS-INS-16Z, du FUTEK LSB200, de l'INA128, du NX3L4051, courbe DR1 du capteur (questions 1 à 14)" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
       "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté.",
-      "TD 1 semelle : les annexes DT1 à DT4 (fiches de la semelle, du FUTEK LSB200, de l'INA128, du NX3L4051), le document réponse DR1 (courbe d'un capteur) et les parties bio-impédance, transmission radio, synthèse : l'extrait reçu s'arrête à la question 14."
+      "TD 1 semelle : les énoncés des parties bio-impédance, transmission radio et synthèse (questions 15 et suivantes) ; leurs documents sont reçus (DT5 MAX30009, DT6 ADF7012, DR2, DR3), mais l'énoncé reçu s'arrête à la question 14."
     ]
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : TD semelle et fonctions MQTT (traitement, callback, loop), annoncés par le professeur.
