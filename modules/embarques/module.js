@@ -19,6 +19,7 @@ PLATEFORME.parcours("embarques", {
     2: { titre: "Architectures matérielles", duree: "22 min", fichier: "audio/chapitre-2.m4a" },
     3: { titre: "Bus de communication", duree: "24 min", fichier: "audio/chapitre-3.m4a" },
     4: { titre: "L'ESP32 : la carte et la puce", duree: "24 min", fichier: "audio/chapitre-4.m4a" },
+    5: { titre: "Programmer les périphériques de l'ESP32", duree: "25 min", fichier: "audio/chapitre-5.m4a" },
   },
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
