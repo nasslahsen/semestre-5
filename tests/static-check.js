@@ -45,7 +45,7 @@ function verifierEcriture(fichier, s) {
   // photos réelles : seulement dans <figure class="photo">, fichier sous images/, légende avec la source et la licence
   const photos = [...s.matchAll(/<figure class="photo(?: duo)?">([\s\S]*?)<\/figure>/g)];
   for (const ph of photos) {
-    if (!/<img src="(\.\.\/)+images\/[a-z0-9-]+\.jpg" alt="[^"]{8,}"/.test(ph[1])) err(`${fichier} : photo hors de images/ ou sans texte alternatif`);
+    if (!/<img src="(\.\.\/)*images\/[a-z0-9-]+\.jpg" alt="[^"]{8,}"/.test(ph[1])) err(`${fichier} : photo hors de images/ ou sans texte alternatif`);
     if (!/<figcaption>[\s\S]*(Wikimedia Commons|cours)[\s\S]*<\/figcaption>/.test(ph[1])) err(`${fichier} : photo sans légende ni source (Wikimedia Commons, licence, auteur)`);
   }
   // seule exception : les deux icônes du site (onglet, écran d'accueil), posées par plateforme.js
