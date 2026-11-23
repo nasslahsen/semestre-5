@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le montage de mesure · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le montage de mesure</h1>
+<p class="chapeau">Sur la semelle, chaque réseau de 8 capteurs passe par un multiplexeur, puis par un montage à AOP qui transforme la résistance du capteur choisi en une tension \(V_A\), lue par l'ADC. Il faut d'abord un modèle du capteur, puis comprendre le circuit de la figure 5.</p>
+
+<h2>Question 9 : le modèle du capteur</h2>
+<p><strong>On te demande.</strong> La caractéristique d'un capteur (document DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Deux inconnues : il faut deux équations, donc deux points de la courbe. On les prend éloignés (un à faible force, un à forte force) pour limiter l'erreur de lecture.</li>
+<li>Chaque terme d'une somme a la même unité : si \(R_{FSR}\) est en ohms, \(\beta / F\) aussi.</li>
+<li>Tracé en fonction de \(1/F\), le modèle devient une <strong>droite</strong> : c'est le moyen le plus simple de le vérifier.</li>
+</ul>
+<div id="fig-td1-fsr"></div>
+<p><strong>Réponse.</strong> Le document DR1 n'est pas dans l'extrait reçu : voici la méthode, à appliquer sur ta courbe.</p>
+<p>Unités :</p>
+<ul>
+<li>\(R_0\) en ohms : la résistance vers laquelle tend le capteur aux fortes charges ;</li>
+<li>\(\beta\) en ohms-newtons (Ω·N), pour que \(\beta / F\) soit en ohms.</li>
+</ul>
+<p>Avec deux points \((F_1, R_1)\) et \((F_2, R_2)\), on écrit \(R_1 = R_0 + \beta / F_1\) et \(R_2 = R_0 + \beta / F_2\). En soustrayant, \(R_0\) disparaît :</p>
+\[\beta = \frac{R_1 - R_2}{\dfrac{1}{F_1} - \dfrac{1}{F_2}}\]
+\[R_0 = R_1 - \frac{\beta}{F_1}\]
+<p>Vérification : calcule \(R_0 + \beta / F\) pour deux ou trois autres forces et compare à la courbe, ou trace les points en fonction de \(1/F\) et vérifie qu'ils s'alignent.</p>
+
+<h2>Question 10 : un multiplexeur parfait</h2>
+<p><strong>On te demande.</strong> Le multiplexeur analogique est considéré comme parfait. Explique cette hypothèse.</p>
+<p><strong>Ce qu'il faut savoir.</strong> Un <strong>multiplexeur analogique</strong> est un aiguillage : il relie une seule de ses 8 entrées \(Y_0\) à \(Y_7\) à sa sortie commune \(Z\), selon le nombre binaire écrit sur S3 S2 S1. C'est un ensemble d'interrupteurs électroniques, dont un seul est fermé.</p>
+<p><strong>Réponse.</strong> « Parfait » veut dire :</p>
+<ul>
+<li>la voie sélectionnée est un fil parfait : résistance nulle à l'état passant, donc \(Z = Y_k\) ;</li>
+<li>les voies non sélectionnées sont des circuits ouverts : résistance infinie, aucun courant de fuite ;</li>
+<li>le passage d'une voie à l'autre est instantané.</li>
+</ul>
+<p>Dans la réalité, la fiche DT4 donne une petite résistance à l'état passant, négligeable devant les centaines de kΩ du capteur.</p>
+
+<h2>Question 11 : l'entrée /E</h2>
+<p><strong>On te demande.</strong> Le NX3L4051 a une entrée /E non représentée. Comment la câbler ?</p>
+<p><strong>Ce qu'il faut savoir.</strong> Une barre sur le nom d'une broche (/E, \(\overline{E}\)) signale une entrée <strong>active au niveau bas</strong> : elle agit quand on y met 0. E signifie « enable », mise en service.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>Le circuit est en service quand /E = 0.</li>
+<li>On la relie à la masse (0 V) : le multiplexeur est toujours actif, et seules S1 à S3 choisissent la voie.</li>
+<li>Variante : la relier à une sortie du microcontrôleur, pour couper le multiplexeur entre deux mesures.</li>
+</ul>
+
+<h2>Question 12 : l'expression de VA</h2>
+<p><strong>On te demande.</strong> En continu, avec S1, S2 et S3 à l'état haut, exprime \(V_A\). Détermine ses variations quand la force va de 0,5 N à 100 N et valide le dimensionnement. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Le code S3 S2 S1 se lit en binaire, S1 étant le bit de poids faible : 111 vaut 7, donc la voie \(Y_7\).</li>
+<li><strong>En continu</strong>, un condensateur ne laisse passer aucun courant : \(C_F\) est un circuit ouvert.</li>
+<li>Un <strong>pont diviseur</strong> donne \(V = V_{DD}\,R_B / (R_A + R_B)\) quand rien d'autre ne tire de courant sur son point milieu.</li>
+<li>AOP parfait en régime linéaire : \(V^- = V^+\), et aucun courant n'entre dans ses entrées.</li>
+<li>L'ADC lit de 0 à 3,3 V : au-delà, il sature.</li>
+</ul>
+<div id="fig-td1"></div>
+<p><strong>Réponse.</strong> S3 S2 S1 = 111 : c'est 7 en binaire, la voie \(Y_7\), donc le capteur \(R_{FSR8}\).</p>
+<p>L'entrée + est fixée par le pont \(R_A\), \(R_B\) :</p>
+\[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
+\[V^+ = 3{,}3 \times \frac{10}{110 + 10}\]
+\[V^+ = 0{,}275\ \text{V}\]
+<p>Comme \(V^- = V^+\), le capteur, qui relie \(V^-\) à la masse, est traversé par \(i = V^+ / R_{FSR8}\). Aucun courant n'entre dans l'AOP : ce même courant traverse \(R_G\), d'où :</p>
+\[V_A = V^- + R_G\,i\]
+\[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
+<p>Avec le modèle de la question 9 :</p>
+\[V_A(F) = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_0 + \beta / F}\right)\]
+<p>Variations :</p>
+<ul>
+<li>à 0,5 N, \(R_{FSR}\) est très grande : \(V_A\) reste un peu au-dessus de 0,275 V ;</li>
+<li>quand la force monte, \(R_{FSR}\) baisse et \(V_A\) monte ;</li>
+<li>à 100 N, \(R_{FSR}\) est la plus faible : \(V_A\) est maximale.</li>
+</ul>
+<p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
+\[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
+\[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
+<p>Le dimensionnement est bon si la courbe DR1 donne au moins 68,2 kΩ à 100 N : \(V_A\) reste alors entre 0,275 V et 3,3 V, la plage de l'ADC. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal. Les valeurs numériques de \(V_A\) se calculent avec \(R_0\) et \(\beta\) de DR1, pas reçu.</p>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td1-visuels.js"></script>
+<script src="../figures/td1.js"></script>
+</body>
+</html>
