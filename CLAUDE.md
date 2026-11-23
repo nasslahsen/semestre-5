@@ -90,6 +90,11 @@ chapitre suivant.
   Un corrigé de TD est une page `cours/<td>-corrige.html`, dans la dernière section du TD (`<id>-corrige`) : un titre
   par exercice, la correction cachée dans `<details class="corrige"><summary>Voir la correction</summary>…</details>`,
   et ce qui attend une partie du cours pas encore reçue, signalé. Les exercices du TD restent dans la section d'avant.
+  **Correction complète, comme un cours** (demandée par l'utilisatrice, modèle : TD 1 semelle d'`embarques`) : le TD tient sur la
+  page du chapitre, une section par partie du sujet (`cours/td1.html`, `td1-banc.html`…, chacune avec son niveau du même id) ;
+  d'abord le sujet expliqué (mise en situation, chaîne, données), puis pour chaque question « On te demande. », « Ce qu'il faut
+  savoir. » (le rappel utile, sur la page, sans renvoi vers un autre chapitre), « Réponse. » visible, et un schéma interactif quand
+  il aide (`figures/td1-visuels.js`) ; « À retenir » à la fin. Ce que l'extrait reçu ne donne pas reste signalé.
 - **Les labs ont aussi leur propre espace** : un chapitre de lab porte `lab: true` et `numero: "Lab 1"`. La carte ajoute
   alors « Labs » au choix « Cours / TD » (`&vue=lab`) ; un cours qui a des labs et aucun TD n'a pas d'onglet « TD » (les labs
   en tiennent lieu, demandé par l'utilisatrice). Une page de lab (`cours/<page>.html`, dans une section comme les

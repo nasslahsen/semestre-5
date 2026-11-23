@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<title>TD 1 : les réponses dans le cours · Systèmes embarqués</title>
+<title>Le sujet et le capteur de la semelle · Systèmes embarqués</title>
 <link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../commun/css/cours.css">
 <link rel="stylesheet" href="../../../commun/css/barre.css">
@@ -17,41 +17,100 @@
 <body>
 <main>
 <p class="etiquette" data-etiquette></p>
-<h1>TD 1 : les réponses dans le cours</h1>
-<p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » reprend la semelle du chapitre 1 et descend jusqu'à l'électronique : on vérifie que les capteurs de force tiennent le poids du patient, on règle le banc qui les caractérise, puis on dimensionne le montage qui les lit un par un. Cette page te dit où chercher chaque réponse, et ce que le cours reçu ne couvre pas encore.</p>
+<h1>Le sujet et le capteur de la semelle</h1>
+<p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » part d'un vrai dispositif et descend jusqu'à l'électronique. Le sujet est expliqué d'abord, puis les 14 questions sont corrigées comme un cours : ce qu'on te demande, ce qu'il faut savoir, la réponse, avec un schéma quand il aide. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
 
-<div id="fig-td1"></div>
-
-<h2>Les questions et où chercher</h2>
-<div class="tableau"><table>
-<tr><th>Questions</th><th>Ce qu'on demande</th><th>Où chercher</th></tr>
-<tr><td>1 à 3</td><td>surface d'un capteur, force et pression maximales, patient de 70 kg</td><td><a href="semelle.html">Exemple 1 : la semelle</a> (cotes du capteur, fiche : 500 g à 10 kg)</td></tr>
-<tr><td>4 à 6</td><td>capteur FUTEK LSB200 : schéma, 4 fils, technologie, caractéristique \(V_o(P)\)</td><td>pas dans le cours reçu : capteurs et pont de Wheatstone sont au programme mais pas encore envoyés ; la fiche DT2 non plus</td></tr>
-<tr><td>7 et 8</td><td>gain de l'INA128, valeur de \(R_G\), CMR</td><td>pas dans le cours reçu (amplificateur d'instrumentation) ; la formule du gain vient de la fiche du circuit, rappelée dans le corrigé</td></tr>
-<tr><td>9</td><td>modèle \(R_{FSR}(F) = R_0 + \beta / F\) à partir de la courbe DR1</td><td>DR1 pas reçu : le corrigé donne la méthode</td></tr>
-<tr><td>10 à 12</td><td>multiplexeur parfait, entrée /E, expression de \(V_A\)</td><td><a href="binaire.html">Bits et binaire</a> (le code S3 S2 S1), <a href="gpio.html">GPIO</a> (les sorties P1.0 à P1.2) ; l'AOP et le multiplexeur ne sont pas dans le cours reçu</td></tr>
-<tr><td>13 et 14</td><td>chronogramme de S1 à S3, débit binaire, rôle de \(C_F\)</td><td><a href="adc.html">ADC</a> (résolution, échantillonnage), <a href="signaux.html">Signaux logiques et horloge</a></td></tr>
-</table></div>
-<p>Trois idées suffisent pour presque tout le TD :</p>
+<h2>Ce que raconte le sujet</h2>
+<p>Une équipe de l'Université Paris-Saclay a conçu une semelle pour suivre des <strong>patients diabétiques</strong>. Chez eux, les nerfs du pied sont abîmés : une plaie peut commencer sans douleur. La semelle ne cherche pas une mesure absolue très précise. Elle suit l'appui <strong>dans le temps</strong>, pour repérer une marche qui devient asymétrique (la <strong>claudication</strong>), signe d'une lésion qui commence.</p>
+<p>Ce que la semelle embarque :</p>
 <ul>
-<li>une pression, c'est une force sur une surface : \(P = F/S\), et 1 N/mm² = 1 MPa ;</li>
-<li>dans le montage de la figure 5, l'entrée + est fixée par le pont \(R_A\), \(R_B\), et le courant qui traverse le capteur traverse aussi \(R_G\) ;</li>
-<li>8 capteurs lus l'un après l'autre : chaque voie n'a que le huitième de la période d'échantillonnage.</li>
+<li><strong>16 capteurs de force résistifs</strong> (semelle FS-INS-16Z), en deux réseaux de 8 ;</li>
+<li>un capteur de température et d'humidité ;</li>
+<li>une mesure de <strong>bio-impédance</strong> (circuit MAX30009) ;</li>
+<li>un microcontrôleur et un émetteur radio, le tout sur accumulateur.</li>
 </ul>
+<figure class="photo duo"><img src="../images/semelle-fs-ins-16z.jpg" alt="La semelle FS-INS-16Z, film souple avec 16 zones sensibles et sa nappe de connexion"><img src="../images/semelle-plan-capteurs.jpg" alt="Plan de la semelle FS-INS-16Z : 16 zones sensibles, longueur 253 mm, épaisseur 0,4 mm"><figcaption>La semelle FS-INS-16Z et son plan : 16 zones sensibles, dont deux sous le talon, 253 mm de long, 0,4 mm d'épaisseur.<small>Documents du cours, TD « Semelle instrumentée pour le suivi médical » : documentation commerciale DT1.</small></figcaption></figure>
+<p>Le sujet complet a quatre parties : appui plantaire, bio-impédance, transmission radio, synthèse. L'extrait reçu contient la première, « Analyse de l'appui plantaire », en trois temps :</p>
+<div class="tableau"><table>
+<tr><th>Partie</th><th>Questions</th><th>Ce qu'on fait</th></tr>
+<tr><td>Le capteur de la semelle</td><td>1 à 3</td><td>sa surface, la force et la pression qu'il supporte, le cas d'un patient de 70 kg</td></tr>
+<tr><td>Le banc de caractérisation</td><td>4 à 8</td><td>le capteur de référence FUTEK LSB200 et son amplificateur INA128</td></tr>
+<tr><td>Le montage de mesure</td><td>9 à 12</td><td>le modèle du capteur, le multiplexeur, la tension \(V_A\) lue par l'ADC</td></tr>
+<tr><td>L'acquisition</td><td>13 et 14</td><td>la cadence de lecture, le débit binaire, le condensateur \(C_F\)</td></tr>
+</table></div>
 
+<h2>La chaîne de mesure d'un capteur</h2>
+<p>Un capteur résistif ne donne pas une tension : sa <strong>résistance baisse quand on appuie</strong> (plus de 1 MΩ au repos). Pour que le microcontrôleur la lise, il faut la transformer en tension :</p>
+<ul>
+<li>le <strong>multiplexeur</strong> NX3L4051 choisit un des 8 capteurs du réseau, selon le code S3 S2 S1 ;</li>
+<li>l'<strong>AOP</strong>, avec \(R_G\) et \(C_F\), transforme la résistance du capteur choisi en une tension \(V_A\), filtrée ;</li>
+<li>l'<strong>ADC</strong> du microcontrôleur convertit \(V_A\) en un nombre sur 8 bits (entrée AIN1).</li>
+</ul>
 <div class="schema" id="sc-td1-chaine"></div>
 
-<h2>Exemple de calcul</h2>
-<p>Exemple ajouté, avec une valeur de résistance qui n'est pas celle du TD : le capteur sélectionné vaut \(R_{FSR} = 150\) kΩ.</p>
-\[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
-\[V^+ = 3{,}3 \times \frac{10}{110 + 10} = 0{,}275\ \text{V}\]
-\[V_A = V^+ \left(1 + \frac{R_G}{R_{FSR}}\right)\]
-\[V_A = 0{,}275 \times \left(1 + \frac{750}{150}\right) = 1{,}65\ \text{V}\]
-<p>1,65 V : au milieu de la plage de l'ADC. Plus on appuie, plus \(R_{FSR}\) baisse et plus \(V_A\) monte.</p>
+<h2>Les données du sujet</h2>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Valeur</th></tr>
+<tr><td>Capteur de la semelle</td><td>deux disques de diamètre \(D = 11\) mm, centres à \(L = 15\) mm, longueur totale \(LT = 26\) mm</td></tr>
+<tr><td>Semelle FS-INS-16Z (DT1)</td><td>16 points de mesure, 20 bornes (16 propres, 2 communes, 2 non utilisées), 253 mm de long, 0,4 mm d'épaisseur</td></tr>
+<tr><td>Un capteur (DT1)</td><td>déclenchement à 500 g, plage de 500 g à 10 kg, plus de 1 MΩ au repos, réponse en moins de 10 µs, répétabilité ±10 % à 2 kg</td></tr>
+<tr><td>Capteur de référence du banc</td><td>FUTEK LSB200, modèle FSH00107, pleine échelle 445 N, excitation 5 V</td></tr>
+<tr><td>Montage de la figure 5</td><td>\(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ</td></tr>
+<tr><td>Acquisition</td><td>marche intense : 120 pas par minute, au moins 20 points par pas, ADC 8 bits</td></tr>
+</table></div>
+<p>Les réponses s'appuient sur les documents du sujet : DT1 (semelle), DT2 (FUTEK LSB200), DT3 (INA128), DT4 (NX3L4051) et DR1 (courbe d'un capteur).</p>
 
-<h2>À retenir</h2>
-\[P = \frac{F}{S} \qquad V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR}}\right) \qquad G_{INA128} = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
-\[\text{débit} = N_{capteurs} \times f_e \times n_{bits} \qquad f_c = \frac{1}{2\pi R_G C_F}\]
+<h2>Question 1 : la surface d'un capteur</h2>
+<p><strong>On te demande.</strong> La surface active a la forme de deux disques de diamètre \(D = 11\) mm dont les centres sont à \(L = 15\) mm, reliés par un rectangle (\(LT = 26\) mm). Détermine sa surface en mm².</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Une forme compliquée se calcule en la découpant en formes simples.</li>
+<li>Aire d'un disque : \(\pi D^2 / 4\). Aire d'un rectangle : longueur × largeur.</li>
+<li>Les cotes se vérifient : \(LT = L + D = 15 + 11 = 26\) mm.</li>
+</ul>
+<div id="fig-td1-capteur"></div>
+<p><strong>Réponse.</strong> Entre les deux centres, on a un rectangle de longueur \(L\) et de largeur \(D\). Aux deux bouts, deux demi-disques, soit un disque entier de diamètre \(D\).</p>
+\[S = L\,D + \frac{\pi D^2}{4}\]
+\[S = 15 \times 11 + \frac{\pi \times 11^2}{4} = 165 + 95{,}0\]
+\[S \approx 260\ \text{mm}^2\]
+
+<h2>Question 2 : force et pression maximales</h2>
+<p><strong>On te demande.</strong> Avec la documentation commerciale, détermine la force maximale en newtons pour rester dans la zone de mesure, puis la pression maximale en kPa.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>La fiche DT1 donne une <strong>masse</strong> : plage de sensibilité de 500 g à 10 kg (« sensitivity range »), déclenchement à 500 g (« actuation force »). La force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
+<li>Une <strong>pression</strong>, c'est une force répartie sur une surface : \(P = F / S\), en pascals si \(F\) est en newtons et \(S\) en m².</li>
+<li>Conversion : 1 mm² = \(10^{-6}\) m², et 1 kPa = 1 000 Pa.</li>
+</ul>
+<p><strong>Réponse.</strong> Force maximale, à 10 kg :</p>
+\[F_{max} = m_{max}\,g\]
+\[F_{max} = 10 \times 9{,}81\]
+\[F_{max} = 98{,}1\ \text{N}\]
+<p>Pression maximale, avec \(S = 260\) mm² \(= 260 \times 10^{-6}\) m² :</p>
+\[P_{max} = \frac{F_{max}}{S}\]
+\[P_{max} = \frac{98{,}1}{260 \times 10^{-6}}\]
+\[P_{max} \approx 377 \times 10^{3}\ \text{Pa} = 377\ \text{kPa}\]
+<p>De la même façon, le seuil bas (500 g) donne 4,9 N, soit environ 19 kPa : en dessous, le capteur ne réagit pas.</p>
+
+<h2>Question 3 : un patient de 70 kg</h2>
+<p><strong>On te demande.</strong> Pour un patient adulte de 70 kg et compte tenu de la géométrie de la semelle, chaque capteur peut-il rester dans sa zone de mesure pendant la marche ?</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Pendant la marche, il y a des instants où <strong>un seul pied</strong> porte tout le poids.</li>
+<li>Ce poids ne se répartit pas également : à l'<strong>attaque du talon</strong>, presque tout passe par les capteurs du talon.</li>
+<li>Une fiche se vérifie pour le pire cas, pas pour le cas moyen.</li>
+</ul>
+<p><strong>Réponse.</strong> Poids du patient :</p>
+\[F = m\,g\]
+\[F = 70 \times 9{,}81\]
+\[F = 686{,}7\ \text{N}\]
+<p>Cas moyen, poids réparti sur les 16 capteurs :</p>
+\[F_{capteur} = \frac{686{,}7}{16} \approx 42{,}9\ \text{N} < 98{,}1\ \text{N}\]
+<p>Dans la plage. Mais à l'attaque du talon, la charge se concentre sur les deux capteurs du talon :</p>
+\[F_{capteur} = \frac{686{,}7}{2} \approx 343\ \text{N} > 98{,}1\ \text{N}\]
+<p>Plus de trois fois la limite : ces capteurs <strong>saturent</strong>, ils lisent 98,1 N au plus.</p>
+<p>Le plan de la semelle (DT1, photo plus haut) le confirme : le talon ne porte que <strong>deux zones sensibles</strong>, sur 48 mm de large.</p>
+<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La fiche le dit d'ailleurs : répétabilité de ±10 % à 2 kg, trop peu précis pour une mesure absolue, assez pour un suivi.</p>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
@@ -59,7 +118,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../dessins.js"></script>
-<script src="../figures/td1.js"></script>
+<script src="../figures/td1-visuels.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../schemas.js"></script>
 </body>

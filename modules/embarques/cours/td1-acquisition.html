@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Cadence, débit et filtre · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Cadence, débit et filtre</h1>
+<p class="chapeau">Le microcontrôleur lit les 8 capteurs d'un réseau l'un après l'autre, en boucle. À quelle vitesse faut-il tourner pour ne rien rater d'un pas ? Combien de bits cela fait-il ? Et comment filtrer sans ralentir la lecture ?</p>
+
+<h2>Question 13 : chronogramme et débit</h2>
+<p><strong>On te demande.</strong> Représente S1 à S3 pour une acquisition correcte : une marche intense fait 120 pas par minute, un pas demande au moins 20 points de mesure. L'ADC travaille sur 8 bits : déduis le débit binaire.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>La <strong>fréquence d'échantillonnage</strong> \(f_e\) est le nombre de mesures par seconde pour un capteur ; la période \(T_e = 1 / f_e\) sépare deux mesures du même capteur.</li>
+<li>Avec un multiplexeur, les 8 capteurs se partagent \(T_e\) : chacun n'a qu'un huitième du temps.</li>
+<li>S3 S2 S1 forment un compteur binaire : S1 (poids faible) change le plus souvent, S3 le moins souvent.</li>
+<li><strong>Débit binaire</strong> : nombre de bits produits par seconde = nombre de capteurs × mesures par seconde × bits par mesure.</li>
+</ul>
+<p><strong>Réponse.</strong> Fréquence d'échantillonnage d'un capteur :</p>
+\[f_e = \frac{120\ \text{pas}}{60\ \text{s}} \times 20\ \text{points}\]
+\[f_e = 2 \times 20\]
+\[f_e = 40\ \text{Hz, soit } T_e = 25\ \text{ms}\]
+<p>Les 8 capteurs d'un réseau passent l'un après l'autre en 25 ms : chaque voie dure</p>
+\[t_{voie} = \frac{T_e}{8}\]
+\[t_{voie} = \frac{25}{8}\]
+\[t_{voie} = 3{,}125\ \text{ms}\]
+<div id="fig-td1-chrono"></div>
+<p>S3 S2 S1 compte en binaire de 000 à 111, puis recommence :</p>
+<ul>
+<li>S1 change toutes les 3,125 ms : période 6,25 ms ;</li>
+<li>S2 change toutes les 6,25 ms : période 12,5 ms ;</li>
+<li>S3 change toutes les 12,5 ms : période 25 ms.</li>
+</ul>
+<p>Débit, pour les 16 capteurs (les deux réseaux) :</p>
+\[D = N \times f_e \times n\]
+\[D = 16 \times 40 \times 8\]
+\[D = 5\,120\ \text{bit/s}\]
+<p>Soit 2 560 bit/s pour un seul réseau de 8 capteurs.</p>
+
+<h2>Question 14 : le condensateur CF</h2>
+<p><strong>On te demande.</strong> Quel est le rôle de \(C_F\) ? Propose un dimensionnement.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un condensateur laisse passer les signaux rapides et bloque le continu. En parallèle sur \(R_G\), il « court-circuite » \(R_G\) aux hautes fréquences : le montage devient un <strong>filtre passe-bas</strong>, de fréquence de coupure \(f_c = 1 / (2\pi R_G C_F)\).</li>
+<li>Un circuit RC met du temps à suivre un saut de tension : on le considère stabilisé après environ \(5\tau\), avec \(\tau = R_G C_F\).</li>
+<li>À chaque changement de voie, \(V_A\) saute d'une valeur à l'autre.</li>
+</ul>
+<div id="fig-td1-cf"></div>
+<p><strong>Réponse.</strong> Rôle : \(C_F\) fait un filtre passe-bas qui coupe le bruit et les parasites, sans toucher au signal de marche, qui est lent (quelques hertz).</p>
+\[f_c = \frac{1}{2\pi R_G C_F}\]
+<p>Limite : le multiplexeur change de voie toutes les 3,125 ms. La sortie doit se stabiliser sur la nouvelle voie avant la conversion :</p>
+\[5\,R_G C_F \le 3{,}125\ \text{ms}\]
+\[C_F \le \frac{3{,}125 \times 10^{-3}}{5 \times 750 \times 10^{3}}\]
+\[C_F \le 0{,}83\ \text{nF}\]
+<p>Une proposition : \(C_F = 470\) pF.</p>
+\[f_c = \frac{1}{2\pi \times 750 \times 10^{3} \times 470 \times 10^{-12}}\]
+\[f_c \approx 450\ \text{Hz}\]
+<p>Bien au-dessus du rythme de la marche, et la sortie se stabilise en 1,8 ms environ. C'est une réponse possible parmi d'autres : l'essentiel est de justifier le compromis entre filtrage et temps de stabilisation.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Surface du capteur : \(S = L\,D + \pi D^2 / 4 \approx 260\) mm² ; pression : \(P = F / S\).</li>
+<li>Pont de jauges : sortie proportionnelle à l'excitation et à la charge, \(V_o = S\,V_{exc}\,P / P_{max}\).</li>
+<li>Gain de l'INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
+<li>Montage de la figure 5 : \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\).</li>
+<li>Acquisition : \(f_e = 40\) Hz, 3,125 ms par voie, débit \(= N \times f_e \times n\).</li>
+<li>Filtre : \(f_c = 1 / (2\pi R_G C_F)\), et \(5 R_G C_F\) plus court que le temps d'une voie.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td1-visuels.js"></script>
+</body>
+</html>

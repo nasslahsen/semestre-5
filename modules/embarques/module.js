@@ -31,12 +31,13 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "instrumentation", titre: "MQTT Implementation on ESP32 board : Example", couvre: "lab 6" },
       { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "lab 7" },
       { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" },
-      { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" }
+      { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" },
+      { sousModule: "embarques", titre: "Application N°1 : documents constructeurs (DT1 à DT6) et documents réponses (DR1 à DR3)", couvre: "TD 1 : fiches de la semelle FS-INS-16Z, du FUTEK LSB200, de l'INA128, du NX3L4051, courbe DR1 du capteur (questions 1 à 14)" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
       "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté.",
-      "TD 1 semelle : les annexes DT1 à DT4 (fiches de la semelle, du FUTEK LSB200, de l'INA128, du NX3L4051), le document réponse DR1 (courbe d'un capteur) et les parties bio-impédance, transmission radio, synthèse : l'extrait reçu s'arrête à la question 14."
+      "TD 1 semelle : les énoncés des parties bio-impédance, transmission radio et synthèse (questions 15 et suivantes) ; leurs documents sont reçus (DT5 MAX30009, DT6 ADF7012, DR2, DR3), mais l'énoncé reçu s'arrête à la question 14."
     ]
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : TD semelle et fonctions MQTT (traitement, callback, loop), annoncés par le professeur.
@@ -154,9 +155,9 @@ PLATEFORME.parcours("embarques", {
     { id: "boss-thingspeak", chapitre: 8, titre: "L'oxymètre sur ThingSpeak", boss: true, pret: true },
 
     { id: "td1", chapitre: 16, titre: "Questions 1 à 3 : surface et pression d'un capteur", cours: true, pret: true },
-    { id: "td1-banc", chapitre: 16, titre: "Questions 4 à 8 : le banc et l'INA128", pret: true },
-    { id: "td1-montage", chapitre: 16, titre: "Questions 10 à 12 : multiplexeur et montage", pret: true },
-    { id: "td1-acquisition", chapitre: 16, titre: "Questions 13 et 14 : cadence, débit et CF", pret: true }
+    { id: "td1-banc", chapitre: 16, titre: "Questions 4 à 8 : le banc et l'INA128", cours: true, pret: true },
+    { id: "td1-montage", chapitre: 16, titre: "Questions 10 à 12 : multiplexeur et montage", cours: true, pret: true },
+    { id: "td1-acquisition", chapitre: 16, titre: "Questions 13 et 14 : cadence, débit et CF", cours: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -210,8 +211,10 @@ PLATEFORME.parcours("embarques", {
     { id: "lab6-tester", chapitre: 14, titre: "Piloter la LED, lire la température", notions: ["lab-mqtt-tester"] },
     { id: "lab7-code", chapitre: 15, titre: "Le simulateur ECG", notions: ["lab-ecg-code"] },
     { id: "lab7-afficher", chapitre: 15, titre: "Recevoir et tracer l'ECG", notions: ["lab-ecg-afficher"] },
-    { id: "td1", chapitre: 16, titre: "Où chercher chaque réponse", notions: ["td1"] },
-    { id: "td1-corrige", chapitre: 16, titre: "L'énoncé et le corrigé, question par question", notions: ["td1-corrige"] }
+    { id: "td1", chapitre: 16, titre: "Le sujet et le capteur", notions: ["td1"] },
+    { id: "td1-banc", chapitre: 16, titre: "Le banc : FUTEK LSB200 et INA128", notions: ["td1-banc"] },
+    { id: "td1-montage", chapitre: 16, titre: "Le montage de mesure", notions: ["td1-montage"] },
+    { id: "td1-acquisition", chapitre: 16, titre: "Cadence, débit et filtre", notions: ["td1-acquisition"] }
   ],
   cours: [
     { chapitre: 0, id: "binaire", titre: "Bits et binaire" },
@@ -278,7 +281,9 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 14, id: "lab-mqtt-tester", titre: "Piloter la LED, lire la température" },
     { chapitre: 15, id: "lab-ecg-code", titre: "Lab 2 : Bluetooth Biomedical Data Communication" },
     { chapitre: 15, id: "lab-ecg-afficher", titre: "Recevoir et tracer l'ECG" },
-    { chapitre: 16, id: "td1", titre: "Les réponses dans le cours" },
-    { chapitre: 16, id: "td1-corrige", titre: "Énoncé et corrigé" }
+    { chapitre: 16, id: "td1", titre: "Le sujet et le capteur de la semelle" },
+    { chapitre: 16, id: "td1-banc", titre: "Le banc : FUTEK LSB200 et INA128" },
+    { chapitre: 16, id: "td1-montage", titre: "Le montage de mesure" },
+    { chapitre: 16, id: "td1-acquisition", titre: "Cadence, débit et filtre" }
   ]
 });
