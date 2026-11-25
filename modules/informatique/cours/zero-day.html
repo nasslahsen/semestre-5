@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Vulnérabilités non corrigées et 0-day · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Vulnérabilités non corrigées et 0-day</h1>
+<p class="chapeau">Le correctif existe depuis trois mois, mais le serveur n'a jamais été redémarré pour l'installer. Ailleurs, une faille que personne ne connaît encore est déjà exploitée. Deux situations, un même mécanisme.</p>
+<h2>Exploiter une faille avant le correctif</h2>
+<p>L'<b>exploitation de vulnérabilités non corrigées</b> est l'utilisation malveillante d'une faille de sécurité avant qu'un correctif (patch) n'ait été développé ou appliqué. Elle touche toutes les couches, de 1 à 7. Quand la faille n'est même pas encore connue de l'éditeur, on parle d'attaque <b>zero-day</b> (0-day).</p>
+<p>Une faille <b>0-day</b> est découverte et exploitée par des pirates avant même que les créateurs du logiciel ne soient au courant de son existence ou n'aient publié un correctif.</p>
+<div id="fig-0day"></div>
+<p>À l'hôpital, la fenêtre entre la publication d'un correctif et son installation dure souvent longtemps (fenêtres de maintenance serrées, DM qu'on ne peut pas corriger sans le fabricant, chapitre 7). Pendant ce temps, la faille est connue de tous mais reste ouverte.</p>
+
+<h2>Un exemple récent : PHP2Shell (octobre 2026)</h2>
+<ul>
+<li><b>Les failles</b> : CVE-2026-109618 et CVE-2026-109619, dans le langage PHP, qui fait tourner environ 70 % du web mondial.</li>
+<li><b>La nouveauté</b> : l'usage de l'intelligence artificielle (GPT-5.6 Sol) pour identifier et exploiter des vulnérabilités critiques de type zero-day, des vulnérabilités « dormantes ».</li>
+<li><b>Impact mondial</b> : des millions de plateformes exposées ; des sites officiels coupés temporairement en maintenance préventive (ex. : Orange).</li>
+<li><b>Au Maroc</b> : PHP2Shell est signalée dans un bulletin officiel du 21 octobre 2026. Le site de l'agence Maghreb Arabe Presse (MAP) est placé en maintenance préventive ; le portail de Bank Al-Maghrib (BAM) connaît une indisponibilité ciblée pendant la nuit pour sécuriser ses infrastructures.</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>Faille non corrigée : le correctif n'existe pas encore ou n'est pas appliqué.</li>
+<li>0-day : faille cachée → exploit 0-day (script du pirate) → attaque 0-day, avant que l'éditeur ne sache.</li>
+<li>PHP2Shell (octobre 2026) : failles PHP trouvées avec l'IA, bulletin au Maroc le 21 octobre 2026.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/zero-day.js"></script>
+</body>
+</html>

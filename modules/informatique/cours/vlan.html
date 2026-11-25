@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Cloisonnement par VLAN · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Cloisonnement par VLAN</h1>
+<p class="chapeau">Les postes de radiologie, les pompes de réanimation et les ordinateurs de l'administration sont branchés sur les mêmes switchs. Sans rien recâbler, on peut pourtant les mettre dans des réseaux qui ne se voient pas.</p>
+<p>Un <b>VLAN</b> (réseau local virtuel) est une technologie qui permet de segmenter un réseau physique unique en plusieurs <b>réseaux logiques indépendants</b>.</p>
+<div id="fig-vlan"></div>
+
+<h2>Relier les switchs et faire communiquer les VLAN</h2>
+<ul>
+<li><b>Le mode trunk</b> : lier les commutateurs entre eux. Un seul lien trunk transporte le trafic de tous les VLAN, chaque trame portant l'étiquette (le « tag ») de son VLAN.</li>
+<li><b>Le routage inter-VLAN</b> : deux VLAN ne se parlent pas directement. Pour les faire communiquer, il faut un <b>routeur</b> ou un <b>switch de couche 3</b>, qui peut filtrer ce qui passe.</li>
+</ul>
+<p>Le schéma du cours : deux switchs (SW1, SW2) reliés par trunk à un troisième (SW3) relié au routeur ; sur chaque switch, des postes en VLAN 10 (172.17.10.0/24), VLAN 20 (172.17.20.0/24) et VLAN 30 (172.17.30.0/24).</p>
+
+<h2>Vulnérabilités</h2>
+<ul>
+<li><b>VLAN hopping</b> (saut de VLAN) : attaque qui permet d'envoyer du trafic d'un VLAN à un autre.</li>
+<li><b>Double tagging</b> : utilisation de deux étiquettes VLAN pour contourner le switch.</li>
+</ul>
+
+<h2>Solutions et bonnes pratiques</h2>
+<div class="tableau"><table>
+<tr><th>Bonne pratique</th><th>Ce qu'elle empêche</th></tr>
+<tr><td>Désactiver le <b>DTP</b> (Dynamic Trunking Protocol)</td><td>la négociation automatique des trunks : un poste ne peut plus se faire passer pour un switch</td></tr>
+<tr><td>Configurer le <b>VLAN natif</b> : ne jamais utiliser le VLAN 1 par défaut</td><td>le double tagging, qui s'appuie sur le VLAN natif</td></tr>
+<tr><td><b>Sécuriser les ports</b> : désactiver les ports non utilisés, limiter l'accès</td><td>un intrus qui se branche sur une prise libre</td></tr>
+<tr><td>Changer le <b>VLAN de gestion</b> : un VLAN dédié, distinct du VLAN 1</td><td>l'accès à l'administration des switchs depuis le VLAN par défaut</td></tr>
+<tr><td><b>Limiter le nombre de VLAN</b> au strict nécessaire</td><td>une configuration trop complexe, source d'erreurs</td></tr>
+</table></div>
+<p>La colonne de droite explique le pourquoi ; les bonnes pratiques sont celles du cours.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>VLAN : un réseau physique, plusieurs réseaux logiques indépendants.</li>
+<li>Trunk entre switchs ; routage inter-VLAN par routeur ou switch de couche 3.</li>
+<li>Menaces : VLAN hopping, double tagging. Parades : DTP désactivé, VLAN natif ≠ 1, ports sécurisés, VLAN de gestion dédié, peu de VLAN.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/vlan.js"></script>
+</body>
+</html>

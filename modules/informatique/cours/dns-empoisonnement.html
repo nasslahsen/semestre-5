@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>DNS et empoisonnement du cache · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>DNS et empoisonnement du cache</h1>
+<p class="chapeau">Une infirmière tape l'adresse du portail de l'hôpital, sans faute. La page qui s'ouvre lui ressemble trait pour trait, et lui demande son mot de passe. Le nom était juste, c'est l'annuaire qui mentait.</p>
+<h2>Fonctionnement normal du DNS</h2>
+<p>Le <b>DNS</b> (Domain Name System, système de noms de domaine) est l'annuaire d'Internet : il traduit les noms de sites lisibles par l'homme (ex. : <code>hôpital.santé.ma</code>) en adresses IP numériques (ex. : <code>142.250.179.196</code>) compréhensibles par les machines. On navigue sans mémoriser des suites de chiffres.</p>
+<p>Protocoles utilisés : <b>UDP port 53</b>, et TCP.</p>
+<p>Le schéma du cours montre la résolution d'une requête :</p>
+<ol>
+<li>le client demande l'adresse à son <b>résolveur DNS</b> ;</li>
+<li>le résolveur interroge le <b>serveur racine</b>, puis le <b>serveur TLD</b> (domaine de premier niveau), puis le <b>serveur de noms du domaine</b> ;</li>
+<li>il renvoie l'adresse au client et la <b>garde en cache</b> pour les requêtes suivantes ;</li>
+<li>le client contacte le <b>serveur d'origine</b> à cette adresse.</li>
+</ol>
+
+<h2>L'empoisonnement du cache DNS</h2>
+<p>Dans l'<b>empoisonnement du cache DNS</b> (DNS cache poisoning / spoofing, ou DNS hijacking), des données falsifiées sont introduites dans le cache d'un résolveur, ce qui redirige les utilisateurs vers des sites malveillants.</p>
+<div id="fig-dns"></div>
+<p>Le danger vient du cache : une seule fausse réponse acceptée sert ensuite à <b>tous</b> les utilisateurs qui posent la même question, tant qu'elle reste en mémoire.</p>
+
+<h2>Les solutions</h2>
+<div class="tableau"><table>
+<tr><th>Pour les administrateurs</th><th>Pour les utilisateurs finaux</th></tr>
+<tr><td><b>DNSSEC</b> : l'activer</td><td><b>Vider le cache DNS</b> : <code>ipconfig /flushdns</code></td></tr>
+<tr><td><b>Sécuriser les serveurs</b> : mettre à jour régulièrement les logiciels DNS, utiliser des résolveurs réputés</td><td><b>Utiliser un VPN</b> : le tunnel chiffré empêche l'interception des requêtes DNS</td></tr>
+<tr><td></td><td><b>Changer de résolveur</b> : serveurs DNS sécurisés comme Cloudflare (1.1.1.1) ou Google (8.8.8.8)</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>DNS : traduit un nom en adresse IP, UDP 53 (et TCP), résolveur → racine → TLD → serveur du domaine, réponse en cache.</li>
+<li>Empoisonnement : fausse correspondance dans le cache du résolveur, tous ses clients sont redirigés.</li>
+<li>Parades : DNSSEC, serveurs à jour (admins) ; flushdns, VPN, résolveur sûr (utilisateurs).</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/dns-empoisonnement.js"></script>
+</body>
+</html>

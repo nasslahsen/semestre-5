@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Hub, switch, routeur et switch multicouche · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Hub, switch, routeur et switch multicouche</h1>
+<p class="chapeau">Dans le local technique d'un étage, plusieurs boîtiers clignotent. Lequel relie les postes entre eux, lequel sort vers Internet, et lequel est le plus exposé ? Chaque équipement travaille à une couche différente.</p>
+<ul>
+<li><b>Switch</b> (commutateur réseau) : connecte des périphériques sur un réseau local (LAN), comme une multiprise intelligente pour câbles Ethernet. Il gère une <b>table d'adresses MAC</b>.</li>
+<li><b>Routeur</b> : relie le réseau local à d'autres réseaux, notamment Internet. Il gère une <b>table de routage</b> et assure le routage statique et dynamique (RIP, OSPF...).</li>
+<li><b>Switch multicouche</b> (layer 3 switch) : équipement de haute performance qui offre à la fois la commutation rapide et le routage (routage inter-VLAN, commutation L2 et L3, sécurité renforcée par ACL).</li>
+</ul>
+<div id="fig-equip"></div>
+
+<h2>Comparaison</h2>
+<div class="tableau"><table>
+<tr><th>Caractéristique</th><th>Hub</th><th>Switch</th><th>Routeur</th><th>Switch multicouche</th></tr>
+<tr><td>Couche OSI</td><td>1 (physique)</td><td>2 (liaison)</td><td>3 (réseau)</td><td>2 et 3</td></tr>
+<tr><td>Intelligence</td><td>nulle (diffusion)</td><td>apprend les MAC</td><td>routage IP</td><td>MAC + IP</td></tr>
+<tr><td>Administration</td><td>aucune</td><td>souvent managé</td><td>élevée</td><td>élevée</td></tr>
+<tr><td>Utilisation</td><td>obsolète</td><td>réseau local LAN</td><td>Internet, inter-réseaux</td><td>cœur de réseau, VLAN</td></tr>
+</table></div>
+<p>Ce tableau prépare la suite : les attaques de <b>couche 2</b> visent les switchs (table MAC, ARP, VLAN), celles de <b>couche 3</b> visent les routeurs (adresses IP, ICMP, DNS du routeur).</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Hub : couche 1, diffuse tout, obsolète.</li>
+<li>Switch : couche 2, table MAC, réseau local.</li>
+<li>Routeur : couche 3, table de routage, vers Internet.</li>
+<li>Switch multicouche : couches 2 et 3, routage inter-VLAN, ACL, cœur de réseau.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/equipements-reseau.js"></script>
+</body>
+</html>

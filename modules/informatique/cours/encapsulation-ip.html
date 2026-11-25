@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Encapsulation, IPv4 et IPv6 · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Encapsulation, IPv4 et IPv6</h1>
+<p class="chapeau">Une page web demandée au portail patient part comme un message HTTP et arrive comme une suite de bits sur un câble. Entre les deux, chaque couche ajoute son enveloppe.</p>
+<div id="fig-encap"></div>
+
+<h2>Encapsulation et désencapsulation</h2>
+<ul>
+<li><b>Encapsulation</b> (à l'envoi) : on descend les couches. Chaque couche ajoute son en-tête aux données reçues de la couche du dessus : HTTP, puis HTTP + TCP, puis HTTP + TCP + IPv4, puis l'accès au réseau, qui transmet les bits.</li>
+<li><b>Désencapsulation</b> (à la réception) : on remonte les couches. Chaque couche lit et retire son en-tête, puis passe le reste à la couche du dessus, jusqu'au message HTTP.</li>
+</ul>
+
+<h2>IPv4 et IPv6</h2>
+<div class="tableau"><table>
+<tr><th></th><th>IPv4</th><th>IPv6</th></tr>
+<tr><td>Déployé en</td><td>1981</td><td>1998</td></tr>
+<tr><td>Taille d'adresse</td><td>32 bits</td><td>128 bits</td></tr>
+<tr><td>Nombre d'adresses</td><td>4,3 milliards : les adresses doivent être réutilisées et masquées</td><td>chaque appareil peut avoir sa propre adresse</td></tr>
+<tr><td>Notation</td><td>numérique avec points : <code>192.168.5.18</code></td><td>hexadécimale : <code>50b2:6400:0000:0000:6c3a:b17d:0000:10a9</code></td></tr>
+<tr><td>Configuration</td><td>DHCP ou manuelle</td><td>autoconfiguration possible</td></tr>
+</table></div>
+<p>D'où vient le nombre d'adresses : chaque bit vaut 0 ou 1, donc \( n \) bits donnent \( 2^n \) adresses.</p>
+\[ N = 2^{n} \]
+\[ N_{\text{IPv4}} = 2^{32} = 4\,294\,967\,296 \approx 4{,}3 \text{ milliards} \]
+<p>Pour IPv6, \( 2^{128} \approx 3{,}4 \times 10^{38} \) adresses (la diapositive affiche « 7,9 × 10<sup>28</sup> », un chiffre qui ne correspond pas à \( 2^{128} \)).</p>
+<p>Une adresse IPv6 s'écrit en 8 groupes de 4 chiffres hexadécimaux. Version simplifiée du cours : <code>50b2:6400::6c3a:b17d:0:10a9</code>. Les zéros en tête d'un groupe tombent (<code>0000</code> devient <code>0</code>) et une seule suite de groupes nuls est remplacée par <code>::</code>.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Envoi : encapsulation, chaque couche ajoute son en-tête. Réception : désencapsulation, chaque couche retire le sien.</li>
+<li>IPv4 : 32 bits, \( 2^{32} \approx \) 4,3 milliards d'adresses, notation à points, DHCP ou manuel.</li>
+<li>IPv6 : 128 bits, notation hexadécimale simplifiable, autoconfiguration possible.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/encapsulation-ip.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La défense en profondeur dans le réseau · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La défense en profondeur dans le réseau</h1>
+<p class="chapeau">Le pare-feu a laissé passer une pièce jointe piégée. Ce n'est pas la fin : derrière lui, d'autres barrières attendent. Une seule barrière, c'est un seul point de rupture.</p>
+<p>La <b>défense en profondeur</b> consiste à mettre en place des barrières, des mécanismes et des solutions <b>selon la criticité et l'importance du bien à protéger</b>, suivant une <b>approche en couches</b> : si une couche de sécurité de niveau inférieur est franchie, les autres couches peuvent réagir.</p>
+<div id="fig-couches"></div>
+
+<h2>Les couches citées par le cours</h2>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Ce qu'elle apporte</th></tr>
+<tr><td>Sécurité physique</td><td>locaux techniques fermés, accès contrôlé aux équipements</td></tr>
+<tr><td>Pare-feu</td><td>filtre les flux entre zones (Internet, DMZ, LAN)</td></tr>
+<tr><td>IDS / IPS</td><td>détecte (IDS) ou bloque (IPS) les comportements d'attaque, comme un scan</td></tr>
+<tr><td>VPN</td><td>tunnel chiffré pour les accès distants et les liaisons entre sites</td></tr>
+<tr><td>Journalisation, supervision</td><td>garde les traces, donne l'alerte</td></tr>
+<tr><td>Solutions antivirales</td><td>arrêtent les logiciels malveillants sur les postes et serveurs</td></tr>
+</table></div>
+<p>La colonne de droite résume le rôle habituel de chaque couche ; la liste des couches est celle du cours. La séance 1 posait déjà l'idée (sécurité en couches, durcissement, veille et sensibilisation) : ici, on la traduit en équipements réseau.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Défense en profondeur : des couches selon la criticité du bien ; si une cède, les autres réagissent.</li>
+<li>Couches : sécurité physique, pare-feu, IDS/IPS, VPN, journalisation et supervision, antivirus.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/defense-couches.js"></script>
+</body>
+</html>

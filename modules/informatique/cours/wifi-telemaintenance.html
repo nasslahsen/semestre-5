@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Attaques Wi-Fi et télémaintenance · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Attaques Wi-Fi et télémaintenance</h1>
+<p class="chapeau">Un agent branche sa propre borne Wi-Fi dans son bureau pour avoir du réseau. Un fabricant se connecte chaque semaine par VPN pour entretenir l'IRM. Deux portes qui étendent le réseau de l'hôpital au-delà de ses murs.</p>
+<p>Le <b>Wi-Fi</b> et les <b>accès distants</b> ont un point commun : ils étendent le réseau de l'hôpital au-delà de ses murs, ce qui en fait des cibles privilégiées.</p>
+
+<h2>Deux faux points d'accès</h2>
+<div class="tableau"><table>
+<tr><th></th><th>Rogue AP (faux point d'accès)</th><th>Evil twin (jumeau maléfique)</th></tr>
+<tr><td>Ce que c'est</td><td>un point d'accès non autorisé <b>branché sur le réseau filaire</b> de l'établissement</td><td>un point d'accès de l'attaquant qui diffuse <b>le même nom (SSID)</b> que le Wi-Fi légitime, avec un signal plus fort</td></tr>
+<tr><td>Effet</td><td>crée une porte dérobée Wi-Fi vers le réseau interne</td><td>les appareils s'y connectent automatiquement : tout le trafic passe par l'attaquant</td></tr>
+<tr><td>Intention</td><td>volontaire ou non : un agent qui branche sa borne pour « améliorer le signal » en est un exemple fréquent, sans intention malveillante</td><td>malveillante</td></tr>
+</table></div>
+
+<h2>Les protocoles de sécurité sans fil, du plus faible au plus sûr</h2>
+<div id="fig-wpa"></div>
+<ul>
+<li><b>WEP</b> (Wired Equivalent Privacy) : totalement obsolète, cassé en quelques minutes.</li>
+<li><b>WPA / WPA1</b> : ancien, utilise le protocole TKIP, aujourd'hui vulnérable.</li>
+<li><b>WPA2</b> : très répandu et longtemps la norme de confiance, mais vulnérable à <b>KRACK</b> (Key Reinstallation Attacks) : l'attaquant force la victime à réutiliser une clé de chiffrement déjà utilisée, ce qui permet de déchiffrer le trafic à la volée sans connaître le mot de passe du Wi-Fi.</li>
+<li><b>WPA3</b> : le plus récent et le plus robuste. Il renforce le chiffrement individuel des sessions, protège mieux contre la force brute sur les mots de passe et sécurise les échanges même avec des clés simples. Des failles ont malgré tout été trouvées : les <b>attaques par canal auxiliaire</b> (side-channel), où l'attaquant mesure le temps ou la mémoire que met le routeur à traiter la connexion pour deviner des indices sur le mot de passe.</li>
+</ul>
+
+<h2>La télémaintenance</h2>
+<p>La <b>télémaintenance</b> est généralement classée comme un <b>risque majeur</b> : elle présente une surface d'attaque active.</p>
+<p>Exemple du cours : un identifiant de connexion VPN du fabricant, dérobé par hameçonnage chez un sous-traitant, donne un accès direct, et légitime en apparence, au réseau biomédical d'un hôpital client.</p>
+
+<h2>À retenir (diapositive du cours)</h2>
+<ul>
+<li>Toute attaque se situe dans une méthodologie connue (kill chain, ATT&amp;CK) : rien n'est improvisé, y compris côté défense.</li>
+<li>La plupart des attaques de couche 2 supposent seulement une présence sur le bon segment réseau, y compris un Wi-Fi mal isolé.</li>
+<li>Les attaques des couches 3 à 7 visent souvent la disponibilité (DoS/DDoS) ou s'appuient sur des vulnérabilités déjà connues et déjà corrigeables.</li>
+<li>La télémaintenance et le Wi-Fi étendent le périmètre réseau au-delà des murs physiques de l'hôpital.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/wifi-telemaintenance.js"></script>
+</body>
+</html>

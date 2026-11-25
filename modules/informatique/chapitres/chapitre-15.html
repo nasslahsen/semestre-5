@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Couches 4 à 7, Wi-Fi et télémaintenance</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 15. -->
+<main class="cours-chapitre" data-chapitre="15">
+<p class="etiquette" data-etiquette></p>
+<h1>Couches 4 à 7, Wi-Fi et télémaintenance</h1>
+
+<section class="partie" id="s-ports-dns">
+<h2>Couches 4 à 7 et DNS</h2>
+
+<article class="notion" id="n-ports-vulnerables">
+<p class="chapeau">Le scan de l'auditeur montre les ports 21, 23 et 445 ouverts sur le serveur du laboratoire. Pour un attaquant, chacun de ces numéros raconte déjà une histoire.</p>
+<h4>Principaux ports et protocoles vulnérables</h4>
+<div class="tableau"><table>
+<tr><th>Port</th><th>Protocole</th><th>Pourquoi il est visé</th></tr>
+<tr><td>21</td><td>FTP</td><td>transfert en texte clair : vulnérable au sniffing et au vol de données</td></tr>
+<tr><td>22</td><td>SSH</td><td>cible des attaques par force brute pour accéder aux serveurs</td></tr>
+<tr><td>23</td><td>Telnet</td><td>non chiffré, hautement non sécurisé</td></tr>
+<tr><td>25</td><td>SMTP</td><td>utilisé pour le spam et le phishing</td></tr>
+<tr><td>53</td><td>DNS</td><td>exploité pour les attaques par déni de service distribué (DDoS)</td></tr>
+<tr><td>137 – 139 et 445</td><td>NetBIOS et SMB</td><td>fréquemment ciblés par les rançongiciels sur Windows</td></tr>
+<tr><td>80 / 443</td><td>HTTP / HTTPS</td><td>vulnérables aux injections (XSS) et au détournement de session</td></tr>
+</table></div>
+<p>Rappel du chapitre 7 : WannaCry (NHS, 2017) exploitait justement SMBv1, sur le port 445.</p>
+
+<h4>Principales attaques et risques</h4>
+<div class="schema" id="sc-attaques-l47"></div>
+<ul>
+<li><b>Scan de ports</b> (port scanning) : recherche de services ouverts par des attaquants.</li>
+<li><b>Man-in-the-Middle</b> (MitM) : interception de données sur des protocoles non chiffrés.</li>
+<li><b>Déni de service</b> (DDoS) : inondation de ports spécifiques pour rendre un service indisponible.</li>
+<li><b>Exploitation de services</b> (rançongiciel) : utilisation de protocoles mal configurés pour pénétrer le réseau.</li>
+<li><b>Détournement DNS</b> (DNS hijacking) : fausse correspondance IP / nom de domaine injectée dans la mémoire d'un serveur DNS récursif.</li>
+<li><b>Exploitation de vulnérabilités non corrigées</b> : un système qui n'a simplement pas reçu le correctif.</li>
+</ul>
+
+<h4>À retenir</h4>
+<ul>
+<li>En clair : FTP 21, Telnet 23. Force brute : SSH 22. Spam, phishing : SMTP 25. DDoS : DNS 53.</li>
+<li>Rançongiciels Windows : NetBIOS 137 – 139 et SMB 445. Injections XSS, session : HTTP/HTTPS 80/443.</li>
+<li>Six attaques : scan, MitM, DDoS, exploitation de services, DNS hijacking, failles non corrigées.</li>
+</ul>
+</article>
+
+<article class="notion" id="n-dns-empoisonnement">
+<h3>DNS et empoisonnement du cache</h3>
+<p class="chapeau">Une infirmière tape l'adresse du portail de l'hôpital, sans faute. La page qui s'ouvre lui ressemble trait pour trait, et lui demande son mot de passe. Le nom était juste, c'est l'annuaire qui mentait.</p>
+<h4>Fonctionnement normal du DNS</h4>
+<p>Le <b>DNS</b> (Domain Name System, système de noms de domaine) est l'annuaire d'Internet : il traduit les noms de sites lisibles par l'homme (ex. : <code>hôpital.santé.ma</code>) en adresses IP numériques (ex. : <code>142.250.179.196</code>) compréhensibles par les machines. On navigue sans mémoriser des suites de chiffres.</p>
+<p>Protocoles utilisés : <b>UDP port 53</b>, et TCP.</p>
+<p>Le schéma du cours montre la résolution d'une requête :</p>
+<ol>
+<li>le client demande l'adresse à son <b>résolveur DNS</b> ;</li>
+<li>le résolveur interroge le <b>serveur racine</b>, puis le <b>serveur TLD</b> (domaine de premier niveau), puis le <b>serveur de noms du domaine</b> ;</li>
+<li>il renvoie l'adresse au client et la <b>garde en cache</b> pour les requêtes suivantes ;</li>
+<li>le client contacte le <b>serveur d'origine</b> à cette adresse.</li>
+</ol>
+
+<h4>L'empoisonnement du cache DNS</h4>
+<p>Dans l'<b>empoisonnement du cache DNS</b> (DNS cache poisoning / spoofing, ou DNS hijacking), des données falsifiées sont introduites dans le cache d'un résolveur, ce qui redirige les utilisateurs vers des sites malveillants.</p>
+<div id="fig-dns"></div>
+<p>Le danger vient du cache : une seule fausse réponse acceptée sert ensuite à <b>tous</b> les utilisateurs qui posent la même question, tant qu'elle reste en mémoire.</p>
+
+<h4>Les solutions</h4>
+<div class="tableau"><table>
+<tr><th>Pour les administrateurs</th><th>Pour les utilisateurs finaux</th></tr>
+<tr><td><b>DNSSEC</b> : l'activer</td><td><b>Vider le cache DNS</b> : <code>ipconfig /flushdns</code></td></tr>
+<tr><td><b>Sécuriser les serveurs</b> : mettre à jour régulièrement les logiciels DNS, utiliser des résolveurs réputés</td><td><b>Utiliser un VPN</b> : le tunnel chiffré empêche l'interception des requêtes DNS</td></tr>
+<tr><td></td><td><b>Changer de résolveur</b> : serveurs DNS sécurisés comme Cloudflare (1.1.1.1) ou Google (8.8.8.8)</td></tr>
+</table></div>
+
+<h4>À retenir</h4>
+<ul>
+<li>DNS : traduit un nom en adresse IP, UDP 53 (et TCP), résolveur → racine → TLD → serveur du domaine, réponse en cache.</li>
+<li>Empoisonnement : fausse correspondance dans le cache du résolveur, tous ses clients sont redirigés.</li>
+<li>Parades : DNSSEC, serveurs à jour (admins) ; flushdns, VPN, résolveur sûr (utilisateurs).</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="ports-dns"></div>
+</section>
+
+<section class="partie" id="s-zero-day">
+<h2>Vulnérabilités non corrigées et 0-day</h2>
+
+<article class="notion" id="n-zero-day">
+<p class="chapeau">Le correctif existe depuis trois mois, mais le serveur n'a jamais été redémarré pour l'installer. Ailleurs, une faille que personne ne connaît encore est déjà exploitée. Deux situations, un même mécanisme.</p>
+<h4>Exploiter une faille avant le correctif</h4>
+<p>L'<b>exploitation de vulnérabilités non corrigées</b> est l'utilisation malveillante d'une faille de sécurité avant qu'un correctif (patch) n'ait été développé ou appliqué. Elle touche toutes les couches, de 1 à 7. Quand la faille n'est même pas encore connue de l'éditeur, on parle d'attaque <b>zero-day</b> (0-day).</p>
+<p>Une faille <b>0-day</b> est découverte et exploitée par des pirates avant même que les créateurs du logiciel ne soient au courant de son existence ou n'aient publié un correctif.</p>
+<div id="fig-0day"></div>
+<p>À l'hôpital, la fenêtre entre la publication d'un correctif et son installation dure souvent longtemps (fenêtres de maintenance serrées, DM qu'on ne peut pas corriger sans le fabricant, chapitre 7). Pendant ce temps, la faille est connue de tous mais reste ouverte.</p>
+
+<h4>Un exemple récent : PHP2Shell (octobre 2026)</h4>
+<ul>
+<li><b>Les failles</b> : CVE-2026-109618 et CVE-2026-109619, dans le langage PHP, qui fait tourner environ 70 % du web mondial.</li>
+<li><b>La nouveauté</b> : l'usage de l'intelligence artificielle (GPT-5.6 Sol) pour identifier et exploiter des vulnérabilités critiques de type zero-day, des vulnérabilités « dormantes ».</li>
+<li><b>Impact mondial</b> : des millions de plateformes exposées ; des sites officiels coupés temporairement en maintenance préventive (ex. : Orange).</li>
+<li><b>Au Maroc</b> : PHP2Shell est signalée dans un bulletin officiel du 21 octobre 2026. Le site de l'agence Maghreb Arabe Presse (MAP) est placé en maintenance préventive ; le portail de Bank Al-Maghrib (BAM) connaît une indisponibilité ciblée pendant la nuit pour sécuriser ses infrastructures.</li>
+</ul>
+
+<h4>À retenir</h4>
+<ul>
+<li>Faille non corrigée : le correctif n'existe pas encore ou n'est pas appliqué.</li>
+<li>0-day : faille cachée → exploit 0-day (script du pirate) → attaque 0-day, avant que l'éditeur ne sache.</li>
+<li>PHP2Shell (octobre 2026) : failles PHP trouvées avec l'IA, bulletin au Maroc le 21 octobre 2026.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="zero-day"></div>
+</section>
+
+<section class="partie" id="s-wifi-telemaintenance">
+<h2>Wi-Fi et télémaintenance</h2>
+
+<article class="notion" id="n-wifi-telemaintenance">
+<p class="chapeau">Un agent branche sa propre borne Wi-Fi dans son bureau pour avoir du réseau. Un fabricant se connecte chaque semaine par VPN pour entretenir l'IRM. Deux portes qui étendent le réseau de l'hôpital au-delà de ses murs.</p>
+<p>Le <b>Wi-Fi</b> et les <b>accès distants</b> ont un point commun : ils étendent le réseau de l'hôpital au-delà de ses murs, ce qui en fait des cibles privilégiées.</p>
+
+<h4>Deux faux points d'accès</h4>
+<div class="tableau"><table>
+<tr><th></th><th>Rogue AP (faux point d'accès)</th><th>Evil twin (jumeau maléfique)</th></tr>
+<tr><td>Ce que c'est</td><td>un point d'accès non autorisé <b>branché sur le réseau filaire</b> de l'établissement</td><td>un point d'accès de l'attaquant qui diffuse <b>le même nom (SSID)</b> que le Wi-Fi légitime, avec un signal plus fort</td></tr>
+<tr><td>Effet</td><td>crée une porte dérobée Wi-Fi vers le réseau interne</td><td>les appareils s'y connectent automatiquement : tout le trafic passe par l'attaquant</td></tr>
+<tr><td>Intention</td><td>volontaire ou non : un agent qui branche sa borne pour « améliorer le signal » en est un exemple fréquent, sans intention malveillante</td><td>malveillante</td></tr>
+</table></div>
+
+<h4>Les protocoles de sécurité sans fil, du plus faible au plus sûr</h4>
+<div id="fig-wpa"></div>
+<ul>
+<li><b>WEP</b> (Wired Equivalent Privacy) : totalement obsolète, cassé en quelques minutes.</li>
+<li><b>WPA / WPA1</b> : ancien, utilise le protocole TKIP, aujourd'hui vulnérable.</li>
+<li><b>WPA2</b> : très répandu et longtemps la norme de confiance, mais vulnérable à <b>KRACK</b> (Key Reinstallation Attacks) : l'attaquant force la victime à réutiliser une clé de chiffrement déjà utilisée, ce qui permet de déchiffrer le trafic à la volée sans connaître le mot de passe du Wi-Fi.</li>
+<li><b>WPA3</b> : le plus récent et le plus robuste. Il renforce le chiffrement individuel des sessions, protège mieux contre la force brute sur les mots de passe et sécurise les échanges même avec des clés simples. Des failles ont malgré tout été trouvées : les <b>attaques par canal auxiliaire</b> (side-channel), où l'attaquant mesure le temps ou la mémoire que met le routeur à traiter la connexion pour deviner des indices sur le mot de passe.</li>
+</ul>
+
+<h4>La télémaintenance</h4>
+<p>La <b>télémaintenance</b> est généralement classée comme un <b>risque majeur</b> : elle présente une surface d'attaque active.</p>
+<p>Exemple du cours : un identifiant de connexion VPN du fabricant, dérobé par hameçonnage chez un sous-traitant, donne un accès direct, et légitime en apparence, au réseau biomédical d'un hôpital client.</p>
+
+<h4>À retenir (diapositive du cours)</h4>
+<ul>
+<li>Toute attaque se situe dans une méthodologie connue (kill chain, ATT&amp;CK) : rien n'est improvisé, y compris côté défense.</li>
+<li>La plupart des attaques de couche 2 supposent seulement une présence sur le bon segment réseau, y compris un Wi-Fi mal isolé.</li>
+<li>Les attaques des couches 3 à 7 visent souvent la disponibilité (DoS/DDoS) ou s'appuient sur des vulnérabilités déjà connues et déjà corrigeables.</li>
+<li>La télémaintenance et le Wi-Fi étendent le périmètre réseau au-delà des murs physiques de l'hôpital.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="wifi-telemaintenance"></div>
+</section>
+
+<section class="partie" id="s-autres-menaces">
+<h2>Autres menaces du réseau hospitalier</h2>
+
+<article class="notion" id="n-autres-menaces">
+<p class="chapeau">Toutes les menaces ne sont pas des attaques techniques. Un réseau conçu au hasard, sans politique ni procédure, est vulnérable avant même qu'un attaquant ne s'y intéresse.</p>
+<p>Le cours termine la séance par neuf manques qui fragilisent un réseau hospitalier :</p>
+<div class="schema" id="sc-autres-menaces"></div>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Ce qui manque (cours)</th></tr>
+<tr><td rowspan="4">Organisation</td><td>une politique de gestion de la sécurité de l'information</td></tr>
+<tr><td>une politique de gestion des correctifs et des mises à jour</td></tr>
+<tr><td>une analyse des risques avec des mesures de sécurité définies</td></tr>
+<tr><td>des méthodes et des procédures de gestion des accès</td></tr>
+<tr><td rowspan="2">Technique</td><td>des mécanismes de cryptographie</td></tr>
+<tr><td>une bonne configuration des équipements réseaux (mauvaise configuration)</td></tr>
+<tr><td rowspan="2">Conception et exploitation</td><td>une conception des réseaux avec des mesures de sécurité (conception aléatoire)</td></tr>
+<tr><td>une administration et une supervision du réseau qui maîtrisent les pratiques de sécurité</td></tr>
+<tr><td>Physique</td><td>la sécurité physique des équipements</td></tr>
+</table></div>
+<p>Le regroupement par domaine est ajouté pour mémoriser ; la liste des neuf manques est celle du cours. La séance 3 répond à plusieurs d'entre eux : concevoir le réseau avec la sécurité dès le départ, le cloisonner, centraliser son administration.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Politiques manquantes : sécurité de l'information, correctifs, analyse des risques, gestion des accès.</li>
+<li>Technique : pas de cryptographie, équipements mal configurés.</li>
+<li>Conception aléatoire, administration sans maîtrise de la sécurité, sécurité physique négligée.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="autres-menaces"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../sis.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/dns-empoisonnement.js"></script>
+<script src="../figures/zero-day.js"></script>
+<script src="../figures/wifi-telemaintenance.js"></script>
+</body>
+</html>

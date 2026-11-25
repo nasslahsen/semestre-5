@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Gestion centralisée et disponibilité (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 18 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Gestion centralisée et disponibilité</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-18.html">Lire le cours complet</a></p>
+<h2>Gestion centralisée</h2>
+<p>Configuration, accès, supervision, journalisation et correctifs depuis une plateforme commune : cohérence, visibilité, rapidité. Le plan de gestion est la <strong>cible numéro un</strong> : qui l'administre contourne toute la segmentation.</p>
+<h2>Politiques et outils</h2>
+<ul>
+<li>Comptes nominatifs, moindre privilège, MFA, bastion ; plan de gestion isolé ; SSH, HTTPS, SNMPv3 seulement.</li>
+<li>Configuration durcie et versionnée ; changements validés et réversibles ; Syslog vers SIEM, NTP interne ; correctifs par gravité ; coffre-fort et PKI ; sauvegardes hors ligne ; audits.</li>
+<li>Outils : FreeRADIUS, PAM, Zabbix, Centreon, Ansible, rsyslog, SIEM, OpenVAS, Nessus.</li>
+</ul>
+<h2>Vigilance</h2>
+<p>Plateforme la mieux protégée ; DM par le même bastion, accès limités dans le temps ; fenêtres négociées avec les soins ; détection de dérive et audit.</p>
+<h2>Disponibilité</h2>
+<p>Elle prime souvent à l'hôpital (sécurité du patient). Menaces : cyberattaques, pannes, erreurs, architecture non adaptée. Leviers : supprimer les SPOF, empêcher la dégradation, maîtriser la restauration.</p>
+<p>SPOF : cœur en paire, pare-feu actif/passif (CARP, VRRP, HSRP), alimentations doubles ; LACP, double attachement, deux opérateurs aux chemins distincts, SD-WAN ; RSTP/MSTP, OSPF/BGP, BFD ; DNS, DHCP, NTP, annuaire en double, DPI et PACS en cluster.</p>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Bastion, PAM</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=privileged+access+management+explained" target="_blank" rel="noopener">privileged access management explained</a></td></tr>
+<tr><td>SIEM</td><td>IBM Technology</td><td><a href="https://www.youtube.com/results?search_query=IBM+Technology+SIEM" target="_blank" rel="noopener">IBM Technology SIEM</a></td></tr>
+<tr><td>Haute disponibilité VRRP HSRP</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=VRRP+HSRP+explained" target="_blank" rel="noopener">VRRP HSRP explained</a></td></tr>
+<tr><td>LACP</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=LACP+link+aggregation+explained" target="_blank" rel="noopener">LACP link aggregation explained</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Que pilote une gestion centralisée, et pourquoi est-elle une cible ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Configuration, accès, supervision, journalisation, correctifs.</p><p>Qui l'administre peut contourner toute la segmentation.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quels protocoles d'administration sont autorisés, lesquels interdits ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Autorisés : SSH, HTTPS, SNMPv3.</p><p>Interdits : Telnet, HTTP, SNMP v1/v2c, TFTP.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Pourquoi une source NTP interne unique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour que tous les journaux soient à la même heure et qu'on puisse reconstituer une attaque.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite un outil par besoin : AAA, supervision, configuration, vulnérabilités.</p><details class="corrige"><summary>Voir la réponse</summary><p>FreeRADIUS, Zabbix ou Centreon, Ansible, OpenVAS ou Nessus.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Comment gérer l'accès de maintenance d'un fabricant de DM ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Par le même bastion que les administrateurs, limité dans le temps.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Donne les trois leviers de la disponibilité.</p><details class="corrige"><summary>Voir la réponse</summary><p>Supprimer les SPOF, empêcher leur dégradation, maîtriser la restauration après incident.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Comment supprimer les SPOF ? Un exemple par niveau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Équipements : pare-feu actif/passif.</p><p>Liens : deux opérateurs aux chemins distincts.</p><p>Topologie : OSPF/BGP avec BFD.</p><p>Services : DNS et DHCP en doublon, PACS en cluster.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html"><small>Fin des versions courtes</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 18) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

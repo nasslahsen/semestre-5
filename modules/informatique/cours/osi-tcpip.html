@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les modèles OSI et TCP/IP · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les modèles OSI et TCP/IP</h1>
+<p class="chapeau">Pour savoir où frappe une attaque (« couche 2 », « couche 7 »), il faut d'abord savoir ce que fait chaque couche. Le modèle OSI est la carte qui sert de référence.</p>
+<p>Le <b>modèle OSI</b> (Open System Interconnection) est un cadre conceptuel normatif à <b>7 couches</b> qui standardise les fonctions de communication réseau entre systèmes hétérogènes.</p>
+<div id="fig-osi"></div>
+
+<h2>Les sept couches du modèle OSI</h2>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Rôle</th><th>Unité de données</th><th>Exemples</th></tr>
+<tr><td>7. Application</td><td>point de contact avec les services réseaux</td><td>données</td><td>Telnet, FTP, HTTP, SMTP</td></tr>
+<tr><td>6. Présentation</td><td>préparation des données pour la présentation (formatage, chiffrement, encodage)</td><td>données</td><td>HTML, DOC, MP3, JPEG</td></tr>
+<tr><td>5. Session</td><td>organisation de la session de communication (points de contrôle)</td><td>données</td><td>SIP, RTP</td></tr>
+<tr><td>4. Transport</td><td>coordination du transfert des segments (numéro de port, contrôle de réception)</td><td>segments</td><td>TCP, UDP, SSL, TLS</td></tr>
+<tr><td>3. Réseau</td><td>routage des paquets entre les nœuds d'un réseau</td><td>paquets</td><td>IP, ARP</td></tr>
+<tr><td>2. Liaison</td><td>transfert des trames de nœud à nœud</td><td>trames</td><td>Ethernet, PPP</td></tr>
+<tr><td>1. Physique</td><td>transmission des bits</td><td>bits</td><td>multiplexage, modulation</td></tr>
+</table></div>
+
+<h2>Le modèle TCP/IP : quatre couches</h2>
+<p>Le <b>modèle TCP/IP</b> regroupe les couches d'OSI en quatre :</p>
+<div class="tableau"><table>
+<tr><th>TCP/IP</th><th>Couches OSI regroupées</th><th>Ce qui s'y fait (cours)</th></tr>
+<tr><td>Application</td><td>7 Application, 6 Présentation, 5 Session</td><td>services au plus proche des utilisateurs ; encode, chiffre, compresse ; établit les sessions entre applications</td></tr>
+<tr><td>Transport</td><td>4 Transport</td><td>établit, maintient et termine les sessions entre périphériques terminaux</td></tr>
+<tr><td>Internet</td><td>3 Réseau</td><td>adresse les interfaces globalement et détermine les meilleurs chemins à travers un inter-réseau</td></tr>
+<tr><td>Accès au réseau</td><td>2 Liaison, 1 Physique</td><td>adresse localement les interfaces (MAC) ; encodage du signal, câblage, connecteurs</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>OSI, de 7 à 1 : application, présentation, session, transport, réseau, liaison, physique.</li>
+<li>Unités : données (7 à 5), segments (4), paquets (3), trames (2), bits (1).</li>
+<li>TCP/IP : application (7 à 5), transport (4), Internet (3), accès au réseau (2 et 1).</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/osi-tcpip.js"></script>
+</body>
+</html>

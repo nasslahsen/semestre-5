@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Défense en profondeur et architectures</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 17. -->
+<main class="cours-chapitre" data-chapitre="17">
+<p class="etiquette" data-etiquette></p>
+<h1>Défense en profondeur et architectures</h1>
+
+<section class="partie" id="s-defense-couches">
+<h2>La défense en profondeur</h2>
+
+<article class="notion" id="n-defense-couches">
+<p class="chapeau">Le pare-feu a laissé passer une pièce jointe piégée. Ce n'est pas la fin : derrière lui, d'autres barrières attendent. Une seule barrière, c'est un seul point de rupture.</p>
+<p>La <b>défense en profondeur</b> consiste à mettre en place des barrières, des mécanismes et des solutions <b>selon la criticité et l'importance du bien à protéger</b>, suivant une <b>approche en couches</b> : si une couche de sécurité de niveau inférieur est franchie, les autres couches peuvent réagir.</p>
+<div id="fig-couches"></div>
+
+<h4>Les couches citées par le cours</h4>
+<div class="tableau"><table>
+<tr><th>Couche</th><th>Ce qu'elle apporte</th></tr>
+<tr><td>Sécurité physique</td><td>locaux techniques fermés, accès contrôlé aux équipements</td></tr>
+<tr><td>Pare-feu</td><td>filtre les flux entre zones (Internet, DMZ, LAN)</td></tr>
+<tr><td>IDS / IPS</td><td>détecte (IDS) ou bloque (IPS) les comportements d'attaque, comme un scan</td></tr>
+<tr><td>VPN</td><td>tunnel chiffré pour les accès distants et les liaisons entre sites</td></tr>
+<tr><td>Journalisation, supervision</td><td>garde les traces, donne l'alerte</td></tr>
+<tr><td>Solutions antivirales</td><td>arrêtent les logiciels malveillants sur les postes et serveurs</td></tr>
+</table></div>
+<p>La colonne de droite résume le rôle habituel de chaque couche ; la liste des couches est celle du cours. La séance 1 posait déjà l'idée (sécurité en couches, durcissement, veille et sensibilisation) : ici, on la traduit en équipements réseau.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Défense en profondeur : des couches selon la criticité du bien ; si une cède, les autres réagissent.</li>
+<li>Couches : sécurité physique, pare-feu, IDS/IPS, VPN, journalisation et supervision, antivirus.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="defense-couches"></div>
+</section>
+
+<section class="partie" id="s-vpn-ipsec">
+<h2>VPN et IPsec</h2>
+
+<article class="notion" id="n-vpn-ipsec">
+<p class="chapeau">Le cardiologue consulte les ECG depuis chez lui, le fabricant entretient l'IRM depuis l'Allemagne. Leurs données traversent Internet : il faut un tunnel que personne ne peut lire ni modifier.</p>
+<p>Un <b>VPN</b> (Virtual Private Network, réseau privé virtuel) est un outil de cybersécurité qui crée un <b>tunnel chiffré sécurisé</b> entre un appareil et Internet, en masquant son adresse IP et ses données.</p>
+<ul>
+<li>Il fournit : <b>authentification</b>, <b>intégrité</b>, <b>confidentialité</b>.</li>
+<li>Il utilise : le <b>chiffrement</b>, l'<b>encapsulation</b> et le <b>masquage IP</b>.</li>
+</ul>
+
+<h4>Principaux protocoles VPN</h4>
+<div class="tableau"><table>
+<tr><th>Protocole</th><th>Point fort (cours)</th></tr>
+<tr><td>IKEv2/IPsec</td><td>excellent pour la stabilité, idéal sur les appareils mobiles lors des changements de réseau</td></tr>
+<tr><td>WireGuard</td><td>moderne, open source, très rapide et sécurisé, considéré comme la nouvelle norme</td></tr>
+<tr><td>OpenVPN</td><td>robuste, polyvalent et très sécurisé, standard de l'industrie pour la confidentialité</td></tr>
+</table></div>
+
+<h4>Le protocole IPsec</h4>
+<p><b>IPsec</b> (Internet Protocol Security) est une suite de protocoles conçue pour sécuriser les communications sur Internet en <b>authentifiant et en chiffrant chaque paquet</b> IP.</p>
+<div class="tableau"><table>
+<tr><th>Plan</th><th>Protocole</th><th>Rôle</th></tr>
+<tr><td>Plan de contrôle</td><td>IKE</td><td>négociation des paramètres de sécurité, établissement des clés pour l'authentification</td></tr>
+<tr><td rowspan="2">Plan de données</td><td>ESP</td><td>chiffrement, validation et authentification des données</td></tr>
+<tr><td>AH</td><td>validation et authentification des données (sans chiffrement)</td></tr>
+</table></div>
+
+<h4>Les deux modes d'IPsec (ESP)</h4>
+<div id="fig-ipsec"></div>
+<ul>
+<li><b>Mode transport</b> : on garde l'<b>en-tête IP original</b> devant, et on insère l'en-tête ESP. Seules les <b>données</b> (et l'en-queue ESP) sont chiffrées ; l'authentification couvre en-tête ESP, données et en-queue.</li>
+<li><b>Mode tunnel</b> : tout le paquet original, <b>en-tête IP compris</b>, est chiffré, et on ajoute un <b>nouvel en-tête IP</b> devant. Les adresses d'origine sont cachées : c'est ce mode qui sert aux VPN entre sites.</li>
+</ul>
+
+<h4>À retenir</h4>
+<ul>
+<li>VPN : tunnel chiffré, authentification + intégrité + confidentialité. Protocoles : IKEv2/IPsec, WireGuard, OpenVPN.</li>
+<li>IPsec : IKE négocie les clés ; ESP chiffre et authentifie ; AH authentifie sans chiffrer.</li>
+<li>Transport : en-tête IP original visible. Tunnel : paquet entier chiffré sous un nouvel en-tête IP.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="vpn-ipsec"></div>
+</section>
+
+<section class="partie" id="s-sdwan-tritiers">
+<h2>SD-WAN et tri-tiers</h2>
+
+<article class="notion" id="n-sdwan-tritiers">
+<p class="chapeau">Un CHU, trois centres de santé de quartier et un cabinet de radiologie doivent partager le DPI et le PACS. Deux questions se posent : comment relier les sites, et comment ranger les serveurs dans le datacenter.</p>
+<h4>SD-WAN : relier les sites</h4>
+<p>Le <b>SD-WAN</b> (Software Defined Wide Area Network) est l'architecture moderne par excellence pour connecter des <b>sites distants</b> : hôpitaux périphériques, cliniques, cabinets de radiologie.</p>
+<p><b>Principe</b> : le SD-WAN <b>virtualise le contrôle du réseau</b>. Il combine plusieurs liaisons physiques (par exemple une fibre et un secours en 4G/5G ou VSAT) et gère le trafic de manière intelligente, par logiciel.</p>
+<p>Le schéma du cours :</p>
+<ul>
+<li>un <b>orchestrateur SD-WAN</b> : politique centrale, supervision et journaux (SIEM) ;</li>
+<li>un <b>site principal</b> (hub) avec un pare-feu SD-WAN en haute disponibilité et le datacenter (DPI, PACS, bases) ;</li>
+<li>des <b>centres de santé</b> A et B, chacun avec son pare-feu SD-WAN (edge de site) et son LAN (postes, IoMT) ;</li>
+<li>des <b>tunnels IPsec</b> chiffrés (l'overlay) au-dessus du <b>réseau de transport</b> (l'underlay : fibre ou MPLS, Internet haut débit, 4G/5G).</li>
+</ul>
+
+<h4>Tri-tiers : ranger les serveurs</h4>
+<p>L'architecture <b>tri-tiers</b> (multi-niveaux) est recommandée pour les <b>applications critiques</b> et les environnements de datacenters. Elle isole hermétiquement les composants d'une application en <b>trois zones</b> distinctes, séparées par des <b>pare-feu</b>.</p>
+<div id="fig-tritiers"></div>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Contenu</th><th>Pare-feu devant (ce qu'il laisse passer)</th></tr>
+<tr><td>1. Présentation (DMZ)</td><td>reverse proxy, WAF, portail patient</td><td>pare-feu 1, périmétrique : HTTPS 443 entrant uniquement</td></tr>
+<tr><td>2. Application</td><td>serveurs applicatifs : DPI, API, moteur d'interface</td><td>pare-feu 2, interne : port applicatif dédié, depuis la DMZ seule</td></tr>
+<tr><td>3. Données</td><td>bases de données, stockage PACS</td><td>pare-feu 3, données : requêtes SQL depuis l'application seule</td></tr>
+</table></div>
+<p>En transversal : SIEM / IDS (journalisation), bastion (administration), sauvegarde isolée du réseau.</p>
+<p>Le bénéfice : si un pirate compromet le serveur web exposé sur Internet, il <b>ne peut pas accéder directement à la base de données</b> qui contient les informations sensibles.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>SD-WAN : relier des sites ; plusieurs liaisons (fibre, 4G/5G, VSAT) pilotées par logiciel, tunnels IPsec, orchestrateur central.</li>
+<li>Tri-tiers : présentation (DMZ), application, données, séparées par trois pare-feu.</li>
+<li>Chaque niveau ne parle qu'au niveau voisin : le serveur web piraté n'atteint pas la base.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="sdwan-tritiers"></div>
+</section>
+
+<section class="partie" id="s-zero-trust">
+<h2>Zero trust et comparaison</h2>
+
+<article class="notion" id="n-zero-trust">
+<p class="chapeau">Un poste du bureau des entrées est infecté par un rançongiciel. Dans un grand LAN ouvert, il voit le PACS, le DPI et tous les autres postes. Dans un réseau zero trust, il ne voit presque rien.</p>
+<p>L'architecture <b>zero trust</b> (micro-segmentation) est recommandée pour la <b>gestion des accès</b>.</p>
+<ul>
+<li><b>Aucun utilisateur ni aucun appareil</b> externe n'est d'office digne de confiance (sur site ou à distance, jamais approuvé d'office).</li>
+<li><b>Micro-segmentation</b> : le réseau interne n'est plus un grand « LAN » ouvert, il est découpé en minuscules <b>îlots de sécurité</b>.</li>
+<li><b>Contrôle d'accès dynamique (ZTNA)</b> : il remplace les VPN traditionnels. L'accès à une ressource applicative n'est accordé qu'<b>après vérification stricte</b>.</li>
+</ul>
+<div id="fig-zt"></div>
+<p>Le schéma du cours : l'utilisateur et son poste passent par une <b>passerelle ZTNA (PEP)</b>, qui applique la décision à chaque session ; la décision est prise par le <b>PDP</b> (politique, risque) à partir de l'<b>identité + MFA</b> (annuaire, IdP), de la <b>conformité du poste</b> (EDR, MDM, correctifs) et du <b>contexte et du risque</b> (SIEM, comportement). L'accès se fait application par application vers des îlots isolés (DPI, PACS, données, IoMT, postes).</p>
+<p><b>Sécurité en profondeur</b> : si un rançongiciel infecte un poste dans un bureau, la micro-segmentation l'empêche de se propager horizontalement aux autres postes ou aux serveurs.</p>
+
+<h4>Comparaison des trois architectures</h4>
+<div class="tableau"><table>
+<tr><th>Architecture</th><th>Question à laquelle elle répond</th><th>Périmètre</th><th>Rôle pour la sécurité</th></tr>
+<tr><td>SD-WAN</td><td>comment relier efficacement des sites, du cloud et des accès distants (performance, résilience, coût) ?</td><td>liaisons entre sites</td><td>chiffrement des tunnels, segments isolés, parfois pare-feu intégré : selon le produit</td></tr>
+<tr><td>DMZ, 2 ou 3 tiers</td><td>où placer les serveurs et quels flux autoriser entre niveaux ?</td><td>un site, un datacenter</td><td>cloisonnement par pare-feu entre niveaux</td></tr>
+<tr><td>Zero trust (et micro-segmentation)</td><td>à qui faire confiance, et à quel moment ?</td><td>transverse, sur tous les sites</td><td>modèle d'accès : vérification à chaque demande</td></tr>
+</table></div>
+
+<h4>Points de vigilance</h4>
+<ul>
+<li><b>Le SD-WAN ne remplace pas la DMZ ni le tri-tiers</b> : chaque site garde son zonage, le datacenter reste organisé en niveaux.</li>
+<li><b>Un tunnel chiffré n'est pas du zero trust</b> : une fois dans l'overlay SD-WAN, les sites se font souvent confiance. Un rançongiciel arrivé dans un centre de santé peut remonter vers l'hôpital principal. Il faut donc des segments séparés et un pare-feu interne en plus.</li>
+<li><b>« SD-WAN sécurisé » n'a pas de définition unique</b> : certains produits intègrent un NGFW, un IPS ou un filtrage web ; d'autres sont de purs outils d'acheminement.</li>
+</ul>
+
+<h4>À retenir</h4>
+<ul>
+<li>Zero trust : personne n'est approuvé d'office, micro-segmentation en îlots, ZTNA vérifie à chaque demande.</li>
+<li>SD-WAN relie, tri-tiers range, zero trust décide de la confiance : les trois se complètent.</li>
+<li>Un tunnel chiffré n'est pas du zero trust.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="zero-trust"></div>
+</section>
+
+<section class="partie" id="s-purdue">
+<h2>Le modèle de Purdue</h2>
+
+<article class="notion" id="n-purdue">
+<p class="chapeau">Un virus arrivé par le courriel d'un employé ne doit jamais pouvoir arrêter une turbine. À l'hôpital, la même idée protège les automates du traitement d'air ou de l'eau, et les équipements qui n'ont pas d'antivirus.</p>
+<p>Le <b>modèle de Purdue</b> (Purdue Reference Model) est un standard mondial utilisé pour structurer l'architecture des <b>réseaux industriels</b> et sécuriser les environnements <b>OT</b> (Operational Technology, technologies opérationnelles) par rapport aux réseaux <b>IT</b> (Information Technology, informatique d'entreprise).</p>
+<p>Il a été développé dans les années 1990 à l'université de Purdue, puis intégré dans la norme internationale de cybersécurité des réseaux industriels <b>ISA/IEC 62443</b>.</p>
+
+<h4>À quoi il sert</h4>
+<p>Son but principal est la <b>segmentation réseau</b>. Dans une usine ou une infrastructure critique, il est impensable qu'un virus venant du courriel d'un employé (réseau IT) atteigne directement une turbine ou un automate programmable (réseau OT) et paralyse la production. Le modèle sert à :</p>
+<ul>
+<li><b>isoler et protéger</b> les systèmes de contrôle industriels, qui n'ont souvent pas d'antivirus ;</li>
+<li><b>définir des frontières strictes</b> pour le trafic réseau ;</li>
+<li><b>garantir la sécurité des opérations</b> tout en laissant les données de production remonter vers la direction (analyse de performance, ERP...).</li>
+</ul>
+
+<h4>Les niveaux</h4>
+<div id="fig-purdue"></div>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Nom</th><th>Exemples</th><th>Domaine</th></tr>
+<tr><td>5</td><td>Enterprise / corporate IT</td><td>services d'annuaire, ERP, applications d'entreprise</td><td rowspan="2">IT</td></tr>
+<tr><td>4</td><td>Enterprise network</td><td>serveurs web, courriel, DNS</td></tr>
+<tr><td>3.5</td><td>Demilitarized zone (DMZ)</td><td>serveur de correctifs, historian miroir, serveur de rebond</td><td>frontière</td></tr>
+<tr><td>3</td><td>Manufacturing operations</td><td>poste de travail, historian, serveur d'entrées/sorties</td><td rowspan="4">OT</td></tr>
+<tr><td>2</td><td>Supervisory control</td><td>SCADA, IHM</td></tr>
+<tr><td>1</td><td>Basic control</td><td>PLC, RTU, contrôleurs DCS, SIS</td></tr>
+<tr><td>0</td><td>Physical process</td><td>capteurs, actionneurs</td></tr>
+</table></div>
+<p>Sigles : <b>SCADA</b> (Supervisory Control and Data Acquisition), <b>PLC</b> (Programmable Logic Controller, automate), <b>RTU</b> (Remote Terminal Unit), <b>DCS</b> (Distributed Control System), <b>SIS</b> (Safety Instrumented System).</p>
+
+<h4>L'appliquer à la sécurité réseau</h4>
+<ol>
+<li>Mettre en place des <b>pare-feu industriels à chaque frontière</b>.</li>
+<li>Déployer une <b>DMZ industrielle (IDMZ)</b> stricte, le niveau 3.5.</li>
+<li>Utiliser l'<b>inspection profonde des protocoles</b> (DPI, Deep Packet Inspection).</li>
+<li>Sécuriser les <b>accès distants</b> (télémaintenance).</li>
+</ol>
+
+<h4>À retenir</h4>
+<ul>
+<li>Purdue : segmenter l'OT de l'IT, intégré à ISA/IEC 62443.</li>
+<li>Niveaux 5 et 4 (IT), 3.5 (DMZ industrielle), 3 à 0 (OT, jusqu'aux capteurs et actionneurs).</li>
+<li>Pare-feu à chaque frontière, IDMZ stricte, DPI, télémaintenance sécurisée.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="purdue"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/defense-couches.js"></script>
+<script src="../figures/vpn-ipsec.js"></script>
+<script src="../figures/sdwan-tritiers.js"></script>
+<script src="../figures/zero-trust.js"></script>
+<script src="../figures/purdue.js"></script>
+</body>
+</html>

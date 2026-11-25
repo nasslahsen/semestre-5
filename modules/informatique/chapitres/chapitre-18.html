@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Gestion centralisée et disponibilité</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 18. -->
+<main class="cours-chapitre" data-chapitre="18">
+<p class="etiquette" data-etiquette></p>
+<h1>Gestion centralisée et disponibilité</h1>
+
+<section class="partie" id="s-gestion-centralisee">
+<h2>Centralisation de la gestion réseau</h2>
+
+<article class="notion" id="n-gestion-centralisee">
+<p class="chapeau">L'hôpital a 180 switchs, 12 pare-feu et 40 bornes Wi-Fi. Les configurer un par un, c'est autant d'oublis possibles. Les piloter depuis un seul endroit change tout, à condition de protéger cet endroit.</p>
+<p>Une <b>gestion réseau centralisée</b> pilote la <b>configuration</b>, les <b>accès</b>, la <b>supervision</b>, la <b>journalisation</b> et les <b>correctifs</b> de tous les équipements depuis une <b>plateforme commune</b>, plutôt qu'équipement par équipement.</p>
+<div id="fig-centrale"></div>
+<ul>
+<li>Elle gagne en <b>cohérence</b>, en <b>visibilité</b> et en <b>rapidité de réaction</b>.</li>
+<li>Elle n'est sécurisée que si le <b>plan de gestion</b> est lui-même protégé comme la <b>cible numéro un</b>.</li>
+</ul>
+
+<h4>Pourquoi c'est la cible numéro un</h4>
+<p>Un attaquant qui obtient un accès d'administration sur un pare-feu ou un switch peut <b>contourner toute la segmentation</b> : il lui suffit de changer les règles. C'est la même logique pour l'<b>orchestrateur SD-WAN</b> ou le <b>PDP du zero trust</b> : celui qui tient le poste de pilotage tient tout le réseau.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Centraliser : configuration, accès, supervision, journalisation, correctifs, depuis une plateforme commune.</li>
+<li>Gain : cohérence, visibilité, rapidité de réaction.</li>
+<li>Le plan de gestion est la cible numéro un : qui l'administre contourne toute la segmentation.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="gestion-centralisee"></div>
+</section>
+
+<section class="partie" id="s-politiques-admin">
+<h2>Politiques et outils d'administration</h2>
+
+<article class="notion" id="n-politiques-admin">
+<p class="chapeau">Qui peut se connecter au cœur de réseau, par quel chemin, avec quel protocole, et qui le saura ? Le cours répond domaine par domaine, puis donne les outils qui rendent ces règles applicables.</p>
+<h4>Politiques à adopter pour l'administration réseau</h4>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Politique</th><th>Exemple d'exigence</th></tr>
+<tr><td>Accès d'administration</td><td>comptes nominatifs, moindre privilège, MFA</td><td>aucun compte partagé ; droits par rôle ; accès uniquement via le bastion, sessions enregistrées</td></tr>
+<tr><td>Séparation</td><td>plan de gestion isolé de la production</td><td>interfaces d'administration jamais joignables depuis Internet ni le LAN utilisateur</td></tr>
+<tr><td>Protocoles autorisés</td><td>uniquement des protocoles chiffrés</td><td>SSH, HTTPS, SNMPv3 ; Telnet, HTTP, SNMP v1/v2c et TFTP interdits</td></tr>
+<tr><td>Configuration</td><td>configuration de référence durcie, versionnée</td><td>sauvegarde automatique, détection de toute dérive, benchmarks CIS comme base</td></tr>
+<tr><td>Gestion des changements</td><td>tout changement demandé, validé, planifié, réversible</td><td>fenêtre de maintenance définie, plan de retour arrière, trace de qui a changé quoi</td></tr>
+<tr><td>Journalisation et temps</td><td>journaux centralisés, horloge unique</td><td>Syslog vers le SIEM, durée de rétention fixée, source NTP interne</td></tr>
+<tr><td>Correctifs et vulnérabilités</td><td>inventaire à jour, classement selon la criticité</td><td>veille (sites constructeurs, bulletins DGSSI/maCERT), scan des vulnérabilités, délai maximal de correction par niveau de gravité</td></tr>
+<tr><td>Secrets et identités</td><td>aucun mot de passe en clair, rotation</td><td>coffre-fort de secrets, clés SSH et certificats gérés par une PKI</td></tr>
+<tr><td>Continuité</td><td>sauvegardes</td><td>sauvegardes hors ligne des configurations</td></tr>
+<tr><td>Contrôle</td><td>vérification périodique</td><td>audit des comptes et des règles, test régulier de restauration d'une configuration</td></tr>
+</table></div>
+<p>Pourquoi une <b>horloge unique</b> (NTP) : pour reconstituer une attaque, on met bout à bout les journaux de plusieurs équipements ; s'ils ne sont pas à la même heure, l'enchaînement devient illisible.</p>
+
+<h4>Quelques outils utilisés</h4>
+<div id="fig-outils"></div>
+<div class="tableau"><table>
+<tr><th>Besoin</th><th>Type d'outil</th><th>Exemples du cours</th></tr>
+<tr><td>Authentification et droits</td><td>serveur AAA</td><td>FreeRADIUS, serveurs NAC</td></tr>
+<tr><td>Accès privilégié</td><td>bastion PAM avec coffre-fort de secrets et enregistrement de session</td><td>solutions PAM du marché</td></tr>
+<tr><td>Supervision</td><td>outil de supervision (SNMPv3) et analyse de flux (NetFlow/IPFIX)</td><td>Zabbix, Centreon</td></tr>
+<tr><td>Configuration</td><td>sauvegarde et audit des configurations</td><td>Ansible</td></tr>
+<tr><td>Journalisation</td><td>collecte Syslog, SIEM pour la corrélation et l'alerte</td><td>rsyslog, SIEM</td></tr>
+<tr><td>Vulnérabilités</td><td>scanner de vulnérabilités, inventaire (CMDB)</td><td>OpenVAS, Nessus</td></tr>
+</table></div>
+
+<h4>À retenir</h4>
+<ul>
+<li>Comptes nominatifs, moindre privilège, MFA, bastion. Plan de gestion isolé. Protocoles chiffrés seulement.</li>
+<li>Configuration durcie et versionnée, changements validés et réversibles, journaux centralisés à l'heure NTP.</li>
+<li>Outils : AAA (FreeRADIUS), PAM, supervision (Zabbix, Centreon), Ansible, SIEM, scanners (OpenVAS, Nessus).</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="politiques-admin"></div>
+</section>
+
+<section class="partie" id="s-vigilance-gestion">
+<h2>Points de vigilance</h2>
+
+<article class="notion" id="n-vigilance-gestion">
+<p class="chapeau">La plateforme est en place, les règles sont écrites. Le cours prévient : quatre pièges guettent encore, dont deux propres à l'hôpital.</p>
+<ol>
+<li><b>La plateforme de gestion doit être l'élément le mieux protégé du réseau</b> : serveurs durcis, haute disponibilité, mises à jour prioritaires, accès strictement limités. Elle est un <b>point unique de défaillance et de compromission</b>.</li>
+<li><b>À l'hôpital, tout ne se gère pas depuis le même endroit</b> : les dispositifs médicaux sont souvent administrés par le <b>fabricant</b> ou l'<b>ingénierie biomédicale</b>, pas par l'équipe réseau. Leurs accès de maintenance doivent passer par le <b>même bastion</b> et être <b>limités dans le temps</b>.</li>
+<li><b>Les changements ne peuvent pas toujours attendre une nuit calme</b> : un hôpital fonctionne 24 h/24, donc les fenêtres de maintenance doivent être <b>négociées avec les services de soins</b>.</li>
+<li><b>Une politique non vérifiée n'existe pas</b> : sans <b>détection de dérive</b> et sans <b>audit</b>, les configurations divergent peu à peu des règles écrites.</li>
+</ol>
+<div id="fig-vigilance"></div>
+<p>Le point 2 concerne directement l'ingénieur biomédical : c'est souvent lui qui ouvre l'accès du fabricant pour la télémaintenance d'un scanner ou d'une IRM.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>La plateforme : la mieux protégée, car point unique de défaillance et de compromission.</li>
+<li>DM gérés par le fabricant ou le biomédical : même bastion, accès limités dans le temps.</li>
+<li>Fenêtres de maintenance négociées avec les soins (24 h/24).</li>
+<li>Sans détection de dérive ni audit, la politique écrite ne vaut rien.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="vigilance-gestion"></div>
+</section>
+
+<section class="partie" id="s-disponibilite">
+<h2>Disponibilité et SPOF</h2>
+
+<article class="notion" id="n-disponibilite">
+<h3>La disponibilité des réseaux</h3>
+<p class="chapeau">Le réseau tombe vingt minutes en pleine garde : plus de résultats de labo, plus d'images, plus d'alarmes centralisées. À l'hôpital, la disponibilité touche directement la sécurité du patient.</p>
+<p>En milieu hospitalier, la <b>disponibilité prime souvent sur la confidentialité</b>, car elle touche directement la <b>sécurité du patient</b>.</p>
+<div class="schema" id="sc-disponibilite"></div>
+
+<h4>Ce qui menace la disponibilité</h4>
+<ul>
+<li>les <b>cyberattaques</b> (déni de service, rançongiciel) ;</li>
+<li>les <b>pannes d'infrastructure</b> (équipement, lien, alimentation) ;</li>
+<li>les <b>erreurs humaines et d'exploitation</b> (mauvaise configuration, changement raté) ;</li>
+<li>une <b>architecture non adaptée</b>.</li>
+</ul>
+
+<h4>Les trois leviers du cours</h4>
+<ol>
+<li><b>Supprimer les points uniques de défaillance</b> (SPOF).</li>
+<li><b>Empêcher leur dégradation</b> (attaques, erreurs).</li>
+<li><b>Maîtriser la restauration</b> après incident.</li>
+</ol>
+<p>Les deux derniers leviers reprennent ce qu'on a déjà vu : cloisonnement, défense en profondeur, gestion des changements, sauvegardes hors ligne et tests de restauration. Le premier est détaillé dans la section suivante.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>À l'hôpital, disponibilité = sécurité du patient ; elle prime souvent sur la confidentialité.</li>
+<li>Menaces : cyberattaques, pannes, erreurs humaines, architecture non adaptée.</li>
+<li>Leviers : supprimer les SPOF, empêcher la dégradation, maîtriser la restauration.</li>
+</ul>
+</article>
+
+<article class="notion" id="n-spof-redondance">
+<h3>Supprimer les points uniques de défaillance</h3>
+<p class="chapeau">Un seul pare-feu, un seul opérateur, un seul serveur DNS : chacun peut arrêter tout l'hôpital. La réponse tient en un mot, doubler, mais elle se décline à chaque niveau.</p>
+<p>Rappel (chapitre « Le vocabulaire du risque ») : un <b>SPOF</b> est un maillon dont la défaillance entraîne une interruption majeure. Le cours liste comment les supprimer, niveau par niveau.</p>
+<div id="fig-spof"></div>
+
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Mesures (cours)</th></tr>
+<tr><td>Équipements</td><td>cœur de réseau en paire (stacking, VSS, MLAG) ; pare-feu en haute disponibilité (actif/passif avec CARP, VRRP ou HSRP) ; alimentations doubles sur onduleurs et groupe électrogène</td></tr>
+<tr><td>Liens</td><td>agrégation (LACP) ; double attachement des serveurs critiques ; deux opérateurs distincts avec des cheminements physiques différents ; SD-WAN pour basculer entre fibre et 4G/5G</td></tr>
+<tr><td>Topologie</td><td>boucles en anneau avec protocoles rapides (RSTP/MSTP) en couche 2 ; routage dynamique (OSPF/BGP) à convergence rapide en couche 3 ; BFD pour détecter une panne de lien en moins d'une seconde</td></tr>
+<tr><td>Services</td><td>DNS, DHCP, NTP et annuaire en doublon ; pour le DPI et le PACS, clusters ou répartiteurs de charge</td></tr>
+</table></div>
+<p>Pourquoi deux opérateurs <b>avec des cheminements différents</b> : si les deux fibres passent dans la même tranchée, un seul coup de pelleteuse coupe les deux. Doubler ne sert que si les deux chemins ne tombent pas ensemble.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Équipements : cœur en paire, pare-feu actif/passif (CARP, VRRP, HSRP), alimentations doubles.</li>
+<li>Liens : LACP, double attachement, deux opérateurs aux chemins distincts, SD-WAN.</li>
+<li>Topologie : anneaux RSTP/MSTP, OSPF/BGP, BFD (moins d'une seconde).</li>
+<li>Services : DNS, DHCP, NTP, annuaire en double ; DPI et PACS en cluster ou derrière un répartiteur de charge.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="disponibilite"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/gestion-centralisee.js"></script>
+<script src="../figures/politiques-admin.js"></script>
+<script src="../figures/vigilance-gestion.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/spof-redondance.js"></script>
+</body>
+</html>

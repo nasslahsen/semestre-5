@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Préparer une attaque réseau</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 12. -->
+<main class="cours-chapitre" data-chapitre="12">
+<p class="etiquette" data-etiquette></p>
+<h1>Préparer une attaque réseau</h1>
+
+<section class="partie" id="s-kill-chain-attack">
+<h2>Kill chain et MITRE ATT&CK</h2>
+
+<article class="notion" id="n-kill-chain-attack">
+<p class="chapeau">Lundi 13 h 45, les postes affichent la rançon. Pour l'attaquant, c'est la fin du travail, pas le début : avant ce message, il a suivi une méthode. La connaître, c'est savoir où l'arrêter.</p>
+<div id="fig-kc7"></div>
+
+<h4>La kill chain : sept phases dans l'ordre</h4>
+<p>La <b>kill chain</b> découpe une attaque en phases qui se suivent. Chaque phase prépare la suivante : si on en casse une, la chaîne s'arrête.</p>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Ce qui se passe (cours)</th></tr>
+<tr><td>1. Reconnaissance</td><td>collecte d'informations sur la cible</td></tr>
+<tr><td>2. Armement</td><td>préparation de l'outil d'attaque</td></tr>
+<tr><td>3. Livraison</td><td>envoi à la cible</td></tr>
+<tr><td>4. Exploitation</td><td>une faille est exploitée</td></tr>
+<tr><td>5. Installation</td><td>pose d'une porte dérobée</td></tr>
+<tr><td>6. C2 (pilotage)</td><td>liaison distante entre l'attaquant et la machine prise</td></tr>
+<tr><td>7. Objectifs</td><td>vol, chiffrement des données</td></tr>
+</table></div>
+<p>Sur le schéma du cours, deux phases sont en rouge : l'<b>exploitation</b> (le moment où l'attaquant entre vraiment) et les <b>objectifs</b> (le dommage : vol ou chiffrement, comme le rançongiciel du lundi 13 h 45).</p>
+<p>La séance 1 montrait une autre version, en huit phases (schéma Varonis, chapitre « Le vocabulaire du risque »). L'idée est la même : une attaque avance par étapes.</p>
+
+<h4>MITRE ATT&amp;CK : ce que les attaquants font vraiment</h4>
+<p><b>MITRE ATT&amp;CK</b> est une <b>base de connaissances publique</b> qui répertorie les techniques réellement observées chez des attaquants. Elle est organisée en deux niveaux :</p>
+<ul>
+<li>la <b>tactique</b> : ce que l'attaquant cherche à obtenir à ce moment (une colonne de la matrice) ;</li>
+<li>la <b>technique</b> : le moyen précis qu'il utilise pour y arriver (une case de la colonne).</li>
+</ul>
+<p>Contrairement à la kill chain, ATT&amp;CK <b>n'impose pas d'ordre strict</b> : un attaquant peut revenir à la reconnaissance après une exploitation, ou sauter des étapes.</p>
+
+<div class="tableau"><table>
+<tr><th></th><th>Kill chain</th><th>MITRE ATT&amp;CK</th></tr>
+<tr><td>Forme</td><td>une chaîne de 7 phases</td><td>une matrice tactiques × techniques</td></tr>
+<tr><td>Ordre</td><td>phases dans l'ordre</td><td>pas d'ordre strict, retours et sauts possibles</td></tr>
+<tr><td>Contenu</td><td>le déroulé général</td><td>les techniques réellement observées</td></tr>
+</table></div>
+
+<h4>À retenir</h4>
+<ul>
+<li>Kill chain : reconnaissance → armement → livraison → exploitation → installation → C2 → objectifs.</li>
+<li>ATT&amp;CK : base publique de techniques observées, rangées par tactique (le but) et technique (le moyen).</li>
+<li>Toute attaque suit une méthode connue : rien n'est improvisé, y compris côté défense.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="kill-chain-attack"></div>
+</section>
+
+<section class="partie" id="s-reconnaissance">
+<h2>La phase de reconnaissance</h2>
+
+<article class="notion" id="n-reconnaissance">
+<p class="chapeau">Avant d'attaquer le PACS, il faut savoir qu'il existe, où il est et quelle version il fait tourner. Toute attaque commence par une enquête.</p>
+<p>La <b>phase de reconnaissance</b> (ou <b>footprinting</b>) est la première étape d'une cyberattaque ou d'un <b>test de pénétration</b>. Elle consiste à collecter un maximum d'informations sur la cible (entreprise, système informatique, employés) afin de cartographier son infrastructure et d'identifier ses faiblesses.</p>
+<div class="schema" id="sc-reconnaissance"></div>
+
+<h4>Deux types de reconnaissance</h4>
+<div class="tableau"><table>
+<tr><th></th><th>Reconnaissance passive</th><th>Reconnaissance active</th></tr>
+<tr><td>Technologie</td><td>OSINT (renseignement en sources ouvertes)</td><td>Nmap, Nessus, OpenVAS...</td></tr>
+<tr><td>Exemple du cours</td><td>consulter les profils des employés sur les réseaux sociaux, analyser les enregistrements DNS publics</td><td>effectuer un scan de ports</td></tr>
+<tr><td>Contact avec la cible</td><td>aucun : on lit ce qui est déjà public</td><td>oui : on envoie des paquets aux machines</td></tr>
+</table></div>
+<p>Conséquence pour l'hôpital : la reconnaissance passive ne laisse <b>aucune trace</b> sur son réseau. La reconnaissance active, elle, peut se voir dans les journaux ou par un IDS : c'est souvent le premier signal d'une attaque.</p>
+<p>Le même travail sert aux deux camps : l'attaquant s'en sert pour préparer son attaque, l'auditeur pour un test de pénétration autorisé.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Reconnaissance = footprinting = collecter un maximum d'informations pour cartographier la cible et trouver ses faiblesses.</li>
+<li>Passive : OSINT, sans contact (réseaux sociaux, DNS publics).</li>
+<li>Active : Nmap, Nessus, OpenVAS, avec contact (scan de ports).</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="reconnaissance"></div>
+</section>
+
+<section class="partie" id="s-nmap">
+<h2>Nmap et les types de scan</h2>
+
+<article class="notion" id="n-nmap">
+<p class="chapeau">Un scan de ports bien fait dit à l'attaquant quelles machines répondent, ce qu'elles font tourner et en quelle version. C'est exactement ce que l'auditeur veut savoir avant lui.</p>
+<p><b>Nmap</b> (Network Mapper) est un logiciel libre et gratuit d'exploration réseau et d'audit de sécurité.</p>
+<div id="fig-nmap"></div>
+
+<h4>Ses quatre fonctionnalités principales</h4>
+<ul>
+<li><b>Découverte d'hôtes</b> : identifier quelles machines ou appareils sont actifs et connectés sur un réseau.</li>
+<li><b>Scan de ports</b> : vérifier quels ports sont ouverts, fermés ou bloqués par un pare-feu.</li>
+<li><b>Détection de services</b> : identifier les programmes qui tournent sur ces ports (serveur web, base de données) et leur version exacte.</li>
+<li><b>Identification de l'OS</b> : estimer le système d'exploitation de la machine cible (Windows, Linux...).</li>
+</ul>
+
+<h4>Les types de scan</h4>
+<div class="tableau"><table>
+<tr><th>Type de scan</th><th>Principe</th><th>Détectable ?</th></tr>
+<tr><td>Scan de ports TCP connect</td><td>établit une connexion TCP complète sur chaque port testé</td><td>facilement, apparaît dans les journaux applicatifs</td></tr>
+<tr><td>Scan SYN (« furtif »)</td><td>n'envoie que le premier paquet de la poignée de main TCP, sans la terminer</td><td>plus discret, mais visible par un IDS correctement réglé</td></tr>
+<tr><td>Scan UDP</td><td>teste les services sans connexion (DNS, SNMP, NTP)</td><td>plus lent et moins fiable, souvent ignoré à tort</td></tr>
+<tr><td>Détection de version / OS</td><td>analyse les réponses pour déduire le logiciel et sa version</td><td>révèle directement les cibles non corrigées</td></tr>
+</table></div>
+<p>Pourquoi la détection de version est la plus dangereuse : connaître la version exacte d'un logiciel, c'est savoir s'il a une faille connue non corrigée. L'attaquant n'a plus qu'à choisir.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Nmap : découverte d'hôtes, scan de ports, détection de services, identification de l'OS.</li>
+<li>TCP connect : connexion complète, très visible. SYN : poignée de main non terminée, plus discret.</li>
+<li>UDP : DNS, SNMP, NTP, souvent ignoré à tort. Version / OS : montre les cibles non corrigées.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="nmap"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/kill-chain-attack.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/nmap.js"></script>
+</body>
+</html>

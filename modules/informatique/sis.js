@@ -393,6 +393,10 @@
     // TD 1 : total d'une offre dans la grille pondérée, somme (poids × note) / 100, poids en % (total 100)
     totalPondere: function (poids, notes) { return poids.reduce(function (s, w, i) { return s + w * notes[i]; }, 0) / 100; },
     // Âge en années révolues à une date
+    // Sécurité des réseaux : nombre d'adresses sur n bits, plage d'un port, machines pour saturer un lien
+    adresses: function (n) { return Math.pow(2, n); },
+    plagePort: function (p) { return p <= 1023 ? "bien connus" : p <= 49151 ? "réservés" : "dynamiques"; },
+    saturation: function (capacite, debit) { return Math.ceil(capacite / debit); },
     age: function (naissance, date) {
       var a = date[0] - naissance[0];
       if (date[1] < naissance[1] || (date[1] === naissance[1] && date[2] < naissance[2])) a--;
@@ -581,7 +585,41 @@
     return function (i) { return { x: x + (i % col) * (lw + e), y: y + Math.floor(i / col) * (h + e), w: lw, h: h }; };
   }
 
-  var A = { rejouable: rejouable, C: C, BACS: BACS, s: s, vider: vider, couper: couper, texte: texte, boite: boite, fleche: fleche, chemin: chemin, toucher: toucher, cible: cible, icone: icone, tableau: tableau, paires: paires, trace: trace, trier: trier, reperer: reperer, relier: relier, bord: bord, animer: animer, grille: grille, calc: calc, EDITEURS: EDITEURS, REGIONS: REGIONS, carteMaroc: carteMaroc, bpmnIdentite: bpmnIdentite, BPMN_FINS: BPMN_FINS, explorer: explorer, etapesFig: etapesFig, scene: scene };
+
+  /* ---------- Dispositions communes des niveaux de sécurité réseau (chapitres 12 à 18) ----------
+     Reprises telles quelles par tests/navigateur/parcours/informatique.js (dispo).
+     ranger(j, g, cartes [{ t, bac }], bacs [textes], o) : 8 cartes au plus sur deux colonnes, 2 ou 3 bacs en bas.
+     associer(j, g, gauche, droite, bon, o) : 5 paires au plus.
+     ordonner(j, g, textes (affichés dans cet ordre), ordre (indices à toucher), o) : 8 étapes au plus, deux colonnes.
+     o : { aide(i, k), bravo, taille } ; chaque geste enregistre sa réponse pour « Voir la réponse ». */
+  function ranger(j, g, cartes, bacs, o) {
+    o = o || {}; vider(g);
+    var nb = bacs.length, w = nb === 2 ? 310 : 208, pas = nb === 2 ? 330 : 222, x0 = nb === 2 ? 20 : 14;
+    var t = trier({ g: g, cartes: cartes, bacs: bacs.map(function (b) { return { t: b }; }),
+      pos: grille(cartes.length, 2, 20, 20, 640, 80, 14), bacsPos: function (k) { return { x: x0 + k * pas, y: 400, w: w, h: 150 }; },
+      taille: o.taille || 16, tailleBac: o.tailleBac || 20, erreur: j.erreur, info: j.info, aide: o.aide,
+      fin: function () { j.bravo(o.bravo || "Bien rangé."); j.suite(); } });
+    j.reponse(function () { t.resoudre(); });
+    return t;
+  }
+  function associer(j, g, gauche, droite, bon, o) {
+    o = o || {}; vider(g);
+    var p = paires({ g: g, gauche: gauche, droite: droite, bon: bon, xg: 10, wg: 330, xd: 380, wd: 290, y0: 30, h: 90, pas: 110,
+      taille: o.taille || 16, tailleD: o.tailleD || 16, erreur: j.erreur, info: j.info, aide: o.aide,
+      fin: function () { j.bravo(o.bravo || "Tout est relié."); j.suite(); } });
+    j.reponse(function () { p.resoudre(); });
+    return p;
+  }
+  function ordonner(j, g, textes, ordre, o) {
+    o = o || {}; vider(g);
+    var nd = textes.map(function (t, i) { return { t: t, x: 20 + (i % 2) * 330, y: 20 + Math.floor(i / 2) * 124, w: 310, h: 110 }; });
+    var tr = trace({ g: g, noeuds: nd, ordre: ordre, coul: C.jeu, taille: o.taille || 17, fleches: false, erreur: j.erreur,
+      aide: o.aide, fin: function () { j.bravo(o.bravo || "Dans le bon ordre."); j.suite(); } });
+    j.reponse(function () { tr.resoudre(); });
+    return tr;
+  }
+
+  var A = { ranger: ranger, associer: associer, ordonner: ordonner, rejouable: rejouable, C: C, BACS: BACS, s: s, vider: vider, couper: couper, texte: texte, boite: boite, fleche: fleche, chemin: chemin, toucher: toucher, cible: cible, icone: icone, tableau: tableau, paires: paires, trace: trace, trier: trier, reperer: reperer, relier: relier, bord: bord, animer: animer, grille: grille, calc: calc, EDITEURS: EDITEURS, REGIONS: REGIONS, carteMaroc: carteMaroc, bpmnIdentite: bpmnIdentite, BPMN_FINS: BPMN_FINS, explorer: explorer, etapesFig: etapesFig, scene: scene };
   if (typeof module !== "undefined" && module.exports) module.exports = A;
   global.SIS = A;
 })(typeof window !== "undefined" ? window : globalThis);

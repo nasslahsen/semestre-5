@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Kill chain et MITRE ATT&CK · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Kill chain et MITRE ATT&CK</h1>
+<p class="chapeau">Lundi 13 h 45, les postes affichent la rançon. Pour l'attaquant, c'est la fin du travail, pas le début : avant ce message, il a suivi une méthode. La connaître, c'est savoir où l'arrêter.</p>
+<div id="fig-kc7"></div>
+
+<h2>La kill chain : sept phases dans l'ordre</h2>
+<p>La <b>kill chain</b> découpe une attaque en phases qui se suivent. Chaque phase prépare la suivante : si on en casse une, la chaîne s'arrête.</p>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Ce qui se passe (cours)</th></tr>
+<tr><td>1. Reconnaissance</td><td>collecte d'informations sur la cible</td></tr>
+<tr><td>2. Armement</td><td>préparation de l'outil d'attaque</td></tr>
+<tr><td>3. Livraison</td><td>envoi à la cible</td></tr>
+<tr><td>4. Exploitation</td><td>une faille est exploitée</td></tr>
+<tr><td>5. Installation</td><td>pose d'une porte dérobée</td></tr>
+<tr><td>6. C2 (pilotage)</td><td>liaison distante entre l'attaquant et la machine prise</td></tr>
+<tr><td>7. Objectifs</td><td>vol, chiffrement des données</td></tr>
+</table></div>
+<p>Sur le schéma du cours, deux phases sont en rouge : l'<b>exploitation</b> (le moment où l'attaquant entre vraiment) et les <b>objectifs</b> (le dommage : vol ou chiffrement, comme le rançongiciel du lundi 13 h 45).</p>
+<p>La séance 1 montrait une autre version, en huit phases (schéma Varonis, chapitre « Le vocabulaire du risque »). L'idée est la même : une attaque avance par étapes.</p>
+
+<h2>MITRE ATT&amp;CK : ce que les attaquants font vraiment</h2>
+<p><b>MITRE ATT&amp;CK</b> est une <b>base de connaissances publique</b> qui répertorie les techniques réellement observées chez des attaquants. Elle est organisée en deux niveaux :</p>
+<ul>
+<li>la <b>tactique</b> : ce que l'attaquant cherche à obtenir à ce moment (une colonne de la matrice) ;</li>
+<li>la <b>technique</b> : le moyen précis qu'il utilise pour y arriver (une case de la colonne).</li>
+</ul>
+<p>Contrairement à la kill chain, ATT&amp;CK <b>n'impose pas d'ordre strict</b> : un attaquant peut revenir à la reconnaissance après une exploitation, ou sauter des étapes.</p>
+
+<div class="tableau"><table>
+<tr><th></th><th>Kill chain</th><th>MITRE ATT&amp;CK</th></tr>
+<tr><td>Forme</td><td>une chaîne de 7 phases</td><td>une matrice tactiques × techniques</td></tr>
+<tr><td>Ordre</td><td>phases dans l'ordre</td><td>pas d'ordre strict, retours et sauts possibles</td></tr>
+<tr><td>Contenu</td><td>le déroulé général</td><td>les techniques réellement observées</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>Kill chain : reconnaissance → armement → livraison → exploitation → installation → C2 → objectifs.</li>
+<li>ATT&amp;CK : base publique de techniques observées, rangées par tactique (le but) et technique (le moyen).</li>
+<li>Toute attaque suit une méthode connue : rien n'est improvisé, y compris côté défense.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/kill-chain-attack.js"></script>
+</body>
+</html>
