@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Traçabilité des DM et matrice des responsabilités · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Traçabilité des DM et matrice des responsabilités</h1>
+<p class="chapeau">Une alerte de matériovigilance tombe sur un lot de prothèses. Il faut retrouver, vite, chaque patient qui en a reçu une. Seule la traçabilité le permet. Et quand un incident touche un DM, il faut savoir qui est responsable.</p>
+<div id="fig-trace"></div>
+
+<h2>Trois traçabilités</h2>
+<div class="tableau"><table>
+<tr><th>DM</th><th>Ce qu'on trace</th></tr>
+<tr><td>DM implantables</td><td>obligation du lien entre le dispositif, le lot et le patient</td></tr>
+<tr><td>Stérilisation</td><td>cycles, charges et dispositifs réutilisables</td></tr>
+<tr><td>Usage unique</td><td>consommables rattachés à l'acte et au patient</td></tr>
+</table></div>
+<p>La question du cours : en cas d'<strong>alerte de matériovigilance</strong>, comment retrouver les patients concernés grâce à la traçabilité ? Par le lien dispositif – lot – patient : on part du lot visé et on remonte aux patients.</p>
+
+<h2>Qui fait quoi ? Matrice de responsabilités</h2>
+<p><strong>R</strong> = responsable, <strong>C</strong> = consulté, – = pas concerné.</p>
+<div id="fig-matrice"></div>
+<div class="tableau"><table>
+<tr><th>Activité</th><th>Biomédical</th><th>DSI</th><th>Service clinique</th><th>DIM</th><th>Fournisseur</th></tr>
+<tr><td>Mise en service d'un moniteur</td><td>R</td><td>R</td><td>R</td><td>–</td><td>C</td></tr>
+<tr><td>Mise à jour logicielle d'un automate</td><td>R</td><td>C</td><td>C</td><td>–</td><td>C</td></tr>
+<tr><td>Panne d'un scanner</td><td>R</td><td>C</td><td>C</td><td>–</td><td>R</td></tr>
+<tr><td>Association moniteur – patient</td><td>C</td><td>C</td><td>R</td><td>–</td><td>–</td></tr>
+<tr><td>Alerte de matériovigilance</td><td>R</td><td>–</td><td>C</td><td>C</td><td>C</td></tr>
+</table></div>
+<p>Deux lignes à bien lire :</p>
+<ul>
+<li>l'<strong>association moniteur – patient</strong> est la responsabilité du service clinique : c'est lui qui sait quel patient est dans quel lit.</li>
+<li>l'<strong>alerte de matériovigilance</strong> est portée par le biomédical, la DSI n'y est pas concernée.</li>
+</ul>
+
+<h2>Trois messages de la séance</h2>
+<ol>
+<li><strong>Des circuits interdépendants</strong> : un SIH est un ensemble de circuits qui s'enchaînent.</li>
+<li><strong>L'identité, point critique</strong> : l'identité patient traverse tous les modules.</li>
+<li><strong>Trois mondes</strong> : l'ingénieur biomédical est à l'interface du clinique, du technique et de l'information médicale.</li>
+</ol>
+
+<h2>À retenir</h2>
+<ul>
+<li>Implantable : dispositif – lot – patient. Stérilisation : cycles et charges. Usage unique : rattaché à l'acte et au patient.</li>
+<li>Biomédical responsable : mise en service, mise à jour d'un automate, panne d'un scanner, matériovigilance.</li>
+<li>Service clinique responsable : association moniteur – patient.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/tracabilite-dm.js"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@ NIVEAU(SIS.rejouable({
       ["G = 8", "O = 3", "D = 5"].forEach(function (t, k) { A.boite(n.g, 30 + k * 220, 140, 180, 160, { titre: t, taille: 32, fond: "#fff" }); });
       A.texte(n.g, "exemple ajouté", [340, 360], { taille: 15, coul: A.C.doux, gras: 500 });
       j.titre("Nouvelle ligne : une allergie connue n'est pas reportée dans le dossier. Calcule sa criticité.");
-      j.nombre({ cases: [{ attendu: 120 }], avant: "C =", aide: function () { return "8 × 3 × 5."; }, ok: function () { j.bravo("\\(C = 120\\) : au-dessus du seuil de 100."); j.suite(); } });
+      j.nombre({ cases: [{ attendu: 120 }], avant: "C =", aide: function () { return "8 × 3 × 5."; }, ok: function () { j.bravo("\\(C = 120\\) : au-dessus du seuil de 100."); j.suite(); } });
     } },
     { nom: "La barrière fait baisser D", jouer: function (j, n) {
       var A = SIS;
@@ -35,9 +35,9 @@ NIVEAU(SIS.rejouable({
     { nom: "Un autre jeu de poids", jouer: function (j, n) {
       var A = SIS;
       A.vider(n.g);
-      A.tableau(n.g, 40, 60, [280, 110, 100, 100], 70, [["Critère", "Poids", "A", "B"], ["Sécurité", "40", "4", "3"], ["Intégration et cyber", "20", "2", "5"], ["Coût sur 7 ans", "20", "2", "4"], ["Maintenance", "10", "3", "3"], ["Ergonomie", "10", "2", "4"]], { taille: 19, gauche: true });
-      j.titre("Un groupe choisit les poids 40 / 20 / 20 / 10 / 10. Calcule les deux totaux.");
-      j.nombre({ cases: [{ attendu: 2.90, tol: 0.005 }, { attendu: 3.70, tol: 0.005 }], ligne: true, avant: "\\text{Total}_A,\\ \\text{Total}_B :", aide: function (k) { return k === 0 ? "A : 40 × 4 + 20 × 2 + 20 × 2 + 10 × 3 + 10 × 2, divisé par 100." : "B : 40 × 3 + 20 × 5 + 20 × 4 + 10 × 3 + 10 × 4, divisé par 100."; }, ok: function () { j.bravo("A = 2,90, B = 3,70 : le classement tient encore."); j.suite(); } });
+      A.tableau(n.g, 40, 60, [280, 110, 100, 100], 70, [["Critère", "Poids", "A", "B"], ["Sécurité", "30", "5", "3"], ["Intégration et cyber", "20", "3", "4"], ["Coût sur 7 ans", "30", "2", "4"], ["Maintenance", "10", "4", "3"], ["Ergonomie", "10", "3", "4"]], { taille: 19, gauche: true });
+      j.titre("Un groupe donne autant de poids au coût qu'à la sécurité : 30 / 20 / 30 / 10 / 10. Calcule les deux totaux (notes du modèle).");
+      j.nombre({ cases: [{ attendu: 3.40, tol: 0.005 }, { attendu: 3.60, tol: 0.005 }], ligne: true, avant: "\\text{Total}_A,\\ \\text{Total}_B :", aide: function (k) { return k === 0 ? "A : 30 × 5 + 20 × 3 + 30 × 2 + 10 × 4 + 10 × 3, divisé par 100." : "B : 30 × 3 + 20 × 4 + 30 × 4 + 10 × 3 + 10 × 4, divisé par 100."; }, ok: function () { j.bravo("A = 3,40, B = 3,60 : quand le coût pèse autant que la sécurité, B passe devant."); j.suite(); } });
     } },
     { nom: "Le robot unique", jouer: function (j, n) {
       var A = SIS;

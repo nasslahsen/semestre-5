@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<title>TD 1 : le cas et l'analyse de risques · Informatique médicale</title>
+<title>TD 1 : le cas et l'analyse de risques · Informatique médicale</title>
 <link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../commun/css/cours.css">
 <link rel="stylesheet" href="../../../commun/css/barre.css">
@@ -21,7 +21,7 @@
 <p class="chapeau">Le CHU Atlas ouvre un centre d'oncologie dans dix-huit mois. Deux éditeurs proposent une solution pour le circuit de chimiothérapie, de la prescription à la traçabilité. Avant de comparer les offres, le comité doit savoir ce qui peut mal tourner dans ce circuit.</p>
 
 <h2>Le TD en bref</h2>
-<p>Toutes les données du dossier sont fictives. Ton groupe joue le <b>comité de pilotage</b> : six rôles, chacun défend un point de vue.</p>
+<p>Toutes les données du dossier sont fictives. Ton groupe joue le <b>comité de pilotage</b> : six rôles, chacun défend un point de vue.</p>
 <div class="tableau"><table>
 <tr><th>Rôle</th><th>Ce qu'il défend</th></tr>
 <tr><td>Directeur ou directrice générale</td><td>Préside le comité, arbitre entre sécurité, coût et calendrier</td></tr>
@@ -56,16 +56,15 @@
 <tr><td>7</td><td>Exposition</td><td>Contamination du personnel lors de la préparation</td><td>Atteinte à la santé des opérateurs</td></tr>
 </table></div>
 <h2>Où chercher dans le cours</h2>
-<p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="identite.html">Création et vérification d'une identité</a>, <a href="appariement.html">Algorithmes d'appariement</a> et <a href="identitovigilance.html">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="dpi.html">DPI</a>, <a href="plan-soins.html">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="circuit-ris-pis.html">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="risque.html">risque</a> (chapitre 10) est la même idée, avec deux axes au lieu de trois.</p>
+<p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="identite.html">Création et vérification d'une identité</a>, <a href="appariement.html">Algorithmes d'appariement</a> et <a href="identitovigilance.html">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="dpi.html">DPI</a>, <a href="plan-soins.html">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="circuit-ris-pis.html">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="risque.html">risque</a> (chapitre 10 de la sécurité) est la même idée, avec deux axes au lieu de trois. La règle exigences = preuves est au chapitre 7 du cours SIS (<a href="projet-chimio.html">Le projet</a>, <a href="audit-exigences.html">Le cahier d'exigences</a>).</p>
 <p>Le cours reçu ne présente pas l'AMDEC : la méthode et l'échelle viennent de l'énoncé du TD.</p>
 
 <h2>Exemple de calcul</h2>
-<p class="complement">Exemple ajouté : cotation proposée, à justifier en groupe.</p>
-<p>Ligne 1, dose mal transcrite. Gravité : un surdosage de chimiothérapie peut être grave, G = 9. Occurrence : la prescription est informatisée mais les protocoles sont nombreux, O = 4. Détectabilité : le pharmacien valide chaque ordonnance et peut repérer une dose anormale, D = 4.</p>
+<p>Ligne 4, étiquette erronée ou saisie à la main. Cotation du modèle de l'enseignant : G = 8, O = 4, D = 4.</p>
 \[ C = G \times O \times D \]
-\[ C = 9 \times 4 \times 4 \]
-\[ C = 144 \]
-<p>144 dépasse le seuil de 100 : la ligne est prioritaire. Si trois autres lignes ont une criticité plus forte, elle reste au-dessus du seuil mais n'entre pas dans les trois retenues ; on dit alors quelle barrière la couvre déjà (ici, la validation pharmaceutique).</p>
+\[ C = 8 \times 4 \times 4 \]
+\[ C = 128 \]
+<p>128 dépasse le seuil de 100 : la ligne est prioritaire. Dans le modèle, elle est la deuxième des trois retenues.</p>
 
 <h2>À retenir</h2>
 \[ C = G \times O \times D \qquad 1 \leq G,\ O,\ D \leq 10 \qquad \text{prioritaire si } C \geq 100 \]

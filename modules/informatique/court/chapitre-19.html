@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Gouvernance, audit et benchmarking (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 7 du cours SIS (id 19) : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Gouvernance, audit et benchmarking</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-19.html">Lire le cours complet</a></p>
+<h2>Le projet et la règle</h2>
+<p>Un centre d'oncologie ouvre dans dix-huit mois, deux offres pour le circuit de chimiothérapie : A robotisée et intégrée, B modulaire et semi-automatisée. Règle : <strong>exigences = preuves</strong>.</p>
+<p>Circuit : prescription du protocole → validation pharmaceutique → préparation cytotoxique et contrôle → transport et administration → traçabilité. Interfaces avec le SIH : identité patient, DPI, module pharmacie.</p>
+
+<h2>Décider</h2>
+<ul>
+<li>Direction générale : décide et finance. Comité de pilotage : arbitre. L'<strong>ingénieur biomédical</strong> porte les exigences techniques et de sécurité, pas les protocoles cliniques.</li>
+<li>Cycle : opportunité → programme technique → consultation et choix → déploiement et qualification → ouverture et évaluation. À chaque étape : qui décide, qui est consulté, quelle trace écrite.</li>
+<li>Matrice : le mode dégradé est la responsabilité de tous les acteurs de l'hôpital, le fournisseur est consulté.</li>
+<li><strong>Coût complet sur 7 ans</strong> : investissement, locaux, consommables, maintenance, formation, remplacement. Plus les <strong>coûts cachés</strong>.</li>
+</ul>
+
+<h2>Évaluer</h2>
+<ul>
+<li>Audit : un référentiel et une méthodologie, objectivité et neutralité.</li>
+<li>Sept familles d'exigences : conformité, sécurité du patient, sécurité du personnel, intégration au SIH, cybersécurité, continuité, maintenance et cycle de vie. Chacune : une question, une preuve.</li>
+<li>Trois moments : avant l'achat, à la réception, après l'ouverture. Un constat s'appuie sur une preuve vérifiable (fait, écart, opinion).</li>
+</ul>
+
+<h2>Comparer</h2>
+<p>Critères éliminatoires → critères pondérés (poids fixés avant) → notes sur preuves → coût complet sur 7 ans → analyse de sensibilité.</p>
+\[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
+<p>A : 3,70 contre B : 3,50 avec 35 / 25 / 15 / 15 / 10, mais B passe devant quand le coût pèse 25 %. Une offre qui échoue à un critère éliminatoire est écartée, quel que soit son score.</p>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Matrice RACI</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=matrice+RACI+projet" target="_blank" rel="noopener">matrice RACI projet</a></td></tr>
+<tr><td>Coût complet</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=co%C3%BBt+total+de+possession+TCO" target="_blank" rel="noopener">coût total de possession TCO</a></td></tr>
+<tr><td>Grille pondérée</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=matrice+de+d%C3%A9cision+pond%C3%A9r%C3%A9e" target="_blank" rel="noopener">matrice de décision pondérée</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelle règle guide toute la séance ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Exigences = preuves.</p><p>Une exigence dit ce que le système doit garantir, une preuve dit comment le fournisseur le démontre (site de référence, tests, engagement contractuel).</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Qui décide et finance un investissement, et qui l'arbitre ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La direction générale décide et finance.</p><p>Le comité de pilotage arbitre le projet.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Que ne décide pas l'ingénieur biomédical ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les protocoles thérapeutiques et leur paramétrage clinique.</p><p>Ils relèvent des oncologues et des pharmaciens.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Donne les cinq étapes du cycle de décision d'un projet d'extension.</p><details class="corrige"><summary>Voir la réponse</summary><p>Étude d'opportunité.</p><p>Programme technique.</p><p>Consultation et choix.</p><p>Déploiement et qualification.</p><p>Ouverture et évaluation.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qu'est-ce qu'un coût caché ? Donne un exemple.</p><details class="corrige"><summary>Voir la réponse</summary><p>Une dépense, une perte ou un manque à gagner absent du budget initial et de la comptabilité traditionnelle.</p><p>Exemple : un coût d'interfaçage non prévu.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Quels sont les trois moments d'audit ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Avant l'achat : dossier fournisseur, site de référence, démonstration scénarisée.</p><p>À la réception : contrôle de la livraison, qualification, tests avec identités fictives.</p><p>Après l'ouverture : indicateurs, retours des utilisateurs, incidents.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi un délai de préparation qui baisse n'est-il pas forcément une bonne nouvelle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il peut cacher des contrôles contournés en période de pointe : c'est un effet pervers de l'indicateur.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Notes A : 5, 3, 2, 4, 3. Poids 35 / 25 / 15 / 15 / 10. Calcule le total de A.</p><details class="corrige"><summary>Voir la réponse</summary><p>\( \text{Total} = \sum(\text{poids} \times \text{note}) / 100 \)</p><p>\( \text{Total}_A = (175 + 75 + 30 + 60 + 30) / 100 \)</p><p>\( \text{Total}_A = 3{,}70 \)</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi un critère éliminatoire pour la sécurité ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Avec la pondération seule, un bon prix peut compenser une sécurité plus faible.</p><p>La sécurité se vérifie d'abord, elle ne se négocie pas dans une note.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Cite trois pièges du benchmarking.</p><details class="corrige"><summary>Voir la réponse</summary><p>Démonstration préparée par l'éditeur.</p><p>Intégration non prouvée, sans site de référence.</p><p>Dépendance fournisseur, à traiter par une clause de réversibilité.</p><p>(Aussi : périmètres différents, références non comparables.)</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-7.html"><small>Version courte suivante</small>L'hôpital face à la menace cyber</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "sis") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 19) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

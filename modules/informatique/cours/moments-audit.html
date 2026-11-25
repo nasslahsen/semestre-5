@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Trois moments d'audit et les indicateurs · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Trois moments d'audit et les indicateurs</h1>
+<p class="chapeau">Une solution peut briller à la démonstration et décevoir en service. On l'audite donc trois fois, et on la suit ensuite avec des indicateurs, en se méfiant de ceux qui poussent à tricher.</p>
+<div id="fig-moments"></div>
+
+<h2>Trois moments d'audit</h2>
+<div class="tableau"><table>
+<tr><th>Moment</th><th>Ce qu'on audite</th></tr>
+<tr><td>1. Avant l'achat</td><td>dossier fournisseur, site de référence, démonstration scénarisée</td></tr>
+<tr><td>2. À la réception</td><td>contrôle de la livraison, qualification, tests avec identités fictives</td></tr>
+<tr><td>3. Après l'ouverture</td><td>indicateurs, retours des utilisateurs, incidents</td></tr>
+</table></div>
+<p><strong>Fait, écart, opinion</strong> : un constat s'appuie sur une preuve vérifiable.</p>
+
+<h2>Indicateurs et effets pervers</h2>
+<p>Six indicateurs proposés par le cours :</p>
+<ul>
+<li>délai de préparation ;</li>
+<li>préparations conformes du premier coup ;</li>
+<li>erreurs interceptées avant l'administration ;</li>
+<li>gaspillage de médicament ;</li>
+<li>disponibilité des équipements ;</li>
+<li>incidents signalés.</li>
+</ul>
+<p>Un délai de préparation qui baisse prouve-t-il un système meilleur ? Pas forcément. <strong>Risque</strong> : contourner les contrôles en période de pointe pour faire baisser le chiffre.</p>
+
+<h2>Étude de cas : un centre de référence (fictif)</h2>
+<p>Quatre constats relevés sur un site qui utilise déjà une solution. Consigne : pour chaque constat, l'écart, la preuve manquante, et une exigence à ajouter au cahier des charges du CHU Atlas.</p>
+<p class="complement">Réponse proposée (le cours donne la consigne, pas la réponse).</p>
+<div class="tableau"><table>
+<tr><th>Constat</th><th>Écart</th><th>Preuve manquante</th><th>Exigence à ajouter</th></tr>
+<tr><td>Double contrôle contourné aux heures de pointe</td><td>sécurité du patient</td><td>trace des contrôles réellement faits</td><td>contrôle bloquant, tracé, impossible à sauter</td></tr>
+<tr><td>Imprimante d'étiquettes en panne : étiquetage manuel</td><td>continuité</td><td>procédure de mode dégradé testée</td><td>imprimante de secours, étiquettes de secours, mode dégradé testé</td></tr>
+<tr><td>Compte du fournisseur partagé pour l'accès à distance</td><td>cybersécurité</td><td>traçabilité des accès</td><td>comptes nominatifs, accès à distance encadré</td></tr>
+<tr><td>Identité des patients sans dossier à jour saisie à la main</td><td>intégration au SIH</td><td>tests avec identités fictives</td><td>gestion de l'identité provisoire et de son rapprochement, testée avant la signature</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>Avant l'achat, à la réception, après l'ouverture : trois audits, trois types de preuves.</li>
+<li>Un constat s'appuie sur une preuve vérifiable : on distingue fait, écart et opinion.</li>
+<li>Un indicateur peut avoir un effet pervers : un délai qui baisse peut cacher des contrôles contournés.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/moments-audit.js"></script>
+</body>
+</html>

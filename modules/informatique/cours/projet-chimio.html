@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le projet : un circuit de chimiothérapie · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le projet : un circuit de chimiothérapie</h1>
+<p class="chapeau">Ton hôpital ouvre un centre d'oncologie dans dix-huit mois. La direction annonce la consultation, et deux offres pour le circuit de chimiothérapie arrivent sur ton bureau d'ingénieur biomédical. Que te demande-t-on, et que dois-tu exiger avant de dire oui ?</p>
+
+<h2>Le scénario</h2>
+<ul>
+<li><strong>Offre A</strong> : solution robotisée et intégrée.</li>
+<li><strong>Offre B</strong> : solution modulaire et semi-automatisée.</li>
+</ul>
+<p>La séance suit trois objectifs :</p>
+<div class="tableau"><table>
+<tr><th>Objectif</th><th>Ce qu'on apprend</th></tr>
+<tr><td>Décider</td><td>situer les décideurs et les étapes d'un projet d'extension, et ce que porte l'ingénieur biomédical</td></tr>
+<tr><td>Évaluer</td><td>construire et instruire des exigences techniques et de sécurité, avant l'achat, à la réception et après l'ouverture</td></tr>
+<tr><td>Comparer</td><td>comparer deux offres sans se piéger : critères éliminatoires, pondération, coût complet, sensibilité</td></tr>
+</table></div>
+
+<h2>La règle à respecter : exigences = preuves</h2>
+<div id="fig-preuves"></div>
+<div class="tableau"><table>
+<tr><th>Une exigence</th><th>Une preuve</th></tr>
+<tr><td>ce que le système doit garantir. Exemple : la bonne prescription arrive sur le bon patient.</td><td>comment le fournisseur le démontre. Exemple : un site de référence, des tests, un engagement contractuel.</td></tr>
+</table></div>
+
+<h2>Le circuit de chimiothérapie</h2>
+<div id="fig-chimio"></div>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
+<tr><td>1. Prescription du protocole</td><td>dans le DPI, par l'oncologue</td></tr>
+<tr><td>2. Validation pharmaceutique</td><td>doses, interactions, protocole</td></tr>
+<tr><td>3. Préparation cytotoxique et contrôle</td><td>isolateur ou robot de préparation</td></tr>
+<tr><td>4. Transport et administration</td><td>vers l'unité, patient vérifié</td></tr>
+<tr><td>5. Traçabilité</td><td>du produit au patient</td></tr>
+</table></div>
+<ul>
+<li><strong>Acteurs métiers</strong> : oncologue, pharmacien, préparateur, infirmier.</li>
+<li><strong>DM concernés</strong> : poste ou robot de préparation, étiqueteuse, pompes, et SI de gestion du circuit de chimiothérapie.</li>
+<li><strong>Interfaces avec le SIH</strong> : identité patient, DPI, module pharmacie.</li>
+</ul>
+<p><strong>Côté biomédical</strong> : il porte les exigences de sécurité des DM et vérifie ce qui est prouvé sur leur lien avec le SIH existant.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Trois verbes guident la séance : décider, évaluer, comparer.</li>
+<li>Toute exigence va avec la preuve qui la démontre.</li>
+<li>Prescription → validation pharmaceutique → préparation et contrôle → transport et administration → traçabilité.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/projet-chimio.js"></script>
+</body>
+</html>

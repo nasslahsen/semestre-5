@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le parc de DM et les DM communicants · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le parc de DM et les DM communicants</h1>
+<p class="chapeau">Le scanner tombe en panne : tout le circuit RIS s'arrête. Un moniteur reste associé au patient qui a changé de chambre. Ces deux incidents partent d'un DM et arrivent dans le SIH : c'est le terrain de l'ingénieur biomédical.</p>
+<div id="fig-gmao"></div>
+
+<h2>Le parc de DM dans le SIH : la GMAO</h2>
+<div class="tableau"><table>
+<tr><th>La GMAO gère</th><th>Indicateurs</th></tr>
+<tr><td>
+<ul>
+<li>inventaire des DM</li>
+<li>maintenance préventive et corrective</li>
+<li>traçabilité des interventions</li>
+<li>lien avec le service et le patient</li>
+</ul></td><td>
+<ul>
+<li>taux de disponibilité</li>
+<li>délai d'intervention</li>
+<li>coût de maintenance</li>
+<li>cycle de vie : acquisition, exploitation, renouvellement</li>
+</ul></td></tr>
+</table></div>
+<p>La question du cours : si une panne du scanner bloque le circuit RIS, qui est le premier informé, et quelles sont les étapes de sa remise en marche ? La matrice de la page suivante donne une partie de la réponse : pour la panne d'un scanner, le biomédical et le fournisseur sont responsables, la DSI et le service clinique sont consultés.</p>
+
+<h2>DM communicants et données du dossier patient</h2>
+<p>Trois incidents typiques quand un appareil envoie ses données au dossier :</p>
+<div class="tableau"><table>
+<tr><th>Incident</th><th>Ce qui se passe</th></tr>
+<tr><td>Mauvais rattachement</td><td>l'appareil est associé au mauvais patient</td></tr>
+<tr><td>Horodatage erroné</td><td>l'heure de l'appareil est décalée de celle du SIH</td></tr>
+<tr><td>Valeur aberrante</td><td>elle est intégrée au dossier sans contrôle</td></tr>
+</table></div>
+<p>Exemple du cours : un moniteur reste associé à un lit, mais pas au bon patient après un changement de chambre.</p>
+<p>Appareils concernés : <strong>moniteurs, pompes, ventilateurs, automates de biologie, imagerie</strong>.</p>
+<p>Le cours pose la question du rôle de l'ingénieur biomédical avant, pendant et après l'incident, sans donner de réponse.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>La GMAO : inventaire, maintenance préventive et corrective, traçabilité des interventions, lien service – patient.</li>
+<li>Ses indicateurs : disponibilité, délai d'intervention, coût de maintenance, cycle de vie.</li>
+<li>DM communicants : mauvais rattachement, horodatage erroné, valeur aberrante.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/parc-dm.js"></script>
+</body>
+</html>

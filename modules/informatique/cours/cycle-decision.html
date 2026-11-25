@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le cycle de décision et la matrice des responsabilités · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le cycle de décision et la matrice des responsabilités</h1>
+<p class="chapeau">De l'idée à l'ouverture du centre, le projet passe par cinq étapes. À chacune, trois questions : qui décide, qui est consulté, quelle trace écrite ?</p>
+<div id="fig-cycle"></div>
+
+<h2>Le cycle de décision d'un projet d'extension</h2>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Contenu</th></tr>
+<tr><td>1. Étude d'opportunité</td><td>analyse de faisabilité, business case, charte projet</td></tr>
+<tr><td>2. Programme technique</td><td>cahier de prescriptions techniques, règlement de consultation, CPS</td></tr>
+<tr><td>3. Consultation et choix</td><td>offres comparées</td></tr>
+<tr><td>4. Déploiement et qualification</td><td>réception, tests, formation</td></tr>
+<tr><td>5. Ouverture et évaluation</td><td>indicateurs, retours</td></tr>
+</table></div>
+
+<h2>La matrice de responsabilités du projet</h2>
+<p><strong>R</strong> = responsable, <strong>C</strong> = consulté.</p>
+<div id="fig-raci"></div>
+<div class="tableau"><table>
+<tr><th>Activité</th><th>Biomédical</th><th>Pharmacie</th><th>Oncologues</th><th>DSI</th><th>Soins</th><th>Fournisseur</th></tr>
+<tr><td>Exigences de sécurité des équipements</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+<tr><td>Protocoles et paramétrage clinique</td><td>C</td><td>R</td><td>R</td><td>C</td><td>R</td><td>C</td></tr>
+<tr><td>Recette de l'intégration au SIH</td><td>R</td><td>C</td><td>C</td><td>R</td><td>C</td><td>C</td></tr>
+<tr><td>Qualification avant la 1<sup>re</sup> préparation</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>R</td></tr>
+<tr><td>Formation des opérateurs</td><td>C</td><td>R</td><td>R</td><td>C</td><td>R</td><td>R</td></tr>
+<tr><td>Mode dégradé en cas de panne</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>C</td></tr>
+</table></div>
+<p>À lire dans la matrice :</p>
+<ul>
+<li>le <strong>mode dégradé</strong> est l'affaire de tous les acteurs de l'hôpital, le fournisseur étant seulement consulté ;</li>
+<li>pour les <strong>protocoles</strong>, le biomédical est consulté : il ne décide pas du paramétrage clinique ;</li>
+<li>la <strong>recette de l'intégration au SIH</strong> est partagée entre le biomédical et la DSI.</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>Opportunité → programme technique → consultation et choix → déploiement et qualification → ouverture et évaluation.</li>
+<li>À chaque étape : qui décide, qui est consulté, quelle trace écrite.</li>
+<li>Le biomédical est responsable des exigences de sécurité, de la recette d'intégration, de la qualification et du mode dégradé.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/cycle-decision.js"></script>
+</body>
+</html>

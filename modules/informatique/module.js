@@ -1,9 +1,10 @@
 /*
  * Module Informatique médicale : ordre des pages. Couleurs, sous-modules et statut : registre.js.
- * Sources : « Systèmes d'informations de santé » séances 1-2 (S1S2) et 3 (S3, circuits patient), M. Sfaira ;
- *           TD « Centre d'oncologie du CHU Atlas » (dossier étudiant, données fictives) ;
+ * Sources : « Systèmes d'informations de santé » séances 1-2 (S1S2), 3-4 (S3-S4, circuits patient, cours complet) et 5 (S5,
+ *           gouvernance, audit et benchmarking), M. Sfaira ; le chapitre 19 s'affiche « Chapitre 7 » (numero), comme dans le plan du cours ;
+ *           TD « Centre d'oncologie du CHU Atlas » (dossier étudiant et fiche de synthèse remplie par l'enseignant, données fictives) ;
  *           « Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité » (S1),
-           « Attaques réseaux » (S2), « Conception d'une architecture réseau sécurisée » (S3), M. Sfaira.
+ *           « Attaques réseaux » (S2), « Conception d'une architecture réseau sécurisée » (S3), M. Sfaira.
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
@@ -15,7 +16,7 @@ PLATEFORME.parcours("informatique", {
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.
-  court: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18],
+  court: [1, 2, 3, 4, 5, 6, 19, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18],
   // podcasts des chapitres (lecteur sous le titre de la page du chapitre)
   podcasts: {
     7: { titre: "L'hôpital face à la menace cyber", duree: "21 min", fichier: "audio/chapitre-7.m4a" },
@@ -26,11 +27,15 @@ PLATEFORME.parcours("informatique", {
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
   documents: {
     recus: [
-      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "6 chapitres" },
+      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3-4 « Circuits patient à travers les principaux modules du SIH » (M. Sfaira)", couvre: "6 chapitres" },
+      { sousModule: "sis", titre: "« Systèmes d'informations de santé », séance 5 « Gouvernance, audit et benchmarking » (M. Sfaira)", couvre: "chapitre 7" },
       { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" },
       { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : attaques réseaux », séance 2", couvre: "4 chapitres" },
       { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : conception d'une architecture réseau sécurisée », séance 3 (M. Sfaira)", couvre: "3 chapitres" },
-      { sousModule: "sis", titre: "TD « Centre d'oncologie du CHU Atlas » : dossier étudiant et modèle de fiche de synthèse", couvre: "TD 1" }
+      { sousModule: "sis", titre: "TD « Centre d'oncologie du CHU Atlas » : dossier étudiant et fiche de synthèse, exemple rempli à l'usage de l'enseignant", couvre: "TD 1, corrigé compris" }
+    ],
+    manque: [
+      "Systèmes d'informations de santé : le point 8 du plan, « Système d'information de santé », et la partie 2, « Architectures techniques et interopérabilité des SIH / SIS »."
     ]
   },
   chapitres: [
@@ -39,7 +44,8 @@ PLATEFORME.parcours("informatique", {
     { id: 3, titre: "Le système d'information hospitalier", sous: "Définition, apports, composants, architecture fonctionnelle, SIH au Maroc", ligne: "Définition, composants, architecture", sousModule: "sis" },
     { id: 4, titre: "Les données de santé", sous: "Information personnelle de santé, parcours, types, supports et qualité", ligne: "Parcours, types, supports, qualité", sousModule: "sis" },
     { id: 5, titre: "Le dossier patient informatisé", sous: "DPI, DPP, DSN, séjours, modules, plan de soins, portail national", ligne: "DPI, DPP, DSN, plan de soins", sousModule: "sis" },
-    { id: 6, titre: "Circuits patient dans le SIH", sous: "Identité et appariement, admission, facturation, LIS, RIS, PIS", ligne: "Identité, admission, LIS, RIS, PIS", sousModule: "sis" },
+    { id: 6, titre: "Circuits patient dans le SIH", sous: "Identité et appariement, admission, facturation, LIS, RIS, PIS, bloc, sang, le SIH vu par l'ingénieur biomédical", ligne: "Identité, LIS, RIS, PIS, bloc, sang, biomédical", sousModule: "sis" },
+    { id: 19, numero: 7, titre: "Gouvernance, audit et benchmarking", sous: "Décider, auditer et comparer un SIH : décideurs, exigences et preuves, trois moments d'audit, comparaison de deux offres", ligne: "Décider, auditer, comparer deux offres", sousModule: "sis" },
     { id: 7, titre: "L'hôpital face à la menace cyber", sous: "Scénario de rançongiciel, spécificités de l'hôpital, panorama des attaques", ligne: "Rançongiciel, panorama de la menace", sousModule: "securite" },
     { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", ligne: "Défense en profondeur, CID, AAA", sousModule: "securite" },
     { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", ligne: "Loi 05-20, loi 09-08, normes", sousModule: "securite" },
@@ -101,8 +107,24 @@ PLATEFORME.parcours("informatique", {
     { id: "admission-facturation", chapitre: 6, titre: "De l'admission à la facturation", cours: true, pret: true },
     { id: "circuit-lis", chapitre: 6, titre: "Le LIS : un examen biologique", cours: true, pret: true },
     { id: "circuit-ris-pis", chapitre: 6, titre: "RIS et PIS : imagerie et médicament", cours: true, pret: true },
+    { id: "circuit-bloc", chapitre: 6, titre: "Le bloc opératoire", cours: true, pret: true },
+    { id: "circuit-sang", chapitre: 6, titre: "Le circuit du sang", cours: true, pret: true },
+    { id: "parc-dm", chapitre: 6, titre: "GMAO et DM communicants", cours: true, pret: true },
+    { id: "tracabilite-dm", chapitre: 6, titre: "Traçabilité et responsabilités", cours: true, pret: true },
     { id: "revision-circuits", chapitre: 6, titre: "Révision : les circuits", revision: true, pret: true },
     { id: "boss-circuits", chapitre: 6, titre: "Le patient sans papiers", boss: true, pret: true },
+
+    { id: "projet-chimio", chapitre: 19, titre: "Le projet et la règle exigences = preuves", cours: true, pret: true },
+    { id: "decideurs", chapitre: 19, titre: "Qui décide de l'investissement", cours: true, pret: true },
+    { id: "cycle-decision", chapitre: 19, titre: "Cycle de décision et responsabilités", cours: true, pret: true },
+    { id: "cout-complet", chapitre: 19, titre: "Coût complet et coûts cachés", cours: true, pret: true },
+    { id: "audit-exigences", chapitre: 19, titre: "L'audit et le cahier d'exigences", cours: true, pret: true },
+    { id: "moments-audit", chapitre: 19, titre: "Trois moments d'audit", cours: true, pret: true },
+    { id: "methode-comparaison", chapitre: 19, titre: "La méthode de comparaison", cours: true, pret: true },
+    { id: "sensibilite", chapitre: 19, titre: "Grille pondérée et sensibilité", cours: true, pret: true },
+    { id: "pieges-benchmarking", chapitre: 19, titre: "Pièges et rôle du biomédical", cours: true, pret: true },
+    { id: "revision-gouvernance", chapitre: 19, titre: "Révision : décider, auditer, comparer", revision: true, pret: true },
+    { id: "boss-gouvernance", chapitre: 19, titre: "Le comité du centre d'oncologie", boss: true, pret: true },
 
     { id: "scenario-rancon", chapitre: 7, titre: "Lundi 13 h 45 : rançongiciel", cours: true, pret: true },
     { id: "hopital-different", chapitre: 7, titre: "Ce qui rend un hôpital différent", cours: true, pret: true },
@@ -204,10 +226,16 @@ PLATEFORME.parcours("informatique", {
     { id: "dpi-sejours", chapitre: 5, titre: "DPI, DPP, DSN et séjours", notions: ["dpi", "dpi-sejours"] },
     { id: "modules-plan", chapitre: 5, titre: "Le DPI dans le SIH et le plan de soins", notions: ["dpi-modules", "plan-soins"] },
     { id: "portail-urgences", chapitre: 5, titre: "Portail national et urgences", notions: ["dpp-national", "urgences-dpi"] },
-    { id: "patient-identite", chapitre: 6, titre: "Suivre un patient et créer une identité", notions: ["circuit-patient", "identite"] },
-    { id: "appariement-vigilance", chapitre: 6, titre: "Appariement et identitovigilance", notions: ["appariement", "identitovigilance"] },
-    { id: "admission-facturation", chapitre: 6, titre: "Admission et facturation", notions: ["admission-facturation"] },
+    { id: "patient-identite", chapitre: 6, titre: "Suivre un patient, créer une identité, l'apparier", notions: ["circuit-patient", "identite", "appariement"] },
+    { id: "vigilance-facturation", chapitre: 6, titre: "Identitovigilance, admission et facturation", notions: ["identitovigilance", "admission-facturation"] },
     { id: "lis-ris-pis", chapitre: 6, titre: "Les circuits LIS, RIS et PIS", notions: ["circuit-lis", "circuit-ris-pis"] },
+    { id: "bloc-sang", chapitre: 6, titre: "Bloc opératoire et circuit du sang", notions: ["circuit-bloc", "circuit-sang"] },
+    { id: "biomedical", chapitre: 6, titre: "Le SIH vu par l'ingénieur biomédical", notions: ["parc-dm", "tracabilite-dm"] },
+    { id: "projet-chimio", chapitre: 19, titre: "Le projet et la règle exigences = preuves", notions: ["projet-chimio"] },
+    { id: "gouvernance", chapitre: 19, titre: "Gouvernance : qui décide, comment, à quel coût", notions: ["decideurs", "cycle-decision", "cout-complet"] },
+    { id: "audit", chapitre: 19, titre: "Audit : exigences, preuves, trois moments", notions: ["audit-exigences", "moments-audit"] },
+    { id: "comparer", chapitre: 19, titre: "Benchmarking : comparer deux offres", notions: ["methode-comparaison", "sensibilite"] },
+    { id: "pieges-synthese", chapitre: 19, titre: "Pièges du benchmarking et synthèse", notions: ["pieges-benchmarking"] },
     { id: "scenario-rancon", chapitre: 7, titre: "Scénario d'attaque par rançongiciel", notions: ["scenario-rancon"] },
     { id: "hopital-different", chapitre: 7, titre: "Ce qui rend un hôpital différent", notions: ["hopital-different"] },
     { id: "panorama-menace", chapitre: 7, titre: "Panorama de la menace cyber", notions: ["panorama-menace"] },
@@ -284,6 +312,19 @@ PLATEFORME.parcours("informatique", {
     { chapitre: 6, id: "admission-facturation", titre: "Circuit admission → facturation" },
     { chapitre: 6, id: "circuit-lis", titre: "LIS : circuit d'un examen biologique" },
     { chapitre: 6, id: "circuit-ris-pis", titre: "RIS et PIS : imagerie et médicament" },
+    { chapitre: 6, id: "circuit-bloc", titre: "Bloc opératoire : le circuit périopératoire" },
+    { chapitre: 6, id: "circuit-sang", titre: "Le circuit transfusionnel" },
+    { chapitre: 6, id: "parc-dm", titre: "Le parc de DM et les DM communicants" },
+    { chapitre: 6, id: "tracabilite-dm", titre: "Traçabilité des DM et matrice des responsabilités" },
+    { chapitre: 19, id: "projet-chimio", titre: "Le projet : un circuit de chimiothérapie" },
+    { chapitre: 19, id: "decideurs", titre: "Qui décide de l'investissement ?" },
+    { chapitre: 19, id: "cycle-decision", titre: "Le cycle de décision et la matrice des responsabilités" },
+    { chapitre: 19, id: "cout-complet", titre: "Coût complet et bénéfices" },
+    { chapitre: 19, id: "audit-exigences", titre: "L'audit et le cahier d'exigences" },
+    { chapitre: 19, id: "moments-audit", titre: "Trois moments d'audit et les indicateurs" },
+    { chapitre: 19, id: "methode-comparaison", titre: "Comparer deux offres : la méthode" },
+    { chapitre: 19, id: "sensibilite", titre: "Grille pondérée et analyse de sensibilité" },
+    { chapitre: 19, id: "pieges-benchmarking", titre: "Pièges du benchmarking et rôle de l'ingénieur biomédical" },
     { chapitre: 7, id: "scenario-rancon", titre: "Scénario d'attaque par rançongiciel" },
     { chapitre: 7, id: "hopital-different", titre: "Ce qui rend un hôpital différent" },
     { chapitre: 7, id: "panorama-menace", titre: "Panorama de la menace cyber" },

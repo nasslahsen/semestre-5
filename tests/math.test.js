@@ -716,23 +716,33 @@ test("informatique médicale : réponses attendues dans les niveaux", () => {
   assert.strictEqual(S.niveauRisque(12), "élevé"); assert.strictEqual(S.niveauRisque(6), "moyen"); assert.strictEqual(S.niveauRisque(2), "faible");
   // séparateur : « BENNANI;Salma;37,8 » coupé aux virgules
   assert.strictEqual("BENNANI;Salma;37,8".split(",").length, 2); assert.strictEqual("A13;M;72,5;135;03/04/2026".split(",").length, 2);
-  // TD 1 CHU Atlas : criticité C = G × O × D (cotations proposées) et seuil 100
-  const lignes = [[9, 4, 4], [9, 5, 6], [9, 3, 3], [10, 3, 7], [9, 4, 5], [4, 6, 3], [7, 2, 6]];
-  assert.deepStrictEqual(lignes.map(l => S.criticite(...l)), [144, 270, 81, 210, 180, 72, 84]);
-  assert.deepStrictEqual(lignes.map((l, i) => i + 1).filter(i => S.criticite(...lignes[i - 1]) >= 100), [1, 2, 4, 5]);   // td1-amdec, étape 3
+  // TD 1 CHU Atlas : criticité C = G × O × D (modèle de l'enseignant) et seuil 100
+  const lignes = [[10, 3, 5], [8, 4, 4], [6, 4, 5]];                                              // identité, étiquette, administration
+  assert.deepStrictEqual(lignes.map(l => S.criticite(...l)), [150, 128, 120]);
+  assert.ok([150, 128, 120, 108, 105].every((c, i, t) => c >= 100 && (i === 0 || t[i - 1] > c)));   // td1-amdec, classement
   assert.strictEqual(S.criticite(8, 3, 5), 120); assert.strictEqual(S.criticite(8, 3, 2), 48);    // révision
-  assert.strictEqual(S.criticite(10, 3, 3), 90);                                                   // boss : scan de l'étiquette
-  // grille pondérée : notes proposées A et B, trois jeux de poids
-  const NA = [4, 2, 2, 3, 2], NB = [3, 5, 4, 3, 4], J1 = [35, 25, 15, 15, 10], J2 = [60, 15, 5, 15, 5], J3 = [25, 20, 35, 10, 10];
-  for (const w of [J1, J2, J3, [40, 20, 20, 10, 10]]) assert.strictEqual(w.reduce((a, b) => a + b, 0), 100);
-  proche(S.totalPondere(J1, NA), 2.85, 1e-12); proche(S.totalPondere(J1, NB), 3.75, 1e-12);
-  proche(S.totalPondere(J2, NA), 3.35, 1e-12); proche(S.totalPondere(J2, NB), 3.40, 1e-12);
-  proche(S.totalPondere(J3, NA), 2.60, 1e-12); proche(S.totalPondere(J3, NB), 3.85, 1e-12);
-  proche(S.totalPondere([40, 20, 20, 10, 10], NA), 2.90, 1e-12); proche(S.totalPondere([40, 20, 20, 10, 10], NB), 3.70, 1e-12);
-  proche(S.totalPondere(J2, [2, 5, 4, 3, 4]), 2.80, 1e-12);                                         // boss : sécurité de B à 2
-  // figure : bascule vers A au-delà d'environ 66 % sur la sécurité (autres poids en proportions 25 / 15 / 15 / 10)
+  assert.strictEqual(S.criticite(8, 4, 2), 64);                                                    // boss : contrôle à deux de l'étiquette
+  // grille pondérée : notes du modèle (identiques au cours S5), trois jeux de poids
+  const NA = [5, 3, 2, 4, 3], NB = [3, 4, 4, 3, 4], J1 = [35, 25, 15, 15, 10], J2 = [30, 25, 20, 15, 10], J3 = [25, 25, 25, 15, 10];
+  for (const w of [J1, J2, J3, [30, 20, 30, 10, 10], [40, 25, 15, 10, 10]]) assert.strictEqual(w.reduce((a, b) => a + b, 0), 100);
+  proche(S.totalPondere(J1, NA), 3.70, 1e-12); proche(S.totalPondere(J1, NB), 3.50, 1e-12);
+  proche(S.totalPondere(J2, NA), 3.55, 1e-12); proche(S.totalPondere(J2, NB), 3.55, 1e-12);
+  proche(S.totalPondere(J3, NA), 3.40, 1e-12); proche(S.totalPondere(J3, NB), 3.60, 1e-12);
+  proche(S.totalPondere([30, 20, 30, 10, 10], NA), 3.40, 1e-12); proche(S.totalPondere([30, 20, 30, 10, 10], NB), 3.60, 1e-12);   // révision TD
+  proche(S.totalPondere(J3, [3, 3, 4, 3, 4]), 3.35, 1e-12);                                         // boss TD : intégration de B à 3
+  // figure du TD : A passe devant au-delà d'environ 28 % sur la sécurité (autres poids en proportions 25 / 15 / 15 / 10)
   const pw = ws => [ws, ...[25, 15, 15, 10].map(w => w * (100 - ws) / 65)];
-  assert.ok(S.totalPondere(pw(65), NB) > S.totalPondere(pw(65), NA)); assert.ok(S.totalPondere(pw(70), NA) > S.totalPondere(pw(70), NB));
+  assert.ok(S.totalPondere(pw(25), NB) > S.totalPondere(pw(25), NA)); assert.ok(S.totalPondere(pw(30), NA) > S.totalPondere(pw(30), NB));
+  // chapitre 7 SIS (S5) : figure de sensibilité, sécurité = 50 − coût, A = B à 20 %
+  const wc = c => [50 - c, 25, c, 15, 10];
+  proche(S.totalPondere(wc(15), NA), 3.70, 1e-12); proche(S.totalPondere(wc(20), NA), S.totalPondere(wc(20), NB), 1e-12); proche(S.totalPondere(wc(25), NB), 3.60, 1e-12);
+  proche(S.totalPondere([40, 25, 15, 10, 10], NA), 3.75, 1e-12); proche(S.totalPondere([40, 25, 15, 10, 10], NB), 3.50, 1e-12);   // révision et boss
+  // niveau sensibilite : offres C et D (exemple ajouté)
+  const NC = [4, 2, 3, 5, 3], ND = [3, 4, 4, 2, 4];
+  proche(S.totalPondere([40, 20, 20, 10, 10], NC), 3.40, 1e-12); proche(S.totalPondere([40, 20, 20, 10, 10], ND), 3.40, 1e-12);
+  proche(S.totalPondere([30, 20, 30, 10, 10], NC), 3.30, 1e-12); proche(S.totalPondere([30, 20, 30, 10, 10], ND), 3.50, 1e-12);
+  // niveau cout-complet : coût complet sur 7 ans (exemple ajouté), et l'offre X contre Y
+  proche(5 + 1 + 7 * 0.4 + 7 * 0.3 + 0.2, 11.1, 1e-9); assert.strictEqual(4 + 7 + 3, 14); assert.strictEqual(6 + 2 + 2, 10);
   // panorama : quatre éditeurs, Enova sur cinq régions
   const SIS = require("../modules/informatique/sis.js");
   assert.strictEqual(SIS.EDITEURS.length, 4); assert.strictEqual(SIS.REGIONS.length, 12);

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le circuit transfusionnel · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le circuit transfusionnel</h1>
+<p class="chapeau">Une poche de sang part du dépôt vers un patient. Entre les deux, une seule erreur d'identité peut provoquer une incompatibilité ABO. Le SIH doit rapprocher prescription, poche et patient.</p>
+<div id="fig-sang"></div>
+
+<h2>Cinq étapes</h2>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
+<tr><td>1. Prescription de PSL</td><td>produits sanguins labiles</td></tr>
+<tr><td>2. Bilan pré-transfusionnel</td><td>groupage ABO / Rh, recherche d'agglutinines irrégulières (RAI)</td></tr>
+<tr><td>3. Dépôt de sang</td><td>réception, déstockage, dispensation, délivrance</td></tr>
+<tr><td>4. Contrôle ultime</td><td>au lit du malade</td></tr>
+<tr><td>5. Traçabilité</td><td>donneur, poche, receveur, hémovigilance</td></tr>
+</table></div>
+<p><strong>Rôle du SIH</strong> : rapprocher prescription, poche et patient, alerter sur la compatibilité, archiver.</p>
+
+<h2>L'hémovigilance</h2>
+<p>L'<strong>hémovigilance</strong> est un système de surveillance sanitaire qui couvre l'ensemble de la chaîne transfusionnelle, du donneur de sang jusqu'au patient transfusé. Son but : garantir la sécurité transfusionnelle maximale en détectant, signalant et analysant tout incident ou effet indésirable lié à la collecte, à la préparation ou à la transfusion de sang, afin d'éviter qu'il ne se reproduise.</p>
+
+<h2>Mini-analyse des risques : la chaîne d'un incident type</h2>
+<div id="fig-incident"></div>
+<ol>
+<li>Prélèvement mal étiqueté.</li>
+<li>Groupage sur la mauvaise identité.</li>
+<li>Poche délivrée sur ce groupage.</li>
+<li>Contrôle ultime non fait ou mal fait.</li>
+<li>Incompatibilité ABO.</li>
+</ol>
+<p>Les barrières qui ont cédé :</p>
+<ul>
+<li><strong>informatiques</strong> : rapprochement poche – patient, alerte de compatibilité.</li>
+<li><strong>humaines</strong> : vérification d'identité, contrôle ultime au lit.</li>
+</ul>
+
+<h2>Vue comparée des principaux circuits</h2>
+<div class="tableau"><table>
+<tr><th>Module</th><th>Donnée clé</th><th>Risque majeur</th><th>Indicateur phare</th></tr>
+<tr><td>Admission</td><td>identité et séjour</td><td>doublon, collision</td><td>taux de doublons</td></tr>
+<tr><td>LIS</td><td>résultats biologiques</td><td>prélèvement mal identifié</td><td>délai de rendu de la troponine</td></tr>
+<tr><td>RIS</td><td>comptes rendus, doses</td><td>compte rendu tardif</td><td>délai demande – compte rendu</td></tr>
+<tr><td>PIS</td><td>prescriptions, administrations</td><td>alerte ignorée</td><td>interventions pharmaceutiques</td></tr>
+<tr><td>Bloc opératoire</td><td>DM implantables, actes</td><td>erreur de patient ou de site</td><td>taux de déprogrammation</td></tr>
+<tr><td>Circuit du sang</td><td>poche, receveur</td><td>incompatibilité ABO</td><td>traçabilité complète</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>Prescription de PSL → bilan pré-transfusionnel → dépôt de sang → contrôle ultime → traçabilité.</li>
+<li>L'incident type part d'une erreur d'identité au prélèvement : chaque barrière suivante devait l'arrêter.</li>
+<li>Chaque circuit a sa donnée clé, son risque majeur et son indicateur phare.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/circuit-sang.js"></script>
+</body>
+</html>

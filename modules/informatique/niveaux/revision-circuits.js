@@ -1,4 +1,4 @@
-/* Révision du chapitre 6 : identité, appariement, LIS, PIS, admission → facturation, dans des situations nouvelles. */
+/* Révision du chapitre 6 : identité, appariement, LIS, PIS, admission → facturation, sang, DM communicants, dans des situations nouvelles. */
 NIVEAU(SIS.rejouable({
   id: "revision-circuits",
   init: function (fig) {
@@ -43,6 +43,22 @@ NIVEAU(SIS.rejouable({
       SIS.scene(n.g, { icones: ["document", "facture"], titre: "Une échographie dans le compte rendu", sous: "mais pas dans les actes saisis" });
       j.titre("Le compte rendu de sortie parle d'une échographie qui n'apparaît pas dans les actes saisis. À quelle étape du circuit admission → facturation est ce risque ?");
       j.choix([{ html: "Ouverture du séjour", aide: "Le séjour est déjà ouvert depuis longtemps." }, { html: "Sortie et clôture : discordance entre acte et compte rendu", juste: true }, { html: "Couverture sociale", aide: "Les droits du patient ne sont pas en cause." }], { colonnes: 1, ok: function () { j.bravo("Sortie et clôture : on compare les actes et le compte rendu."); j.suite(); } });
+    } },
+    { nom: "La poche et le bracelet", jouer: function (j, n) {
+      SIS.scene(n.g, { icones: ["patient", "tube"], titre: "Une poche de sang arrive au lit", sous: "l'étiquette porte le nom du voisin de chambre" });
+      j.titre("Au lit, l'infirmière voit que la poche porte le nom du voisin de chambre. Quelle barrière vient de jouer son rôle ?");
+      j.choix([{ html: "Le bilan pré-transfusionnel", aide: "Le groupage est fait bien avant, au laboratoire." }, { html: "Le contrôle ultime au lit du malade", juste: true }, { html: "La traçabilité", aide: "La traçabilité archive après coup, elle n'arrête rien au lit." }], { colonnes: 1, ok: function () {
+        j.bravo("Le contrôle ultime : la dernière barrière humaine avant l'incompatibilité ABO.");
+        j.suite();
+      } });
+    } },
+    { nom: "Le moniteur de la chambre 12", jouer: function (j, n) {
+      SIS.scene(n.g, { icones: ["lit", "moniteur"], titre: "Le patient a changé de chambre", sous: "ses courbes arrivent dans le dossier d'un autre" });
+      j.titre("Après un changement de chambre, les courbes du moniteur arrivent dans le dossier d'un autre patient. Quel incident de DM communicant est-ce ?");
+      j.choix([{ html: "Un horodatage erroné", aide: "L'heure n'est pas en cause." }, { html: "Un mauvais rattachement", juste: true }, { html: "Une valeur aberrante", aide: "Les valeurs sont justes, mais pas chez le bon patient." }], { colonnes: 1, ok: function () {
+        j.bravo("Mauvais rattachement : l'appareil est associé au mauvais patient.");
+        j.suite();
+      } });
     } }
   ]
 }));
