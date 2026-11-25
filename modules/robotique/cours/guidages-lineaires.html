@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Guidages linéaires : douilles à billes et rails · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Guidages linéaires : douilles à billes et rails</h1>
+<p class="chapeau">La table d'examen avance sous le patient, la sonde d'un robot descend le long d'un axe : ici rien ne tourne, tout glisse en ligne droite. Il faut un guidage qui laisse ce seul mouvement, avec aussi peu de frottement qu'un roulement.</p>
+
+<h2>Quatre solutions</h2>
+<p>Les <strong>guidages linéaires à éléments roulants</strong> présentent des avantages comparables à ceux des roulements pour les mouvements de rotation. Les principales solutions sont :</p>
+<ul>
+<li>les <strong>douilles sur rail cylindrique</strong> ;</li>
+<li>les <strong>rails à billes ou à rouleaux</strong> sur profilés (systèmes à recirculation) ;</li>
+<li>les <strong>systèmes à galets</strong> ;</li>
+<li>les <strong>guidages lisses</strong> (bagues autolubrifiantes).</li>
+</ul>
+
+<div class="schema" id="sc-guidages-lineaires"></div>
+
+<h2>Douilles à billes</h2>
+<p>Les douilles à billes sont <strong>simples et économiques</strong>. Elles conviennent pour n'importe quelle longueur de course. Par contre, elles n'admettent pas les mouvements de rotation. La vitesse de translation admise est de <strong>2 à 5 m/s</strong>.</p>
+<p>La douille qui se translate fait <strong>recirculer</strong> les billes : les billes chargées roulent entre le rail et la douille, puis reviennent par un chemin de retour, où elles ne portent rien.</p>
+
+<div id="fig-douille-3d"></div>
+
+<p>On distingue trois types de douilles :</p>
+<div class="tableau"><table>
+<tr><th>Douille</th><th>Ce qui la distingue</th></tr>
+<tr><td>Massive</td><td>jeu fonctionnel d'environ 0,1 mm</td></tr>
+<tr><td>À bague extérieure fendue</td><td>permet un réglage du jeu fonctionnel</td></tr>
+<tr><td>Ouverte</td><td>peut se fixer sur un rail supporté, ce qui évite la flexion des arbres de grande longueur</td></tr>
+</table></div>
+<p>Sur la coupe du cours, une douille comporte une bague extérieure, une cage de guidage, un joint racleur et une rainure pour l'immobilisation. Une douille ouverte montre la bille porteuse, le chemin de retour (bille non porteuse) et la fente.</p>
+
+<h2>Rails de guidage</h2>
+<p>Un <strong>rail de guidage</strong> pour douille à billes est un rond en acier trempé et rectifié sur lequel glisse une douille à billes, pour un mouvement linéaire précis et à faible frottement. Le cours en donne deux types :</p>
+<ul>
+<li><strong>rail cylindrique simple</strong> : barre ronde pleine ou creuse, de diamètre généralement compris entre 5 mm et 80 mm ;</li>
+<li><strong>rail supporté</strong> : barre ronde fixée sur un profilé en aluminium tout au long de sa longueur, pour éviter la flexion sur les grandes portées.</li>
+</ul>
+<p>Le dessin du cours donne les exigences d'un rail supporté : diamètre d en h6, Ra 0,4, dureté HRC ≥ 60, longueur au plus 6000 mm.</p>
+
+<div id="fig-rail-3d"></div>
+
+<h2>Exemple de montage : douille fendue sur rail supporté</h2>
+<ul>
+<li><strong>Le graisseur</strong> achemine le lubrifiant directement vers les pistes de roulement à billes.</li>
+<li><strong>La vis de maintien</strong> bloque la douille en rotation et en translation axiale dans son logement.</li>
+<li><strong>Le réglage du jeu fonctionnel</strong> : grâce à la fente du corps, la vis de réglage pince ou écarte légèrement le palier pour ajuster le jeu radial autour du rail.</li>
+</ul>
+<p>Le document précise que, par rapport aux paliers compacts, les capacités C et C₀ sont en moyenne divisées par 2.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Douille à billes : simple, économique, toute longueur de course, pas de rotation, 2 à 5 m/s.</li>
+<li>Massive : jeu ≈ 0,1 mm. Fendue : jeu réglable. Ouverte : montée sur rail supporté.</li>
+<li>Rail : rond en acier trempé et rectifié. Simple (5 à 80 mm) ou supporté (pas de flexion sur les grandes portées).</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../meca/dessin.js"></script>
+<script src="../../../commun/vendor/three/three.min.js"></script>
+<script src="../meca/3d.js"></script>
+<script src="../figures/guidages-lineaires-3d.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

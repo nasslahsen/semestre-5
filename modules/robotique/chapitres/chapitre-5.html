@@ -49,6 +49,9 @@
 
 <p>Dans un axe, le mouvement suit toujours le même chemin : le moteur le crée, la <strong>réduction</strong> l'adapte (moins vite, plus de couple), la <strong>transmission</strong> l'amène, le <strong>guidage</strong> le tient, le bras le porte jusqu'à l'<strong>outil</strong>. Chaque maillon peut ajouter un petit défaut, et l'outil les subit tous.</p>
 
+
+<div id="fig-axe-3d"></div>
+
 <div id="fig-chaine"></div>
 
 <p>L'<strong>architecture mécanique d'un axe robotique</strong> décrit l'organisation des composants qui produisent, transmettent et guident le mouvement jusqu'à l'organe mobile. La <strong>chaîne fonctionnelle</strong> est un ensemble d'axes offrant l'enchaînement de fonctions entre <strong>actionneurs</strong> et mouvements utiles à la tâche.</p>
@@ -202,6 +205,9 @@
 
 <div id="fig-reducteur"></div>
 
+
+<div id="fig-reducteur-3d"></div>
+
 <p>Principales caractéristiques d'un axe rotatif : \(\omega\), vitesse de rotation (rad/s) ; \(C\), couple (N·m) ; \(P\), puissance (W).</p>
 <p>Pour une <strong>vitesse de rotation</strong> \(n\) exprimée en tours par minute :</p>
 \[ \omega = \frac{2\pi n}{60} \qquad (1.1) \]
@@ -252,6 +258,9 @@
 <p>La <strong>déformation de bout de bras</strong> associée à un petit jeu angulaire \(\Delta\theta\) vaut :</p>
 \[ \Delta x \simeq L\,\Delta\theta, \qquad \Delta\theta \text{ en radians} \qquad (1.5) \]
 <p>avec \(\Delta x\) le déplacement linéaire en bout de bras, \(L\) la longueur du bras, \(\Delta\theta\) le petit angle de jeu ou de torsion (rad). C'est la longueur d'un arc de rayon \(L\) ; pour un petit angle, l'arc et la corde se confondent, d'où le signe \(\simeq\).</p>
+
+<div id="fig-jeu-3d"></div>
+
 <p>Sur un bras à plusieurs articulations (figure 3 du cours), chaque articulation a son jeu \(\Delta\theta_1\), \(\Delta\theta_2\), et chacun agit avec la distance entre son axe et le point fonctionnel.</p>
 
 <div id="fig-deux-jeux"></div>
@@ -306,11 +315,16 @@
 <script src="../../../commun/js/section.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../meca/dessin.js"></script>
+<script src="../../../commun/vendor/three/three.min.js"></script>
+<script src="../meca/3d.js"></script>
 <script src="../figures/chaine-fonctionnelle.js"></script>
+<script src="../figures/chaine-fonctionnelle-3d.js"></script>
 <script src="../schemas.js"></script>
 <script src="../figures/nomenclature.js"></script>
 <script src="../figures/vitesse-couple-puissance.js"></script>
+<script src="../figures/vitesse-couple-puissance-3d.js"></script>
 <script src="../figures/rigidite-jeu.js"></script>
+<script src="../figures/rigidite-jeu-3d.js"></script>
 <script src="../figures/contraintes-biomedicales.js"></script>
 </body>
 </html>

@@ -42,6 +42,9 @@
 <p>avec \(k\) la raideur (N/m ou N/mm), \(F\) l'effort appliqué (N) et \(\delta\) le déplacement ou la déformation. Sur un graphe effort-déplacement, \(k\) est la pente de la droite.</p>
 <p>Pour les guidages en rotation, on parle de raideur angulaire, exprimée en N·m/rad : le couple nécessaire pour faire pivoter le guidage d'un certain angle hors de son axe théorique. C'est la même idée que la <strong>rigidité</strong> torsionnelle \(k_\theta = C/\theta\) du chapitre 5, et que la raideur d'un ressort \(F = kx\) du chapitre 6.</p>
 
+
+<div id="fig-guidage-3d"></div>
+
 <div id="fig-raideur"></div>
 
 <div class="schema" id="sc-guidage"></div>
@@ -70,6 +73,9 @@
 <p>Les <strong>roulements</strong> soutiennent et guident, avec un frottement minimal, des éléments de machine en rotation ou oscillants, et transfèrent les charges entre les composants de la machine. Ils permettent une précision élevée et un faible frottement pour atteindre des vitesses de rotation élevées, tout en réduisant le bruit, les échauffements, la consommation d'énergie et l'usure. Sauf produits spécifiques, leurs caractéristiques répondent à des normes nationales ou internationales, ce qui permet de les produire en série.</p>
 <h4>Constitution</h4>
 <p>Un roulement <strong>à billes</strong> se compose de : 1 bague extérieure, 2 chemin de roulement, 3 bille, 4 cage, 5 chemin de roulement, 6 bague intérieure. Les chemins de roulement sont les pistes creusées dans les bagues ; la cage maintient les billes à distance régulière.</p>
+
+
+<div id="fig-roulement-3d"></div>
 
 <div id="fig-constitution"></div>
 
@@ -117,6 +123,9 @@
 </ul>
 <p>L'<strong>angle de contact</strong> \(\alpha\) détermine le groupe auquel appartient le roulement : les roulements avec un angle de contact \(\alpha \le 45°\) sont des roulements radiaux, les autres sont des butées.</p>
 
+
+<div id="fig-contact-3d"></div>
+
 <div id="fig-montage"></div>
 
 <div id="fig-butees"></div>
@@ -146,6 +155,9 @@
 <h4>Chaque roulement est un compromis</h4>
 <p>Chaque type de roulement est un compromis. Des rouleaux portent plus que des billes, mais les <strong>rouleaux cylindriques</strong> ne tiennent rien dans l'axe. Une rotule accepte un arbre qui fléchit, mais porte moins. Des <strong>aiguilles</strong> prennent très <strong>peu de place</strong>, mais exigent des portées parfaites. On part du besoin, et on élimine.</p>
 <p>Quatre questions suffisent souvent : y a-t-il une charge axiale (et dans un ou deux sens) ? La vitesse est-elle grande ? Les paliers sont-ils bien alignés ? Reste-t-il de la place autour de l'arbre ?</p>
+
+
+<div id="fig-familles-3d"></div>
 
 <div id="fig-types"></div>
 
@@ -221,6 +233,9 @@
 <div id="fig-dilatation"></div>
 
 <p>Un <strong>montage fixe-libre</strong> permet de définir axialement l'arbre sans le sur-contraindre lors des variations thermiques. Le <strong>palier fixe</strong> assure le positionnement axial ; le <strong>palier libre</strong> permet le déplacement axial relatif nécessaire à la dilatation.</p>
+
+<div id="fig-fixe-libre-3d"></div>
+
 <div class="tableau"><table>
 <tr><th>Cas</th><th>Bagues maintenues</th><th>Bague coulissante</th><th>Détails du montage</th></tr>
 <tr><td>Arbre tournant, charge de direction fixe</td><td>les deux bagues intérieures, maintenues latéralement</td><td>la bague extérieure d'un des roulements, pour qu'il prenne librement sa place</td><td>jeu ≈ 0,1 ; rondelle de réglage</td></tr>
@@ -258,6 +273,9 @@
 </table></div>
 <p>Il faut appliquer les recommandations de montage du fabricant, surtout avec des ajustements serrés ou des variations de température, qui modifient la précharge réelle. Les roulements à contact oblique se prêtent bien aux montages préchargés.</p>
 
+
+<div id="fig-precharge-3d"></div>
+
 <div class="schema" id="sc-precharge-roul"></div>
 
 <h4>À retenir</h4>
@@ -268,6 +286,160 @@
 <div class="fin-partie" data-section="montage-precharge"></div>
 </section>
 
+<section class="partie" id="s-guidages-lineaires">
+<h2>Guidages linéaires</h2>
+
+<article class="notion" id="n-guidages-lineaires">
+<p class="chapeau">La table d'examen avance sous le patient, la sonde d'un robot descend le long d'un axe : ici rien ne tourne, tout glisse en ligne droite. Il faut un guidage qui laisse ce seul mouvement, avec aussi peu de frottement qu'un roulement.</p>
+
+<h4>Quatre solutions</h4>
+<p>Les <strong>guidages linéaires à éléments roulants</strong> présentent des avantages comparables à ceux des roulements pour les mouvements de rotation. Les principales solutions sont :</p>
+<ul>
+<li>les <strong>douilles sur rail cylindrique</strong> ;</li>
+<li>les <strong>rails à billes ou à rouleaux</strong> sur profilés (systèmes à recirculation) ;</li>
+<li>les <strong>systèmes à galets</strong> ;</li>
+<li>les <strong>guidages lisses</strong> (bagues autolubrifiantes).</li>
+</ul>
+
+<div class="schema" id="sc-guidages-lineaires"></div>
+
+<h4>Douilles à billes</h4>
+<p>Les douilles à billes sont <strong>simples et économiques</strong>. Elles conviennent pour n'importe quelle longueur de course. Par contre, elles n'admettent pas les mouvements de rotation. La vitesse de translation admise est de <strong>2 à 5 m/s</strong>.</p>
+<p>La douille qui se translate fait <strong>recirculer</strong> les billes : les billes chargées roulent entre le rail et la douille, puis reviennent par un chemin de retour, où elles ne portent rien.</p>
+
+<div id="fig-douille-3d"></div>
+
+<p>On distingue trois types de douilles :</p>
+<div class="tableau"><table>
+<tr><th>Douille</th><th>Ce qui la distingue</th></tr>
+<tr><td>Massive</td><td>jeu fonctionnel d'environ 0,1 mm</td></tr>
+<tr><td>À bague extérieure fendue</td><td>permet un réglage du jeu fonctionnel</td></tr>
+<tr><td>Ouverte</td><td>peut se fixer sur un rail supporté, ce qui évite la flexion des arbres de grande longueur</td></tr>
+</table></div>
+<p>Sur la coupe du cours, une douille comporte une bague extérieure, une cage de guidage, un joint racleur et une rainure pour l'immobilisation. Une douille ouverte montre la bille porteuse, le chemin de retour (bille non porteuse) et la fente.</p>
+
+<h4>Rails de guidage</h4>
+<p>Un <strong>rail de guidage</strong> pour douille à billes est un rond en acier trempé et rectifié sur lequel glisse une douille à billes, pour un mouvement linéaire précis et à faible frottement. Le cours en donne deux types :</p>
+<ul>
+<li><strong>rail cylindrique simple</strong> : barre ronde pleine ou creuse, de diamètre généralement compris entre 5 mm et 80 mm ;</li>
+<li><strong>rail supporté</strong> : barre ronde fixée sur un profilé en aluminium tout au long de sa longueur, pour éviter la flexion sur les grandes portées.</li>
+</ul>
+<p>Le dessin du cours donne les exigences d'un rail supporté : diamètre d en h6, Ra 0,4, dureté HRC ≥ 60, longueur au plus 6000 mm.</p>
+
+<div id="fig-rail-3d"></div>
+
+<h4>Exemple de montage : douille fendue sur rail supporté</h4>
+<ul>
+<li><strong>Le graisseur</strong> achemine le lubrifiant directement vers les pistes de roulement à billes.</li>
+<li><strong>La vis de maintien</strong> bloque la douille en rotation et en translation axiale dans son logement.</li>
+<li><strong>Le réglage du jeu fonctionnel</strong> : grâce à la fente du corps, la vis de réglage pince ou écarte légèrement le palier pour ajuster le jeu radial autour du rail.</li>
+</ul>
+<p>Le document précise que, par rapport aux paliers compacts, les capacités C et C₀ sont en moyenne divisées par 2.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Douille à billes : simple, économique, toute longueur de course, pas de rotation, 2 à 5 m/s.</li>
+<li>Massive : jeu ≈ 0,1 mm. Fendue : jeu réglable. Ouverte : montée sur rail supporté.</li>
+<li>Rail : rond en acier trempé et rectifié. Simple (5 à 80 mm) ou supporté (pas de flexion sur les grandes portées).</li>
+</ul>
+</article>
+
+<article class="notion" id="n-bagues-lisses">
+<h3>Bagues lisses autolubrifiantes</h3>
+<p class="chapeau">Dans un appareil médical, pas question qu'un graisseur fuie sur le patient ni qu'un technicien doive relubrifier chaque semaine. Une bague lisse qui porte son propre lubrifiant règle les deux problèmes.</p>
+
+<h4>Le principe</h4>
+<p>Le principe de fonctionnement d'une <strong>bague autolubrifiante</strong> repose sur le transfert d'un <strong>film lubrifiant</strong> de la bague vers l'axe en mouvement, ce qui empêche tout contact direct métal contre métal lors du déplacement.</p>
+
+<div id="fig-bagues-3d"></div>
+
+<h4>Cinq avantages</h4>
+<div class="tableau"><table>
+<tr><th>Avantage</th><th>Pourquoi</th></tr>
+<tr><td>Absence d'entretien</td><td>le lubrifiant (inserts en graphite, PTFE ou huile imprégnée dans le bronze fritté) est intégré au matériau</td></tr>
+<tr><td>Propreté de fonctionnement</td><td>ni fuite ni projection : adaptées aux normes d'hygiène strictes (industries alimentaire, pharmaceutique, médical)</td></tr>
+<tr><td>Résistance aux environnements exigeants</td><td>l'autolubrification se conserve à hautes ou basses températures et en milieux très poussiéreux</td></tr>
+<tr><td>Réduction des coûts et de l'encombrement</td><td>pas de pompes, graisseurs ni tuyauteries : mécanismes plus compacts, plus légers, maintenance moins chère</td></tr>
+<tr><td>Faible coefficient de frottement constant</td><td>glissement doux dès le démarrage ; moins d'usure de l'axe, moins de pertes d'énergie, moins de bruit</td></tr>
+</table></div>
+
+<h4>Trois types de bagues lisses</h4>
+<ul>
+<li><strong>Bagues à revêtement polymère (PTFE, Téflon)</strong> : une fine couche de plastique antifriction recouvre l'intérieur d'une armature métallique. Lors du rodage, un peu de PTFE se transfère sur l'axe et crée une surface de glissement extrêmement lisse.</li>
+<li><strong>Bagues à inserts solides</strong> (par exemple bronze avec pastilles de graphite) : des dépôts de lubrifiant solide, souvent du graphite, sont incrustés dans la paroi en bronze. L'axe frotte sur ces pastilles et étale continuellement le graphite sur la zone de contact.</li>
+<li><strong>Bagues en bronze fritté (poreuses)</strong> : le métal est fabriqué avec des micro-pores, comme une éponge, et imprégné d'huile. Sous l'effet de la chaleur et du mouvement, l'huile se dilate et remonte à la surface pour lubrifier.</li>
+</ul>
+
+<div class="schema" id="sc-bagues-lisses"></div>
+
+<h4>À retenir</h4>
+<ul>
+<li>Bague autolubrifiante : un film lubrifiant passe de la bague à l'axe, jamais de contact métal contre métal.</li>
+<li>Sans entretien, propre (médical), robuste, compacte, frottement faible et constant.</li>
+<li>Polymère PTFE, inserts de graphite dans du bronze, bronze fritté imprégné d'huile.</li>
+</ul>
+</article>
+
+<article class="notion" id="n-recirculation-galets">
+<h3>Guidages à recirculation et à galets</h3>
+<p class="chapeau">Une table de positionnement doit avancer sur un mètre sans jeu, sans basculer, à quelques micromètres près, et parfois très vite. Deux familles de guidages sur rail profilé répondent à ce besoin : le patin à recirculation et le chariot à galets.</p>
+
+<h4>Systèmes de guidage à recirculation</h4>
+<p>Les systèmes de guidage à recirculation associent le <strong>chariot</strong> (patin) et le <strong>rail de guidage</strong>. La recirculation des billes ou des rouleaux donne une <strong>course illimitée</strong>. Les <strong>pièces de tête</strong> canalisent le retour des billes ; la lubrification et l'étanchéité sont assurées par des <strong>joints racleurs</strong>.</p>
+<p>Le corps du patin et les rails sont en acier trempé et rectifié (HRC 60). Ces systèmes sont particulièrement rigides :</p>
+<ul>
+<li>pratiquement <strong>sans jeu et sans rotation</strong> autour du rail ;</li>
+<li>écart de <strong>rectitude</strong> de guidage entre 3 et 20 µm par mètre ;</li>
+<li>vitesse de translation maximale de 3 à 5 m/s, accélérations de 150 à 250 m/s² ;</li>
+<li>réduction drastique du bruit.</li>
+</ul>
+
+<div id="fig-patin-3d"></div>
+
+<h4>Exemple de montage : une table sur deux rails</h4>
+<p>Des patins à recirculation déplacent une table par rapport à un bâti, sur deux rails parallèles :</p>
+<ul>
+<li><strong>le palier fixe</strong> (à droite) : le patin et son rail sont bridés latéralement par des butées. Selon le cours, ce montage encaisse toutes les forces axiales (voir la remarque plus bas) ;</li>
+<li><strong>le palier libre</strong> (à gauche) : aucune butée latérale. Il absorbe les défauts de parallélisme et les dilatations thermiques entre les deux rails sans contraindre ni gripper les billes.</li>
+</ul>
+<p>C'est l'idée du montage fixe-libre des roulements, appliquée à deux rails. Pour garantir la fluidité du déplacement et la longévité des patins, les surfaces d'appui respectent des tolérances géométriques serrées de 0,01 mm : rectitude (non convexe), parallélisme par rapport à la référence A, planéité.</p>
+<p class="complement">Le texte du cours dit que le palier fixe encaisse « toutes les forces axiales » : sur un guidage linéaire, ce sont les efforts transversaux au rail, dans le plan de la table, que les butées latérales reprennent.</p>
+
+<h4>Systèmes de guidage à galets</h4>
+<p>Les systèmes de guidage à galets associent un <strong>chariot à quatre galets</strong> de roulement et un <strong>rail en alliage léger</strong> (EN AW 2017). Le rail comporte <strong>deux arbres de guidage</strong> en acier trempé et rectifié. Par rapport aux autres systèmes, le système à galets est <strong>moins sensible aux blocages</strong> dus à une pollution externe. Sa vitesse de translation maximale est de l'ordre de <strong>10 m/s</strong>.</p>
+
+<div id="fig-galets-3d"></div>
+
+<p>Sur l'exemple de montage du cours, une alternative courante aux patins à recirculation :</p>
+<ul>
+<li><strong>le rail central</strong> sert de support rigide, souvent un profilé d'aluminium extrudé, dans lequel sont logés et clipsés deux arbres cylindriques en acier rectifié ;</li>
+<li><strong>les galets</strong>, fixés sous la table mobile, ont un profil extérieur concave (une gorge) qui épouse la forme ronde des arbres ;</li>
+<li>le contact linéaire ouvert accumule très peu les impuretés : les galets chassent la poussière en roulant sur l'arbre.</li>
+</ul>
+
+<h4>Comparer les guidages linéaires</h4>
+<div class="tableau"><table>
+<tr><th>Guidage</th><th>Vitesse max.</th><th>Point fort</th></tr>
+<tr><td>Douille à billes sur rail rond</td><td>2 à 5 m/s</td><td>simple, économique, toute longueur de course</td></tr>
+<tr><td>Patin à recirculation sur rail</td><td>3 à 5 m/s</td><td>très rigide, sans jeu, rectitude 3 à 20 µm/m</td></tr>
+<tr><td>Chariot à galets</td><td>environ 10 m/s</td><td>peu sensible à la pollution</td></tr>
+</table></div>
+
+<h4>Exemple de calcul</h4>
+<p><span class="complement">Exemple ajouté</span> Un rail à recirculation de 1,5 m a un écart de rectitude de 20 µm par mètre au pire. Sur toute sa longueur :</p>
+\[ \text{écart} = 20 \times 1{,}5 = 30\ \mu\text{m} = 0{,}03\ \text{mm} \]
+
+<h4>À retenir</h4>
+<ul>
+<li>Recirculation : patin + rail, course illimitée, HRC 60, sans jeu, 3 à 20 µm/m, 3 à 5 m/s, 150 à 250 m/s².</li>
+<li>Table sur deux rails : un rail fixe (butées latérales), un rail libre (parallélisme, dilatations).</li>
+<li>Galets : quatre galets à gorge sur deux arbres d'acier, rail en alliage léger, peu sensible à la poussière, environ 10 m/s.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="guidages-lineaires"></div>
+</section>
+
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
@@ -275,13 +447,24 @@
 <script src="../../../commun/js/section.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../meca/dessin.js"></script>
+<script src="../../../commun/vendor/three/three.min.js"></script>
+<script src="../meca/3d.js"></script>
 <script src="../figures/criteres-guidage.js"></script>
+<script src="../figures/criteres-guidage-3d.js"></script>
 <script src="../schemas.js"></script>
 <script src="../figures/roulements.js"></script>
+<script src="../figures/roulements-3d.js"></script>
 <script src="../figures/radiaux-butees.js"></script>
+<script src="../figures/radiaux-butees-3d.js"></script>
 <script src="../figures/types-roulements.js"></script>
+<script src="../figures/types-roulements-3d.js"></script>
 <script src="../figures/duree-l10.js"></script>
 <script src="../figures/fixe-libre.js"></script>
+<script src="../figures/fixe-libre-3d.js"></script>
 <script src="../figures/precharge-roulements.js"></script>
+<script src="../figures/precharge-roulements-3d.js"></script>
+<script src="../figures/guidages-lineaires-3d.js"></script>
+<script src="../figures/bagues-lisses-3d.js"></script>
+<script src="../figures/recirculation-galets-3d.js"></script>
 </body>
 </html>

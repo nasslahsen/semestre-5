@@ -84,6 +84,10 @@ th { font-weight: 600; background: var(--fond-doux); }
   touch-action: pan-y; user-select: none; -webkit-user-select: none;
 }
 .fig svg text { font-family: Inter, system-ui, sans-serif; }
+/* Vues 3D (three.js) : le canevas sous le dessin SVG, qui reste par-dessus pour les étiquettes et les gestes */
+.fig .m3d { position: relative; width: 100%; display: flex; justify-content: center; }
+.fig .m3d > canvas { position: absolute; border-radius: var(--rayon); pointer-events: none; }
+.fig .m3d > svg.dessin.sur-3d { position: relative; z-index: 1; background: transparent; cursor: grab; }
 .fig .poignee { cursor: grab; touch-action: none; }
 .fig .poignee:active { cursor: grabbing; }
 .fig-cote { min-width: 0; max-height: var(--h-fig); overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 4px 4px 4px 0; }

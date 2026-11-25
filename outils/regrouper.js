@@ -53,7 +53,7 @@ function pageChapitre(mid, d, P, ch) {
       m = m.replace(/\s*<p class="etiquette" data-etiquette><\/p>\s*/, "\n")
         .replace(/<(\/?)h3>/g, "<$1h5>").replace(/<(\/?)h2>/g, "<$1h4>").replace(/<(\/?)h1>/g, "<$1h3>");
       corps += '<article class="notion" id="n-' + nid + '">' + m.replace(/\s+$/, "\n") + "</article>\n\n";
-      for (const f of html.matchAll(/<script src="\.\.\/([^"]+)"><\/script>/g)) if (f[1] !== "module.js" && !f[1].startsWith("../") && !scripts.includes(f[1])) scripts.push(f[1]);
+      for (const f of html.matchAll(/<script src="\.\.\/([^"]+)"><\/script>/g)) if (f[1] !== "module.js" && (!f[1].startsWith("../") || f[1].startsWith("../../commun/vendor/three/")) && !scripts.includes(f[1])) scripts.push(f[1]);
       if (html.includes('<script src="../../../commun/js/schema.js"></script>')) avecSchemas = true;
     }
     corps += `<div class="fin-partie" data-section="${s.id}"></div>\n</section>\n\n`;

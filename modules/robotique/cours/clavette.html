@@ -37,6 +37,9 @@
 <p>avec \(\tau\) la contrainte moyenne de cisaillement (Pa ou MPa) et \(F_t\) la force tangentielle (N). Le calcul complet doit aussi vérifier le matage, les dimensions normalisées, les concentrations de contraintes et le cycle de charge.</p>
 <p>Bouts d'arbres cylindriques (série longue, usuelle, ou série courte), liaison en rotation par clavette parallèle ou par manchon de blocage : tolérance j6 pour \(d \le 30\) mm, k6 pour \(d \ge 32\) mm.</p>
 
+
+<div id="fig-clavette-3d"></div>
+
 <h2>Rappel : contrainte et unités</h2>
 <p>Une contrainte est une force divisée par la surface qui la supporte. Avec une force en newtons et une surface en mm², on obtient des N/mm², et 1 N/mm² = 1 MPa. C'est pour cela qu'on garde \(b\) et \(L\) en millimètres dans \(\tau \simeq F_t / (bL)\). Dans \(F_t = 2C/d\), en revanche, \(C\) est en N·m et \(d\) doit être en mètres pour obtenir des newtons.</p>
 
@@ -57,7 +60,10 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../meca/dessin.js"></script>
+<script src="../../../commun/vendor/three/three.min.js"></script>
+<script src="../meca/3d.js"></script>
 <script src="../figures/clavette.js"></script>
+<script src="../figures/clavette-3d.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../schemas.js"></script>
 </body>

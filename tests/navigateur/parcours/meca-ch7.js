@@ -70,4 +70,25 @@ tous["boss-guidages"] = async (a) => {
   await a.choix(0); await a.suite();
 };
 
+tous["guidages-lineaires"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([0.1]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["bagues-lisses"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["recirculation-galets"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([40]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
+};
+
 module.exports = tous;

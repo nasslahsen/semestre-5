@@ -277,6 +277,18 @@ window.SCHEMAS = {
            [{ id: "a2", t: "Charge radiale, axiale, moment" }, { id: "b2", t: "Rigidité, jeu, frottement, vitesse, précision" }, { id: "c2", t: "Durée de vie, lubrification, contamination, encombrement" }]],
     liens: [["g", "a"], ["g", "b"], ["g", "c"], ["a", "a2"], ["b", "b2"], ["c", "c2"]] },
 
+  "sc-guidages-lineaires": { titre: "Les guidages linéaires du cours",
+    cols: [[{ id: "g", t: "Guidage linéaire", s: "un seul mouvement : la translation" }],
+           [{ id: "d", t: "Douilles à billes", s: "sur rail rond, 2 à 5 m/s", k: "doux" }, { id: "r", t: "Recirculation", s: "patin sur rail profilé, 3 à 5 m/s", k: "doux" }, { id: "ga", t: "Galets", s: "quatre galets sur deux arbres, 10 m/s", k: "doux" }, { id: "l", t: "Bagues lisses", s: "autolubrifiantes", k: "doux" }],
+           [{ id: "d1", t: "Massive", s: "jeu ≈ 0,1 mm" }, { id: "d2", t: "Fendue", s: "jeu réglable" }, { id: "d3", t: "Ouverte", s: "sur rail supporté" }, { id: "l1", t: "Revêtement polymère", s: "PTFE" }, { id: "l2", t: "Inserts solides", s: "graphite dans le bronze" }, { id: "l3", t: "Bronze fritté", s: "poreux, imprégné d'huile" }]],
+    liens: [["g", "d"], ["g", "r"], ["g", "ga"], ["g", "l"], ["d", "d1"], ["d", "d2"], ["d", "d3"], ["l", "l1"], ["l", "l2"], ["l", "l3"]], vgap: 12 },
+
+  "sc-bagues-lisses": { titre: "D'où vient le lubrifiant ?",
+    cols: [[{ id: "b", t: "Bague autolubrifiante", s: "film lubrifiant de la bague vers l'axe" }],
+           [{ id: "p", t: "Revêtement polymère", s: "couche de PTFE dans une armature métallique", k: "doux" }, { id: "i", t: "Inserts solides", s: "pastilles de graphite dans le bronze", k: "doux" }, { id: "f", t: "Bronze fritté", s: "micro-pores remplis d'huile", k: "doux" }],
+           [{ id: "p2", t: "Au rodage, le PTFE passe sur l'axe", k: "fort" }, { id: "i2", t: "L'axe étale le graphite", k: "fort" }, { id: "f2", t: "Chaud, l'huile remonte en surface", k: "fort" }]],
+    liens: [["b", "p"], ["b", "i"], ["b", "f"], ["p", "p2"], ["i", "i2"], ["f", "f2"]] },
+
   "sc-familles-roulements": { titre: "Les familles de roulements",
     cols: [[{ id: "r", t: "Roulement", s: "la famille d'abord, la référence ensuite" }],
            [{ id: "b", t: "À billes", s: "contact elliptique", k: "doux" }, { id: "o", t: "À rouleaux", s: "contact rectangulaire", k: "doux" }],
