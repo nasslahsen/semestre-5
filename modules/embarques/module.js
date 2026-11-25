@@ -32,7 +32,10 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "instrumentation", titre: "Lab 2 : Bluetooth Biomedical Data Communication (ECG sur ESP32)", couvre: "lab 7" },
       { sousModule: "instrumentation", titre: "IoT Labs : NodeRED, MQTT, JSON Format", couvre: "labs 1 et 2" },
       { sousModule: "embarques", titre: "Application N°1 : Semelle instrumentée pour le suivi médical (source : épreuve d'agrégation SII ingénierie électrique 2024)", couvre: "TD 1 (partie 2, questions 1 à 14)" },
-      { sousModule: "embarques", titre: "Application N°1 : documents constructeurs (DT1 à DT6) et documents réponses (DR1 à DR3)", couvre: "TD 1 : fiches de la semelle FS-INS-16Z, du FUTEK LSB200, de l'INA128, du NX3L4051, courbe DR1 du capteur (questions 1 à 14)" }
+      { sousModule: "embarques", titre: "Application N°1 : documents constructeurs (DT1 à DT6) et documents réponses (DR1 à DR3)", couvre: "TD 1 : fiches de la semelle FS-INS-16Z, du FUTEK LSB200, de l'INA128, du NX3L4051, courbe DR1 du capteur (questions 1 à 14)" },
+      { sousModule: "embarques", titre: "TD N°2 : Programmation Embarquée, Semelle instrumentée pour le suivi médical", couvre: "TD 2 (questions 1 à 4, annexes timer et brochage ESP32 DEVKIT V1)" },
+      { sousModule: "embarques", titre: "TD N°3 : Architecture et composants d'un système Embarqué", couvre: "TD 3 (questions 1 à 9, contraintes temporelles a à e)" },
+      { sousModule: "embarques", titre: "Activité Pratique : Conception et programmation d'un Pacemaker connecté (Pr A. Jbari)", couvre: "Projet pacemaker (questions 1 à 38, livrables)" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
@@ -44,9 +47,9 @@ PLATEFORME.parcours("embarques", {
   examen: { embarques: true, instrumentation: true },
   // Programme du module, sujet par sujet ; page « Mon suivi ». chapitres : où le sujet est sur le site ; recu : document reçu, pas encore construit.
   programme: [
-    { sousModule: "embarques", sujet: "Architecture d'un système embarqué : Harvard, Super-Harvard ; AVR, CISC, RISC", chapitres: [2] },
+    { sousModule: "embarques", sujet: "Architecture d'un système embarqué : Harvard, Super-Harvard ; AVR, CISC, RISC", chapitres: [2, 18], note: "TD 3 corrigé dans l'espace TD" },
     { sousModule: "embarques", sujet: "Modules : ADC, DAC, PWM, Timer, Watchdog", chapitres: [5] },
-    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5], note: "programmes complets à copier dans les labs 2 à 7 d'Instrumentation connectée ; tableau des GPIO, organigramme et programme de la semelle : page « Préparer l'examen »" },
+    { sousModule: "embarques", sujet: "Programmation de la carte ESP32 : tableau des entrées-sorties GPIO, organigramme, programme (cpp)", chapitres: [4, 5, 17, 19], note: "TD 2 (semelle : broches, fonctions, modes, timer) et projet pacemaker corrigés dans l'espace TD ; programmes complets à copier dans les labs 2 à 7 d'Instrumentation connectée ; tableau des GPIO, organigramme et programme de la semelle : page « Préparer l'examen »" },
     { sousModule: "embarques", sujet: "Bus de communication : UART, I2C, SPI", chapitres: [3] },
     { sousModule: "embarques", sujet: "Capteurs : température, force, pression, MEMS" },
     { sousModule: "embarques", sujet: "Conditionneur : pont de Wheatstone, alimentation en courant et en tension" },
@@ -57,6 +60,7 @@ PLATEFORME.parcours("embarques", {
     { sousModule: "instrumentation", sujet: "Objet connecté sur ESP32 : serveur web embarqué", note: "pas de document sur le serveur web embarqué" },
     { sousModule: "instrumentation", sujet: "Transmission de données : protocoles MQTT, HTTP et format JSON", chapitres: [7, 8, 10, 14] },
     { sousModule: "instrumentation", sujet: "Applications : semelle connectée, oxymètre connecté, simulateur ECG", chapitres: [15, 16], note: "simulateur ECG : lab 7 ; semelle : exemple du chapitre 1 de Systèmes embarqués et TD 1 (appui plantaire, questions 1 à 14), programme sur la page « Préparer l'examen » ; rien sur l'oxymètre" },
+    { projet: true, sujet: "Pacemaker connecté : instrumentation embarquée (détection, stimulation, timer, watchdog) et supervision connectée (dashboard)", chapitres: [19] },
     { projet: true, sujet: "Polysomnographie CPAP : rapport technique (étude, conception, développement, test, limites), électronique et systèmes embarqués, objet connecté (acquisition, traitement, transmission, dashboard)" }
   ],
   chapitres: [
@@ -78,7 +82,10 @@ PLATEFORME.parcours("embarques", {
     { id: 13, lab: true, numero: "Lab 5", titre: "ThingSpeak : MATLAB Analysis et React", ligne: "Calculer un état, réagir aux données", sousModule: "instrumentation" },
     { id: 14, lab: true, numero: "Lab 6", titre: "MQTT sur l'ESP32 : LED et température", ligne: "Broker public, LED pilotée, mesure", sousModule: "instrumentation" },
     { id: 15, lab: true, numero: "Lab 7", titre: "ECG en Bluetooth depuis l'ESP32", ligne: "Simulateur ECG, liaison Bluetooth", sousModule: "instrumentation" },
-    { id: 16, td: true, numero: "TD 1", titre: "Semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" }
+    { id: 16, td: true, numero: "TD 1", titre: "Semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" },
+    { id: 17, td: true, numero: "TD 2", titre: "Semelle instrumentée, la programmation", sous: "Broches de l'ESP32, sélection d'un capteur, lecture de l'ADC, résistance du capteur, modes d'acquisition, bouton, timer", ligne: "Broches, ADC, modes d'acquisition, timer", sousModule: "embarques" },
+    { id: 18, td: true, numero: "TD 3", titre: "Architecture et composants d'un système embarqué", sous: "Microcontrôleur, DSP et FPGA, périphériques, RISC et CISC, Harvard, DMA, PIC, contraintes temporelles", ligne: "Composants, architectures, PIC, interruptions", sousModule: "embarques" },
+    { id: 19, td: true, numero: "Projet", titre: "Pacemaker connecté", sous: "Blocs du stimulateur, détection et stimulation sur ESP32, algorithme à la demande, télémétrie, batterie et sûreté", ligne: "Détection, stimulation, timer, télémétrie", sousModule: "embarques" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -157,7 +164,23 @@ PLATEFORME.parcours("embarques", {
     { id: "td1", chapitre: 16, titre: "Questions 1 à 3 : surface et pression d'un capteur", cours: true, pret: true },
     { id: "td1-banc", chapitre: 16, titre: "Questions 4 à 8 : le banc et l'INA128", cours: true, pret: true },
     { id: "td1-montage", chapitre: 16, titre: "Questions 10 à 12 : multiplexeur et montage", cours: true, pret: true },
-    { id: "td1-acquisition", chapitre: 16, titre: "Questions 13 et 14 : cadence, débit et CF", cours: true, pret: true }
+    { id: "td1-acquisition", chapitre: 16, titre: "Questions 13 et 14 : cadence, débit et CF", cours: true, pret: true },
+
+    { id: "td2", chapitre: 17, titre: "Question 1 : le circuit et les broches", cours: true, pret: true },
+    { id: "td2-fonctions", chapitre: 17, titre: "Question 2 : sélectionner, lire, convertir", cours: true, pret: true },
+    { id: "td2-acquisition", chapitre: 17, titre: "Question 3 : les modes et le bouton", cours: true, pret: true },
+    { id: "td2-timer", chapitre: 17, titre: "Question 4 : le timer", cours: true, pret: true },
+
+    { id: "td3", chapitre: 18, titre: "Questions 1 à 5 : les composants", cours: true, pret: true },
+    { id: "td3-architecture", chapitre: 18, titre: "Questions 6 à 8 : les architectures", cours: true, pret: true },
+    { id: "td3-pic", chapitre: 18, titre: "Question 9 : le microcontrôleur PIC", cours: true, pret: true },
+    { id: "td3-temps", chapitre: 18, titre: "Contraintes temporelles", cours: true, pret: true },
+
+    { id: "pacemaker", chapitre: 19, titre: "Questions 1 à 8 : les blocs du stimulateur", cours: true, pret: true },
+    { id: "pacemaker-esp32", chapitre: 19, titre: "Questions 9 à 16 : détecter et stimuler", cours: true, pret: true },
+    { id: "pacemaker-algorithme", chapitre: 19, titre: "Questions 17 à 22 : la stimulation à la demande", cours: true, pret: true },
+    { id: "pacemaker-telemetrie", chapitre: 19, titre: "Questions 23 à 31 : télémétrie, batterie, sûreté", cours: true, pret: true },
+    { id: "pacemaker-programme", chapitre: 19, titre: "Questions 32 à 38 : le programme complet", cours: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -214,7 +237,20 @@ PLATEFORME.parcours("embarques", {
     { id: "td1", chapitre: 16, titre: "Le sujet et le capteur", notions: ["td1"] },
     { id: "td1-banc", chapitre: 16, titre: "Le banc : FUTEK LSB200 et INA128", notions: ["td1-banc"] },
     { id: "td1-montage", chapitre: 16, titre: "Le montage de mesure", notions: ["td1-montage"] },
-    { id: "td1-acquisition", chapitre: 16, titre: "Cadence, débit et filtre", notions: ["td1-acquisition"] }
+    { id: "td1-acquisition", chapitre: 16, titre: "Cadence, débit et filtre", notions: ["td1-acquisition"] },
+    { id: "td2", chapitre: 17, titre: "Le circuit et les broches", notions: ["td2"] },
+    { id: "td2-fonctions", chapitre: 17, titre: "Les quatre fonctions de base", notions: ["td2-fonctions"] },
+    { id: "td2-acquisition", chapitre: 17, titre: "Version 1 : modes et bouton", notions: ["td2-acquisition"] },
+    { id: "td2-timer", chapitre: 17, titre: "Version 2 : le timer", notions: ["td2-timer"] },
+    { id: "td3", chapitre: 18, titre: "Les composants", notions: ["td3"] },
+    { id: "td3-architecture", chapitre: 18, titre: "Les architectures", notions: ["td3-architecture"] },
+    { id: "td3-pic", chapitre: 18, titre: "Le microcontrôleur PIC", notions: ["td3-pic"] },
+    { id: "td3-temps", chapitre: 18, titre: "Les contraintes temporelles", notions: ["td3-temps"] },
+    { id: "pacemaker", chapitre: 19, titre: "Le sujet et les blocs", notions: ["pacemaker"] },
+    { id: "pacemaker-esp32", chapitre: 19, titre: "Détecter et stimuler sur l'ESP32", notions: ["pacemaker-esp32"] },
+    { id: "pacemaker-algorithme", chapitre: 19, titre: "La stimulation à la demande", notions: ["pacemaker-algorithme"] },
+    { id: "pacemaker-telemetrie", chapitre: 19, titre: "Télémétrie, batterie et sûreté", notions: ["pacemaker-telemetrie"] },
+    { id: "pacemaker-programme", chapitre: 19, titre: "Le programme et les livrables", notions: ["pacemaker-programme"] }
   ],
   cours: [
     { chapitre: 0, id: "binaire", titre: "Bits et binaire" },
@@ -284,6 +320,19 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 16, id: "td1", titre: "Le sujet et le capteur de la semelle" },
     { chapitre: 16, id: "td1-banc", titre: "Le banc : FUTEK LSB200 et INA128" },
     { chapitre: 16, id: "td1-montage", titre: "Le montage de mesure" },
-    { chapitre: 16, id: "td1-acquisition", titre: "Cadence, débit et filtre" }
+    { chapitre: 16, id: "td1-acquisition", titre: "Cadence, débit et filtre" },
+    { chapitre: 17, id: "td2", titre: "Le circuit et les broches" },
+    { chapitre: 17, id: "td2-fonctions", titre: "Les quatre fonctions de base" },
+    { chapitre: 17, id: "td2-acquisition", titre: "Version 1 : modes et bouton" },
+    { chapitre: 17, id: "td2-timer", titre: "Version 2 : le timer" },
+    { chapitre: 18, id: "td3", titre: "Les composants d'un système embarqué" },
+    { chapitre: 18, id: "td3-architecture", titre: "RISC et CISC, Harvard, DMA" },
+    { chapitre: 18, id: "td3-pic", titre: "L'architecture d'un microcontrôleur PIC" },
+    { chapitre: 18, id: "td3-temps", titre: "Les contraintes temporelles" },
+    { chapitre: 19, id: "pacemaker", titre: "Le pacemaker et ses blocs" },
+    { chapitre: 19, id: "pacemaker-esp32", titre: "Détecter et stimuler sur l'ESP32" },
+    { chapitre: 19, id: "pacemaker-algorithme", titre: "La stimulation à la demande" },
+    { chapitre: 19, id: "pacemaker-telemetrie", titre: "Télémétrie, batterie et sûreté" },
+    { chapitre: 19, id: "pacemaker-programme", titre: "Le programme complet et les livrables" }
   ]
 });

@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Pacemaker connecté</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 19. -->
+<main class="cours-chapitre" data-chapitre="19">
+<p class="etiquette" data-etiquette></p>
+<h1>Pacemaker connecté</h1>
+
+<section class="partie" id="s-pacemaker">
+<h2>Le sujet et les blocs</h2>
+
+<article class="notion" id="n-pacemaker">
+<p class="chapeau">L'activité pratique du Pr A. Jbari demande de concevoir et de programmer un pacemaker embarqué et connecté, sous forme de maquette sur ESP32. Le sujet est un guide de 38 questions. Elles sont corrigées ici comme un cours : le sujet d'abord, puis chaque question avec ce qu'il faut savoir et une réponse. Beaucoup de questions demandent une proposition : la réponse donnée est une solution possible, justifiée, pas la seule.</p>
+
+<h4>Ce que raconte le sujet</h4>
+<p>Un <strong>pacemaker</strong> (stimulateur cardiaque, pile cardiaque) est un dispositif médical implanté qui délivre des <strong>impulsions électriques</strong> régulières au myocarde, pour déclencher les contractions à un rythme régulier. Il est implanté sous la clavicule ; il surveille l'activité cardiaque naturelle et traite les troubles du rythme.</p>
+<figure class="photo"><img src="../images/pacemaker-radio.jpg" alt="Radiographie du thorax : le boîtier du stimulateur sous la clavicule gauche et ses sondes qui descendent vers le cœur"><figcaption>Figure 1 du sujet : implantation du stimulateur cardiaque. Le boîtier est sous la clavicule, les sondes descendent par une veine jusque dans le cœur.<small>Photo du cours « Activité Pratique : Conception et programmation d'un Pacemaker connecté ».</small></figcaption></figure>
+<p>Le projet a deux sous-systèmes :</p>
+<ul>
+<li><strong>SS1, instrumentation embarquée</strong> : les circuits électroniques et la programmation des fonctions de détection et de stimulation ;</li>
+<li><strong>SS2, supervision connectée</strong> : un dashboard (Node-RED, serveur web embarqué ou ThingSpeak) qui lit le mode d'activation et montre l'état du pacemaker.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Partie du guide</th><th>Questions</th><th>Ce qu'on fait</th></tr>
+<tr><td>Architecture du système embarqué</td><td>1 à 8</td><td>lire le schéma fonctionnel, le rôle de chaque bloc</td></tr>
+<tr><td>Programmation embarquée avec ESP32</td><td>9 à 16</td><td>broches, impulsion par timer, détection par seuil, fréquence cardiaque, watchdog</td></tr>
+<tr><td>Algorithme de fonctionnement</td><td>17 à 22</td><td>la stimulation à la demande, son organigramme et son programme</td></tr>
+<tr><td>Communication et télémétrie, énergie et sécurité</td><td>23 à 31</td><td>interface web, protocole, batterie, risques et robustesse</td></tr>
+<tr><td>Programmation embarquée (réalisation)</td><td>32 à 38</td><td>le programme complet de la maquette</td></tr>
+</table></div>
+
+<h4>Le code NBG : nommer un mode de stimulation</h4>
+<p>Un mode de stimulation s'écrit avec trois à cinq lettres, dans cet ordre : ce qu'on <strong>stimule</strong>, ce qu'on <strong>détecte</strong>, ce qu'on fait quand on détecte.</p>
+<div class="tableau"><table>
+<tr><th>Lettre</th><th>Définit</th><th>Codes</th></tr>
+<tr><td>1re</td><td>cavité(s) stimulée(s)</td><td>V = ventricule, A = oreillette, D = les deux (A + V), O = aucune</td></tr>
+<tr><td>2e</td><td>cavité(s) détectée(s)</td><td>V, A, D ; O = aucune (fonctionnement asynchrone)</td></tr>
+<tr><td>3e</td><td>réponse à la détection</td><td>I = inhibé, T = déclenché (triggered), D = les deux (I + T), O = aucune</td></tr>
+<tr><td>4e</td><td>asservissement de fréquence</td><td>R = asservissement (capteur) ; lettre omise s'il n'est pas programmé : DDD et non DDDO</td></tr>
+<tr><td>5e (optionnelle, peu utilisée)</td><td>stimulation multisite</td><td>O = aucune, A = oreillette, V = ventricule, D = les deux (A + V)</td></tr>
+</table></div>
+<p>Les modes les plus fréquents, d'après le tableau 20.12 du sujet :</p>
+<div class="tableau"><table>
+<tr><th>Mode</th><th>Fonctionnement</th><th>Indications</th></tr>
+<tr><td>AAI</td><td>entraînement auriculaire sur demande, inhibé par la détection d'une activité auriculaire</td><td>bradycardie sinusale avec conduction AV intacte</td></tr>
+<tr><td>VVI</td><td>entraînement ventriculaire sur demande, inhibé par la détection d'une activité ventriculaire</td><td>épisodes intermittents de bradycardie, FA chronique avec bradycardie, synchronisation AV non maintenue</td></tr>
+<tr><td>VDD</td><td>entraînement ventriculaire, détection auriculaire et ventriculaire ; stimule le ventricule après un délai préfixé, en synchronisation avec l'activité auriculaire</td><td>bradycardie par bloc AV avec fonction sinusale conservée ; si bradycardie sinusale, correspond à VVI</td></tr>
+<tr><td>DDI</td><td>entraînement et détection auriculaires et ventriculaires ; la seule réponse à une détection est l'inhibition ; évite un entraînement trop rapide du ventricule en cas de tachycardie auriculaire</td><td>dysrythmie auriculaire ; synchronisation AV seulement lorsque le pacemaker entraîne l'oreillette</td></tr>
+<tr><td>DDD</td><td>entraînement et détection auriculaires et ventriculaires ; stimule le ventricule après un délai préfixé, en synchronisation avec l'activité auriculaire</td><td>tout type de bradycardie, synchronisation AV assurée</td></tr>
+<tr><td>DVI</td><td>inhibition de la stimulation ventriculaire en cas d'activité ventriculaire, pas de détection auriculaire</td><td>interruption d'une tachycardie induite par le pacemaker (réentrée AV)</td></tr>
+<tr><td>-R</td><td>la fréquence peut varier dans des limites préfixées en fonction des informations du capteur</td><td>non précisées</td></tr>
+<tr><td>AOO</td><td>entraînement auriculaire asynchrone à fréquence fixe</td><td>seulement lors d'un pacing temporaire avec une conduction AV normale</td></tr>
+<tr><td>VOO</td><td>entraînement ventriculaire asynchrone à fréquence fixe</td><td>seulement lors d'un pacing temporaire</td></tr>
+<tr><td>DOO</td><td>entraînements auriculaire et ventriculaire asynchrones à fréquence fixe ; le délai AV est fixe ; risque de R-sur-T, comme avec tous les modes asynchrones</td><td>non précisées</td></tr>
+</table></div>
+<p>La maquette du projet stimule s'il n'y a pas d'événement détecté, et s'inhibe si elle en détecte un (partie 2.3) : avec une seule voie, placée dans le ventricule, c'est un mode <strong>VVI</strong>.</p>
+
+<h4>Question 1 : les blocs fonctionnels</h4>
+<p><strong>On te demande.</strong> Identifie les blocs fonctionnels du pacemaker de la figure 2.</p>
+<p><strong>Réponse.</strong> Le schéma, redessiné :</p>
+<div class="schema" id="sc-pacemaker-blocs"></div>
+<div class="tableau"><table>
+<tr><th>Bloc</th><th>Fonction</th></tr>
+<tr><td>Électrode, Lead (sonde), Connector</td><td>relient le boîtier au cœur : la même sonde sert à écouter et à stimuler</td></tr>
+<tr><td>Sensing Amplifier</td><td>amplifie et filtre le petit signal électrique du cœur</td></tr>
+<tr><td>A/D Converter</td><td>convertit ce signal en nombres pour le microprocesseur</td></tr>
+<tr><td>Microprocessor</td><td>exécute l'algorithme : détecter, décider, commander la stimulation</td></tr>
+<tr><td>ROM, RAM</td><td>le programme (ROM) ; les variables, les paramètres et l'historique des événements (RAM)</td></tr>
+<tr><td>Timer, Oscillator</td><td>l'horloge (oscillateur) et la base de temps (timer) de l'algorithme</td></tr>
+<tr><td>D/A Converter</td><td>transforme la consigne numérique d'amplitude en tension</td></tr>
+<tr><td>Impulse Generator</td><td>produit l'impulsion de stimulation envoyée par la sonde</td></tr>
+<tr><td>Digital I/O Interface, Coil antenna</td><td>la télémétrie : échange de données avec l'extérieur à travers le thorax</td></tr>
+<tr><td>Programmer</td><td>appareil externe du médecin : lit les données, envoie les réglages</td></tr>
+<tr><td>Power Supply, Housing</td><td>la pile, qui alimente tout ; le boîtier étanche</td></tr>
+</table></div>
+
+<h4>Question 2 : le rôle du microprocesseur</h4>
+<p><strong>Réponse.</strong> C'est le cerveau du pacemaker. Il :</p>
+<ul>
+<li>exécute le programme rangé en ROM ;</li>
+<li>analyse les échantillons de l'A/D et décide s'il y a eu un battement (événement détecté) ;</li>
+<li>compte le temps écoulé depuis le dernier battement, avec le timer, et décide de stimuler ou non ;</li>
+<li>règle l'amplitude de l'impulsion par le D/A et déclenche le générateur d'impulsions ;</li>
+<li>enregistre les événements en RAM, applique les paramètres reçus par télémétrie et renvoie les données au programmateur.</li>
+</ul>
+
+<h4>Question 3 : le timer, plutôt que delay()</h4>
+<p><strong>Ce qu'il faut savoir.</strong> Un timer est un compteur matériel qui avance au rythme d'une horloge et déclenche une interruption à l'alarme, tout seul. <code>delay()</code> fait attendre le processeur en tournant sur place.</p>
+<p><strong>Réponse.</strong> Le timer donne la <strong>base de temps</strong> : l'intervalle avant de stimuler, la période réfractaire, la largeur de l'impulsion, la cadence d'échantillonnage.</p>
+<div class="tableau"><table>
+<tr><th>Timer matériel</th><th>delay()</th></tr>
+<tr><td>compte pendant que le programme fait autre chose</td><td>bloque le processeur : pendant l'attente, aucune détection</td></tr>
+<tr><td>période exacte, sans dérive</td><td>la durée du reste de la boucle s'ajoute à chaque tour : le rythme dérive</td></tr>
+<tr><td>peut être remis à zéro à chaque battement détecté</td><td>impossible d'annuler une attente en cours</td></tr>
+<tr><td>le processeur peut dormir entre deux alarmes : économie de pile</td><td>le processeur reste actif pour rien</td></tr>
+</table></div>
+<p>Pour un pacemaker, rater un battement pendant un <code>delay()</code> peut faire stimuler au mauvais moment : c'est un défaut de sécurité, pas seulement de confort.</p>
+
+<h4>Question 4 : le canal de détection</h4>
+<p><strong>Réponse.</strong> Le canal de détection (Sensing Channel) écoute le cœur :</p>
+<ul>
+<li>l'<strong>électrode</strong> au bout de la sonde capte l'activité électrique du cœur, de l'ordre de quelques millivolts ;</li>
+<li>le <strong>Sensing Amplifier</strong> l'amplifie et la filtre, pour garder l'onde de dépolarisation (onde R dans le ventricule) et rejeter le bruit et les parasites ;</li>
+<li>l'<strong>A/D</strong> la numérise ;</li>
+<li>le microprocesseur compare le signal à un <strong>seuil de sensibilité</strong> : quand il le dépasse, c'est un événement cardiaque détecté.</li>
+</ul>
+
+<h4>Question 5 : le canal de stimulation</h4>
+<p><strong>Réponse.</strong> Le canal de stimulation (Stimulation Channel) agit sur le cœur : sur ordre du microprocesseur, le D/A fixe l'amplitude et le <strong>générateur d'impulsions</strong> envoie une impulsion brève (quelques volts, moins d'une milliseconde) par la sonde. Le myocarde se dépolarise et se contracte : c'est un battement provoqué, quand le cœur n'en a pas fait de lui-même.</p>
+
+<h4>Question 6 : la boucle de rétroaction</h4>
+<p><strong>Réponse.</strong> Le cœur, le canal de détection et le microprocesseur forment une <strong>boucle fermée</strong> :</p>
+<ul>
+<li>le cœur bat, ou ne bat pas ;</li>
+<li>le canal de détection le mesure et prévient le microprocesseur ;</li>
+<li>le microprocesseur compare à ce qu'il attend : battement détecté à temps, il ne fait rien et relance son compte ; aucun battement à temps, il stimule ;</li>
+<li>la stimulation fait battre le cœur, ce que le canal de détection voit à son tour.</li>
+</ul>
+<p>Le pacemaker ne stimule donc que <strong>quand il le faut</strong> : il n'entre pas en compétition avec le rythme propre du patient, et il économise sa pile.</p>
+
+<h4>Question 7 : la télémétrie</h4>
+<p><strong>Réponse.</strong> Le pacemaker est sous la peau : on ne peut pas le brancher. Le circuit de télémétrie (Digital I/O Interface et Coil antenna) communique sans fil, à travers le thorax, avec le programmateur du médecin :</p>
+<ul>
+<li><strong>lire</strong> (telemetry) : état de la pile, événements enregistrés, signal du cœur, nombre de stimulations ;</li>
+<li><strong>programmer</strong> (programming) : changer le mode, la fréquence, l'amplitude, la sensibilité, sans réopérer.</li>
+</ul>
+
+<h4>Question 8 : signaux analogiques et numériques</h4>
+<div class="tableau"><table>
+<tr><th>Liaison</th><th>Signal</th><th>Type</th></tr>
+<tr><td>Électrode vers Sensing Amplifier</td><td>activité électrique du cœur, quelques mV</td><td>analogique</td></tr>
+<tr><td>Sensing Amplifier vers A/D</td><td>le même signal, amplifié et filtré</td><td>analogique</td></tr>
+<tr><td>A/D vers Microprocessor</td><td>échantillons codés</td><td>numérique</td></tr>
+<tr><td>Microprocessor et ROM, RAM, Timer</td><td>adresses, données, interruptions du timer</td><td>numérique</td></tr>
+<tr><td>Oscillator vers Timer</td><td>horloge</td><td>numérique (signal logique)</td></tr>
+<tr><td>Microprocessor vers D/A</td><td>consigne d'amplitude codée</td><td>numérique</td></tr>
+<tr><td>D/A vers Impulse Generator, puis Lead</td><td>tension de consigne, puis impulsion de stimulation</td><td>analogique</td></tr>
+<tr><td>Microprocessor et Digital I/O Interface</td><td>paramètres et données</td><td>numérique</td></tr>
+<tr><td>Coil antenna et Programmer</td><td>champ magnétique modulé qui porte les données</td><td>analogique (porteuse modulée)</td></tr>
+<tr><td>Power Supply</td><td>tension de la pile</td><td>analogique</td></tr>
+</table></div>
+<p>Les convertisseurs A/D et D/A sont exactement les frontières entre les deux mondes.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Deux canaux autour du microprocesseur : détection (électrode, amplificateur, A/D) et stimulation (D/A, générateur, sonde).</li>
+<li>Boucle fermée : un battement détecté inhibe la stimulation ; c'est le mode VVI de la maquette.</li>
+<li>Timer matériel pour toute la base de temps : il ne bloque pas la détection, ne dérive pas, se remet à zéro.</li>
+<li>Télémétrie : lire et programmer à travers le thorax.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="pacemaker"></div>
+</section>
+
+<section class="partie" id="s-pacemaker-esp32">
+<h2>Détecter et stimuler sur l'ESP32</h2>
+
+<article class="notion" id="n-pacemaker-esp32">
+<p class="chapeau">La maquette reproduit les blocs du pacemaker avec une carte ESP32 : un ECG simulé entre par l'ADC, une LED tient lieu d'impulsion de stimulation, les timers donnent la base de temps. Il faut ensuite reconnaître un battement dans le signal, une seule fois par battement, et en déduire la fréquence cardiaque.</p>
+
+<h4>Question 9 : l'architecture de la maquette</h4>
+<p><strong>On te demande.</strong> Propose une architecture matérielle qui reproduit les blocs du pacemaker avec une ESP32.</p>
+<p><strong>Réponse.</strong> Le cœur et la sonde sont remplacés par un <strong>ECG simulé</strong>, la stimulation par une <strong>LED</strong>, le programmateur par un PC (liaison série) et un navigateur (Wi-Fi).</p>
+<div class="schema" id="sc-pacemaker-maquette"></div>
+<ul>
+<li>L'ECG simulé peut venir d'un générateur de fonctions arbitraires, d'une deuxième carte qui joue un ECG enregistré (comme le simulateur du lab 7), ou de l'ESP32 elle-même : son DAC sur GPIO 25 sort un ECG de test, relié par un fil à l'entrée de l'ADC. C'est cette dernière solution que suit le programme de la question 32 : une seule carte suffit.</li>
+<li>Un vrai signal d'électrode (quelques mV) demanderait un amplificateur d'instrumentation avant l'ADC ; le signal simulé est déjà dans la plage 0 à 3,3 V.</li>
+</ul>
+
+<h4>Question 10 : un périphérique par bloc</h4>
+<div class="tableau"><table>
+<tr><th>Bloc du pacemaker</th><th>Périphérique de l'ESP32</th><th>Broche ou réglage</th></tr>
+<tr><td>Électrode et Sensing Amplifier (ECG simulé)</td><td>DAC (générateur de test)</td><td>GPIO 25 (DAC1), reliée à GPIO 34</td></tr>
+<tr><td>A/D Converter</td><td>ADC1, 12 bits</td><td>GPIO 34 (ADC1_CH6)</td></tr>
+<tr><td>Microprocessor, ROM, RAM</td><td>cœurs Xtensa, flash, SRAM</td><td>rien à câbler</td></tr>
+<tr><td>Timer, Oscillator</td><td>timers 64 bits, horloge APB 80 MHz</td><td>un timer d'échantillonnage (2 ms), un timer de stimulation</td></tr>
+<tr><td>D/A et Impulse Generator</td><td>GPIO en sortie (ou PWM pour régler l'éclat)</td><td>GPIO 2 : LED bleue de la carte</td></tr>
+<tr><td>Signal « événement détecté »</td><td>GPIO en sortie</td><td>GPIO 4 : LED verte externe</td></tr>
+<tr><td>Digital I/O Interface et télémétrie</td><td>UART0 (USB), Wi-Fi</td><td>GPIO 1 et 3 par le câble USB</td></tr>
+<tr><td>Power Supply et Battery Check</td><td>ADC1 avec un pont diviseur</td><td>GPIO 35 (ADC1_CH7)</td></tr>
+<tr><td>Surveillance du programme</td><td>watchdog</td><td>Task Watchdog, 2 s</td></tr>
+</table></div>
+<p>Les deux mesures sont sur l'ADC1 : l'ADC2 ne marche plus quand le Wi-Fi est utilisé, et la question 23 demande une interface web.</p>
+
+<h4>Question 11 : une impulsion périodique par timer</h4>
+<p><strong>On te demande.</strong> Écris un programme Arduino qui génère périodiquement une impulsion de stimulation simulée avec un timer matériel.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Fréquence de stimulation et période : \(T = 60 / f\), avec \(f\) en battements par minute (bpm) et \(T\) en secondes. À 60 bpm, une impulsion par seconde.</li>
+<li>Les fonctions du timer sont celles du TD 2 : <code>timerBegin(1000000)</code> (un pas par µs), <code>timerAttachInterrupt</code>, <code>timerAlarm</code>.</li>
+<li>L'interruption ne fait que lever un drapeau ; la boucle allume la LED, puis l'éteint 20 ms plus tard sans <code>delay()</code>, en regardant <code>millis()</code>.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Impulsion de stimulation simulée, 60 bpm"><code>const int PIN_STIM = 2;            // LED bleue de la carte
+const int FREQ_BPM = 60;           // fréquence de stimulation
+const int LARGEUR_MS = 20;         // durée d'allumage, visible à l'oeil
+
+hw_timer_t *timerStim = NULL;
+volatile bool impulsion = false;
+unsigned long finImpulsion = 0;
+
+void IRAM_ATTR onStim() {
+  impulsion = true;                // l'interruption ne fait que lever le drapeau
+}
+
+void setup() {
+  pinMode(PIN_STIM, OUTPUT);
+  timerStim = timerBegin(1000000);                          // 1 pas = 1 µs
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  timerAlarm(timerStim, 60000000UL / FREQ_BPM, true, 0);   // 1 000 000 µs à 60 bpm
+}
+
+void loop() {
+  if (impulsion) {
+    impulsion = false;
+    digitalWrite(PIN_STIM, HIGH);
+    finImpulsion = millis() + LARGEUR_MS;
+  }
+  if (finImpulsion != 0 &amp;&amp; millis() >= finImpulsion) {
+    digitalWrite(PIN_STIM, LOW);
+    finImpulsion = 0;
+  }
+}</code></pre>
+<p>La valeur de l'alarme : \(60 \times 10^6\ \mu\text{s} / f\). À 60 bpm, \(10^6\) pas ; à 75 bpm, 800 000 pas, soit 800 ms. Une vraie impulsion dure moins d'une milliseconde ; la LED reste allumée 20 ms pour qu'on la voie.</p>
+
+<h4>Question 12 : détecter un battement dans l'ECG</h4>
+<p><strong>On te demande.</strong> Propose une méthode pour détecter un événement cardiaque dans un ECG simulé lu par l'ADC.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Sur un ECG, l'<strong>onde R</strong> (dépolarisation des ventricules) est la plus haute et la plus raide. Les ondes P et T sont plus basses et plus lentes.</li>
+<li>Pour ne rater aucun pic, l'ECG est échantillonné régulièrement : 500 échantillons par seconde (une mesure toutes les 2 ms), cadencés par un timer.</li>
+</ul>
+<p><strong>Réponse.</strong> Méthode du <strong>seuil</strong> :</p>
+<ul>
+<li>un timer lève un drapeau toutes les 2 ms ; la boucle lit alors l'ADC ;</li>
+<li>on choisit un seuil au-dessus des ondes P et T et sous le sommet des ondes R (par exemple 60 % de la hauteur de l'onde R, mesurée au démarrage) ;</li>
+<li>un événement est détecté au moment où le signal <strong>franchit le seuil en montant</strong>, c'est-à-dire quand l'échantillon précédent était en dessous et le courant au-dessus.</li>
+</ul>
+<p>Améliorations possibles : filtrer avant (moyenne glissante sur quelques échantillons contre le bruit), ou travailler sur la pente (différence entre deux échantillons), qui fait ressortir l'onde R, très raide.</p>
+
+<h4>Questions 13 et 14 : l'algorithme à seuil, une seule détection par onde</h4>
+<p><strong>On te demande.</strong> Écris un algorithme de détection à seuil, puis évite qu'une même onde soit détectée plusieurs fois.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Juste après un battement, le cœur est <strong>réfractaire</strong> : il ne peut pas en refaire un tout de suite. Le pacemaker fait pareil : pendant une <strong>période réfractaire</strong> (par exemple 250 ms), il ignore le signal.</li>
+<li>Autour du seuil, le bruit fait monter et descendre le signal plusieurs fois : une <strong>hystérésis</strong> (redescendre nettement sous le seuil avant d'accepter un nouveau franchissement) évite les détections en rafale.</li>
+</ul>
+<div id="fig-pacemaker-detection"></div>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Détection à seuil, avec période réfractaire et hystérésis"><code>int seuil = 2500;                 // code ADC (12 bits)
+const int HYSTERESIS = 200;       // il faut redescendre sous seuil - 200
+int refractaire = 250;            // ms
+bool auDessus = false;
+unsigned long dernierEvt = 0;     // ms : instant du dernier battement
+
+// appelée toutes les 2 ms avec le nouvel échantillon ; renvoie true si un battement commence
+bool detecter(int v, unsigned long t) {
+  if (t - dernierEvt &lt; refractaire) {   // période réfractaire : on n'écoute pas
+    return false;
+  }
+  if (!auDessus &amp;&amp; v > seuil) {         // franchissement en montant
+    auDessus = true;
+    return true;
+  }
+  if (auDessus &amp;&amp; v &lt; seuil - HYSTERESIS) {
+    auDessus = false;                   // le signal est bien redescendu
+  }
+  return false;
+}</code></pre>
+<p>Sans période réfractaire, une onde R crochetée (deux sommets) ou bruitée compte deux battements, et la fréquence affichée double.</p>
+
+<h4>Question 15 : l'intervalle RR et la fréquence cardiaque</h4>
+<p><strong>On te demande.</strong> Mesure le délai entre deux événements successifs et calcule la fréquence cardiaque à partir de l'intervalle RR.</p>
+<p><strong>Ce qu'il faut savoir.</strong> L'<strong>intervalle RR</strong> est le temps entre deux ondes R. Un battement toutes les RR secondes fait \(60 / RR\) battements par minute.</p>
+\[f_C = \frac{60\,000}{RR}\quad (f_C \text{ en bpm, } RR \text{ en ms})\]
+<p><strong>Réponse.</strong> On note <code>millis()</code> à chaque détection ; la différence avec la détection précédente est l'intervalle RR.</p>
+<pre class="code" data-titre="RR et fréquence cardiaque"><code>unsigned long dernierR = 0;   // ms
+unsigned long rr = 0;         // ms
+float bpm = 0;
+
+void battementDetecte(unsigned long t) {
+  if (dernierR != 0) {
+    rr = t - dernierR;
+    bpm = 60000.0 / rr;
+  }
+  dernierR = t;
+}</code></pre>
+<p>Exemple : deux ondes R à t = 12 400 ms et t = 13 200 ms.</p>
+\[RR = 13\,200 - 12\,400\]
+\[RR = 800\ \text{ms}\]
+\[f_C = \frac{60\,000}{800}\]
+\[f_C = 75\ \text{bpm}\]
+<p>Pour un affichage stable, on peut faire la moyenne des 4 à 8 derniers RR. La précision dépend de l'échantillonnage : à 2 ms près sur 800 ms, l'erreur est de 0,25 %.</p>
+
+<h4>Question 16 : le watchdog</h4>
+<p><strong>On te demande.</strong> Propose une stratégie de gestion du watchdog pour détecter un blocage du programme.</p>
+<p><strong>Ce qu'il faut savoir.</strong> Le watchdog est un compteur que le programme doit remettre à zéro (le « nourrir ») avant la fin de son délai ; sinon, il redémarre la puce. Sur l'ESP32, le Task Watchdog (TWDT) surveille les tâches qui s'y sont inscrites.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>délai de 2 s : bien plus long qu'un tour de boucle normal (quelques millisecondes), assez court pour ne pas laisser le patient longtemps sans surveillance ;</li>
+<li>la remise à zéro se fait <strong>une fois par tour de <code>loop()</code></strong>, là où se font la détection et la stimulation ; jamais dans une interruption de timer, qui continuerait d'arriver pendant que la boucle est bloquée ;</li>
+<li>on ne nourrit le chien que si la boucle a vraiment avancé : par exemple si un échantillon a été traité depuis le dernier tour (sinon le timer d'échantillonnage est arrêté) ;</li>
+<li>au redémarrage, le programme regarde la cause (<code>esp_reset_reason()</code>) : si c'est le watchdog, il le signale par la liaison série et repart avec des paramètres sûrs par défaut.</li>
+</ul>
+<pre class="code" data-titre="Le Task Watchdog (paquet ESP32 version 3)"><code>#include &lt;esp_task_wdt.h&gt;
+
+void configWatchdog() {
+  esp_task_wdt_config_t config = {
+    .timeout_ms = 2000,       // 2 s sans remise à zéro : redémarrage
+    .idle_core_mask = 0,      // ne pas surveiller les tâches de repos
+    .trigger_panic = true     // redémarrer la puce
+  };
+  esp_task_wdt_reconfigure(&amp;config);   // le paquet l'a déjà démarré : on change son réglage
+  esp_task_wdt_add(NULL);              // surveiller la tâche qui exécute loop()
+}
+
+// dans loop(), une fois par tour :
+//   esp_task_wdt_reset();</code></pre>
+<p>Si ta version du paquet ESP32 n'a pas démarré le watchdog, <code>esp_task_wdt_init(&amp;config)</code> remplace <code>esp_task_wdt_reconfigure</code>. Le cours (chapitre 5) décrit les trois chiens de garde matériels de l'ESP32, pas ces fonctions.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Maquette : ECG simulé (DAC) vers ADC1, LED pour la stimulation, timers, UART et Wi-Fi.</li>
+<li>Détection : franchissement du seuil en montant, puis période réfractaire et hystérésis.</li>
+<li>\(f_C = 60\,000 / RR\) avec RR en ms ; alarme du timer de stimulation : \(60 \times 10^6 / f\) µs.</li>
+<li>Watchdog nourri une fois par tour de boucle, jamais dans une interruption.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="pacemaker-esp32"></div>
+</section>
+
+<section class="partie" id="s-pacemaker-algorithme">
+<h2>La stimulation à la demande</h2>
+
+<article class="notion" id="n-pacemaker-algorithme">
+<p class="chapeau">Un pacemaker ne stimule pas à l'aveugle. Il attend un battement pendant une durée fixée ; si le cœur bat de lui-même, il ne fait rien et recommence à attendre ; sinon, il stimule. Tout l'algorithme tient dans ce compte à rebours, remis à zéro à chaque battement.</p>
+
+<h4>Le principe demandé</h4>
+<ul>
+<li>une impulsion de stimulation simulée part si <strong>aucun événement cardiaque</strong> n'est détecté pendant une durée prédéfinie ;</li>
+<li>si un événement est détecté <strong>avant</strong> la fin de cette durée, la stimulation est <strong>inhibée</strong> ;</li>
+<li>le délai de stimulation est réglable.</li>
+</ul>
+<p>Cette durée s'appelle l'<strong>intervalle d'échappement</strong> : c'est la période de la fréquence la plus basse qu'on accepte. Pour une fréquence cible \(f\) en bpm :</p>
+\[T_{ech} = \frac{60\,000}{f}\quad (T_{ech} \text{ en ms})\]
+<div id="fig-pacemaker-vvi"></div>
+
+<h4>Question 17 : l'organigramme</h4>
+<p><strong>On te demande.</strong> Élabore l'organigramme de fonctionnement du circuit.</p>
+<p><strong>Réponse.</strong> Après l'initialisation, la boucle répète trois tests : un échantillon est-il prêt, un battement est-il détecté, l'intervalle est-il écoulé ?</p>
+<div class="schema" id="sc-pacemaker-organigramme"></div>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui se passe</th></tr>
+<tr><td>Initialisation</td><td>broches, ADC, deux timers (échantillonnage toutes les 2 ms, intervalle d'échappement), watchdog, liaison série</td></tr>
+<tr><td>Échantillon prêt ?</td><td>si le timer de 2 ms a levé son drapeau : lire l'ADC</td></tr>
+<tr><td>Battement détecté ?</td><td>oui (hors période réfractaire) : noter l'instant, calculer RR et la fréquence, <strong>remettre le compte à rebours à zéro</strong>, allumer la LED « détecté »</td></tr>
+<tr><td>Intervalle écoulé ?</td><td>oui : <strong>stimuler</strong> (LED de stimulation), noter l'instant, le compte repart</td></tr>
+<tr><td>Fin du tour</td><td>éteindre les LED à la fin de leur durée, lire les commandes série, nourrir le watchdog, puis recommencer</td></tr>
+</table></div>
+<p>On peut aussi le dessiner en <strong>diagramme d'états</strong> : « attente » (le compte tourne), « réfractaire » (on n'écoute pas), avec deux transitions vers « réfractaire » : battement détecté, ou stimulation.</p>
+
+<h4>Question 18 : le temps écoulé depuis le dernier battement</h4>
+<p><strong>On te demande.</strong> Écris un algorithme qui mesure le temps écoulé depuis le dernier événement cardiaque.</p>
+<p><strong>Ce qu'il faut savoir.</strong> <code>millis()</code> donne le nombre de millisecondes depuis le démarrage, sur 32 bits non signés : il repasse à 0 au bout de 49,7 jours. Une soustraction entre deux <code>unsigned long</code> reste juste même après ce passage par 0.</p>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Algorithme"><code>dernierEvt ← millis()                     au démarrage
+à chaque tour de boucle :
+    ecoule ← millis() - dernierEvt
+    si battement détecté :
+        dernierEvt ← millis()             le compte repart de 0
+    sinon si ecoule ≥ intervalle :
+        stimuler
+        dernierEvt ← millis()             une stimulation compte aussi comme un battement</code></pre>
+<pre class="code" data-titre="En C"><code>unsigned long dernierEvt = 0;          // ms
+unsigned long ecouleDepuisEvt() {
+  return millis() - dernierEvt;        // juste même quand millis() repasse par 0
+}</code></pre>
+<p>Dans le programme de la question 19, c'est le <strong>timer matériel</strong> qui fait ce compte : remettre son compteur à zéro avec <code>timerWrite(timer, 0)</code> revient à écrire <code>dernierEvt = millis()</code>, et son alarme tombe quand l'intervalle est écoulé.</p>
+
+<h4>Questions 19 et 20 : le programme, et la fréquence cible</h4>
+<p><strong>On te demande.</strong> Écris un programme ESP32 qui simule cette stratégie, puis ajoute un paramètre qui règle la fréquence cardiaque cible.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Deux timers : l'un lève un drapeau toutes les 2 ms (échantillonnage), l'autre à la fin de l'intervalle d'échappement (stimulation).</li>
+<li><code>timerWrite(timer, 0)</code> remet le compteur d'un timer à zéro : l'alarme est repoussée d'un intervalle entier.</li>
+<li>Un booléen se lit et s'écrit en une seule instruction : la section critique de l'annexe du TD 2 n'est pas indispensable pour un simple drapeau.</li>
+</ul>
+<p><strong>Réponse.</strong> Les fonctions <code>detecter()</code> et <code>battementDetecte()</code> sont celles des questions 13 à 15.</p>
+<pre class="code" data-titre="Stimulation à la demande (VVI)"><code>const int PIN_ECG = 34;            // ECG simulé (ADC1_CH6)
+const int PIN_STIM = 2;            // LED de stimulation
+const int PIN_DET = 4;             // LED « battement détecté »
+
+int frequenceCible = 60;           // bpm (question 20)
+unsigned long intervalle = 1000;   // ms : intervalle d'échappement
+
+hw_timer_t *timerEch = NULL;       // 2 ms
+hw_timer_t *timerStim = NULL;      // intervalle d'échappement
+volatile bool tickEch = false;
+volatile bool tickStim = false;
+unsigned long finStim = 0, finDet = 0;
+
+void IRAM_ATTR onEch()  { tickEch = true; }
+void IRAM_ATTR onStim() { tickStim = true; }
+
+void reglerFrequence(int f) {                 // question 20
+  frequenceCible = f;
+  intervalle = 60000UL / f;
+  timerAlarm(timerStim, intervalle * 1000UL, true, 0);   // en µs
+  timerWrite(timerStim, 0);                   // le nouvel intervalle part de maintenant
+}
+
+void stimuler(unsigned long t) {
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;                           // LED allumée 20 ms
+  dernierEvt = t;                             // période réfractaire après la stimulation
+  Serial.printf("S %lu\n", t);
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIN_STIM, OUTPUT);
+  pinMode(PIN_DET, OUTPUT);
+  analogReadResolution(12);
+  timerEch = timerBegin(1000000);
+  timerAttachInterrupt(timerEch, &amp;onEch);
+  timerAlarm(timerEch, 2000, true, 0);        // 2000 µs : 500 échantillons par seconde
+  timerStim = timerBegin(1000000);
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  reglerFrequence(frequenceCible);
+}
+
+void loop() {
+  unsigned long t = millis();
+  if (tickEch) {                              // un échantillon toutes les 2 ms
+    tickEch = false;
+    int v = analogRead(PIN_ECG);
+    if (detecter(v, t)) {                     // battement spontané : stimulation inhibée
+      timerWrite(timerStim, 0);
+      tickStim = false;
+      dernierEvt = t;
+      battementDetecte(t);                    // RR et fréquence
+      digitalWrite(PIN_DET, HIGH);
+      finDet = t + 20;
+      Serial.printf("R %lu %lu %.0f\n", t, rr, bpm);
+    }
+  }
+  if (tickStim) {                             // intervalle écoulé sans battement
+    tickStim = false;
+    stimuler(t);
+  }
+  if (finStim != 0 &amp;&amp; t >= finStim) { digitalWrite(PIN_STIM, LOW); finStim = 0; }
+  if (finDet != 0 &amp;&amp; t >= finDet) { digitalWrite(PIN_DET, LOW); finDet = 0; }
+}</code></pre>
+<p>Ce que fait la question 20 : la fréquence cible fixe l'intervalle. À 60 bpm, la LED de stimulation s'allume si le cœur reste plus de 1 000 ms sans battre ; à 50 bpm, il faut 1 200 ms de silence.</p>
+\[T_{ech} = \frac{60\,000}{f}\]
+\[T_{ech} = \frac{60\,000}{60}\]
+\[T_{ech} = 1\,000\ \text{ms}\]
+<p>Tant que le cœur simulé bat plus vite que la fréquence cible, la LED de stimulation ne s'allume jamais.</p>
+
+<h4>Question 21 : régler les paramètres par la liaison série</h4>
+<p><strong>On te demande.</strong> Propose une méthode pour modifier les paramètres à travers une interface série.</p>
+<p><strong>Réponse.</strong> Un petit protocole texte : une lettre pour le paramètre, un nombre, puis Entrée, dans le moniteur série de l'Arduino IDE (115 200 bauds). Chaque valeur est <strong>vérifiée</strong> avant d'être appliquée.</p>
+<div class="tableau"><table>
+<tr><th>Commande</th><th>Effet</th><th>Plage acceptée</th></tr>
+<tr><td><code>F70</code></td><td>fréquence cible 70 bpm</td><td>30 à 180</td></tr>
+<tr><td><code>S2500</code></td><td>seuil de détection (code ADC)</td><td>100 à 4000</td></tr>
+<tr><td><code>R250</code></td><td>période réfractaire 250 ms</td><td>100 à 500</td></tr>
+<tr><td><code>?</code></td><td>affiche tous les paramètres</td><td>sans valeur</td></tr>
+</table></div>
+<pre class="code" data-titre="Lecture des commandes, sans bloquer la boucle"><code>void lireSerie() {
+  if (!Serial.available()) return;            // rien reçu : on ne bloque pas
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+  if (cmd.length() == 0) return;
+  char c = cmd.charAt(0);
+  long val = cmd.substring(1).toInt();
+  if (c == 'F' &amp;&amp; val >= 30 &amp;&amp; val &lt;= 180) reglerFrequence(val);
+  else if (c == 'S' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 4000) seuil = val;
+  else if (c == 'R' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 500) refractaire = val;
+  else if (c != '?') { Serial.println("ERREUR commande refusee"); return; }
+  Serial.printf("F=%d bpm S=%d R=%d ms\n", frequenceCible, seuil, refractaire);
+}</code></pre>
+<p>Une valeur hors plage est refusée et l'ancienne garde cours : une faute de frappe (<code>F700</code>) ne doit jamais faire stimuler à 700 bpm.</p>
+
+<h4>Question 22 : signaler une anomalie de l'ECG</h4>
+<p><strong>On te demande.</strong> Ajoute une fonction qui signale une anomalie du signal ECG simulé.</p>
+<p><strong>Réponse.</strong> Quatre anomalies faciles à repérer :</p>
+<div class="tableau"><table>
+<tr><th>Anomalie</th><th>Comment la voir</th><th>Cause probable</th></tr>
+<tr><td>Signal plat</td><td>écart entre le maximum et le minimum de moins de 100 codes sur 2 s</td><td>électrode débranchée, générateur arrêté</td></tr>
+<tr><td>Saturation</td><td>échantillons à 0 ou à 4095</td><td>signal trop grand ou décalé, fil coupé</td></tr>
+<tr><td>Bradycardie ou tachycardie</td><td>fréquence spontanée sous 40 bpm ou au-dessus de 150 bpm</td><td>trouble du rythme</td></tr>
+<tr><td>Dépendance</td><td>plus de 5 stimulations de suite</td><td>plus aucun rythme propre</td></tr>
+</table></div>
+<pre class="code" data-titre="Surveillance du signal, appelée à chaque échantillon"><code>int vMin = 4095, vMax = 0;
+unsigned long debutFenetre = 0;
+int stimulationsDeSuite = 0;           // +1 dans stimuler(), remis à 0 dans battementDetecte()
+
+void surveillerECG(int v, unsigned long t) {
+  vMin = min(vMin, v);
+  vMax = max(vMax, v);
+  if (v &lt;= 0 || v >= 4095) Serial.println("ALERTE saturation de l'ECG");
+  if (t - debutFenetre >= 2000) {      // bilan toutes les 2 s
+    if (vMax - vMin &lt; 100) Serial.println("ALERTE signal plat");
+    if (bpm > 0 &amp;&amp; (bpm &lt; 40 || bpm > 150)) Serial.printf("ALERTE frequence %.0f bpm\n", bpm);
+    if (stimulationsDeSuite > 5) Serial.println("ALERTE pas de rythme propre");
+    vMin = 4095; vMax = 0;
+    debutFenetre = t;
+  }
+}</code></pre>
+<p>Les seuils (100 codes, 40 et 150 bpm, 5 stimulations) sont des choix pour la maquette : à justifier dans le rapport, pas des valeurs du cours.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Intervalle d'échappement : \(T_{ech} = 60\,000 / f\) ms ; battement avant la fin : on remet le compte à zéro, pas de stimulation.</li>
+<li>Le temps écoulé : <code>millis() - dernierEvt</code>, ou un timer matériel remis à zéro par <code>timerWrite(timer, 0)</code>.</li>
+<li>Toute commande reçue est vérifiée avant d'être appliquée.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="pacemaker-algorithme"></div>
+</section>
+
+<section class="partie" id="s-pacemaker-telemetrie">
+<h2>Télémétrie, batterie et sûreté</h2>
+
+<article class="notion" id="n-pacemaker-telemetrie">
+<p class="chapeau">Un pacemaker se règle et se surveille de l'extérieur, vit des années sur une pile, et ne doit jamais faire défaut. Sur la maquette, cela devient une page web servie par l'ESP32, un protocole pour les réglages et les mesures, une surveillance de la batterie, et des garde-fous dans le logiciel.</p>
+
+<h4>Question 23 : une interface web sur l'ESP32</h4>
+<p><strong>On te demande.</strong> Propose une interface web hébergée par l'ESP32 qui montre les paramètres du pacemaker.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un <strong>serveur web embarqué</strong> : l'ESP32, connecté au Wi-Fi, répond aux requêtes HTTP GET d'un navigateur (modèle requête-réponse du chapitre 7).</li>
+<li>On sépare la page (HTML, envoyée une fois) et les données (JSON, demandées toutes les secondes par la page) : la page se met à jour sans être rechargée.</li>
+</ul>
+<p><strong>Réponse.</strong> Trois adresses :</p>
+<div class="tableau"><table>
+<tr><th>Requête</th><th>Réponse</th></tr>
+<tr><td><code>GET /</code></td><td>la page HTML du tableau de bord</td></tr>
+<tr><td><code>GET /etat</code></td><td>l'état en JSON : <code>{"mode":"VVI","freq":60,"bpm":72,"rr":833,"stim":3,"bat":3.92}</code></td></tr>
+<tr><td><code>GET /regler?freq=70</code></td><td>applique un réglage (question 24), après vérification</td></tr>
+</table></div>
+<pre class="code" data-titre="Serveur web embarqué (bibliothèque WebServer du paquet ESP32)"><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+WebServer serveur(80);
+
+const char PAGE[] = R"(&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;
+&lt;h1&gt;Pacemaker&lt;/h1&gt;&lt;pre id="e"&gt;...&lt;/pre&gt;
+&lt;script&gt;
+setInterval(async () =&gt; {
+  const r = await fetch('/etat');
+  document.getElementById('e').textContent = JSON.stringify(await r.json(), null, 1);
+}, 1000);
+&lt;/script&gt;)";
+
+void pageAccueil() { serveur.send(200, "text/html", PAGE); }
+
+void pageEtat() {
+  char json[128];
+  snprintf(json, sizeof json,
+    "{\"mode\":\"VVI\",\"freq\":%d,\"bpm\":%.0f,\"rr\":%lu,\"stim\":%d,\"bat\":%.2f}",
+    frequenceCible, bpm, rr, nbStim, vBat);
+  serveur.send(200, "application/json", json);
+}
+
+void pageRegler() {
+  int f = serveur.arg("freq").toInt();
+  if (f >= 30 &amp;&amp; f &lt;= 180) { reglerFrequence(f); serveur.send(200, "text/plain", "OK"); }
+  else serveur.send(400, "text/plain", "valeur refusee");
+}
+
+void configWeb() {
+  WiFi.begin("TON_WIFI", "TON_MOT_DE_PASSE");
+  while (WiFi.status() != WL_CONNECTED) delay(200);   // une seule fois, au démarrage
+  Serial.println(WiFi.localIP());                     // l'adresse à taper dans le navigateur
+  serveur.on("/", pageAccueil);
+  serveur.on("/etat", pageEtat);
+  serveur.on("/regler", pageRegler);
+  serveur.begin();
+}
+// dans loop() : serveur.handleClient();</code></pre>
+<p>Complément : le cours ne contient pas de document sur le serveur web embarqué ; ce code utilise la bibliothèque <code>WebServer</code> fournie avec le paquet ESP32 de l'Arduino IDE. Le sujet laisse aussi le choix de Node-RED ou de ThingSpeak, vus dans les labs.</p>
+
+<h4>Question 24 : modifier les paramètres à distance</h4>
+<p><strong>Réponse.</strong> Par l'adresse <code>/regler</code> : un formulaire de la page, ou un lien comme <code>http://192.168.1.42/regler?freq=70</code>, envoie la nouvelle valeur ; l'ESP32 la vérifie (plage permise), l'applique et répond <code>OK</code>, ou refuse. Avec ThingSpeak ou MQTT (question 25), le réglage arrive par un message sur un topic auquel l'ESP32 est abonné. Dans tous les cas, les mêmes contrôles que pour la liaison série.</p>
+
+<h4>Question 25 : un protocole de communication</h4>
+<p><strong>On te demande.</strong> Propose un protocole pour envoyer la configuration et recevoir les données de surveillance.</p>
+<p><strong>Réponse.</strong> <strong>MQTT</strong>, avec des messages <strong>JSON</strong>, comme dans le lab 6 : l'ESP32 publie son état et s'abonne à sa configuration ; le dashboard Node-RED fait l'inverse.</p>
+<div class="tableau"><table>
+<tr><th>Topic</th><th>Qui publie</th><th>Message</th></tr>
+<tr><td><code>pacemaker/etat</code></td><td>ESP32, toutes les secondes</td><td><code>{"mode":"VVI","bpm":72,"rr":833,"stim":3,"bat":3.92}</code></td></tr>
+<tr><td><code>pacemaker/evenement</code></td><td>ESP32, à chaque battement</td><td><code>{"type":"R","t":125400}</code> ou <code>{"type":"S","t":126400}</code></td></tr>
+<tr><td><code>pacemaker/alerte</code></td><td>ESP32, si besoin</td><td><code>{"alerte":"batterie","v":3.41}</code></td></tr>
+<tr><td><code>pacemaker/config</code></td><td>dashboard</td><td><code>{"freq":70,"seuil":2500,"refractaire":250}</code></td></tr>
+</table></div>
+<p>Pourquoi MQTT :</p>
+<ul>
+<li>publish-subscribe : plusieurs écrans peuvent suivre le même pacemaker sans que l'ESP32 le sache ;</li>
+<li>messages courts, connexion permanente : la configuration arrive tout de suite, sans que l'ESP32 interroge ;</li>
+<li>QoS 1 pour <code>pacemaker/config</code> et les alertes : le message est redélivré tant qu'il n'est pas acquitté.</li>
+</ul>
+<p>Pour un vrai dispositif, la liaison devrait être chiffrée et authentifiée (MQTT sur TLS, identifiants) : un réglage envoyé par n'importe qui serait un danger.</p>
+
+<h4>Question 26 : le bloc Battery Check</h4>
+<p><strong>Réponse.</strong> Il <strong>surveille la tension de la pile</strong> pour prévoir son remplacement. Un pacemaker vit plusieurs années sur une pile non rechargeable ; quand elle s'use, sa tension baisse. Le bloc mesure cette tension et prévient (par la télémétrie) assez tôt pour programmer le changement du boîtier, avant que la stimulation ne soit compromise. Sur la figure 2, c'est la fonction du bloc Power Supply.</p>
+
+<h4>Question 27 : mesurer la batterie avec l'ADC</h4>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>L'ADC de l'ESP32 lit de 0 à 3,3 V ; une batterie lithium-ion monte à 4,2 V : il faut d'abord <strong>réduire la tension</strong>, avec un pont diviseur.</li>
+<li>Pont de deux résistances \(R_1\) (côté batterie) et \(R_2\) (côté masse) : \(V_{ADC} = V_{bat}\,R_2 / (R_1 + R_2)\).</li>
+<li>Des résistances de forte valeur (100 kΩ) limitent le courant que le pont prend à la batterie en permanence ; un condensateur de 100 nF sur l'entrée de l'ADC filtre le bruit.</li>
+</ul>
+<p><strong>Réponse.</strong> \(R_1 = R_2 = 100\) kΩ, entrée sur GPIO 35 (ADC1_CH7).</p>
+\[V_{ADC} = V_{bat}\,\frac{R_2}{R_1 + R_2}\]
+\[V_{ADC} = 4{,}2 \times \frac{100}{100 + 100}\]
+\[V_{ADC} = 2{,}1\ \text{V}\]
+<p>2,1 V est sous 3,3 V, avec une marge. À l'envers, dans le programme :</p>
+\[V_{bat} = 2 \times code \times \frac{3{,}3}{4095}\]
+<p>Exemple : le code lu vaut 2606.</p>
+\[V_{bat} = 2 \times 2606 \times \frac{3{,}3}{4095}\]
+\[V_{bat} \approx 4{,}20\ \text{V}\]
+<pre class="code" data-titre="Tension de la batterie"><code>const int PIN_BAT = 35;            // ADC1_CH7, milieu du pont 100 kΩ / 100 kΩ
+float vBat = 0;
+
+float lireBatterie() {
+  long somme = 0;
+  for (int i = 0; i &lt; 16; i++) somme += analogRead(PIN_BAT);   // moyenne de 16 mesures
+  return 2.0 * (somme / 16.0) * 3.3 / 4095.0;                     // le pont divise par 2
+}</code></pre>
+<p>L'ADC de l'ESP32 n'est pas parfaitement linéaire : pour une mesure juste, on l'étalonne avec un multimètre (ou on utilise <code>analogReadMilliVolts()</code>, qui applique l'étalonnage d'usine).</p>
+
+<h4>Question 28 : surveiller le niveau</h4>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Algorithme"><code>toutes les 10 s :
+    vBat ← moyenne de 16 mesures
+    vFiltree ← 0,9 × vFiltree + 0,1 × vBat         lisse les variations
+    si vFiltree &lt; SEUIL_ALERTE (3,5 V) pendant 3 bilans de suite :
+        état ← « batterie faible », alerte (question 29)
+    si vFiltree &lt; SEUIL_CRITIQUE (3,3 V) :
+        état ← « batterie critique »
+    sinon si vFiltree > SEUIL_ALERTE + 0,1 V :
+        état ← « normal »                           hystérésis : pas d'alerte qui clignote</code></pre>
+<p>Les seuils 3,5 V et 3,3 V conviennent à une batterie lithium-ion de maquette ; ce sont des choix à justifier, pas des valeurs du sujet.</p>
+
+<h4>Question 29 : sous le seuil d'alerte</h4>
+<p><strong>Réponse.</strong> La maquette doit :</p>
+<ul>
+<li><strong>prévenir</strong> : message série, alerte sur le dashboard (<code>pacemaker/alerte</code>), LED qui clignote ;</li>
+<li><strong>garder la stimulation en priorité</strong> : c'est la fonction vitale, elle ne s'arrête jamais à cause de la batterie ;</li>
+<li><strong>économiser</strong> : publier moins souvent, couper le Wi-Fi entre deux envois, ne plus allumer les LED de confort ;</li>
+<li><strong>enregistrer</strong> l'instant de l'alerte, pour le rapport.</li>
+</ul>
+<p>Un vrai stimulateur fait de même : quand sa pile atteint l'indicateur de remplacement (ERI, Elective Replacement Indicator), il le signale au programmateur, et le médecin planifie le changement du boîtier.</p>
+
+<h4>Question 30 : les risques d'un logiciel défaillant</h4>
+<div class="tableau"><table>
+<tr><th>Défaillance</th><th>Conséquence pour le patient</th></tr>
+<tr><td>plus de stimulation (programme bloqué, mauvais réglage)</td><td>pauses du cœur, malaise, syncope, risque vital chez un patient dépendant</td></tr>
+<tr><td>stimulation au mauvais moment, sur l'onde T</td><td>phénomène « R sur T » (cité par le tableau du sujet) : peut déclencher une arythmie ventriculaire grave</td></tr>
+<tr><td>sur-détection : du bruit pris pour des battements</td><td>stimulation inhibée à tort</td></tr>
+<tr><td>sous-détection : des battements ratés</td><td>stimulation en compétition avec le rythme propre</td></tr>
+<tr><td>fréquence trop élevée (paramètre corrompu)</td><td>tachycardie imposée par le pacemaker</td></tr>
+<tr><td>batterie mal surveillée</td><td>arrêt sans prévenir</td></tr>
+<tr><td>télémétrie non protégée</td><td>réglage modifié par une personne non autorisée</td></tr>
+</table></div>
+
+<h4>Question 31 : rendre la maquette robuste</h4>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li><strong>contrôle des paramètres</strong> : chaque réglage reçu est comparé à sa plage (fréquence de 30 à 180 bpm, seuil, période réfractaire) ; hors plage, il est refusé et l'ancien reste ; au démarrage, des valeurs sûres par défaut ;</li>
+<li><strong>garde-fou de fréquence</strong> : jamais deux stimulations à moins de 333 ms (180 bpm), quoi qu'il arrive dans le reste du programme ;</li>
+<li><strong>détection d'erreurs</strong> : signal plat, saturation, fréquence aberrante, batterie faible (questions 22 et 28), avec alerte ;</li>
+<li><strong>watchdog</strong> : remis à zéro une fois par tour de boucle ; s'il redémarre la puce, le programme le dit et repart avec les réglages par défaut (question 16) ;</li>
+<li><strong>interruptions courtes</strong> : elles lèvent un drapeau, la boucle fait le travail (TD 3, contraintes temporelles).</li>
+</ul>
+<pre class="code" data-titre="Le garde-fou, dans stimuler()"><code>const unsigned long INTERVALLE_MIN = 333;   // ms : 180 bpm au plus
+
+void stimuler(unsigned long t) {
+  if (t - dernierEvt &lt; INTERVALLE_MIN) return;   // trop tôt : on refuse, quoi qu'il arrive
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;
+  dernierEvt = t;
+}</code></pre>
+
+<h4>À retenir</h4>
+<ul>
+<li>Interface web : <code>/</code> (page), <code>/etat</code> (JSON), <code>/regler</code> (réglage vérifié) ; ou MQTT avec des topics d'état et de configuration en JSON.</li>
+<li>Batterie : pont diviseur par 2, \(V_{bat} = 2 \times code \times 3{,}3 / 4095\), seuils avec hystérésis.</li>
+<li>Sous le seuil : prévenir, économiser, mais ne jamais arrêter la stimulation.</li>
+<li>Robustesse : plages, valeurs par défaut, garde-fou de fréquence, détection d'erreurs, watchdog.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="pacemaker-telemetrie"></div>
+</section>
+
+<section class="partie" id="s-pacemaker-programme">
+<h2>Le programme et les livrables</h2>
+
+<article class="notion" id="n-pacemaker-programme">
+<p class="chapeau">Les questions 32 à 38 demandent de réaliser la maquette : acquérir l'ECG simulé, détecter, calculer la fréquence, cadencer par timer, stimuler avec une LED, envoyer les données au PC, surveiller par watchdog. Voici le programme qui réunit les briques des parties précédentes, prêt à téléverser sur une seule carte ESP32, puis ce que le rapport doit contenir.</p>
+
+<h4>Le montage</h4>
+<div class="tableau"><table>
+<tr><th>Broche</th><th>Rôle</th><th>Câblage</th></tr>
+<tr><td>GPIO 25 (DAC1)</td><td>sortie de l'ECG de test</td><td>un fil vers GPIO 34</td></tr>
+<tr><td>GPIO 34 (ADC1_CH6)</td><td>entrée de l'ECG (question 32)</td><td>le fil venant de GPIO 25, ou un générateur externe (0 à 3,3 V)</td></tr>
+<tr><td>GPIO 2</td><td>LED de stimulation (question 36)</td><td>LED bleue de la carte, rien à câbler</td></tr>
+<tr><td>GPIO 4</td><td>LED « battement détecté »</td><td>LED et résistance de 330 Ω vers la masse</td></tr>
+<tr><td>GPIO 35 (ADC1_CH7)</td><td>batterie</td><td>milieu d'un pont 100 kΩ / 100 kΩ</td></tr>
+<tr><td>USB (UART0)</td><td>données vers le PC (question 37), commandes</td><td>câble micro-USB, 115 200 bauds</td></tr>
+</table></div>
+
+<h4>L'ECG de test</h4>
+<p>Pour tester sans générateur, l'ESP32 fabrique elle-même un ECG simplifié sur son DAC (8 bits, 0 à 255 pour 0 à 3,3 V), à la fréquence <code>frequenceTest</code> :</p>
+<ul>
+<li>une ligne de base vers 1 V (code 77) ;</li>
+<li>une onde R pointue de 20 ms qui monte à 2,55 V (code 197) ;</li>
+<li>une onde T arrondie, 250 ms après, qui monte à 1,5 V (code 117).</li>
+</ul>
+<p>Avec <code>T0</code>, le cœur simulé s'arrête : la maquette doit alors stimuler à la fréquence cible. Avec <code>T45</code> et une fréquence cible de 60 bpm, le cœur bat trop lentement : la maquette stimule entre ses battements propres.</p>
+
+<h4>Le programme</h4>
+<pre class="code" data-titre="pacemaker.ino : maquette de pacemaker VVI sur ESP32 (paquet ESP32 version 3)"><code>// Pacemaker simulé, mode VVI : stimule si aucun battement n'est détecté pendant l'intervalle d'échappement.
+#include &lt;esp_task_wdt.h&gt;
+
+// ---------- broches ----------
+const int PIN_DAC  = 25;   // ECG de test (DAC1), relié à GPIO 34
+const int PIN_ECG  = 34;   // ECG simulé (ADC1_CH6)
+const int PIN_STIM = 2;    // LED de stimulation
+const int PIN_DET  = 4;    // LED battement détecté
+const int PIN_BAT  = 35;   // batterie, pont diviseur par 2 (ADC1_CH7)
+
+// ---------- paramètres réglables (interface série) ----------
+int frequenceCible = 60;   // bpm : intervalle d'échappement 1000 ms
+int seuil = 2500;          // code ADC de détection de l'onde R
+int refractaire = 250;     // ms
+int frequenceTest = 70;    // bpm de l'ECG de test ; 0 = cœur arrêté
+const int HYSTERESIS = 200;
+const unsigned long INTERVALLE_MIN = 333;   // garde-fou : 180 bpm au plus
+const float SEUIL_BAT = 3.5;                // V
+
+// ---------- timers (question 35) ----------
+hw_timer_t *timerEch = NULL;    // 2 ms : 500 échantillons par seconde
+hw_timer_t *timerStim = NULL;   // intervalle d'échappement
+volatile bool tickEch = false;
+volatile bool tickStim = false;
+void IRAM_ATTR onEch()  { tickEch = true; }
+void IRAM_ATTR onStim() { tickStim = true; }
+
+// ---------- état ----------
+unsigned long dernierEvt = 0;   // ms : dernier battement, détecté ou stimulé
+unsigned long dernierR = 0;     // ms : dernier battement détecté
+unsigned long rr = 0;           // ms
+float bpm = 0;
+bool auDessus = false;
+unsigned long finStim = 0, finDet = 0, dernierBilan = 0;
+int nbStim = 0, stimulationsDeSuite = 0;
+int vMin = 4095, vMax = 0;
+float vBat = 0;
+unsigned long phase = 0;        // ms dans le battement de l'ECG de test
+
+// ---------- ECG de test sur le DAC ----------
+void genererECG() {
+  int code = 77;                                   // ligne de base, environ 1 V
+  if (frequenceTest > 0) {
+    unsigned long periode = 60000UL / frequenceTest;
+    phase += 2;
+    if (phase >= periode) phase = 0;
+    if (phase &lt; 10) code = 77 + phase * 12;               // montée de l'onde R
+    else if (phase &lt; 20) code = 197 - (phase - 10) * 12;  // descente
+    else if (phase >= 250 &amp;&amp; phase &lt; 350) {               // onde T
+      int d = abs((int)phase - 300);
+      code = 117 - d * 40 / 50;
+    }
+  }
+  dacWrite(PIN_DAC, code);
+}
+
+// ---------- réglage de la fréquence cible ----------
+void reglerFrequence(int f) {
+  frequenceCible = f;
+  timerAlarm(timerStim, 60000000UL / f, true, 0);   // en µs
+  timerWrite(timerStim, 0);
+}
+
+// ---------- détection (questions 33 et 34) ----------
+bool detecter(int v, unsigned long t) {
+  if (t - dernierEvt &lt; (unsigned long)refractaire) return false;
+  if (!auDessus &amp;&amp; v > seuil) { auDessus = true; return true; }
+  if (auDessus &amp;&amp; v &lt; seuil - HYSTERESIS) auDessus = false;
+  return false;
+}
+
+void battementDetecte(unsigned long t) {
+  if (dernierR != 0) {
+    rr = t - dernierR;
+    bpm = 60000.0 / rr;                            // question 34
+  }
+  dernierR = t;
+  dernierEvt = t;
+  stimulationsDeSuite = 0;
+  timerWrite(timerStim, 0);                        // stimulation inhibée
+  tickStim = false;
+  digitalWrite(PIN_DET, HIGH);
+  finDet = t + 20;
+  Serial.printf("R,%lu,%lu,%.1f\n", t, rr, bpm);   // question 37
+}
+
+// ---------- stimulation (question 36) ----------
+void stimuler(unsigned long t) {
+  if (t - dernierEvt &lt; INTERVALLE_MIN) return;    // garde-fou
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;                                // LED allumée 20 ms
+  dernierEvt = t;
+  nbStim++;
+  stimulationsDeSuite++;
+  Serial.printf("S,%lu\n", t);
+}
+
+// ---------- surveillance du signal ----------
+void surveillerECG(int v, unsigned long t) {
+  vMin = min(vMin, v);
+  vMax = max(vMax, v);
+  if (t - dernierBilan &lt; 2000) return;
+  if (vMax - vMin &lt; 100) Serial.println("ALERTE,signal plat");
+  if (vMin &lt;= 0 || vMax >= 4095) Serial.println("ALERTE,saturation");
+  if (stimulationsDeSuite > 5) Serial.println("ALERTE,pas de rythme propre");
+  vBat = 2.0 * analogRead(PIN_BAT) * 3.3 / 4095.0;
+  if (vBat &lt; SEUIL_BAT) Serial.printf("ALERTE,batterie,%.2f\n", vBat);
+  Serial.printf("ETAT,%d,%.1f,%d,%.2f\n", frequenceCible, bpm, nbStim, vBat);
+  vMin = 4095; vMax = 0;
+  dernierBilan = t;
+}
+
+// ---------- commandes série (question 21) ----------
+void lireSerie() {
+  if (!Serial.available()) return;
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+  if (cmd.length() == 0) return;
+  char c = cmd.charAt(0);
+  long val = cmd.substring(1).toInt();
+  if (c == 'F' &amp;&amp; val >= 30 &amp;&amp; val &lt;= 180) reglerFrequence(val);
+  else if (c == 'S' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 4000) seuil = val;
+  else if (c == 'R' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 500) refractaire = val;
+  else if (c == 'T' &amp;&amp; val >= 0 &amp;&amp; val &lt;= 200) frequenceTest = val;
+  else if (c != '?') { Serial.println("ERREUR,commande refusee"); return; }
+  Serial.printf("PARAM,F=%d,S=%d,R=%d,T=%d\n", frequenceCible, seuil, refractaire, frequenceTest);
+}
+
+// ---------- démarrage ----------
+void setup() {
+  Serial.begin(115200);
+  if (esp_reset_reason() == ESP_RST_TASK_WDT) Serial.println("ALERTE,redemarrage par le watchdog");
+  pinMode(PIN_STIM, OUTPUT);
+  pinMode(PIN_DET, OUTPUT);
+  analogReadResolution(12);
+
+  timerEch = timerBegin(1000000);                  // 1 pas = 1 µs
+  timerAttachInterrupt(timerEch, &amp;onEch);
+  timerAlarm(timerEch, 2000, true, 0);             // toutes les 2 ms
+  timerStim = timerBegin(1000000);
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  reglerFrequence(frequenceCible);
+
+  esp_task_wdt_config_t config = { .timeout_ms = 2000, .idle_core_mask = 0, .trigger_panic = true };
+  esp_task_wdt_reconfigure(&amp;config);              // question 38
+  esp_task_wdt_add(NULL);
+  Serial.println("PRET,mode VVI");
+}
+
+// ---------- boucle ----------
+void loop() {
+  unsigned long t = millis();
+  if (tickEch) {                                   // question 32 : un échantillon toutes les 2 ms
+    tickEch = false;
+    genererECG();
+    int v = analogRead(PIN_ECG);
+    surveillerECG(v, t);
+    if (detecter(v, t)) battementDetecte(t);       // question 33
+    esp_task_wdt_reset();                          // nourri seulement si un échantillon a été traité
+  }
+  if (tickStim) {                                  // intervalle écoulé sans battement
+    tickStim = false;
+    stimuler(t);
+  }
+  if (finStim != 0 &amp;&amp; t >= finStim) { digitalWrite(PIN_STIM, LOW); finStim = 0; }
+  if (finDet != 0 &amp;&amp; t >= finDet) { digitalWrite(PIN_DET, LOW); finDet = 0; }
+  lireSerie();
+}</code></pre>
+
+<h4>Ce que fait chaque question dans le programme</h4>
+<div class="tableau"><table>
+<tr><th>Question</th><th>Où</th></tr>
+<tr><td>32. Acquérir l'ECG avec l'ADC</td><td><code>analogRead(PIN_ECG)</code> toutes les 2 ms, cadencé par <code>timerEch</code></td></tr>
+<tr><td>33. Détecter les battements</td><td><code>detecter()</code> : seuil, période réfractaire, hystérésis</td></tr>
+<tr><td>34. Fréquence cardiaque</td><td><code>battementDetecte()</code> : \(f_C = 60\,000 / RR\), envoyée à chaque battement</td></tr>
+<tr><td>35. Base de temps par timer</td><td><code>timerEch</code> (2 ms) et <code>timerStim</code> (intervalle d'échappement)</td></tr>
+<tr><td>36. Impulsion par une LED</td><td><code>stimuler()</code> : GPIO 2 allumée 20 ms</td></tr>
+<tr><td>37. Données vers le PC</td><td>lignes <code>R</code>, <code>S</code>, <code>ETAT</code>, <code>ALERTE</code> sur l'UART, séparées par des virgules</td></tr>
+<tr><td>38. Watchdog</td><td>délai 2 s, remis à zéro après chaque échantillon traité, cause du redémarrage affichée</td></tr>
+</table></div>
+<p>Les lignes envoyées, séparées par des virgules, se collent telles quelles dans un tableur ou dans le traceur série de l'Arduino IDE : ce sont les <strong>traces de tests</strong> demandées par les livrables.</p>
+<pre class="code" data-titre="Ce qu'affiche le moniteur série (ECG de test à 70 bpm, puis T0)"><code>PRET,mode VVI
+R,1302,0,0.0
+R,2160,858,69.9
+R,3018,858,69.9
+ETAT,60,69.9,0,3.92
+PARAM,F=60,S=2500,R=250,T=0
+S,4018
+S,5018
+ALERTE,signal plat</code></pre>
+<p>Avec <code>T0</code>, plus aucune onde R : une stimulation part 1 000 ms après le dernier battement, puis toutes les 1 000 ms (60 bpm). L'intervalle RR de 858 ms vient de l'ECG de test : \(60\,000 / 70 \approx 857\) ms, arrondi au pas de 2 ms. Les instants exacts dépendent du démarrage.</p>
+<p>Deux limites à écrire dans le rapport :</p>
+<ul>
+<li>le compteur <code>phase</code> de l'ECG de test est arrondi à 2 ms : la fréquence de test réelle est à 2 ms près ;</li>
+<li>la LED dure 20 ms pour être vue ; une vraie impulsion dure moins d'une milliseconde et son amplitude se règle (D/A).</li>
+</ul>
+
+<h4>Compiler et téléverser</h4>
+<ul>
+<li>Arduino IDE, paquet <strong>esp32</strong> d'Espressif en version 3 (les fonctions <code>timerBegin(fréquence)</code>, <code>timerAlarm</code> et <code>esp_task_wdt_reconfigure</code> n'existent pas en version 2) ;</li>
+<li>carte <strong>DOIT ESP32 DEVKIT V1</strong>, port de la carte, puis Téléverser ;</li>
+<li>moniteur série à 115 200 bauds, fin de ligne « Nouvelle ligne » pour les commandes.</li>
+</ul>
+
+<h4>Les livrables</h4>
+<p>Le <strong>rapport de synthèse</strong> contient, d'après le sujet :</p>
+<div class="tableau"><table>
+<tr><th>Partie du rapport</th><th>Où le trouver ici</th></tr>
+<tr><td>schéma fonctionnel de la maquette et tableau d'affectation des broches ESP32</td><td>questions 9 et 10, montage ci-dessus</td></tr>
+<tr><td>organigramme ou diagramme d'états de l'algorithme</td><td>question 17</td></tr>
+<tr><td>code source commenté et procédure de compilation</td><td>programme et compilation ci-dessus</td></tr>
+<tr><td>traces de tests : ECG simulé, événements détectés, intervalles RR, impulsions simulées</td><td>lignes envoyées sur le moniteur série</td></tr>
+<tr><td>résultats, limites, améliorations possibles</td><td>limites ci-dessus ; améliorations : interface web ou MQTT (questions 23 à 25), surveillance de la batterie (questions 27 à 29)</td></tr>
+</table></div>
+<p>Les autres livrables :</p>
+<ul>
+<li>une <strong>présentation orale</strong>, avec une vidéo de synthèse préparée à l'avance ;</li>
+<li>les <strong>fichiers de programmes</strong> ;</li>
+<li>la <strong>maquette de test</strong> sur ESP32, avec les instruments de laboratoire : un oscilloscope sur GPIO 25 (ECG) et GPIO 2 (stimulation) montre les deux signaux ensemble.</li>
+</ul>
+<p>Le sujet demande aussi le sous-système SS2, la supervision connectée : l'interface web de la question 23, ou un flux Node-RED qui reçoit <code>pacemaker/etat</code> en MQTT (lab 1), ou un channel ThingSpeak (labs 3 et 4).</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Une seule carte : le DAC fabrique l'ECG, l'ADC le relit, deux timers donnent le temps, deux LED montrent détection et stimulation.</li>
+<li>Toute la logique VVI : battement détecté, le timer de stimulation repart de 0 ; alarme du timer, on stimule.</li>
+<li>Les lignes série sont les traces de tests du rapport.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="pacemaker-programme"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../dessins.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/pacemaker-visuels.js"></script>
+</body>
+</html>

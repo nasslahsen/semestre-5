@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le programme complet et les livrables · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le programme complet et les livrables</h1>
+<p class="chapeau">Les questions 32 à 38 demandent de réaliser la maquette : acquérir l'ECG simulé, détecter, calculer la fréquence, cadencer par timer, stimuler avec une LED, envoyer les données au PC, surveiller par watchdog. Voici le programme qui réunit les briques des parties précédentes, prêt à téléverser sur une seule carte ESP32, puis ce que le rapport doit contenir.</p>
+
+<h2>Le montage</h2>
+<div class="tableau"><table>
+<tr><th>Broche</th><th>Rôle</th><th>Câblage</th></tr>
+<tr><td>GPIO 25 (DAC1)</td><td>sortie de l'ECG de test</td><td>un fil vers GPIO 34</td></tr>
+<tr><td>GPIO 34 (ADC1_CH6)</td><td>entrée de l'ECG (question 32)</td><td>le fil venant de GPIO 25, ou un générateur externe (0 à 3,3 V)</td></tr>
+<tr><td>GPIO 2</td><td>LED de stimulation (question 36)</td><td>LED bleue de la carte, rien à câbler</td></tr>
+<tr><td>GPIO 4</td><td>LED « battement détecté »</td><td>LED et résistance de 330 Ω vers la masse</td></tr>
+<tr><td>GPIO 35 (ADC1_CH7)</td><td>batterie</td><td>milieu d'un pont 100 kΩ / 100 kΩ</td></tr>
+<tr><td>USB (UART0)</td><td>données vers le PC (question 37), commandes</td><td>câble micro-USB, 115 200 bauds</td></tr>
+</table></div>
+
+<h2>L'ECG de test</h2>
+<p>Pour tester sans générateur, l'ESP32 fabrique elle-même un ECG simplifié sur son DAC (8 bits, 0 à 255 pour 0 à 3,3 V), à la fréquence <code>frequenceTest</code> :</p>
+<ul>
+<li>une ligne de base vers 1 V (code 77) ;</li>
+<li>une onde R pointue de 20 ms qui monte à 2,55 V (code 197) ;</li>
+<li>une onde T arrondie, 250 ms après, qui monte à 1,5 V (code 117).</li>
+</ul>
+<p>Avec <code>T0</code>, le cœur simulé s'arrête : la maquette doit alors stimuler à la fréquence cible. Avec <code>T45</code> et une fréquence cible de 60 bpm, le cœur bat trop lentement : la maquette stimule entre ses battements propres.</p>
+
+<h2>Le programme</h2>
+<pre class="code" data-titre="pacemaker.ino : maquette de pacemaker VVI sur ESP32 (paquet ESP32 version 3)"><code>// Pacemaker simulé, mode VVI : stimule si aucun battement n'est détecté pendant l'intervalle d'échappement.
+#include &lt;esp_task_wdt.h&gt;
+
+// ---------- broches ----------
+const int PIN_DAC  = 25;   // ECG de test (DAC1), relié à GPIO 34
+const int PIN_ECG  = 34;   // ECG simulé (ADC1_CH6)
+const int PIN_STIM = 2;    // LED de stimulation
+const int PIN_DET  = 4;    // LED battement détecté
+const int PIN_BAT  = 35;   // batterie, pont diviseur par 2 (ADC1_CH7)
+
+// ---------- paramètres réglables (interface série) ----------
+int frequenceCible = 60;   // bpm : intervalle d'échappement 1000 ms
+int seuil = 2500;          // code ADC de détection de l'onde R
+int refractaire = 250;     // ms
+int frequenceTest = 70;    // bpm de l'ECG de test ; 0 = cœur arrêté
+const int HYSTERESIS = 200;
+const unsigned long INTERVALLE_MIN = 333;   // garde-fou : 180 bpm au plus
+const float SEUIL_BAT = 3.5;                // V
+
+// ---------- timers (question 35) ----------
+hw_timer_t *timerEch = NULL;    // 2 ms : 500 échantillons par seconde
+hw_timer_t *timerStim = NULL;   // intervalle d'échappement
+volatile bool tickEch = false;
+volatile bool tickStim = false;
+void IRAM_ATTR onEch()  { tickEch = true; }
+void IRAM_ATTR onStim() { tickStim = true; }
+
+// ---------- état ----------
+unsigned long dernierEvt = 0;   // ms : dernier battement, détecté ou stimulé
+unsigned long dernierR = 0;     // ms : dernier battement détecté
+unsigned long rr = 0;           // ms
+float bpm = 0;
+bool auDessus = false;
+unsigned long finStim = 0, finDet = 0, dernierBilan = 0;
+int nbStim = 0, stimulationsDeSuite = 0;
+int vMin = 4095, vMax = 0;
+float vBat = 0;
+unsigned long phase = 0;        // ms dans le battement de l'ECG de test
+
+// ---------- ECG de test sur le DAC ----------
+void genererECG() {
+  int code = 77;                                   // ligne de base, environ 1 V
+  if (frequenceTest > 0) {
+    unsigned long periode = 60000UL / frequenceTest;
+    phase += 2;
+    if (phase >= periode) phase = 0;
+    if (phase &lt; 10) code = 77 + phase * 12;               // montée de l'onde R
+    else if (phase &lt; 20) code = 197 - (phase - 10) * 12;  // descente
+    else if (phase >= 250 &amp;&amp; phase &lt; 350) {               // onde T
+      int d = abs((int)phase - 300);
+      code = 117 - d * 40 / 50;
+    }
+  }
+  dacWrite(PIN_DAC, code);
+}
+
+// ---------- réglage de la fréquence cible ----------
+void reglerFrequence(int f) {
+  frequenceCible = f;
+  timerAlarm(timerStim, 60000000UL / f, true, 0);   // en µs
+  timerWrite(timerStim, 0);
+}
+
+// ---------- détection (questions 33 et 34) ----------
+bool detecter(int v, unsigned long t) {
+  if (t - dernierEvt &lt; (unsigned long)refractaire) return false;
+  if (!auDessus &amp;&amp; v > seuil) { auDessus = true; return true; }
+  if (auDessus &amp;&amp; v &lt; seuil - HYSTERESIS) auDessus = false;
+  return false;
+}
+
+void battementDetecte(unsigned long t) {
+  if (dernierR != 0) {
+    rr = t - dernierR;
+    bpm = 60000.0 / rr;                            // question 34
+  }
+  dernierR = t;
+  dernierEvt = t;
+  stimulationsDeSuite = 0;
+  timerWrite(timerStim, 0);                        // stimulation inhibée
+  tickStim = false;
+  digitalWrite(PIN_DET, HIGH);
+  finDet = t + 20;
+  Serial.printf("R,%lu,%lu,%.1f\n", t, rr, bpm);   // question 37
+}
+
+// ---------- stimulation (question 36) ----------
+void stimuler(unsigned long t) {
+  if (t - dernierEvt &lt; INTERVALLE_MIN) return;    // garde-fou
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;                                // LED allumée 20 ms
+  dernierEvt = t;
+  nbStim++;
+  stimulationsDeSuite++;
+  Serial.printf("S,%lu\n", t);
+}
+
+// ---------- surveillance du signal ----------
+void surveillerECG(int v, unsigned long t) {
+  vMin = min(vMin, v);
+  vMax = max(vMax, v);
+  if (t - dernierBilan &lt; 2000) return;
+  if (vMax - vMin &lt; 100) Serial.println("ALERTE,signal plat");
+  if (vMin &lt;= 0 || vMax >= 4095) Serial.println("ALERTE,saturation");
+  if (stimulationsDeSuite > 5) Serial.println("ALERTE,pas de rythme propre");
+  vBat = 2.0 * analogRead(PIN_BAT) * 3.3 / 4095.0;
+  if (vBat &lt; SEUIL_BAT) Serial.printf("ALERTE,batterie,%.2f\n", vBat);
+  Serial.printf("ETAT,%d,%.1f,%d,%.2f\n", frequenceCible, bpm, nbStim, vBat);
+  vMin = 4095; vMax = 0;
+  dernierBilan = t;
+}
+
+// ---------- commandes série (question 21) ----------
+void lireSerie() {
+  if (!Serial.available()) return;
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+  if (cmd.length() == 0) return;
+  char c = cmd.charAt(0);
+  long val = cmd.substring(1).toInt();
+  if (c == 'F' &amp;&amp; val >= 30 &amp;&amp; val &lt;= 180) reglerFrequence(val);
+  else if (c == 'S' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 4000) seuil = val;
+  else if (c == 'R' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 500) refractaire = val;
+  else if (c == 'T' &amp;&amp; val >= 0 &amp;&amp; val &lt;= 200) frequenceTest = val;
+  else if (c != '?') { Serial.println("ERREUR,commande refusee"); return; }
+  Serial.printf("PARAM,F=%d,S=%d,R=%d,T=%d\n", frequenceCible, seuil, refractaire, frequenceTest);
+}
+
+// ---------- démarrage ----------
+void setup() {
+  Serial.begin(115200);
+  if (esp_reset_reason() == ESP_RST_TASK_WDT) Serial.println("ALERTE,redemarrage par le watchdog");
+  pinMode(PIN_STIM, OUTPUT);
+  pinMode(PIN_DET, OUTPUT);
+  analogReadResolution(12);
+
+  timerEch = timerBegin(1000000);                  // 1 pas = 1 µs
+  timerAttachInterrupt(timerEch, &amp;onEch);
+  timerAlarm(timerEch, 2000, true, 0);             // toutes les 2 ms
+  timerStim = timerBegin(1000000);
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  reglerFrequence(frequenceCible);
+
+  esp_task_wdt_config_t config = { .timeout_ms = 2000, .idle_core_mask = 0, .trigger_panic = true };
+  esp_task_wdt_reconfigure(&amp;config);              // question 38
+  esp_task_wdt_add(NULL);
+  Serial.println("PRET,mode VVI");
+}
+
+// ---------- boucle ----------
+void loop() {
+  unsigned long t = millis();
+  if (tickEch) {                                   // question 32 : un échantillon toutes les 2 ms
+    tickEch = false;
+    genererECG();
+    int v = analogRead(PIN_ECG);
+    surveillerECG(v, t);
+    if (detecter(v, t)) battementDetecte(t);       // question 33
+    esp_task_wdt_reset();                          // nourri seulement si un échantillon a été traité
+  }
+  if (tickStim) {                                  // intervalle écoulé sans battement
+    tickStim = false;
+    stimuler(t);
+  }
+  if (finStim != 0 &amp;&amp; t >= finStim) { digitalWrite(PIN_STIM, LOW); finStim = 0; }
+  if (finDet != 0 &amp;&amp; t >= finDet) { digitalWrite(PIN_DET, LOW); finDet = 0; }
+  lireSerie();
+}</code></pre>
+
+<h2>Ce que fait chaque question dans le programme</h2>
+<div class="tableau"><table>
+<tr><th>Question</th><th>Où</th></tr>
+<tr><td>32. Acquérir l'ECG avec l'ADC</td><td><code>analogRead(PIN_ECG)</code> toutes les 2 ms, cadencé par <code>timerEch</code></td></tr>
+<tr><td>33. Détecter les battements</td><td><code>detecter()</code> : seuil, période réfractaire, hystérésis</td></tr>
+<tr><td>34. Fréquence cardiaque</td><td><code>battementDetecte()</code> : \(f_C = 60\,000 / RR\), envoyée à chaque battement</td></tr>
+<tr><td>35. Base de temps par timer</td><td><code>timerEch</code> (2 ms) et <code>timerStim</code> (intervalle d'échappement)</td></tr>
+<tr><td>36. Impulsion par une LED</td><td><code>stimuler()</code> : GPIO 2 allumée 20 ms</td></tr>
+<tr><td>37. Données vers le PC</td><td>lignes <code>R</code>, <code>S</code>, <code>ETAT</code>, <code>ALERTE</code> sur l'UART, séparées par des virgules</td></tr>
+<tr><td>38. Watchdog</td><td>délai 2 s, remis à zéro après chaque échantillon traité, cause du redémarrage affichée</td></tr>
+</table></div>
+<p>Les lignes envoyées, séparées par des virgules, se collent telles quelles dans un tableur ou dans le traceur série de l'Arduino IDE : ce sont les <strong>traces de tests</strong> demandées par les livrables.</p>
+<pre class="code" data-titre="Ce qu'affiche le moniteur série (ECG de test à 70 bpm, puis T0)"><code>PRET,mode VVI
+R,1302,0,0.0
+R,2160,858,69.9
+R,3018,858,69.9
+ETAT,60,69.9,0,3.92
+PARAM,F=60,S=2500,R=250,T=0
+S,4018
+S,5018
+ALERTE,signal plat</code></pre>
+<p>Avec <code>T0</code>, plus aucune onde R : une stimulation part 1 000 ms après le dernier battement, puis toutes les 1 000 ms (60 bpm). L'intervalle RR de 858 ms vient de l'ECG de test : \(60\,000 / 70 \approx 857\) ms, arrondi au pas de 2 ms. Les instants exacts dépendent du démarrage.</p>
+<p>Deux limites à écrire dans le rapport :</p>
+<ul>
+<li>le compteur <code>phase</code> de l'ECG de test est arrondi à 2 ms : la fréquence de test réelle est à 2 ms près ;</li>
+<li>la LED dure 20 ms pour être vue ; une vraie impulsion dure moins d'une milliseconde et son amplitude se règle (D/A).</li>
+</ul>
+
+<h2>Compiler et téléverser</h2>
+<ul>
+<li>Arduino IDE, paquet <strong>esp32</strong> d'Espressif en version 3 (les fonctions <code>timerBegin(fréquence)</code>, <code>timerAlarm</code> et <code>esp_task_wdt_reconfigure</code> n'existent pas en version 2) ;</li>
+<li>carte <strong>DOIT ESP32 DEVKIT V1</strong>, port de la carte, puis Téléverser ;</li>
+<li>moniteur série à 115 200 bauds, fin de ligne « Nouvelle ligne » pour les commandes.</li>
+</ul>
+
+<h2>Les livrables</h2>
+<p>Le <strong>rapport de synthèse</strong> contient, d'après le sujet :</p>
+<div class="tableau"><table>
+<tr><th>Partie du rapport</th><th>Où le trouver ici</th></tr>
+<tr><td>schéma fonctionnel de la maquette et tableau d'affectation des broches ESP32</td><td>questions 9 et 10, montage ci-dessus</td></tr>
+<tr><td>organigramme ou diagramme d'états de l'algorithme</td><td>question 17</td></tr>
+<tr><td>code source commenté et procédure de compilation</td><td>programme et compilation ci-dessus</td></tr>
+<tr><td>traces de tests : ECG simulé, événements détectés, intervalles RR, impulsions simulées</td><td>lignes envoyées sur le moniteur série</td></tr>
+<tr><td>résultats, limites, améliorations possibles</td><td>limites ci-dessus ; améliorations : interface web ou MQTT (questions 23 à 25), surveillance de la batterie (questions 27 à 29)</td></tr>
+</table></div>
+<p>Les autres livrables :</p>
+<ul>
+<li>une <strong>présentation orale</strong>, avec une vidéo de synthèse préparée à l'avance ;</li>
+<li>les <strong>fichiers de programmes</strong> ;</li>
+<li>la <strong>maquette de test</strong> sur ESP32, avec les instruments de laboratoire : un oscilloscope sur GPIO 25 (ECG) et GPIO 2 (stimulation) montre les deux signaux ensemble.</li>
+</ul>
+<p>Le sujet demande aussi le sous-système SS2, la supervision connectée : l'interface web de la question 23, ou un flux Node-RED qui reçoit <code>pacemaker/etat</code> en MQTT (lab 1), ou un channel ThingSpeak (labs 3 et 4).</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Une seule carte : le DAC fabrique l'ECG, l'ADC le relit, deux timers donnent le temps, deux LED montrent détection et stimulation.</li>
+<li>Toute la logique VVI : battement détecté, le timer de stimulation repart de 0 ; alarme du timer, on stimule.</li>
+<li>Les lignes série sont les traces de tests du rapport.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+</body>
+</html>

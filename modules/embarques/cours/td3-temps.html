@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les contraintes temporelles · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les contraintes temporelles</h1>
+<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Le calcul tient en une ligne, à condition de voir le temps se partager.</p>
+
+<h2>La situation</h2>
+<div class="tableau"><table>
+<tr><th>Donnée</th><th>Valeur</th></tr>
+<tr><td>Durée de la boucle principale, sans interruption</td><td>50 ms</td></tr>
+<tr><td>Période de l'interruption</td><td>\(T = 10\) ms</td></tr>
+<tr><td>Réglage par défaut</td><td>pendant la routine d'interruption, une nouvelle interruption est <strong>bloquée</strong> (elle attend la fin de la routine)</td></tr>
+</table></div>
+<p><strong>Ce qu'il faut savoir.</strong> Le processeur ne fait qu'une chose à la fois. Pendant que la routine d'interruption tourne, la boucle principale est arrêtée. Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur ; il reste \(1 - t / T\) pour la boucle.</p>
+<div id="fig-td3-temps"></div>
+
+<h2>a) La durée maximale tmax</h2>
+<p><strong>Réponse.</strong> La routine doit être finie avant l'interruption suivante, donc durer moins d'une période :</p>
+\[t_{max} = T = 10\ \text{ms}\]
+
+<h2>b) Si la routine dure exactement tmax</h2>
+<p><strong>Réponse.</strong> Dès qu'une routine se termine, l'interruption suivante arrive : le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé, même si les interruptions, elles, sont encore toutes servies.</p>
+
+<h2>c) Si la routine dure plus que tmax</h2>
+<p><strong>Réponse.</strong> Une nouvelle demande arrive alors que la routine n'est pas finie. Elle est bloquée : elle attend, et la routine suivante démarre en retard.</p>
+<ul>
+<li>Le retard s'accumule à chaque période : les demandes en attente se recouvrent, et comme le drapeau d'interruption ne mémorise qu'une demande, certaines sont <strong>perdues</strong>.</li>
+<li>La boucle principale ne s'exécute toujours plus.</li>
+<li>La tâche périodique (une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
+</ul>
+
+<h2>d) Si la routine réarme les interruptions</h2>
+<p><strong>Réponse.</strong> Cette fois, la nouvelle demande <strong>interrompt la routine en cours</strong> : une deuxième routine démarre par-dessus la première, puis une troisième par-dessus la deuxième, et ainsi de suite (interruptions imbriquées).</p>
+<ul>
+<li>Chaque interruption sauvegarde son contexte (adresse de retour, registres) sur la <strong>pile</strong> : la pile grossit à chaque période.</li>
+<li>Aucune routine ne finit jamais, la boucle principale ne reprend jamais.</li>
+<li>La pile finit par déborder (stack overflow) : le programme écrase d'autres données en mémoire et <strong>plante</strong>. Sur l'ESP32, c'est un redémarrage.</li>
+</ul>
+
+<h2>e) La routine dure 4 ms</h2>
+<p><strong>Réponse.</strong> Sur chaque période de 10 ms, la routine prend 4 ms et la boucle principale 6 ms. La boucle n'avance que pendant 60 % du temps.</p>
+\[\text{fraction pour la boucle} = 1 - \frac{t}{T}\]
+\[\text{fraction pour la boucle} = 1 - \frac{4}{10}\]
+\[\text{fraction pour la boucle} = 0{,}6\]
+<p>Il lui faut toujours 50 ms de calcul :</p>
+\[t_{boucle} = \frac{50}{1 - t / T}\]
+\[t_{boucle} = \frac{50}{0{,}6}\]
+\[t_{boucle} \approx 83{,}3\ \text{ms}\]
+<p>Vérification : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9, selon l'instant où le tour commence : \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur un grand nombre de tours, la moyenne vaut bien <strong>83,3 ms</strong>.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>La routine d'interruption doit durer moins que la période : \(t_{max} = T\).</li>
+<li>Durée moyenne de la boucle : \(t_{boucle} = t_0 / (1 - t / T)\).</li>
+<li>Routine trop longue : boucle bloquée, interruptions perdues ; avec réarmement, imbrication et débordement de pile.</li>
+<li>D'où la règle des TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td3-visuels.js"></script>
+</body>
+</html>

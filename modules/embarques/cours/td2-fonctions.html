@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Les quatre fonctions de base · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Les quatre fonctions de base</h1>
+<p class="chapeau">Avant d'enchaîner les mesures, il faut quatre briques : préparer les broches, choisir un capteur, lire sa tension, retrouver sa résistance. Chacune tient en quelques lignes et sert ensuite partout.</p>
+
+<h2>Le début du programme : les noms des broches</h2>
+<p>On donne un nom à chaque broche et à chaque valeur du montage, une fois pour toutes. Changer de broche ne demande alors de toucher qu'une ligne.</p>
+<pre class="code" data-titre="Constantes (broches de la question 1)"><code>const int S1 = 25;            // P1.0 : bit de poids faible du multiplexeur
+const int S2 = 26;            // P1.1
+const int S3 = 27;            // P1.2 : bit de poids fort
+const int AIN1 = 34;          // VA du premier réseau (ADC1_CH6)
+
+const float VDD = 3.3;        // V
+const float RA = 110000.0;    // ohms
+const float RB = 10000.0;
+const float RG = 750000.0;
+const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0,275 V</code></pre>
+
+<h2>configSensors() : configurer les broches</h2>
+<p><strong>On te demande.</strong> Configure les broches de sélection des capteurs.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li><code>pinMode(broche, OUTPUT)</code> fait d'une GPIO une sortie, <code>digitalWrite(broche, HIGH ou LOW)</code> y écrit 3,3 V ou 0 V.</li>
+<li>Une broche analogique n'a pas besoin de <code>pinMode</code> pour <code>analogRead</code>. On peut fixer la résolution de l'ADC avec <code>analogReadResolution(12)</code> : 12 bits est déjà la valeur par défaut sur l'ESP32, l'écrire rend le programme clair.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="configSensors()"><code>void configSensors() {
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  analogReadResolution(12);   // codes de 0 à 4095
+  selectSensor(0);            // départ sur Y0, rien n'est laissé au hasard
+}</code></pre>
+
+<h2>selectSensor(num) : choisir le capteur</h2>
+<p><strong>On te demande.</strong> Sélectionne le capteur dont le numéro est donné en argument, de Y0 à Y7.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Le multiplexeur relie \(Y_k\) à Z quand S3 S2 S1 écrit \(k\) en <strong>binaire</strong>, S1 étant le bit de poids faible.</li>
+<li>Le bit de rang \(i\) d'un entier se lit avec un <strong>décalage</strong> et un <strong>masque</strong> : <code>(num &gt;&gt; i) &amp; 1</code> vaut 0 ou 1.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>num</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+<tr><th>S3 S2 S1</th><td>000</td><td>001</td><td>010</td><td>011</td><td>100</td><td>101</td><td>110</td><td>111</td></tr>
+</table></div>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="selectSensor()"><code>void selectSensor(int num) {
+  digitalWrite(S1, (num >> 0) &amp; 1);   // bit 0
+  digitalWrite(S2, (num >> 1) &amp; 1);   // bit 1
+  digitalWrite(S3, (num >> 2) &amp; 1);   // bit 2
+}</code></pre>
+<p>Exemple : <code>selectSensor(6)</code>. 6 s'écrit 110 : S1 = 0, S2 = 1, S3 = 1, le capteur Y6 (\(R_{FSR7}\)) est relié à Z.</p>
+
+<h2>sensorAcquisition(num) : lire le code ADC</h2>
+<p><strong>On te demande.</strong> Lis et renvoie la valeur numérique sur 12 bits de la tension AIN1 pour le capteur numéro <code>num</code>.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li><code>analogRead(broche)</code> renvoie le code de l'ADC : \(ADC\_OUT = 4095 \times ADC\_IN / 3{,}3\ \text{V}\).</li>
+<li>Après un changement de voie, \(V_A\) met un peu de temps à se stabiliser : le filtre \(R_G C_F\) demande environ \(5 R_G C_F\). Avec \(C_F = 470\) pF (la proposition du TD 1), cela fait 1,8 ms.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="sensorAcquisition()"><code>int sensorAcquisition(int num) {
+  selectSensor(num);
+  delay(2);                    // VA se stabilise (5 RG CF = 1,8 ms)
+  return analogRead(AIN1);     // code de 0 à 4095
+}</code></pre>
+<p>Sans l'attente, la première lecture donnerait encore un peu de la tension du capteur précédent.</p>
+
+<h2>rsensor(val) : retrouver la résistance</h2>
+<p><strong>On te demande.</strong> Calcule et renvoie la résistance du capteur à partir du code acquis <code>val</code>.</p>
+<p><strong>Ce qu'il faut savoir.</strong> On remonte le circuit à l'envers, en deux étapes :</p>
+<ul>
+<li>du code à la tension : \(V_A = val \times 3{,}3 / 4095\) ;</li>
+<li>de la tension à la résistance, en isolant \(R_{FSR}\) dans \(V_A = V^+ (1 + R_G / R_{FSR})\).</li>
+</ul>
+\[\frac{V_A}{V^+} = 1 + \frac{R_G}{R_{FSR}}\]
+\[R_{FSR} = \frac{R_G}{\dfrac{V_A}{V^+} - 1}\]
+<p>Si \(V_A \le V^+\), le dénominateur est nul ou négatif : aucun appui, la résistance est « infinie ». Le programme doit traiter ce cas au lieu de diviser par zéro.</p>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="rsensor()"><code>float rsensor(int val) {
+  float va = val * VDD / 4095.0;   // code -> tension (V)
+  if (va &lt;= VP) {
+    return INFINITY;               // pas d'appui : résistance infinie
+  }
+  return RG / (va / VP - 1.0);     // résistance du capteur (ohms)
+}</code></pre>
+<p>Attention au <code>4095.0</code> : écrit <code>4095</code>, le calcul <code>val * 3.3 / 4095</code> reste juste ici parce que 3.3 est déjà un réel, mais <code>val / 4095</code> seul serait une division entière qui vaut 0.</p>
+
+<h2>Un calcul complet, du code à la force</h2>
+<p>Le capteur Y2 renvoie le code 2048.</p>
+<p>Tension :</p>
+\[V_A = val \times \frac{3{,}3}{4095}\]
+\[V_A = 2048 \times \frac{3{,}3}{4095}\]
+\[V_A \approx 1{,}650\ \text{V}\]
+<p>Résistance :</p>
+\[R_{FSR} = \frac{R_G}{V_A / V^+ - 1}\]
+\[R_{FSR} = \frac{750}{1{,}650 / 0{,}275 - 1}\]
+\[R_{FSR} \approx 150\ \text{k}\Omega\]
+<p>Le TD ne le demande pas, mais le modèle du capteur donne aussi la force, en isolant \(F\) dans \(R_{FSR} = R_0 + \beta / F\) :</p>
+\[F = \frac{\beta}{R_{FSR} - R_0}\]
+\[F = \frac{629}{150 - 71}\]
+\[F \approx 8{,}0\ \text{N}\]
+<pre class="code" data-titre="En plus : la force (non demandée)"><code>float force(float r) {
+  const float BETA = 629000.0;   // ohms x newtons
+  const float R0 = 71000.0;      // ohms
+  if (r &lt;= R0) return INFINITY;  // hors du modèle
+  return BETA / (r - R0);        // newtons ; 0 si r est infinie
+}</code></pre>
+
+<h2>À retenir</h2>
+<ul>
+<li>Choisir \(Y_k\) : écrire les bits de \(k\) sur S1 (bit 0), S2 (bit 1), S3 (bit 2).</li>
+<li>Lire : sélectionner, attendre la stabilisation, puis <code>analogRead</code>.</li>
+<li>Du code à la résistance : \(V_A = val \times 3{,}3 / 4095\), puis \(R_{FSR} = R_G / (V_A / V^+ - 1)\), en traitant \(V_A \le V^+\).</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+</body>
+</html>

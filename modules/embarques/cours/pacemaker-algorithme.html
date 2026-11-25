@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La stimulation à la demande · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La stimulation à la demande</h1>
+<p class="chapeau">Un pacemaker ne stimule pas à l'aveugle. Il attend un battement pendant une durée fixée ; si le cœur bat de lui-même, il ne fait rien et recommence à attendre ; sinon, il stimule. Tout l'algorithme tient dans ce compte à rebours, remis à zéro à chaque battement.</p>
+
+<h2>Le principe demandé</h2>
+<ul>
+<li>une impulsion de stimulation simulée part si <strong>aucun événement cardiaque</strong> n'est détecté pendant une durée prédéfinie ;</li>
+<li>si un événement est détecté <strong>avant</strong> la fin de cette durée, la stimulation est <strong>inhibée</strong> ;</li>
+<li>le délai de stimulation est réglable.</li>
+</ul>
+<p>Cette durée s'appelle l'<strong>intervalle d'échappement</strong> : c'est la période de la fréquence la plus basse qu'on accepte. Pour une fréquence cible \(f\) en bpm :</p>
+\[T_{ech} = \frac{60\,000}{f}\quad (T_{ech} \text{ en ms})\]
+<div id="fig-pacemaker-vvi"></div>
+
+<h2>Question 17 : l'organigramme</h2>
+<p><strong>On te demande.</strong> Élabore l'organigramme de fonctionnement du circuit.</p>
+<p><strong>Réponse.</strong> Après l'initialisation, la boucle répète trois tests : un échantillon est-il prêt, un battement est-il détecté, l'intervalle est-il écoulé ?</p>
+<div class="schema" id="sc-pacemaker-organigramme"></div>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui se passe</th></tr>
+<tr><td>Initialisation</td><td>broches, ADC, deux timers (échantillonnage toutes les 2 ms, intervalle d'échappement), watchdog, liaison série</td></tr>
+<tr><td>Échantillon prêt ?</td><td>si le timer de 2 ms a levé son drapeau : lire l'ADC</td></tr>
+<tr><td>Battement détecté ?</td><td>oui (hors période réfractaire) : noter l'instant, calculer RR et la fréquence, <strong>remettre le compte à rebours à zéro</strong>, allumer la LED « détecté »</td></tr>
+<tr><td>Intervalle écoulé ?</td><td>oui : <strong>stimuler</strong> (LED de stimulation), noter l'instant, le compte repart</td></tr>
+<tr><td>Fin du tour</td><td>éteindre les LED à la fin de leur durée, lire les commandes série, nourrir le watchdog, puis recommencer</td></tr>
+</table></div>
+<p>On peut aussi le dessiner en <strong>diagramme d'états</strong> : « attente » (le compte tourne), « réfractaire » (on n'écoute pas), avec deux transitions vers « réfractaire » : battement détecté, ou stimulation.</p>
+
+<h2>Question 18 : le temps écoulé depuis le dernier battement</h2>
+<p><strong>On te demande.</strong> Écris un algorithme qui mesure le temps écoulé depuis le dernier événement cardiaque.</p>
+<p><strong>Ce qu'il faut savoir.</strong> <code>millis()</code> donne le nombre de millisecondes depuis le démarrage, sur 32 bits non signés : il repasse à 0 au bout de 49,7 jours. Une soustraction entre deux <code>unsigned long</code> reste juste même après ce passage par 0.</p>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Algorithme"><code>dernierEvt ← millis()                     au démarrage
+à chaque tour de boucle :
+    ecoule ← millis() - dernierEvt
+    si battement détecté :
+        dernierEvt ← millis()             le compte repart de 0
+    sinon si ecoule ≥ intervalle :
+        stimuler
+        dernierEvt ← millis()             une stimulation compte aussi comme un battement</code></pre>
+<pre class="code" data-titre="En C"><code>unsigned long dernierEvt = 0;          // ms
+unsigned long ecouleDepuisEvt() {
+  return millis() - dernierEvt;        // juste même quand millis() repasse par 0
+}</code></pre>
+<p>Dans le programme de la question 19, c'est le <strong>timer matériel</strong> qui fait ce compte : remettre son compteur à zéro avec <code>timerWrite(timer, 0)</code> revient à écrire <code>dernierEvt = millis()</code>, et son alarme tombe quand l'intervalle est écoulé.</p>
+
+<h2>Questions 19 et 20 : le programme, et la fréquence cible</h2>
+<p><strong>On te demande.</strong> Écris un programme ESP32 qui simule cette stratégie, puis ajoute un paramètre qui règle la fréquence cardiaque cible.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Deux timers : l'un lève un drapeau toutes les 2 ms (échantillonnage), l'autre à la fin de l'intervalle d'échappement (stimulation).</li>
+<li><code>timerWrite(timer, 0)</code> remet le compteur d'un timer à zéro : l'alarme est repoussée d'un intervalle entier.</li>
+<li>Un booléen se lit et s'écrit en une seule instruction : la section critique de l'annexe du TD 2 n'est pas indispensable pour un simple drapeau.</li>
+</ul>
+<p><strong>Réponse.</strong> Les fonctions <code>detecter()</code> et <code>battementDetecte()</code> sont celles des questions 13 à 15.</p>
+<pre class="code" data-titre="Stimulation à la demande (VVI)"><code>const int PIN_ECG = 34;            // ECG simulé (ADC1_CH6)
+const int PIN_STIM = 2;            // LED de stimulation
+const int PIN_DET = 4;             // LED « battement détecté »
+
+int frequenceCible = 60;           // bpm (question 20)
+unsigned long intervalle = 1000;   // ms : intervalle d'échappement
+
+hw_timer_t *timerEch = NULL;       // 2 ms
+hw_timer_t *timerStim = NULL;      // intervalle d'échappement
+volatile bool tickEch = false;
+volatile bool tickStim = false;
+unsigned long finStim = 0, finDet = 0;
+
+void IRAM_ATTR onEch()  { tickEch = true; }
+void IRAM_ATTR onStim() { tickStim = true; }
+
+void reglerFrequence(int f) {                 // question 20
+  frequenceCible = f;
+  intervalle = 60000UL / f;
+  timerAlarm(timerStim, intervalle * 1000UL, true, 0);   // en µs
+  timerWrite(timerStim, 0);                   // le nouvel intervalle part de maintenant
+}
+
+void stimuler(unsigned long t) {
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;                           // LED allumée 20 ms
+  dernierEvt = t;                             // période réfractaire après la stimulation
+  Serial.printf("S %lu\n", t);
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIN_STIM, OUTPUT);
+  pinMode(PIN_DET, OUTPUT);
+  analogReadResolution(12);
+  timerEch = timerBegin(1000000);
+  timerAttachInterrupt(timerEch, &amp;onEch);
+  timerAlarm(timerEch, 2000, true, 0);        // 2000 µs : 500 échantillons par seconde
+  timerStim = timerBegin(1000000);
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  reglerFrequence(frequenceCible);
+}
+
+void loop() {
+  unsigned long t = millis();
+  if (tickEch) {                              // un échantillon toutes les 2 ms
+    tickEch = false;
+    int v = analogRead(PIN_ECG);
+    if (detecter(v, t)) {                     // battement spontané : stimulation inhibée
+      timerWrite(timerStim, 0);
+      tickStim = false;
+      dernierEvt = t;
+      battementDetecte(t);                    // RR et fréquence
+      digitalWrite(PIN_DET, HIGH);
+      finDet = t + 20;
+      Serial.printf("R %lu %lu %.0f\n", t, rr, bpm);
+    }
+  }
+  if (tickStim) {                             // intervalle écoulé sans battement
+    tickStim = false;
+    stimuler(t);
+  }
+  if (finStim != 0 &amp;&amp; t >= finStim) { digitalWrite(PIN_STIM, LOW); finStim = 0; }
+  if (finDet != 0 &amp;&amp; t >= finDet) { digitalWrite(PIN_DET, LOW); finDet = 0; }
+}</code></pre>
+<p>Ce que fait la question 20 : la fréquence cible fixe l'intervalle. À 60 bpm, la LED de stimulation s'allume si le cœur reste plus de 1 000 ms sans battre ; à 50 bpm, il faut 1 200 ms de silence.</p>
+\[T_{ech} = \frac{60\,000}{f}\]
+\[T_{ech} = \frac{60\,000}{60}\]
+\[T_{ech} = 1\,000\ \text{ms}\]
+<p>Tant que le cœur simulé bat plus vite que la fréquence cible, la LED de stimulation ne s'allume jamais.</p>
+
+<h2>Question 21 : régler les paramètres par la liaison série</h2>
+<p><strong>On te demande.</strong> Propose une méthode pour modifier les paramètres à travers une interface série.</p>
+<p><strong>Réponse.</strong> Un petit protocole texte : une lettre pour le paramètre, un nombre, puis Entrée, dans le moniteur série de l'Arduino IDE (115 200 bauds). Chaque valeur est <strong>vérifiée</strong> avant d'être appliquée.</p>
+<div class="tableau"><table>
+<tr><th>Commande</th><th>Effet</th><th>Plage acceptée</th></tr>
+<tr><td><code>F70</code></td><td>fréquence cible 70 bpm</td><td>30 à 180</td></tr>
+<tr><td><code>S2500</code></td><td>seuil de détection (code ADC)</td><td>100 à 4000</td></tr>
+<tr><td><code>R250</code></td><td>période réfractaire 250 ms</td><td>100 à 500</td></tr>
+<tr><td><code>?</code></td><td>affiche tous les paramètres</td><td>sans valeur</td></tr>
+</table></div>
+<pre class="code" data-titre="Lecture des commandes, sans bloquer la boucle"><code>void lireSerie() {
+  if (!Serial.available()) return;            // rien reçu : on ne bloque pas
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+  if (cmd.length() == 0) return;
+  char c = cmd.charAt(0);
+  long val = cmd.substring(1).toInt();
+  if (c == 'F' &amp;&amp; val >= 30 &amp;&amp; val &lt;= 180) reglerFrequence(val);
+  else if (c == 'S' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 4000) seuil = val;
+  else if (c == 'R' &amp;&amp; val >= 100 &amp;&amp; val &lt;= 500) refractaire = val;
+  else if (c != '?') { Serial.println("ERREUR commande refusee"); return; }
+  Serial.printf("F=%d bpm S=%d R=%d ms\n", frequenceCible, seuil, refractaire);
+}</code></pre>
+<p>Une valeur hors plage est refusée et l'ancienne garde cours : une faute de frappe (<code>F700</code>) ne doit jamais faire stimuler à 700 bpm.</p>
+
+<h2>Question 22 : signaler une anomalie de l'ECG</h2>
+<p><strong>On te demande.</strong> Ajoute une fonction qui signale une anomalie du signal ECG simulé.</p>
+<p><strong>Réponse.</strong> Quatre anomalies faciles à repérer :</p>
+<div class="tableau"><table>
+<tr><th>Anomalie</th><th>Comment la voir</th><th>Cause probable</th></tr>
+<tr><td>Signal plat</td><td>écart entre le maximum et le minimum de moins de 100 codes sur 2 s</td><td>électrode débranchée, générateur arrêté</td></tr>
+<tr><td>Saturation</td><td>échantillons à 0 ou à 4095</td><td>signal trop grand ou décalé, fil coupé</td></tr>
+<tr><td>Bradycardie ou tachycardie</td><td>fréquence spontanée sous 40 bpm ou au-dessus de 150 bpm</td><td>trouble du rythme</td></tr>
+<tr><td>Dépendance</td><td>plus de 5 stimulations de suite</td><td>plus aucun rythme propre</td></tr>
+</table></div>
+<pre class="code" data-titre="Surveillance du signal, appelée à chaque échantillon"><code>int vMin = 4095, vMax = 0;
+unsigned long debutFenetre = 0;
+int stimulationsDeSuite = 0;           // +1 dans stimuler(), remis à 0 dans battementDetecte()
+
+void surveillerECG(int v, unsigned long t) {
+  vMin = min(vMin, v);
+  vMax = max(vMax, v);
+  if (v &lt;= 0 || v >= 4095) Serial.println("ALERTE saturation de l'ECG");
+  if (t - debutFenetre >= 2000) {      // bilan toutes les 2 s
+    if (vMax - vMin &lt; 100) Serial.println("ALERTE signal plat");
+    if (bpm > 0 &amp;&amp; (bpm &lt; 40 || bpm > 150)) Serial.printf("ALERTE frequence %.0f bpm\n", bpm);
+    if (stimulationsDeSuite > 5) Serial.println("ALERTE pas de rythme propre");
+    vMin = 4095; vMax = 0;
+    debutFenetre = t;
+  }
+}</code></pre>
+<p>Les seuils (100 codes, 40 et 150 bpm, 5 stimulations) sont des choix pour la maquette : à justifier dans le rapport, pas des valeurs du cours.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Intervalle d'échappement : \(T_{ech} = 60\,000 / f\) ms ; battement avant la fin : on remet le compte à zéro, pas de stimulation.</li>
+<li>Le temps écoulé : <code>millis() - dernierEvt</code>, ou un timer matériel remis à zéro par <code>timerWrite(timer, 0)</code>.</li>
+<li>Toute commande reçue est vérifiée avant d'être appliquée.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/pacemaker-visuels.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

@@ -24,6 +24,13 @@ const smDe = ch => { const c = MOD.chapitres.find(x => x.id === ch); return REG.
 // Corrections relues à la main : niveau → { numéro d'étape (à partir de 1) : [page, ancre, section] }
 const CORRECTIONS = {
   embarques: {
+    // TD 2, TD 3, projet pacemaker : étapes dont la question relève d'une autre section
+    "td2": { 1: ["td2", "question-1-les-broches", "Question 1 : les broches"] },
+    "td2-acquisition": { 2: ["td2-acquisition", "acquisition-mode-num-n-les-trois-modes", "acquisition(mode, num, N) : les trois modes"] },
+    "td2-timer": { 3: ["td2-timer", "question-4b-tous-les-capteurs-a-chaque-cycle", "Question 4b : tous les capteurs à chaque cycle"] },
+    "td3-pic": { 2: ["td3-pic", "question-9-le-role-de-chaque-bloc", "Question 9 : le rôle de chaque bloc"], 4: ["td3-pic", "question-9-le-role-de-chaque-bloc", "Question 9 : le rôle de chaque bloc"] },
+    "td3-temps": { 3: ["td3-temps", "e-la-routine-dure-4-ms", "e) La routine dure 4 ms"] },
+    "pacemaker-programme": { 1: ["pacemaker-esp32", "question-12-detecter-un-battement-dans-l-ecg", "Question 12 : détecter un battement dans l'ECG"], 4: ["pacemaker-algorithme", "questions-19-et-20-le-programme-et-la-frequence-cible", "Questions 19 et 20 : le programme, et la fréquence cible"], 5: ["pacemaker-esp32", "question-16-le-watchdog", "Question 16 : le watchdog"] },
     // TD 1 : chaque étape vers sa question du corrigé
     "td1": { 1: ["td1", "question-1-la-surface-d-un-capteur", "Question 1 : la surface d'un capteur"], 2: ["td1", "question-2-force-et-pression-maximales", "Question 2 : force et pression maximales"], 3: ["td1", "question-2-force-et-pression-maximales", "Question 2 : force et pression maximales"], 4: ["td1", "question-3-un-patient-de-70-kg", "Question 3 : un patient de 70 kg"] },
     "td1-banc": { 4: ["td1-banc", "question-6-la-caracteristique-vo-p", "Question 6 : la caractéristique Vo(P)"] },

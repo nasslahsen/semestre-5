@@ -555,4 +555,104 @@ tous['td1-acquisition'] = async (a) => {
   await a.nombres([833.3]); await a.suite();
 };
 
+// TD 2 : semelle, programmation
+tous.td2 = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([2730]); await a.suite();
+};
+tous['td2-fonctions'] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.jetons(['t2', 't1']); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([1.1]); await a.suite();
+  await a.nombres([250]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['td2-acquisition'] = async (a) => {
+  await a.choix(2); await a.suite();
+  await a.nombres([160]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['td2-timer'] = async (a) => {
+  await a.nombres([160]); await a.suite();
+  await a.nombres([25000]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+};
+
+// TD 3 : architecture et composants
+tous.td3 = async (a) => {
+  await a.choix(2); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.jetons(['wd', 'pwm', 'pile']); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['td3-architecture'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([24, 13]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous['td3-pic'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.nombres([16]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['td3-temps'] = async (a) => {
+  await a.nombres([5]); await a.suite();
+  await a.nombres([80]); await a.suite();
+  await a.nombres([37.5]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+};
+
+// Projet : pacemaker connecté
+tous.pacemaker = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['pacemaker-esp32'] = async (a) => {
+  await a.nombres([12000]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([750]); await a.suite();
+  await a.nombres([80]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['pacemaker-algorithme'] = async (a) => {
+  await a.nombres([1500]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['pacemaker-telemetrie'] = async (a) => {
+  await a.nombres([1.4]); await a.suite();
+  await a.nombres([3.6]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([400]); await a.suite();
+};
+tous['pacemaker-programme'] = async (a) => {
+  await a.nombres([4000]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([1200]); await a.suite();
+  await a.nombres([10]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+
 module.exports = tous;

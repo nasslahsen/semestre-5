@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Détecter et stimuler sur l'ESP32 · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Détecter et stimuler sur l'ESP32</h1>
+<p class="chapeau">La maquette reproduit les blocs du pacemaker avec une carte ESP32 : un ECG simulé entre par l'ADC, une LED tient lieu d'impulsion de stimulation, les timers donnent la base de temps. Il faut ensuite reconnaître un battement dans le signal, une seule fois par battement, et en déduire la fréquence cardiaque.</p>
+
+<h2>Question 9 : l'architecture de la maquette</h2>
+<p><strong>On te demande.</strong> Propose une architecture matérielle qui reproduit les blocs du pacemaker avec une ESP32.</p>
+<p><strong>Réponse.</strong> Le cœur et la sonde sont remplacés par un <strong>ECG simulé</strong>, la stimulation par une <strong>LED</strong>, le programmateur par un PC (liaison série) et un navigateur (Wi-Fi).</p>
+<div class="schema" id="sc-pacemaker-maquette"></div>
+<ul>
+<li>L'ECG simulé peut venir d'un générateur de fonctions arbitraires, d'une deuxième carte qui joue un ECG enregistré (comme le simulateur du lab 7), ou de l'ESP32 elle-même : son DAC sur GPIO 25 sort un ECG de test, relié par un fil à l'entrée de l'ADC. C'est cette dernière solution que suit le programme de la question 32 : une seule carte suffit.</li>
+<li>Un vrai signal d'électrode (quelques mV) demanderait un amplificateur d'instrumentation avant l'ADC ; le signal simulé est déjà dans la plage 0 à 3,3 V.</li>
+</ul>
+
+<h2>Question 10 : un périphérique par bloc</h2>
+<div class="tableau"><table>
+<tr><th>Bloc du pacemaker</th><th>Périphérique de l'ESP32</th><th>Broche ou réglage</th></tr>
+<tr><td>Électrode et Sensing Amplifier (ECG simulé)</td><td>DAC (générateur de test)</td><td>GPIO 25 (DAC1), reliée à GPIO 34</td></tr>
+<tr><td>A/D Converter</td><td>ADC1, 12 bits</td><td>GPIO 34 (ADC1_CH6)</td></tr>
+<tr><td>Microprocessor, ROM, RAM</td><td>cœurs Xtensa, flash, SRAM</td><td>rien à câbler</td></tr>
+<tr><td>Timer, Oscillator</td><td>timers 64 bits, horloge APB 80 MHz</td><td>un timer d'échantillonnage (2 ms), un timer de stimulation</td></tr>
+<tr><td>D/A et Impulse Generator</td><td>GPIO en sortie (ou PWM pour régler l'éclat)</td><td>GPIO 2 : LED bleue de la carte</td></tr>
+<tr><td>Signal « événement détecté »</td><td>GPIO en sortie</td><td>GPIO 4 : LED verte externe</td></tr>
+<tr><td>Digital I/O Interface et télémétrie</td><td>UART0 (USB), Wi-Fi</td><td>GPIO 1 et 3 par le câble USB</td></tr>
+<tr><td>Power Supply et Battery Check</td><td>ADC1 avec un pont diviseur</td><td>GPIO 35 (ADC1_CH7)</td></tr>
+<tr><td>Surveillance du programme</td><td>watchdog</td><td>Task Watchdog, 2 s</td></tr>
+</table></div>
+<p>Les deux mesures sont sur l'ADC1 : l'ADC2 ne marche plus quand le Wi-Fi est utilisé, et la question 23 demande une interface web.</p>
+
+<h2>Question 11 : une impulsion périodique par timer</h2>
+<p><strong>On te demande.</strong> Écris un programme Arduino qui génère périodiquement une impulsion de stimulation simulée avec un timer matériel.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Fréquence de stimulation et période : \(T = 60 / f\), avec \(f\) en battements par minute (bpm) et \(T\) en secondes. À 60 bpm, une impulsion par seconde.</li>
+<li>Les fonctions du timer sont celles du TD 2 : <code>timerBegin(1000000)</code> (un pas par µs), <code>timerAttachInterrupt</code>, <code>timerAlarm</code>.</li>
+<li>L'interruption ne fait que lever un drapeau ; la boucle allume la LED, puis l'éteint 20 ms plus tard sans <code>delay()</code>, en regardant <code>millis()</code>.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Impulsion de stimulation simulée, 60 bpm"><code>const int PIN_STIM = 2;            // LED bleue de la carte
+const int FREQ_BPM = 60;           // fréquence de stimulation
+const int LARGEUR_MS = 20;         // durée d'allumage, visible à l'oeil
+
+hw_timer_t *timerStim = NULL;
+volatile bool impulsion = false;
+unsigned long finImpulsion = 0;
+
+void IRAM_ATTR onStim() {
+  impulsion = true;                // l'interruption ne fait que lever le drapeau
+}
+
+void setup() {
+  pinMode(PIN_STIM, OUTPUT);
+  timerStim = timerBegin(1000000);                          // 1 pas = 1 µs
+  timerAttachInterrupt(timerStim, &amp;onStim);
+  timerAlarm(timerStim, 60000000UL / FREQ_BPM, true, 0);   // 1 000 000 µs à 60 bpm
+}
+
+void loop() {
+  if (impulsion) {
+    impulsion = false;
+    digitalWrite(PIN_STIM, HIGH);
+    finImpulsion = millis() + LARGEUR_MS;
+  }
+  if (finImpulsion != 0 &amp;&amp; millis() >= finImpulsion) {
+    digitalWrite(PIN_STIM, LOW);
+    finImpulsion = 0;
+  }
+}</code></pre>
+<p>La valeur de l'alarme : \(60 \times 10^6\ \mu\text{s} / f\). À 60 bpm, \(10^6\) pas ; à 75 bpm, 800 000 pas, soit 800 ms. Une vraie impulsion dure moins d'une milliseconde ; la LED reste allumée 20 ms pour qu'on la voie.</p>
+
+<h2>Question 12 : détecter un battement dans l'ECG</h2>
+<p><strong>On te demande.</strong> Propose une méthode pour détecter un événement cardiaque dans un ECG simulé lu par l'ADC.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Sur un ECG, l'<strong>onde R</strong> (dépolarisation des ventricules) est la plus haute et la plus raide. Les ondes P et T sont plus basses et plus lentes.</li>
+<li>Pour ne rater aucun pic, l'ECG est échantillonné régulièrement : 500 échantillons par seconde (une mesure toutes les 2 ms), cadencés par un timer.</li>
+</ul>
+<p><strong>Réponse.</strong> Méthode du <strong>seuil</strong> :</p>
+<ul>
+<li>un timer lève un drapeau toutes les 2 ms ; la boucle lit alors l'ADC ;</li>
+<li>on choisit un seuil au-dessus des ondes P et T et sous le sommet des ondes R (par exemple 60 % de la hauteur de l'onde R, mesurée au démarrage) ;</li>
+<li>un événement est détecté au moment où le signal <strong>franchit le seuil en montant</strong>, c'est-à-dire quand l'échantillon précédent était en dessous et le courant au-dessus.</li>
+</ul>
+<p>Améliorations possibles : filtrer avant (moyenne glissante sur quelques échantillons contre le bruit), ou travailler sur la pente (différence entre deux échantillons), qui fait ressortir l'onde R, très raide.</p>
+
+<h2>Questions 13 et 14 : l'algorithme à seuil, une seule détection par onde</h2>
+<p><strong>On te demande.</strong> Écris un algorithme de détection à seuil, puis évite qu'une même onde soit détectée plusieurs fois.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Juste après un battement, le cœur est <strong>réfractaire</strong> : il ne peut pas en refaire un tout de suite. Le pacemaker fait pareil : pendant une <strong>période réfractaire</strong> (par exemple 250 ms), il ignore le signal.</li>
+<li>Autour du seuil, le bruit fait monter et descendre le signal plusieurs fois : une <strong>hystérésis</strong> (redescendre nettement sous le seuil avant d'accepter un nouveau franchissement) évite les détections en rafale.</li>
+</ul>
+<div id="fig-pacemaker-detection"></div>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Détection à seuil, avec période réfractaire et hystérésis"><code>int seuil = 2500;                 // code ADC (12 bits)
+const int HYSTERESIS = 200;       // il faut redescendre sous seuil - 200
+int refractaire = 250;            // ms
+bool auDessus = false;
+unsigned long dernierEvt = 0;     // ms : instant du dernier battement
+
+// appelée toutes les 2 ms avec le nouvel échantillon ; renvoie true si un battement commence
+bool detecter(int v, unsigned long t) {
+  if (t - dernierEvt &lt; refractaire) {   // période réfractaire : on n'écoute pas
+    return false;
+  }
+  if (!auDessus &amp;&amp; v > seuil) {         // franchissement en montant
+    auDessus = true;
+    return true;
+  }
+  if (auDessus &amp;&amp; v &lt; seuil - HYSTERESIS) {
+    auDessus = false;                   // le signal est bien redescendu
+  }
+  return false;
+}</code></pre>
+<p>Sans période réfractaire, une onde R crochetée (deux sommets) ou bruitée compte deux battements, et la fréquence affichée double.</p>
+
+<h2>Question 15 : l'intervalle RR et la fréquence cardiaque</h2>
+<p><strong>On te demande.</strong> Mesure le délai entre deux événements successifs et calcule la fréquence cardiaque à partir de l'intervalle RR.</p>
+<p><strong>Ce qu'il faut savoir.</strong> L'<strong>intervalle RR</strong> est le temps entre deux ondes R. Un battement toutes les RR secondes fait \(60 / RR\) battements par minute.</p>
+\[f_C = \frac{60\,000}{RR}\quad (f_C \text{ en bpm, } RR \text{ en ms})\]
+<p><strong>Réponse.</strong> On note <code>millis()</code> à chaque détection ; la différence avec la détection précédente est l'intervalle RR.</p>
+<pre class="code" data-titre="RR et fréquence cardiaque"><code>unsigned long dernierR = 0;   // ms
+unsigned long rr = 0;         // ms
+float bpm = 0;
+
+void battementDetecte(unsigned long t) {
+  if (dernierR != 0) {
+    rr = t - dernierR;
+    bpm = 60000.0 / rr;
+  }
+  dernierR = t;
+}</code></pre>
+<p>Exemple : deux ondes R à t = 12 400 ms et t = 13 200 ms.</p>
+\[RR = 13\,200 - 12\,400\]
+\[RR = 800\ \text{ms}\]
+\[f_C = \frac{60\,000}{800}\]
+\[f_C = 75\ \text{bpm}\]
+<p>Pour un affichage stable, on peut faire la moyenne des 4 à 8 derniers RR. La précision dépend de l'échantillonnage : à 2 ms près sur 800 ms, l'erreur est de 0,25 %.</p>
+
+<h2>Question 16 : le watchdog</h2>
+<p><strong>On te demande.</strong> Propose une stratégie de gestion du watchdog pour détecter un blocage du programme.</p>
+<p><strong>Ce qu'il faut savoir.</strong> Le watchdog est un compteur que le programme doit remettre à zéro (le « nourrir ») avant la fin de son délai ; sinon, il redémarre la puce. Sur l'ESP32, le Task Watchdog (TWDT) surveille les tâches qui s'y sont inscrites.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>délai de 2 s : bien plus long qu'un tour de boucle normal (quelques millisecondes), assez court pour ne pas laisser le patient longtemps sans surveillance ;</li>
+<li>la remise à zéro se fait <strong>une fois par tour de <code>loop()</code></strong>, là où se font la détection et la stimulation ; jamais dans une interruption de timer, qui continuerait d'arriver pendant que la boucle est bloquée ;</li>
+<li>on ne nourrit le chien que si la boucle a vraiment avancé : par exemple si un échantillon a été traité depuis le dernier tour (sinon le timer d'échantillonnage est arrêté) ;</li>
+<li>au redémarrage, le programme regarde la cause (<code>esp_reset_reason()</code>) : si c'est le watchdog, il le signale par la liaison série et repart avec des paramètres sûrs par défaut.</li>
+</ul>
+<pre class="code" data-titre="Le Task Watchdog (paquet ESP32 version 3)"><code>#include &lt;esp_task_wdt.h&gt;
+
+void configWatchdog() {
+  esp_task_wdt_config_t config = {
+    .timeout_ms = 2000,       // 2 s sans remise à zéro : redémarrage
+    .idle_core_mask = 0,      // ne pas surveiller les tâches de repos
+    .trigger_panic = true     // redémarrer la puce
+  };
+  esp_task_wdt_reconfigure(&amp;config);   // le paquet l'a déjà démarré : on change son réglage
+  esp_task_wdt_add(NULL);              // surveiller la tâche qui exécute loop()
+}
+
+// dans loop(), une fois par tour :
+//   esp_task_wdt_reset();</code></pre>
+<p>Si ta version du paquet ESP32 n'a pas démarré le watchdog, <code>esp_task_wdt_init(&amp;config)</code> remplace <code>esp_task_wdt_reconfigure</code>. Le cours (chapitre 5) décrit les trois chiens de garde matériels de l'ESP32, pas ces fonctions.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Maquette : ECG simulé (DAC) vers ADC1, LED pour la stimulation, timers, UART et Wi-Fi.</li>
+<li>Détection : franchissement du seuil en montant, puis période réfractaire et hystérésis.</li>
+<li>\(f_C = 60\,000 / RR\) avec RR en ms ; alarme du timer de stimulation : \(60 \times 10^6 / f\) µs.</li>
+<li>Watchdog nourri une fois par tour de boucle, jamais dans une interruption.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/pacemaker-visuels.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

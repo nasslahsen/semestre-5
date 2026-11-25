@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le pacemaker et ses blocs · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le pacemaker et ses blocs</h1>
+<p class="chapeau">L'activité pratique du Pr A. Jbari demande de concevoir et de programmer un pacemaker embarqué et connecté, sous forme de maquette sur ESP32. Le sujet est un guide de 38 questions. Elles sont corrigées ici comme un cours : le sujet d'abord, puis chaque question avec ce qu'il faut savoir et une réponse. Beaucoup de questions demandent une proposition : la réponse donnée est une solution possible, justifiée, pas la seule.</p>
+
+<h2>Ce que raconte le sujet</h2>
+<p>Un <strong>pacemaker</strong> (stimulateur cardiaque, pile cardiaque) est un dispositif médical implanté qui délivre des <strong>impulsions électriques</strong> régulières au myocarde, pour déclencher les contractions à un rythme régulier. Il est implanté sous la clavicule ; il surveille l'activité cardiaque naturelle et traite les troubles du rythme.</p>
+<figure class="photo"><img src="../images/pacemaker-radio.jpg" alt="Radiographie du thorax : le boîtier du stimulateur sous la clavicule gauche et ses sondes qui descendent vers le cœur"><figcaption>Figure 1 du sujet : implantation du stimulateur cardiaque. Le boîtier est sous la clavicule, les sondes descendent par une veine jusque dans le cœur.<small>Photo du cours « Activité Pratique : Conception et programmation d'un Pacemaker connecté ».</small></figcaption></figure>
+<p>Le projet a deux sous-systèmes :</p>
+<ul>
+<li><strong>SS1, instrumentation embarquée</strong> : les circuits électroniques et la programmation des fonctions de détection et de stimulation ;</li>
+<li><strong>SS2, supervision connectée</strong> : un dashboard (Node-RED, serveur web embarqué ou ThingSpeak) qui lit le mode d'activation et montre l'état du pacemaker.</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Partie du guide</th><th>Questions</th><th>Ce qu'on fait</th></tr>
+<tr><td>Architecture du système embarqué</td><td>1 à 8</td><td>lire le schéma fonctionnel, le rôle de chaque bloc</td></tr>
+<tr><td>Programmation embarquée avec ESP32</td><td>9 à 16</td><td>broches, impulsion par timer, détection par seuil, fréquence cardiaque, watchdog</td></tr>
+<tr><td>Algorithme de fonctionnement</td><td>17 à 22</td><td>la stimulation à la demande, son organigramme et son programme</td></tr>
+<tr><td>Communication et télémétrie, énergie et sécurité</td><td>23 à 31</td><td>interface web, protocole, batterie, risques et robustesse</td></tr>
+<tr><td>Programmation embarquée (réalisation)</td><td>32 à 38</td><td>le programme complet de la maquette</td></tr>
+</table></div>
+
+<h2>Le code NBG : nommer un mode de stimulation</h2>
+<p>Un mode de stimulation s'écrit avec trois à cinq lettres, dans cet ordre : ce qu'on <strong>stimule</strong>, ce qu'on <strong>détecte</strong>, ce qu'on fait quand on détecte.</p>
+<div class="tableau"><table>
+<tr><th>Lettre</th><th>Définit</th><th>Codes</th></tr>
+<tr><td>1re</td><td>cavité(s) stimulée(s)</td><td>V = ventricule, A = oreillette, D = les deux (A + V), O = aucune</td></tr>
+<tr><td>2e</td><td>cavité(s) détectée(s)</td><td>V, A, D ; O = aucune (fonctionnement asynchrone)</td></tr>
+<tr><td>3e</td><td>réponse à la détection</td><td>I = inhibé, T = déclenché (triggered), D = les deux (I + T), O = aucune</td></tr>
+<tr><td>4e</td><td>asservissement de fréquence</td><td>R = asservissement (capteur) ; lettre omise s'il n'est pas programmé : DDD et non DDDO</td></tr>
+<tr><td>5e (optionnelle, peu utilisée)</td><td>stimulation multisite</td><td>O = aucune, A = oreillette, V = ventricule, D = les deux (A + V)</td></tr>
+</table></div>
+<p>Les modes les plus fréquents, d'après le tableau 20.12 du sujet :</p>
+<div class="tableau"><table>
+<tr><th>Mode</th><th>Fonctionnement</th><th>Indications</th></tr>
+<tr><td>AAI</td><td>entraînement auriculaire sur demande, inhibé par la détection d'une activité auriculaire</td><td>bradycardie sinusale avec conduction AV intacte</td></tr>
+<tr><td>VVI</td><td>entraînement ventriculaire sur demande, inhibé par la détection d'une activité ventriculaire</td><td>épisodes intermittents de bradycardie, FA chronique avec bradycardie, synchronisation AV non maintenue</td></tr>
+<tr><td>VDD</td><td>entraînement ventriculaire, détection auriculaire et ventriculaire ; stimule le ventricule après un délai préfixé, en synchronisation avec l'activité auriculaire</td><td>bradycardie par bloc AV avec fonction sinusale conservée ; si bradycardie sinusale, correspond à VVI</td></tr>
+<tr><td>DDI</td><td>entraînement et détection auriculaires et ventriculaires ; la seule réponse à une détection est l'inhibition ; évite un entraînement trop rapide du ventricule en cas de tachycardie auriculaire</td><td>dysrythmie auriculaire ; synchronisation AV seulement lorsque le pacemaker entraîne l'oreillette</td></tr>
+<tr><td>DDD</td><td>entraînement et détection auriculaires et ventriculaires ; stimule le ventricule après un délai préfixé, en synchronisation avec l'activité auriculaire</td><td>tout type de bradycardie, synchronisation AV assurée</td></tr>
+<tr><td>DVI</td><td>inhibition de la stimulation ventriculaire en cas d'activité ventriculaire, pas de détection auriculaire</td><td>interruption d'une tachycardie induite par le pacemaker (réentrée AV)</td></tr>
+<tr><td>-R</td><td>la fréquence peut varier dans des limites préfixées en fonction des informations du capteur</td><td>non précisées</td></tr>
+<tr><td>AOO</td><td>entraînement auriculaire asynchrone à fréquence fixe</td><td>seulement lors d'un pacing temporaire avec une conduction AV normale</td></tr>
+<tr><td>VOO</td><td>entraînement ventriculaire asynchrone à fréquence fixe</td><td>seulement lors d'un pacing temporaire</td></tr>
+<tr><td>DOO</td><td>entraînements auriculaire et ventriculaire asynchrones à fréquence fixe ; le délai AV est fixe ; risque de R-sur-T, comme avec tous les modes asynchrones</td><td>non précisées</td></tr>
+</table></div>
+<p>La maquette du projet stimule s'il n'y a pas d'événement détecté, et s'inhibe si elle en détecte un (partie 2.3) : avec une seule voie, placée dans le ventricule, c'est un mode <strong>VVI</strong>.</p>
+
+<h2>Question 1 : les blocs fonctionnels</h2>
+<p><strong>On te demande.</strong> Identifie les blocs fonctionnels du pacemaker de la figure 2.</p>
+<p><strong>Réponse.</strong> Le schéma, redessiné :</p>
+<div class="schema" id="sc-pacemaker-blocs"></div>
+<div class="tableau"><table>
+<tr><th>Bloc</th><th>Fonction</th></tr>
+<tr><td>Électrode, Lead (sonde), Connector</td><td>relient le boîtier au cœur : la même sonde sert à écouter et à stimuler</td></tr>
+<tr><td>Sensing Amplifier</td><td>amplifie et filtre le petit signal électrique du cœur</td></tr>
+<tr><td>A/D Converter</td><td>convertit ce signal en nombres pour le microprocesseur</td></tr>
+<tr><td>Microprocessor</td><td>exécute l'algorithme : détecter, décider, commander la stimulation</td></tr>
+<tr><td>ROM, RAM</td><td>le programme (ROM) ; les variables, les paramètres et l'historique des événements (RAM)</td></tr>
+<tr><td>Timer, Oscillator</td><td>l'horloge (oscillateur) et la base de temps (timer) de l'algorithme</td></tr>
+<tr><td>D/A Converter</td><td>transforme la consigne numérique d'amplitude en tension</td></tr>
+<tr><td>Impulse Generator</td><td>produit l'impulsion de stimulation envoyée par la sonde</td></tr>
+<tr><td>Digital I/O Interface, Coil antenna</td><td>la télémétrie : échange de données avec l'extérieur à travers le thorax</td></tr>
+<tr><td>Programmer</td><td>appareil externe du médecin : lit les données, envoie les réglages</td></tr>
+<tr><td>Power Supply, Housing</td><td>la pile, qui alimente tout ; le boîtier étanche</td></tr>
+</table></div>
+
+<h2>Question 2 : le rôle du microprocesseur</h2>
+<p><strong>Réponse.</strong> C'est le cerveau du pacemaker. Il :</p>
+<ul>
+<li>exécute le programme rangé en ROM ;</li>
+<li>analyse les échantillons de l'A/D et décide s'il y a eu un battement (événement détecté) ;</li>
+<li>compte le temps écoulé depuis le dernier battement, avec le timer, et décide de stimuler ou non ;</li>
+<li>règle l'amplitude de l'impulsion par le D/A et déclenche le générateur d'impulsions ;</li>
+<li>enregistre les événements en RAM, applique les paramètres reçus par télémétrie et renvoie les données au programmateur.</li>
+</ul>
+
+<h2>Question 3 : le timer, plutôt que delay()</h2>
+<p><strong>Ce qu'il faut savoir.</strong> Un timer est un compteur matériel qui avance au rythme d'une horloge et déclenche une interruption à l'alarme, tout seul. <code>delay()</code> fait attendre le processeur en tournant sur place.</p>
+<p><strong>Réponse.</strong> Le timer donne la <strong>base de temps</strong> : l'intervalle avant de stimuler, la période réfractaire, la largeur de l'impulsion, la cadence d'échantillonnage.</p>
+<div class="tableau"><table>
+<tr><th>Timer matériel</th><th>delay()</th></tr>
+<tr><td>compte pendant que le programme fait autre chose</td><td>bloque le processeur : pendant l'attente, aucune détection</td></tr>
+<tr><td>période exacte, sans dérive</td><td>la durée du reste de la boucle s'ajoute à chaque tour : le rythme dérive</td></tr>
+<tr><td>peut être remis à zéro à chaque battement détecté</td><td>impossible d'annuler une attente en cours</td></tr>
+<tr><td>le processeur peut dormir entre deux alarmes : économie de pile</td><td>le processeur reste actif pour rien</td></tr>
+</table></div>
+<p>Pour un pacemaker, rater un battement pendant un <code>delay()</code> peut faire stimuler au mauvais moment : c'est un défaut de sécurité, pas seulement de confort.</p>
+
+<h2>Question 4 : le canal de détection</h2>
+<p><strong>Réponse.</strong> Le canal de détection (Sensing Channel) écoute le cœur :</p>
+<ul>
+<li>l'<strong>électrode</strong> au bout de la sonde capte l'activité électrique du cœur, de l'ordre de quelques millivolts ;</li>
+<li>le <strong>Sensing Amplifier</strong> l'amplifie et la filtre, pour garder l'onde de dépolarisation (onde R dans le ventricule) et rejeter le bruit et les parasites ;</li>
+<li>l'<strong>A/D</strong> la numérise ;</li>
+<li>le microprocesseur compare le signal à un <strong>seuil de sensibilité</strong> : quand il le dépasse, c'est un événement cardiaque détecté.</li>
+</ul>
+
+<h2>Question 5 : le canal de stimulation</h2>
+<p><strong>Réponse.</strong> Le canal de stimulation (Stimulation Channel) agit sur le cœur : sur ordre du microprocesseur, le D/A fixe l'amplitude et le <strong>générateur d'impulsions</strong> envoie une impulsion brève (quelques volts, moins d'une milliseconde) par la sonde. Le myocarde se dépolarise et se contracte : c'est un battement provoqué, quand le cœur n'en a pas fait de lui-même.</p>
+
+<h2>Question 6 : la boucle de rétroaction</h2>
+<p><strong>Réponse.</strong> Le cœur, le canal de détection et le microprocesseur forment une <strong>boucle fermée</strong> :</p>
+<ul>
+<li>le cœur bat, ou ne bat pas ;</li>
+<li>le canal de détection le mesure et prévient le microprocesseur ;</li>
+<li>le microprocesseur compare à ce qu'il attend : battement détecté à temps, il ne fait rien et relance son compte ; aucun battement à temps, il stimule ;</li>
+<li>la stimulation fait battre le cœur, ce que le canal de détection voit à son tour.</li>
+</ul>
+<p>Le pacemaker ne stimule donc que <strong>quand il le faut</strong> : il n'entre pas en compétition avec le rythme propre du patient, et il économise sa pile.</p>
+
+<h2>Question 7 : la télémétrie</h2>
+<p><strong>Réponse.</strong> Le pacemaker est sous la peau : on ne peut pas le brancher. Le circuit de télémétrie (Digital I/O Interface et Coil antenna) communique sans fil, à travers le thorax, avec le programmateur du médecin :</p>
+<ul>
+<li><strong>lire</strong> (telemetry) : état de la pile, événements enregistrés, signal du cœur, nombre de stimulations ;</li>
+<li><strong>programmer</strong> (programming) : changer le mode, la fréquence, l'amplitude, la sensibilité, sans réopérer.</li>
+</ul>
+
+<h2>Question 8 : signaux analogiques et numériques</h2>
+<div class="tableau"><table>
+<tr><th>Liaison</th><th>Signal</th><th>Type</th></tr>
+<tr><td>Électrode vers Sensing Amplifier</td><td>activité électrique du cœur, quelques mV</td><td>analogique</td></tr>
+<tr><td>Sensing Amplifier vers A/D</td><td>le même signal, amplifié et filtré</td><td>analogique</td></tr>
+<tr><td>A/D vers Microprocessor</td><td>échantillons codés</td><td>numérique</td></tr>
+<tr><td>Microprocessor et ROM, RAM, Timer</td><td>adresses, données, interruptions du timer</td><td>numérique</td></tr>
+<tr><td>Oscillator vers Timer</td><td>horloge</td><td>numérique (signal logique)</td></tr>
+<tr><td>Microprocessor vers D/A</td><td>consigne d'amplitude codée</td><td>numérique</td></tr>
+<tr><td>D/A vers Impulse Generator, puis Lead</td><td>tension de consigne, puis impulsion de stimulation</td><td>analogique</td></tr>
+<tr><td>Microprocessor et Digital I/O Interface</td><td>paramètres et données</td><td>numérique</td></tr>
+<tr><td>Coil antenna et Programmer</td><td>champ magnétique modulé qui porte les données</td><td>analogique (porteuse modulée)</td></tr>
+<tr><td>Power Supply</td><td>tension de la pile</td><td>analogique</td></tr>
+</table></div>
+<p>Les convertisseurs A/D et D/A sont exactement les frontières entre les deux mondes.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Deux canaux autour du microprocesseur : détection (électrode, amplificateur, A/D) et stimulation (D/A, générateur, sonde).</li>
+<li>Boucle fermée : un battement détecté inhibe la stimulation ; c'est le mode VVI de la maquette.</li>
+<li>Timer matériel pour toute la base de temps : il ne bloque pas la détection, ne dérive pas, se remet à zéro.</li>
+<li>Télémétrie : lire et programmer à travers le thorax.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

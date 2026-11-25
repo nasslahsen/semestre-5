@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Télémétrie, batterie et sûreté · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Télémétrie, batterie et sûreté</h1>
+<p class="chapeau">Un pacemaker se règle et se surveille de l'extérieur, vit des années sur une pile, et ne doit jamais faire défaut. Sur la maquette, cela devient une page web servie par l'ESP32, un protocole pour les réglages et les mesures, une surveillance de la batterie, et des garde-fous dans le logiciel.</p>
+
+<h2>Question 23 : une interface web sur l'ESP32</h2>
+<p><strong>On te demande.</strong> Propose une interface web hébergée par l'ESP32 qui montre les paramètres du pacemaker.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un <strong>serveur web embarqué</strong> : l'ESP32, connecté au Wi-Fi, répond aux requêtes HTTP GET d'un navigateur (modèle requête-réponse du chapitre 7).</li>
+<li>On sépare la page (HTML, envoyée une fois) et les données (JSON, demandées toutes les secondes par la page) : la page se met à jour sans être rechargée.</li>
+</ul>
+<p><strong>Réponse.</strong> Trois adresses :</p>
+<div class="tableau"><table>
+<tr><th>Requête</th><th>Réponse</th></tr>
+<tr><td><code>GET /</code></td><td>la page HTML du tableau de bord</td></tr>
+<tr><td><code>GET /etat</code></td><td>l'état en JSON : <code>{"mode":"VVI","freq":60,"bpm":72,"rr":833,"stim":3,"bat":3.92}</code></td></tr>
+<tr><td><code>GET /regler?freq=70</code></td><td>applique un réglage (question 24), après vérification</td></tr>
+</table></div>
+<pre class="code" data-titre="Serveur web embarqué (bibliothèque WebServer du paquet ESP32)"><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+WebServer serveur(80);
+
+const char PAGE[] = R"(&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;
+&lt;h1&gt;Pacemaker&lt;/h1&gt;&lt;pre id="e"&gt;...&lt;/pre&gt;
+&lt;script&gt;
+setInterval(async () =&gt; {
+  const r = await fetch('/etat');
+  document.getElementById('e').textContent = JSON.stringify(await r.json(), null, 1);
+}, 1000);
+&lt;/script&gt;)";
+
+void pageAccueil() { serveur.send(200, "text/html", PAGE); }
+
+void pageEtat() {
+  char json[128];
+  snprintf(json, sizeof json,
+    "{\"mode\":\"VVI\",\"freq\":%d,\"bpm\":%.0f,\"rr\":%lu,\"stim\":%d,\"bat\":%.2f}",
+    frequenceCible, bpm, rr, nbStim, vBat);
+  serveur.send(200, "application/json", json);
+}
+
+void pageRegler() {
+  int f = serveur.arg("freq").toInt();
+  if (f >= 30 &amp;&amp; f &lt;= 180) { reglerFrequence(f); serveur.send(200, "text/plain", "OK"); }
+  else serveur.send(400, "text/plain", "valeur refusee");
+}
+
+void configWeb() {
+  WiFi.begin("TON_WIFI", "TON_MOT_DE_PASSE");
+  while (WiFi.status() != WL_CONNECTED) delay(200);   // une seule fois, au démarrage
+  Serial.println(WiFi.localIP());                     // l'adresse à taper dans le navigateur
+  serveur.on("/", pageAccueil);
+  serveur.on("/etat", pageEtat);
+  serveur.on("/regler", pageRegler);
+  serveur.begin();
+}
+// dans loop() : serveur.handleClient();</code></pre>
+<p>Complément : le cours ne contient pas de document sur le serveur web embarqué ; ce code utilise la bibliothèque <code>WebServer</code> fournie avec le paquet ESP32 de l'Arduino IDE. Le sujet laisse aussi le choix de Node-RED ou de ThingSpeak, vus dans les labs.</p>
+
+<h2>Question 24 : modifier les paramètres à distance</h2>
+<p><strong>Réponse.</strong> Par l'adresse <code>/regler</code> : un formulaire de la page, ou un lien comme <code>http://192.168.1.42/regler?freq=70</code>, envoie la nouvelle valeur ; l'ESP32 la vérifie (plage permise), l'applique et répond <code>OK</code>, ou refuse. Avec ThingSpeak ou MQTT (question 25), le réglage arrive par un message sur un topic auquel l'ESP32 est abonné. Dans tous les cas, les mêmes contrôles que pour la liaison série.</p>
+
+<h2>Question 25 : un protocole de communication</h2>
+<p><strong>On te demande.</strong> Propose un protocole pour envoyer la configuration et recevoir les données de surveillance.</p>
+<p><strong>Réponse.</strong> <strong>MQTT</strong>, avec des messages <strong>JSON</strong>, comme dans le lab 6 : l'ESP32 publie son état et s'abonne à sa configuration ; le dashboard Node-RED fait l'inverse.</p>
+<div class="tableau"><table>
+<tr><th>Topic</th><th>Qui publie</th><th>Message</th></tr>
+<tr><td><code>pacemaker/etat</code></td><td>ESP32, toutes les secondes</td><td><code>{"mode":"VVI","bpm":72,"rr":833,"stim":3,"bat":3.92}</code></td></tr>
+<tr><td><code>pacemaker/evenement</code></td><td>ESP32, à chaque battement</td><td><code>{"type":"R","t":125400}</code> ou <code>{"type":"S","t":126400}</code></td></tr>
+<tr><td><code>pacemaker/alerte</code></td><td>ESP32, si besoin</td><td><code>{"alerte":"batterie","v":3.41}</code></td></tr>
+<tr><td><code>pacemaker/config</code></td><td>dashboard</td><td><code>{"freq":70,"seuil":2500,"refractaire":250}</code></td></tr>
+</table></div>
+<p>Pourquoi MQTT :</p>
+<ul>
+<li>publish-subscribe : plusieurs écrans peuvent suivre le même pacemaker sans que l'ESP32 le sache ;</li>
+<li>messages courts, connexion permanente : la configuration arrive tout de suite, sans que l'ESP32 interroge ;</li>
+<li>QoS 1 pour <code>pacemaker/config</code> et les alertes : le message est redélivré tant qu'il n'est pas acquitté.</li>
+</ul>
+<p>Pour un vrai dispositif, la liaison devrait être chiffrée et authentifiée (MQTT sur TLS, identifiants) : un réglage envoyé par n'importe qui serait un danger.</p>
+
+<h2>Question 26 : le bloc Battery Check</h2>
+<p><strong>Réponse.</strong> Il <strong>surveille la tension de la pile</strong> pour prévoir son remplacement. Un pacemaker vit plusieurs années sur une pile non rechargeable ; quand elle s'use, sa tension baisse. Le bloc mesure cette tension et prévient (par la télémétrie) assez tôt pour programmer le changement du boîtier, avant que la stimulation ne soit compromise. Sur la figure 2, c'est la fonction du bloc Power Supply.</p>
+
+<h2>Question 27 : mesurer la batterie avec l'ADC</h2>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>L'ADC de l'ESP32 lit de 0 à 3,3 V ; une batterie lithium-ion monte à 4,2 V : il faut d'abord <strong>réduire la tension</strong>, avec un pont diviseur.</li>
+<li>Pont de deux résistances \(R_1\) (côté batterie) et \(R_2\) (côté masse) : \(V_{ADC} = V_{bat}\,R_2 / (R_1 + R_2)\).</li>
+<li>Des résistances de forte valeur (100 kΩ) limitent le courant que le pont prend à la batterie en permanence ; un condensateur de 100 nF sur l'entrée de l'ADC filtre le bruit.</li>
+</ul>
+<p><strong>Réponse.</strong> \(R_1 = R_2 = 100\) kΩ, entrée sur GPIO 35 (ADC1_CH7).</p>
+\[V_{ADC} = V_{bat}\,\frac{R_2}{R_1 + R_2}\]
+\[V_{ADC} = 4{,}2 \times \frac{100}{100 + 100}\]
+\[V_{ADC} = 2{,}1\ \text{V}\]
+<p>2,1 V est sous 3,3 V, avec une marge. À l'envers, dans le programme :</p>
+\[V_{bat} = 2 \times code \times \frac{3{,}3}{4095}\]
+<p>Exemple : le code lu vaut 2606.</p>
+\[V_{bat} = 2 \times 2606 \times \frac{3{,}3}{4095}\]
+\[V_{bat} \approx 4{,}20\ \text{V}\]
+<pre class="code" data-titre="Tension de la batterie"><code>const int PIN_BAT = 35;            // ADC1_CH7, milieu du pont 100 kΩ / 100 kΩ
+float vBat = 0;
+
+float lireBatterie() {
+  long somme = 0;
+  for (int i = 0; i &lt; 16; i++) somme += analogRead(PIN_BAT);   // moyenne de 16 mesures
+  return 2.0 * (somme / 16.0) * 3.3 / 4095.0;                     // le pont divise par 2
+}</code></pre>
+<p>L'ADC de l'ESP32 n'est pas parfaitement linéaire : pour une mesure juste, on l'étalonne avec un multimètre (ou on utilise <code>analogReadMilliVolts()</code>, qui applique l'étalonnage d'usine).</p>
+
+<h2>Question 28 : surveiller le niveau</h2>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Algorithme"><code>toutes les 10 s :
+    vBat ← moyenne de 16 mesures
+    vFiltree ← 0,9 × vFiltree + 0,1 × vBat         lisse les variations
+    si vFiltree &lt; SEUIL_ALERTE (3,5 V) pendant 3 bilans de suite :
+        état ← « batterie faible », alerte (question 29)
+    si vFiltree &lt; SEUIL_CRITIQUE (3,3 V) :
+        état ← « batterie critique »
+    sinon si vFiltree > SEUIL_ALERTE + 0,1 V :
+        état ← « normal »                           hystérésis : pas d'alerte qui clignote</code></pre>
+<p>Les seuils 3,5 V et 3,3 V conviennent à une batterie lithium-ion de maquette ; ce sont des choix à justifier, pas des valeurs du sujet.</p>
+
+<h2>Question 29 : sous le seuil d'alerte</h2>
+<p><strong>Réponse.</strong> La maquette doit :</p>
+<ul>
+<li><strong>prévenir</strong> : message série, alerte sur le dashboard (<code>pacemaker/alerte</code>), LED qui clignote ;</li>
+<li><strong>garder la stimulation en priorité</strong> : c'est la fonction vitale, elle ne s'arrête jamais à cause de la batterie ;</li>
+<li><strong>économiser</strong> : publier moins souvent, couper le Wi-Fi entre deux envois, ne plus allumer les LED de confort ;</li>
+<li><strong>enregistrer</strong> l'instant de l'alerte, pour le rapport.</li>
+</ul>
+<p>Un vrai stimulateur fait de même : quand sa pile atteint l'indicateur de remplacement (ERI, Elective Replacement Indicator), il le signale au programmateur, et le médecin planifie le changement du boîtier.</p>
+
+<h2>Question 30 : les risques d'un logiciel défaillant</h2>
+<div class="tableau"><table>
+<tr><th>Défaillance</th><th>Conséquence pour le patient</th></tr>
+<tr><td>plus de stimulation (programme bloqué, mauvais réglage)</td><td>pauses du cœur, malaise, syncope, risque vital chez un patient dépendant</td></tr>
+<tr><td>stimulation au mauvais moment, sur l'onde T</td><td>phénomène « R sur T » (cité par le tableau du sujet) : peut déclencher une arythmie ventriculaire grave</td></tr>
+<tr><td>sur-détection : du bruit pris pour des battements</td><td>stimulation inhibée à tort</td></tr>
+<tr><td>sous-détection : des battements ratés</td><td>stimulation en compétition avec le rythme propre</td></tr>
+<tr><td>fréquence trop élevée (paramètre corrompu)</td><td>tachycardie imposée par le pacemaker</td></tr>
+<tr><td>batterie mal surveillée</td><td>arrêt sans prévenir</td></tr>
+<tr><td>télémétrie non protégée</td><td>réglage modifié par une personne non autorisée</td></tr>
+</table></div>
+
+<h2>Question 31 : rendre la maquette robuste</h2>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li><strong>contrôle des paramètres</strong> : chaque réglage reçu est comparé à sa plage (fréquence de 30 à 180 bpm, seuil, période réfractaire) ; hors plage, il est refusé et l'ancien reste ; au démarrage, des valeurs sûres par défaut ;</li>
+<li><strong>garde-fou de fréquence</strong> : jamais deux stimulations à moins de 333 ms (180 bpm), quoi qu'il arrive dans le reste du programme ;</li>
+<li><strong>détection d'erreurs</strong> : signal plat, saturation, fréquence aberrante, batterie faible (questions 22 et 28), avec alerte ;</li>
+<li><strong>watchdog</strong> : remis à zéro une fois par tour de boucle ; s'il redémarre la puce, le programme le dit et repart avec les réglages par défaut (question 16) ;</li>
+<li><strong>interruptions courtes</strong> : elles lèvent un drapeau, la boucle fait le travail (TD 3, contraintes temporelles).</li>
+</ul>
+<pre class="code" data-titre="Le garde-fou, dans stimuler()"><code>const unsigned long INTERVALLE_MIN = 333;   // ms : 180 bpm au plus
+
+void stimuler(unsigned long t) {
+  if (t - dernierEvt &lt; INTERVALLE_MIN) return;   // trop tôt : on refuse, quoi qu'il arrive
+  digitalWrite(PIN_STIM, HIGH);
+  finStim = t + 20;
+  dernierEvt = t;
+}</code></pre>
+
+<h2>À retenir</h2>
+<ul>
+<li>Interface web : <code>/</code> (page), <code>/etat</code> (JSON), <code>/regler</code> (réglage vérifié) ; ou MQTT avec des topics d'état et de configuration en JSON.</li>
+<li>Batterie : pont diviseur par 2, \(V_{bat} = 2 \times code \times 3{,}3 / 4095\), seuils avec hystérésis.</li>
+<li>Sous le seuil : prévenir, économiser, mais ne jamais arrêter la stimulation.</li>
+<li>Robustesse : plages, valeurs par défaut, garde-fou de fréquence, détection d'erreurs, watchdog.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+</body>
+</html>
