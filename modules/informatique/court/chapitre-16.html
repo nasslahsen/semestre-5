@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Cloisonner le réseau (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 16 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Cloisonner le réseau</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-16.html">Lire le cours complet</a></p>
+<h2>Concevoir</h2>
+<p>Objectifs de sécurité : <strong>confidentialité</strong>, <strong>intégrité</strong>, <strong>disponibilité</strong> et <strong>traçabilité</strong>, inclus dès la conception. <strong>Cloisonner</strong> : séparer en domaines physiques et logiques, chacun avec son périmètre de sécurité.</p>
+<h2>VLAN</h2>
+<ul>
+<li>Un réseau physique, plusieurs réseaux logiques. Trunk entre switchs ; routage inter-VLAN par routeur ou switch de couche 3.</li>
+<li>Menaces : VLAN hopping, double tagging.</li>
+<li>Parades : DTP désactivé, VLAN natif ≠ 1, ports inutilisés désactivés, VLAN de gestion dédié, peu de VLAN.</li>
+</ul>
+<h2>DMZ</h2>
+<p>Zone tampon entre Internet et le LAN : services publics (web, mail, DNS), deux pare-feu, le réseau interne isolé.</p>
+<h2>Règles</h2>
+<p>Analyse des risques d'abord ; découper selon la criticité et selon les niveaux d'accès (DMZ, interne, critique) ; zone d'administration dédiée ; cloisonnement prévu dans toute extension.</p>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>VLAN</td><td>PowerCert Animated Videos</td><td><a href="https://www.youtube.com/results?search_query=PowerCert+VLAN+explained" target="_blank" rel="noopener">PowerCert VLAN explained</a></td></tr>
+<tr><td>VLAN hopping, double tagging</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=VLAN+hopping+double+tagging" target="_blank" rel="noopener">VLAN hopping double tagging</a></td></tr>
+<tr><td>DMZ</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=DMZ+network+explained" target="_blank" rel="noopener">DMZ network explained</a></td></tr>
+<tr><td>Segmentation réseau</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=network+segmentation+explained" target="_blank" rel="noopener">network segmentation explained</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quels objectifs de sécurité intégrer à la conception d'un réseau ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le triangle d'or (confidentialité, intégrité, disponibilité) plus la traçabilité, dès la conception.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Définis le cloisonnement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Séparer le réseau en domaines physiques et logiques, protégés chacun par un périmètre de sécurité bien défini.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> À quoi servent le mode trunk et le routage inter-VLAN ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Trunk : relier les commutateurs, un lien pour tous les VLAN.</p><p>Inter-VLAN : faire communiquer deux VLAN, par un routeur ou un switch de couche 3.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite les vulnérabilités des VLAN et cinq bonnes pratiques.</p><details class="corrige"><summary>Voir la réponse</summary><p>VLAN hopping, double tagging.</p><p>DTP désactivé, VLAN natif autre que 1, ports inutilisés désactivés, VLAN de gestion dédié, nombre de VLAN limité.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Définis la DMZ et donne son rôle.</p><details class="corrige"><summary>Voir la réponse</summary><p>Sous-réseau tampon entre Internet (non fiable) et le LAN (fiable).</p><p>Héberger les services publics, isoler le réseau interne.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Donne les cinq règles du cloisonnement.</p><details class="corrige"><summary>Voir la réponse</summary><p>Analyse des risques ; subdiviser selon la criticité ; selon les niveaux d'accès ; zone d'administration dédiée ; cloisonnement dans toute extension.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-17.html"><small>Version courte suivante</small>Défense en profondeur et architectures</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 16) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

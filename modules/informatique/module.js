@@ -2,7 +2,8 @@
  * Module Informatique médicale : ordre des pages. Couleurs, sous-modules et statut : registre.js.
  * Sources : « Systèmes d'informations de santé » séances 1-2 (S1S2) et 3 (S3, circuits patient), M. Sfaira ;
  *           TD « Centre d'oncologie du CHU Atlas » (dossier étudiant, données fictives) ;
- *           « Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité » (S1).
+ *           « Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité » (S1),
+           « Attaques réseaux » (S2), « Conception d'une architecture réseau sécurisée » (S3), M. Sfaira.
  * chapitres[].sousModule : sous-module du registre auquel le chapitre appartient.
  * niveaux : pages du jeu, dans l'ordre (cours : true quand cours/<id>.html existe ;
  *           revision, boss : niveaux de fin de chapitre ; pret : niveau jouable).
@@ -14,7 +15,7 @@ PLATEFORME.parcours("informatique", {
   // Pages libres : chaque page de cours suit sa matière (pas de plan imposé Intuition / Formalisation / Exemple / Formules clés).
   pagesLibres: true,
   // Versions courtes (court/chapitre-<n>.html) : l'essentiel, puis les questions d'examen ; accès sous le titre du chapitre.
-  court: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  court: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18],
   // podcasts des chapitres (lecteur sous le titre de la page du chapitre)
   podcasts: {
     7: { titre: "L'hôpital face à la menace cyber", duree: "21 min", fichier: "audio/chapitre-7.m4a" },
@@ -27,6 +28,8 @@ PLATEFORME.parcours("informatique", {
     recus: [
       { sousModule: "sis", titre: "« Systèmes d'informations de santé », séances 1-2 et 3 (M. Sfaira)", couvre: "6 chapitres" },
       { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : introduction à la cybersécurité », séance 1", couvre: "cours à part entière, 4 chapitres" },
+      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : attaques réseaux », séance 2", couvre: "4 chapitres" },
+      { sousModule: "securite", titre: "« Sécurité des réseaux informatiques hospitaliers : conception d'une architecture réseau sécurisée », séance 3 (M. Sfaira)", couvre: "3 chapitres" },
       { sousModule: "sis", titre: "TD « Centre d'oncologie du CHU Atlas » : dossier étudiant et modèle de fiche de synthèse", couvre: "TD 1" }
     ]
   },
@@ -41,7 +44,14 @@ PLATEFORME.parcours("informatique", {
     { id: 8, titre: "Les principes de la sécurité", sous: "Défense en profondeur, triangle CID, règle AAA", ligne: "Défense en profondeur, CID, AAA", sousModule: "securite" },
     { id: 9, titre: "Le cadre réglementaire", sous: "Loi 05-20, DGSSI, DNSSI, loi 09-08, normes et règlements internationaux", ligne: "Loi 05-20, loi 09-08, normes", sousModule: "securite" },
     { id: 10, titre: "Le vocabulaire du risque", sous: "Menace, vulnérabilité, attaque, surface d'attaque, kill chain, risque, incident, SPOF", ligne: "Menace, vulnérabilité, risque, SPOF", sousModule: "securite" },
-    { id: 11, td: true, numero: "TD 1", titre: "Centre d'oncologie du CHU Atlas", sous: "AMDEC du circuit de chimiothérapie, choix entre deux offres, plan d'audit et mode dégradé", ligne: "AMDEC, choix d'offre, audit, mode dégradé", sousModule: "sis" }
+    { id: 11, td: true, numero: "TD 1", titre: "Centre d'oncologie du CHU Atlas", sous: "AMDEC du circuit de chimiothérapie, choix entre deux offres, plan d'audit et mode dégradé", ligne: "AMDEC, choix d'offre, audit, mode dégradé", sousModule: "sis" },
+    { id: 12, titre: "Préparer une attaque réseau", sous: "Kill chain, MITRE ATT&CK, reconnaissance passive et active, Nmap", ligne: "Kill chain, ATT&CK, reconnaissance, Nmap", sousModule: "securite" },
+    { id: 13, titre: "Notions de réseaux", sous: "Modèles OSI et TCP/IP, encapsulation, IPv4 et IPv6, ports, équipements", ligne: "OSI, TCP/IP, ports, switch et routeur", sousModule: "securite" },
+    { id: 14, titre: "Attaques des couches 2 et 3", sous: "Équipements vulnérables, ARP spoofing, MAC flooding, VLAN hopping, ICMP flood", ligne: "ARP spoofing, MAC flooding, ICMP flood", sousModule: "securite" },
+    { id: 15, titre: "Couches 4 à 7, Wi-Fi et télémaintenance", sous: "Ports vulnérables, empoisonnement DNS, 0-day, rogue AP, evil twin, WPA", ligne: "Ports, DNS, 0-day, Wi-Fi, télémaintenance", sousModule: "securite" },
+    { id: 16, titre: "Cloisonner le réseau", sous: "Sécurité dès la conception, VLAN, DMZ, règles de cloisonnement", ligne: "Conception, VLAN, DMZ, règles", sousModule: "securite" },
+    { id: 17, titre: "Défense en profondeur et architectures", sous: "Couches de défense, VPN et IPsec, SD-WAN, tri-tiers, zero trust, Purdue", ligne: "VPN, IPsec, SD-WAN, zero trust, Purdue", sousModule: "securite" },
+    { id: 18, titre: "Gestion centralisée et disponibilité", sous: "Plan de gestion, politiques d'administration, outils, suppression des SPOF", ligne: "Administration, outils, haute disponibilité", sousModule: "securite" }
   ],
   niveaux: [
     { id: "informatique-medicale", chapitre: 1, titre: "Informatique médicale, matériel et logiciel", cours: true, pret: true },
@@ -124,6 +134,56 @@ PLATEFORME.parcours("informatique", {
     { id: "td1-audit", chapitre: 11, titre: "Atelier 3 : plan d'audit et mode dégradé", cours: true, pret: true },
     { id: "revision-td1", chapitre: 11, titre: "Révision : le TD en situations nouvelles", revision: true, pret: true },
     { id: "boss-td1", chapitre: 11, titre: "Le comité de pilotage", boss: true, pret: true }
+,
+    { id: "kill-chain-attack", chapitre: 12, titre: "Kill chain et MITRE ATT&CK", cours: true, pret: true },
+    { id: "reconnaissance", chapitre: 12, titre: "La phase de reconnaissance", cours: true, pret: true },
+    { id: "nmap", chapitre: 12, titre: "Nmap et les types de scan", cours: true, pret: true },
+    { id: "revision-attaque", chapitre: 12, titre: "Révision : préparer une attaque", revision: true, pret: true },
+    { id: "boss-attaque", chapitre: 12, titre: "L'audit du réseau biomédical", boss: true, pret: true }
+,
+    { id: "osi-tcpip", chapitre: 13, titre: "Les modèles OSI et TCP/IP", cours: true, pret: true },
+    { id: "encapsulation-ip", chapitre: 13, titre: "Encapsulation, IPv4 et IPv6", cours: true, pret: true },
+    { id: "ports-protocoles", chapitre: 13, titre: "Services, ports et protocoles", cours: true, pret: true },
+    { id: "equipements-reseau", chapitre: 13, titre: "Hub, switch et routeur", cours: true, pret: true },
+    { id: "revision-reseaux", chapitre: 13, titre: "Révision : les notions de réseaux", revision: true, pret: true },
+    { id: "boss-reseaux", chapitre: 13, titre: "Le moniteur qui ne répond plus", boss: true, pret: true }
+,
+    { id: "vuln-equipements", chapitre: 14, titre: "Équipements vulnérables", cours: true, pret: true },
+    { id: "arp-spoofing", chapitre: 14, titre: "L'empoisonnement du cache ARP", cours: true, pret: true },
+    { id: "icmp-flood", chapitre: 14, titre: "L'inondation ICMP", cours: true, pret: true },
+    { id: "revision-couches23", chapitre: 14, titre: "Révision : couches 2 et 3", revision: true, pret: true },
+    { id: "boss-couches23", chapitre: 14, titre: "L'homme du milieu au laboratoire", boss: true, pret: true }
+,
+    { id: "ports-vulnerables", chapitre: 15, titre: "Ports vulnérables, couches 4 à 7", cours: true, pret: true },
+    { id: "dns-empoisonnement", chapitre: 15, titre: "L'empoisonnement du cache DNS", cours: true, pret: true },
+    { id: "zero-day", chapitre: 15, titre: "Failles non corrigées et 0-day", cours: true, pret: true },
+    { id: "wifi-telemaintenance", chapitre: 15, titre: "Wi-Fi et télémaintenance", cours: true, pret: true },
+    { id: "autres-menaces", chapitre: 15, titre: "Les autres menaces du réseau", cours: true, pret: true },
+    { id: "revision-couches47", chapitre: 15, titre: "Révision : couches 4 à 7 et Wi-Fi", revision: true, pret: true },
+    { id: "boss-couches47", chapitre: 15, titre: "La borne du service de cardiologie", boss: true, pret: true }
+,
+    { id: "conception-securisee", chapitre: 16, titre: "La sécurité dès la conception", cours: true, pret: true },
+    { id: "vlan", chapitre: 16, titre: "Cloisonner par VLAN", cours: true, pret: true },
+    { id: "dmz", chapitre: 16, titre: "Cloisonner par DMZ", cours: true, pret: true },
+    { id: "regles-cloisonnement", chapitre: 16, titre: "Les règles du cloisonnement", cours: true, pret: true },
+    { id: "revision-cloisonnement", chapitre: 16, titre: "Révision : le cloisonnement", revision: true, pret: true },
+    { id: "boss-cloisonnement", chapitre: 16, titre: "Le plan réseau de la nouvelle aile", boss: true, pret: true }
+,
+    { id: "defense-couches", chapitre: 17, titre: "Les couches de la défense", cours: true, pret: true },
+    { id: "vpn-ipsec", chapitre: 17, titre: "VPN et IPsec", cours: true, pret: true },
+    { id: "sdwan-tritiers", chapitre: 17, titre: "SD-WAN et tri-tiers", cours: true, pret: true },
+    { id: "zero-trust", chapitre: 17, titre: "Zero trust", cours: true, pret: true },
+    { id: "purdue", chapitre: 17, titre: "Le modèle de Purdue", cours: true, pret: true },
+    { id: "revision-architectures", chapitre: 17, titre: "Révision : les architectures", revision: true, pret: true },
+    { id: "boss-architectures", chapitre: 17, titre: "Le groupement sanitaire", boss: true, pret: true }
+,
+    { id: "gestion-centralisee", chapitre: 18, titre: "Centraliser la gestion du réseau", cours: true, pret: true },
+    { id: "politiques-admin", chapitre: 18, titre: "Politiques et outils d'administration", cours: true, pret: true },
+    { id: "vigilance-gestion", chapitre: 18, titre: "Points de vigilance", cours: true, pret: true },
+    { id: "disponibilite", chapitre: 18, titre: "La disponibilité du réseau", cours: true, pret: true },
+    { id: "spof-redondance", chapitre: 18, titre: "Supprimer les SPOF", cours: true, pret: true },
+    { id: "revision-gestion", chapitre: 18, titre: "Révision : gestion et disponibilité", revision: true, pret: true },
+    { id: "boss-gestion", chapitre: 18, titre: "La nuit où le cœur de réseau tombe", boss: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -162,7 +222,34 @@ PLATEFORME.parcours("informatique", {
     { id: "td1-amdec", chapitre: 11, titre: "Le cas et l'analyse de risques", notions: ["td1-amdec"] },
     { id: "td1-offres", chapitre: 11, titre: "Choisir entre les deux offres", notions: ["td1-offres"] },
     { id: "td1-audit", chapitre: 11, titre: "Plan d'audit et mode dégradé", notions: ["td1-audit"] },
-    { id: "td1-corrige", chapitre: 11, titre: "Consignes et corrigé, atelier par atelier", notions: ["td1-corrige"] }
+    { id: "td1-corrige", chapitre: 11, titre: "Consignes et corrigé, atelier par atelier", notions: ["td1-corrige"] },
+    { id: "kill-chain-attack", chapitre: 12, titre: "Kill chain et MITRE ATT&CK", notions: ["kill-chain-attack"] },
+    { id: "reconnaissance", chapitre: 12, titre: "La phase de reconnaissance", notions: ["reconnaissance"] },
+    { id: "nmap", chapitre: 12, titre: "Nmap et les types de scan", notions: ["nmap"] },
+    { id: "osi-tcpip", chapitre: 13, titre: "Les modèles OSI et TCP/IP", notions: ["osi-tcpip"] },
+    { id: "encapsulation-ip", chapitre: 13, titre: "Encapsulation, IPv4 et IPv6", notions: ["encapsulation-ip"] },
+    { id: "ports-protocoles", chapitre: 13, titre: "Services, ports et protocoles", notions: ["ports-protocoles"] },
+    { id: "equipements-reseau", chapitre: 13, titre: "Switchs, routeurs et switchs multicouches", notions: ["equipements-reseau"] },
+    { id: "vuln-equipements", chapitre: 14, titre: "Équipements vulnérables et attaques", notions: ["vuln-equipements"] },
+    { id: "arp-spoofing", chapitre: 14, titre: "ARP spoofing", notions: ["arp-spoofing"] },
+    { id: "icmp-flood", chapitre: 14, titre: "Inondation ICMP", notions: ["icmp-flood"] },
+    { id: "ports-dns", chapitre: 15, titre: "Couches 4 à 7 et DNS", notions: ["ports-vulnerables", "dns-empoisonnement"] },
+    { id: "zero-day", chapitre: 15, titre: "Vulnérabilités non corrigées et 0-day", notions: ["zero-day"] },
+    { id: "wifi-telemaintenance", chapitre: 15, titre: "Wi-Fi et télémaintenance", notions: ["wifi-telemaintenance"] },
+    { id: "autres-menaces", chapitre: 15, titre: "Autres menaces du réseau hospitalier", notions: ["autres-menaces"] },
+    { id: "conception-securisee", chapitre: 16, titre: "La sécurité dès la conception", notions: ["conception-securisee"] },
+    { id: "vlan", chapitre: 16, titre: "Cloisonnement par VLAN", notions: ["vlan"] },
+    { id: "dmz", chapitre: 16, titre: "Cloisonnement par DMZ", notions: ["dmz"] },
+    { id: "regles-cloisonnement", chapitre: 16, titre: "Règles à respecter", notions: ["regles-cloisonnement"] },
+    { id: "defense-couches", chapitre: 17, titre: "La défense en profondeur", notions: ["defense-couches"] },
+    { id: "vpn-ipsec", chapitre: 17, titre: "VPN et IPsec", notions: ["vpn-ipsec"] },
+    { id: "sdwan-tritiers", chapitre: 17, titre: "SD-WAN et tri-tiers", notions: ["sdwan-tritiers"] },
+    { id: "zero-trust", chapitre: 17, titre: "Zero trust et comparaison", notions: ["zero-trust"] },
+    { id: "purdue", chapitre: 17, titre: "Le modèle de Purdue", notions: ["purdue"] },
+    { id: "gestion-centralisee", chapitre: 18, titre: "Centralisation de la gestion réseau", notions: ["gestion-centralisee"] },
+    { id: "politiques-admin", chapitre: 18, titre: "Politiques et outils d'administration", notions: ["politiques-admin"] },
+    { id: "vigilance-gestion", chapitre: 18, titre: "Points de vigilance", notions: ["vigilance-gestion"] },
+    { id: "disponibilite", chapitre: 18, titre: "Disponibilité et SPOF", notions: ["disponibilite", "spof-redondance"] }
   ],
   cours: [
     { chapitre: 1, id: "informatique-medicale", titre: "Informatique médicale et dualité DM / logiciel" },
@@ -213,6 +300,35 @@ PLATEFORME.parcours("informatique", {
     { chapitre: 11, id: "td1-amdec", titre: "Le cas et l'analyse de risques" },
     { chapitre: 11, id: "td1-offres", titre: "Choisir entre les deux offres" },
     { chapitre: 11, id: "td1-audit", titre: "Plan d'audit et mode dégradé" },
-    { chapitre: 11, id: "td1-corrige", titre: "Consignes et corrigé" }
+    { chapitre: 11, id: "td1-corrige", titre: "Consignes et corrigé" },
+    { chapitre: 12, id: "kill-chain-attack", titre: "Kill chain et MITRE ATT&CK" },
+    { chapitre: 12, id: "reconnaissance", titre: "La phase de reconnaissance" },
+    { chapitre: 12, id: "nmap", titre: "Nmap et les types de scan" },
+    { chapitre: 13, id: "osi-tcpip", titre: "Les modèles OSI et TCP/IP" },
+    { chapitre: 13, id: "encapsulation-ip", titre: "Encapsulation, IPv4 et IPv6" },
+    { chapitre: 13, id: "ports-protocoles", titre: "Services, ports, protocoles et socket" },
+    { chapitre: 13, id: "equipements-reseau", titre: "Hub, switch, routeur et switch multicouche" },
+    { chapitre: 14, id: "vuln-equipements", titre: "Vulnérabilités des équipements et attaques des couches 2 et 3" },
+    { chapitre: 14, id: "arp-spoofing", titre: "ARP spoofing ou empoisonnement du cache ARP" },
+    { chapitre: 14, id: "icmp-flood", titre: "Attaque par inondation ICMP" },
+    { chapitre: 15, id: "ports-vulnerables", titre: "Ports vulnérables et attaques des couches 4 à 7" },
+    { chapitre: 15, id: "dns-empoisonnement", titre: "DNS et empoisonnement du cache" },
+    { chapitre: 15, id: "zero-day", titre: "Vulnérabilités non corrigées et 0-day" },
+    { chapitre: 15, id: "wifi-telemaintenance", titre: "Attaques Wi-Fi et télémaintenance" },
+    { chapitre: 15, id: "autres-menaces", titre: "Autres menaces de sécurité du réseau hospitalier" },
+    { chapitre: 16, id: "conception-securisee", titre: "La sécurité dès la conception" },
+    { chapitre: 16, id: "vlan", titre: "Cloisonnement par VLAN" },
+    { chapitre: 16, id: "dmz", titre: "Cloisonnement par DMZ" },
+    { chapitre: 16, id: "regles-cloisonnement", titre: "Règles à respecter" },
+    { chapitre: 17, id: "defense-couches", titre: "La défense en profondeur dans le réseau" },
+    { chapitre: 17, id: "vpn-ipsec", titre: "VPN et IPsec" },
+    { chapitre: 17, id: "sdwan-tritiers", titre: "Architectures SD-WAN et tri-tiers" },
+    { chapitre: 17, id: "zero-trust", titre: "Architecture zero trust et comparaison" },
+    { chapitre: 17, id: "purdue", titre: "Le modèle de Purdue" },
+    { chapitre: 18, id: "gestion-centralisee", titre: "Centralisation de la gestion réseau" },
+    { chapitre: 18, id: "politiques-admin", titre: "Politiques d'administration et outils" },
+    { chapitre: 18, id: "vigilance-gestion", titre: "Points de vigilance de la gestion centralisée" },
+    { chapitre: 18, id: "disponibilite", titre: "La disponibilité des réseaux" },
+    { chapitre: 18, id: "spof-redondance", titre: "Supprimer les points uniques de défaillance" }
   ]
 });

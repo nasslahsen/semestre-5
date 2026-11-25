@@ -739,6 +739,21 @@ test("informatique médicale : réponses attendues dans les niveaux", () => {
   assert.deepStrictEqual(SIS.EDITEURS.map((e, k) => SIS.REGIONS.filter(r => r.e === k).length), [5, 4, 2, 1]);
 });
 
+// Sécurité des réseaux (séances 2 et 3) : adresses, plages de ports, saturation, comptages des niveaux
+test("informatique médicale : sécurité des réseaux, réponses des niveaux", () => {
+  const S = require("../modules/informatique/sis.js").calc;
+  assert.strictEqual(S.adresses(32), 4294967296); proche(S.adresses(32) / 1e9, 4.3, 0.05);   // encapsulation-ip
+  proche(S.adresses(128) / 1e38, 3.4, 0.05);                                                   // page : 2^128 ≈ 3,4 × 10^38
+  assert.strictEqual(8 * 4 * 4, 128);                                                          // revision-reseaux : 8 groupes × 4 chiffres × 4 bits
+  assert.deepStrictEqual([443, 3389, 52000, 53, 8080, 61234].map(S.plagePort), ["bien connus", "réservés", "dynamiques", "bien connus", "réservés", "dynamiques"]);
+  assert.strictEqual(S.plagePort(6000), "réservés");                                           // boss-reseaux
+  assert.strictEqual(S.saturation(1000, 50), 20);                                              // icmp-flood
+  const scan = [["22", "open"], ["23", "open"], ["445", "open"], ["3389", "filtered"]];
+  assert.strictEqual(scan.filter(l => l[1] === "open").length, 3);                             // boss-attaque
+  const chemin = [false, true, false, false];                                                  // spof-redondance : seul le cœur est doublé
+  assert.strictEqual(chemin.filter(d => !d).length, 3);
+});
+
 // Module Laboratoire d'analyses médicales : les réponses des niveaux, recalculées avec labo.js.
 test("laboratoire : centrifugation, minuteur, alarmes", () => {
   const L = require("../modules/laboratoire/labo.js").calc;

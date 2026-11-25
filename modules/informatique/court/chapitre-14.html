@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Attaques des couches 2 et 3 (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 14 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Attaques des couches 2 et 3</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-14.html">Lire le cours complet</a></p>
+<h2>Équipements vulnérables</h2>
+<p>Firmware non corrigé (CVE), identifiants par défaut (admin/admin), services de gestion exposés à Internet, protocoles non chiffrés (Telnet, SNMP v1/v2).</p>
+<ul>
+<li><strong>Switch</strong> (couche 2) : ARP spoofing, MAC flooding, VLAN hopping.</li>
+<li><strong>Routeur</strong> (couche 3) : IP spoofing, ICMP flood, détournement DNS du routeur.</li>
+</ul>
+<h2>ARP spoofing</h2>
+<p>ARP : request en broadcast « Qui est … ? », reply en unicast avec la MAC, gardée en cache. Le hacker envoie de faux <strong>gratuitous ARP</strong> aux deux victimes : leurs caches associent l'IP de l'autre à sa MAC, il se place au milieu (MitM). Parades : <strong>DHCP Snooping</strong>, <strong>DAI</strong>, VLAN, entrées ARP statiques.</p>
+<h2>ICMP flood</h2>
+<p>Déni de service par des demandes d'écho ICMP ; plusieurs sources : DDoS. Facilité par : sans connexion, réponse obligatoire, pas d'authentification de la source. Parades : limiter ou désactiver ICMP, anti-DDoS.</p>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>ARP spoofing</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=ARP+spoofing+explained" target="_blank" rel="noopener">ARP spoofing explained</a></td></tr>
+<tr><td>Dynamic ARP Inspection</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=DHCP+snooping+dynamic+ARP+inspection" target="_blank" rel="noopener">DHCP snooping dynamic ARP inspection</a></td></tr>
+<tr><td>MAC flooding</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=MAC+flooding+attack+explained" target="_blank" rel="noopener">MAC flooding attack explained</a></td></tr>
+<tr><td>Ping flood, DDoS</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=ping+flood+ICMP+DDoS+explained" target="_blank" rel="noopener">ping flood ICMP DDoS explained</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Cite les quatre vulnérabilités courantes des équipements réseau.</p><details class="corrige"><summary>Voir la réponse</summary><p>Firmware obsolète, identifiants par défaut, services de gestion exposés, configurations par défaut non sécurisées.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Donne trois attaques sur les switchs et trois sur les routeurs.</p><details class="corrige"><summary>Voir la réponse</summary><p>Switchs : ARP spoofing, MAC flooding, VLAN hopping.</p><p>Routeurs : IP spoofing, ICMP flood, détournement DNS.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Explique le fonctionnement normal d'ARP.</p><details class="corrige"><summary>Voir la réponse</summary><p>A demande en broadcast « Qui est 192.168.1.1 ? ».</p><p>Le détenteur répond en unicast avec sa MAC.</p><p>A garde la correspondance dans son cache ARP.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Comment se déroule une attaque ARP spoofing ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le hacker envoie de faux gratuitous ARP à A et à B.</p><p>Chaque cache associe l'IP de l'autre victime à la MAC du hacker.</p><p>Le trafic passe par lui : homme du milieu.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Donne les quatre protections contre l'ARP spoofing.</p><details class="corrige"><summary>Voir la réponse</summary><p>DHCP Snooping, DAI, segmentation en VLAN, entrées ARP statiques pour les équipements critiques.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi ICMP facilite-t-il l'inondation ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Sans connexion.</p><p>Réponse obligatoire (Echo Request / Reply).</p><p>Pas d'authentification de la source.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Que faut-il pour la plupart des attaques de couche 2 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Seulement une présence sur le bon segment réseau, y compris par un Wi-Fi mal isolé.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-15.html"><small>Version courte suivante</small>Couches 4 à 7, Wi-Fi et télémaintenance</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 14) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

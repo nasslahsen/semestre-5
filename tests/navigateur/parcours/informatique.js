@@ -452,4 +452,234 @@ tous["boss-td1"] = async (a) => {
   await a.choix(1); await a.suite();
 };
 
+/* ---------- Sécurité des réseaux, séances 2 et 3 (chapitres 12 à 18) : dispositions SIS.ranger, associer, ordonner ---------- */
+const dispo = {
+  carte: grille(2, 20, 20, 640, 80, 14),
+  bac: (nb) => (k) => nb === 2 ? [175 + 330 * k, 475] : [118 + 222 * k, 475],
+  noeud: (i) => [175 + 330 * (i % 2), 75 + 124 * Math.floor(i / 2)]
+};
+const ranger = (a, bacs, nb) => trier(a, dispo.carte, dispo.bac(nb || 2), bacs);
+const associer = (a, bon) => paires(a, (i) => [175, 75 + 110 * i], (k) => [525, 75 + 110 * k], bon);
+const ordonner = (a, liste) => ordre(a, dispo.noeud, liste);
+const choix = async (a, ...ks) => { for (const k of ks) { await a.choix(k); await a.suite(); } };
+
+tous["kill-chain-attack"] = async (a) => {
+  await ordonner(a, [1, 4, 3, 6, 0, 5, 2]); await a.suite();
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 1, 2);
+};
+tous.reconnaissance = async (a) => {
+  await ranger(a, [0, 1, 0, 1, 0, 1]); await a.suite();
+  await choix(a, 0, 1);
+};
+tous.nmap = async (a) => {
+  await associer(a, [2, 0, 3, 1]); await a.suite();
+  await choix(a, 2);
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 1);
+};
+tous["revision-attaque"] = async (a) => {
+  await choix(a, 0);
+  await ranger(a, [1, 0, 1, 0]); await a.suite();
+  await choix(a, 1, 1);
+};
+tous["boss-attaque"] = async (a) => {
+  await ordonner(a, [1, 3, 2, 0]); await a.suite();
+  await a.nombres([3]); await a.suite();
+  await choix(a, 2, 0);
+};
+tous["osi-tcpip"] = async (a) => {
+  await ordonner(a, [1, 6, 3, 5, 0, 2, 4]); await a.suite();
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await ranger(a, [0, 1, 2, 0, 1, 2], 3); await a.suite();
+  await choix(a, 0);
+};
+tous["encapsulation-ip"] = async (a) => {
+  await ordonner(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 2);
+  await a.nombres([4.3]); await a.suite();
+  await ranger(a, [0, 1, 0, 1, 1, 0]); await a.suite();
+};
+tous["ports-protocoles"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await a.nombres([22, 25, 80]); await a.suite();
+  await ranger(a, [0, 1, 2, 0, 1, 2], 3); await a.suite();
+  await choix(a, 1);
+};
+tous["equipements-reseau"] = async (a) => {
+  await associer(a, [2, 0, 3, 1]); await a.suite();
+  await ranger(a, [0, 1, 1, 0, 1, 0]); await a.suite();
+  await choix(a, 2);
+};
+tous["revision-reseaux"] = async (a) => {
+  await ranger(a, [0, 1, 2, 0, 1, 2], 3); await a.suite();
+  await a.nombres([128]); await a.suite();
+  await choix(a, 1, 1);
+};
+tous["boss-reseaux"] = async (a) => {
+  await ordonner(a, [2, 4, 0, 3, 1]); await a.suite();
+  await choix(a, 1, 2);
+};
+tous["vuln-equipements"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await ranger(a, [0, 1, 0, 1, 0, 1]); await a.suite();
+  await choix(a, 1, 1);
+};
+tous["arp-spoofing"] = async (a) => {
+  await ordonner(a, [1, 0, 3, 2]); await a.suite();
+  await choix(a, 1, 2);
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+};
+tous["icmp-flood"] = async (a) => {
+  await ranger(a, [0, 1, 0, 1]); await a.suite();
+  await choix(a, 0);
+  await a.nombres([20]); await a.suite();
+  await choix(a, 2);
+};
+tous["revision-couches23"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 1, 2, 1);
+};
+tous["boss-couches23"] = async (a) => {
+  await ordonner(a, [1, 2, 3, 0]); await a.suite();
+  await ranger(a, [0, 0, 0, 1, 0, 1]); await a.suite();
+  await choix(a, 2);
+};
+tous["ports-vulnerables"] = async (a) => {
+  await associer(a, [2, 0, 1, 4, 3]); await a.suite();
+  await choix(a, 1);
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 0);
+};
+tous["dns-empoisonnement"] = async (a) => {
+  await ordonner(a, [1, 0, 2, 3]); await a.suite();
+  await choix(a, 2, 1);
+  await ranger(a, [0, 1, 0, 1, 1]); await a.suite();
+};
+tous["zero-day"] = async (a) => {
+  await ordonner(a, [2, 0, 1]); await a.suite();
+  await ranger(a, [0, 1, 0, 1]); await a.suite();
+  await choix(a, 1, 0);
+};
+tous["wifi-telemaintenance"] = async (a) => {
+  await ranger(a, [0, 1, 0, 1]); await a.suite();
+  await ordonner(a, [1, 3, 0, 2]); await a.suite();
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 2);
+};
+tous["autres-menaces"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await ranger(a, [0, 1, 0, 1, 0]); await a.suite();
+  await choix(a, 1);
+};
+tous["revision-couches47"] = async (a) => {
+  await associer(a, [2, 3, 1, 0]); await a.suite();
+  await choix(a, 2, 1, 0);
+};
+tous["boss-couches47"] = async (a) => {
+  await choix(a, 2);
+  await ordonner(a, [1, 3, 0, 2]); await a.suite();
+  await ranger(a, [0, 0, 0, 1, 1, 0]); await a.suite();
+  await choix(a, 1);
+};
+tous["conception-securisee"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 1);
+  await a.jetons(["p", "s"]); await a.suite();
+};
+tous.vlan = async (a) => {
+  await choix(a, 0);
+  await ranger(a, [0, 1, 0, 1]); await a.suite();
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 2);
+};
+tous.dmz = async (a) => {
+  await ranger(a, [1, 2, 1, 2, 1, 0], 3); await a.suite();
+  await a.nombres([1]); await a.suite();
+  await choix(a, 1);
+};
+tous["regles-cloisonnement"] = async (a) => {
+  await choix(a, 2);
+  await associer(a, [2, 0, 3, 1]); await a.suite();
+  await choix(a, 0);
+};
+tous["revision-cloisonnement"] = async (a) => {
+  await ranger(a, [0, 1, 0, 1]); await a.suite();
+  await choix(a, 1, 0);
+};
+tous["boss-cloisonnement"] = async (a) => {
+  await ordonner(a, [1, 3, 0, 2]); await a.suite();
+  await ranger(a, [1, 0, 2, 1, 2], 3); await a.suite();
+  await choix(a, 2);
+};
+tous["defense-couches"] = async (a) => {
+  await associer(a, [2, 3, 1, 0]); await a.suite();
+  await choix(a, 1, 2);
+};
+tous["vpn-ipsec"] = async (a) => {
+  await choix(a, 1);
+  await associer(a, [1, 2, 0]); await a.suite();
+  await ranger(a, [0, 1, 0, 2], 3); await a.suite();
+  await choix(a, 1);
+};
+tous["sdwan-tritiers"] = async (a) => {
+  await choix(a, 0);
+  await associer(a, [1, 2, 3, 0]); await a.suite();
+  await ranger(a, [0, 1, 2, 0, 1, 2], 3); await a.suite();
+  await choix(a, 1);
+};
+tous["zero-trust"] = async (a) => {
+  await choix(a, 1);
+  await associer(a, [1, 3, 2, 0]); await a.suite();
+  await ranger(a, [0, 1, 2], 3); await a.suite();
+  await choix(a, 1);
+};
+tous.purdue = async (a) => {
+  await ordonner(a, [1, 5, 3, 6, 0, 4, 2]); await a.suite();
+  await ranger(a, [0, 1, 0, 1, 1, 0]); await a.suite();
+  await choix(a, 2);
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+};
+tous["revision-architectures"] = async (a) => {
+  await associer(a, [2, 3, 1, 0]); await a.suite();
+  await choix(a, 2);
+  await ranger(a, [0, 0, 1, 0, 1, 0]); await a.suite();
+};
+tous["boss-architectures"] = async (a) => {
+  await ranger(a, [0, 1, 2, 0, 1, 2], 3); await a.suite();
+  await choix(a, 1, 1);
+};
+tous["gestion-centralisee"] = async (a) => {
+  await ranger(a, [0, 0, 1, 0, 0, 1]); await a.suite();
+  await choix(a, 0, 0);
+};
+tous["politiques-admin"] = async (a) => {
+  await ranger(a, [0, 1, 0, 1, 0, 1]); await a.suite();
+  await associer(a, [2, 4, 0, 1, 3]); await a.suite();
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await choix(a, 1);
+};
+tous["vigilance-gestion"] = async (a) => {
+  await associer(a, [2, 3, 1, 0]); await a.suite();
+  await choix(a, 1, 1);
+};
+tous.disponibilite = async (a) => {
+  await associer(a, [2, 3, 1, 0]); await a.suite();
+  await choix(a, 1, 2);
+};
+tous["spof-redondance"] = async (a) => {
+  await ranger(a, [0, 1, 2, 1, 0, 2], 3); await a.suite();
+  await choix(a, 1, 0);
+  await a.nombres([3]); await a.suite();
+};
+tous["revision-gestion"] = async (a) => {
+  await ranger(a, [1, 0, 1, 0, 1, 0]); await a.suite();
+  await choix(a, 2, 0);
+};
+tous["boss-gestion"] = async (a) => {
+  await associer(a, [2, 3, 0, 1]); await a.suite();
+  await ordonner(a, [1, 3, 0, 2]); await a.suite();
+  await choix(a, 2);
+};
+
 module.exports = tous;

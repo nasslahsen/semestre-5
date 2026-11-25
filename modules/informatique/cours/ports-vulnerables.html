@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Ports vulnérables et attaques des couches 4 à 7 · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Ports vulnérables et attaques des couches 4 à 7</h1>
+<p class="chapeau">Le scan de l'auditeur montre les ports 21, 23 et 445 ouverts sur le serveur du laboratoire. Pour un attaquant, chacun de ces numéros raconte déjà une histoire.</p>
+<h2>Principaux ports et protocoles vulnérables</h2>
+<div class="tableau"><table>
+<tr><th>Port</th><th>Protocole</th><th>Pourquoi il est visé</th></tr>
+<tr><td>21</td><td>FTP</td><td>transfert en texte clair : vulnérable au sniffing et au vol de données</td></tr>
+<tr><td>22</td><td>SSH</td><td>cible des attaques par force brute pour accéder aux serveurs</td></tr>
+<tr><td>23</td><td>Telnet</td><td>non chiffré, hautement non sécurisé</td></tr>
+<tr><td>25</td><td>SMTP</td><td>utilisé pour le spam et le phishing</td></tr>
+<tr><td>53</td><td>DNS</td><td>exploité pour les attaques par déni de service distribué (DDoS)</td></tr>
+<tr><td>137 – 139 et 445</td><td>NetBIOS et SMB</td><td>fréquemment ciblés par les rançongiciels sur Windows</td></tr>
+<tr><td>80 / 443</td><td>HTTP / HTTPS</td><td>vulnérables aux injections (XSS) et au détournement de session</td></tr>
+</table></div>
+<p>Rappel du chapitre 7 : WannaCry (NHS, 2017) exploitait justement SMBv1, sur le port 445.</p>
+
+<h2>Principales attaques et risques</h2>
+<div class="schema" id="sc-attaques-l47"></div>
+<ul>
+<li><b>Scan de ports</b> (port scanning) : recherche de services ouverts par des attaquants.</li>
+<li><b>Man-in-the-Middle</b> (MitM) : interception de données sur des protocoles non chiffrés.</li>
+<li><b>Déni de service</b> (DDoS) : inondation de ports spécifiques pour rendre un service indisponible.</li>
+<li><b>Exploitation de services</b> (rançongiciel) : utilisation de protocoles mal configurés pour pénétrer le réseau.</li>
+<li><b>Détournement DNS</b> (DNS hijacking) : fausse correspondance IP / nom de domaine injectée dans la mémoire d'un serveur DNS récursif.</li>
+<li><b>Exploitation de vulnérabilités non corrigées</b> : un système qui n'a simplement pas reçu le correctif.</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>En clair : FTP 21, Telnet 23. Force brute : SSH 22. Spam, phishing : SMTP 25. DDoS : DNS 53.</li>
+<li>Rançongiciels Windows : NetBIOS 137 – 139 et SMB 445. Injections XSS, session : HTTP/HTTPS 80/443.</li>
+<li>Six attaques : scan, MitM, DDoS, exploitation de services, DNS hijacking, failles non corrigées.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

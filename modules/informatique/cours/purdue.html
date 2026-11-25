@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le modèle de Purdue · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le modèle de Purdue</h1>
+<p class="chapeau">Un virus arrivé par le courriel d'un employé ne doit jamais pouvoir arrêter une turbine. À l'hôpital, la même idée protège les automates du traitement d'air ou de l'eau, et les équipements qui n'ont pas d'antivirus.</p>
+<p>Le <b>modèle de Purdue</b> (Purdue Reference Model) est un standard mondial utilisé pour structurer l'architecture des <b>réseaux industriels</b> et sécuriser les environnements <b>OT</b> (Operational Technology, technologies opérationnelles) par rapport aux réseaux <b>IT</b> (Information Technology, informatique d'entreprise).</p>
+<p>Il a été développé dans les années 1990 à l'université de Purdue, puis intégré dans la norme internationale de cybersécurité des réseaux industriels <b>ISA/IEC 62443</b>.</p>
+
+<h2>À quoi il sert</h2>
+<p>Son but principal est la <b>segmentation réseau</b>. Dans une usine ou une infrastructure critique, il est impensable qu'un virus venant du courriel d'un employé (réseau IT) atteigne directement une turbine ou un automate programmable (réseau OT) et paralyse la production. Le modèle sert à :</p>
+<ul>
+<li><b>isoler et protéger</b> les systèmes de contrôle industriels, qui n'ont souvent pas d'antivirus ;</li>
+<li><b>définir des frontières strictes</b> pour le trafic réseau ;</li>
+<li><b>garantir la sécurité des opérations</b> tout en laissant les données de production remonter vers la direction (analyse de performance, ERP...).</li>
+</ul>
+
+<h2>Les niveaux</h2>
+<div id="fig-purdue"></div>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Nom</th><th>Exemples</th><th>Domaine</th></tr>
+<tr><td>5</td><td>Enterprise / corporate IT</td><td>services d'annuaire, ERP, applications d'entreprise</td><td rowspan="2">IT</td></tr>
+<tr><td>4</td><td>Enterprise network</td><td>serveurs web, courriel, DNS</td></tr>
+<tr><td>3.5</td><td>Demilitarized zone (DMZ)</td><td>serveur de correctifs, historian miroir, serveur de rebond</td><td>frontière</td></tr>
+<tr><td>3</td><td>Manufacturing operations</td><td>poste de travail, historian, serveur d'entrées/sorties</td><td rowspan="4">OT</td></tr>
+<tr><td>2</td><td>Supervisory control</td><td>SCADA, IHM</td></tr>
+<tr><td>1</td><td>Basic control</td><td>PLC, RTU, contrôleurs DCS, SIS</td></tr>
+<tr><td>0</td><td>Physical process</td><td>capteurs, actionneurs</td></tr>
+</table></div>
+<p>Sigles : <b>SCADA</b> (Supervisory Control and Data Acquisition), <b>PLC</b> (Programmable Logic Controller, automate), <b>RTU</b> (Remote Terminal Unit), <b>DCS</b> (Distributed Control System), <b>SIS</b> (Safety Instrumented System).</p>
+
+<h2>L'appliquer à la sécurité réseau</h2>
+<ol>
+<li>Mettre en place des <b>pare-feu industriels à chaque frontière</b>.</li>
+<li>Déployer une <b>DMZ industrielle (IDMZ)</b> stricte, le niveau 3.5.</li>
+<li>Utiliser l'<b>inspection profonde des protocoles</b> (DPI, Deep Packet Inspection).</li>
+<li>Sécuriser les <b>accès distants</b> (télémaintenance).</li>
+</ol>
+
+<h2>À retenir</h2>
+<ul>
+<li>Purdue : segmenter l'OT de l'IT, intégré à ISA/IEC 62443.</li>
+<li>Niveaux 5 et 4 (IT), 3.5 (DMZ industrielle), 3 à 0 (OT, jusqu'aux capteurs et actionneurs).</li>
+<li>Pare-feu à chaque frontière, IDMZ stricte, DPI, télémaintenance sécurisée.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/purdue.js"></script>
+</body>
+</html>

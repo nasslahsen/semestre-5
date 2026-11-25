@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>ARP spoofing ou empoisonnement du cache ARP · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>ARP spoofing ou empoisonnement du cache ARP</h1>
+<p class="chapeau">Le poste du laboratoire envoie ses résultats au serveur. Tout semble normal, mais chaque paquet passe d'abord par la machine d'un intrus branché sur le même switch. Le coupable : un protocole qui croit tout ce qu'on lui dit.</p>
+<h2>Fonctionnement normal du protocole ARP</h2>
+<p>Sur un réseau local, une machine connaît l'<b>adresse IP</b> de son destinataire, mais le switch achemine les trames grâce à l'<b>adresse MAC</b>. Le protocole <b>ARP</b> fait le lien entre les deux :</p>
+<ol>
+<li><b>ARP Request</b>, en diffusion (broadcast, destination <code>FF:FF:FF:FF:FF:FF</code>) : A demande à tout le réseau « Qui est 192.168.1.1 ? ».</li>
+<li><b>ARP Reply</b>, en unicast : D, qui a cette adresse, répond « Mon adresse MAC est 00:00:00:00:00:A0 ».</li>
+<li>A range la correspondance IP – MAC dans son <b>cache ARP</b> et s'en sert pour les trames suivantes.</li>
+</ol>
+<p>Variantes ARP :</p>
+<ul>
+<li><b>ARP Probe</b> : quand une machine prend une nouvelle adresse, elle vérifie que personne ne l'utilise.</li>
+<li><b>Gratuitous ARP</b> : annonce envoyée sans qu'on l'ait demandée (sans état).</li>
+<li><b>Reverse ARP</b> : attribution d'adresse IP à partir de la MAC.</li>
+<li><b>Proxy ARP</b> : un mandataire répond à la place d'une autre machine (à désactiver sur les routeurs).</li>
+</ul>
+
+<h2>Déroulement de l'attaque</h2>
+<div id="fig-arp"></div>
+<p>Dans un LAN commuté, le switch envoie normalement le trafic directement du port d'origine au port de destination : le hacker ne voit rien. Pour entendre le trafic, il mène une attaque de type <b>homme du milieu</b> (Man-in-the-Middle, MitM) en empoisonnant le cache ARP des victimes :</p>
+<ul>
+<li>il envoie à PC A un gratuitous ARP : « 192.168.1.254 (le serveur B) est 00:00:00:00:00:03 », sa propre MAC ;</li>
+<li>il envoie au serveur B : « 192.168.1.100 (PC A) est 00:00:00:00:00:03 » ;</li>
+<li>les deux caches sont mis à jour sans vérification : A et B s'envoient leurs trames... au hacker, qui les relaie de façon transparente (le cours parle d'attaque <b>APR</b>).</li>
+</ul>
+<p>La faiblesse vient d'ARP lui-même : aucune authentification, et une machine accepte une réponse qu'elle n'a pas demandée.</p>
+
+<h2>Mesures de protection</h2>
+<ul>
+<li><b>DHCP Snooping</b> : le switch n'autorise les attributions d'adresses IP que si elles viennent d'un serveur DHCP légitime.</li>
+<li><b>DAI</b> (Dynamic ARP Inspection) : le switch intercepte et vérifie tous les paquets ARP, en les comparant à une base fiable (générée par le DHCP Snooping).</li>
+<li><b>Segmenter le réseau avec des VLAN</b> : on confine le trafic.</li>
+<li><b>Entrées ARP statiques pour les équipements critiques</b> : pour les serveurs sensibles ou la passerelle par défaut, on inscrit la correspondance IP – MAC « en dur ».</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>ARP : request en broadcast « Qui est ... ? », reply en unicast avec la MAC, mémorisée dans le cache.</li>
+<li>Attaque : faux gratuitous ARP vers les deux victimes, le hacker se met au milieu (MitM).</li>
+<li>Protections : DHCP Snooping, DAI, VLAN, ARP statiques.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/arp-spoofing.js"></script>
+</body>
+</html>

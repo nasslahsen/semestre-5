@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>VPN et IPsec · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>VPN et IPsec</h1>
+<p class="chapeau">Le cardiologue consulte les ECG depuis chez lui, le fabricant entretient l'IRM depuis l'Allemagne. Leurs données traversent Internet : il faut un tunnel que personne ne peut lire ni modifier.</p>
+<p>Un <b>VPN</b> (Virtual Private Network, réseau privé virtuel) est un outil de cybersécurité qui crée un <b>tunnel chiffré sécurisé</b> entre un appareil et Internet, en masquant son adresse IP et ses données.</p>
+<ul>
+<li>Il fournit : <b>authentification</b>, <b>intégrité</b>, <b>confidentialité</b>.</li>
+<li>Il utilise : le <b>chiffrement</b>, l'<b>encapsulation</b> et le <b>masquage IP</b>.</li>
+</ul>
+
+<h2>Principaux protocoles VPN</h2>
+<div class="tableau"><table>
+<tr><th>Protocole</th><th>Point fort (cours)</th></tr>
+<tr><td>IKEv2/IPsec</td><td>excellent pour la stabilité, idéal sur les appareils mobiles lors des changements de réseau</td></tr>
+<tr><td>WireGuard</td><td>moderne, open source, très rapide et sécurisé, considéré comme la nouvelle norme</td></tr>
+<tr><td>OpenVPN</td><td>robuste, polyvalent et très sécurisé, standard de l'industrie pour la confidentialité</td></tr>
+</table></div>
+
+<h2>Le protocole IPsec</h2>
+<p><b>IPsec</b> (Internet Protocol Security) est une suite de protocoles conçue pour sécuriser les communications sur Internet en <b>authentifiant et en chiffrant chaque paquet</b> IP.</p>
+<div class="tableau"><table>
+<tr><th>Plan</th><th>Protocole</th><th>Rôle</th></tr>
+<tr><td>Plan de contrôle</td><td>IKE</td><td>négociation des paramètres de sécurité, établissement des clés pour l'authentification</td></tr>
+<tr><td rowspan="2">Plan de données</td><td>ESP</td><td>chiffrement, validation et authentification des données</td></tr>
+<tr><td>AH</td><td>validation et authentification des données (sans chiffrement)</td></tr>
+</table></div>
+
+<h2>Les deux modes d'IPsec (ESP)</h2>
+<div id="fig-ipsec"></div>
+<ul>
+<li><b>Mode transport</b> : on garde l'<b>en-tête IP original</b> devant, et on insère l'en-tête ESP. Seules les <b>données</b> (et l'en-queue ESP) sont chiffrées ; l'authentification couvre en-tête ESP, données et en-queue.</li>
+<li><b>Mode tunnel</b> : tout le paquet original, <b>en-tête IP compris</b>, est chiffré, et on ajoute un <b>nouvel en-tête IP</b> devant. Les adresses d'origine sont cachées : c'est ce mode qui sert aux VPN entre sites.</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>VPN : tunnel chiffré, authentification + intégrité + confidentialité. Protocoles : IKEv2/IPsec, WireGuard, OpenVPN.</li>
+<li>IPsec : IKE négocie les clés ; ESP chiffre et authentifie ; AH authentifie sans chiffrer.</li>
+<li>Transport : en-tête IP original visible. Tunnel : paquet entier chiffré sous un nouvel en-tête IP.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/vpn-ipsec.js"></script>
+</body>
+</html>

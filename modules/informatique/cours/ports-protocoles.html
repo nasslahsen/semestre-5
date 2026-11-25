@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Services, ports, protocoles et socket · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Services, ports, protocoles et socket</h1>
+<p class="chapeau">Sur le même serveur tournent le portail web, la messagerie et le DNS. Quand un paquet arrive, comment la machine sait-elle à quel programme le donner ? Par son numéro de port.</p>
+<p>Les services, ports et protocoles réseaux sont les piliers de la communication informatique.</p>
+<ul>
+<li><b>Service</b> : application qui écoute sur un port, comme un serveur web (HTTP) ou un serveur de messagerie (SMTP).</li>
+<li><b>Port</b> : point de terminaison virtuel, identifié par un numéro de 0 à 65 535, utilisé par le système d'exploitation pour diriger le trafic vers la bonne application.</li>
+<li><b>Protocole</b> : ensemble de règles et de conventions qui définissent comment les données sont formatées, transmises, reçues et traitées sur un réseau.</li>
+<li><b>Socket</b> : association d'une adresse IP et d'un numéro de port (ex. : <code>192.168.1.10:80</code>). C'est le point de terminaison unique d'une communication entre un client et un serveur.</li>
+</ul>
+<div id="fig-ports"></div>
+
+<h2>Les ports à connaître</h2>
+<div class="tableau"><table>
+<tr><th>Protocole</th><th>Port</th><th>Service</th></tr>
+<tr><td>FTP</td><td>20</td><td>transfert de fichiers (données)</td></tr>
+<tr><td>FTP</td><td>21</td><td>transfert de fichiers (contrôle)</td></tr>
+<tr><td>SSH</td><td>22</td><td>Secure Shell</td></tr>
+<tr><td>Telnet</td><td>23</td><td>Telnet</td></tr>
+<tr><td>SMTP</td><td>25</td><td>envoi de courrier</td></tr>
+<tr><td>DNS</td><td>53</td><td>noms de domaine (UDP)</td></tr>
+<tr><td>HTTP</td><td>80</td><td>web</td></tr>
+<tr><td>POP3</td><td>110</td><td>relève du courrier</td></tr>
+<tr><td>IMAP</td><td>143</td><td>accès au courrier</td></tr>
+</table></div>
+
+<h2>Trois plages de ports</h2>
+<div class="tableau"><table>
+<tr><th>Plage</th><th>Catégorie</th><th>Description</th></tr>
+<tr><td>0 – 1023</td><td>ports bien connus</td><td>réservés pour des services bien connus (web, envoi de mail...)</td></tr>
+<tr><td>1024 – 49 151</td><td>ports réservés</td><td>réservés pour des applications propriétaires</td></tr>
+<tr><td>49 152 – 65 535</td><td>ports dynamiques</td><td>ports « libres » pour vos applications, ni bien connus ni réservés</td></tr>
+</table></div>
+<p>La commande <code>netstat -ano</code> (capture du cours) liste les connexions d'une machine : protocole (TCP ou UDP), adresse locale et adresse distante sous forme de sockets, état (<code>LISTENING</code> : un service attend ; <code>ESTABLISHED</code> : une connexion est ouverte). Chaque port en écoute est une porte possible pour un attaquant.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Service = programme qui écoute. Port = numéro de 0 à 65 535. Protocole = règles. Socket = IP + port.</li>
+<li>FTP 20/21, SSH 22, Telnet 23, SMTP 25, DNS 53, HTTP 80, POP3 110, IMAP 143.</li>
+<li>Bien connus 0 – 1023, réservés 1024 – 49 151, dynamiques 49 152 – 65 535.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/ports-protocoles.js"></script>
+</body>
+</html>

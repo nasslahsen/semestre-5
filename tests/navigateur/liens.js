@@ -33,7 +33,11 @@ const CORRECTIONS = {
     // TD 1 : le SPOF vers le cours de sécurité, les décisions vers le tableau du mode dégradé ou la recommandation du corrigé
     "revision-td1": { 5: ["incident-spof", "", ""] },
     "td1-audit": { 3: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"], 4: ["td1-audit", "mode-degrade-les-six-etapes-de-l-enonce", "Mode dégradé : les six étapes de l'énoncé"] },
-    "boss-td1": { 3: ["td1-corrige", "consignes-4", "Consignes"] }
+    "boss-td1": { 3: ["td1-corrige", "consignes-4", "Consignes"] },
+    // sécurité des réseaux : la démarche vers les règles, les mesures du boss Wi-Fi vers la page Wi-Fi, les attaques vers leur liste
+    "ports-vulnerables": { 3: ["ports-vulnerables", "principales-attaques-et-risques", "Principales attaques et risques"] },
+    "boss-cloisonnement": { 1: ["regles-cloisonnement", "", ""] },
+    "boss-couches47": { 3: ["wifi-telemaintenance", "", ""] }
   },
   langues: {
     // exercices de situation et TD : vers la liste du cours ou l'exercice du corrigé

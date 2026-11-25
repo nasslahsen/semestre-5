@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Préparer une attaque réseau (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 12 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Préparer une attaque réseau</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-12.html">Lire le cours complet</a></p>
+<h2>Kill chain et MITRE ATT&amp;CK</h2>
+<p>Kill chain : <strong>reconnaissance</strong> → <strong>armement</strong> → <strong>livraison</strong> → <strong>exploitation</strong> → <strong>installation</strong> → <strong>C2</strong> (pilotage) → <strong>objectifs</strong> (vol, chiffrement). Casser une phase arrête la chaîne.</p>
+<p><strong>MITRE ATT&amp;CK</strong> : base publique des techniques réellement observées, rangées par tactique (le but) et technique (le moyen précis). Pas d'ordre strict : retours et sauts possibles.</p>
+<h2>La reconnaissance (footprinting)</h2>
+<ul>
+<li>Collecter un maximum d'informations pour cartographier la cible et trouver ses faiblesses.</li>
+<li><strong>Passive</strong> : OSINT, sans contact (réseaux sociaux, DNS publics).</li>
+<li><strong>Active</strong> : Nmap, Nessus, OpenVAS, avec contact (scan de ports), donc détectable.</li>
+</ul>
+<h2>Nmap</h2>
+<ul>
+<li>Découverte d'hôtes, scan de ports, détection de services et versions, identification de l'OS.</li>
+<li>TCP connect : connexion complète, visible dans les journaux. SYN : poignée de main non terminée, plus discret.</li>
+<li>UDP : DNS, SNMP, NTP, souvent ignoré à tort. Version / OS : révèle les cibles non corrigées.</li>
+</ul>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Cyber kill chain</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=cyber+kill+chain+explained" target="_blank" rel="noopener">cyber kill chain explained</a></td></tr>
+<tr><td>MITRE ATT&CK</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=MITRE+ATT%26CK+framework+explained" target="_blank" rel="noopener">MITRE ATT&CK framework explained</a></td></tr>
+<tr><td>OSINT et reconnaissance</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=passive+vs+active+reconnaissance" target="_blank" rel="noopener">passive vs active reconnaissance</a></td></tr>
+<tr><td>Nmap</td><td>NetworkChuck</td><td><a href="https://www.youtube.com/results?search_query=NetworkChuck+nmap+tutorial" target="_blank" rel="noopener">NetworkChuck nmap tutorial</a></td></tr>
+<tr><td>Scan SYN</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=nmap+SYN+scan+explained" target="_blank" rel="noopener">nmap SYN scan explained</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne les sept phases de la kill chain.</p><details class="corrige"><summary>Voir la réponse</summary><p>Reconnaissance, armement, livraison, exploitation, installation, C2 (pilotage), objectifs.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle différence entre la kill chain et MITRE ATT&amp;CK ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La kill chain impose un ordre de phases.</p><p>ATT&amp;CK est une base de techniques observées, par tactique et technique, sans ordre strict.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Reconnaissance passive et active : définis et donne un exemple.</p><details class="corrige"><summary>Voir la réponse</summary><p>Passive : OSINT, sans contact avec la cible (profils sur les réseaux sociaux, DNS publics).</p><p>Active : on envoie des paquets à la cible (scan de ports avec Nmap).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Cite les quatre fonctionnalités de Nmap.</p><details class="corrige"><summary>Voir la réponse</summary><p>Découverte d'hôtes, scan de ports, détection de services (et versions), identification de l'OS.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Pourquoi le scan SYN est-il dit « furtif » ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il n'envoie que le premier paquet de la poignée de main TCP, sans la terminer.</p><p>Il apparaît moins dans les journaux qu'un TCP connect, mais un IDS bien réglé le voit.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi la détection de version est-elle la plus dangereuse ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle révèle directement les cibles non corrigées : version connue, faille connue.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Quels services un scan UDP permet-il de trouver ?</p><details class="corrige"><summary>Voir la réponse</summary><p>DNS, SNMP, NTP.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-13.html"><small>Version courte suivante</small>Notions de réseaux</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 12) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Supprimer les points uniques de défaillance · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Supprimer les points uniques de défaillance</h1>
+<p class="chapeau">Un seul pare-feu, un seul opérateur, un seul serveur DNS : chacun peut arrêter tout l'hôpital. La réponse tient en un mot, doubler, mais elle se décline à chaque niveau.</p>
+<p>Rappel (chapitre « Le vocabulaire du risque ») : un <b>SPOF</b> est un maillon dont la défaillance entraîne une interruption majeure. Le cours liste comment les supprimer, niveau par niveau.</p>
+<div id="fig-spof"></div>
+
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Mesures (cours)</th></tr>
+<tr><td>Équipements</td><td>cœur de réseau en paire (stacking, VSS, MLAG) ; pare-feu en haute disponibilité (actif/passif avec CARP, VRRP ou HSRP) ; alimentations doubles sur onduleurs et groupe électrogène</td></tr>
+<tr><td>Liens</td><td>agrégation (LACP) ; double attachement des serveurs critiques ; deux opérateurs distincts avec des cheminements physiques différents ; SD-WAN pour basculer entre fibre et 4G/5G</td></tr>
+<tr><td>Topologie</td><td>boucles en anneau avec protocoles rapides (RSTP/MSTP) en couche 2 ; routage dynamique (OSPF/BGP) à convergence rapide en couche 3 ; BFD pour détecter une panne de lien en moins d'une seconde</td></tr>
+<tr><td>Services</td><td>DNS, DHCP, NTP et annuaire en doublon ; pour le DPI et le PACS, clusters ou répartiteurs de charge</td></tr>
+</table></div>
+<p>Pourquoi deux opérateurs <b>avec des cheminements différents</b> : si les deux fibres passent dans la même tranchée, un seul coup de pelleteuse coupe les deux. Doubler ne sert que si les deux chemins ne tombent pas ensemble.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Équipements : cœur en paire, pare-feu actif/passif (CARP, VRRP, HSRP), alimentations doubles.</li>
+<li>Liens : LACP, double attachement, deux opérateurs aux chemins distincts, SD-WAN.</li>
+<li>Topologie : anneaux RSTP/MSTP, OSPF/BGP, BFD (moins d'une seconde).</li>
+<li>Services : DNS, DHCP, NTP, annuaire en double ; DPI et PACS en cluster ou derrière un répartiteur de charge.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/spof-redondance.js"></script>
+</body>
+</html>

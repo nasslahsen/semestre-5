@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Défense en profondeur et architectures (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 17 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Défense en profondeur et architectures</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-17.html">Lire le cours complet</a></p>
+<h2>Défense en profondeur</h2>
+<p>Des couches selon la criticité du bien ; si une cède, les autres réagissent : sécurité physique, pare-feu, IDS/IPS, VPN, journalisation et supervision, antivirus.</p>
+<h2>VPN et IPsec</h2>
+<ul>
+<li>VPN : tunnel chiffré, authentification + intégrité + confidentialité. IKEv2/IPsec (mobile), WireGuard (moderne), OpenVPN (polyvalent).</li>
+<li>IPsec : <strong>IKE</strong> négocie et établit les clés ; <strong>ESP</strong> chiffre et authentifie ; <strong>AH</strong> authentifie sans chiffrer.</li>
+<li>Mode <strong>transport</strong> : en-tête IP original visible. Mode <strong>tunnel</strong> : paquet entier chiffré sous un nouvel en-tête IP.</li>
+</ul>
+<h2>Architectures</h2>
+<ul>
+<li><strong>SD-WAN</strong> : relier les sites ; plusieurs liaisons pilotées par logiciel, tunnels IPsec, orchestrateur.</li>
+<li><strong>Tri-tiers</strong> : présentation (DMZ), application, données, trois pare-feu.</li>
+<li><strong>Zero trust</strong> : personne n'est approuvé d'office, micro-segmentation, ZTNA (PEP applique, PDP décide).</li>
+<li>Un tunnel chiffré n'est pas du zero trust ; le SD-WAN ne remplace ni la DMZ ni le tri-tiers.</li>
+<li><strong>Purdue</strong> : segmenter l'OT de l'IT (ISA/IEC 62443) ; niveaux 5-4 IT, 3.5 IDMZ, 3-0 OT ; pare-feu industriels, IDMZ, DPI, télémaintenance sécurisée.</li>
+</ul>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Défense en profondeur</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=defense+in+depth+explained" target="_blank" rel="noopener">defense in depth explained</a></td></tr>
+<tr><td>IPsec transport et tunnel</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=IPsec+tunnel+vs+transport+mode" target="_blank" rel="noopener">IPsec tunnel vs transport mode</a></td></tr>
+<tr><td>SD-WAN</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=SD-WAN+explained" target="_blank" rel="noopener">SD-WAN explained</a></td></tr>
+<tr><td>Zero trust</td><td>IBM Technology</td><td><a href="https://www.youtube.com/results?search_query=IBM+Technology+zero+trust" target="_blank" rel="noopener">IBM Technology zero trust</a></td></tr>
+<tr><td>Modèle de Purdue</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=Purdue+model+ICS+security" target="_blank" rel="noopener">Purdue model ICS security</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis la défense en profondeur et cite ses couches.</p><details class="corrige"><summary>Voir la réponse</summary><p>Des barrières selon la criticité du bien, en couches : si une cède, les autres réagissent.</p><p>Sécurité physique, pare-feu, IDS/IPS, VPN, journalisation et supervision, antivirus.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Que fournit un VPN, et avec quelles notions ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Authentification, intégrité, confidentialité.</p><p>Chiffrement, encapsulation, masquage IP.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Rôles de IKE, ESP et AH ?</p><details class="corrige"><summary>Voir la réponse</summary><p>IKE : négociation des paramètres, établissement des clés.</p><p>ESP : chiffrement, validation, authentification.</p><p>AH : validation et authentification.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Différence entre mode transport et mode tunnel ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Transport : l'en-tête IP original reste devant, seules les données sont chiffrées.</p><p>Tunnel : tout le paquet original est chiffré sous un nouvel en-tête IP.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Compare SD-WAN, tri-tiers et zero trust.</p><details class="corrige"><summary>Voir la réponse</summary><p>SD-WAN : relier les sites (liaisons).</p><p>Tri-tiers : où placer les serveurs (un datacenter).</p><p>Zero trust : à qui faire confiance (transverse).</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Pourquoi un tunnel SD-WAN chiffré n'est-il pas du zero trust ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Dans l'overlay, les sites se font confiance : un rançongiciel peut remonter. Il faut des segments séparés et un pare-feu interne.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> À quoi sert le modèle de Purdue ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Segmenter l'OT de l'IT, isoler les systèmes de contrôle sans antivirus, définir des frontières strictes, tout en laissant remonter les données.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-18.html"><small>Version courte suivante</small>Gestion centralisée et disponibilité</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 17) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
