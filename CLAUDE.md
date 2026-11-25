@@ -31,6 +31,8 @@ commun/                    système de design partagé (ne pas copier dans les m
                            mode « cadre » quand l'exercice s'ouvre par-dessus une page de chapitre
   jeu/dessin.js, outils.js dessins des niveaux (D) et outils (E)
   vendor/katex/            KaTeX 0.16.11, servi localement
+  vendor/three/            three.js r149 (UMD), servi localement : vues 3D des éléments mécaniques (modules/robotique/meca/3d.js,
+                           M3D : pièces, coupe, éclaté, rotation au doigt, toucher une pièce pour la nommer ; repris par outils/regrouper.js)
 modules/<id>/              un dossier par module actif
   module.js                documents reçus, chapitres (avec `ligne`), niveaux, sections, pages de cours
   index.html               carte des chapitres d'un sous-module (index.html?sm=<sous-module>), espace TD (&vue=td)

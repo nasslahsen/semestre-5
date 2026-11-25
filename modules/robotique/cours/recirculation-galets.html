@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr" data-module="robotique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Guidages à recirculation et à galets · Robotique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Guidages à recirculation et à galets</h1>
+<p class="chapeau">Une table de positionnement doit avancer sur un mètre sans jeu, sans basculer, à quelques micromètres près, et parfois très vite. Deux familles de guidages sur rail profilé répondent à ce besoin : le patin à recirculation et le chariot à galets.</p>
+
+<h2>Systèmes de guidage à recirculation</h2>
+<p>Les systèmes de guidage à recirculation associent le <strong>chariot</strong> (patin) et le <strong>rail de guidage</strong>. La recirculation des billes ou des rouleaux donne une <strong>course illimitée</strong>. Les <strong>pièces de tête</strong> canalisent le retour des billes ; la lubrification et l'étanchéité sont assurées par des <strong>joints racleurs</strong>.</p>
+<p>Le corps du patin et les rails sont en acier trempé et rectifié (HRC 60). Ces systèmes sont particulièrement rigides :</p>
+<ul>
+<li>pratiquement <strong>sans jeu et sans rotation</strong> autour du rail ;</li>
+<li>écart de <strong>rectitude</strong> de guidage entre 3 et 20 µm par mètre ;</li>
+<li>vitesse de translation maximale de 3 à 5 m/s, accélérations de 150 à 250 m/s² ;</li>
+<li>réduction drastique du bruit.</li>
+</ul>
+
+<div id="fig-patin-3d"></div>
+
+<h2>Exemple de montage : une table sur deux rails</h2>
+<p>Des patins à recirculation déplacent une table par rapport à un bâti, sur deux rails parallèles :</p>
+<ul>
+<li><strong>le palier fixe</strong> (à droite) : le patin et son rail sont bridés latéralement par des butées. Selon le cours, ce montage encaisse toutes les forces axiales (voir la remarque plus bas) ;</li>
+<li><strong>le palier libre</strong> (à gauche) : aucune butée latérale. Il absorbe les défauts de parallélisme et les dilatations thermiques entre les deux rails sans contraindre ni gripper les billes.</li>
+</ul>
+<p>C'est l'idée du montage fixe-libre des roulements, appliquée à deux rails. Pour garantir la fluidité du déplacement et la longévité des patins, les surfaces d'appui respectent des tolérances géométriques serrées de 0,01 mm : rectitude (non convexe), parallélisme par rapport à la référence A, planéité.</p>
+<p class="complement">Le texte du cours dit que le palier fixe encaisse « toutes les forces axiales » : sur un guidage linéaire, ce sont les efforts transversaux au rail, dans le plan de la table, que les butées latérales reprennent.</p>
+
+<h2>Systèmes de guidage à galets</h2>
+<p>Les systèmes de guidage à galets associent un <strong>chariot à quatre galets</strong> de roulement et un <strong>rail en alliage léger</strong> (EN AW 2017). Le rail comporte <strong>deux arbres de guidage</strong> en acier trempé et rectifié. Par rapport aux autres systèmes, le système à galets est <strong>moins sensible aux blocages</strong> dus à une pollution externe. Sa vitesse de translation maximale est de l'ordre de <strong>10 m/s</strong>.</p>
+
+<div id="fig-galets-3d"></div>
+
+<p>Sur l'exemple de montage du cours, une alternative courante aux patins à recirculation :</p>
+<ul>
+<li><strong>le rail central</strong> sert de support rigide, souvent un profilé d'aluminium extrudé, dans lequel sont logés et clipsés deux arbres cylindriques en acier rectifié ;</li>
+<li><strong>les galets</strong>, fixés sous la table mobile, ont un profil extérieur concave (une gorge) qui épouse la forme ronde des arbres ;</li>
+<li>le contact linéaire ouvert accumule très peu les impuretés : les galets chassent la poussière en roulant sur l'arbre.</li>
+</ul>
+
+<h2>Comparer les guidages linéaires</h2>
+<div class="tableau"><table>
+<tr><th>Guidage</th><th>Vitesse max.</th><th>Point fort</th></tr>
+<tr><td>Douille à billes sur rail rond</td><td>2 à 5 m/s</td><td>simple, économique, toute longueur de course</td></tr>
+<tr><td>Patin à recirculation sur rail</td><td>3 à 5 m/s</td><td>très rigide, sans jeu, rectitude 3 à 20 µm/m</td></tr>
+<tr><td>Chariot à galets</td><td>environ 10 m/s</td><td>peu sensible à la pollution</td></tr>
+</table></div>
+
+<h2>Exemple de calcul</h2>
+<p><span class="complement">Exemple ajouté</span> Un rail à recirculation de 1,5 m a un écart de rectitude de 20 µm par mètre au pire. Sur toute sa longueur :</p>
+\[ \text{écart} = 20 \times 1{,}5 = 30\ \mu\text{m} = 0{,}03\ \text{mm} \]
+
+<h2>À retenir</h2>
+<ul>
+<li>Recirculation : patin + rail, course illimitée, HRC 60, sans jeu, 3 à 20 µm/m, 3 à 5 m/s, 150 à 250 m/s².</li>
+<li>Table sur deux rails : un rail fixe (butées latérales), un rail libre (parallélisme, dilatations).</li>
+<li>Galets : quatre galets à gorge sur deux arbres d'acier, rail en alliage léger, peu sensible à la poussière, environ 10 m/s.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../meca/dessin.js"></script>
+<script src="../../../commun/vendor/three/three.min.js"></script>
+<script src="../meca/3d.js"></script>
+<script src="../figures/recirculation-galets-3d.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

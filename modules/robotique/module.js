@@ -528,6 +528,17 @@ PLATEFORME.parcours("robotique", {
       ["Quels roulements se prêtent aux montages préchargés ?", "Les roulements à contact oblique."],
       ["Quelle valeur de précharge appliquer ?", "Celle du fabricant ; jamais « au maximum pour être sûr »."]
     ],
+    "guidages-lineaires": [
+      ["Les guidages linéaires du cours ?", "Douilles à billes sur rail rond.\nPatins à recirculation sur rail profilé.\nChariots à galets.\nBagues lisses autolubrifiantes."],
+      ["Douille à billes : points forts et limite ?", "Simple, économique, toute longueur de course, 2 à 5 m/s.\nPas de mouvement de rotation."],
+      ["Les trois douilles ?", "Massive : jeu ≈ 0,1 mm.\nFendue : jeu réglable.\nOuverte : sur rail supporté."],
+      ["Rail simple ou rail supporté ?", "Simple : barre ronde de 5 à 80 mm.\nSupporté : fixé sur un profilé en aluminium, pas de flexion sur les grandes portées."],
+      ["Principe d'une bague autolubrifiante ?", "Un film lubrifiant passe de la bague à l'axe : pas de contact métal contre métal."],
+      ["Les trois bagues lisses ?", "Revêtement polymère (PTFE).\nInserts solides (graphite dans le bronze).\nBronze fritté imprégné d'huile."],
+      ["Patin à recirculation : chiffres du cours ?", "HRC 60, rectitude 3 à 20 µm/m.\n3 à 5 m/s, 150 à 250 m/s²."],
+      ["Table sur deux rails : quel montage ?", "Un palier fixe (butées latérales), un palier libre qui absorbe parallélisme et dilatations."],
+      ["Chariot à galets : pourquoi le choisir ?", "Peu sensible à la pollution, environ 10 m/s ; les galets à gorge chassent la poussière."]
+    ],
     "arbres": [
       ["Couple transmis par un arbre (4.1) ?", "C = 60 P / (2π n)\n(P en W, n en tr/min)"],
       ["Lien avec P = C ω ?", "C'est la même relation, avec ω = 2π n / 60 en rad/s."],
@@ -576,6 +587,7 @@ PLATEFORME.parcours("robotique", {
     recus: [
       { sousModule: "bio", titre: "Diapositives du cours « Robotique biomédicale »", couvre: "4 chapitres" },
       { sousModule: "meca", titre: "Support du cours « Éléments mécaniques en robotique »", couvre: "cours à part entière, 4 chapitres" },
+      { sousModule: "meca", titre: "M353, EM.2 « Éléments mécaniques en robotique », support technique et scientifique, édition septembre 2026", couvre: "chapitres 1 à 3 (axe, assemblages, guidages) ; nouveau : 3.6 guidages linéaires (douilles, rails, bagues autolubrifiantes, recirculation, galets)" },
       { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3 « Modélisation des robots médicaux » (Pr. Hasnaa El Hansali)", couvre: "chapitre 5 : convention de Denavit–Hartenberg, modèle géométrique direct ; fin du chapitre 2 (bras 2R)" },
       { sousModule: "bio", titre: "Introduction à la robotique médicale, chapitre 3, partie 2 (Pr. Hasnaa El Hansali)", couvre: "chapitre 6 : modèle géométrique inverse, modélisation cinématique, matrice jacobienne ; exemple de MGD du chapitre 5" },
       { sousModule: "bio", titre: "Exercice de révision « Modélisation géométrique d'un robot médical à 3 degrés de liberté » (Pr. El Hansali Hasnaa)", couvre: "MGD d'un bras 3R (sonde échographique) : corrigé sur la page « Préparer l'examen »" },
@@ -597,7 +609,7 @@ PLATEFORME.parcours("robotique", {
     { id: 9, td: true, numero: "TD 1", titre: "Introduction et modélisation", sous: "Classer un robot, matrices de Denavit–Hartenberg du 3R, sonde d'échographie 2R", ligne: "Classer, DH du robot 3R, sonde d'échographie", sousModule: "bio" },
     { id: 5, titre: "Architecture mécanique d'un axe", sous: "Chaîne fonctionnelle, vitesse, couple, puissance, rigidité et jeu", ligne: "Vitesse, couple, puissance, rigidité, jeu", sousModule: "meca" },
     { id: 6, titre: "Assemblages et fixations", sous: "Serrer, positionner, transmettre : vis, clavettes, goupilles, anneaux, ressorts", ligne: "Vis, clavettes, goupilles, anneaux, ressorts", sousModule: "meca" },
-    { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge", ligne: "Roulements, durée de vie, montage, précharge", sousModule: "meca" },
+    { id: 7, titre: "Guidages rotatifs et linéaires", sous: "Raideur, roulements, durée de vie, montage fixe-libre, précharge, guidages linéaires", ligne: "Roulements, montage, précharge, guidages linéaires", sousModule: "meca" },
     { id: 8, titre: "Transmissions de puissance", sous: "Arbres, engrenages, module, rapports et trains", ligne: "Arbres, engrenages, rapports et trains", sousModule: "meca" }
   ],
   niveaux: [
@@ -691,6 +703,9 @@ PLATEFORME.parcours("robotique", {
     { id: "duree-l10", chapitre: 7, titre: "Durée nominale L10", cours: true, pret: true },
     { id: "fixe-libre", chapitre: 7, titre: "Montage fixe-libre", cours: true, pret: true },
     { id: "precharge-roulements", chapitre: 7, titre: "Jeu, précharge et frottement", cours: true, pret: true },
+    { id: "guidages-lineaires", chapitre: 7, titre: "Douilles à billes et rails", cours: true, pret: true },
+    { id: "bagues-lisses", chapitre: 7, titre: "Bagues lisses autolubrifiantes", cours: true, pret: true },
+    { id: "recirculation-galets", chapitre: 7, titre: "Recirculation et galets", cours: true, pret: true },
     { id: "revision-guidages", chapitre: 7, titre: "Révision : les guidages", revision: true, pret: true },
     { id: "boss-guidages", chapitre: 7, titre: "Le palier du poignet", boss: true, pret: true },
 
@@ -743,6 +758,7 @@ PLATEFORME.parcours("robotique", {
     { id: "roulements", chapitre: 7, titre: "Le roulement et ses familles", notions: ["roulements", "radiaux-butees"] },
     { id: "choix-duree", chapitre: 7, titre: "Choisir un roulement et sa durée de vie", notions: ["types-roulements", "duree-l10"] },
     { id: "montage-precharge", chapitre: 7, titre: "Montage fixe-libre et précharge", notions: ["fixe-libre", "precharge-roulements"] },
+    { id: "guidages-lineaires", chapitre: 7, titre: "Guidages linéaires", notions: ["guidages-lineaires", "bagues-lisses", "recirculation-galets"] },
     { id: "arbres", chapitre: 8, titre: "Arbres : couple et torsion", notions: ["arbre-couple", "arbre-torsion"] },
     { id: "engrenages-denture", chapitre: 8, titre: "Engrenages et denture", notions: ["engrenages", "denture"] },
     { id: "rapports-trains", chapitre: 8, titre: "Rapports, entraxe et trains", notions: ["rapport-engrenage", "trains-engrenages"] }
@@ -803,6 +819,9 @@ PLATEFORME.parcours("robotique", {
     { chapitre: 7, id: "duree-l10", titre: "Durée nominale de base L10" },
     { chapitre: 7, id: "fixe-libre", titre: "Montage fixe-libre et dilatation" },
     { chapitre: 7, id: "precharge-roulements", titre: "Jeu, précharge et frottement" },
+    { chapitre: 7, id: "guidages-lineaires", titre: "Guidages linéaires : douilles à billes et rails" },
+    { chapitre: 7, id: "bagues-lisses", titre: "Bagues lisses autolubrifiantes" },
+    { chapitre: 7, id: "recirculation-galets", titre: "Guidages à recirculation et à galets" },
     { chapitre: 8, id: "arbre-couple", titre: "Arbres : couple et puissance" },
     { chapitre: 8, id: "arbre-torsion", titre: "Résistance d'un arbre en torsion" },
     { chapitre: 8, id: "engrenages", titre: "Engrenages : généralités, familles, types" },

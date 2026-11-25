@@ -639,6 +639,14 @@ test("chapitre 7 : précharge, le jeu disparaît quand le serrage atteint le dé
   const DEC = 15, jeu = (s) => Math.max(0, DEC - s);
   proche(jeu(15), 0, 0); assert.ok(jeu(10) > 0); proche(jeu(40), 0, 0);
 });
+test("chapitre 7 : guidages linéaires, rectitude par mètre et vitesses comparées", () => {
+  const ecart = (umParM, L) => umParM * L;
+  proche(ecart(20, 2), 40, 1e-12);       // niveau recirculation-galets
+  proche(ecart(20, 1.5), 30, 1e-12);     // exemple ajouté de la page
+  // 8 m/s : seuls les galets (≈ 10 m/s) conviennent ; douilles 2 à 5, recirculation 3 à 5
+  const vmax = { douille: 5, recirculation: 5, galets: 10 };
+  assert.deepStrictEqual(Object.keys(vmax).filter(k => vmax[k] >= 8), ["galets"]);
+});
 test("chapitre 8 : arbres, couple C = 60P/(2πn) et torsion", () => {
   const C = (P, n) => 60 * P / (2 * Math.PI * n);
   proche(C(100, 3000), 0.318, 0.002);                       // exemple du cours (4.1)
