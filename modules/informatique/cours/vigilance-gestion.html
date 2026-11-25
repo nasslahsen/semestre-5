@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Points de vigilance de la gestion centralisée · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Points de vigilance de la gestion centralisée</h1>
+<p class="chapeau">La plateforme est en place, les règles sont écrites. Le cours prévient : quatre pièges guettent encore, dont deux propres à l'hôpital.</p>
+<ol>
+<li><b>La plateforme de gestion doit être l'élément le mieux protégé du réseau</b> : serveurs durcis, haute disponibilité, mises à jour prioritaires, accès strictement limités. Elle est un <b>point unique de défaillance et de compromission</b>.</li>
+<li><b>À l'hôpital, tout ne se gère pas depuis le même endroit</b> : les dispositifs médicaux sont souvent administrés par le <b>fabricant</b> ou l'<b>ingénierie biomédicale</b>, pas par l'équipe réseau. Leurs accès de maintenance doivent passer par le <b>même bastion</b> et être <b>limités dans le temps</b>.</li>
+<li><b>Les changements ne peuvent pas toujours attendre une nuit calme</b> : un hôpital fonctionne 24 h/24, donc les fenêtres de maintenance doivent être <b>négociées avec les services de soins</b>.</li>
+<li><b>Une politique non vérifiée n'existe pas</b> : sans <b>détection de dérive</b> et sans <b>audit</b>, les configurations divergent peu à peu des règles écrites.</li>
+</ol>
+<div id="fig-vigilance"></div>
+<p>Le point 2 concerne directement l'ingénieur biomédical : c'est souvent lui qui ouvre l'accès du fabricant pour la télémaintenance d'un scanner ou d'une IRM.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>La plateforme : la mieux protégée, car point unique de défaillance et de compromission.</li>
+<li>DM gérés par le fabricant ou le biomédical : même bastion, accès limités dans le temps.</li>
+<li>Fenêtres de maintenance négociées avec les soins (24 h/24).</li>
+<li>Sans détection de dérive ni audit, la politique écrite ne vaut rien.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/vigilance-gestion.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Nmap et les types de scan · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Nmap et les types de scan</h1>
+<p class="chapeau">Un scan de ports bien fait dit à l'attaquant quelles machines répondent, ce qu'elles font tourner et en quelle version. C'est exactement ce que l'auditeur veut savoir avant lui.</p>
+<p><b>Nmap</b> (Network Mapper) est un logiciel libre et gratuit d'exploration réseau et d'audit de sécurité.</p>
+<div id="fig-nmap"></div>
+
+<h2>Ses quatre fonctionnalités principales</h2>
+<ul>
+<li><b>Découverte d'hôtes</b> : identifier quelles machines ou appareils sont actifs et connectés sur un réseau.</li>
+<li><b>Scan de ports</b> : vérifier quels ports sont ouverts, fermés ou bloqués par un pare-feu.</li>
+<li><b>Détection de services</b> : identifier les programmes qui tournent sur ces ports (serveur web, base de données) et leur version exacte.</li>
+<li><b>Identification de l'OS</b> : estimer le système d'exploitation de la machine cible (Windows, Linux...).</li>
+</ul>
+
+<h2>Les types de scan</h2>
+<div class="tableau"><table>
+<tr><th>Type de scan</th><th>Principe</th><th>Détectable ?</th></tr>
+<tr><td>Scan de ports TCP connect</td><td>établit une connexion TCP complète sur chaque port testé</td><td>facilement, apparaît dans les journaux applicatifs</td></tr>
+<tr><td>Scan SYN (« furtif »)</td><td>n'envoie que le premier paquet de la poignée de main TCP, sans la terminer</td><td>plus discret, mais visible par un IDS correctement réglé</td></tr>
+<tr><td>Scan UDP</td><td>teste les services sans connexion (DNS, SNMP, NTP)</td><td>plus lent et moins fiable, souvent ignoré à tort</td></tr>
+<tr><td>Détection de version / OS</td><td>analyse les réponses pour déduire le logiciel et sa version</td><td>révèle directement les cibles non corrigées</td></tr>
+</table></div>
+<p>Pourquoi la détection de version est la plus dangereuse : connaître la version exacte d'un logiciel, c'est savoir s'il a une faille connue non corrigée. L'attaquant n'a plus qu'à choisir.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Nmap : découverte d'hôtes, scan de ports, détection de services, identification de l'OS.</li>
+<li>TCP connect : connexion complète, très visible. SYN : poignée de main non terminée, plus discret.</li>
+<li>UDP : DNS, SNMP, NTP, souvent ignoré à tort. Version / OS : montre les cibles non corrigées.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/nmap.js"></script>
+</body>
+</html>

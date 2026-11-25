@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architecture zero trust et comparaison · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Architecture zero trust et comparaison</h1>
+<p class="chapeau">Un poste du bureau des entrées est infecté par un rançongiciel. Dans un grand LAN ouvert, il voit le PACS, le DPI et tous les autres postes. Dans un réseau zero trust, il ne voit presque rien.</p>
+<p>L'architecture <b>zero trust</b> (micro-segmentation) est recommandée pour la <b>gestion des accès</b>.</p>
+<ul>
+<li><b>Aucun utilisateur ni aucun appareil</b> externe n'est d'office digne de confiance (sur site ou à distance, jamais approuvé d'office).</li>
+<li><b>Micro-segmentation</b> : le réseau interne n'est plus un grand « LAN » ouvert, il est découpé en minuscules <b>îlots de sécurité</b>.</li>
+<li><b>Contrôle d'accès dynamique (ZTNA)</b> : il remplace les VPN traditionnels. L'accès à une ressource applicative n'est accordé qu'<b>après vérification stricte</b>.</li>
+</ul>
+<div id="fig-zt"></div>
+<p>Le schéma du cours : l'utilisateur et son poste passent par une <b>passerelle ZTNA (PEP)</b>, qui applique la décision à chaque session ; la décision est prise par le <b>PDP</b> (politique, risque) à partir de l'<b>identité + MFA</b> (annuaire, IdP), de la <b>conformité du poste</b> (EDR, MDM, correctifs) et du <b>contexte et du risque</b> (SIEM, comportement). L'accès se fait application par application vers des îlots isolés (DPI, PACS, données, IoMT, postes).</p>
+<p><b>Sécurité en profondeur</b> : si un rançongiciel infecte un poste dans un bureau, la micro-segmentation l'empêche de se propager horizontalement aux autres postes ou aux serveurs.</p>
+
+<h2>Comparaison des trois architectures</h2>
+<div class="tableau"><table>
+<tr><th>Architecture</th><th>Question à laquelle elle répond</th><th>Périmètre</th><th>Rôle pour la sécurité</th></tr>
+<tr><td>SD-WAN</td><td>comment relier efficacement des sites, du cloud et des accès distants (performance, résilience, coût) ?</td><td>liaisons entre sites</td><td>chiffrement des tunnels, segments isolés, parfois pare-feu intégré : selon le produit</td></tr>
+<tr><td>DMZ, 2 ou 3 tiers</td><td>où placer les serveurs et quels flux autoriser entre niveaux ?</td><td>un site, un datacenter</td><td>cloisonnement par pare-feu entre niveaux</td></tr>
+<tr><td>Zero trust (et micro-segmentation)</td><td>à qui faire confiance, et à quel moment ?</td><td>transverse, sur tous les sites</td><td>modèle d'accès : vérification à chaque demande</td></tr>
+</table></div>
+
+<h2>Points de vigilance</h2>
+<ul>
+<li><b>Le SD-WAN ne remplace pas la DMZ ni le tri-tiers</b> : chaque site garde son zonage, le datacenter reste organisé en niveaux.</li>
+<li><b>Un tunnel chiffré n'est pas du zero trust</b> : une fois dans l'overlay SD-WAN, les sites se font souvent confiance. Un rançongiciel arrivé dans un centre de santé peut remonter vers l'hôpital principal. Il faut donc des segments séparés et un pare-feu interne en plus.</li>
+<li><b>« SD-WAN sécurisé » n'a pas de définition unique</b> : certains produits intègrent un NGFW, un IPS ou un filtrage web ; d'autres sont de purs outils d'acheminement.</li>
+</ul>
+
+<h2>À retenir</h2>
+<ul>
+<li>Zero trust : personne n'est approuvé d'office, micro-segmentation en îlots, ZTNA vérifie à chaque demande.</li>
+<li>SD-WAN relie, tri-tiers range, zero trust décide de la confiance : les trois se complètent.</li>
+<li>Un tunnel chiffré n'est pas du zero trust.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/zero-trust.js"></script>
+</body>
+</html>

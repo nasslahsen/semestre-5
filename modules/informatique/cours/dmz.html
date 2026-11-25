@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Cloisonnement par DMZ · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Cloisonnement par DMZ</h1>
+<p class="chapeau">L'hôpital publie un portail de prise de rendez-vous sur Internet. Ce serveur sera attaqué un jour : il ne faut pas qu'il soit posé à côté de la base des dossiers patients.</p>
+<p>Une <b>DMZ</b> (zone démilitarisée) est un sous-réseau physique ou logique intermédiaire, qui agit comme une <b>zone tampon sécurisée</b> entre Internet (réseau public non fiable) et le réseau local (LAN, réseau privé fiable).</p>
+<div id="fig-dmz"></div>
+
+<h2>Rôle principal</h2>
+<ul>
+<li><b>Héberger les services publics</b> : web, mail, DNS.</li>
+<li><b>Isoler le réseau interne</b> pour limiter l'impact d'une intrusion.</li>
+</ul>
+<p>Le schéma du cours : <b>Public</b> (Internet, utilisateur) → pare-feu → <b>DMZ</b> (serveur d'applications web) → pare-feu → <b>Privé</b> (serveur de base de données, serveur de services web). Si le serveur de la DMZ est compromis, l'attaquant bute encore sur le second pare-feu avant d'atteindre les données.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>DMZ : zone tampon entre Internet (non fiable) et le LAN (fiable).</li>
+<li>On y met ce qui doit être joignable depuis Internet : web, mail, DNS.</li>
+<li>Deux pare-feu : une intrusion dans la DMZ n'ouvre pas le réseau interne.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/dmz.js"></script>
+</body>
+</html>

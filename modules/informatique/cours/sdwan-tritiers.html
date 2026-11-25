@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architectures SD-WAN et tri-tiers · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Architectures SD-WAN et tri-tiers</h1>
+<p class="chapeau">Un CHU, trois centres de santé de quartier et un cabinet de radiologie doivent partager le DPI et le PACS. Deux questions se posent : comment relier les sites, et comment ranger les serveurs dans le datacenter.</p>
+<h2>SD-WAN : relier les sites</h2>
+<p>Le <b>SD-WAN</b> (Software Defined Wide Area Network) est l'architecture moderne par excellence pour connecter des <b>sites distants</b> : hôpitaux périphériques, cliniques, cabinets de radiologie.</p>
+<p><b>Principe</b> : le SD-WAN <b>virtualise le contrôle du réseau</b>. Il combine plusieurs liaisons physiques (par exemple une fibre et un secours en 4G/5G ou VSAT) et gère le trafic de manière intelligente, par logiciel.</p>
+<p>Le schéma du cours :</p>
+<ul>
+<li>un <b>orchestrateur SD-WAN</b> : politique centrale, supervision et journaux (SIEM) ;</li>
+<li>un <b>site principal</b> (hub) avec un pare-feu SD-WAN en haute disponibilité et le datacenter (DPI, PACS, bases) ;</li>
+<li>des <b>centres de santé</b> A et B, chacun avec son pare-feu SD-WAN (edge de site) et son LAN (postes, IoMT) ;</li>
+<li>des <b>tunnels IPsec</b> chiffrés (l'overlay) au-dessus du <b>réseau de transport</b> (l'underlay : fibre ou MPLS, Internet haut débit, 4G/5G).</li>
+</ul>
+
+<h2>Tri-tiers : ranger les serveurs</h2>
+<p>L'architecture <b>tri-tiers</b> (multi-niveaux) est recommandée pour les <b>applications critiques</b> et les environnements de datacenters. Elle isole hermétiquement les composants d'une application en <b>trois zones</b> distinctes, séparées par des <b>pare-feu</b>.</p>
+<div id="fig-tritiers"></div>
+<div class="tableau"><table>
+<tr><th>Niveau</th><th>Contenu</th><th>Pare-feu devant (ce qu'il laisse passer)</th></tr>
+<tr><td>1. Présentation (DMZ)</td><td>reverse proxy, WAF, portail patient</td><td>pare-feu 1, périmétrique : HTTPS 443 entrant uniquement</td></tr>
+<tr><td>2. Application</td><td>serveurs applicatifs : DPI, API, moteur d'interface</td><td>pare-feu 2, interne : port applicatif dédié, depuis la DMZ seule</td></tr>
+<tr><td>3. Données</td><td>bases de données, stockage PACS</td><td>pare-feu 3, données : requêtes SQL depuis l'application seule</td></tr>
+</table></div>
+<p>En transversal : SIEM / IDS (journalisation), bastion (administration), sauvegarde isolée du réseau.</p>
+<p>Le bénéfice : si un pirate compromet le serveur web exposé sur Internet, il <b>ne peut pas accéder directement à la base de données</b> qui contient les informations sensibles.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>SD-WAN : relier des sites ; plusieurs liaisons (fibre, 4G/5G, VSAT) pilotées par logiciel, tunnels IPsec, orchestrateur central.</li>
+<li>Tri-tiers : présentation (DMZ), application, données, séparées par trois pare-feu.</li>
+<li>Chaque niveau ne parle qu'au niveau voisin : le serveur web piraté n'atteint pas la base.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/sdwan-tritiers.js"></script>
+</body>
+</html>

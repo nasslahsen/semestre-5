@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Couches 4 à 7, Wi-Fi et télémaintenance (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 15 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Couches 4 à 7, Wi-Fi et télémaintenance</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-15.html">Lire le cours complet</a></p>
+<h2>Ports vulnérables et attaques</h2>
+<p>FTP 21 et Telnet 23 en clair, SSH 22 force brute, SMTP 25 spam et phishing, DNS 53 DDoS, NetBIOS 137 – 139 et SMB 445 rançongiciels, HTTP/HTTPS 80/443 injections XSS et détournement de session.</p>
+<p>Attaques : scan de ports, MitM, DDoS, exploitation de services, DNS hijacking, failles non corrigées.</p>
+<h2>DNS</h2>
+<p>Annuaire nom → IP, UDP 53 (et TCP). <strong>Empoisonnement du cache</strong> : une fausse correspondance dans le résolveur redirige tous ses clients. Admins : DNSSEC, serveurs à jour. Utilisateurs : <code>ipconfig /flushdns</code>, VPN, résolveur sûr (1.1.1.1, 8.8.8.8).</p>
+<h2>0-day</h2>
+<p>Faille cachée → exploit 0-day → attaque 0-day, avant que l'éditeur ne sache. PHP2Shell (octobre 2026) : failles PHP trouvées avec l'IA ; au Maroc, bulletin du 21 octobre 2026.</p>
+<h2>Wi-Fi et télémaintenance</h2>
+<ul>
+<li><strong>Rogue AP</strong> : borne non autorisée branchée sur le filaire. <strong>Evil twin</strong> : même SSID, signal plus fort.</li>
+<li>WEP (cassé) &lt; WPA (TKIP) &lt; WPA2 (KRACK) &lt; WPA3 (canal auxiliaire).</li>
+<li>Télémaintenance : risque majeur ; un identifiant VPN de fabricant volé donne un accès légitime en apparence.</li>
+</ul>
+<p>Autres menaces : pas de politique de sécurité, ni de correctifs, ni d'analyse des risques, ni de gestion des accès ; pas de cryptographie ; équipements mal configurés ; conception aléatoire ; administration sans maîtrise ; sécurité physique négligée.</p>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Empoisonnement DNS</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=DNS+cache+poisoning+explained" target="_blank" rel="noopener">DNS cache poisoning explained</a></td></tr>
+<tr><td>Zero-day</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=zero+day+vulnerability+explained" target="_blank" rel="noopener">zero day vulnerability explained</a></td></tr>
+<tr><td>Evil twin, rogue AP</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=evil+twin+vs+rogue+access+point" target="_blank" rel="noopener">evil twin vs rogue access point</a></td></tr>
+<tr><td>WEP, WPA, WPA2, WPA3</td><td>PowerCert Animated Videos</td><td><a href="https://www.youtube.com/results?search_query=PowerCert+WEP+WPA+WPA2+WPA3" target="_blank" rel="noopener">PowerCert WEP WPA WPA2 WPA3</a></td></tr>
+<tr><td>KRACK</td><td>Computerphile</td><td><a href="https://www.youtube.com/results?search_query=Computerphile+KRACK" target="_blank" rel="noopener">Computerphile KRACK</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Pourquoi les ports 445 et 23 sont-ils dangereux ?</p><details class="corrige"><summary>Voir la réponse</summary><p>445 (SMB) : fréquemment ciblé par les rançongiciels sur Windows.</p><p>23 (Telnet) : non chiffré, hautement non sécurisé.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Explique l'empoisonnement du cache DNS.</p><details class="corrige"><summary>Voir la réponse</summary><p>Une fausse correspondance nom – IP est introduite dans le cache d'un résolveur.</p><p>Tous ses utilisateurs sont redirigés vers un site malveillant.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Donne les solutions contre l'empoisonnement DNS.</p><details class="corrige"><summary>Voir la réponse</summary><p>Administrateurs : DNSSEC, serveurs à jour, résolveurs réputés.</p><p>Utilisateurs : vider le cache, VPN, changer de résolveur.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Qu'est-ce qu'une faille 0-day ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une faille découverte et exploitée avant que l'éditeur ne la connaisse ou n'ait publié un correctif.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Différence entre rogue AP et evil twin ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rogue AP : point d'accès non autorisé branché sur le réseau filaire.</p><p>Evil twin : point d'accès de l'attaquant au même SSID que le vrai, plus puissant.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Classe WEP, WPA, WPA2, WPA3 et donne la faille de chacun.</p><details class="corrige"><summary>Voir la réponse</summary><p>WEP : cassé en minutes. WPA : TKIP vulnérable.</p><p>WPA2 : KRACK. WPA3 : attaques par canal auxiliaire.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi la télémaintenance est-elle un risque majeur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Surface d'attaque active : un identifiant VPN volé chez un sous-traitant donne un accès direct, légitime en apparence, au réseau biomédical.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Cite quatre des « autres menaces » du réseau hospitalier.</p><details class="corrige"><summary>Voir la réponse</summary><p>Absence de politique de sécurité de l'information, de gestion des correctifs, d'analyse des risques, de sécurité physique (au choix parmi les neuf).</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-16.html"><small>Version courte suivante</small>Cloisonner le réseau</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 15) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

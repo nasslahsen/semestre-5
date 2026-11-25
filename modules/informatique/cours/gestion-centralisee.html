@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Centralisation de la gestion réseau · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Centralisation de la gestion réseau</h1>
+<p class="chapeau">L'hôpital a 180 switchs, 12 pare-feu et 40 bornes Wi-Fi. Les configurer un par un, c'est autant d'oublis possibles. Les piloter depuis un seul endroit change tout, à condition de protéger cet endroit.</p>
+<p>Une <b>gestion réseau centralisée</b> pilote la <b>configuration</b>, les <b>accès</b>, la <b>supervision</b>, la <b>journalisation</b> et les <b>correctifs</b> de tous les équipements depuis une <b>plateforme commune</b>, plutôt qu'équipement par équipement.</p>
+<div id="fig-centrale"></div>
+<ul>
+<li>Elle gagne en <b>cohérence</b>, en <b>visibilité</b> et en <b>rapidité de réaction</b>.</li>
+<li>Elle n'est sécurisée que si le <b>plan de gestion</b> est lui-même protégé comme la <b>cible numéro un</b>.</li>
+</ul>
+
+<h2>Pourquoi c'est la cible numéro un</h2>
+<p>Un attaquant qui obtient un accès d'administration sur un pare-feu ou un switch peut <b>contourner toute la segmentation</b> : il lui suffit de changer les règles. C'est la même logique pour l'<b>orchestrateur SD-WAN</b> ou le <b>PDP du zero trust</b> : celui qui tient le poste de pilotage tient tout le réseau.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Centraliser : configuration, accès, supervision, journalisation, correctifs, depuis une plateforme commune.</li>
+<li>Gain : cohérence, visibilité, rapidité de réaction.</li>
+<li>Le plan de gestion est la cible numéro un : qui l'administre contourne toute la segmentation.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/gestion-centralisee.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>La sécurité dès la conception · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>La sécurité dès la conception</h1>
+<p class="chapeau">L'hôpital agrandit son réseau pour un nouveau bâtiment. Ajouter la sécurité après coup coûte cher et laisse des trous ; la prévoir sur le plan ne coûte presque rien. C'est l'objectif de toute la séance 3.</p>
+<p><b>Objectif du cours</b> : fournir des recommandations pour la conception et la configuration du réseau hospitalier, pour qu'il soit le moins vulnérable possible.</p>
+
+<h2>Considérations générales</h2>
+<p>Lors de la conception d'un réseau, il faut intégrer les <b>objectifs de sécurité</b> : le triangle d'or plus la traçabilité.</p>
+<div id="fig-conception"></div>
+<ul>
+<li><b>Confidentialité</b> : seuls les ayants droit lisent les données (DPI, imagerie).</li>
+<li><b>Intégrité</b> : les données ne sont pas modifiées à tort (posologie, résultats de labo).</li>
+<li><b>Disponibilité</b> : le réseau et les services répondent quand on en a besoin (monitorage, PACS).</li>
+<li><b>Traçabilité</b> : on sait qui a fait quoi, et quand (le « A » d'Accounting de la règle AAA).</li>
+</ul>
+<p>La règle : <b>inclure les contraintes et les exigences de sécurité dès la phase de conception du réseau</b>, pas une fois qu'il est installé.</p>
+
+<h2>Le premier outil : cloisonner</h2>
+<p>Le <b>cloisonnement</b> consiste à séparer le réseau en <b>domaines physiques et logiques</b>, protégés chacun par un <b>périmètre de sécurité</b> bien défini. Si un domaine tombe, les autres restent protégés. Le cours en présente deux moyens : les <b>VLAN</b> et la <b>DMZ</b>.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Objectifs de sécurité du réseau : confidentialité, intégrité, disponibilité, traçabilité.</li>
+<li>La sécurité s'intègre dès la conception.</li>
+<li>Cloisonner : séparer en domaines physiques et logiques, chacun avec son périmètre de sécurité.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/conception-securisee.js"></script>
+</body>
+</html>

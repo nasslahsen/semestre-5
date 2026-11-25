@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<title>Gouvernance, audit et benchmarking</title>
+<title>Préparer une attaque réseau</title>
 <link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../commun/css/cours.css">
 <link rel="stylesheet" href="../../../commun/css/barre.css">
@@ -18,440 +18,120 @@
 <!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 12. -->
 <main class="cours-chapitre" data-chapitre="12">
 <p class="etiquette" data-etiquette></p>
-<h1>Gouvernance, audit et benchmarking</h1>
+<h1>Préparer une attaque réseau</h1>
 
-<section class="partie" id="s-projet-chimio">
-<h2>Le projet et la règle exigences = preuves</h2>
+<section class="partie" id="s-kill-chain-attack">
+<h2>Kill chain et MITRE ATT&CK</h2>
 
-<article class="notion" id="n-projet-chimio">
-<p class="chapeau">Ton hôpital ouvre un centre d'oncologie dans dix-huit mois. La direction annonce la consultation, et deux offres pour le circuit de chimiothérapie arrivent sur ton bureau d'ingénieur biomédical. Que te demande-t-on, et que dois-tu exiger avant de dire oui ?</p>
+<article class="notion" id="n-kill-chain-attack">
+<p class="chapeau">Lundi 13 h 45, les postes affichent la rançon. Pour l'attaquant, c'est la fin du travail, pas le début : avant ce message, il a suivi une méthode. La connaître, c'est savoir où l'arrêter.</p>
+<div id="fig-kc7"></div>
 
-<h4>Le scénario</h4>
+<h4>La kill chain : sept phases dans l'ordre</h4>
+<p>La <b>kill chain</b> découpe une attaque en phases qui se suivent. Chaque phase prépare la suivante : si on en casse une, la chaîne s'arrête.</p>
+<div class="tableau"><table>
+<tr><th>Phase</th><th>Ce qui se passe (cours)</th></tr>
+<tr><td>1. Reconnaissance</td><td>collecte d'informations sur la cible</td></tr>
+<tr><td>2. Armement</td><td>préparation de l'outil d'attaque</td></tr>
+<tr><td>3. Livraison</td><td>envoi à la cible</td></tr>
+<tr><td>4. Exploitation</td><td>une faille est exploitée</td></tr>
+<tr><td>5. Installation</td><td>pose d'une porte dérobée</td></tr>
+<tr><td>6. C2 (pilotage)</td><td>liaison distante entre l'attaquant et la machine prise</td></tr>
+<tr><td>7. Objectifs</td><td>vol, chiffrement des données</td></tr>
+</table></div>
+<p>Sur le schéma du cours, deux phases sont en rouge : l'<b>exploitation</b> (le moment où l'attaquant entre vraiment) et les <b>objectifs</b> (le dommage : vol ou chiffrement, comme le rançongiciel du lundi 13 h 45).</p>
+<p>La séance 1 montrait une autre version, en huit phases (schéma Varonis, chapitre « Le vocabulaire du risque »). L'idée est la même : une attaque avance par étapes.</p>
+
+<h4>MITRE ATT&amp;CK : ce que les attaquants font vraiment</h4>
+<p><b>MITRE ATT&amp;CK</b> est une <b>base de connaissances publique</b> qui répertorie les techniques réellement observées chez des attaquants. Elle est organisée en deux niveaux :</p>
 <ul>
-<li><strong>Offre A</strong> : solution robotisée et intégrée.</li>
-<li><strong>Offre B</strong> : solution modulaire et semi-automatisée.</li>
+<li>la <b>tactique</b> : ce que l'attaquant cherche à obtenir à ce moment (une colonne de la matrice) ;</li>
+<li>la <b>technique</b> : le moyen précis qu'il utilise pour y arriver (une case de la colonne).</li>
 </ul>
-<p>La séance suit trois objectifs :</p>
-<div class="tableau"><table>
-<tr><th>Objectif</th><th>Ce qu'on apprend</th></tr>
-<tr><td>Décider</td><td>situer les décideurs et les étapes d'un projet d'extension, et ce que porte l'ingénieur biomédical</td></tr>
-<tr><td>Évaluer</td><td>construire et instruire des exigences techniques et de sécurité, avant l'achat, à la réception et après l'ouverture</td></tr>
-<tr><td>Comparer</td><td>comparer deux offres sans se piéger : critères éliminatoires, pondération, coût complet, sensibilité</td></tr>
-</table></div>
+<p>Contrairement à la kill chain, ATT&amp;CK <b>n'impose pas d'ordre strict</b> : un attaquant peut revenir à la reconnaissance après une exploitation, ou sauter des étapes.</p>
 
-<h4>La règle à respecter : exigences = preuves</h4>
-<div id="fig-preuves"></div>
 <div class="tableau"><table>
-<tr><th>Une exigence</th><th>Une preuve</th></tr>
-<tr><td>ce que le système doit garantir. Exemple : la bonne prescription arrive sur le bon patient.</td><td>comment le fournisseur le démontre. Exemple : un site de référence, des tests, un engagement contractuel.</td></tr>
+<tr><th></th><th>Kill chain</th><th>MITRE ATT&amp;CK</th></tr>
+<tr><td>Forme</td><td>une chaîne de 7 phases</td><td>une matrice tactiques × techniques</td></tr>
+<tr><td>Ordre</td><td>phases dans l'ordre</td><td>pas d'ordre strict, retours et sauts possibles</td></tr>
+<tr><td>Contenu</td><td>le déroulé général</td><td>les techniques réellement observées</td></tr>
 </table></div>
-
-<h4>Le circuit de chimiothérapie</h4>
-<div id="fig-chimio"></div>
-<div class="tableau"><table>
-<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
-<tr><td>1. Prescription du protocole</td><td>dans le DPI, par l'oncologue</td></tr>
-<tr><td>2. Validation pharmaceutique</td><td>doses, interactions, protocole</td></tr>
-<tr><td>3. Préparation cytotoxique et contrôle</td><td>isolateur ou robot de préparation</td></tr>
-<tr><td>4. Transport et administration</td><td>vers l'unité, patient vérifié</td></tr>
-<tr><td>5. Traçabilité</td><td>du produit au patient</td></tr>
-</table></div>
-<ul>
-<li><strong>Acteurs métiers</strong> : oncologue, pharmacien, préparateur, infirmier.</li>
-<li><strong>DM concernés</strong> : poste ou robot de préparation, étiqueteuse, pompes, et SI de gestion du circuit de chimiothérapie.</li>
-<li><strong>Interfaces avec le SIH</strong> : identité patient, DPI, module pharmacie.</li>
-</ul>
-<p><strong>Côté biomédical</strong> : il porte les exigences de sécurité des DM et vérifie ce qui est prouvé sur leur lien avec le SIH existant.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>Trois verbes guident la séance : décider, évaluer, comparer.</li>
-<li>Toute exigence va avec la preuve qui la démontre.</li>
-<li>Prescription → validation pharmaceutique → préparation et contrôle → transport et administration → traçabilité.</li>
+<li>Kill chain : reconnaissance → armement → livraison → exploitation → installation → C2 → objectifs.</li>
+<li>ATT&amp;CK : base publique de techniques observées, rangées par tactique (le but) et technique (le moyen).</li>
+<li>Toute attaque suit une méthode connue : rien n'est improvisé, y compris côté défense.</li>
 </ul>
 </article>
 
-<div class="fin-partie" data-section="projet-chimio"></div>
+<div class="fin-partie" data-section="kill-chain-attack"></div>
 </section>
 
-<section class="partie" id="s-gouvernance">
-<h2>Gouvernance : qui décide, comment, à quel coût</h2>
+<section class="partie" id="s-reconnaissance">
+<h2>La phase de reconnaissance</h2>
 
-<article class="notion" id="n-decideurs">
-<h3>Qui décide de l'investissement ?</h3>
-<p class="chapeau">Un projet de cette taille ne se décide pas dans un bureau. Neuf acteurs ont chacun leur rôle, et l'ingénieur biomédical n'est pas celui qui tranche sur tout.</p>
-<div id="fig-decideurs"></div>
+<article class="notion" id="n-reconnaissance">
+<p class="chapeau">Avant d'attaquer le PACS, il faut savoir qu'il existe, où il est et quelle version il fait tourner. Toute attaque commence par une enquête.</p>
+<p>La <b>phase de reconnaissance</b> (ou <b>footprinting</b>) est la première étape d'une cyberattaque ou d'un <b>test de pénétration</b>. Elle consiste à collecter un maximum d'informations sur la cible (entreprise, système informatique, employés) afin de cartographier son infrastructure et d'identifier ses faiblesses.</p>
+<div class="schema" id="sc-reconnaissance"></div>
 
-<h4>Neuf acteurs, neuf rôles</h4>
+<h4>Deux types de reconnaissance</h4>
 <div class="tableau"><table>
-<tr><th>Acteur</th><th>Rôle</th></tr>
-<tr><td>Direction générale</td><td>décide et finance</td></tr>
-<tr><td>Comité de pilotage</td><td>arbitre le projet</td></tr>
-<tr><td>Commission médicale et oncologues</td><td>activité et protocoles</td></tr>
-<tr><td>Pharmacie</td><td>prépare et valide les doses</td></tr>
-<tr><td>Direction des soins</td><td>parcours infirmier</td></tr>
-<tr><td>DSI et DIM</td><td>système et données</td></tr>
-<tr><td>Qualité et risques</td><td>analyse des risques</td></tr>
-<tr><td>Services techniques</td><td>locaux et fluides</td></tr>
-<tr><td>Ingénieur biomédical</td><td>exigences techniques et sécurité</td></tr>
+<tr><th></th><th>Reconnaissance passive</th><th>Reconnaissance active</th></tr>
+<tr><td>Technologie</td><td>OSINT (renseignement en sources ouvertes)</td><td>Nmap, Nessus, OpenVAS...</td></tr>
+<tr><td>Exemple du cours</td><td>consulter les profils des employés sur les réseaux sociaux, analyser les enregistrements DNS publics</td><td>effectuer un scan de ports</td></tr>
+<tr><td>Contact avec la cible</td><td>aucun : on lit ce qui est déjà public</td><td>oui : on envoie des paquets aux machines</td></tr>
 </table></div>
-
-<h4>Ce que porte l'ingénieur biomédical</h4>
-<div class="tableau"><table>
-<tr><th>Périmètre d'action</th><th>Il ne décide pas</th></tr>
-<tr><td>
-<ul>
-<li>programme et descriptifs techniques des équipements</li>
-<li>cohérence avec les locaux</li>
-<li>analyse technique des offres</li>
-<li>réception et qualification</li>
-<li>maintenance et métrologie</li>
-<li>formation technique</li>
-</ul></td><td>les protocoles thérapeutiques et leur paramétrage clinique : ils relèvent des oncologues et des pharmaciens</td></tr>
-</table></div>
+<p>Conséquence pour l'hôpital : la reconnaissance passive ne laisse <b>aucune trace</b> sur son réseau. La reconnaissance active, elle, peut se voir dans les journaux ou par un IDS : c'est souvent le premier signal d'une attaque.</p>
+<p>Le même travail sert aux deux camps : l'attaquant s'en sert pour préparer son attaque, l'auditeur pour un test de pénétration autorisé.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>La direction générale décide et finance, le comité de pilotage arbitre.</li>
-<li>L'ingénieur biomédical porte les exigences techniques et de sécurité, de la conception à la maintenance.</li>
-<li>Les protocoles et leur paramétrage clinique restent aux oncologues et aux pharmaciens.</li>
+<li>Reconnaissance = footprinting = collecter un maximum d'informations pour cartographier la cible et trouver ses faiblesses.</li>
+<li>Passive : OSINT, sans contact (réseaux sociaux, DNS publics).</li>
+<li>Active : Nmap, Nessus, OpenVAS, avec contact (scan de ports).</li>
 </ul>
 </article>
 
-<article class="notion" id="n-cycle-decision">
-<h3>Le cycle de décision et la matrice des responsabilités</h3>
-<p class="chapeau">De l'idée à l'ouverture du centre, le projet passe par cinq étapes. À chacune, trois questions : qui décide, qui est consulté, quelle trace écrite ?</p>
-<div id="fig-cycle"></div>
-
-<h4>Le cycle de décision d'un projet d'extension</h4>
-<div class="tableau"><table>
-<tr><th>Étape</th><th>Contenu</th></tr>
-<tr><td>1. Étude d'opportunité</td><td>analyse de faisabilité, business case, charte projet</td></tr>
-<tr><td>2. Programme technique</td><td>cahier de prescriptions techniques, règlement de consultation, CPS</td></tr>
-<tr><td>3. Consultation et choix</td><td>offres comparées</td></tr>
-<tr><td>4. Déploiement et qualification</td><td>réception, tests, formation</td></tr>
-<tr><td>5. Ouverture et évaluation</td><td>indicateurs, retours</td></tr>
-</table></div>
-
-<h4>La matrice de responsabilités du projet</h4>
-<p><strong>R</strong> = responsable, <strong>C</strong> = consulté.</p>
-<div id="fig-raci"></div>
-<div class="tableau"><table>
-<tr><th>Activité</th><th>Biomédical</th><th>Pharmacie</th><th>Oncologues</th><th>DSI</th><th>Soins</th><th>Fournisseur</th></tr>
-<tr><td>Exigences de sécurité des équipements</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
-<tr><td>Protocoles et paramétrage clinique</td><td>C</td><td>R</td><td>R</td><td>C</td><td>R</td><td>C</td></tr>
-<tr><td>Recette de l'intégration au SIH</td><td>R</td><td>C</td><td>C</td><td>R</td><td>C</td><td>C</td></tr>
-<tr><td>Qualification avant la 1<sup>re</sup> préparation</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>R</td></tr>
-<tr><td>Formation des opérateurs</td><td>C</td><td>R</td><td>R</td><td>C</td><td>R</td><td>R</td></tr>
-<tr><td>Mode dégradé en cas de panne</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>C</td></tr>
-</table></div>
-<p>À lire dans la matrice :</p>
-<ul>
-<li>le <strong>mode dégradé</strong> est l'affaire de tous les acteurs de l'hôpital, le fournisseur étant seulement consulté ;</li>
-<li>pour les <strong>protocoles</strong>, le biomédical est consulté : il ne décide pas du paramétrage clinique ;</li>
-<li>la <strong>recette de l'intégration au SIH</strong> est partagée entre le biomédical et la DSI.</li>
-</ul>
-
-<h4>À retenir</h4>
-<ul>
-<li>Opportunité → programme technique → consultation et choix → déploiement et qualification → ouverture et évaluation.</li>
-<li>À chaque étape : qui décide, qui est consulté, quelle trace écrite.</li>
-<li>Le biomédical est responsable des exigences de sécurité, de la recette d'intégration, de la qualification et du mode dégradé.</li>
-</ul>
-</article>
-
-<article class="notion" id="n-cout-complet">
-<h3>Coût complet et bénéfices</h3>
-<p class="chapeau">Le prix d'achat n'est qu'une partie de la facture. Sur sept ans, le robot ou l'isolateur coûte bien plus, et rapporte autre chose que de l'argent.</p>
-<div id="fig-cout"></div>
-
-<h4>Coût sur 7 ans et bénéfices attendus</h4>
-<div class="tableau"><table>
-<tr><th>Coût sur 7 ans</th><th>Bénéfices attendus</th></tr>
-<tr><td>
-<ul>
-<li>investissement</li>
-<li>locaux adaptés</li>
-<li>consommables spécifiques</li>
-<li>maintenance</li>
-<li>formation</li>
-<li>remplacement</li>
-</ul></td><td>
-<ul>
-<li>sécurité du patient</li>
-<li>sécurité du personnel</li>
-<li>médicaments coûteux non gaspillés</li>
-<li>temps soignant</li>
-<li>attractivité du centre</li>
-</ul></td></tr>
-</table></div>
-
-<h4>Les coûts cachés</h4>
-<p>Les <strong>coûts cachés</strong> sont l'ensemble des dépenses, pertes ou manques à gagner qui ne figurent pas explicitement dans le budget initial ou dans la comptabilité traditionnelle.</p>
-<p>Exemples du cours :</p>
-<ul>
-<li>coût d'interfaçage non prévu ;</li>
-<li>périmètre projet non exprimé correctement ;</li>
-<li>trop de réunions pour la validation.</li>
-</ul>
-
-<h4>Discussion du cours</h4>
-<p>Dans ce projet, l'ingénieur biomédical doit-il être un <strong>décideur</strong> ou un <strong>conseiller</strong> ? Qu'est-ce qui changerait sa position ? Le cours pose la question sans trancher. La matrice de la page précédente donne un appui : il est responsable de ce qui touche les équipements (exigences de sécurité, qualification, recette), consulté pour les protocoles.</p>
-
-<h4>À retenir</h4>
-<ul>
-<li>Coût complet sur 7 ans : investissement, locaux, consommables, maintenance, formation, remplacement.</li>
-<li>Les bénéfices ne sont pas seulement financiers : sécurité, gaspillage évité, temps soignant, attractivité.</li>
-<li>Un coût caché n'apparaît pas dans le budget initial : interfaçage oublié, périmètre mal exprimé, réunions.</li>
-</ul>
-</article>
-
-<div class="fin-partie" data-section="gouvernance"></div>
+<div class="fin-partie" data-section="reconnaissance"></div>
 </section>
 
-<section class="partie" id="s-audit">
-<h2>Audit : exigences, preuves, trois moments</h2>
+<section class="partie" id="s-nmap">
+<h2>Nmap et les types de scan</h2>
 
-<article class="notion" id="n-audit-exigences">
-<h3>L'audit et le cahier d'exigences</h3>
-<p class="chapeau">Comment sait-on qu'une solution est bonne ? On l'audite. Et pour l'auditer, l'ingénieur biomédical écrit d'abord ses exigences, chacune avec la preuve qu'il attend.</p>
+<article class="notion" id="n-nmap">
+<p class="chapeau">Un scan de ports bien fait dit à l'attaquant quelles machines répondent, ce qu'elles font tourner et en quelle version. C'est exactement ce que l'auditeur veut savoir avant lui.</p>
+<p><b>Nmap</b> (Network Mapper) est un logiciel libre et gratuit d'exploration réseau et d'audit de sécurité.</p>
+<div id="fig-nmap"></div>
 
-<h4>L'audit : définition</h4>
+<h4>Ses quatre fonctionnalités principales</h4>
 <ul>
-<li><strong>Objectif d'audit</strong> : ici, la sélection sur évaluation.</li>
-<li><strong>Autres types d'audit</strong> : conformité, contrôle, certification, interne, externe…</li>
-<li><strong>Condition d'audit</strong> : un référentiel et une méthodologie.</li>
-<li><strong>Critères d'audit</strong> : objectivité et neutralité.</li>
+<li><b>Découverte d'hôtes</b> : identifier quelles machines ou appareils sont actifs et connectés sur un réseau.</li>
+<li><b>Scan de ports</b> : vérifier quels ports sont ouverts, fermés ou bloqués par un pare-feu.</li>
+<li><b>Détection de services</b> : identifier les programmes qui tournent sur ces ports (serveur web, base de données) et leur version exacte.</li>
+<li><b>Identification de l'OS</b> : estimer le système d'exploitation de la machine cible (Windows, Linux...).</li>
 </ul>
 
-<h4>Le cahier d'exigences de l'ingénieur biomédical</h4>
-<div id="fig-exigences"></div>
+<h4>Les types de scan</h4>
 <div class="tableau"><table>
-<tr><th>Famille</th><th>Question de l'ingénieur biomédical</th><th>Preuve à exiger</th></tr>
-<tr><td>Conformité réglementaire</td><td>Les DM et le logiciel sont-ils conformes et autorisés ?</td><td>certificats, déclaration de conformité, notice en langue d'usage</td></tr>
-<tr><td>Sécurité du patient</td><td>Que fait le système pour empêcher une erreur de dose ou de patient ?</td><td>rapports de validation, incidents signalés ailleurs, scénarios de test</td></tr>
-<tr><td>Sécurité du personnel</td><td>Comment limite-t-on l'exposition aux produits cytotoxiques ?</td><td>rapports de qualification, mesures de contamination, ergonomie du poste</td></tr>
-<tr><td>Intégration au SIH</td><td>La bonne prescription arrive-t-elle sur le bon patient, sans ressaisie ?</td><td>site de référence comparable, tests avec identités fictives, engagement contractuel</td></tr>
-<tr><td>Cybersécurité</td><td>Qui accède, qui trace, jusqu'à quand les correctifs ?</td><td>engagements contractuels, accès à distance encadré, durée de support</td></tr>
-<tr><td>Continuité</td><td>Que fait-on si le système, l'étiqueteuse ou le réseau tombe ?</td><td>procédure de mode dégradé testée, délai de reprise, stock de secours</td></tr>
-<tr><td>Maintenance et cycle de vie</td><td>Quelle disponibilité garantie, quel délai d'intervention, quelle fin de vie ?</td><td>contrat de maintenance, pénalités, plan de renouvellement, réversibilité</td></tr>
+<tr><th>Type de scan</th><th>Principe</th><th>Détectable ?</th></tr>
+<tr><td>Scan de ports TCP connect</td><td>établit une connexion TCP complète sur chaque port testé</td><td>facilement, apparaît dans les journaux applicatifs</td></tr>
+<tr><td>Scan SYN (« furtif »)</td><td>n'envoie que le premier paquet de la poignée de main TCP, sans la terminer</td><td>plus discret, mais visible par un IDS correctement réglé</td></tr>
+<tr><td>Scan UDP</td><td>teste les services sans connexion (DNS, SNMP, NTP)</td><td>plus lent et moins fiable, souvent ignoré à tort</td></tr>
+<tr><td>Détection de version / OS</td><td>analyse les réponses pour déduire le logiciel et sa version</td><td>révèle directement les cibles non corrigées</td></tr>
 </table></div>
-<p>Chaque ligne est <strong>une exigence et une preuve</strong>, pas une description technique.</p>
+<p>Pourquoi la détection de version est la plus dangereuse : connaître la version exacte d'un logiciel, c'est savoir s'il a une faille connue non corrigée. L'attaquant n'a plus qu'à choisir.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>Un audit a besoin d'un référentiel et d'une méthodologie, et se mène avec objectivité et neutralité.</li>
-<li>Sept familles d'exigences : conformité, sécurité du patient, sécurité du personnel, intégration au SIH, cybersécurité, continuité, maintenance et cycle de vie.</li>
-<li>Pour chaque famille, une question et une preuve vérifiable.</li>
+<li>Nmap : découverte d'hôtes, scan de ports, détection de services, identification de l'OS.</li>
+<li>TCP connect : connexion complète, très visible. SYN : poignée de main non terminée, plus discret.</li>
+<li>UDP : DNS, SNMP, NTP, souvent ignoré à tort. Version / OS : montre les cibles non corrigées.</li>
 </ul>
 </article>
 
-<article class="notion" id="n-moments-audit">
-<h3>Trois moments d'audit et les indicateurs</h3>
-<p class="chapeau">Une solution peut briller à la démonstration et décevoir en service. On l'audite donc trois fois, et on la suit ensuite avec des indicateurs, en se méfiant de ceux qui poussent à tricher.</p>
-<div id="fig-moments"></div>
-
-<h4>Trois moments d'audit</h4>
-<div class="tableau"><table>
-<tr><th>Moment</th><th>Ce qu'on audite</th></tr>
-<tr><td>1. Avant l'achat</td><td>dossier fournisseur, site de référence, démonstration scénarisée</td></tr>
-<tr><td>2. À la réception</td><td>contrôle de la livraison, qualification, tests avec identités fictives</td></tr>
-<tr><td>3. Après l'ouverture</td><td>indicateurs, retours des utilisateurs, incidents</td></tr>
-</table></div>
-<p><strong>Fait, écart, opinion</strong> : un constat s'appuie sur une preuve vérifiable.</p>
-
-<h4>Indicateurs et effets pervers</h4>
-<p>Six indicateurs proposés par le cours :</p>
-<ul>
-<li>délai de préparation ;</li>
-<li>préparations conformes du premier coup ;</li>
-<li>erreurs interceptées avant l'administration ;</li>
-<li>gaspillage de médicament ;</li>
-<li>disponibilité des équipements ;</li>
-<li>incidents signalés.</li>
-</ul>
-<p>Un délai de préparation qui baisse prouve-t-il un système meilleur ? Pas forcément. <strong>Risque</strong> : contourner les contrôles en période de pointe pour faire baisser le chiffre.</p>
-
-<h4>Étude de cas : un centre de référence (fictif)</h4>
-<p>Quatre constats relevés sur un site qui utilise déjà une solution. Consigne : pour chaque constat, l'écart, la preuve manquante, et une exigence à ajouter au cahier des charges du CHU Atlas.</p>
-<p class="complement">Réponse proposée (le cours donne la consigne, pas la réponse).</p>
-<div class="tableau"><table>
-<tr><th>Constat</th><th>Écart</th><th>Preuve manquante</th><th>Exigence à ajouter</th></tr>
-<tr><td>Double contrôle contourné aux heures de pointe</td><td>sécurité du patient</td><td>trace des contrôles réellement faits</td><td>contrôle bloquant, tracé, impossible à sauter</td></tr>
-<tr><td>Imprimante d'étiquettes en panne : étiquetage manuel</td><td>continuité</td><td>procédure de mode dégradé testée</td><td>imprimante de secours, étiquettes de secours, mode dégradé testé</td></tr>
-<tr><td>Compte du fournisseur partagé pour l'accès à distance</td><td>cybersécurité</td><td>traçabilité des accès</td><td>comptes nominatifs, accès à distance encadré</td></tr>
-<tr><td>Identité des patients sans dossier à jour saisie à la main</td><td>intégration au SIH</td><td>tests avec identités fictives</td><td>gestion de l'identité provisoire et de son rapprochement, testée avant la signature</td></tr>
-</table></div>
-
-<h4>À retenir</h4>
-<ul>
-<li>Avant l'achat, à la réception, après l'ouverture : trois audits, trois types de preuves.</li>
-<li>Un constat s'appuie sur une preuve vérifiable : on distingue fait, écart et opinion.</li>
-<li>Un indicateur peut avoir un effet pervers : un délai qui baisse peut cacher des contrôles contournés.</li>
-</ul>
-</article>
-
-<div class="fin-partie" data-section="audit"></div>
-</section>
-
-<section class="partie" id="s-comparer">
-<h2>Benchmarking : comparer deux offres</h2>
-
-<article class="notion" id="n-methode-comparaison">
-<p class="chapeau">Comparer deux offres, ce n'est pas mettre deux brochures côte à côte. Il y a trois niveaux de comparaison, une méthode en cinq étapes, et des démonstrations sur des scénarios choisis par l'hôpital.</p>
-
-<h4>Trois niveaux de comparaison</h4>
-<div class="tableau"><table>
-<tr><th>Niveau</th><th>Ce qu'on compare</th></tr>
-<tr><td>1. Les offres entre elles</td><td>offre A (robotisée) contre offre B (modulaire)</td></tr>
-<tr><td>2. Les sites de référence</td><td>les établissements qui utilisent déjà chaque solution</td></tr>
-<tr><td>3. Des établissements comparables</td><td>taille, activité et organisation proches du CHU Atlas</td></tr>
-</table></div>
-
-<h4>La méthode en cinq étapes</h4>
-<div id="fig-methode"></div>
-<div class="tableau"><table>
-<tr><th>Étape</th><th>Contenu</th></tr>
-<tr><td>1. Critères éliminatoires</td><td>conformité, sécurité, intégration prouvée</td></tr>
-<tr><td>2. Critères pondérés</td><td>poids fixés avant de voir les offres</td></tr>
-<tr><td>3. Notes sur preuves</td><td>démonstrations, visites, utilisateurs</td></tr>
-<tr><td>4. Coût complet sur 7 ans</td><td>au-delà du prix d'achat</td></tr>
-<tr><td>5. Analyse de sensibilité</td><td>le classement résiste-t-il ?</td></tr>
-</table></div>
-<p>Une offre qui échoue à un <strong>critère éliminatoire</strong> est écartée, quel que soit son score.</p>
-
-<h4>Trois scénarios pour la démonstration</h4>
-<div class="tableau"><table>
-<tr><th>Scénario</th><th>La question posée au système</th></tr>
-<tr><td>Identité provisoire</td><td>un patient arrive sans dossier à jour : comment le système gère-t-il l'identité et son rapprochement ultérieur ?</td></tr>
-<tr><td>Protocole modifié en urgence</td><td>l'oncologue change une dose : quelles validations et quelle traçabilité ?</td></tr>
-<tr><td>Panne de l'étiqueteuse</td><td>que se passe-t-il en cours de préparation, et quel mode dégradé est prévu ?</td></tr>
-</table></div>
-<p>Ce sont les scénarios de l'hôpital, pas ceux de l'éditeur : chacun teste un point faible du circuit (identité, modification, panne).</p>
-
-<h4>À retenir</h4>
-<ul>
-<li>On compare les offres, leurs sites de référence, et des établissements comparables.</li>
-<li>Éliminatoires → pondérés → notes sur preuves → coût complet sur 7 ans → sensibilité.</li>
-<li>Un critère éliminatoire raté écarte l'offre, quel que soit son score.</li>
-</ul>
-</article>
-
-<article class="notion" id="n-sensibilite">
-<h3>Grille pondérée et analyse de sensibilité</h3>
-<p class="chapeau">Les deux offres sont notées sur cinq critères. Selon le poids donné à chaque critère, l'une ou l'autre passe devant. Le « meilleur » système existe-t-il, ou seulement le meilleur compromis pour des priorités données ?</p>
-
-<h4>Les notes des deux offres (sur 5, données fictives)</h4>
-<div class="tableau"><table>
-<tr><th>Critère</th><th>Offre A (robotisée)</th><th>Offre B (modulaire)</th></tr>
-<tr><td>Sécurité patient et personnel</td><td>5</td><td>3</td></tr>
-<tr><td>Intégration au SIH (sur preuves)</td><td>3</td><td>4</td></tr>
-<tr><td>Coût complet sur 7 ans</td><td>2</td><td>4</td></tr>
-<tr><td>Maintenance et disponibilité</td><td>4</td><td>3</td></tr>
-<tr><td>Ergonomie et formation</td><td>3</td><td>4</td></tr>
-</table></div>
-
-<h4>Le total pondéré</h4>
-<p>Chaque note est multipliée par le poids du critère (en %), puis on divise la somme par 100 :</p>
-\[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
-<p>Avec les poids 35 / 25 / 15 / 15 / 10 (sécurité, intégration, coût, maintenance, ergonomie), pour l'offre A :</p>
-\[ \text{Total}_A = \frac{35 \times 5 + 25 \times 3 + 15 \times 2 + 15 \times 4 + 10 \times 3}{100} \]
-\[ \text{Total}_A = \frac{175 + 75 + 30 + 60 + 30}{100} \]
-\[ \text{Total}_A = 3{,}70 \]
-<p>Le même calcul donne \(\text{Total}_B = 3{,}50\).</p>
-
-<h4>La pondération change le classement</h4>
-<div id="fig-sensibilite"></div>
-<div class="tableau"><table>
-<tr><th>Pondération</th><th>Total A</th><th>Total B</th><th>Résultat</th></tr>
-<tr><td>35 / 25 / 15 / 15 / 10</td><td>3,70</td><td>3,50</td><td>A</td></tr>
-<tr><td>30 / 25 / 20 / 15 / 10</td><td>3,55</td><td>3,55</td><td>égalité</td></tr>
-<tr><td>25 / 25 / 25 / 15 / 10</td><td>3,40</td><td>3,60</td><td>B</td></tr>
-</table></div>
-<p>Il suffit de déplacer 10 points de la sécurité vers le coût pour que B passe devant.</p>
-
-<h4>Le piège de la compensation</h4>
-<p>Avec la pondération seule, un bon prix peut <strong>compenser</strong> une sécurité plus faible. D'où le <strong>seuil éliminatoire</strong> : la sécurité se vérifie d'abord, elle ne se négocie pas dans une note.</p>
-
-<h4>À retenir</h4>
-<ul>
-<li>Total = somme (poids × note) / 100, avec des poids fixés avant de voir les offres.</li>
-<li>L'analyse de sensibilité refait le calcul avec d'autres poids : si le classement s'inverse, il dépend des priorités.</li>
-<li>La sécurité passe par un seuil éliminatoire, pas seulement par une note.</li>
-</ul>
-</article>
-
-<div class="fin-partie" data-section="comparer"></div>
-</section>
-
-<section class="partie" id="s-pieges-synthese">
-<h2>Pièges du benchmarking et synthèse</h2>
-
-<article class="notion" id="n-pieges-benchmarking">
-<p class="chapeau">Une démonstration parfaite, une promesse d'intégration, une référence prestigieuse : autant de pièges. L'ingénieur biomédical est là pour les voir et les signaler au comité.</p>
-
-<h4>Cinq pièges du benchmarking</h4>
-<div id="fig-pieges"></div>
-<div class="tableau"><table>
-<tr><th>Piège</th><th>Ce qui se passe</th></tr>
-<tr><td>Démonstration préparée</td><td>le scénario est choisi par l'éditeur</td></tr>
-<tr><td>Intégration non prouvée</td><td>une promesse sans site de référence</td></tr>
-<tr><td>Périmètres différents</td><td>les offres ne couvrent pas la même chose</td></tr>
-<tr><td>Références non comparables</td><td>taille ou organisation différentes</td></tr>
-<tr><td>Dépendance fournisseur</td><td>à traiter par une clause de réversibilité</td></tr>
-</table></div>
-
-<h4>Le rôle de l'ingénieur biomédical</h4>
-<div class="tableau"><table>
-<tr><th>Étape</th><th>Ce qu'il fait</th></tr>
-<tr><td>1. Critères et preuves</td><td>il rédige les exigences techniques</td></tr>
-<tr><td>2. Démonstrations</td><td>il les anime côté technique</td></tr>
-<tr><td>3. Sites de référence</td><td>il instruit les retours</td></tr>
-<tr><td>4. Coût de maintenance</td><td>il chiffre le cycle de vie</td></tr>
-<tr><td>5. Points non prouvés</td><td>il les signale au comité</td></tr>
-</table></div>
-
-<h4>Synthèse : les trois colonnes complétées</h4>
-<p>La question posée en début de séance (quels critères pour décider, évaluer, comparer ?) reçoit sa réponse :</p>
-<div class="tableau"><table>
-<tr><th>Décider</th><th>Évaluer</th><th>Comparer</th></tr>
-<tr><td>
-<ul>
-<li>gouvernance partagée</li>
-<li>exigences portées par le biomédical</li>
-<li>cycle de décision tracé</li>
-</ul></td><td>
-<ul>
-<li>preuves, pas promesses</li>
-<li>avant, pendant et après</li>
-<li>constats, écarts, actions</li>
-</ul></td><td>
-<ul>
-<li>seuils éliminatoires</li>
-<li>poids fixés avant les offres</li>
-<li>analyse de sensibilité</li>
-</ul></td></tr>
-</table></div>
-
-<h4>Trois messages</h4>
-<ol>
-<li><strong>Gouvernance partagée</strong> : choisir une solution de soins critique est une décision collective. L'ingénieur biomédical y porte les exigences techniques et de sécurité.</li>
-<li><strong>Des preuves</strong> : une solution est bonne quand des preuves le montrent, avant l'achat, à la réception et après l'ouverture.</li>
-<li><strong>Des priorités explicites</strong> : comparer, c'est expliciter ses priorités, avec des seuils éliminatoires pour la sécurité.</li>
-</ol>
-
-<h4>Le débat de fin de séance</h4>
-<p>Accepteriez-vous une solution un peu moins sûre mais mieux intégrée et moins chère ? Qui peut l'accepter, et à quelles conditions ? Le cours ouvre le débat. Le TD y répond pour le CHU Atlas : un risque résiduel est accepté par écrit, par le comité de pilotage, après analyse de risques.</p>
-
-<h4>À retenir</h4>
-<ul>
-<li>Cinq pièges : démonstration préparée, intégration non prouvée, périmètres différents, références non comparables, dépendance fournisseur.</li>
-<li>L'ingénieur biomédical rédige les exigences, anime les démonstrations, instruit les références, chiffre le cycle de vie, signale ce qui n'est pas prouvé.</li>
-<li>Gouvernance partagée, des preuves, des priorités explicites.</li>
-</ul>
-</article>
-
-<div class="fin-partie" data-section="pieges-synthese"></div>
+<div class="fin-partie" data-section="nmap"></div>
 </section>
 
 </main>
@@ -459,15 +139,10 @@
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
 <script src="../sis.js"></script>
-<script src="../figures/projet-chimio.js"></script>
-<script src="../figures/decideurs.js"></script>
-<script src="../figures/cycle-decision.js"></script>
-<script src="../figures/cout-complet.js"></script>
-<script src="../figures/audit-exigences.js"></script>
-<script src="../figures/moments-audit.js"></script>
-<script src="../figures/methode-comparaison.js"></script>
-<script src="../figures/sensibilite.js"></script>
-<script src="../figures/pieges-benchmarking.js"></script>
+<script src="../figures/kill-chain-attack.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/nmap.js"></script>
 </body>
 </html>

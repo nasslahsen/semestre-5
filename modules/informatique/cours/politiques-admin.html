@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Politiques d'administration et outils · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Politiques d'administration et outils</h1>
+<p class="chapeau">Qui peut se connecter au cœur de réseau, par quel chemin, avec quel protocole, et qui le saura ? Le cours répond domaine par domaine, puis donne les outils qui rendent ces règles applicables.</p>
+<h2>Politiques à adopter pour l'administration réseau</h2>
+<div class="tableau"><table>
+<tr><th>Domaine</th><th>Politique</th><th>Exemple d'exigence</th></tr>
+<tr><td>Accès d'administration</td><td>comptes nominatifs, moindre privilège, MFA</td><td>aucun compte partagé ; droits par rôle ; accès uniquement via le bastion, sessions enregistrées</td></tr>
+<tr><td>Séparation</td><td>plan de gestion isolé de la production</td><td>interfaces d'administration jamais joignables depuis Internet ni le LAN utilisateur</td></tr>
+<tr><td>Protocoles autorisés</td><td>uniquement des protocoles chiffrés</td><td>SSH, HTTPS, SNMPv3 ; Telnet, HTTP, SNMP v1/v2c et TFTP interdits</td></tr>
+<tr><td>Configuration</td><td>configuration de référence durcie, versionnée</td><td>sauvegarde automatique, détection de toute dérive, benchmarks CIS comme base</td></tr>
+<tr><td>Gestion des changements</td><td>tout changement demandé, validé, planifié, réversible</td><td>fenêtre de maintenance définie, plan de retour arrière, trace de qui a changé quoi</td></tr>
+<tr><td>Journalisation et temps</td><td>journaux centralisés, horloge unique</td><td>Syslog vers le SIEM, durée de rétention fixée, source NTP interne</td></tr>
+<tr><td>Correctifs et vulnérabilités</td><td>inventaire à jour, classement selon la criticité</td><td>veille (sites constructeurs, bulletins DGSSI/maCERT), scan des vulnérabilités, délai maximal de correction par niveau de gravité</td></tr>
+<tr><td>Secrets et identités</td><td>aucun mot de passe en clair, rotation</td><td>coffre-fort de secrets, clés SSH et certificats gérés par une PKI</td></tr>
+<tr><td>Continuité</td><td>sauvegardes</td><td>sauvegardes hors ligne des configurations</td></tr>
+<tr><td>Contrôle</td><td>vérification périodique</td><td>audit des comptes et des règles, test régulier de restauration d'une configuration</td></tr>
+</table></div>
+<p>Pourquoi une <b>horloge unique</b> (NTP) : pour reconstituer une attaque, on met bout à bout les journaux de plusieurs équipements ; s'ils ne sont pas à la même heure, l'enchaînement devient illisible.</p>
+
+<h2>Quelques outils utilisés</h2>
+<div id="fig-outils"></div>
+<div class="tableau"><table>
+<tr><th>Besoin</th><th>Type d'outil</th><th>Exemples du cours</th></tr>
+<tr><td>Authentification et droits</td><td>serveur AAA</td><td>FreeRADIUS, serveurs NAC</td></tr>
+<tr><td>Accès privilégié</td><td>bastion PAM avec coffre-fort de secrets et enregistrement de session</td><td>solutions PAM du marché</td></tr>
+<tr><td>Supervision</td><td>outil de supervision (SNMPv3) et analyse de flux (NetFlow/IPFIX)</td><td>Zabbix, Centreon</td></tr>
+<tr><td>Configuration</td><td>sauvegarde et audit des configurations</td><td>Ansible</td></tr>
+<tr><td>Journalisation</td><td>collecte Syslog, SIEM pour la corrélation et l'alerte</td><td>rsyslog, SIEM</td></tr>
+<tr><td>Vulnérabilités</td><td>scanner de vulnérabilités, inventaire (CMDB)</td><td>OpenVAS, Nessus</td></tr>
+</table></div>
+
+<h2>À retenir</h2>
+<ul>
+<li>Comptes nominatifs, moindre privilège, MFA, bastion. Plan de gestion isolé. Protocoles chiffrés seulement.</li>
+<li>Configuration durcie et versionnée, changements validés et réversibles, journaux centralisés à l'heure NTP.</li>
+<li>Outils : AAA (FreeRADIUS), PAM, supervision (Zabbix, Centreon), Ansible, SIEM, scanners (OpenVAS, Nessus).</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/politiques-admin.js"></script>
+</body>
+</html>

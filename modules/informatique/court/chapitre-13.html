@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Notions de réseaux (version courte) · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 13 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Notions de réseaux</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-13.html">Lire le cours complet</a></p>
+<h2>OSI et TCP/IP</h2>
+<div class="tableau"><table>
+<tr><th>OSI</th><th>Unité</th><th>Exemples</th><th>TCP/IP</th></tr>
+<tr><td>7 Application</td><td>données</td><td>HTTP, FTP, SMTP, Telnet</td><td rowspan="3">Application</td></tr>
+<tr><td>6 Présentation</td><td>données</td><td>HTML, JPEG, MP3</td></tr>
+<tr><td>5 Session</td><td>données</td><td>SIP, RTP</td></tr>
+<tr><td>4 Transport</td><td>segments</td><td>TCP, UDP, TLS</td><td>Transport</td></tr>
+<tr><td>3 Réseau</td><td>paquets</td><td>IP, ARP</td><td>Internet</td></tr>
+<tr><td>2 Liaison</td><td>trames</td><td>Ethernet, PPP</td><td rowspan="2">Accès au réseau</td></tr>
+<tr><td>1 Physique</td><td>bits</td><td>modulation</td></tr>
+</table></div>
+<p><strong>Encapsulation</strong> à l'envoi (chaque couche ajoute son en-tête), <strong>désencapsulation</strong> à la réception.</p>
+<h2>IPv4 et IPv6</h2>
+<p>IPv4 : 32 bits, \( 2^{32} \approx \) 4,3 milliards d'adresses, notation à points, DHCP ou manuel. IPv6 : 128 bits, hexadécimal (<code>50b2:6400::6c3a:b17d:0:10a9</code>), autoconfiguration.</p>
+<h2>Ports et équipements</h2>
+<ul>
+<li>Service (écoute), port (0 à 65 535), protocole (règles), <strong>socket</strong> = IP + port.</li>
+<li>FTP 20/21, SSH 22, Telnet 23, SMTP 25, DNS 53, HTTP 80, POP3 110, IMAP 143.</li>
+<li>Plages : bien connus 0 – 1023, réservés 1024 – 49 151, dynamiques 49 152 – 65 535.</li>
+<li>Hub (couche 1, diffuse), switch (couche 2, table MAC), routeur (couche 3, table de routage), switch multicouche (2 et 3, inter-VLAN, ACL).</li>
+</ul>
+
+<h2>Vidéos à chercher</h2>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<div class="tableau"><table>
+<tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
+<tr><td>Modèle OSI</td><td>PowerCert Animated Videos</td><td><a href="https://www.youtube.com/results?search_query=PowerCert+OSI+model" target="_blank" rel="noopener">PowerCert OSI model</a></td></tr>
+<tr><td>TCP/IP</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=TCP+IP+model+explained" target="_blank" rel="noopener">TCP IP model explained</a></td></tr>
+<tr><td>Encapsulation</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=data+encapsulation+explained" target="_blank" rel="noopener">data encapsulation explained</a></td></tr>
+<tr><td>Ports</td><td>Professor Messer</td><td><a href="https://www.youtube.com/results?search_query=Professor+Messer+common+ports" target="_blank" rel="noopener">Professor Messer common ports</a></td></tr>
+<tr><td>Hub, switch, routeur</td><td>PowerCert Animated Videos</td><td><a href="https://www.youtube.com/results?search_query=PowerCert+hub+switch+router" target="_blank" rel="noopener">PowerCert hub switch router</a></td></tr>
+</table></div>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Donne les sept couches OSI et leur unité de données.</p><details class="corrige"><summary>Voir la réponse</summary><p>7 application, 6 présentation, 5 session : données.</p><p>4 transport : segments. 3 réseau : paquets. 2 liaison : trames. 1 physique : bits.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelles couches OSI regroupe chaque couche TCP/IP ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Application : 7, 6, 5. Transport : 4. Internet : 3. Accès au réseau : 2 et 1.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Explique l'encapsulation.</p><details class="corrige"><summary>Voir la réponse</summary><p>À l'envoi, chaque couche ajoute son en-tête aux données de la couche du dessus.</p><p>À la réception, chaque couche retire le sien (désencapsulation).</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Combien d'adresses IPv4 existe-t-il ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( N = 2^{n} \)</p><p>\( N = 2^{32} = 4\,294\,967\,296 \)</p><p>Environ 4,3 milliards d'adresses.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qu'est-ce qu'une socket ? Donne un exemple.</p><details class="corrige"><summary>Voir la réponse</summary><p>L'association d'une adresse IP et d'un port, par exemple 192.168.1.10:80.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Donne les ports de SSH, Telnet, SMTP, DNS et HTTP.</p><details class="corrige"><summary>Voir la réponse</summary><p>SSH 22, Telnet 23, SMTP 25, DNS 53, HTTP 80.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Compare hub, switch et routeur.</p><details class="corrige"><summary>Voir la réponse</summary><p>Hub : couche 1, diffuse tout, obsolète.</p><p>Switch : couche 2, table MAC, LAN.</p><p>Routeur : couche 3, table de routage, vers Internet.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-14.html"><small>Version courte suivante</small>Attaques des couches 2 et 3</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("informatique", "securite") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("informatique", 13) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

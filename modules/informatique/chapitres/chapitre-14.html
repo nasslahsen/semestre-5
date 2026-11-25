@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Attaques des couches 2 et 3</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 14. -->
+<main class="cours-chapitre" data-chapitre="14">
+<p class="etiquette" data-etiquette></p>
+<h1>Attaques des couches 2 et 3</h1>
+
+<section class="partie" id="s-vuln-equipements">
+<h2>Équipements vulnérables et attaques</h2>
+
+<article class="notion" id="n-vuln-equipements">
+<p class="chapeau">Le switch du bloc opératoire a toujours son mot de passe d'usine, et son interface d'administration répond depuis Internet. Avant même de parler d'attaque, l'équipement est déjà une porte ouverte.</p>
+<h4>Vulnérabilités courantes des équipements réseau</h4>
+<ul>
+<li><b>Firmware obsolète ou non corrigé</b> : des failles connues (CVE) restent sans correctif.</li>
+<li><b>Identifiants par défaut</b> : mots de passe d'usine conservés (ex. : admin/admin).</li>
+<li><b>Services de gestion exposés</b> : interfaces d'administration (HTTP, SSH) accessibles depuis Internet.</li>
+<li><b>Configurations par défaut non sécurisées</b> : protocoles non chiffrés (Telnet, SNMP v1/v2) activés.</li>
+</ul>
+
+<h4>Les attaques, équipement par équipement</h4>
+<div class="schema" id="sc-attaques-l23"></div>
+<div class="tableau"><table>
+<tr><th>Cible</th><th>Attaque</th><th>Principe (cours)</th></tr>
+<tr><td rowspan="3">Switch (couche 2)</td><td>Empoisonnement du cache ARP (ARP spoofing / poisoning)</td><td>envoi de faux messages du protocole ARP</td></tr>
+<tr><td>MAC flooding</td><td>saturation de la table MAC du switch</td></tr>
+<tr><td>VLAN hopping</td><td>saut d'un VLAN à un autre</td></tr>
+<tr><td rowspan="3">Routeur (couche 3)</td><td>IP spoofing (usurpation d'adresse IP)</td><td>l'attaquant falsifie l'adresse IP source dans l'en-tête du paquet</td></tr>
+<tr><td>ICMP flood (ping flood)</td><td>inonder la cible de requêtes « ping » pour saturer sa bande passante</td></tr>
+<tr><td>Détournement DNS du routeur (router DNS hijacking)</td><td>remplacement des adresses DNS légitimes</td></tr>
+</table></div>
+<p>Point commun des attaques de couche 2 : elles supposent seulement une <b>présence sur le bon segment réseau</b>, y compris par un Wi-Fi mal isolé. Pas besoin de casser un mot de passe : il suffit d'être branché au bon endroit.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Quatre vulnérabilités : firmware non corrigé, identifiants par défaut, gestion exposée, protocoles non chiffrés.</li>
+<li>Switch : ARP spoofing, MAC flooding, VLAN hopping.</li>
+<li>Routeur : IP spoofing, ICMP flood, détournement DNS.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="vuln-equipements"></div>
+</section>
+
+<section class="partie" id="s-arp-spoofing">
+<h2>ARP spoofing</h2>
+
+<article class="notion" id="n-arp-spoofing">
+<p class="chapeau">Le poste du laboratoire envoie ses résultats au serveur. Tout semble normal, mais chaque paquet passe d'abord par la machine d'un intrus branché sur le même switch. Le coupable : un protocole qui croit tout ce qu'on lui dit.</p>
+<h4>Fonctionnement normal du protocole ARP</h4>
+<p>Sur un réseau local, une machine connaît l'<b>adresse IP</b> de son destinataire, mais le switch achemine les trames grâce à l'<b>adresse MAC</b>. Le protocole <b>ARP</b> fait le lien entre les deux :</p>
+<ol>
+<li><b>ARP Request</b>, en diffusion (broadcast, destination <code>FF:FF:FF:FF:FF:FF</code>) : A demande à tout le réseau « Qui est 192.168.1.1 ? ».</li>
+<li><b>ARP Reply</b>, en unicast : D, qui a cette adresse, répond « Mon adresse MAC est 00:00:00:00:00:A0 ».</li>
+<li>A range la correspondance IP – MAC dans son <b>cache ARP</b> et s'en sert pour les trames suivantes.</li>
+</ol>
+<p>Variantes ARP :</p>
+<ul>
+<li><b>ARP Probe</b> : quand une machine prend une nouvelle adresse, elle vérifie que personne ne l'utilise.</li>
+<li><b>Gratuitous ARP</b> : annonce envoyée sans qu'on l'ait demandée (sans état).</li>
+<li><b>Reverse ARP</b> : attribution d'adresse IP à partir de la MAC.</li>
+<li><b>Proxy ARP</b> : un mandataire répond à la place d'une autre machine (à désactiver sur les routeurs).</li>
+</ul>
+
+<h4>Déroulement de l'attaque</h4>
+<div id="fig-arp"></div>
+<p>Dans un LAN commuté, le switch envoie normalement le trafic directement du port d'origine au port de destination : le hacker ne voit rien. Pour entendre le trafic, il mène une attaque de type <b>homme du milieu</b> (Man-in-the-Middle, MitM) en empoisonnant le cache ARP des victimes :</p>
+<ul>
+<li>il envoie à PC A un gratuitous ARP : « 192.168.1.254 (le serveur B) est 00:00:00:00:00:03 », sa propre MAC ;</li>
+<li>il envoie au serveur B : « 192.168.1.100 (PC A) est 00:00:00:00:00:03 » ;</li>
+<li>les deux caches sont mis à jour sans vérification : A et B s'envoient leurs trames... au hacker, qui les relaie de façon transparente (le cours parle d'attaque <b>APR</b>).</li>
+</ul>
+<p>La faiblesse vient d'ARP lui-même : aucune authentification, et une machine accepte une réponse qu'elle n'a pas demandée.</p>
+
+<h4>Mesures de protection</h4>
+<ul>
+<li><b>DHCP Snooping</b> : le switch n'autorise les attributions d'adresses IP que si elles viennent d'un serveur DHCP légitime.</li>
+<li><b>DAI</b> (Dynamic ARP Inspection) : le switch intercepte et vérifie tous les paquets ARP, en les comparant à une base fiable (générée par le DHCP Snooping).</li>
+<li><b>Segmenter le réseau avec des VLAN</b> : on confine le trafic.</li>
+<li><b>Entrées ARP statiques pour les équipements critiques</b> : pour les serveurs sensibles ou la passerelle par défaut, on inscrit la correspondance IP – MAC « en dur ».</li>
+</ul>
+
+<h4>À retenir</h4>
+<ul>
+<li>ARP : request en broadcast « Qui est ... ? », reply en unicast avec la MAC, mémorisée dans le cache.</li>
+<li>Attaque : faux gratuitous ARP vers les deux victimes, le hacker se met au milieu (MitM).</li>
+<li>Protections : DHCP Snooping, DAI, VLAN, ARP statiques.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="arp-spoofing"></div>
+</section>
+
+<section class="partie" id="s-icmp-flood">
+<h2>Inondation ICMP</h2>
+
+<article class="notion" id="n-icmp-flood">
+<p class="chapeau">Le serveur de télémétrie des moniteurs ne répond plus. Personne n'y est entré : il est simplement noyé sous des milliers de « ping » par seconde.</p>
+<h4>Principe</h4>
+<p>Un <b>ping flood</b> (inondation ICMP) est une attaque par <b>déni de service</b> : l'attaquant tente de submerger un appareil ciblé avec des paquets de <b>demande d'écho ICMP</b>, rendant la cible inaccessible au trafic normal.</p>
+<p>Lorsque le trafic d'attaque provient de plusieurs appareils, l'attaque devient une <b>DDoS</b> (déni de service distribué).</p>
+<div id="fig-icmp"></div>
+
+<h4>Pourquoi ICMP s'y prête</h4>
+<ol>
+<li>C'est un protocole <b>sans connexion</b> (stateless) : aucune session à établir avant d'envoyer.</li>
+<li>Il a un <b>mécanisme de réponse obligatoire</b> (Echo Request / Echo Reply) : chaque demande fait travailler la cible, qui doit répondre.</li>
+<li>Il n'y a <b>pas d'authentification de la source</b> : l'attaquant peut même falsifier l'adresse d'origine (IP spoofing).</li>
+</ol>
+
+<h4>Mesures de protection</h4>
+<ul>
+<li>Limiter ou désactiver les réponses ICMP.</li>
+<li>Utiliser des solutions anti-DDoS.</li>
+</ul>
+<p>Le critère touché est la <b>disponibilité</b> : à l'hôpital, c'est souvent celui qui compte le plus pour le patient.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Ping flood : déni de service par des demandes d'écho ICMP. Plusieurs sources : DDoS.</li>
+<li>Facilité par : sans connexion, réponse obligatoire, pas d'authentification de la source.</li>
+<li>Parades : limiter ou désactiver ICMP, anti-DDoS.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="icmp-flood"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../sis.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/arp-spoofing.js"></script>
+<script src="../figures/icmp-flood.js"></script>
+</body>
+</html>
