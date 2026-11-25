@@ -285,11 +285,38 @@ tous["circuit-ris-pis"] = async (a) => {
   await trier(a, grille(2, 20, 14, 640, 60, 10), (k) => [175 + 330 * k, 435], [0, 1, 0, 1, 0, 1, 0, 1]); await a.suite();
   await a.choix(0); await a.suite();
 };
+tous["circuit-bloc"] = async (a) => {
+  await ordre(a, (i) => cinq([3, 1, 4, 0, 2][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await a.choix(1); await a.suite();
+  await trier(a, grille(2, 20, 20, 640, 74, 12), (k) => [175 + 330 * k, 430], [0, 1, 0, 1, 0, 1]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["circuit-sang"] = async (a) => {
+  await ordre(a, (i) => cinq([1, 4, 0, 3, 2][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await ordre(a, (i) => cinq([2, 0, 3, 4, 1][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await trier(a, grille(2, 20, 30, 640, 90, 16), (k) => [175 + 330 * k, 420], [0, 1, 0, 1]); await a.suite();
+  await paires(a, (i) => [135, 64 + 92 * i], (k) => [495, 64 + 92 * k], [2, 5, 0, 4, 3, 1]); await a.suite();
+};
+tous["parc-dm"] = async (a) => {
+  await trier(a, grille(2, 20, 14, 640, 60, 10), (k) => [175 + 330 * k, 435], [0, 1, 0, 1, 0, 1, 0, 1]); await a.suite();
+  await a.choix(0); await a.suite();
+  await paires(a, (i) => [210, 115 + 180 * i], (k) => [555, 115 + 180 * k], [1, 2, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["tracabilite-dm"] = async (a) => {
+  await paires(a, (i) => [140, 115 + 170 * i], (k) => [490, 115 + 170 * k], [1, 2, 0]); await a.suite();
+  await ordre(a, (i) => [[515, 385], [165, 115], [165, 385], [515, 115]][i], [1, 3, 2, 0]); await a.suite();
+  await trier(a, grille(1, 20, 14, 640, 50, 8), (k) => [175 + 330 * k, 440], [0, 1, 0, 0, 0]); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
+};
 tous["revision-circuits"] = async (a) => {
   await a.svg([606, 309]); await a.suite();
   await a.nombres([0.75]); await a.choix(1); await a.suite();
   await a.choix(0); await a.suite();
   await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
   await a.choix(1); await a.suite();
 };
 tous["boss-circuits"] = async (a) => {
@@ -412,21 +439,93 @@ tous["boss-risque"] = async (a) => {
   await a.choix(0); await a.suite();
 };
 
+/* ---------- Chapitre 7 du cours SIS (id 12) : gouvernance, audit et benchmarking ---------- */
+const bacs2 = (y) => (k) => [175 + 330 * k, y];
+const bacs3 = (k) => [115 + 225 * k, 410];
+tous["projet-chimio"] = async (a) => {
+  await trier(a, grille(2, 20, 20, 640, 74, 12), bacs2(430), [0, 1, 0, 1, 0, 1]); await a.suite();
+  await ordre(a, (i) => cinq([4, 2, 0, 3, 1][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await trier(a, grille(3, 10, 30, 660, 80, 12), bacs3, [0, 1, 2, 0, 1, 2]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous.decideurs = async (a) => {
+  await paires(a, (i) => [155, 64 + 92 * i], (k) => [510, 64 + 92 * k], [2, 0, 4, 5, 3, 1]); await a.suite();
+  await trier(a, grille(2, 20, 20, 640, 74, 12), bacs2(430), [0, 1, 0, 0, 1, 0]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["cycle-decision"] = async (a) => {
+  await ordre(a, (i) => cinq([2, 4, 1, 0, 3][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await paires(a, (i) => [165, 75 + 110 * i], (k) => [515, 75 + 110 * k], [2, 4, 0, 3, 1]); await a.suite();
+  await a.choix(2); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["cout-complet"] = async (a) => {
+  await trier(a, grille(2, 20, 14, 640, 60, 10), bacs2(435), [0, 1, 0, 1, 0, 1, 0, 1]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([11.1]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous["audit-exigences"] = async (a) => {
+  await a.choix(0); await a.suite();
+  await paires(a, (i) => [160, 75 + 110 * i], (k) => [510, 75 + 110 * k], [2, 4, 1, 0, 3]); await a.suite();
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [210, 110 + 180 * i], (k) => [555, 110 + 180 * k], [1, 2, 0]); await a.suite();
+};
+tous["moments-audit"] = async (a) => {
+  await trier(a, grille(3, 10, 30, 660, 80, 12), bacs3, [0, 1, 2, 0, 1, 2]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [200, 85 + 130 * i], (k) => [545, 85 + 130 * k], [2, 3, 0, 1]); await a.suite();
+};
+tous["methode-comparaison"] = async (a) => {
+  await ordre(a, (i) => cinq([3, 0, 4, 1, 2][i]), [0, 1, 2, 3, 4]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await paires(a, (i) => [145, 115 + 170 * i], (k) => [490, 115 + 170 * k], [2, 0, 1]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous.sensibilite = async (a) => {
+  await a.nombres([3.4]); await a.suite();
+  await a.nombres([3.4]); await a.choix(2); await a.suite();
+  await a.nombres([3.3, 3.5]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["pieges-benchmarking"] = async (a) => {
+  await paires(a, (i) => [202.5, 68 + 110 * i], (k) => [542.5, 68 + 110 * k], [2, 4, 3, 0, 1]); await a.suite();
+  await a.choix(0); await a.suite();
+  await trier(a, grille(3, 10, 30, 660, 80, 12), bacs3, [0, 1, 2, 0, 1, 2]); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["revision-gouvernance"] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.nombres([3.75]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+};
+tous["boss-gouvernance"] = async (a) => {
+  await a.choix(1); await a.suite();
+  await a.nombres([3.75, 3.5]); await a.suite();
+  await trier(a, grille(2, 20, 20, 640, 74, 12), bacs2(430), [0, 1, 0, 0, 1, 0]); await a.suite();
+  await a.choix(0); await a.suite();
+};
+
 /* ---------- TD 1 : centre d'oncologie du CHU Atlas ---------- */
 tous["td1-amdec"] = async (a) => {
-  await a.nombres([270]); await a.suite();
+  await a.nombres([150]); await a.suite();
+  await a.choix(0); await a.suite();
+  await ordre(a, (i) => cinq([3, 0, 4, 2, 1][i]), [0, 1, 2, 3, 4]); await a.suite();
   await a.choix(1); await a.suite();
-  for (const y of [133, 195, 319, 381]) await a.svg([340, y]);
-  await a.suite();
-  await a.choix(2); await a.suite();
   await paires(a, (i) => [145, 130 + 170 * i], (k) => [490, 130 + 170 * k], [1, 2, 0]); await a.suite();
   await a.choix(0); await a.suite();
 };
 tous["td1-offres"] = async (a) => {
   await trier(a, grille(2, 20, 20, 640, 84, 14), (k) => [120 + 220 * k, 460], [0, 1, 2, 1, 0]); await a.suite();
   await a.choix(2); await a.suite();
-  await a.nombres([2.85]); await a.suite();
-  await a.nombres([3.35, 3.4]); await a.suite();
+  await a.nombres([3.5]); await a.suite();
+  await a.nombres([3.55, 3.55]); await a.suite();
   await a.choix(0); await a.suite();
   await a.choix(1); await a.suite();
 };
@@ -441,14 +540,14 @@ tous["revision-td1"] = async (a) => {
   await a.nombres([120]); await a.suite();
   await a.nombres([48]); await a.suite();
   await a.choix(1); await a.suite();
-  await a.nombres([2.9, 3.7]); await a.suite();
+  await a.nombres([3.4, 3.6]); await a.suite();
   await a.choix(2); await a.suite();
 };
 tous["boss-td1"] = async (a) => {
-  await a.nombres([90]); await a.suite();
+  await a.nombres([64]); await a.suite();
   await a.choix(2); await a.suite();
   await paires(a, (i) => [180, 95 + 130 * i], (k) => [530, 95 + 130 * k], [2, 3, 0, 1]); await a.suite();
-  await a.nombres([2.8]); await a.suite();
+  await a.nombres([3.35]); await a.suite();
   await a.choix(1); await a.suite();
 };
 

@@ -8,20 +8,21 @@
   });
   var W = 270, H = 160;
   var noeuds = [
-    { x: 30, y: 50, w: W, h: H, t: "Déclenchement", sous: "DSI, puis direction générale" },
-    { x: 345, y: 50, w: W, h: H, t: "Priorisation", sous: "oncologue, avec le pharmacien" },
-    { x: 660, y: 50, w: W, h: H, t: "Prescription et identité", sous: "oncologue, pharmacien" },
+    { x: 30, y: 50, w: W, h: H, t: "Déclenchement", sous: "pharmacienne et DSI, ensemble" },
+    { x: 345, y: 50, w: W, h: H, t: "Priorisation", sous: "oncologue" },
+    { x: 660, y: 50, w: W, h: H, t: "Prescription et identité", sous: "oncologue, pharmacienne" },
     { x: 660, y: 320, w: W, h: H, t: "Préparation et étiquetage", sous: "pharmacie" },
-    { x: 345, y: 320, w: W, h: H, t: "Administration", sous: "deux infirmiers" },
-    { x: 30, y: 320, w: W, h: H, t: "Retour à la normale", sous: "pharmacien, identitovigilance, qualité" }
+    { x: 345, y: 320, w: W, h: H, t: "Administration", sous: "contrôle à deux" },
+    { x: 30, y: 320, w: W, h: H, t: "Retour à la normale", sous: "pharmacie, puis déclaration" }
   ];
+  // Réponses du modèle de l'enseignant (fiche de synthèse remplie)
   var textes = [
-    "Le DSI confirme la panne et sa durée prévue. La direction générale déclenche le mode dégradé. Les services sont prévenus par téléphone.",
-    "L'oncologue revoit les 12 patients : il maintient les cures dont le report compromet le traitement et reporte les autres de 24 à 48 h.",
-    "Ordonnances papier préimprimées et signées, doses recalculées par le pharmacien, identité vérifiée sur le bracelet et une pièce d'identité.",
-    "Double contrôle humain tracé sur la fiche de fabrication. Étiquettes de secours préimprimées, contresignées par deux personnes.",
-    "Deux infirmiers vérifient le patient, la poche et la programmation de la pompe, lue à voix haute. Feuille d'administration papier.",
-    "Ressaisie dans le DPI sous 24 h, rapprochement des identités, déclaration de l'événement et retour d'expérience."
+    "Décision conjointe de la pharmacienne et de la DSI, annonce immédiate aux services.",
+    "Les patients dont le traitement ne peut être différé passent en premier. Les autres sont reportés sur décision de l'oncologue.",
+    "Prescriptions papier pré-numérotées, signées par l'oncologue et validées par la pharmacienne. Identité vérifiée sur le bracelet.",
+    "Double contrôle manuel indépendant, étiquettes de secours pré-imprimées, contrôle à deux.",
+    "Contrôle à deux de l'identité, de la poche et de la programmation de la pompe.",
+    "Ressaisie et rapprochement des données, vérification par la pharmacie, déclaration de l'événement. Responsables du mode dégradé : la pharmacienne cheffe et le cadre de santé du centre."
   ];
   A.etapesFig(f, noeuds, textes, { taille: 21, depart: "Le SIH vient de tomber. Avance étape par étape.", noms: ["Déclencher", "Prioriser", "Prescrire", "Préparer", "Administrer", "Revenir"] });
 })();

@@ -21,7 +21,7 @@
 <h1>Circuits patient dans le SIH</h1>
 
 <section class="partie" id="s-patient-identite">
-<h2>Suivre un patient et créer une identité</h2>
+<h2>Suivre un patient, créer une identité, l'apparier</h2>
 
 <article class="notion" id="n-circuit-patient">
 <h3>Suivre un patient à travers les modules</h3>
@@ -29,16 +29,16 @@
 
 <div id="fig-frise"></div>
 
-<p class="complement">Correction proposée (le cours pose la question).</p>
+<p>La solution donnée par le professeur en fin de séance :</p>
 <div class="tableau"><table>
 <tr><th>Étape</th><th>Module</th><th>Processus</th><th>Acteurs</th></tr>
-<tr><td>N1 Accueil urgences</td><td>module urgences / admission</td><td>accueil, motif, triage</td><td>agent d'accueil, IOA</td></tr>
-<tr><td>N2 Guichet d'admission</td><td>admission (GIH)</td><td>création / vérification de l'identité, ouverture du séjour, droits</td><td>agent d'admission, patient, proche</td></tr>
-<tr><td>N3 Consultation des urgences</td><td>DPI (module médecin)</td><td>examen initial, prescriptions</td><td>urgentiste, infirmier</td></tr>
-<tr><td>N4.1 Laboratoire</td><td>LIS</td><td>pré-analytique, analytique, post-analytique</td><td>préleveur, technicien, biologiste</td></tr>
-<tr><td>N4.2 Imagerie</td><td>RIS (et PACS)</td><td>demande, planification, réalisation, compte rendu</td><td>manipulateur, radiologue, secrétaire</td></tr>
-<tr><td>N5 Zone d'observation</td><td>DPI (module infirmier, pancarte, plan de soins)</td><td>surveillance, réévaluation</td><td>infirmier, médecin</td></tr>
-<tr><td>N6 Guichet de sortie</td><td>admission, facturation</td><td>sortie et clôture du séjour, facturation</td><td>agent d'admission / facturation, médecin (compte rendu)</td></tr>
+<tr><td>N1 Accueil urgences</td><td>DPI-Urgences</td><td>identitovigilance, accueil et tri IAO, prise des constantes de base</td><td>infirmier (assistance et orientation)</td></tr>
+<tr><td>N2 Guichet d'admission</td><td>Admission</td><td>création identité, mise à jour identité, identitovigilance, identité provisoire</td><td>agent d'admission</td></tr>
+<tr><td>N3 Consultation des urgences</td><td>DPI-Urgences</td><td>saisie du questionnaire, prescriptions médicales, déplacement vers la zone d'observation</td><td>médecin urgentiste</td></tr>
+<tr><td>N4.1 Laboratoire</td><td>LIS</td><td>pré-analytique, analytique et post-analytique</td><td>techniciens biologistes, médecin biologiste</td></tr>
+<tr><td>N4.2 Imagerie</td><td>RIS</td><td>accueil, réalisation, validation du compte rendu, archivage</td><td>manipulateur radio, médecin radiologue</td></tr>
+<tr><td>N5 Zone d'observation</td><td>DPI-Urgences</td><td>plan de soins, questionnaire de sortie, ordonnances, sortie médicale, cotation des actes</td><td>infirmier, médecin urgentiste</td></tr>
+<tr><td>N6 Guichet de sortie</td><td>Admission / facturation</td><td>sortie administrative, facturation, encaissement (selon la catégorie du patient)</td><td>agents d'admission et de facturation, caissier</td></tr>
 </table></div>
 
 <h4>À retenir</h4>
@@ -71,12 +71,6 @@
 <p>Doublon = une personne, plusieurs dossiers. Collision = plusieurs personnes, un dossier.</p>
 </article>
 
-<div class="fin-partie" data-section="patient-identite"></div>
-</section>
-
-<section class="partie" id="s-appariement-vigilance">
-<h2>Appariement et identitovigilance</h2>
-
 <article class="notion" id="n-appariement">
 <h3>Algorithmes d'appariement et Golden Record</h3>
 <p class="chapeau">« BENJELLOUN » et « BENJELLOUNE », même prénom, même date de naissance, même CIN : une règle stricte dit « deux patients », un score dit « presque sûrement le même ».</p>
@@ -108,6 +102,12 @@
 <p>Capture → normalisation → contrôle → appariement (MPI) → fusion, création ou revue.</p>
 </article>
 
+<div class="fin-partie" data-section="patient-identite"></div>
+</section>
+
+<section class="partie" id="s-vigilance-facturation">
+<h2>Identitovigilance, admission et facturation</h2>
+
 <article class="notion" id="n-identitovigilance">
 <h3>Organisation de l'identitovigilance</h3>
 <p class="chapeau">Un doublon détecté, une collision à corriger, un bracelet oublié : qui s'en occupe ? L'identitovigilance est l'affaire de tout l'hôpital, à chacun son geste.</p>
@@ -132,13 +132,8 @@
 <p>\[ \text{taux de doublons} = \frac{\text{doublons}}{\text{dossiers}} \]</p>
 </article>
 
-<div class="fin-partie" data-section="appariement-vigilance"></div>
-</section>
-
-<section class="partie" id="s-admission-facturation">
-<h2>Admission et facturation</h2>
-
 <article class="notion" id="n-admission-facturation">
+<h3>Circuit admission → facturation</h3>
 <p class="chapeau">Le compte rendu de sortie parle d'une échographie qu'aucun acte saisi ne mentionne. La facture partira incomplète, et les statistiques de l'hôpital seront fausses.</p>
 <div id="fig-circuit"></div>
 
@@ -158,7 +153,7 @@
 <p>Qualité d'abord ; identité provisoire en urgence totale.</p>
 </article>
 
-<div class="fin-partie" data-section="admission-facturation"></div>
+<div class="fin-partie" data-section="vigilance-facturation"></div>
 </section>
 
 <section class="partie" id="s-lis-ris-pis">
@@ -213,6 +208,196 @@
 <div class="fin-partie" data-section="lis-ris-pis"></div>
 </section>
 
+<section class="partie" id="s-bloc-sang">
+<h2>Bloc opératoire et circuit du sang</h2>
+
+<article class="notion" id="n-circuit-bloc">
+<p class="chapeau">Une prothèse de hanche est posée ce matin. Le SIH doit suivre le patient de la programmation au codage, et garder la trace du dispositif implanté.</p>
+<div id="fig-bloc"></div>
+
+<h4>Cinq étapes</h4>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
+<tr><td>1. Programmation</td><td>planning et consultation d'anesthésie</td></tr>
+<tr><td>2. Accueil et check-list</td><td>identité, site opératoire, consentement</td></tr>
+<tr><td>3. Intervention</td><td>DM, actes, implantables, matériovigilance</td></tr>
+<tr><td>4. Salle de réveil</td><td>surveillance post-opératoire</td></tr>
+<tr><td>5. Comptes rendus et actes</td><td>codage et facturation</td></tr>
+</table></div>
+
+<h4>Acteurs, risques, indicateurs</h4>
+<ul>
+<li><strong>Acteurs</strong> : chirurgien, anesthésiste, infirmiers, cadre de bloc, stérilisation.</li>
+<li><strong>Risques</strong> : erreur de patient ou de site, DM implantable non tracé, déprogrammation.</li>
+<li><strong>Indicateurs</strong> : occupation des salles, retard de première intervention, check-list complétée.</li>
+</ul>
+
+<h4>Côté biomédical</h4>
+<p>Table, scialytique, respirateur d'anesthésie, colonne vidéo : l'ingénieur biomédical en porte la <strong>maintenance</strong>, le lien avec la <strong>stérilisation</strong> et la <strong>traçabilité</strong>.</p>
+
+<h4>La matériovigilance</h4>
+<p>La <strong>matériovigilance</strong> est un système de surveillance sanitaire qui consiste à détecter, enregistrer, analyser et corriger les incidents ou risques d'incidents graves liés à l'utilisation d'un dispositif médical (DM) après sa mise sur le marché.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Programmation → accueil et check-list → intervention → salle de réveil → comptes rendus et actes.</li>
+<li>La check-list vérifie identité, site et consentement : elle vise l'erreur de patient ou de site.</li>
+<li>Un DM implantable doit être tracé : c'est la base de la matériovigilance.</li>
+</ul>
+</article>
+
+<article class="notion" id="n-circuit-sang">
+<h3>Le circuit transfusionnel</h3>
+<p class="chapeau">Une poche de sang part du dépôt vers un patient. Entre les deux, une seule erreur d'identité peut provoquer une incompatibilité ABO. Le SIH doit rapprocher prescription, poche et patient.</p>
+<div id="fig-sang"></div>
+
+<h4>Cinq étapes</h4>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce qui s'y passe</th></tr>
+<tr><td>1. Prescription de PSL</td><td>produits sanguins labiles</td></tr>
+<tr><td>2. Bilan pré-transfusionnel</td><td>groupage ABO / Rh, recherche d'agglutinines irrégulières (RAI)</td></tr>
+<tr><td>3. Dépôt de sang</td><td>réception, déstockage, dispensation, délivrance</td></tr>
+<tr><td>4. Contrôle ultime</td><td>au lit du malade</td></tr>
+<tr><td>5. Traçabilité</td><td>donneur, poche, receveur, hémovigilance</td></tr>
+</table></div>
+<p><strong>Rôle du SIH</strong> : rapprocher prescription, poche et patient, alerter sur la compatibilité, archiver.</p>
+
+<h4>L'hémovigilance</h4>
+<p>L'<strong>hémovigilance</strong> est un système de surveillance sanitaire qui couvre l'ensemble de la chaîne transfusionnelle, du donneur de sang jusqu'au patient transfusé. Son but : garantir la sécurité transfusionnelle maximale en détectant, signalant et analysant tout incident ou effet indésirable lié à la collecte, à la préparation ou à la transfusion de sang, afin d'éviter qu'il ne se reproduise.</p>
+
+<h4>Mini-analyse des risques : la chaîne d'un incident type</h4>
+<div id="fig-incident"></div>
+<ol>
+<li>Prélèvement mal étiqueté.</li>
+<li>Groupage sur la mauvaise identité.</li>
+<li>Poche délivrée sur ce groupage.</li>
+<li>Contrôle ultime non fait ou mal fait.</li>
+<li>Incompatibilité ABO.</li>
+</ol>
+<p>Les barrières qui ont cédé :</p>
+<ul>
+<li><strong>informatiques</strong> : rapprochement poche – patient, alerte de compatibilité.</li>
+<li><strong>humaines</strong> : vérification d'identité, contrôle ultime au lit.</li>
+</ul>
+
+<h4>Vue comparée des principaux circuits</h4>
+<div class="tableau"><table>
+<tr><th>Module</th><th>Donnée clé</th><th>Risque majeur</th><th>Indicateur phare</th></tr>
+<tr><td>Admission</td><td>identité et séjour</td><td>doublon, collision</td><td>taux de doublons</td></tr>
+<tr><td>LIS</td><td>résultats biologiques</td><td>prélèvement mal identifié</td><td>délai de rendu de la troponine</td></tr>
+<tr><td>RIS</td><td>comptes rendus, doses</td><td>compte rendu tardif</td><td>délai demande – compte rendu</td></tr>
+<tr><td>PIS</td><td>prescriptions, administrations</td><td>alerte ignorée</td><td>interventions pharmaceutiques</td></tr>
+<tr><td>Bloc opératoire</td><td>DM implantables, actes</td><td>erreur de patient ou de site</td><td>taux de déprogrammation</td></tr>
+<tr><td>Circuit du sang</td><td>poche, receveur</td><td>incompatibilité ABO</td><td>traçabilité complète</td></tr>
+</table></div>
+
+<h4>À retenir</h4>
+<ul>
+<li>Prescription de PSL → bilan pré-transfusionnel → dépôt de sang → contrôle ultime → traçabilité.</li>
+<li>L'incident type part d'une erreur d'identité au prélèvement : chaque barrière suivante devait l'arrêter.</li>
+<li>Chaque circuit a sa donnée clé, son risque majeur et son indicateur phare.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="bloc-sang"></div>
+</section>
+
+<section class="partie" id="s-biomedical">
+<h2>Le SIH vu par l'ingénieur biomédical</h2>
+
+<article class="notion" id="n-parc-dm">
+<h3>Le parc de DM et les DM communicants</h3>
+<p class="chapeau">Le scanner tombe en panne : tout le circuit RIS s'arrête. Un moniteur reste associé au patient qui a changé de chambre. Ces deux incidents partent d'un DM et arrivent dans le SIH : c'est le terrain de l'ingénieur biomédical.</p>
+<div id="fig-gmao"></div>
+
+<h4>Le parc de DM dans le SIH : la GMAO</h4>
+<div class="tableau"><table>
+<tr><th>La GMAO gère</th><th>Indicateurs</th></tr>
+<tr><td>
+<ul>
+<li>inventaire des DM</li>
+<li>maintenance préventive et corrective</li>
+<li>traçabilité des interventions</li>
+<li>lien avec le service et le patient</li>
+</ul></td><td>
+<ul>
+<li>taux de disponibilité</li>
+<li>délai d'intervention</li>
+<li>coût de maintenance</li>
+<li>cycle de vie : acquisition, exploitation, renouvellement</li>
+</ul></td></tr>
+</table></div>
+<p>La question du cours : si une panne du scanner bloque le circuit RIS, qui est le premier informé, et quelles sont les étapes de sa remise en marche ? La matrice de la page suivante donne une partie de la réponse : pour la panne d'un scanner, le biomédical et le fournisseur sont responsables, la DSI et le service clinique sont consultés.</p>
+
+<h4>DM communicants et données du dossier patient</h4>
+<p>Trois incidents typiques quand un appareil envoie ses données au dossier :</p>
+<div class="tableau"><table>
+<tr><th>Incident</th><th>Ce qui se passe</th></tr>
+<tr><td>Mauvais rattachement</td><td>l'appareil est associé au mauvais patient</td></tr>
+<tr><td>Horodatage erroné</td><td>l'heure de l'appareil est décalée de celle du SIH</td></tr>
+<tr><td>Valeur aberrante</td><td>elle est intégrée au dossier sans contrôle</td></tr>
+</table></div>
+<p>Exemple du cours : un moniteur reste associé à un lit, mais pas au bon patient après un changement de chambre.</p>
+<p>Appareils concernés : <strong>moniteurs, pompes, ventilateurs, automates de biologie, imagerie</strong>.</p>
+<p>Le cours pose la question du rôle de l'ingénieur biomédical avant, pendant et après l'incident, sans donner de réponse.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>La GMAO : inventaire, maintenance préventive et corrective, traçabilité des interventions, lien service – patient.</li>
+<li>Ses indicateurs : disponibilité, délai d'intervention, coût de maintenance, cycle de vie.</li>
+<li>DM communicants : mauvais rattachement, horodatage erroné, valeur aberrante.</li>
+</ul>
+</article>
+
+<article class="notion" id="n-tracabilite-dm">
+<h3>Traçabilité des DM et matrice des responsabilités</h3>
+<p class="chapeau">Une alerte de matériovigilance tombe sur un lot de prothèses. Il faut retrouver, vite, chaque patient qui en a reçu une. Seule la traçabilité le permet. Et quand un incident touche un DM, il faut savoir qui est responsable.</p>
+<div id="fig-trace"></div>
+
+<h4>Trois traçabilités</h4>
+<div class="tableau"><table>
+<tr><th>DM</th><th>Ce qu'on trace</th></tr>
+<tr><td>DM implantables</td><td>obligation du lien entre le dispositif, le lot et le patient</td></tr>
+<tr><td>Stérilisation</td><td>cycles, charges et dispositifs réutilisables</td></tr>
+<tr><td>Usage unique</td><td>consommables rattachés à l'acte et au patient</td></tr>
+</table></div>
+<p>La question du cours : en cas d'<strong>alerte de matériovigilance</strong>, comment retrouver les patients concernés grâce à la traçabilité ? Par le lien dispositif – lot – patient : on part du lot visé et on remonte aux patients.</p>
+
+<h4>Qui fait quoi ? Matrice de responsabilités</h4>
+<p><strong>R</strong> = responsable, <strong>C</strong> = consulté, – = pas concerné.</p>
+<div id="fig-matrice"></div>
+<div class="tableau"><table>
+<tr><th>Activité</th><th>Biomédical</th><th>DSI</th><th>Service clinique</th><th>DIM</th><th>Fournisseur</th></tr>
+<tr><td>Mise en service d'un moniteur</td><td>R</td><td>R</td><td>R</td><td>–</td><td>C</td></tr>
+<tr><td>Mise à jour logicielle d'un automate</td><td>R</td><td>C</td><td>C</td><td>–</td><td>C</td></tr>
+<tr><td>Panne d'un scanner</td><td>R</td><td>C</td><td>C</td><td>–</td><td>R</td></tr>
+<tr><td>Association moniteur – patient</td><td>C</td><td>C</td><td>R</td><td>–</td><td>–</td></tr>
+<tr><td>Alerte de matériovigilance</td><td>R</td><td>–</td><td>C</td><td>C</td><td>C</td></tr>
+</table></div>
+<p>Deux lignes à bien lire :</p>
+<ul>
+<li>l'<strong>association moniteur – patient</strong> est la responsabilité du service clinique : c'est lui qui sait quel patient est dans quel lit.</li>
+<li>l'<strong>alerte de matériovigilance</strong> est portée par le biomédical, la DSI n'y est pas concernée.</li>
+</ul>
+
+<h4>Trois messages de la séance</h4>
+<ol>
+<li><strong>Des circuits interdépendants</strong> : un SIH est un ensemble de circuits qui s'enchaînent.</li>
+<li><strong>L'identité, point critique</strong> : l'identité patient traverse tous les modules.</li>
+<li><strong>Trois mondes</strong> : l'ingénieur biomédical est à l'interface du clinique, du technique et de l'information médicale.</li>
+</ol>
+
+<h4>À retenir</h4>
+<ul>
+<li>Implantable : dispositif – lot – patient. Stérilisation : cycles et charges. Usage unique : rattaché à l'acte et au patient.</li>
+<li>Biomédical responsable : mise en service, mise à jour d'un automate, panne d'un scanner, matériovigilance.</li>
+<li>Service clinique responsable : association moniteur – patient.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="biomedical"></div>
+</section>
+
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
@@ -226,5 +411,9 @@
 <script src="../figures/admission-facturation.js"></script>
 <script src="../figures/circuit-lis.js"></script>
 <script src="../figures/circuit-ris-pis.js"></script>
+<script src="../figures/circuit-bloc.js"></script>
+<script src="../figures/circuit-sang.js"></script>
+<script src="../figures/parc-dm.js"></script>
+<script src="../figures/tracabilite-dm.js"></script>
 </body>
 </html>

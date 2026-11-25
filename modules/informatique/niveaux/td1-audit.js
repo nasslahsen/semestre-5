@@ -1,5 +1,5 @@
 /* Niveau du TD 1 (CHU Atlas), atelier 3 : plan d'audit en trois moments et mode dégradé (24 h sans SIH).
-   Les réponses du mode dégradé sont un plan proposé (le cours reçu ne détaille pas de procédure). */
+   Réponses du modèle de l'enseignant (fiche de synthèse remplie). */
 NIVEAU(SIS.rejouable({
   id: "td1-audit",
   init: function (fig) {
@@ -11,12 +11,12 @@ NIVEAU(SIS.rejouable({
       var A = SIS;
       j.titre("Plan d'audit. Range chaque vérification au moment où elle doit être faite.");
       var cartes = [
-        { t: "Certificats de tous les modules", bac: 0 },
-        { t: "Tests avec identités fictives sur le DPI", bac: 0 },
-        { t: "Recette avec le SIH", bac: 1 },
-        { t: "Essai du mode dégradé avant ouverture", bac: 1 },
-        { t: "Indicateurs de l'AMDEC chaque mois", bac: 2 },
-        { t: "Journaux des accès à distance", bac: 2 }
+        { t: "Certificats des trois modules", bac: 0 },
+        { t: "Démonstration des trois scénarios", bac: 0 },
+        { t: "Tests avec identités fictives", bac: 1 },
+        { t: "Mesures de contamination", bac: 1 },
+        { t: "Préparations conformes du premier coup", bac: 2 },
+        { t: "Audit de la traçabilité", bac: 2 }
       ];
       var t = A.trier({
         g: n.g, cartes: cartes, bacs: [{ t: "Avant l'achat" }, { t: "À la réception" }, { t: "Après l'ouverture" }],
@@ -53,11 +53,11 @@ NIVEAU(SIS.rejouable({
       j.titre("Relie chaque décision du mode dégradé à celui qui la prend.");
       var p = A.paires({
         g: n.g, xg: 20, wg: 300, xd: 380, wd: 280, y0: 40, pas: 130, h: 110, taille: 18, tailleD: 19,
-        gauche: ["Déclencher le mode dégradé", "Choisir les patients reportés", "Valider les doses recalculées", "Rapprocher les identités au retour"],
-        droite: ["Pharmacien", "Identitovigilance", "Direction générale", "Oncologue"],
+        gauche: ["Déclencher le mode dégradé", "Décider du report des patients", "Valider les prescriptions papier", "Piloter le mode dégradé"],
+        droite: ["Pharmacienne", "Pharmacienne cheffe et cadre de santé", "Pharmacienne et DSI, ensemble", "Oncologue"],
         bon: [2, 3, 0, 1],
         erreur: j.erreur, info: j.info,
-        aide: function (i) { return ["C'est une décision pour tout l'établissement.", "C'est une décision médicale, sur le traitement de chaque patient.", "La validation des doses est le métier de la pharmacie.", "Chapitre 6 : une cellule s'occupe des doublons et des identités."][i]; },
+        aide: function (i) { return ["Une décision conjointe : celle qui porte le circuit du médicament et celui qui porte le système.", "C'est une décision médicale, sur le traitement de chaque patient.", "La validation des doses est le métier de la pharmacie.", "La pharmacie et l'encadrement des soins : ceux qui vivent la panne au quotidien."][i]; },
         fin: function () { j.bravo("Chaque décision a un nom : personne ne se demande qui doit agir."); j.suite(); }
       });
       j.reponse(function () { p.resoudre(); });
@@ -69,19 +69,19 @@ NIVEAU(SIS.rejouable({
       j.titre("Le scanner ne marche plus : impossible de scanner le bracelet et la poche. Que fais-tu avant d'administrer ?");
       j.choix([
         { html: "On reporte toutes les chimiothérapies de la journée", aide: "Certaines cures ne peuvent pas attendre : la priorisation a déjà gardé celles-là." },
-        { html: "Deux infirmiers vérifient le bracelet, la poche, l'ordonnance papier et lisent la programmation de la pompe à voix haute", juste: true },
+        { html: "Contrôle à deux de l'identité, de la poche et de la programmation de la pompe", juste: true },
         { html: "L'infirmier se fie à la chambre et au nom écrit sur la poche", aide: "Le numéro de chambre n'identifie pas un patient. Il faut un contrôle croisé." }
       ], { colonnes: 1, ok: function () { j.bravo("Le contrôle automatique perdu est remplacé par un double contrôle humain."); j.suite(); } });
     } },
     { nom: "Une ligne utilisable", jouer: function (j, n) {
       var A = SIS;
       A.vider(n.g);
-      A.scene(n.g, { icones: ["document"], titre: "Plan d'audit", sous: "avant l'achat" });
+      A.scene(n.g, { icones: ["document"], titre: "Plan d'audit", sous: "à la réception" });
       j.titre("Quelle ligne du plan d'audit est utilisable telle quelle ?");
       j.choix([
         { html: "Vérifier que l'interface marche bien", aide: "Il manque la preuve, le responsable et l'échéance." },
         { html: "Le fournisseur garantit l'interface", aide: "C'est une promesse, pas une vérification." },
-        { html: "Interface avec le DPI : PV de tests avec identités fictives, signé par le DSI, avant signature", juste: true }
+        { html: "Tests avec identités fictives : rapports de tests et feuilles de présence, biomédical, DSI et pharmacie, à la recette", juste: true }
       ], { colonnes: 1, ok: function () { j.bravo("Quoi, quelle preuve, qui, quand : les quatre colonnes du plan."); j.suite(); } });
     } }
   ]

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr" data-module="informatique">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'audit et le cahier d'exigences · Informatique médicale</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'audit et le cahier d'exigences</h1>
+<p class="chapeau">Comment sait-on qu'une solution est bonne ? On l'audite. Et pour l'auditer, l'ingénieur biomédical écrit d'abord ses exigences, chacune avec la preuve qu'il attend.</p>
+
+<h2>L'audit : définition</h2>
+<ul>
+<li><strong>Objectif d'audit</strong> : ici, la sélection sur évaluation.</li>
+<li><strong>Autres types d'audit</strong> : conformité, contrôle, certification, interne, externe…</li>
+<li><strong>Condition d'audit</strong> : un référentiel et une méthodologie.</li>
+<li><strong>Critères d'audit</strong> : objectivité et neutralité.</li>
+</ul>
+
+<h2>Le cahier d'exigences de l'ingénieur biomédical</h2>
+<div id="fig-exigences"></div>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>Question de l'ingénieur biomédical</th><th>Preuve à exiger</th></tr>
+<tr><td>Conformité réglementaire</td><td>Les DM et le logiciel sont-ils conformes et autorisés ?</td><td>certificats, déclaration de conformité, notice en langue d'usage</td></tr>
+<tr><td>Sécurité du patient</td><td>Que fait le système pour empêcher une erreur de dose ou de patient ?</td><td>rapports de validation, incidents signalés ailleurs, scénarios de test</td></tr>
+<tr><td>Sécurité du personnel</td><td>Comment limite-t-on l'exposition aux produits cytotoxiques ?</td><td>rapports de qualification, mesures de contamination, ergonomie du poste</td></tr>
+<tr><td>Intégration au SIH</td><td>La bonne prescription arrive-t-elle sur le bon patient, sans ressaisie ?</td><td>site de référence comparable, tests avec identités fictives, engagement contractuel</td></tr>
+<tr><td>Cybersécurité</td><td>Qui accède, qui trace, jusqu'à quand les correctifs ?</td><td>engagements contractuels, accès à distance encadré, durée de support</td></tr>
+<tr><td>Continuité</td><td>Que fait-on si le système, l'étiqueteuse ou le réseau tombe ?</td><td>procédure de mode dégradé testée, délai de reprise, stock de secours</td></tr>
+<tr><td>Maintenance et cycle de vie</td><td>Quelle disponibilité garantie, quel délai d'intervention, quelle fin de vie ?</td><td>contrat de maintenance, pénalités, plan de renouvellement, réversibilité</td></tr>
+</table></div>
+<p>Chaque ligne est <strong>une exigence et une preuve</strong>, pas une description technique.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Un audit a besoin d'un référentiel et d'une méthodologie, et se mène avec objectivité et neutralité.</li>
+<li>Sept familles d'exigences : conformité, sécurité du patient, sécurité du personnel, intégration au SIH, cybersécurité, continuité, maintenance et cycle de vie.</li>
+<li>Pour chaque famille, une question et une preuve vérifiable.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../sis.js"></script>
+<script src="../figures/audit-exigences.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* Niveau : scénario 22 h 40 et frise des étapes, modules et acteurs (S3, diapos 3 à 5). Le cours laisse l'activité ouverte : correction proposée. */
+/* Niveau : scénario 22 h 40 et frise des étapes, modules et acteurs (S3, diapos 3 à 5). Solution du professeur : S3-S4, diapo 13. */
 NIVEAU(SIS.rejouable({
   id: "circuit-patient",
   init: function (fig) {
@@ -22,15 +22,15 @@ NIVEAU(SIS.rejouable({
     { nom: "Les modules", jouer: function (j, n) {
       var A = SIS;
       j.titre("Relie chaque étape au module du SIH qui la porte.");
-      j.consigne("Correction proposée : le cours pose la question sans donner la réponse.");
+      j.consigne("Solution donnée par le professeur en fin de séance.");
       var p = A.paires({
         g: n.g, gauche: ["Guichet d'admission", "Laboratoire", "Imagerie", "Zone d'observation", "Guichet de sortie"],
-        droite: ["RIS (et PACS)", "DPI : module infirmier, pancarte", "Facturation", "Admission (GIH)", "LIS"],
+        droite: ["RIS", "DPI-Urgences : plan de soins", "Admission / facturation", "Admission", "LIS"],
         bon: [3, 4, 0, 1, 2],
         xg: 30, wg: 270, xd: 380, wd: 270, y0: 40, h: 90, pas: 110, taille: 18, tailleD: 17,
         erreur: j.erreur, info: j.info,
-        aide: function (i) { return ["On y crée ou retrouve l'identité et on ouvre le séjour.", "Le système d'information du laboratoire.", "Le système d'information de radiologie.", "On y relève les constantes et on suit le plan de soins.", "On y clôt le séjour et on facture."][i]; },
-        fin: function () { j.bravo("Admission, LIS, RIS, DPI, facturation."); j.suite(); }
+        aide: function (i) { return ["On y crée ou retrouve l'identité et on ouvre le séjour.", "Le système d'information du laboratoire.", "Le système d'information de radiologie.", "On y suit le plan de soins, on prépare la sortie médicale.", "On y fait la sortie administrative, la facture et l'encaissement."][i]; },
+        fin: function () { j.bravo("Admission, LIS, RIS, DPI-Urgences, admission / facturation."); j.suite(); }
       });
       j.reponse(function () { p.resoudre(); });
     } },
@@ -38,13 +38,13 @@ NIVEAU(SIS.rejouable({
       var A = SIS;
       j.titre("Relie chaque acteur à l'étape où il intervient.");
       var p = A.paires({
-        g: n.g, gauche: ["IOA", "Agent d'admission", "Urgentiste", "Biologiste", "Manipulateur radio"],
+        g: n.g, gauche: ["Infirmier d'accueil", "Agent d'admission", "Urgentiste", "Biologiste", "Manipulateur radio"],
         droite: ["Imagerie", "Consultation des urgences", "Accueil urgences (triage)", "Laboratoire", "Guichet d'admission"],
         bon: [2, 4, 1, 3, 0],
         xg: 30, wg: 270, xd: 380, wd: 270, y0: 40, h: 90, pas: 110, taille: 18, tailleD: 17,
         erreur: j.erreur, info: j.info,
-        aide: function (i) { return ["L'infirmier organisateur de l'accueil attribue le score de tri.", "Il crée l'identité et ouvre le séjour.", "Il fait l'examen médical initial.", "Il valide les résultats d'analyses.", "Il réalise l'examen d'imagerie."][i]; },
-        fin: function () { j.bravo("IOA au triage, agent à l'admission, urgentiste en consultation, biologiste au labo, manipulateur en imagerie."); j.suite(); }
+        aide: function (i) { return ["L'infirmier assure l'accueil, le tri et l'orientation.", "Il crée l'identité et ouvre le séjour.", "Il fait l'examen médical initial.", "Il valide les résultats d'analyses.", "Il réalise l'examen d'imagerie."][i]; },
+        fin: function () { j.bravo("Infirmier à l'accueil, agent à l'admission, urgentiste en consultation, biologiste au labo, manipulateur en imagerie."); j.suite(); }
       });
       j.reponse(function () { p.resoudre(); });
     } },

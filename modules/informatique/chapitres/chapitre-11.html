@@ -27,7 +27,7 @@
 <p class="chapeau">Le CHU Atlas ouvre un centre d'oncologie dans dix-huit mois. Deux éditeurs proposent une solution pour le circuit de chimiothérapie, de la prescription à la traçabilité. Avant de comparer les offres, le comité doit savoir ce qui peut mal tourner dans ce circuit.</p>
 
 <h4>Le TD en bref</h4>
-<p>Toutes les données du dossier sont fictives. Ton groupe joue le <b>comité de pilotage</b> : six rôles, chacun défend un point de vue.</p>
+<p>Toutes les données du dossier sont fictives. Ton groupe joue le <b>comité de pilotage</b> : six rôles, chacun défend un point de vue.</p>
 <div class="tableau"><table>
 <tr><th>Rôle</th><th>Ce qu'il défend</th></tr>
 <tr><td>Directeur ou directrice générale</td><td>Préside le comité, arbitre entre sécurité, coût et calendrier</td></tr>
@@ -62,16 +62,15 @@
 <tr><td>7</td><td>Exposition</td><td>Contamination du personnel lors de la préparation</td><td>Atteinte à la santé des opérateurs</td></tr>
 </table></div>
 <h4>Où chercher dans le cours</h4>
-<p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="chapitre-6.html#n-identite">Création et vérification d'une identité</a>, <a href="chapitre-6.html#n-appariement">Algorithmes d'appariement</a> et <a href="chapitre-6.html#n-identitovigilance">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="chapitre-5.html#n-dpi">DPI</a>, <a href="chapitre-5.html#n-plan-soins">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="chapitre-6.html#n-circuit-ris-pis">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="chapitre-10.html#n-risque">risque</a> (chapitre 10) est la même idée, avec deux axes au lieu de trois.</p>
+<p>L'identité provisoire et son rapprochement sont au chapitre 6 : <a href="chapitre-6.html#n-identite">Création et vérification d'une identité</a>, <a href="chapitre-6.html#n-appariement">Algorithmes d'appariement</a> et <a href="chapitre-6.html#n-identitovigilance">Organisation de l'identitovigilance</a>. La traçabilité dans le dossier est au chapitre 5 (<a href="chapitre-5.html#n-dpi">DPI</a>, <a href="chapitre-5.html#n-plan-soins">Plan de soins numérique</a>) et le circuit du médicament au chapitre 6 (<a href="chapitre-6.html#n-circuit-ris-pis">RIS et PIS</a>). La formule \(R = P \times I\) du <a href="chapitre-10.html#n-risque">risque</a> (chapitre 10 de la sécurité) est la même idée, avec deux axes au lieu de trois. La règle exigences = preuves est au chapitre 7 du cours SIS (<a href="chapitre-12.html#n-projet-chimio">Le projet</a>, <a href="chapitre-12.html#n-audit-exigences">Le cahier d'exigences</a>).</p>
 <p>Le cours reçu ne présente pas l'AMDEC : la méthode et l'échelle viennent de l'énoncé du TD.</p>
 
 <h4>Exemple de calcul</h4>
-<p class="complement">Exemple ajouté : cotation proposée, à justifier en groupe.</p>
-<p>Ligne 1, dose mal transcrite. Gravité : un surdosage de chimiothérapie peut être grave, G = 9. Occurrence : la prescription est informatisée mais les protocoles sont nombreux, O = 4. Détectabilité : le pharmacien valide chaque ordonnance et peut repérer une dose anormale, D = 4.</p>
+<p>Ligne 4, étiquette erronée ou saisie à la main. Cotation du modèle de l'enseignant : G = 8, O = 4, D = 4.</p>
 \[ C = G \times O \times D \]
-\[ C = 9 \times 4 \times 4 \]
-\[ C = 144 \]
-<p>144 dépasse le seuil de 100 : la ligne est prioritaire. Si trois autres lignes ont une criticité plus forte, elle reste au-dessus du seuil mais n'entre pas dans les trois retenues ; on dit alors quelle barrière la couvre déjà (ici, la validation pharmaceutique).</p>
+\[ C = 8 \times 4 \times 4 \]
+\[ C = 128 \]
+<p>128 dépasse le seuil de 100 : la ligne est prioritaire. Dans le modèle, elle est la deuxième des trois retenues.</p>
 
 <h4>À retenir</h4>
 \[ C = G \times O \times D \qquad 1 \leq G,\ O,\ D \leq 10 \qquad \text{prioritaire si } C \geq 100 \]
@@ -103,7 +102,7 @@
 <tr><td>Coût complet sur 7 ans</td><td>14 millions d'unités monétaires (fictives)</td><td>9 millions d'unités monétaires (fictives)</td></tr>
 </table></div>
 <h4>Critères éliminatoires</h4>
-<p>On fixe trois critères avec un seuil, puis on donne à chaque offre un statut : <b>conforme</b>, <b>conditionnel</b> ou <b>non conforme</b>. Conditionnel veut dire que le manque peut être levé par une <b>condition suspensive</b> : une condition écrite dans le contrat, sans laquelle on ne signe pas (par exemple, un certificat remis avant la signature). Principe de l'énoncé : la sécurité se vérifie d'abord, elle ne se compense pas par un bon prix.</p>
+<p>On fixe trois critères avec un seuil, puis on donne à chaque offre un statut : <b>conforme</b>, <b>conditionnel</b> ou <b>non conforme</b>. Conditionnel veut dire que le manque peut être levé par une <b>condition suspensive</b> : une condition écrite dans le contrat, sans laquelle on ne signe pas (par exemple, un certificat remis avant la signature). Principe de l'énoncé : la sécurité se vérifie d'abord, elle ne se compense pas par un bon prix.</p>
 <h4>Grille pondérée</h4>
 <p>Cinq critères : sécurité patient et personnel, intégration au SIH et cybersécurité, coût complet sur 7 ans, maintenance et disponibilité, ergonomie et formation. On fixe les poids (total 100 %) <b>avant</b> de noter, sinon on risque de régler les poids pour obtenir l'offre qu'on préfère. Chaque offre reçoit une note de 1 à 5 par critère, et chaque note cite une ligne du dossier.</p>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \]
@@ -113,11 +112,11 @@
 <p>Le compte fournisseur partagé de l'offre A se juge avec la <a href="chapitre-8.html#n-regle-aaa">règle AAA</a> (chapitre 8) : un compte partagé ne permet pas de savoir qui s'est connecté. Le robot unique sans procédure manuelle est un <a href="chapitre-10.html#n-incident-spof">point de défaillance unique</a> (chapitre 10). L'intégration au DPI et à l'identité renvoie aux chapitres 5 et 6. Le cours reçu ne présente ni les critères éliminatoires ni la grille pondérée : ils viennent de l'énoncé.</p>
 
 <h4>Exemple de calcul</h4>
-<p class="complement">Exemple ajouté : poids et notes proposés, à justifier en groupe.</p>
-<p>Poids : sécurité 35, intégration 25, coût 15, maintenance 15, ergonomie 10. Notes de l'offre B : 3, 5, 4, 3, 4 (sécurité moyenne faute de mesures de contamination, même DPI et tests avant signature, 9 millions, intervention lente mais mode dégradé testé, interface simple).</p>
-\[ \text{Total}_B = \frac{35 \times 3 + 25 \times 5 + 15 \times 4 + 15 \times 3 + 10 \times 4}{100} \]
-\[ \text{Total}_B = \frac{105 + 125 + 60 + 45 + 40}{100} \]
-\[ \text{Total}_B = 3{,}75 \]
+<p>Poids et notes du modèle de l'enseignant (les mêmes que dans le cours, chapitre 7 du cours SIS). Poids : sécurité 35, intégration 25, coût 15, maintenance 15, ergonomie 10. Notes de l'offre A : 5, 3, 2, 4, 3.</p>
+\[ \text{Total}_A = \frac{35 \times 5 + 25 \times 3 + 15 \times 2 + 15 \times 4 + 10 \times 3}{100} \]
+\[ \text{Total}_A = \frac{175 + 75 + 30 + 60 + 30}{100} \]
+\[ \text{Total}_A = 3{,}70 \]
+<p>A arrive en tête avec ces poids. Mais A n'a aucun mode dégradé : elle est écartée par le critère éliminatoire avant même la grille.</p>
 
 <h4>À retenir</h4>
 \[ \text{Total} = \frac{\sum (\text{poids} \times \text{note})}{100} \qquad \sum \text{poids} = 100 \qquad 1 \leq \text{note} \leq 5 \]
@@ -138,10 +137,10 @@
 <h4>Plan d'audit</h4>
 <p>Pour chaque moment, on indique ce qu'il faut vérifier, la preuve attendue, le responsable et l'échéance.</p>
 <div class="tableau"><table>
-<tr><th>Moment</th><th>Ce qu'on vérifie (exemples)</th></tr>
-<tr><td>Avant l'achat</td><td>Certificats, tests de l'interface avec le DPI, qualification du poste de préparation, accès à distance</td></tr>
-<tr><td>À la réception</td><td>Installation et fonctionnement conformes, recette avec le SIH, essai du mode dégradé, formation</td></tr>
-<tr><td>Après l'ouverture</td><td>Indicateurs de l'AMDEC, incidents déclarés, contamination, journaux d'accès, exercice du mode dégradé</td></tr>
+<tr><th>Moment</th><th>Ce qu'on vérifie (modèle de l'enseignant)</th></tr>
+<tr><td>Avant l'achat</td><td>Certificats des trois modules, visite du site de référence (même DPI), démonstration des trois scénarios</td></tr>
+<tr><td>À la réception</td><td>Qualification des équipements, tests avec identités fictives (identité provisoire, modification de dose, panne d'étiqueteuse), mesures de contamination, formation des opérateurs</td></tr>
+<tr><td>Après l'ouverture</td><td>Indicateurs (préparations conformes du premier coup, erreurs interceptées, disponibilité, incidents signalés), audit de la traçabilité</td></tr>
 </table></div>
 <h4>Mode dégradé : les six étapes de l'énoncé</h4>
 <div class="tableau"><table>
@@ -154,7 +153,7 @@
 <tr><td>Retour à la normale</td><td>Comment ressaisit-on les données, rapproche-t-on les dossiers, déclare-t-on l'événement ?</td></tr>
 </table></div>
 <h4>Où chercher dans le cours</h4>
-<p>Le rapprochement des identités après la panne est le travail de l'<a href="chapitre-6.html#n-identitovigilance">identitovigilance</a> (chapitre 6). La panne du SIH est un <a href="chapitre-10.html#n-incident-spof">incident</a> au sens du chapitre 10, et la <a href="chapitre-8.html#n-triade-cid">disponibilité</a> est le critère du triangle CID qui tombe (chapitre 8). La prise en charge aux urgences sans dossier complet est au chapitre 5 (<a href="chapitre-5.html#n-urgences-dpi">urgences</a>). Le cours reçu ne détaille pas de procédure de mode dégradé : les réponses ci-dessous sont un plan proposé.</p>
+<p>Le rapprochement des identités après la panne est le travail de l'<a href="chapitre-6.html#n-identitovigilance">identitovigilance</a> (chapitre 6). La panne du SIH est un <a href="chapitre-10.html#n-incident-spof">incident</a> au sens du chapitre 10, et la <a href="chapitre-8.html#n-triade-cid">disponibilité</a> est le critère du triangle CID qui tombe (chapitre 8). La prise en charge aux urgences sans dossier complet est au chapitre 5 (<a href="chapitre-5.html#n-urgences-dpi">urgences</a>). Les trois moments d'audit sont au chapitre 7 du cours SIS (<a href="chapitre-12.html#n-moments-audit">Trois moments d'audit</a>). Le cours ne détaille pas de procédure de mode dégradé : la réponse de la section suivante est celle du modèle de l'enseignant.</p>
 
 <h4>À retenir</h4>
 <p>Audit : avant l'achat, à la réception, après l'ouverture. Pour chaque ligne : quoi, quelle preuve, qui, quand.</p>
@@ -168,7 +167,7 @@
 <h2>Consignes et corrigé, atelier par atelier</h2>
 
 <article class="notion" id="n-td1-corrige">
-<p class="chapeau">Les consignes de chaque atelier, puis une réponse derrière « Voir la correction ». Ces réponses sont celles de ma fiche de synthèse : des choix argumentés à partir du dossier, pas un corrigé donné par le professeur. Les cotations et les poids peuvent varier d'un groupe à l'autre, à condition d'être justifiés.</p>
+<p class="chapeau">Les consignes de chaque atelier, puis la correction derrière « Voir la correction ». Ces réponses sont celles de la fiche de synthèse remplie par l'enseignant (données fictives). Une autre cotation ou d'autres poids restent acceptables s'ils sont justifiés.</p>
 
 <h4>Atelier 1 : analyse de risques du circuit</h4>
 <h5>Consignes</h5>
@@ -179,33 +178,26 @@
 <li>Pour chacune des trois, proposez une barrière et la preuve que vous exigeriez du fournisseur.</li>
 </ol>
 <details class="corrige"><summary>Voir la correction</summary>
-<h5>Cotations des sept lignes</h5>
+<h5>Les trois risques les plus critiques</h5>
 <div class="tableau"><table>
 <tr><th>Mode de défaillance</th><th>G</th><th>O</th><th>D</th><th>C</th></tr>
-<tr><td>2. Identité provisoire non rapprochée</td><td>9</td><td>5</td><td>6</td><td>270</td></tr>
-<tr><td>4. Étiquette erronée ou manuscrite</td><td>10</td><td>3</td><td>7</td><td>210</td></tr>
-<tr><td>5. Programmation erronée de la pompe</td><td>9</td><td>4</td><td>5</td><td>180</td></tr>
-<tr><td>1. Dose ou protocole mal transcrit</td><td>9</td><td>4</td><td>4</td><td>144</td></tr>
-<tr><td>7. Contamination du personnel</td><td>7</td><td>2</td><td>6</td><td>84</td></tr>
-<tr><td>3. Erreur à la préparation</td><td>9</td><td>3</td><td>3</td><td>81</td></tr>
-<tr><td>6. Administration non tracée</td><td>4</td><td>6</td><td>3</td><td>72</td></tr>
+<tr><td>Identité provisoire non rapprochée du dossier</td><td>10</td><td>3</td><td>5</td><td>150</td></tr>
+<tr><td>Étiquette erronée ou saisie à la main (panne d'imprimante)</td><td>8</td><td>4</td><td>4</td><td>128</td></tr>
+<tr><td>Administration non tracée dans le dossier</td><td>6</td><td>4</td><td>5</td><td>120</td></tr>
 </table></div>
-<p>Justifications des trois premières :</p>
-<ul>
-<li>Identité : une erreur de patient est grave (G = 9), les identités provisoires sont courantes en oncologie à l'arrivée (O = 5), et un doublon ne se voit pas tant que personne ne compare les dossiers (D = 6).</li>
-<li>Étiquette : une poche donnée au mauvais patient peut être fatale (G = 10), la panne d'imprimante est rare (O = 3), et une étiquette manuscrite fausse ressemble à une vraie (D = 7).</li>
-<li>Pompe : un débit faux est grave (G = 9), les saisies à la main sont fréquentes (O = 4), et l'erreur se voit parfois en cours de perfusion (D = 5).</li>
-</ul>
-<p>La prescription (144) dépasse aussi le seuil, mais elle est déjà couverte par la validation pharmaceutique de chaque ordonnance.</p>
-<h5>Barrières et preuves</h5>
+<p>Calcul de la première ligne :</p>
+\[ C = G \times O \times D \]
+\[ C = 10 \times 3 \times 5 \]
+\[ C = 150 \]
+<p>Lignes suivies, au-dessus du seuil mais hors des trois : prescription mal transcrite (C = 108) et contamination du personnel (C = 105). Elles sont traitées dans les exigences de sécurité.</p>
+<p>Le modèle ne donne pas les cotations des deux autres lignes (erreur à la préparation, programmation de la pompe).</p>
+<h5>Barrières, preuves et indicateurs</h5>
 <div class="tableau"><table>
 <tr><th>Risque</th><th>Barrière</th><th>Preuve exigée</th><th>Indicateur</th></tr>
-<tr><td>Identité provisoire</td><td>Prescription bloquée tant que l'identité n'est pas rapprochée ; bracelet code-barres à l'admission</td><td>Rapport de tests de l'interface identité-DPI (identités fictives, doublons, fusion), avant signature</td><td>Identités provisoires non rapprochées à 24 h</td></tr>
-<tr><td>Étiquette</td><td>Étiquette produite par le système seulement ; imprimante de secours ; étiquette manuscrite contresignée par deux personnes en dernier recours</td><td>Procédure de mode dégradé testée sur le site de référence, et procès-verbal d'un essai de panne d'imprimante</td><td>Part des poches à étiquette manuelle</td></tr>
-<tr><td>Pompe</td><td>Scan patient-poche-pompe au chevet ; bibliothèque de médicaments avec limites ; double lecture infirmière</td><td>Rapport de validation de l'interface pompe-logiciel</td><td>Alertes de limite franchie pour 1 000 administrations</td></tr>
+<tr><td>Identité provisoire</td><td>bracelet et double vérification d'identité avant préparation, rapprochement sous 48 h</td><td>tests avec identités fictives avant la signature</td><td>identités provisoires non régularisées à 48 h</td></tr>
+<tr><td>Étiquette erronée</td><td>étiquettes de secours pré-imprimées, contrôle à deux, imprimante de secours</td><td>mode dégradé testé, stock de secours</td><td>étiquettes saisies à la main</td></tr>
+<tr><td>Administration non tracée</td><td>lecture du bracelet et de la poche au lit</td><td>scénario démontré à la recette</td><td>administrations tracées (%)</td></tr>
 </table></div>
-<h5>L'idée à retenir</h5>
-<p>Les trois risques retenus sont aussi ceux où les deux offres diffèrent : le lien avec le SIH et le fonctionnement en panne. L'AMDEC prépare donc le choix de l'atelier 2.</p>
 </details>
 
 <h4>Atelier 2 : critères éliminatoires</h4>
@@ -213,18 +205,16 @@
 <p>Fixez trois critères éliminatoires et appliquez-les à chaque offre : conforme, conditionnel (à lever par une condition écrite) ou non conforme.</p>
 <details class="corrige"><summary>Voir la correction</summary>
 <div class="tableau"><table>
-<tr><th>Critère (seuil)</th><th>Offre A</th><th>Offre B</th></tr>
-<tr><td>Conformité réglementaire : certificats valides pour chaque DM et pour le logiciel, avant signature</td><td>Conforme</td><td>Conditionnel : certificat du logiciel de traçabilité à fournir avant signature</td></tr>
-<tr><td>Sécurité du personnel : poste qualifié, rapport complet et mesures de contamination</td><td>Conforme</td><td>Conditionnel : rapport complet et mesures à fournir avant signature</td></tr>
-<tr><td>Continuité des soins : mode dégradé manuel documenté et testé</td><td>Non conforme : aucune procédure, robot unique</td><td>Conforme</td></tr>
+<tr><th>Critère éliminatoire</th><th>Offre A</th><th>Offre B</th></tr>
+<tr><td>Conformité réglementaire prouvée pour tous les DM et logiciels</td><td>conforme</td><td>conditionnel : certificat du module logiciel en cours</td></tr>
+<tr><td>Mode dégradé documenté</td><td>non conforme : aucune procédure manuelle</td><td>conforme : documenté et testé sur le site de référence</td></tr>
+<tr><td>Preuve d'intégration au SIH avant la signature</td><td>conditionnel : tests à la recette seulement, autre DPI</td><td>conforme : même DPI, tests acceptés avant signature</td></tr>
 </table></div>
-<p>Verdict :</p>
+<p><strong>Verdict</strong> :</p>
 <ul>
-<li>L'offre A est éliminée en l'état : une panne du robot unique arrête toutes les préparations.</li>
-<li>L'offre B est retenue sous conditions suspensives.</li>
+<li>A est écartée en l'état : pas de mode dégradé.</li>
+<li>B est retenue sous condition : le certificat du module logiciel.</li>
 </ul>
-<h5>L'idée à retenir</h5>
-<p>Un manque qu'un document peut combler devient une condition suspensive. Un manque qui tient à la conception de l'offre (un seul robot, aucun plan B) ne se lève pas par un papier.</p>
 </details>
 
 <h4>Atelier 2 : grille pondérée et sensibilité</h4>
@@ -238,30 +228,28 @@
 <details class="corrige"><summary>Voir la correction</summary>
 <div class="tableau"><table>
 <tr><th>Critère</th><th>Poids</th><th>A</th><th>B</th><th>Preuve principale</th></tr>
-<tr><td>Sécurité patient et personnel</td><td>35</td><td>4</td><td>3</td><td>A : double contrôle automatique, mesures fournies. B : contrôle manuel assisté, mesures absentes</td></tr>
-<tr><td>Intégration au SIH et cybersécurité</td><td>25</td><td>2</td><td>5</td><td>A : autre DPI, tests à la recette, compte partagé. B : même DPI, tests avant signature, comptes nominatifs</td></tr>
-<tr><td>Coût complet sur 7 ans</td><td>15</td><td>2</td><td>4</td><td>A : 14 millions. B : 9 millions</td></tr>
-<tr><td>Maintenance et disponibilité</td><td>15</td><td>3</td><td>3</td><td>A : 4 h avec pénalités, robot unique. B : 24 h ouvrées, mais mode dégradé testé</td></tr>
-<tr><td>Ergonomie et formation</td><td>10</td><td>2</td><td>4</td><td>A : 3 semaines de formation. B : 1 semaine</td></tr>
+<tr><td>Sécurité patient et personnel</td><td>35</td><td>5</td><td>3</td><td>A : poste confiné, double contrôle automatique, rapports complets. B : isolateur manuel, qualification partielle.</td></tr>
+<tr><td>Intégration au SIH et cybersécurité</td><td>25</td><td>3</td><td>4</td><td>A : autre DPI, tests à la recette, compte partagé. B : même DPI, tests avant signature, comptes nominatifs.</td></tr>
+<tr><td>Coût complet sur 7 ans</td><td>15</td><td>2</td><td>4</td><td>A : 14 M UM. B : 9 M UM, soit environ un tiers de moins.</td></tr>
+<tr><td>Maintenance et disponibilité</td><td>15</td><td>4</td><td>3</td><td>A : intervention sous 4 h, pénalités, mais consommables propriétaires. B : 24 h ouvrées, sans pénalités.</td></tr>
+<tr><td>Ergonomie et formation</td><td>10</td><td>3</td><td>4</td><td>A : interface complexe, 3 semaines de formation. B : interface simple, 1 semaine.</td></tr>
+<tr><td>Total pondéré</td><td>100</td><td>3,70</td><td>3,50</td><td>poids fixés avant la lecture des offres</td></tr>
 </table></div>
-<p>Total de l'offre A avec les poids de référence :</p>
-\[ \text{Total}_A = \frac{35 \times 4 + 25 \times 2 + 15 \times 2 + 15 \times 3 + 10 \times 2}{100} \]
-\[ \text{Total}_A = \frac{140 + 50 + 30 + 45 + 20}{100} \]
-\[ \text{Total}_A = 2{,}85 \]
-<p>Avec le même calcul, \(\text{Total}_B = 3{,}75\).</p>
+<p>Total de l'offre B :</p>
+\[ \text{Total}_B = \frac{35 \times 3 + 25 \times 4 + 15 \times 4 + 15 \times 3 + 10 \times 4}{100} \]
+\[ \text{Total}_B = \frac{105 + 100 + 60 + 45 + 40}{100} \]
+\[ \text{Total}_B = 3{,}50 \]
+<p>Avec le même calcul, \(\text{Total}_A = 3{,}70\).</p>
 <div class="tableau"><table>
-<tr><th>Jeu</th><th>Poids (critères 1 à 5)</th><th>Total A</th><th>Total B</th><th>Offre retenue</th></tr>
-<tr><td>1 : référence</td><td>35 / 25 / 15 / 15 / 10</td><td>2,85</td><td>3,75</td><td>B</td></tr>
-<tr><td>2 : sécurité d'abord</td><td>60 / 15 / 5 / 15 / 5</td><td>3,35</td><td>3,40</td><td>B</td></tr>
-<tr><td>3 : coût d'abord</td><td>25 / 20 / 35 / 10 / 10</td><td>2,60</td><td>3,85</td><td>B</td></tr>
+<tr><th>Jeu</th><th>Poids (critères 1 à 5)</th><th>Total A</th><th>Total B</th><th>En tête</th></tr>
+<tr><td>Jeu 1</td><td>35 / 25 / 15 / 15 / 10</td><td>3,70</td><td>3,50</td><td>offre A</td></tr>
+<tr><td>Jeu 2</td><td>30 / 25 / 20 / 15 / 10</td><td>3,55</td><td>3,55</td><td>égalité</td></tr>
+<tr><td>Jeu 3</td><td>25 / 25 / 25 / 15 / 10</td><td>3,40</td><td>3,60</td><td>offre B</td></tr>
 </table></div>
-<p>Lecture :</p>
+<p><strong>Lecture</strong> :</p>
 <ul>
-<li>B arrive première avec les trois jeux.</li>
-<li>Son avance vient de l'intégration, du coût et de l'ergonomie.</li>
-<li>A ne la devance que sur la sécurité.</li>
-<li>Avec 60 % sur la sécurité, l'écart n'est plus que de 0,05. Si B n'obtenait que 2 en sécurité, son total tomberait à 2,80 et A passerait devant.</li>
-<li>La note de sécurité de B dépend des mesures de contamination : c'est pour cela qu'elles sont une condition suspensive.</li>
+<li>A arrive en tête avec nos poids, mais le classement s'inverse quand le coût pèse plus.</li>
+<li>La sécurité du personnel ne doit pas compenser l'absence de mode dégradé : c'est pourquoi ce critère est éliminatoire.</li>
 </ul>
 </details>
 
@@ -269,17 +257,15 @@
 <h5>Consignes</h5>
 <p>Donnez le choix du comité, les conditions à lever, le risque résiduel (nommé et attribué à un décideur) et une alternative.</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<ul>
-<li>Choix : offre B, sous conditions suspensives. L'offre A est écartée en l'état par le critère de continuité.</li>
-<li>Avant signature : certificat du logiciel de traçabilité (ingénieur biomédical).</li>
-<li>Avant signature : rapport de qualification complet et mesures de contamination conformes pour l'isolateur (pharmacien).</li>
-<li>Avant signature : tests avec identités fictives réussis sur le DPI du CHU, procès-verbal signé par le DSI.</li>
-<li>Clause du contrat : délai d'intervention garanti avec pénalités, à négocier (direction générale).</li>
-<li>Risque résiduel : erreur humaine au double contrôle manuel, et exposition du personnel à l'isolateur.</li>
-<li>Qui l'accepte : la direction générale, sur avis du pharmacien. Qui le suit : la qualité, chaque mois.</li>
-<li>Alternative : l'offre A, si elle fournit un mode dégradé testé, des comptes nominatifs et des tests avant signature.</li>
-<li>Sinon : nouvelle consultation, décidée par la direction générale.</li>
-</ul>
+<p><strong>Choix du comité</strong> : retenir l'offre B, sous trois conditions suspensives.</p>
+<p><strong>Conditions à lever</strong> :</p>
+<ol>
+<li>Certificat du module logiciel de traçabilité fourni avant la signature.</li>
+<li>Mesures de réduction de l'exposition du personnel (isolateur, protections, mesures de contamination avant l'ouverture) inscrites au contrat et vérifiées à la recette.</li>
+<li>Procédure de mode dégradé et tests avec identités fictives repris dans le contrat.</li>
+</ol>
+<p><strong>Risque résiduel</strong> : exposition du personnel plus élevée qu'avec A. Acceptation par le comité de pilotage, tracée par écrit, après analyse de risques.</p>
+<p><strong>Alternative</strong> : refaire la comparaison si A fournit avant la signature un mode dégradé testé et accepte les tests d'intégration, pour un coût supérieur de 5 millions d'unités fictives.</p>
 </details>
 
 <h4>Atelier 3 : plan d'audit</h4>
@@ -288,9 +274,9 @@
 <details class="corrige"><summary>Voir la correction</summary>
 <div class="tableau"><table>
 <tr><th>Moment</th><th>À vérifier</th><th>Preuve</th><th>Responsable</th><th>Échéance</th></tr>
-<tr><td>Avant l'achat</td><td>Certificats ; interface identité-DPI-pharmacie ; qualification de l'isolateur ; comptes d'accès à distance</td><td>Certificats ; PV de tests avec identités fictives ; rapport de qualification et mesures ; visite du site de référence</td><td>Ingénieur biomédical, DSI, pharmacien</td><td>Avant signature</td></tr>
-<tr><td>À la réception</td><td>Installation conforme ; recette SIH ; mode dégradé ; formation</td><td>PV de réception ; rapports de qualification ; PV de recette ; essai du mode dégradé ; attestations de formation</td><td>Ingénieur biomédical, DSI, qualité</td><td>Avant mise en service</td></tr>
-<tr><td>Après l'ouverture</td><td>Indicateurs de l'AMDEC ; incidents ; contamination ; accès à distance ; exercice du mode dégradé</td><td>Tableau de bord ; registre des événements indésirables ; mesures ; journaux d'accès ; compte rendu d'exercice</td><td>Qualité, pharmacien, DSI</td><td>Chaque mois ; revues à 3 mois et à 1 an</td></tr>
+<tr><td>Avant l'achat</td><td>certificats des trois modules, visite du site de référence (même DPI), démonstration des trois scénarios</td><td>certificats, compte rendu de visite, compte rendu de démonstration</td><td>biomédical, pharmacie</td><td>avant la signature</td></tr>
+<tr><td>À la réception</td><td>qualification des équipements, tests avec identités fictives (identité provisoire, modification de dose, panne d'étiqueteuse), mesures de contamination, formation des opérateurs</td><td>rapports de qualification et de tests, feuilles de présence</td><td>biomédical, DSI, pharmacie</td><td>à la recette</td></tr>
+<tr><td>Après l'ouverture</td><td>indicateurs : préparations conformes du premier coup, erreurs interceptées, disponibilité, incidents signalés, audit de la traçabilité</td><td>tableau de bord, comptes rendus d'incidents</td><td>qualité, pharmacie, biomédical</td><td>à 3 mois, puis à 6 mois</td></tr>
 </table></div>
 </details>
 
@@ -298,22 +284,16 @@
 <h5>Consignes</h5>
 <p>Jeudi matin, le SIH est indisponible pendant 24 h. Douze patients sont programmés pour une chimiothérapie. Répondez aux six questions : déclenchement, priorisation, prescription et identité, préparation et étiquetage, administration, retour à la normale.</p>
 <details class="corrige"><summary>Voir la correction</summary>
-<ul>
-<li>Déclenchement :
-<ul><li>le DSI confirme la panne et sa durée prévue ;</li><li>la direction générale déclenche le mode dégradé ;</li><li>la qualité prévient par téléphone l'oncologie, la pharmacie et l'hôpital de jour.</li></ul></li>
-<li>Priorisation :
-<ul><li>l'oncologue revoit les 12 patients avec le pharmacien ;</li><li>il maintient les cures dont le report compromet le traitement (cycle en cours, intervalle strict) ;</li><li>il reporte les autres de 24 à 48 h et fait prévenir les patients ;</li><li>la décision finale revient à l'oncologue.</li></ul></li>
-<li>Prescription et identité :
-<ul><li>ordonnances papier préimprimées par protocole, signées par l'oncologue ;</li><li>doses recalculées et validées par le pharmacien ;</li><li>identité vérifiée sur le bracelet et une pièce d'identité ;</li><li>registre papier pour toute identité provisoire.</li></ul></li>
-<li>Préparation et étiquetage :
-<ul><li>double contrôle humain (produit, dose, volume) tracé sur la fiche de fabrication ;</li><li>étiquettes de secours préimprimées, complétées et contresignées par deux personnes.</li></ul></li>
-<li>Administration :
-<ul><li>au chevet, deux infirmiers vérifient le patient (bracelet, nom et date de naissance demandés) ;</li><li>ils vérifient la concordance entre la poche et l'ordonnance ;</li><li>ils lisent à voix haute la programmation de la pompe ;</li><li>la feuille d'administration papier est signée.</li></ul></li>
-<li>Retour à la normale :
-<ul><li>ressaisie dans le DPI sous 24 h, contrôlée par le pharmacien ;</li><li>rapprochement des identités par l'identitovigilance ;</li><li>documents papier scannés dans le dossier ;</li><li>déclaration de l'événement et retour d'expérience par la qualité.</li></ul></li>
-</ul>
-<h5>L'idée à retenir</h5>
-<p>Chaque contrôle que le système faisait seul (identité, dose, étiquette, traçabilité) doit avoir son remplaçant humain, et chaque décision un nom. Au retour, rien n'est fini tant que les données papier ne sont pas dans le DPI.</p>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Réponse</th></tr>
+<tr><td>Déclenchement</td><td>décision conjointe de la pharmacienne et de la DSI, annonce immédiate aux services</td></tr>
+<tr><td>Priorisation</td><td>patients dont le traitement ne peut être différé en premier, report des autres sur décision de l'oncologue</td></tr>
+<tr><td>Prescription et identité</td><td>prescriptions papier pré-numérotées, signées par l'oncologue et validées par la pharmacienne, identité vérifiée sur le bracelet</td></tr>
+<tr><td>Préparation et étiquetage</td><td>double contrôle manuel indépendant, étiquettes de secours pré-imprimées, contrôle à deux</td></tr>
+<tr><td>Administration</td><td>contrôle à deux de l'identité, de la poche et de la programmation de la pompe</td></tr>
+<tr><td>Retour à la normale</td><td>ressaisie et rapprochement des données, vérification par la pharmacie, déclaration de l'événement</td></tr>
+<tr><td>Responsables</td><td>pharmacienne cheffe et cadre de santé du centre</td></tr>
+</table></div>
 </details>
 </article>
 

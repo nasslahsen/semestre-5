@@ -22,51 +22,70 @@
 <h1>Circuits patient dans le SIH</h1>
 <p class="court-lien"><a href="../chapitres/chapitre-6.html">Lire le cours complet</a></p>
 <h2>Créer ou retrouver une identité</h2>
-<p>Toujours <strong>rechercher avant de créer</strong>. Avec CIN : contrôler par la CIN. Aucun résultat : créer. Plusieurs résultats sans CIN : contrôler par la date de naissance, sinon identitovigilance.</p>
+<p>Toujours <strong>rechercher avant de créer</strong>. Avec CIN : contrôler par la CIN. Aucun résultat : créer. Plusieurs résultats sans CIN : contrôler par la date de naissance, sinon identitovigilance.</p>
 <ul>
-<li><strong>Identitovigilance</strong> : surveillance des risques pour fiabiliser l'identification tout au long du parcours.</li>
-<li><strong>Doublon</strong> : une personne, plusieurs dossiers.</li>
-<li><strong>Collision</strong> : deux patients mélangés dans un seul dossier (erreur grave).</li>
-<li><strong>MPI</strong> : base centrale qui attribue un identifiant unique et détecte les doublons.</li>
+<li><strong>Identitovigilance</strong> : surveillance des risques pour fiabiliser l'identification tout au long du parcours.</li>
+<li><strong>Doublon</strong> : une personne, plusieurs dossiers.</li>
+<li><strong>Collision</strong> : deux patients mélangés dans un seul dossier (erreur grave).</li>
+<li><strong>MPI</strong> : base centrale qui attribue un identifiant unique et détecte les doublons.</li>
 </ul>
 
 <h2>L'appariement</h2>
-<p><strong>Déterministe</strong> : NOM + PRÉNOM + DATE DE NAISSANCE identiques → même patient (une faute de frappe fait échouer). <strong>Probabiliste</strong> (Fellegi-Sunter) : un score pondéré.</p>
+<p><strong>Déterministe</strong> : NOM + PRÉNOM + DATE DE NAISSANCE identiques → même patient (une faute de frappe fait échouer). <strong>Probabiliste</strong> (Fellegi-Sunter) : un score pondéré.</p>
 \[ S = \frac{\sum w_i\, s_i}{\sum w_i} \]
-<p>S &gt; 0,90 : match automatique. Entre 0,70 et 0,90 : revue manuelle. S &lt; 0,70 : pas de match. La fusion des doublons donne le <strong>Golden Record</strong>. Pipeline : capture → normalisation → contrôle → appariement MPI.</p>
-<p>Organisation : <strong>comité</strong> (politique), <strong>cellule</strong> (doublons, fusions, indicateurs), terrain (accueil, services, DIM / DSI / biomédical). Indicateurs : taux de doublons, identités provisoires non régularisées à 48 h.</p>
+<p>S &gt; 0,90 : match automatique. Entre 0,70 et 0,90 : revue manuelle. S &lt; 0,70 : pas de match. La fusion des doublons donne le <strong>Golden Record</strong>. Pipeline : capture → normalisation → contrôle → appariement MPI.</p>
+<p>Organisation : <strong>comité</strong> (politique), <strong>cellule</strong> (doublons, fusions, indicateurs), terrain (accueil, services, DIM / DSI / biomédical). Indicateurs : taux de doublons, identités provisoires non régularisées à 48 h.</p>
 
 <h2>Admission et facturation</h2>
-<p>Ouverture du séjour → droits (AMO) → production des actes → sortie et clôture → facturation et recouvrement. Une erreur d'identité au départ se paie à toutes les étapes. Qualité d'abord ; en urgence totale, <strong>identité provisoire</strong>.</p>
+<p>Ouverture du séjour → droits (AMO) → production des actes → sortie et clôture → facturation et recouvrement. Une erreur d'identité au départ se paie à toutes les étapes. Qualité d'abord ; en urgence totale, <strong>identité provisoire</strong>.</p>
 
 <h2>LIS, RIS, PIS</h2>
 <ul>
-<li><strong>LIS</strong> : pré-analytique (60 % du délai), analytique (25 %), post-analytique (15 %). Le pré-analytique est le principal gisement d'erreurs.</li>
-<li><strong>RIS</strong> : demande → planification → réalisation → compte rendu → archivage.</li>
-<li><strong>PIS</strong> : prescription → analyse pharmaceutique → dispensation → administration → traçabilité.</li>
+<li><strong>LIS</strong> : pré-analytique (60 % du délai), analytique (25 %), post-analytique (15 %). Le pré-analytique est le principal gisement d'erreurs.</li>
+<li><strong>RIS</strong> : demande → planification → réalisation → compte rendu → archivage.</li>
+<li><strong>PIS</strong> : prescription → analyse pharmaceutique → dispensation → administration → traçabilité.</li>
+</ul>
+
+<h2>Bloc opératoire et circuit du sang</h2>
+<ul>
+<li><strong>Bloc</strong> : programmation → accueil et check-list (identité, site, consentement) → intervention → salle de réveil → comptes rendus et actes. Risques : erreur de patient ou de site, DM implantable non tracé, déprogrammation.</li>
+<li><strong>Matériovigilance</strong> : détecter, enregistrer, analyser et corriger les incidents graves liés à un DM après sa mise sur le marché.</li>
+<li><strong>Sang</strong> : prescription de PSL → bilan pré-transfusionnel (ABO / Rh, RAI) → dépôt de sang → contrôle ultime au lit → traçabilité (donneur, poche, receveur).</li>
+<li><strong>Hémovigilance</strong> : surveillance de toute la chaîne transfusionnelle, du donneur au patient transfusé.</li>
+<li>Incident type : prélèvement mal étiqueté → groupage sur la mauvaise identité → poche délivrée → contrôle ultime raté → incompatibilité ABO.</li>
+</ul>
+
+<h2>Le SIH vu par l'ingénieur biomédical</h2>
+<ul>
+<li><strong>GMAO</strong> : inventaire, maintenance préventive et corrective, traçabilité des interventions, lien service – patient. Indicateurs : disponibilité, délai d'intervention, coût de maintenance, cycle de vie.</li>
+<li><strong>DM communicants</strong> : mauvais rattachement, horodatage erroné, valeur aberrante.</li>
+<li><strong>Traçabilité</strong> : implantable (dispositif – lot – patient), stérilisation (cycles, charges), usage unique (acte et patient).</li>
+<li>Matrice : biomédical responsable de la mise en service d'un moniteur, de la mise à jour d'un automate, de la panne d'un scanner, de la matériovigilance. Le service clinique est responsable de l'association moniteur – patient.</li>
 </ul>
 
 <h2>Vidéos à chercher</h2>
-<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
+<p>Chaque recherche ouvre YouTube. Ces vidéos n'ont pas été vérifiées une par une : la notation du cours reste la référence.</p>
 <div class="tableau"><table>
 <tr><th>Sujet</th><th>Chaîne</th><th>Recherche</th></tr>
 <tr><td>Identité du patient</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=identitovigilance" target="_blank" rel="noopener">identitovigilance</a></td></tr>
 <tr><td>Appariement</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=patient+matching+deterministic+probabilistic" target="_blank" rel="noopener">patient matching deterministic probabilistic</a></td></tr>
+<tr><td>Hémovigilance</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=h%C3%A9movigilance+cha%C3%AEne+transfusionnelle" target="_blank" rel="noopener">hémovigilance chaîne transfusionnelle</a></td></tr>
 <tr><td>LIS, RIS, PACS</td><td>Au choix</td><td><a href="https://www.youtube.com/results?search_query=LIS+RIS+PACS+explained" target="_blank" rel="noopener">LIS RIS PACS explained</a></td></tr>
 </table></div>
 
 <h2>Questions d'examen</h2>
-<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
-<div class="question-court"><p class="q"><span>1.</span> Quelle est la première règle à l'admission ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rechercher l'identité avant de créer un nouveau dossier.</p></details></div>
-<div class="question-court"><p class="q"><span>2.</span> Doublon et collision : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Doublon : une même personne a plusieurs dossiers.</p><p>Collision : les données de deux patients sont mélangées dans un seul dossier.</p></details></div>
-<div class="question-court"><p class="q"><span>3.</span> Qu'est-ce que le MPI ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une base centrale qui attribue un identifiant unique à chaque patient et détecte les doublons.</p></details></div>
-<div class="question-court"><p class="q"><span>4.</span> Pourquoi l'appariement déterministe est-il fragile ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il exige NOM + PRÉNOM + DATE DE NAISSANCE identiques : une faute de frappe suffit à rater le match.</p></details></div>
-<div class="question-court"><p class="q"><span>5.</span> Poids : nom 8, prénom 3, naissance 4, sexe 1, téléphone 2, CIN 6. Tout concorde sauf le téléphone (0). Quelle décision ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( S = \sum w_i s_i / \sum w_i \)</p><p>\( S = (8 + 3 + 4 + 1 + 0 + 6) / 24 = 22 / 24 \)</p><p>\( S \approx 0{,}92 \) : supérieur à 0,90, match automatique.</p></details></div>
-<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce que le Golden Record ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La version unique et consolidée des données d'un patient, issue de la fusion de ses doublons.</p></details></div>
-<div class="question-court"><p class="q"><span>7.</span> Faut-il privilégier la rapidité ou la qualité de l'identité aux urgences ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La qualité des données d'abord.</p><p>En urgence totale, une procédure d'identité provisoire.</p></details></div>
-<div class="question-court"><p class="q"><span>8.</span> Comment se répartit le délai d'un examen biologique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pré-analytique 60 %, analytique 25 %, post-analytique 15 %.</p></details></div>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Quelle est la première règle à l'admission ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Rechercher l'identité avant de créer un nouveau dossier.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Doublon et collision : quelle différence ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Doublon : une même personne a plusieurs dossiers.</p><p>Collision : les données de deux patients sont mélangées dans un seul dossier.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Décris la chaîne d'un incident transfusionnel type.</p><details class="corrige"><summary>Voir la réponse</summary><p>Prélèvement mal étiqueté.</p><p>Groupage sur la mauvaise identité.</p><p>Poche délivrée sur ce groupage.</p><p>Contrôle ultime non fait ou mal fait.</p><p>Incompatibilité ABO.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Pourquoi l'appariement déterministe est-il fragile ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il exige NOM + PRÉNOM + DATE DE NAISSANCE identiques : une faute de frappe suffit à rater le match.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Poids : nom 8, prénom 3, naissance 4, sexe 1, téléphone 2, CIN 6. Tout concorde sauf le téléphone (0). Quelle décision ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\( S = \sum w_i s_i / \sum w_i \)</p><p>\( S = (8 + 3 + 4 + 1 + 0 + 6) / 24 = 22 / 24 \)</p><p>\( S \approx 0{,}92 \) : supérieur à 0,90, match automatique.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Qu'est-ce que le Golden Record ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La version unique et consolidée des données d'un patient, issue de la fusion de ses doublons.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Faut-il privilégier la rapidité ou la qualité de l'identité aux urgences ?</p><details class="corrige"><summary>Voir la réponse</summary><p>La qualité des données d'abord.</p><p>En urgence totale, une procédure d'identité provisoire.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Comment se répartit le délai d'un examen biologique ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pré-analytique 60 %, analytique 25 %, post-analytique 15 %.</p></details></div>
 <div class="question-court"><p class="q"><span>9.</span> Donne les étapes du circuit du médicament (PIS).</p><details class="corrige"><summary>Voir la réponse</summary><p>Prescription, analyse pharmaceutique, dispensation, administration, traçabilité.</p></details></div>
-<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-7.html"><small>Version courte suivante</small>L'hôpital face à la menace cyber</a></nav>
+<div class="question-court"><p class="q"><span>10.</span> Qui est responsable d'associer un moniteur au bon patient ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le service clinique.</p><p>Le biomédical et la DSI sont consultés.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-12.html"><small>Version courte suivante</small>Gouvernance, audit et benchmarking</a></nav>
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../../commun/vendor/katex/auto-render.min.js"></script>
