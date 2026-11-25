@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Version 1 : modes et bouton · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Version 1 : modes et bouton</h1>
+<p class="chapeau">Une mesure seule est bruitée, et la semelle a 8 capteurs par réseau. La version 1 range les mesures dans un tableau et propose trois modes : un capteur, un capteur moyenné, tout le réseau moyenné. Un bouton lance un cycle.</p>
+
+<h2>Le tableau des mesures</h2>
+<p><strong>On te demande.</strong> Déclare un tableau de mesures pour 8 capteurs : 8 éléments réels.</p>
+<p><strong>Ce qu'il faut savoir.</strong> En C, <code>float t[8];</code> réserve 8 réels, numérotés de <code>t[0]</code> à <code>t[7]</code> : les mêmes numéros que les voies Y0 à Y7. Déclaré en dehors de toute fonction, le tableau est <strong>global</strong> : <code>acquisition()</code> le remplit, <code>loop()</code> le lit.</p>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Le tableau"><code>const int NB_CAPTEURS = 8;
+float mesures[NB_CAPTEURS];   // résistance de chaque capteur (ohms), case k = voie Yk</code></pre>
+
+<h2>acquisition(mode, num, N) : les trois modes</h2>
+<p><strong>On te demande.</strong> Écris <code>void acquisition(int mode, int num, int N)</code> :</p>
+<ul>
+<li><strong>mode 0</strong> : une mesure du capteur <code>num</code> ;</li>
+<li><strong>mode 1</strong> : la moyenne de <code>N</code> mesures du capteur <code>num</code> ;</li>
+<li><strong>mode 2</strong> : la moyenne de <code>N</code> mesures de chacun des 8 capteurs du réseau.</li>
+</ul>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Moyenner \(N\) mesures réduit le <strong>bruit</strong> aléatoire : les écarts positifs et négatifs se compensent. L'écart type du bruit est divisé par \(\sqrt{N}\).</li>
+<li>On moyenne les <strong>codes</strong> (donc les tensions), puis on convertit une seule fois en résistance. Le bruit est sur la tension, et la relation tension-résistance n'est pas linéaire : la moyenne des résistances ne serait pas la résistance de la tension moyenne.</li>
+<li>La somme de 4095 codes peut dépasser ce que tient un <code>int</code> 16 bits sur d'autres microcontrôleurs : un <code>long</code> est sûr partout (sur l'ESP32, <code>int</code> fait déjà 32 bits).</li>
+</ul>
+<div class="schema" id="sc-td2-modes"></div>
+<p><strong>Réponse.</strong> Une fonction d'aide fait la moyenne, les trois modes l'utilisent :</p>
+<pre class="code" data-titre="Moyenne de N codes d'un capteur"><code>float moyenneCodes(int num, int N) {
+  if (N &lt; 1) N = 1;             // au moins une mesure
+  selectSensor(num);
+  delay(2);                     // stabilisation, une seule fois par capteur
+  long somme = 0;
+  for (int i = 0; i &lt; N; i++) {
+    somme += analogRead(AIN1);
+  }
+  return (float)somme / N;
+}</code></pre>
+<pre class="code" data-titre="acquisition()"><code>void acquisition(int mode, int num, int N) {
+  if (mode == 0) {                      // une mesure du capteur num
+    mesures[num] = rsensor(sensorAcquisition(num));
+  }
+  else if (mode == 1) {                 // moyenne de N mesures du capteur num
+    mesures[num] = rsensor(moyenneCodes(num, N));
+  }
+  else if (mode == 2) {                 // moyenne de N mesures, pour les 8 capteurs
+    for (int k = 0; k &lt; NB_CAPTEURS; k++) {
+      mesures[k] = rsensor(moyenneCodes(k, N));
+    }
+  }
+}</code></pre>
+<p>Deux détails :</p>
+<ul>
+<li><code>rsensor()</code> reçoit un <code>int</code> dans la question 2 ; la moyenne est un réel. On écrit donc <code>float rsensor(float val)</code> : le calcul est le même et la moyenne garde ses décimales.</li>
+<li>En mode 0 et 1, seule la case <code>num</code> change ; les autres gardent leur dernière valeur.</li>
+</ul>
+
+<h2>Le bouton BTN_ACQ</h2>
+<p><strong>On te demande.</strong> Ajoute un bouton nommé BTN_ACQ qui lance un cycle d'acquisition.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un bouton entre une broche et la masse, avec une <strong>résistance de tirage</strong> vers 3,3 V (<code>INPUT_PULLUP</code>) : relâché, la broche lit HIGH ; appuyé, LOW.</li>
+<li>GPIO 34 à 39 n'ont pas de tirage interne : le bouton va sur une autre broche, ici GPIO 4.</li>
+<li>Un contact mécanique <strong>rebondit</strong> pendant quelques millisecondes : on détecte le passage de HIGH à LOW (le front), puis on attend un peu avant de relire.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<pre class="code" data-titre="Version 1 complète : setup() et loop()"><code>const int BTN_ACQ = 4;          // bouton entre GPIO 4 et la masse
+bool etatPrecedent = HIGH;
+
+void setup() {
+  Serial.begin(115200);
+  configSensors();
+  pinMode(BTN_ACQ, INPUT_PULLUP);
+}
+
+void loop() {
+  bool etat = digitalRead(BTN_ACQ);
+  if (etatPrecedent == HIGH &amp;&amp; etat == LOW) {   // on vient d'appuyer
+    acquisition(2, 0, 10);                        // cycle : les 8 capteurs, 10 mesures chacun
+    for (int k = 0; k &lt; NB_CAPTEURS; k++) {
+      Serial.print(mesures[k] / 1000.0);          // en kilo-ohms
+      Serial.print(k &lt; NB_CAPTEURS - 1 ? "\t" : "\n");
+    }
+    delay(50);                                    // laisse passer les rebonds
+  }
+  etatPrecedent = etat;
+}</code></pre>
+<p>Variante : une interruption sur front descendant, <code>attachInterrupt(digitalPinToInterrupt(BTN_ACQ), appui, FALLING)</code>, dont la fonction ne fait que lever un drapeau lu dans <code>loop()</code>. La mesure, qui dure plusieurs millisecondes, ne se fait jamais dans l'interruption.</p>
+<p>Durée d'un cycle en mode 2 avec \(N = 10\) : 8 attentes de 2 ms, plus 80 conversions de quelques dizaines de microsecondes chacune, soit une vingtaine de millisecondes. Le bouton répond tout de suite.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Un tableau global <code>float mesures[8]</code>, une case par voie.</li>
+<li>On moyenne les codes, puis on convertit une seule fois en résistance.</li>
+<li>Bouton : <code>INPUT_PULLUP</code>, appui = LOW, on réagit au front et on laisse passer les rebonds.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

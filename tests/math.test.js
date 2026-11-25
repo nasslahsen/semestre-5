@@ -953,6 +953,44 @@ test("embarques, TD 1 semelle : réponses des niveaux td1 et du corrigé", () =>
   proche(1 / (2 * Math.PI * 750e3 * 470e-12), 451.5, 0.1);
 });
 
+test("embarques, TD 2, TD 3 et projet pacemaker : réponses des niveaux et calculs des pages", () => {
+  const fs = require("fs"), path = require("path");
+  const lireNiv = id => fs.readFileSync(path.join(__dirname, "../modules/embarques/niveaux/" + id + ".js"), "utf8");
+  const attendus = id => [...lireNiv(id).matchAll(/attendu: ([0-9.]+)/g)].map(m => Number(m[1]));
+  const code = v => 4095 * v / 3.3, volts = c => c * 3.3 / 4095;
+  const Vp = 3.3 * 10 / 120, rfsr = va => 750 / (va / Vp - 1);
+  // TD 2 : code pour 2,2 V ; bit 2 de num ; 1365 -> 1,1 V -> 250 kΩ ; 160 lectures ; pré-diviseur, alarme
+  assert.deepStrictEqual(attendus("td2"), [Math.round(code(2.2))]);
+  const [aVA, aR] = attendus("td2-fonctions");
+  proche(aVA, volts(1365), 0.005); proche(aR, rfsr(volts(1365)), 1);
+  assert.strictEqual((5 >> 2) & 1, 1); assert.strictEqual(5 .toString(2), "101");
+  assert.deepStrictEqual(attendus("td2-acquisition"), [8 * 20]);
+  assert.deepStrictEqual(attendus("td2-timer"), [80e6 / 500e3, Math.round(25e-3 / 1e-6)]);
+  // pages du TD 2 : 0,275 V, codes extrêmes, exemple 2048 -> 150 kΩ -> 8 N
+  proche(Vp, 0.275, 1e-12); assert.strictEqual(Math.round(code(Vp)), 341);
+  assert.strictEqual(Math.round(code(Vp * (1 + 750 / 71))), 3946);
+  proche(rfsr(volts(2048)), 150, 0.1); proche(629 / (150 - 71), 7.96, 0.01);
+  // TD 3 : cycles VN et Harvard ; pile ; contraintes temporelles
+  assert.deepStrictEqual(attendus("td3-architecture"), [2 * 12, 12 + 1]);
+  assert.deepStrictEqual(attendus("td3-pic"), [16]);
+  const [aTmax, aPart, aBoucle] = attendus("td3-temps");
+  assert.strictEqual(aTmax, 5); proche(aPart, (1 - 1 / 5) * 100, 1e-9); proche(aBoucle, 30 / (1 - 1 / 5), 1e-9);
+  proche(50 / (1 - 4 / 10), 83.33, 0.01); assert.deepStrictEqual([50 + 8 * 4, 50 + 9 * 4], [82, 86]);
+  // projet pacemaker : alarmes, RR, fréquences, batterie, garde-fou
+  const [aAl, aRR, aFc] = attendus("pacemaker-esp32");
+  assert.strictEqual(aAl, 60000 / 50 / 0.1); assert.strictEqual(aRR, 1800 - 1050); proche(aFc, 60000 / aRR, 1e-9);
+  assert.deepStrictEqual(attendus("pacemaker-algorithme"), [60000 / 40]);
+  const [aVadc, aVbat, aMin] = attendus("pacemaker-telemetrie");
+  proche(aVadc, 4.2 * 100 / 300, 1e-9); proche(aVbat, 2 * volts(2234), 0.01); assert.strictEqual(aMin, 60000 / 150);
+  assert.deepStrictEqual(attendus("pacemaker-programme"), [1e6 / 250, 60000 / 50, 10]);
+  // pages du projet : 75 bpm, 800 000 µs, pont par 2, 2606 -> 4,20 V, 333 ms, ECG de test
+  assert.strictEqual(60000 / (13200 - 12400), 75); assert.strictEqual(60e6 / 75, 800000);
+  proche(2 * volts(2606), 4.2, 0.005); assert.strictEqual(Math.floor(60000 / 180), 333);
+  let ph = 0, pas = 0; do { ph += 2; pas++; if (ph >= Math.floor(60000 / 70)) ph = 0; } while (ph !== 0);
+  assert.strictEqual(pas * 2, 858);
+  assert.deepStrictEqual([77 + 10 * 12, 117], [197, 117]); proche(197 * 3.3 / 255, 2.55, 0.005);
+});
+
 test("robotique, corrigé du TD 1 : valeurs de la page td1-corrige", () => {
   const r = d => d * Math.PI / 180;
   const mgd = (L1, L2, a, b) => [L1 * Math.cos(r(a)) + L2 * Math.cos(r(a + b)), L1 * Math.sin(r(a)) + L2 * Math.sin(r(a + b))];

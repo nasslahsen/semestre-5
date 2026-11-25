@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>L'architecture d'un microcontrôleur PIC · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>L'architecture d'un microcontrôleur PIC</h1>
+<p class="chapeau">La question 9 donne le schéma interne d'un microcontrôleur PIC de Microchip, de la famille PIC18 (instructions de 16 bits, jusqu'à 64 MHz). Il faut dire à quoi sert chaque bloc. On y retrouve tout le chapitre 2 : CPU, deux mémoires séparées, pile, horloge, périphériques.</p>
+
+<h2>Question 9 : le rôle de chaque bloc</h2>
+<p><strong>On te demande.</strong> Précise le rôle de chaque bloc du schéma.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un CPU lit une instruction à l'adresse donnée par le <strong>compteur de programme</strong> (Program Counter, PC), l'exécute, puis passe à la suivante.</li>
+<li>Une mémoire <strong>non volatile</strong> (flash, EEPROM) garde son contenu sans alimentation ; une RAM le perd.</li>
+<li>Program Memory et Data Memory séparées, chacune reliée au CPU : c'est l'architecture <strong>Harvard</strong>.</li>
+</ul>
+<div id="fig-td3-pic"></div>
+<p><strong>Réponse.</strong></p>
+<div class="tableau"><table>
+<tr><th>Bloc</th><th>Ce qu'indique le schéma</th><th>Rôle</th></tr>
+<tr><td>Program Memory</td><td>jusqu'à 2 MB, 1M instructions</td><td>mémoire flash qui garde le <strong>programme</strong>, même sans alimentation</td></tr>
+<tr><td>CPU</td><td>instructions de 16 bits, 83 instructions, 3 registres de sélection de fichier de 12 bits, sauvegarde du contexte d'interruption</td><td><strong>exécute</strong> les instructions : calculs, lecture et écriture des données.<br>Les registres FSR (File Select Registers) pointent une case de la mémoire de données (adressage indirect).<br>À chaque interruption, il sauve son contexte pour reprendre ensuite.</td></tr>
+<tr><td>16-Level Stack et Program Counter</td><td>pile de 16 niveaux, possibilité de reset</td><td>le PC donne l'adresse de la <strong>prochaine instruction</strong> ; la pile garde les adresses de retour des sous-programmes et des interruptions, jusqu'à 16 appels emboîtés</td></tr>
+<tr><td>Internal Oscillator</td><td>jusqu'à 64 MHz</td><td><strong>horloge</strong> interne qui cadence le CPU et les périphériques, sans quartz externe</td></tr>
+<tr><td>Data EEPROM</td><td>bloc à part, relié au CPU</td><td>mémoire <strong>non volatile</strong> pour les données à garder : réglages, étalonnage, compteurs</td></tr>
+<tr><td>Data Memory</td><td>jusqu'à 4 KB, adressage indirect amélioré, extension des périphériques</td><td>RAM des <strong>variables</strong> et des registres des périphériques ; effacée à la coupure</td></tr>
+<tr><td>Peripheral I/O Drivers</td><td>ADC, SPI/I²C, EUSART, mTouch, Capture/Compare/PWM, AOP, LCD, EEPROM</td><td>les <strong>périphériques</strong> qui relient la puce au monde extérieur : convertir, communiquer, détecter un toucher, mesurer ou produire des signaux, piloter un afficheur</td></tr>
+<tr><td>Bus (flèches bleues)</td><td>reliés à tous les périphériques</td><td>transportent adresses et données entre le CPU, les mémoires et les périphériques</td></tr>
+</table></div>
+<p>Lecture du schéma :</p>
+<ul>
+<li>La flèche rouge va de la Program Memory au CPU seule : c'est le chemin des instructions, séparé de celui des données. Architecture Harvard.</li>
+<li>83 instructions seulement : un jeu d'instructions <strong>réduit</strong>, le PIC est un RISC.</li>
+<li>EUSART est un UART amélioré (Enhanced Universal Synchronous Asynchronous Receiver Transmitter) : il sait aussi travailler en mode synchrone.</li>
+</ul>
+<p>Complément : la famille PIC n'est pas décrite dans les diapositives ; le schéma se lit comme celui de l'AVR du chapitre 2, qui a les mêmes blocs (CPU, flash, SRAM, EEPROM, oscillateurs, ADC, USART, SPI, TWI, timers).</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Programme en flash (Program Memory), variables en RAM (Data Memory), réglages en EEPROM.</li>
+<li>PC : prochaine instruction ; pile : adresses de retour (16 niveaux ici).</li>
+<li>Deux mémoires, deux chemins : Harvard ; 83 instructions : RISC.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td3-visuels.js"></script>
+</body>
+</html>

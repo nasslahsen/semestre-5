@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le circuit et les broches · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le circuit et les broches</h1>
+<p class="chapeau">Le TD 1 a dimensionné l'électronique de la semelle. Le TD 2 écrit le programme de l'ESP32 qui la lit : choisir un capteur, lire sa tension, retrouver sa résistance, puis enchaîner les mesures au bouton ou au rythme d'un timer. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+
+<h2>Ce que raconte le sujet</h2>
+<p>La semelle porte <strong>16 capteurs de force résistifs</strong> (FSR, Force Sensitive Resistor), en deux réseaux de 8. Chaque réseau a son circuit de mesure, le même que la figure 5 du TD 1 :</p>
+<ul>
+<li>le <strong>multiplexeur</strong> NX3L4051 relie un des 8 capteurs \(Y_0\) à \(Y_7\) à sa sortie Z, selon le code écrit sur S3 S2 S1 ;</li>
+<li>l'<strong>AOP</strong>, avec \(R_G\), transforme la résistance du capteur choisi en une tension \(V_A\) ;</li>
+<li>le microcontrôleur, ici un <strong>ESP32</strong>, commande S1 S2 S3 par trois sorties (P1.0, P1.1, P1.2) et lit \(V_A\) sur une entrée analogique (AIN1).</li>
+</ul>
+<div class="schema" id="sc-td2-chaine"></div>
+<p>Le programme fait donc le chemin inverse du circuit : du nombre lu par l'ADC, il remonte à la tension, puis à la résistance, puis à la force.</p>
+
+<h2>Les données du sujet</h2>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Valeur</th></tr>
+<tr><td>Montage</td><td>\(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ, \(V_{DD} = 3{,}3\) V</td></tr>
+<tr><td>Capteur</td><td>\(R_{FSR}(F) = R_0 + \beta / F\), \(\beta = 629\) kΩ·N, \(R_0 = 71\) kΩ (les valeurs trouvées à la question 9 du TD 1)</td></tr>
+<tr><td>Tension AIN1</td><td>\(V_A = \left(1 + \dfrac{R_G}{R_{FSR8}}\right) \cdot \left(\dfrac{R_B}{R_B + R_A}\right) \cdot V_{DD}\) (question 12 du TD 1)</td></tr>
+<tr><td>ADC</td><td>12 bits : un code de 0 à 4095 pour 0 à 3,3 V</td></tr>
+<tr><td>Annexes</td><td>les timers de l'ESP32 et leurs instructions, le brochage de la carte ESP32 DEVKIT V1 (30 broches)</td></tr>
+</table></div>
+
+<h2>Du capteur au nombre lu</h2>
+<p>Deux nombres du montage reviennent dans tout le programme :</p>
+\[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
+\[V^+ = 3{,}3 \times \frac{10}{120}\]
+\[V^+ = 0{,}275\ \text{V}\]
+<ul>
+<li>sans appui, \(R_{FSR}\) est énorme : \(V_A\) reste à 0,275 V, soit le code \(0{,}275 \times 4095 / 3{,}3 \approx 341\) ;</li>
+<li>à très forte charge, \(R_{FSR}\) tend vers \(R_0 = 71\) kΩ : \(V_A \approx 0{,}275 \times (1 + 750/71) \approx 3{,}18\) V, soit le code 3946 environ.</li>
+</ul>
+<p>Le code lu reste donc entre 341 et 3946 environ : il ne descend jamais à 0, et il ne sature pas.</p>
+<div id="fig-td2-chaine"></div>
+
+<h2>Question 1 : les broches</h2>
+<p><strong>On te demande.</strong> Propose les broches de l'ESP32 qui reçoivent les signaux P1.0, P1.1, P1.2 et AIN1.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>P1.0, P1.1, P1.2 commandent S1, S2, S3 : ce sont des <strong>sorties numériques</strong>.</li>
+<li>AIN1 reçoit \(V_A\) : il faut une broche reliée à un <strong>ADC</strong>.</li>
+<li>GPIO 34, 35, 36 et 39 sont des <strong>entrées seulement</strong>, sans résistance de tirage : jamais pour une sortie, parfaites pour une mesure.</li>
+<li>Les broches de l'<strong>ADC2</strong> ne marchent plus quand le Wi-Fi est utilisé : une semelle connectée lit ses capteurs sur l'ADC1 (GPIO 32 à 39).</li>
+<li>Mieux vaut laisser libres les broches qui ont déjà un rôle sur la carte : GPIO 1 et 3 (UART0, liaison USB), GPIO 2 (LED bleue), GPIO 21 et 22 (I2C).</li>
+</ul>
+<p><strong>Réponse.</strong> Une affectation possible, sur le brochage de l'annexe :</p>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Rôle</th><th>Broche</th><th>Type</th></tr>
+<tr><td>P1.0</td><td>S1, bit de poids faible</td><td>GPIO 25</td><td>sortie numérique</td></tr>
+<tr><td>P1.1</td><td>S2</td><td>GPIO 26</td><td>sortie numérique</td></tr>
+<tr><td>P1.2</td><td>S3, bit de poids fort</td><td>GPIO 27</td><td>sortie numérique</td></tr>
+<tr><td>AIN1</td><td>\(V_A\) du premier réseau</td><td>GPIO 34 (ADC1_CH6)</td><td>entrée analogique</td></tr>
+<tr><td>AIN2</td><td>\(V_A\) du second réseau</td><td>GPIO 35 (ADC1_CH7)</td><td>entrée analogique</td></tr>
+</table></div>
+<p>Pourquoi ces choix :</p>
+<ul>
+<li>GPIO 25, 26, 27 sont voisines sur la carte et peuvent toutes sortir un niveau logique.</li>
+<li>GPIO 34 et 35 sont sur l'ADC1 : la mesure continue de marcher quand le Wi-Fi envoie les données. Comme ce sont des entrées seulement, on ne perd aucune sortie utile.</li>
+<li>Le second réseau de 8 capteurs peut partager les trois lignes S1 S2 S3 : les deux multiplexeurs choisissent alors le même numéro de capteur, et l'ESP32 lit les deux tensions, l'une après l'autre, sur GPIO 34 et 35.</li>
+</ul>
+<p>D'autres choix sont justes s'ils respectent ces règles. Une sortie sur GPIO 34 à 39, ou une mesure sur l'ADC2 avec le Wi-Fi, serait fausse.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>Sélection du capteur : 3 sorties numériques ; mesure : une broche de l'ADC1.</li>
+<li>\(V^+ = 0{,}275\) V : sans appui, le code lu vaut environ 341, jamais 0.</li>
+<li>GPIO 34 à 39 : entrées seulement ; ADC2 : inutilisable avec le Wi-Fi.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/td2-visuels.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>

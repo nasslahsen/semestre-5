@@ -311,8 +311,29 @@ window.EMB = (function () {
     return f.length === t.length;
   }
 
+
+  // Scène de niveau en blocs (TD 2, TD 3, projet) : blocs [{ id, x, y, w, h, t }], liens [[de, vers]] (centre à centre, bord à bord),
+  // actifs : { id: true } pour les blocs en couleur du module. Les blocs sont redessinés à chaque appel.
+  function scene(g, blocs, liens, actifs, o) {
+    o = o || {};
+    vider(g);
+    var parId = {};
+    blocs.forEach(function (b) { parId[b.id] = b; });
+    function bord(b, vers) {
+      var cx = b.x + b.w / 2, cy = b.y + b.h / 2, dx = vers[0] - cx, dy = vers[1] - cy;
+      var k = Math.min(Math.abs(dx) > 1e-6 ? (b.w / 2) / Math.abs(dx) : 1e9, Math.abs(dy) > 1e-6 ? (b.h / 2) / Math.abs(dy) : 1e9);
+      return [cx + dx * k, cy + dy * k];
+    }
+    (liens || []).forEach(function (l) {
+      var a = parId[l[0]], b = parId[l[1]];
+      var ca = [a.x + a.w / 2, a.y + a.h / 2], cb = [b.x + b.w / 2, b.y + b.h / 2];
+      fleche(g, bord(a, cb), bord(b, ca), { ep: 3, coul: (actifs || {})[l[0]] && (actifs || {})[l[1]] ? C.acc : C.encre });
+    });
+    blocs.forEach(function (b) { bloc(g, b.x, b.y, b.w, b.h, b.t, { actif: !!(actifs || {})[b.id], taille: b.taille || o.taille || 18, mono: b.mono }); });
+  }
+
   return {
-    couches: couches, pubsub: pubsub, lignesCode: lignesCode, correspond: correspond,
+    scene: scene, couches: couches, pubsub: pubsub, lignesCode: lignesCode, correspond: correspond,
     C: C, teinte: teinte, el: el, vider: vider, texte: texte, bloc: bloc, fleche: fleche, bus: bus, bits: bits,
     onde: onde, horloge: horloge, point: point, dans: dans, toucher: toucher, zoneMin: zoneMin,
     binaire: binaire, hexa: hexa, virgule: virgule, pied: pied, semelle: semelle, CAPTEURS: CAPT, bpm: bpm

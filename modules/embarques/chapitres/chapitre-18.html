@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architecture et composants d'un système embarqué</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 18. -->
+<main class="cours-chapitre" data-chapitre="18">
+<p class="etiquette" data-etiquette></p>
+<h1>Architecture et composants d'un système embarqué</h1>
+
+<section class="partie" id="s-td3">
+<h2>Les composants</h2>
+
+<article class="notion" id="n-td3">
+<p class="chapeau">Le TD 3 reprend le chapitre 2 sous forme de questions de cours : définir, comparer, choisir. Les réponses s'appuient sur les diapositives ; ce qu'elles ne disent pas est signalé « complément ». La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+
+<h4>Le plan du TD</h4>
+<div class="tableau"><table>
+<tr><th>Partie</th><th>Questions</th><th>Où dans le cours</th></tr>
+<tr><td>Les composants d'un système embarqué</td><td>1 à 5</td><td><a href="chapitre-1.html#n-definition">définition</a>, <a href="chapitre-1.html#n-conception">exigences</a>, <a href="chapitre-5.html#n-pwm">PWM</a>, <a href="chapitre-5.html#n-watchdog">watchdog</a>, <a href="chapitre-5.html#n-timer">timers</a>, <a href="chapitre-3.html#n-uart">UART</a></td></tr>
+<tr><td>Architecture</td><td>6 à 9</td><td><a href="chapitre-2.html#n-cisc-risc">CISC et RISC</a>, <a href="chapitre-2.html#n-von-neumann-harvard">Von Neumann, Harvard, Super Harvard</a>, <a href="chapitre-4.html#n-coeurs-memoire">DMA</a>, <a href="chapitre-2.html#n-avr">architecture AVR</a></td></tr>
+<tr><td>Contraintes temporelles</td><td>a à e</td><td><a href="chapitre-5.html#n-interruptions">interruptions</a> ; le calcul n'est pas dans le cours</td></tr>
+</table></div>
+
+<h4>Question 1 : définition et contraintes</h4>
+<p><strong>On te demande.</strong> Définis un système embarqué, puis donne trois contraintes associées.</p>
+<p><strong>Réponse.</strong> La définition du cours : un <strong>système électronique et informatique autonome</strong>, dédié à une tâche bien précise. Il contient un microprocesseur, commande directement du matériel, et se limite à une fonction.</p>
+<p>Trois contraintes, parmi celles du cours :</p>
+<ul>
+<li><strong>ressources limitées</strong> : consommation électrique (souvent sur pile ou batterie) et espace des circuits ;</li>
+<li><strong>temps de réponse</strong> (responsiveness) : répondre dans un délai donné, souvent en temps réel ;</li>
+<li><strong>fiabilité et sécurité</strong> (reliability, safety) : marcher sans panne, sans mettre le patient en danger.</li>
+</ul>
+<p>Le coût (cost) et la vérification (verification) sont aussi des exigences du cours.</p>
+
+<h4>Question 2 : microcontrôleur, DSP, FPGA</h4>
+<p><strong>On te demande.</strong> Donne deux avantages et deux applications de chaque circuit.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un <strong>microcontrôleur</strong> réunit sur une puce le processeur, la mémoire et les périphériques (ADC, timers, bus).</li>
+<li>Un <strong>DSP</strong> est, d'après le cours, un composant optimisé pour les calculs, dont l'application principale est le traitement du signal numérique (filtrage, extraction de signaux).</li>
+<li>Un <strong>FPGA</strong> est un circuit logique reconfigurable : on y décrit le matériel lui-même. Le cours le montre dans le CompactRIO, à côté d'un processeur.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+<div class="tableau"><table>
+<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>tout est intégré (CPU, mémoires, périphériques) ; faible coût et faible consommation</td><td>semelle connectée, tensiomètre, pousse-seringue, pilulier</td></tr>
+<tr><td>DSP</td><td>calcul rapide (multiplication-accumulation en un cycle, architecture Harvard ou Super Harvard) ; traitement du signal en temps réel</td><td>filtrage de l'ECG d'un holter, prothèse auditive, modulation et démodulation radio</td></tr>
+<tr><td>FPGA</td><td>calculs en parallèle, très faible latence ; matériel reconfigurable sans refaire de puce</td><td>imagerie (échographie, formation des voies), acquisition rapide multivoie, prototypage d'un circuit</td></tr>
+</table></div>
+<p>Complément : la multiplication-accumulation en un cycle et les applications du FPGA ne sont pas dans les diapositives.</p>
+
+<h4>Question 3 : critères de choix</h4>
+<p><strong>On te demande.</strong> Cite trois critères de choix d'un circuit de traitement.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>la <strong>puissance de calcul</strong> face aux contraintes de temps (fréquence, DSP, FPU) ;</li>
+<li>la <strong>consommation</strong> (autonomie sur batterie) ;</li>
+<li>le <strong>coût</strong> ;</li>
+<li>les <strong>périphériques et mémoires intégrés</strong> : nombre de broches, ADC, bus, taille de la flash et de la RAM.</li>
+</ul>
+<p>Trois suffisent. On peut ajouter les outils de développement disponibles et la sûreté.</p>
+
+<h4>Question 4 : questions à cocher</h4>
+<div class="tableau"><table>
+<tr><th>Question</th><th>Réponse</th><th>Pourquoi</th></tr>
+<tr><td>a. Le système embarqué désigne le…</td><td><strong>matériel et logiciel</strong></td><td>le cours : le terme désigne aussi bien le matériel que le logiciel utilisé</td></tr>
+<tr><td>b. Le programme peut être stocké dans une mémoire…</td><td><strong>Flash program memory</strong></td><td>non volatile : le programme reste sans alimentation ; SRAM et DRAM s'effacent à la coupure</td></tr>
+<tr><td>c. Filtres numériques et blocs de modulation…</td><td><strong>DSP</strong></td><td>composant optimisé pour le traitement du signal numérique</td></tr>
+<tr><td>d. Les microcontrôleurs utilisent une architecture…</td><td><strong>Harvard</strong></td><td>mémoire du programme et mémoire des données séparées, accès en même temps ; c'est le cas des AVR, des PIC et des cœurs de l'ESP32</td></tr>
+</table></div>
+<p>Pour d, certains microcontrôleurs sont de type Von Neumann (complément : le MSP430 de Texas Instruments). La réponse attendue reste Harvard, l'architecture de la plupart d'entre eux.</p>
+
+<h4>Question 5 : le rôle de cinq composants</h4>
+<div class="tableau"><table>
+<tr><th>Composant</th><th>Rôle</th></tr>
+<tr><td>PWM</td><td>produit un signal rectangulaire dont on règle la fréquence et le rapport cyclique ; la tension moyenne vaut \(\alpha \times 3{,}3\) V. Sert à doser une LED, un moteur, un chauffage.</td></tr>
+<tr><td>Watchdog</td><td>chien de garde : un compteur que le programme doit remettre à zéro régulièrement ; s'il ne l'est plus, le programme est bloqué et le watchdog redémarre la puce. Il sert à récupérer d'une faute imprévue.</td></tr>
+<tr><td>Timer</td><td>compteur qui avance au rythme d'une horloge (après un pré-diviseur) ; il mesure des durées et déclenche des interruptions à intervalle régulier (cadence d'échantillonnage).</td></tr>
+<tr><td>UART</td><td>émetteur-récepteur série asynchrone : envoie et reçoit des octets sans fil d'horloge (start, 8 bits, stop), en half ou full duplex. Sert à parler à un PC, un module GPS, Bluetooth.</td></tr>
+<tr><td>La pile</td><td>zone de RAM gérée en « dernier entré, premier sorti » : elle garde l'adresse de retour lors d'un appel de fonction ou d'une interruption, et les variables locales.</td></tr>
+</table></div>
+<p>Complément : la pile n'est pas définie dans les diapositives (on la retrouve dans le PIC de la question 9, « 16-Level Stack »).</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Système embarqué = électronique + informatique, autonome, dédié ; contraintes : énergie et place, temps, fiabilité et sécurité, coût.</li>
+<li>Microcontrôleur : tout intégré, pas cher ; DSP : traitement du signal ; FPGA : matériel parallèle reconfigurable.</li>
+<li>Programme en flash ; microcontrôleur en général Harvard.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="td3"></div>
+</section>
+
+<section class="partie" id="s-td3-architecture">
+<h2>Les architectures</h2>
+
+<article class="notion" id="n-td3-architecture">
+<p class="chapeau">Trois comparaisons du chapitre 2 : comment le processeur est conçu (RISC ou CISC), comment il relie ses mémoires (Von Neumann, Harvard, Super Harvard), et comment les données des périphériques arrivent en mémoire (le processeur lui-même, ou le DMA).</p>
+
+<h4>Question 6 : RISC et CISC</h4>
+<p><strong>On te demande.</strong> Donne trois caractéristiques des processeurs RISC et CISC.</p>
+<p><strong>Réponse.</strong> D'après le tableau du cours :</p>
+<div class="tableau"><table>
+<tr><th>RISC (Reduced Instruction Set Computer)</th><th>CISC (Complex Instruction Set Computer)</th></tr>
+<tr><td>la complexité est dans le <strong>logiciel</strong> (le compilateur)</td><td>la complexité est dans le <strong>matériel</strong></td></tr>
+<tr><td>instructions simples, réduites, d'<strong>un cycle</strong> d'horloge</td><td>instructions complexes de <strong>plusieurs cycles</strong></td></tr>
+<tr><td>de registre à registre : LOAD et STORE sont des instructions à part</td><td>de mémoire à mémoire : LOAD et STORE sont inclus dans les instructions</td></tr>
+<tr><td>code plus long, peu de cycles par instruction</td><td>code court, beaucoup de cycles</td></tr>
+<tr><td>les transistors servent surtout aux <strong>registres</strong></td><td>les transistors servent à stocker les instructions complexes</td></tr>
+</table></div>
+<p>Exemples : AVR, ARM, PIC et les cœurs Xtensa de l'ESP32 sont RISC ; les processeurs x86 des PC sont CISC.</p>
+
+<h4>Question 7 : Von Neumann, Harvard, Super Harvard</h4>
+<p><strong>On te demande.</strong> Compare les trois architectures.</p>
+<p><strong>Réponse.</strong></p>
+<div class="tableau"><table>
+<tr><th></th><th>Von Neumann</th><th>Harvard</th><th>Super Harvard</th></tr>
+<tr><th>Mémoires</th><td>une seule, pour les données et les instructions</td><td>deux : Program Memory (instructions) et Data Memory (données)</td><td>comme Harvard</td></tr>
+<tr><th>Bus</th><td>un bus d'adresses et un bus de données, partagés</td><td>deux paires de bus : PM Address et PM Data, DM Address et DM Data</td><td>comme Harvard</td></tr>
+<tr><th>En plus</th><td>rien</td><td>rien</td><td>un cache d'instructions et un contrôleur d'entrées-sorties dédié (I/O Controller), relié à la Data Memory</td></tr>
+<tr><th>Vitesse</th><td>instructions et données font la queue sur le même bus</td><td>lecture d'une instruction et accès à une donnée en même temps : rapide</td><td>encore plus rapide : les données des entrées-sorties arrivent en mémoire sans passer par le CPU</td></tr>
+<tr><th>Usage</th><td>ordinateurs, quelques microcontrôleurs</td><td>la plupart des microcontrôleurs</td><td>DSP</td></tr>
+</table></div>
+<p>Avec le modèle de comptage du cours (une instruction et une donnée, un cycle de bus chacune) : \(N\) instructions demandent \(2N\) cycles en Von Neumann, \(N + 1\) en Harvard.</p>
+
+<h4>Question 8 : scrutation, interruption ou DMA</h4>
+<p><strong>On te demande.</strong> Compare deux façons de gérer les entrées-sorties : par scrutation ou interruption, et par DMA (Direct Memory Access).</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li><strong>Scrutation</strong> (polling) : le programme lit sans cesse le registre d'état du périphérique pour savoir si une donnée est prête.</li>
+<li><strong>Interruption</strong> : le périphérique prévient le CPU par un signal ; le CPU suspend le programme, exécute la routine d'interruption qui lit la donnée, puis reprend.</li>
+<li><strong>DMA</strong> : d'après le cours, transferts rapides entre périphériques et mémoire, ou de mémoire à mémoire, sans aucune intervention du CPU.</li>
+</ul>
+<div class="schema" id="sc-td3-dma"></div>
+<p><strong>Réponse.</strong></p>
+<div class="tableau"><table>
+<tr><th>Scrutation ou interruption</th><th>DMA</th></tr>
+<tr><td>chaque donnée passe <strong>par le CPU</strong> : il la lit dans le périphérique puis l'écrit en mémoire</td><td>la donnée va <strong>directement</strong> du périphérique à la mémoire, le CPU n'y touche pas</td></tr>
+<tr><td>simple à programmer</td><td>configuration plus lourde (adresses, nombre d'octets, descripteurs)</td></tr>
+<tr><td>scrutation : le CPU perd son temps à attendre ; interruption : il est dérangé à chaque donnée (sauvegarde et restauration du contexte)</td><td>le CPU reste libre pour calculer ; il est prévenu une fois, quand tout le bloc est arrivé</td></tr>
+<tr><td>adapté aux événements rares ou lents : un bouton, une commande série</td><td>adapté aux gros flux : ADC rapide, ECG à haute cadence, son, image, Wi-Fi</td></tr>
+</table></div>
+<p>Exemple du cours : un holter à 500 échantillons de 2 octets par seconde ; le DMA copie 1 000 octets par seconde de l'ADC vers la SRAM interne, sans un cycle de CPU, pendant que le programme calcule le rythme cardiaque.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>RISC : simple, un cycle, registre à registre, complexité dans le logiciel ; CISC : l'inverse.</li>
+<li>Von Neumann : une mémoire, un bus ; Harvard : deux mémoires, deux bus ; Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
+<li>Scrutation et interruption : le CPU transporte chaque donnée ; DMA : la donnée va seule en mémoire.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="td3-architecture"></div>
+</section>
+
+<section class="partie" id="s-td3-pic">
+<h2>Le microcontrôleur PIC</h2>
+
+<article class="notion" id="n-td3-pic">
+<p class="chapeau">La question 9 donne le schéma interne d'un microcontrôleur PIC de Microchip, de la famille PIC18 (instructions de 16 bits, jusqu'à 64 MHz). Il faut dire à quoi sert chaque bloc. On y retrouve tout le chapitre 2 : CPU, deux mémoires séparées, pile, horloge, périphériques.</p>
+
+<h4>Question 9 : le rôle de chaque bloc</h4>
+<p><strong>On te demande.</strong> Précise le rôle de chaque bloc du schéma.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>Un CPU lit une instruction à l'adresse donnée par le <strong>compteur de programme</strong> (Program Counter, PC), l'exécute, puis passe à la suivante.</li>
+<li>Une mémoire <strong>non volatile</strong> (flash, EEPROM) garde son contenu sans alimentation ; une RAM le perd.</li>
+<li>Program Memory et Data Memory séparées, chacune reliée au CPU : c'est l'architecture <strong>Harvard</strong>.</li>
+</ul>
+<div id="fig-td3-pic"></div>
+<p><strong>Réponse.</strong></p>
+<div class="tableau"><table>
+<tr><th>Bloc</th><th>Ce qu'indique le schéma</th><th>Rôle</th></tr>
+<tr><td>Program Memory</td><td>jusqu'à 2 MB, 1M instructions</td><td>mémoire flash qui garde le <strong>programme</strong>, même sans alimentation</td></tr>
+<tr><td>CPU</td><td>instructions de 16 bits, 83 instructions, 3 registres de sélection de fichier de 12 bits, sauvegarde du contexte d'interruption</td><td><strong>exécute</strong> les instructions : calculs, lecture et écriture des données.<br>Les registres FSR (File Select Registers) pointent une case de la mémoire de données (adressage indirect).<br>À chaque interruption, il sauve son contexte pour reprendre ensuite.</td></tr>
+<tr><td>16-Level Stack et Program Counter</td><td>pile de 16 niveaux, possibilité de reset</td><td>le PC donne l'adresse de la <strong>prochaine instruction</strong> ; la pile garde les adresses de retour des sous-programmes et des interruptions, jusqu'à 16 appels emboîtés</td></tr>
+<tr><td>Internal Oscillator</td><td>jusqu'à 64 MHz</td><td><strong>horloge</strong> interne qui cadence le CPU et les périphériques, sans quartz externe</td></tr>
+<tr><td>Data EEPROM</td><td>bloc à part, relié au CPU</td><td>mémoire <strong>non volatile</strong> pour les données à garder : réglages, étalonnage, compteurs</td></tr>
+<tr><td>Data Memory</td><td>jusqu'à 4 KB, adressage indirect amélioré, extension des périphériques</td><td>RAM des <strong>variables</strong> et des registres des périphériques ; effacée à la coupure</td></tr>
+<tr><td>Peripheral I/O Drivers</td><td>ADC, SPI/I²C, EUSART, mTouch, Capture/Compare/PWM, AOP, LCD, EEPROM</td><td>les <strong>périphériques</strong> qui relient la puce au monde extérieur : convertir, communiquer, détecter un toucher, mesurer ou produire des signaux, piloter un afficheur</td></tr>
+<tr><td>Bus (flèches bleues)</td><td>reliés à tous les périphériques</td><td>transportent adresses et données entre le CPU, les mémoires et les périphériques</td></tr>
+</table></div>
+<p>Lecture du schéma :</p>
+<ul>
+<li>La flèche rouge va de la Program Memory au CPU seule : c'est le chemin des instructions, séparé de celui des données. Architecture Harvard.</li>
+<li>83 instructions seulement : un jeu d'instructions <strong>réduit</strong>, le PIC est un RISC.</li>
+<li>EUSART est un UART amélioré (Enhanced Universal Synchronous Asynchronous Receiver Transmitter) : il sait aussi travailler en mode synchrone.</li>
+</ul>
+<p>Complément : la famille PIC n'est pas décrite dans les diapositives ; le schéma se lit comme celui de l'AVR du chapitre 2, qui a les mêmes blocs (CPU, flash, SRAM, EEPROM, oscillateurs, ADC, USART, SPI, TWI, timers).</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>Programme en flash (Program Memory), variables en RAM (Data Memory), réglages en EEPROM.</li>
+<li>PC : prochaine instruction ; pile : adresses de retour (16 niveaux ici).</li>
+<li>Deux mémoires, deux chemins : Harvard ; 83 instructions : RISC.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="td3-pic"></div>
+</section>
+
+<section class="partie" id="s-td3-temps">
+<h2>Les contraintes temporelles</h2>
+
+<article class="notion" id="n-td3-temps">
+<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Le calcul tient en une ligne, à condition de voir le temps se partager.</p>
+
+<h4>La situation</h4>
+<div class="tableau"><table>
+<tr><th>Donnée</th><th>Valeur</th></tr>
+<tr><td>Durée de la boucle principale, sans interruption</td><td>50 ms</td></tr>
+<tr><td>Période de l'interruption</td><td>\(T = 10\) ms</td></tr>
+<tr><td>Réglage par défaut</td><td>pendant la routine d'interruption, une nouvelle interruption est <strong>bloquée</strong> (elle attend la fin de la routine)</td></tr>
+</table></div>
+<p><strong>Ce qu'il faut savoir.</strong> Le processeur ne fait qu'une chose à la fois. Pendant que la routine d'interruption tourne, la boucle principale est arrêtée. Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur ; il reste \(1 - t / T\) pour la boucle.</p>
+<div id="fig-td3-temps"></div>
+
+<h4>a) La durée maximale tmax</h4>
+<p><strong>Réponse.</strong> La routine doit être finie avant l'interruption suivante, donc durer moins d'une période :</p>
+\[t_{max} = T = 10\ \text{ms}\]
+
+<h4>b) Si la routine dure exactement tmax</h4>
+<p><strong>Réponse.</strong> Dès qu'une routine se termine, l'interruption suivante arrive : le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé, même si les interruptions, elles, sont encore toutes servies.</p>
+
+<h4>c) Si la routine dure plus que tmax</h4>
+<p><strong>Réponse.</strong> Une nouvelle demande arrive alors que la routine n'est pas finie. Elle est bloquée : elle attend, et la routine suivante démarre en retard.</p>
+<ul>
+<li>Le retard s'accumule à chaque période : les demandes en attente se recouvrent, et comme le drapeau d'interruption ne mémorise qu'une demande, certaines sont <strong>perdues</strong>.</li>
+<li>La boucle principale ne s'exécute toujours plus.</li>
+<li>La tâche périodique (une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
+</ul>
+
+<h4>d) Si la routine réarme les interruptions</h4>
+<p><strong>Réponse.</strong> Cette fois, la nouvelle demande <strong>interrompt la routine en cours</strong> : une deuxième routine démarre par-dessus la première, puis une troisième par-dessus la deuxième, et ainsi de suite (interruptions imbriquées).</p>
+<ul>
+<li>Chaque interruption sauvegarde son contexte (adresse de retour, registres) sur la <strong>pile</strong> : la pile grossit à chaque période.</li>
+<li>Aucune routine ne finit jamais, la boucle principale ne reprend jamais.</li>
+<li>La pile finit par déborder (stack overflow) : le programme écrase d'autres données en mémoire et <strong>plante</strong>. Sur l'ESP32, c'est un redémarrage.</li>
+</ul>
+
+<h4>e) La routine dure 4 ms</h4>
+<p><strong>Réponse.</strong> Sur chaque période de 10 ms, la routine prend 4 ms et la boucle principale 6 ms. La boucle n'avance que pendant 60 % du temps.</p>
+\[\text{fraction pour la boucle} = 1 - \frac{t}{T}\]
+\[\text{fraction pour la boucle} = 1 - \frac{4}{10}\]
+\[\text{fraction pour la boucle} = 0{,}6\]
+<p>Il lui faut toujours 50 ms de calcul :</p>
+\[t_{boucle} = \frac{50}{1 - t / T}\]
+\[t_{boucle} = \frac{50}{0{,}6}\]
+\[t_{boucle} \approx 83{,}3\ \text{ms}\]
+<p>Vérification : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9, selon l'instant où le tour commence : \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur un grand nombre de tours, la moyenne vaut bien <strong>83,3 ms</strong>.</p>
+
+<h4>À retenir</h4>
+<ul>
+<li>La routine d'interruption doit durer moins que la période : \(t_{max} = T\).</li>
+<li>Durée moyenne de la boucle : \(t_{boucle} = t_0 / (1 - t / T)\).</li>
+<li>Routine trop longue : boucle bloquée, interruptions perdues ; avec réarmement, imbrication et débordement de pile.</li>
+<li>D'où la règle des TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="td3-temps"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../dessins.js"></script>
+<script src="../schemas.js"></script>
+<script src="../figures/td3-visuels.js"></script>
+</body>
+</html>

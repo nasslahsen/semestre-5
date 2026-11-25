@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Version 2 : le timer · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Version 2 : le timer</h1>
+<p class="chapeau">Avec le bouton, on mesure quand quelqu'un appuie. Pour suivre la marche, il faut mesurer à intervalle régulier, sans dépendre de la durée du reste du programme. La version 2 confie le rythme à un timer matériel : toutes les secondes, il lève un drapeau, et la boucle lit les 8 capteurs.</p>
+
+<h2>Les timers de l'ESP32 (annexe)</h2>
+<div class="tableau"><table>
+<tr><th>Élément</th><th>Ce que dit l'annexe</th></tr>
+<tr><td>Groupes</td><td>2 groupes : TIMERG0 (Timer 0 et Timer 1) et TIMERG1 (Timer 2 et Timer 3)</td></tr>
+<tr><td>Compteurs</td><td>2 compteurs de 64 bits par groupe, en comptage montant (up) ou descendant (down)</td></tr>
+<tr><td>Pré-diviseur</td><td>16 bits, appliqué à l'horloge APB_CLK, en général 80 MHz</td></tr>
+<tr><td>Rechargement auto</td><td>l'alarme se répète sans fin, ou une seule fois (one-shot)</td></tr>
+</table></div>
+<p>Le chemin du temps, de l'horloge au programme :</p>
+<div class="schema" id="sc-td2-timer"></div>
+
+<h2>Question 4a : un timer de période 1 s</h2>
+<p><strong>On te demande.</strong> Programme le timer sur une période \(T_{ACQ} = 1\) s.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li><code>timerBegin(1000000)</code> règle le compteur à 1 MHz : il avance d'un pas toutes les 1 µs. La bibliothèque choisit le pré-diviseur : \(80\ \text{MHz} / 1\ \text{MHz} = 80\).</li>
+<li><code>timerAlarm(timer, valeur, true, 0)</code> déclenche l'interruption quand le compteur atteint <code>valeur</code> ; <code>true</code> active le rechargement auto, <code>0</code> veut dire « sans limite de répétitions ».</li>
+<li>La fonction d'interruption porte <code>IRAM_ATTR</code> (elle est rangée en RAM interne, rapide) et doit être <strong>courte</strong> : elle lève un drapeau, la boucle fait le travail.</li>
+<li>Une variable partagée entre l'interruption et la boucle est déclarée <code>volatile</code> : le compilateur la relit à chaque fois au lieu d'en garder une copie.</li>
+</ul>
+<p><strong>Réponse.</strong> Le nombre de pas pour 1 s :</p>
+\[T_{tic} = \frac{1}{f_{compteur}}\]
+\[T_{tic} = \frac{1}{10^6\ \text{Hz}}\]
+\[T_{tic} = 1\ \mu\text{s}\]
+\[\text{alarme} = \frac{T_{ACQ}}{T_{tic}}\]
+\[\text{alarme} = \frac{1\ \text{s}}{1\ \mu\text{s}}\]
+\[\text{alarme} = 1\,000\,000\]
+<pre class="code" data-titre="Le timer (instructions de l'annexe, complétées)"><code>hw_timer_t *timer = NULL;
+volatile bool tick = false;                     // levé par l'interruption, lu par loop()
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+
+void IRAM_ATTR onTimer() {
+  portENTER_CRITICAL_ISR(&amp;mux);
+  tick = true;
+  portEXIT_CRITICAL_ISR(&amp;mux);
+}
+
+void configTimer() {
+  timer = timerBegin(1000000);                  // 1 MHz : un pas par microseconde
+  timerAttachInterrupt(timer, &amp;onTimer);
+  timerAlarm(timer, 1000000, true, 0);          // 1 000 000 pas = 1 s, rechargement auto
+}</code></pre>
+<p>Deux corrections par rapport à l'annexe, sinon le programme ne compile pas :</p>
+<ul>
+<li>l'annexe attache <code>&amp;onTimer</code> mais définit <code>onTimer0()</code> : les deux noms doivent être les mêmes ;</li>
+<li><code>tick</code> n'est pas déclaré : il faut <code>volatile bool tick = false;</code>.</li>
+</ul>
+<p>Ces fonctions (<code>timerBegin</code> avec une fréquence, <code>timerAlarm</code>) sont celles de la version 3 du paquet ESP32 de l'Arduino IDE. Les anciennes versions écrivaient <code>timerBegin(0, 80, true)</code>, <code>timerAlarmWrite</code> et <code>timerAlarmEnable</code>.</p>
+
+<h2>Question 4b : tous les capteurs à chaque cycle</h2>
+<p><strong>On te demande.</strong> Programme l'acquisition de tous les capteurs à chaque cycle, avec la période \(T_{ACQ} = 1\) s.</p>
+<p><strong>Ce qu'il faut savoir.</strong></p>
+<ul>
+<li>La boucle regarde le drapeau ; s'il est levé, elle le baisse (dans une section critique, comme l'interruption) puis lance <code>acquisition(2, 0, N)</code>.</li>
+<li>Pourquoi pas la mesure dans l'interruption : elle attend 2 ms par capteur et appelle <code>analogRead</code> 80 fois, bien trop long pour une interruption, qui bloquerait le reste du système.</li>
+<li>Le cycle doit finir avant la seconde suivante : une vingtaine de millisecondes pour 1 000 ms, la marge est large.</li>
+</ul>
+<p><strong>Réponse.</strong> Le programme de la version 2, en entier (les fonctions des questions 2 et 3 sont reprises telles quelles) :</p>
+<pre class="code" data-titre="Version 2 complète"><code>// ---------- broches et montage (question 1) ----------
+const int S1 = 25, S2 = 26, S3 = 27;   // P1.0, P1.1, P1.2
+const int AIN1 = 34;                   // VA (ADC1_CH6)
+const float VDD = 3.3, RA = 110000.0, RB = 10000.0, RG = 750000.0;
+const float VP = VDD * RB / (RA + RB); // 0,275 V
+const int NB_CAPTEURS = 8;
+float mesures[NB_CAPTEURS];
+
+// ---------- timer (question 4a) ----------
+hw_timer_t *timer = NULL;
+volatile bool tick = false;
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+
+void IRAM_ATTR onTimer() {
+  portENTER_CRITICAL_ISR(&amp;mux);
+  tick = true;
+  portEXIT_CRITICAL_ISR(&amp;mux);
+}
+
+// ---------- fonctions de base (question 2) ----------
+void selectSensor(int num) {
+  digitalWrite(S1, (num >> 0) &amp; 1);
+  digitalWrite(S2, (num >> 1) &amp; 1);
+  digitalWrite(S3, (num >> 2) &amp; 1);
+}
+
+void configSensors() {
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  analogReadResolution(12);
+  selectSensor(0);
+}
+
+int sensorAcquisition(int num) {
+  selectSensor(num);
+  delay(2);
+  return analogRead(AIN1);
+}
+
+float rsensor(float val) {
+  float va = val * VDD / 4095.0;
+  if (va &lt;= VP) return INFINITY;
+  return RG / (va / VP - 1.0);
+}
+
+// ---------- acquisition (question 3) ----------
+float moyenneCodes(int num, int N) {
+  if (N &lt; 1) N = 1;
+  selectSensor(num);
+  delay(2);
+  long somme = 0;
+  for (int i = 0; i &lt; N; i++) somme += analogRead(AIN1);
+  return (float)somme / N;
+}
+
+void acquisition(int mode, int num, int N) {
+  if (mode == 0) mesures[num] = rsensor(sensorAcquisition(num));
+  else if (mode == 1) mesures[num] = rsensor(moyenneCodes(num, N));
+  else if (mode == 2) {
+    for (int k = 0; k &lt; NB_CAPTEURS; k++) mesures[k] = rsensor(moyenneCodes(k, N));
+  }
+}
+
+// ---------- programme principal (question 4b) ----------
+void setup() {
+  Serial.begin(115200);
+  configSensors();
+  timer = timerBegin(1000000);              // 1 MHz
+  timerAttachInterrupt(timer, &amp;onTimer);
+  timerAlarm(timer, 1000000, true, 0);      // toutes les 1 s
+}
+
+void loop() {
+  if (tick) {
+    portENTER_CRITICAL(&amp;mux);
+    tick = false;                           // drapeau baissé avant de mesurer
+    portEXIT_CRITICAL(&amp;mux);
+
+    acquisition(2, 0, 10);                  // les 8 capteurs, 10 mesures chacun
+    for (int k = 0; k &lt; NB_CAPTEURS; k++) {
+      Serial.print(mesures[k] / 1000.0);    // kilo-ohms
+      Serial.print(k &lt; NB_CAPTEURS - 1 ? "\t" : "\n");
+    }
+  }
+  // le reste du temps, la boucle est libre (Wi-Fi, envoi des données...)
+}</code></pre>
+<p>Le moniteur série reçoit une ligne de 8 résistances par seconde, exactement. Si l'envoi Wi-Fi ralentit la boucle, la mesure suivante n'est pas décalée : c'est le timer qui donne le rythme, pas la durée de la boucle. Avec <code>delay(1000)</code> à la place, la période vaudrait 1 s plus la durée de tout le reste.</p>
+<p>Pour suivre une marche, il faudrait plutôt 40 mesures par seconde et par capteur (question 13 du TD 1) : il suffit de passer l'alarme à 25 000 pas (25 ms), le reste du programme ne change pas.</p>
+
+<h2>À retenir</h2>
+<ul>
+<li>\(\text{alarme} = T / T_{tic}\) : 1 000 000 pas de 1 µs pour 1 s.</li>
+<li>Interruption courte : elle lève un drapeau <code>volatile</code>, la boucle mesure.</li>
+<li>Le timer donne une période exacte, indépendante de la durée de la boucle ; <code>delay()</code> non.</li>
+</ul>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../../../commun/js/schema.js"></script>
+<script src="../schemas.js"></script>
+</body>
+</html>
