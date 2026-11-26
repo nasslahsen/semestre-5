@@ -576,29 +576,48 @@ void loop() {
 <p class="exo">21. Définis un système embarqué et donne trois contraintes. Désigne-t-il le matériel, le logiciel, ou les deux ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
 <p>Un système électronique et informatique autonome, dédié à une tâche bien précise.</p>
-<p>Contraintes : ressources limitées (consommation, place), temps de réponse, fiabilité et sécurité (le coût aussi).</p>
+<p>Contraintes (correction faite en classe) :</p>
+<ul>
+<li>la taille de la mémoire (RAM, ROM…) ;</li>
+<li>l'alimentation autonome et la consommation ;</li>
+<li>la rapidité.</li>
+</ul>
 <p>Le terme désigne le matériel et le logiciel.</p>
 </details>
 
-<p class="exo">22. Donne deux avantages et deux applications d'un microcontrôleur, d'un DSP et d'un FPGA.</p>
+<p class="exo">22. Donne deux avantages et deux applications d'un microcontrôleur, d'un DSP et d'un FPGA. Puis cite trois critères de choix d'un circuit de traitement.</p>
 <details class="corrige"><summary>Voir la correction</summary>
+<p>D'après la correction faite en classe :</p>
 <div class="tableau"><table>
-<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
-<tr><td>Microcontrôleur</td><td>tout est intégré ; faible coût et faible consommation</td><td>semelle, tensiomètre</td></tr>
-<tr><td>DSP</td><td>calcul rapide ; traitement du signal en temps réel</td><td>filtrage ECG, prothèse auditive</td></tr>
-<tr><td>FPGA</td><td>calculs en parallèle ; matériel reconfigurable</td><td>imagerie, acquisition rapide multivoie</td></tr>
+<tr><th>Circuit</th><th>Avantage</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>intégration des blocs de traitement et des ports de communication (UART, I2C, I2S, CAN)</td><td>robot de chirurgie médicale, moniteur ECG, ascenseur</td></tr>
+<tr><td>DSP</td><td>intégration du bloc de traitement de signal</td><td>scanner, radar</td></tr>
+<tr><td>FPGA</td><td>exécution rapide : parallèle, par implémentation matérielle</td><td>scanner, IRM, caméra de reconnaissance faciale</td></tr>
 </table></div>
+<p>Critères de choix, trois parmi :</p>
+<ul>
+<li>la vitesse d'exécution ;</li>
+<li>la consommation ;</li>
+<li>la disponibilité des ports de communication ;</li>
+<li>la robustesse ;</li>
+<li>le coût de développement.</li>
+</ul>
 </details>
 
-<p class="exo">23. Rôle de : PWM, watchdog, timer, UART, pile.</p>
+<p class="exo">23. Rôle de : PWM, watchdog, timer, UART, pile. Une PWM vaut \(+E\) pendant \(\alpha T\) et \(-E\) le reste de la période : que vaut sa moyenne pour \(\alpha = 0{,}8\) ?</p>
 <details class="corrige"><summary>Voir la correction</summary>
+<p>D'après la correction faite en classe :</p>
 <ul>
-<li>PWM : signal rectangulaire de rapport cyclique réglable ; tension moyenne \(\alpha \times 3{,}3\) V.</li>
-<li>Watchdog : redémarre la puce si le programme ne le remet plus à zéro, donc s'il est bloqué.</li>
-<li>Timer : compte le temps à partir d'une horloge, déclenche des interruptions régulières.</li>
-<li>UART : liaison série asynchrone (start, 8 bits, stop), sans fil d'horloge.</li>
-<li>Pile : zone de RAM « dernier entré, premier sorti » : adresses de retour, variables locales.</li>
+<li>PWM : générateur de signaux avec des impulsions de largeur variable.</li>
+<li>Watchdog : chien de garde, circuit de réinitialisation automatique du microcontrôleur en cas de blocage.</li>
+<li>Timer : génère des temporisations programmables.</li>
+<li>UART : circuit de transmission asynchrone.</li>
+<li>Pile (stack) : zone mémoire LIFO (Last In, First Out) pour stocker temporairement les données et les arguments des fonctions.</li>
 </ul>
+<p>Moyenne de la PWM :</p>
+\[\langle u \rangle = \alpha E - (1 - \alpha) E = (2\alpha - 1) E\]
+\[\langle u \rangle = (2 \times 0{,}8 - 1) E\]
+\[\langle u \rangle = 0{,}6\,E\]
 </details>
 
 <p class="exo">24. Une boucle de 20 instructions, chacune avec une donnée. Combien de cycles de bus en Von Neumann, en Harvard (modèle du cours) ? Pourquoi cette différence ?</p>

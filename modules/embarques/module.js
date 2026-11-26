@@ -35,6 +35,7 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "embarques", titre: "Application N°1 : documents constructeurs (DT1 à DT6) et documents réponses (DR1 à DR3)", couvre: "TD 1 : fiches de la semelle FS-INS-16Z, du FUTEK LSB200, de l'INA128, du NX3L4051, courbe DR1 du capteur (questions 1 à 14)" },
       { sousModule: "embarques", titre: "TD N°2 : Programmation Embarquée, Semelle instrumentée pour le suivi médical", couvre: "TD 2 (questions 1 à 4, annexes timer et brochage ESP32 DEVKIT V1)" },
       { sousModule: "embarques", titre: "TD N°3 : Architecture et composants d'un système Embarqué", couvre: "TD 3 (questions 1 à 9, contraintes temporelles a à e)" },
+      { sousModule: "embarques", titre: "Correction du TD 3 faite en classe (photos du tableau)", couvre: "TD 3, questions 1, 2, 3 et 5" },
       { sousModule: "embarques", titre: "Activité Pratique : Conception et programmation d'un Pacemaker connecté (Pr A. Jbari)", couvre: "Projet pacemaker (questions 1 à 38, livrables)" }
     ],
     manque: [

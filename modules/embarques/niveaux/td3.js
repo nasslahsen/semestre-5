@@ -78,10 +78,10 @@ NIVEAU({
       j.titre("Question 1 : lequel de ces groupes donne trois contraintes d'un système embarqué ?");
       j.choix([
         { html: "Écran couleur, clavier, système d'exploitation", aide: "Ce sont des équipements, pas des contraintes : beaucoup de systèmes embarqués n'en ont pas." },
-        { html: "Consommation et place limitées, temps de réponse, fiabilité et sécurité", juste: true },
+        { html: "Taille de la mémoire, alimentation autonome et consommation, rapidité", juste: true },
         { html: "Puissance illimitée, mémoire illimitée, coût élevé", aide: "C'est l'inverse : le cours parle de ressources limitées." }
       ], { colonnes: 1, ok: function () {
-        j.bravo("Ressources limitées, temps réel, sûreté : les exigences du cours.");
+        j.bravo("C'est la correction faite en classe : mémoire, énergie, rapidité.");
         j.suite();
       } });
     } }

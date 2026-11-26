@@ -24,25 +24,25 @@
 <h2>Système embarqué</h2>
 <ul>
 <li>Définition du cours : système <strong>électronique et informatique autonome</strong>, dédié à une tâche bien précise. Il désigne le matériel et le logiciel.</li>
-<li>Contraintes : ressources limitées (énergie, place), temps de réponse, fiabilité et sécurité, coût.</li>
-<li>Choisir le circuit : puissance de calcul, consommation, coût, périphériques et mémoires intégrés.</li>
+<li>Contraintes (correction en classe) : la taille de la mémoire (RAM, ROM), l'alimentation autonome et la consommation, la rapidité.</li>
+<li>Critères de choix : vitesse d'exécution, consommation, disponibilité des ports de communication, robustesse, coût de développement.</li>
 </ul>
 
 <h2>Microcontrôleur, DSP, FPGA</h2>
 <div class="tableau"><table>
-<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
-<tr><td>Microcontrôleur</td><td>tout intégré, faible coût et consommation</td><td>semelle, tensiomètre, pousse-seringue</td></tr>
-<tr><td>DSP</td><td>calcul rapide, traitement du signal en temps réel</td><td>filtrage ECG, prothèse auditive, modulation</td></tr>
-<tr><td>FPGA</td><td>calculs parallèles, matériel reconfigurable</td><td>imagerie, acquisition rapide multivoie</td></tr>
+<tr><th>Circuit</th><th>Avantage</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>intégration des blocs de traitement et des ports de communication (UART, I2C, I2S, CAN)</td><td>robot de chirurgie médicale, moniteur ECG, ascenseur</td></tr>
+<tr><td>DSP</td><td>intégration du bloc de traitement de signal</td><td>scanner, radar</td></tr>
+<tr><td>FPGA</td><td>exécution rapide (parallèle, par implémentation matérielle)</td><td>scanner, IRM, caméra de reconnaissance faciale</td></tr>
 </table></div>
 
 <h2>Composants</h2>
 <ul>
-<li><strong>PWM</strong> : rapport cyclique réglable, \(V_{moy} = \alpha \times 3{,}3\) V.</li>
-<li><strong>Watchdog</strong> : redémarre la puce si le programme ne le remet plus à zéro.</li>
-<li><strong>Timer</strong> : compte le temps, déclenche des interruptions régulières.</li>
-<li><strong>UART</strong> : liaison série asynchrone (start, 8 bits, stop).</li>
-<li><strong>Pile</strong> : adresses de retour et variables locales, dernier entré premier sorti.</li>
+<li><strong>PWM</strong> : générateur de signaux avec des impulsions de largeur variable ; entre \(+E\) et \(-E\), moyenne \((2\alpha - 1)E\).</li>
+<li><strong>Watchdog</strong> : réinitialise automatiquement le microcontrôleur en cas de blocage.</li>
+<li><strong>Timer</strong> : génère des temporisations programmables.</li>
+<li><strong>UART</strong> : circuit de transmission asynchrone.</li>
+<li><strong>Pile</strong> : zone mémoire LIFO qui stocke temporairement les données et les arguments des fonctions.</li>
 </ul>
 
 <h2>Architectures</h2>
@@ -69,7 +69,7 @@
 
 <h2>Questions d'examen</h2>
 <p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
-<div class="question-court"><p class="q"><span>1.</span> Définis un système embarqué et donne trois contraintes.</p><details class="corrige"><summary>Voir la réponse</summary><p>Système électronique et informatique autonome, dédié à une tâche précise.</p><p>Contraintes : énergie et place limitées, temps de réponse, fiabilité et sécurité.</p></details></div>
+<div class="question-court"><p class="q"><span>1.</span> Définis un système embarqué et donne trois contraintes.</p><details class="corrige"><summary>Voir la réponse</summary><p>Système électronique et informatique autonome, dédié à une tâche précise.</p><p>Contraintes : la taille de la mémoire (RAM, ROM), l'alimentation autonome et la consommation, la rapidité.</p></details></div>
 <div class="question-court"><p class="q"><span>2.</span> Où stocker le programme ? Pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En flash : mémoire non volatile, le programme reste sans alimentation.</p></details></div>
 <div class="question-court"><p class="q"><span>3.</span> Filtres numériques et modulation : quel circuit ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un DSP, optimisé pour le traitement du signal.</p></details></div>
 <div class="question-court"><p class="q"><span>4.</span> Donne trois différences entre RISC et CISC.</p><details class="corrige"><summary>Voir la réponse</summary><p>RISC : instructions d'un cycle ; CISC : plusieurs cycles.</p><p>RISC : registre à registre ; CISC : mémoire à mémoire.</p><p>RISC : complexité dans le logiciel ; CISC : dans le matériel.</p></details></div>
