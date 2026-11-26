@@ -18,7 +18,7 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>Les composants d'un système embarqué</h1>
-<p class="chapeau">Le TD 3 reprend le chapitre 2 sous forme de questions de cours : définir, comparer, choisir. Les réponses s'appuient sur les diapositives ; ce qu'elles ne disent pas est signalé « complément ». La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+<p class="chapeau">Le TD 3 reprend le chapitre 2 sous forme de questions de cours : définir, comparer, choisir. Les questions 1, 2, 3 et 5 suivent la <strong>correction faite en classe</strong> : c'est la réponse à donner. Le reste est rédigé pour le site à partir des diapositives ; ce qu'elles ne disent pas est signalé « complément ».</p>
 
 <h2>Le plan du TD</h2>
 <div class="tableau"><table>
@@ -30,42 +30,41 @@
 
 <h2>Question 1 : définition et contraintes</h2>
 <p><strong>On te demande.</strong> Définis un système embarqué, puis donne trois contraintes associées.</p>
-<p><strong>Réponse.</strong> La définition du cours : un <strong>système électronique et informatique autonome</strong>, dédié à une tâche bien précise. Il contient un microprocesseur, commande directement du matériel, et se limite à une fonction.</p>
-<p>Trois contraintes, parmi celles du cours :</p>
+<p><strong>Réponse (correction faite en classe).</strong> Un système embarqué est un <strong>système électronique et informatique autonome</strong>, dédié à une tâche précise.</p>
+<p>Contraintes associées :</p>
 <ul>
-<li><strong>ressources limitées</strong> : consommation électrique (souvent sur pile ou batterie) et espace des circuits ;</li>
-<li><strong>temps de réponse</strong> (responsiveness) : répondre dans un délai donné, souvent en temps réel ;</li>
-<li><strong>fiabilité et sécurité</strong> (reliability, safety) : marcher sans panne, sans mettre le patient en danger.</li>
+<li><strong>la taille de la mémoire</strong> (RAM, ROM…) ;</li>
+<li><strong>l'alimentation autonome et la consommation</strong> ;</li>
+<li><strong>la rapidité</strong>.</li>
 </ul>
-<p>Le coût (cost) et la vérification (verification) sont aussi des exigences du cours.</p>
+<p>Pourquoi ces trois-là : la puce est petite et bon marché, donc peu de mémoire ; l'appareil vit sur pile ou batterie, donc il doit consommer peu ; il doit répondre à temps (une alarme, une stimulation), donc être rapide.</p>
 
 <h2>Question 2 : microcontrôleur, DSP, FPGA</h2>
 <p><strong>On te demande.</strong> Donne deux avantages et deux applications de chaque circuit.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>Un <strong>microcontrôleur</strong> réunit sur une puce le processeur, la mémoire et les périphériques (ADC, timers, bus).</li>
-<li>Un <strong>DSP</strong> est, d'après le cours, un composant optimisé pour les calculs, dont l'application principale est le traitement du signal numérique (filtrage, extraction de signaux).</li>
-<li>Un <strong>FPGA</strong> est un circuit logique reconfigurable : on y décrit le matériel lui-même. Le cours le montre dans le CompactRIO, à côté d'un processeur.</li>
-</ul>
-<p><strong>Réponse.</strong></p>
+<p><strong>Réponse (correction faite en classe).</strong></p>
 <div class="tableau"><table>
-<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
-<tr><td>Microcontrôleur</td><td>tout est intégré (CPU, mémoires, périphériques) ; faible coût et faible consommation</td><td>semelle connectée, tensiomètre, pousse-seringue, pilulier</td></tr>
-<tr><td>DSP</td><td>calcul rapide (multiplication-accumulation en un cycle, architecture Harvard ou Super Harvard) ; traitement du signal en temps réel</td><td>filtrage de l'ECG d'un holter, prothèse auditive, modulation et démodulation radio</td></tr>
-<tr><td>FPGA</td><td>calculs en parallèle, très faible latence ; matériel reconfigurable sans refaire de puce</td><td>imagerie (échographie, formation des voies), acquisition rapide multivoie, prototypage d'un circuit</td></tr>
+<tr><th>Circuit</th><th>Ce que c'est</th><th>Avantage</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>contrôle des actionneurs en fonction des capteurs, des commandes et des programmes</td><td>intégration des blocs de traitement et des ports de communication (UART, I2C, I2S, CAN…)</td><td>robot de chirurgie médicale, moniteur ECG, ascenseur</td></tr>
+<tr><td>DSP</td><td>processeur de traitement de signal (Digital Signal Processor)</td><td>intégration du bloc de traitement de signal</td><td>scanner, radar</td></tr>
+<tr><td>FPGA</td><td>circuit programmable, exécution parallèle par implémentation matérielle</td><td>exécution rapide</td><td>scanner, IRM, caméra de reconnaissance faciale</td></tr>
 </table></div>
-<p>Complément : la multiplication-accumulation en un cycle et les applications du FPGA ne sont pas dans les diapositives.</p>
+<p>Pour comprendre la différence :</p>
+<ul>
+<li>le <strong>microcontrôleur</strong> réunit sur une puce le processeur, la mémoire et les périphériques : il lit les capteurs et commande les actionneurs ;</li>
+<li>le <strong>DSP</strong> a un bloc de calcul fait pour le signal (filtrer, transformer) : il traite vite un flot d'échantillons ;</li>
+<li>le <strong>FPGA</strong> n'exécute pas un programme instruction par instruction : on y câble le traitement lui-même, et plusieurs calculs se font en même temps.</li>
+</ul>
 
 <h2>Question 3 : critères de choix</h2>
-<p><strong>On te demande.</strong> Cite trois critères de choix d'un circuit de traitement.</p>
-<p><strong>Réponse.</strong></p>
+<p><strong>On te demande.</strong> Cite trois critères de choix d'un circuit de traitement dans un système embarqué.</p>
+<p><strong>Réponse (correction faite en classe).</strong> Trois parmi :</p>
 <ul>
-<li>la <strong>puissance de calcul</strong> face aux contraintes de temps (fréquence, DSP, FPU) ;</li>
-<li>la <strong>consommation</strong> (autonomie sur batterie) ;</li>
-<li>le <strong>coût</strong> ;</li>
-<li>les <strong>périphériques et mémoires intégrés</strong> : nombre de broches, ADC, bus, taille de la flash et de la RAM.</li>
+<li><strong>la vitesse d'exécution</strong> ;</li>
+<li><strong>la consommation</strong> ;</li>
+<li><strong>la disponibilité des ports de communication</strong> ;</li>
+<li><strong>la robustesse</strong> ;</li>
+<li><strong>le coût de développement</strong>.</li>
 </ul>
-<p>Trois suffisent. On peut ajouter les outils de développement disponibles et la sûreté.</p>
 
 <h2>Question 4 : questions à cocher</h2>
 <div class="tableau"><table>
@@ -78,21 +77,28 @@
 <p>Pour d, certains microcontrôleurs sont de type Von Neumann (complément : le MSP430 de Texas Instruments). La réponse attendue reste Harvard, l'architecture de la plupart d'entre eux.</p>
 
 <h2>Question 5 : le rôle de cinq composants</h2>
+<p><strong>Réponse (correction faite en classe).</strong></p>
 <div class="tableau"><table>
 <tr><th>Composant</th><th>Rôle</th></tr>
-<tr><td>PWM</td><td>produit un signal rectangulaire dont on règle la fréquence et le rapport cyclique ; la tension moyenne vaut \(\alpha \times 3{,}3\) V. Sert à doser une LED, un moteur, un chauffage.</td></tr>
-<tr><td>Watchdog</td><td>chien de garde : un compteur que le programme doit remettre à zéro régulièrement ; s'il ne l'est plus, le programme est bloqué et le watchdog redémarre la puce. Il sert à récupérer d'une faute imprévue.</td></tr>
-<tr><td>Timer</td><td>compteur qui avance au rythme d'une horloge (après un pré-diviseur) ; il mesure des durées et déclenche des interruptions à intervalle régulier (cadence d'échantillonnage).</td></tr>
-<tr><td>UART</td><td>émetteur-récepteur série asynchrone : envoie et reçoit des octets sans fil d'horloge (start, 8 bits, stop), en half ou full duplex. Sert à parler à un PC, un module GPS, Bluetooth.</td></tr>
-<tr><td>La pile</td><td>zone de RAM gérée en « dernier entré, premier sorti » : elle garde l'adresse de retour lors d'un appel de fonction ou d'une interruption, et les variables locales.</td></tr>
+<tr><td>PWM</td><td>générateur de signaux avec des impulsions de largeur variable</td></tr>
+<tr><td>Watchdog</td><td>chien de garde : circuit de réinitialisation automatique du microcontrôleur en cas de blocage</td></tr>
+<tr><td>Timer</td><td>génère des temporisations programmables</td></tr>
+<tr><td>UART</td><td>circuit de transmission asynchrone</td></tr>
+<tr><td>La pile (stack)</td><td>zone mémoire d'organisation LIFO (Last In, First Out) pour stocker temporairement les données et les arguments des fonctions</td></tr>
 </table></div>
-<p>Complément : la pile n'est pas définie dans les diapositives (on la retrouve dans le PIC de la question 9, « 16-Level Stack »).</p>
+<p>Au tableau, pour la PWM : un signal qui vaut \(+E\) pendant \(\alpha T\), puis \(-E\) le reste de la période \(T\). Sa valeur moyenne :</p>
+\[\langle u \rangle = \alpha E - (1 - \alpha) E\]
+\[\langle u \rangle = (2\alpha - 1) E\]
+<p>Avec \(\alpha = 0{,}5\), la moyenne est nulle ; avec \(\alpha = 0{,}75\), elle vaut \(0{,}5\,E\). Pour un signal entre 0 et 3,3 V, comme sur l'ESP32 (chapitre 5), la moyenne vaut \(\alpha \times 3{,}3\) V.</p>
+<p>Pour retenir LIFO : la dernière adresse de retour rangée est la première ressortie, comme une pile d'assiettes. C'est pour cela que des appels emboîtés reviennent dans le bon ordre.</p>
 
 <h2>À retenir</h2>
 <ul>
-<li>Système embarqué = électronique + informatique, autonome, dédié ; contraintes : énergie et place, temps, fiabilité et sécurité, coût.</li>
-<li>Microcontrôleur : tout intégré, pas cher ; DSP : traitement du signal ; FPGA : matériel parallèle reconfigurable.</li>
+<li>Système embarqué : électronique et informatique, autonome, dédié à une tâche précise. Contraintes : taille de la mémoire, alimentation autonome et consommation, rapidité.</li>
+<li>Microcontrôleur : intègre traitement et ports de communication. DSP : bloc de traitement de signal. FPGA : exécution parallèle, rapide.</li>
+<li>Critères : vitesse d'exécution, consommation, ports de communication, robustesse, coût de développement.</li>
 <li>Programme en flash ; microcontrôleur en général Harvard.</li>
+<li>Pile : LIFO ; PWM : impulsions de largeur variable, moyenne \((2\alpha - 1)E\) entre \(+E\) et \(-E\).</li>
 </ul>
 
 </main>
