@@ -20,6 +20,50 @@
 <h1>Le sujet et le capteur de la semelle</h1>
 <p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » part d'un vrai dispositif et descend jusqu'à l'électronique. Le sujet est expliqué d'abord, puis les 14 questions sont corrigées comme un cours : ce qu'on te demande, ce qu'il faut savoir, la réponse, avec un schéma quand il aide. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
 
+<h2>Tout le TD en une page</h2>
+<p>Lis cette page d'abord : elle donne l'histoire du TD et chaque réponse en une ou deux lignes. Les sections suivantes reprennent chaque question en détail.</p>
+<p><strong>L'histoire.</strong> On veut une semelle qui mesure l'appui du pied, pour surveiller des patients diabétiques. On suit le chemin de la mesure, dans l'ordre :</p>
+<ul>
+<li><strong>le capteur</strong> : quelle force il supporte (questions 1 à 3) ;</li>
+<li><strong>le banc de test</strong> : on vérifie les capteurs de la semelle avec un capteur de référence très précis (questions 4 à 8) ;</li>
+<li><strong>le montage</strong> : on transforme la résistance du capteur en une tension que le microcontrôleur sait lire (questions 9 à 12) ;</li>
+<li><strong>l'acquisition</strong> : à quelle vitesse lire les capteurs (questions 13 et 14).</li>
+</ul>
+
+<h3>Partie 1 : le capteur</h3>
+<div class="tableau"><table>
+<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
+<tr><td>1. Surface</td><td>la forme = un rectangle (15 × 11 mm) + deux demi-disques, qui font ensemble un disque de 11 mm</td><td>\(165 + 95 = 260\) mm²</td></tr>
+<tr><td>2. Force et pression maximales</td><td>le capteur mesure jusqu'à 10 kg : la force est le poids, \(F = m\,g\) ; la pression, c'est la force divisée par la surface</td><td>\(F = 10 \times 9{,}81 = 98{,}1\) N<br>\(P = 98{,}1 / 0{,}000260 \approx 377\) kPa</td></tr>
+<tr><td>3. Patient de 70 kg</td><td>poids 687 N. Réparti sur 16 capteurs : 43 N chacun, ça va. Mais au contact du talon, 2 capteurs portent tout : 343 N chacun</td><td>non, pas toujours : les capteurs du talon saturent (343 N &gt; 98 N). Acceptable, car on suit l'évolution de l'appui</td></tr>
+</table></div>
+
+<h3>Partie 2 : le banc de test</h3>
+<div class="tableau"><table>
+<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
+<tr><td>4. Le capteur FUTEK</td><td>4 jauges (des résistances qui changent un tout petit peu quand on les étire), montées en pont de Wheatstone</td><td>2 fils pour alimenter (rouge +, noir −), 2 fils pour mesurer (vert +, blanc −)</td></tr>
+<tr><td>5. Le bon modèle ?</td><td>il doit aller au moins jusqu'à la limite de la semelle</td><td>oui : 445 N, plus que les 98 N de la semelle</td></tr>
+<tr><td>6. La courbe Vo(P)</td><td>« 2 mV/V » : 2 mV par volt d'alimentation à pleine charge, donc 10 mV sous 5 V à 445 N ; ensuite c'est une droite</td><td>\(V_o = 10\ \text{mV} \times P / 445\)</td></tr>
+<tr><td>7. Le gain de l'INA128</td><td>à 100 N le capteur sort 2,25 mV ; pour avoir 1 V, il faut multiplier par 445 ; on retourne la formule du gain</td><td>\(G = 445\), \(R_G = 50\,000 / 444 \approx 113\ \Omega\)</td></tr>
+<tr><td>8. Le CMR</td><td>les deux fils de mesure sont tous deux vers 2,5 V ; seule leur différence (quelques mV) compte</td><td>réjection du mode commun : l'amplificateur garde la différence et ignore le commun, bien mieux qu'un simple AOP</td></tr>
+</table></div>
+
+<h3>Partie 3 : le montage (figure 5)</h3>
+<div class="tableau"><table>
+<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
+<tr><td>9. Modèle du capteur</td><td>\(R = R_0 + \beta / F\) : deux inconnues, donc deux points de la courbe, (1 N ; 700 kΩ) et (100 N ; 77 kΩ). On soustrait les deux équations : \(R_0\) disparaît</td><td>\(\beta = 623 / 0{,}99 \approx 629\) kΩ·N<br>\(R_0 = 700 - 629 = 71\) kΩ</td></tr>
+<tr><td>10. Multiplexeur parfait</td><td>un aiguillage idéal</td><td>la voie choisie est un fil, les autres sont coupées</td></tr>
+<tr><td>11. L'entrée /E</td><td>la barre veut dire « active à 0 »</td><td>on la relie à la masse</td></tr>
+<tr><td>12. La tension VA</td><td>S3 S2 S1 = 111 = 7 : capteur 8. Le pont donne \(V^+\). L'AOP copie \(V^+\) sur \(V^-\). Le courant du capteur traverse aussi \(R_G\)</td><td>\(V^+ = 0{,}275\) V<br>\(V_A = 0{,}275 \times (1 + 750\ \text{k}\Omega / R_{FSR})\)<br>de 0,44 V (0,5 N) à 2,95 V (100 N) : sous 3,3 V, l'ADC ne sature pas</td></tr>
+</table></div>
+
+<h3>Partie 4 : l'acquisition</h3>
+<div class="tableau"><table>
+<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
+<tr><td>13. Cadence et débit</td><td>120 pas par minute = 2 pas par seconde ; 20 points par pas : chaque capteur est lu 40 fois par seconde. Les 8 capteurs passent l'un après l'autre en 25 ms</td><td>3,125 ms par capteur<br>S1 change toutes les 3,125 ms, S2 toutes les 6,25 ms, S3 toutes les 12,5 ms<br>débit : \(16 \times 40 \times 8 = 5\,120\) bit/s</td></tr>
+<tr><td>14. Le condensateur CF</td><td>avec \(R_G\), il fait un filtre qui enlève le bruit ; mais il ralentit la tension, qui doit se poser (en \(5 R_G C_F\)) avant la lecture suivante</td><td>\(5 R_G C_F \le 3{,}125\) ms, donc \(C_F \le 0{,}83\) nF ; on choisit 470 pF</td></tr>
+</table></div>
+
 <h2>Ce que raconte le sujet</h2>
 <p>Une équipe de l'Université Paris-Saclay a conçu une semelle pour suivre des <strong>patients diabétiques</strong>. Chez eux, les nerfs du pied sont abîmés : une plaie peut commencer sans douleur. La semelle ne cherche pas une mesure absolue très précise. Elle suit l'appui <strong>dans le temps</strong>, pour repérer une marche qui devient asymétrique (la <strong>claudication</strong>), signe d'une lésion qui commence.</p>
 <p>Ce que la semelle embarque :</p>
