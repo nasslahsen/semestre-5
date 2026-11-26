@@ -23,9 +23,10 @@
 <main>
 <p class="etiquette">Systèmes embarqués</p>
 <h1>Préparer l'examen</h1>
-<p class="chapeau">Le professeur a annoncé deux choses : le TD semelle instrumentée et connectée, et la programmation des fonctions d'un objet connecté en MQTT (une fonction de traitement, le callback, la loop). Cette page rassemble tout ce qu'il faut savoir faire sur ces deux points, avec des exercices corrigés.</p>
+<p class="chapeau">Le professeur a annoncé deux choses : le TD semelle instrumentée et connectée, et la programmation des fonctions d'un objet connecté en MQTT (une fonction de traitement, le callback, la loop). Depuis, trois documents sont arrivés : le TD 2 (programmation de la semelle), le TD 3 (architecture et composants) et le projet pacemaker. Cette page rassemble ce qu'il faut savoir faire, avec des exercices corrigés aux nombres différents de ceux des TD, pour vérifier que tu as compris et pas seulement retenu.</p>
 
 <div class="jouer"><span><small>La fiche du code</small>Callback, loop, fonction de traitement : tout le code à savoir écrire, le dictionnaire des instructions, et des programmes à compléter</span><a class="btn-jouer" href="court/fiche-code.html">Ouvrir</a></div>
+<div class="jouer"><span><small>Les versions courtes des TD</small>TD 1, TD 2, TD 3 et projet : l'essentiel de chaque corrigé, puis des questions à réponse cachée</span><a class="btn-jouer" href="court/chapitre-16.html">Ouvrir</a></div>
 <div class="jouer"><span><small>Le cours</small>La semelle instrumentée et connectée : le pied diabétique, les 16 capteurs de force, le schéma bloc</span><a class="btn-jouer" href="chapitres/chapitre-1.html#n-semelle">Ouvrir</a></div>
 <div class="jouer"><span><small>Le programme du cours</small>MQTT sur l'ESP32 : le programme complet du lab 6, ligne par ligne</span><a class="btn-jouer" href="chapitres/chapitre-14.html">Ouvrir</a></div>
 
@@ -35,8 +36,31 @@
 <tr><td>TD semelle instrumentée et connectée</td><td>Expliquer le besoin médical, lire la fiche des capteurs, refaire le schéma bloc, choisir les broches (tableau des entrées-sorties), dessiner l'organigramme, écrire le programme.</td><td><a href="chapitres/chapitre-1.html">Chapitre 1</a>, <a href="chapitres/chapitre-5.html">chapitre 5</a> (GPIO, ADC)</td></tr>
 <tr><td>Fonctions d'un objet connecté en MQTT</td><td>Écrire une fonction de traitement, le callback (lire le message et décider), la loop (reconnexion, acquisition, publication).</td><td><a href="chapitres/chapitre-7.html">Chapitre 7</a> (MQTT), <a href="chapitres/chapitre-14.html">lab 6</a>, <a href="chapitres/chapitre-10.html">lab 2</a> (JSON)</td></tr>
 </table></div>
-<p>L'énoncé du TD semelle (application n°1) est maintenant sur le site, dans l'espace TD : <a href="chapitres/chapitre-16.html">TD 1</a>, avec le corrigé des questions 1 à 14 (capteurs de force, INA128, multiplexeur, montage de mesure). L'extrait reçu ne contient ni le tableau des GPIO, ni l'organigramme, ni le programme : la partie 1 ci-dessous les travaille à partir de l'exemple du cours et du programme du module. Ces exercices et le programme de la semelle sont des <strong>exemples ajoutés</strong> pour s'entraîner.</p>
-<p>Le TD 2, « Programmation embarquée », est aussi corrigé dans l'espace TD : <a href="chapitres/chapitre-17.html">TD 2</a>, avec le tableau des broches, les fonctions de lecture des capteurs, les trois modes d'acquisition et le timer.</p>
+<p>Les nouveaux documents, et ce qu'ils ajoutent :</p>
+<div class="tableau"><table>
+<tr><th>Document</th><th>Ce qu'il faut savoir faire</th><th>Où c'est sur le site</th></tr>
+<tr><td>TD 2 : programmation embarquée de la semelle</td><td>Choisir les broches, écrire <code>selectSensor</code>, <code>sensorAcquisition</code>, <code>rsensor</code>, les modes d'acquisition, le bouton, le timer.</td><td><a href="chapitres/chapitre-17.html">TD 2</a>, partie 3 ci-dessous</td></tr>
+<tr><td>TD 3 : architecture et composants</td><td>Définir, comparer (microcontrôleur, DSP, FPGA ; RISC, CISC ; Von Neumann, Harvard ; interruption, DMA), lire un schéma de PIC, calculer une contrainte temporelle.</td><td><a href="chapitres/chapitre-18.html">TD 3</a>, partie 4 ci-dessous</td></tr>
+<tr><td>Projet pacemaker connecté</td><td>Expliquer les blocs, détecter un battement, calculer une fréquence, programmer la stimulation à la demande avec un timer et un watchdog.</td><td><a href="chapitres/chapitre-19.html">Projet</a>, partie 5 ci-dessous</td></tr>
+</table></div>
+
+<h2>Ton plan de révision</h2>
+<p>Dans cet ordre : chaque étape sert à la suivante.</p>
+<div class="tableau"><table>
+<tr><th>Étape</th><th>Ce que tu fais</th><th>Pourquoi d'abord</th></tr>
+<tr><td>1. Les architectures</td><td><a href="chapitres/chapitre-2.html">Chapitre 2</a>, puis <a href="chapitres/chapitre-18.html">TD 3</a> et la partie 4</td><td>des questions de cours fréquentes, rapides à apprendre ; la figure des interruptions du TD 3 explique tout le reste</td></tr>
+<tr><td>2. Les périphériques</td><td><a href="chapitres/chapitre-5.html">Chapitre 5</a> (GPIO, ADC, timers, watchdog, PWM)</td><td>le vocabulaire des TD 2 et du projet</td></tr>
+<tr><td>3. La semelle, du circuit au code</td><td><a href="chapitres/chapitre-16.html">TD 1</a> (questions 9 à 14), puis <a href="chapitres/chapitre-17.html">TD 2</a> et la partie 3</td><td>le TD annoncé ; le TD 2 en est la programmation</td></tr>
+<tr><td>4. MQTT</td><td>Partie 2 et la <a href="court/fiche-code.html">fiche du code</a></td><td>le deuxième point annoncé</td></tr>
+<tr><td>5. Le projet</td><td><a href="chapitres/chapitre-19.html">Projet</a> et la partie 5</td><td>il réunit ADC, timer, interruption, watchdog : un bon test de compréhension</td></tr>
+<tr><td>6. Vérifier</td><td>les versions courtes, puis « Chapitre par chapitre » en bas de page</td><td>répondre de tête avant d'ouvrir chaque réponse</td></tr>
+</table></div>
+<p>Une idée relie presque tout le module : <strong>une interruption lève un drapeau, la boucle fait le travail</strong>. Si tu sais expliquer pourquoi (TD 3, contraintes temporelles), tu comprends le timer du TD 2 et la stimulation du pacemaker.</p>
+<p>Attention, deux versions de la semelle sur cette page :</p>
+<ul>
+<li>les parties 1 et 2 sont des <strong>exemples ajoutés</strong>, écrits avant l'arrivée du TD 2 : quatre capteurs lus directement sur quatre broches, et des mesures publiées en MQTT ;</li>
+<li>la partie 3 suit le <strong>montage du professeur</strong> (TD 1 et TD 2) : 8 capteurs par réseau derrière un multiplexeur, choisis par S1 S2 S3, lus sur une seule entrée AIN1. À l'examen, c'est ce montage-là qui compte.</li>
+</ul>
 
 <h2>Partie 1 : la semelle instrumentée et connectée</h2>
 <h3>Ce que dit le cours</h3>
@@ -393,6 +417,253 @@ void loop() {
 <p>Le capteur de température et d'humidité en I2C n'est pas dans le programme : le cours ne dit pas quel circuit la semelle utilise, donc pas quelle bibliothèque.</p>
 </details>
 
+<h2>Partie 3 : la semelle programmée (TD 2)</h2>
+<h3>Le montage du professeur</h3>
+<p>Chaque réseau de 8 capteurs passe par le multiplexeur NX3L4051, puis par l'AOP qui donne \(V_A\), lue par l'ADC. Le programme fait le chemin à l'envers : du code lu à la tension, puis à la résistance, puis à la force.</p>
+<div class="schema" id="sc-td2-chaine"></div>
+<div class="tableau"><table>
+<tr><th>À retenir</th><th>Valeur</th></tr>
+<tr><td>Tension de l'entrée + de l'AOP</td><td>\(V^+ = 3{,}3 \times 10 / 120 = 0{,}275\) V</td></tr>
+<tr><td>Tension AIN1</td><td>\(V_A = V^+ \left(1 + R_G / R_{FSR}\right)\), avec \(R_G = 750\) kΩ</td></tr>
+<tr><td>Code vers tension</td><td>\(V_A = \text{code} \times 3{,}3 / 4095\)</td></tr>
+<tr><td>Tension vers résistance</td><td>\(R_{FSR} = R_G / (V_A / V^+ - 1)\)</td></tr>
+<tr><td>Résistance vers force</td><td>\(F = \beta / (R_{FSR} - R_0)\), \(\beta = 629\) kΩ·N, \(R_0 = 71\) kΩ</td></tr>
+</table></div>
+
+<p class="exo">14. Propose les broches de P1.0, P1.1, P1.2 (vers S1, S2, S3), de AIN1 et du bouton BTN_ACQ. Justifie chaque choix.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Broche</th><th>Justification</th></tr>
+<tr><td>P1.0, P1.1, P1.2</td><td>GPIO 25, 26, 27</td><td>sorties numériques : le microcontrôleur écrit le numéro du capteur en binaire</td></tr>
+<tr><td>AIN1</td><td>GPIO 34 (ADC1_CH6)</td><td>il faut un ADC ; l'ADC1, parce que l'ADC2 ne marche plus avec le Wi-Fi</td></tr>
+<tr><td>BTN_ACQ</td><td>GPIO 4, en <code>INPUT_PULLUP</code></td><td>il faut une résistance de tirage interne : GPIO 34 à 39 n'en ont pas</td></tr>
+</table></div>
+<p>D'autres broches sont justes si elles respectent ces règles. Faux à coup sûr : une sortie sur GPIO 34 à 39, ou une mesure sur l'ADC2 avec le Wi-Fi.</p>
+</details>
+
+<p class="exo">15. Écris <code>selectSensor(int num)</code>. Que valent S3 S2 S1 pour <code>num = 6</code> ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="selectSensor()"><code>void selectSensor(int num) {
+  digitalWrite(S1, (num >> 0) &amp; 1);   // bit 0, poids faible
+  digitalWrite(S2, (num >> 1) &amp; 1);   // bit 1
+  digitalWrite(S3, (num >> 2) &amp; 1);   // bit 2, poids fort
+}</code></pre>
+<p>6 s'écrit 110 : S3 = 1, S2 = 1, S1 = 0. Le multiplexeur relie \(Y_6\) à Z.</p>
+<p>Le décalage <code>&gt;&gt; i</code> amène le bit voulu tout à droite ; le masque <code>&amp; 1</code> efface les autres.</p>
+</details>
+
+<p class="exo">16. Le capteur sélectionné donne le code 2457. Calcule \(V_A\), puis \(R_{FSR}\), puis la force.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Tension :</p>
+\[V_A = \text{code} \times \frac{3{,}3}{4095}\]
+\[V_A = 2457 \times \frac{3{,}3}{4095}\]
+\[V_A = 1{,}98\ \text{V}\]
+<p>Résistance :</p>
+\[R_{FSR} = \frac{R_G}{V_A / V^+ - 1}\]
+\[R_{FSR} = \frac{750}{1{,}98 / 0{,}275 - 1}\]
+\[R_{FSR} \approx 121\ \text{k}\Omega\]
+<p>Force :</p>
+\[F = \frac{\beta}{R_{FSR} - R_0}\]
+\[F = \frac{629}{121 - 71}\]
+\[F \approx 12{,}6\ \text{N}\]
+</details>
+
+<p class="exo">17. Écris <code>float rsensor(float val)</code>. Pourquoi faut-il un test avant la division ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="rsensor()"><code>float rsensor(float val) {
+  float va = val * 3.3 / 4095.0;      // code -> tension
+  if (va &lt;= VP) return INFINITY;      // pas d'appui
+  return RG / (va / VP - 1.0);        // ohms
+}</code></pre>
+<p>Sans appui, \(V_A\) vaut \(V^+\) ; avec le bruit, elle peut passer un peu dessous.</p>
+<p>Le dénominateur deviendrait nul ou négatif : division par zéro, ou résistance négative.</p>
+</details>
+
+<p class="exo">18. Écris <code>acquisition(int mode, int num, int N)</code> (mode 0 : une mesure de num ; mode 1 : moyenne de N mesures de num ; mode 2 : moyenne de N mesures pour chacun des 8). Que moyennes-tu, et pourquoi ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<pre class="code" data-titre="acquisition()"><code>float mesures[8];
+
+float moyenneCodes(int num, int N) {
+  if (N &lt; 1) N = 1;
+  selectSensor(num);
+  delay(2);                                 // VA se stabilise
+  long somme = 0;
+  for (int i = 0; i &lt; N; i++) somme += analogRead(AIN1);
+  return (float)somme / N;
+}
+
+void acquisition(int mode, int num, int N) {
+  if (mode == 0) mesures[num] = rsensor(sensorAcquisition(num));
+  else if (mode == 1) mesures[num] = rsensor(moyenneCodes(num, N));
+  else if (mode == 2) {
+    for (int k = 0; k &lt; 8; k++) mesures[k] = rsensor(moyenneCodes(k, N));
+  }
+}</code></pre>
+<p>On moyenne les <strong>codes</strong>, puis on convertit une seule fois.</p>
+<p>Le bruit est sur la tension, et la conversion en résistance n'est pas linéaire : la moyenne des résistances ne serait pas la résistance de la tension moyenne.</p>
+</details>
+
+<p class="exo">19. Le compteur du timer avance à 1 MHz. Quelle valeur d'alarme pour une acquisition toutes les 0,5 s ? Écris la configuration du timer et la loop.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+\[\text{alarme} = \frac{T_{ACQ}}{T_{tic}}\]
+\[\text{alarme} = \frac{0{,}5\ \text{s}}{1\ \mu\text{s}}\]
+\[\text{alarme} = 500\,000\]
+<pre class="code" data-titre="Timer et loop"><code>hw_timer_t *timer = NULL;
+volatile bool tick = false;
+
+void IRAM_ATTR onTimer() {
+  tick = true;                           // l'interruption lève un drapeau, c'est tout
+}
+
+void setup() {
+  configSensors();
+  timer = timerBegin(1000000);           // 1 pas = 1 µs
+  timerAttachInterrupt(timer, &amp;onTimer);
+  timerAlarm(timer, 500000, true, 0);    // 0,5 s, rechargement auto
+}
+
+void loop() {
+  if (tick) {
+    tick = false;
+    acquisition(2, 0, 10);               // les 8 capteurs
+  }
+}</code></pre>
+<p>La mesure n'est pas dans l'interruption : elle dure plusieurs millisecondes (attentes, conversions), et une interruption doit être courte.</p>
+</details>
+
+<p class="exo">20. Trouve les quatre erreurs de ce programme.</p>
+<pre class="code" data-titre="Programme à corriger"><code>hw_timer_t *timer = NULL;
+
+void IRAM_ATTR onTimer0() {
+  tick = true;
+  acquisition(2, 0, 10);
+}
+
+void setup() {
+  timer = timerBegin(1000000);
+  timerAttachInterrupt(timer, &amp;onTimer);
+  timerAlarm(timer, 1000000, true, 0);
+}
+
+void loop() {
+  if (tick) {
+    tick = false;
+    delay(1000);
+  }
+}</code></pre>
+<details class="corrige"><summary>Voir la correction</summary>
+<ul>
+<li><code>tick</code> n'est pas déclaré : il faut <code>volatile bool tick = false;</code>.</li>
+<li>La fonction s'appelle <code>onTimer0</code>, mais on attache <code>&amp;onTimer</code> : les deux noms doivent être les mêmes (c'est l'erreur de l'annexe du TD 2).</li>
+<li>L'acquisition est dans l'interruption : bien trop long, elle va dans <code>loop()</code>.</li>
+<li>Le <code>delay(1000)</code> dans <code>loop()</code> bloque tout et ne sert à rien : c'est le timer qui donne le rythme.</li>
+</ul>
+</details>
+
+<h2>Partie 4 : architecture et composants (TD 3)</h2>
+<h3>Ce que dit le cours</h3>
+<ul>
+<li><strong>Système embarqué</strong> : système électronique et informatique autonome, dédié à une tâche bien précise ; il désigne le matériel et le logiciel. Ressources limitées : énergie, place.</li>
+<li><strong>RISC</strong> : instructions simples d'un cycle, registre à registre, complexité dans le logiciel. <strong>CISC</strong> : instructions complexes de plusieurs cycles, mémoire à mémoire, complexité dans le matériel.</li>
+<li><strong>Von Neumann</strong> : une mémoire et un bus pour tout. <strong>Harvard</strong> : mémoire du programme et mémoire des données séparées. <strong>Super Harvard</strong> : Harvard plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
+<li><strong>DMA</strong> : transferts entre périphériques et mémoire sans le CPU.</li>
+</ul>
+
+<p class="exo">21. Définis un système embarqué et donne trois contraintes. Désigne-t-il le matériel, le logiciel, ou les deux ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Un système électronique et informatique autonome, dédié à une tâche bien précise.</p>
+<p>Contraintes : ressources limitées (consommation, place), temps de réponse, fiabilité et sécurité (le coût aussi).</p>
+<p>Le terme désigne le matériel et le logiciel.</p>
+</details>
+
+<p class="exo">22. Donne deux avantages et deux applications d'un microcontrôleur, d'un DSP et d'un FPGA.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<div class="tableau"><table>
+<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>tout est intégré ; faible coût et faible consommation</td><td>semelle, tensiomètre</td></tr>
+<tr><td>DSP</td><td>calcul rapide ; traitement du signal en temps réel</td><td>filtrage ECG, prothèse auditive</td></tr>
+<tr><td>FPGA</td><td>calculs en parallèle ; matériel reconfigurable</td><td>imagerie, acquisition rapide multivoie</td></tr>
+</table></div>
+</details>
+
+<p class="exo">23. Rôle de : PWM, watchdog, timer, UART, pile.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<ul>
+<li>PWM : signal rectangulaire de rapport cyclique réglable ; tension moyenne \(\alpha \times 3{,}3\) V.</li>
+<li>Watchdog : redémarre la puce si le programme ne le remet plus à zéro, donc s'il est bloqué.</li>
+<li>Timer : compte le temps à partir d'une horloge, déclenche des interruptions régulières.</li>
+<li>UART : liaison série asynchrone (start, 8 bits, stop), sans fil d'horloge.</li>
+<li>Pile : zone de RAM « dernier entré, premier sorti » : adresses de retour, variables locales.</li>
+</ul>
+</details>
+
+<p class="exo">24. Une boucle de 20 instructions, chacune avec une donnée. Combien de cycles de bus en Von Neumann, en Harvard (modèle du cours) ? Pourquoi cette différence ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Von Neumann : \(2N = 40\) cycles. Harvard : \(N + 1 = 21\) cycles.</p>
+<p>En Harvard, la donnée de l'instruction \(k\) passe sur le bus des données pendant que l'instruction \(k + 1\) arrive sur le bus du programme. En Von Neumann, tout fait la queue sur le même bus.</p>
+</details>
+
+<p class="exo">25. Compare la gestion des entrées-sorties par scrutation ou interruption et par DMA. Laquelle pour un bouton ? Pour un ECG à 2 000 échantillons par seconde ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Scrutation ou interruption : chaque donnée passe par le CPU, simple, mais le CPU attend (scrutation) ou est dérangé à chaque donnée (interruption).</p>
+<p>DMA : la donnée va directement en mémoire, le CPU reste libre ; configuration plus lourde.</p>
+<p>Bouton : une interruption. ECG rapide : le DMA.</p>
+</details>
+
+<p class="exo">26. Dans le schéma du PIC, quel bloc garde le programme ? Les variables ? Un réglage à garder sans alimentation ? L'adresse de la prochaine instruction ? Les adresses de retour ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<ul>
+<li>Le programme : Program Memory (flash).</li>
+<li>Les variables : Data Memory (RAM).</li>
+<li>Un réglage à garder : Data EEPROM.</li>
+<li>La prochaine instruction : Program Counter.</li>
+<li>Les adresses de retour : la pile (16 niveaux).</li>
+</ul>
+<p>Deux mémoires séparées : Harvard. 83 instructions : RISC.</p>
+</details>
+
+<p class="exo">27. Une boucle principale dure 40 ms sans interruption. Une interruption arrive toutes les 8 ms, bloquée pendant sa routine. a) Durée maximale de la routine ? b) La routine dure 2 ms : durée moyenne de la boucle ? c) Que se passe-t-il si la routine dure 9 ms ? d) Et si, en plus, elle réarme les interruptions ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>a) La routine doit finir avant l'interruption suivante : \(t_{max} = T = 8\) ms.</p>
+<p>b) La boucle n'avance que pendant \(1 - 2/8 = 75\ \%\) du temps :</p>
+\[t_{boucle} = \frac{t_0}{1 - t / T}\]
+\[t_{boucle} = \frac{40}{1 - 2 / 8}\]
+\[t_{boucle} \approx 53{,}3\ \text{ms}\]
+<p>c) Les demandes arrivent pendant la routine : elles attendent, le retard s'accumule, des interruptions sont perdues, et la boucle ne s'exécute plus.</p>
+<p>d) Les routines s'imbriquent, chacune laisse son contexte sur la pile, qui déborde : le programme plante.</p>
+</details>
+
+<h2>Partie 5 : le pacemaker (projet)</h2>
+<p>Le projet est surtout un travail pratique, mais il utilise exactement les notions de l'examen : ADC, timer, interruption, watchdog.</p>
+
+<p class="exo">28. Que veut dire VVI ? Pourquoi est-ce le mode de la maquette ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>V : ventricule stimulé. V : ventricule détecté. I : stimulation inhibée quand un battement est détecté.</p>
+<p>La maquette stimule si rien n'est détecté pendant l'intervalle et s'inhibe sinon, sur une seule voie.</p>
+</details>
+
+<p class="exo">29. Deux ondes R sont détectées à 3 790 ms et 4 650 ms. Fréquence cardiaque ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+\[RR = 4\,650 - 3\,790 = 860\ \text{ms}\]
+\[f_C = \frac{60\,000}{RR}\]
+\[f_C = \frac{60\,000}{860}\]
+\[f_C \approx 69{,}8\ \text{bpm}\]
+</details>
+
+<p class="exo">30. Fréquence cible 48 bpm. Au bout de combien de temps sans battement la maquette stimule-t-elle ? Que fait-elle si un battement arrive avant ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+\[T_{ech} = \frac{60\,000}{f}\]
+\[T_{ech} = \frac{60\,000}{48}\]
+\[T_{ech} = 1\,250\ \text{ms}\]
+<p>Si un battement arrive avant, elle ne stimule pas et remet le timer de stimulation à zéro (<code>timerWrite(timer, 0)</code>) : l'intervalle repart de ce battement.</p>
+</details>
+
+<p class="exo">31. Pourquoi une période réfractaire après chaque détection ? Où remettre le watchdog à zéro ?</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>Sans elle, une onde R bruitée ou à deux sommets franchit le seuil deux fois : un battement compté double, une fréquence fausse.</p>
+<p>Le watchdog se remet à zéro une fois par tour de <code>loop()</code>, jamais dans une interruption : une interruption de timer continue d'arriver quand la boucle est bloquée, et le watchdog ne verrait rien.</p>
+</details>
+
 <h2>Les pièges</h2>
 <ul>
 <li>Oublier <code>client.setCallback(callback)</code> ou <code>client.loop()</code> : aucun message reçu n'est traité.</li>
@@ -402,6 +673,13 @@ void loop() {
 <li>Mettre <code>delay()</code> dans <code>loop()</code> : tout est bloqué, on mesure l'intervalle avec <code>millis()</code>.</li>
 <li>Un capteur analogique sur l'ADC2 avec le Wi-Fi, ou une LED sur GPIO 34 à 39 (entrées seules).</li>
 <li>Deux cartes avec le même Client ID sur un broker public : elles se déconnectent l'une l'autre.</li>
+<li>Lire S3 S2 S1 à l'envers : S1 est le bit de <strong>poids faible</strong> (111 = 7, 011 = 3).</li>
+<li>Oublier l'attente après <code>selectSensor()</code> : la première lecture garde un peu du capteur précédent.</li>
+<li>Diviser sans tester \(V_A \le V^+\) dans <code>rsensor()</code> : résistance négative ou division par zéro.</li>
+<li>Mettre l'acquisition ou un <code>Serial.print</code> dans une interruption ; oublier <code>volatile</code> sur le drapeau.</li>
+<li>Confondre la valeur d'alarme et la période : alarme = période / durée d'un pas (1 000 000 pas de 1 µs pour 1 s).</li>
+<li>Remettre le watchdog à zéro dans une interruption : il ne voit plus un blocage de la boucle.</li>
+<li>Confondre Harvard (deux mémoires) et RISC (jeu d'instructions réduit) : ce sont deux questions différentes, un PIC est les deux.</li>
 </ul>
 
 <div id="par-chapitre"></div>
