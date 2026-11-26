@@ -40,6 +40,15 @@
 <li>La fonction d'interruption porte <code>IRAM_ATTR</code> (elle est rangée en RAM interne, rapide) et doit être <strong>courte</strong> : elle lève un drapeau, la boucle fait le travail.</li>
 <li>Une variable partagée entre l'interruption et la boucle est déclarée <code>volatile</code> : le compilateur la relit à chaque fois au lieu d'en garder une copie.</li>
 </ul>
+<p><strong>L'idée, avant le code.</strong> Le timer est un compteur qui avance tout seul. On lui dit : avance d'un pas par microseconde, et préviens-moi à 1 000 000 pas, puis recommence. « Prévenir », c'est appeler une fonction d'interruption, qu'on écrit nous-mêmes : elle lève un drapeau (<code>tick = true</code>). La boucle regarde le drapeau ; quand il est levé, elle le baisse et fait les mesures.</p>
+<p><strong>Ce que fait chaque instruction de l'annexe.</strong></p>
+<ul>
+<li><code>hw_timer_t *timer = NULL;</code> : une variable qui désignera le timer (vide pour l'instant).</li>
+<li><code>timer = timerBegin(1000000);</code> : on démarre un timer qui compte à 1 MHz, un pas par microseconde.</li>
+<li><code>timerAttachInterrupt(timer, &amp;onTimer);</code> : quand l'alarme sonnera, la puce appellera la fonction <code>onTimer</code>.</li>
+<li><code>timerAlarm(timer, 1000000, true, 0);</code> : l'alarme sonne à 1 000 000 pas ; <code>true</code>, le compteur repart de 0 et recommence (rechargement auto) ; <code>0</code>, sans limite de répétitions.</li>
+<li><code>portENTER_CRITICAL_ISR</code> et <code>portEXIT_CRITICAL_ISR</code> : pendant ces deux lignes, rien ne peut couper l'écriture de <code>tick</code>.</li>
+</ul>
 <p><strong>Réponse.</strong> Le nombre de pas pour 1 s :</p>
 \[T_{tic} = \frac{1}{f_{compteur}}\]
 \[T_{tic} = \frac{1}{10^6\ \text{Hz}}\]

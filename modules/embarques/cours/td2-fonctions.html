@@ -21,7 +21,12 @@
 <p class="chapeau">Avant d'enchaîner les mesures, il faut quatre briques : préparer les broches, choisir un capteur, lire sa tension, retrouver sa résistance. Chacune tient en quelques lignes et sert ensuite partout.</p>
 
 <h2>Le début du programme : les noms des broches</h2>
-<p>On donne un nom à chaque broche et à chaque valeur du montage, une fois pour toutes. Changer de broche ne demande alors de toucher qu'une ligne.</p>
+<p>On donne un nom à chaque broche et à chaque valeur du montage, une fois pour toutes. Changer de broche ne demande alors de toucher qu'une ligne, et le programme se lit comme le schéma : on écrit <code>S1</code> au lieu de <code>25</code>.</p>
+<ul>
+<li><code>const int S1 = 25;</code> : une constante entière nommée S1, qui vaut 25 (la broche choisie à la question 1). <code>const</code> veut dire qu'elle ne changera jamais.</li>
+<li><code>const float RA = 110000.0;</code> : un réel (<code>float</code>), parce qu'on va faire des divisions avec des décimales. Les résistances sont en ohms : 110 kΩ = 110 000 Ω.</li>
+<li><code>VP</code> est calculée une seule fois au début : c'est le \(V^+ = 0{,}275\) V du montage, dont on aura besoin dans <code>rsensor()</code>.</li>
+</ul>
 <pre class="code" data-titre="Constantes (broches de la question 1)"><code>const int S1 = 25;            // P1.0 : bit de poids faible du multiplexeur
 const int S2 = 26;            // P1.1
 const int S3 = 27;            // P1.2 : bit de poids fort
@@ -40,6 +45,13 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <li><code>pinMode(broche, OUTPUT)</code> fait d'une GPIO une sortie, <code>digitalWrite(broche, HIGH ou LOW)</code> y écrit 3,3 V ou 0 V.</li>
 <li>Une broche analogique n'a pas besoin de <code>pinMode</code> pour <code>analogRead</code>. On peut fixer la résolution de l'ADC avec <code>analogReadResolution(12)</code> : 12 bits est déjà la valeur par défaut sur l'ESP32, l'écrire rend le programme clair.</li>
 </ul>
+<p><strong>Ce que fait chaque ligne.</strong></p>
+<ul>
+<li>Trois <code>pinMode(…, OUTPUT)</code> : on annonce à la puce que S1, S2, S3 sont des sorties. Sans cette ligne, la broche reste en entrée et <code>digitalWrite</code> n'aurait aucun effet sur le multiplexeur.</li>
+<li><code>analogReadResolution(12)</code> : les mesures sont rendues sur 12 bits, de 0 à 4095.</li>
+<li><code>selectSensor(0)</code> : on part d'un état connu, le capteur Y0, plutôt que d'un état au hasard.</li>
+</ul>
+<p>Cette fonction est appelée une seule fois, dans <code>setup()</code>, au démarrage.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="configSensors()"><code>void configSensors() {
   pinMode(S1, OUTPUT);
@@ -60,6 +72,14 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <tr><th>num</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
 <tr><th>S3 S2 S1</th><td>000</td><td>001</td><td>010</td><td>011</td><td>100</td><td>101</td><td>110</td><td>111</td></tr>
 </table></div>
+<p><strong>Comment on extrait un bit, sur un exemple.</strong> Prenons <code>num = 6</code>, qui s'écrit 110 en binaire (4 + 2 + 0). On veut S1 = 0, S2 = 1, S3 = 1.</p>
+<div class="tableau"><table>
+<tr><th>Pour</th><th>Décalage <code>num &gt;&gt; i</code></th><th>Masque <code>&amp; 1</code></th><th>Résultat</th></tr>
+<tr><td>S1 (bit 0)</td><td>6 &gt;&gt; 0 = 110 (on ne décale pas)</td><td>110 &amp; 001 = 0</td><td>S1 = 0</td></tr>
+<tr><td>S2 (bit 1)</td><td>6 &gt;&gt; 1 = 11 (on pousse d'un cran vers la droite, le dernier bit tombe)</td><td>011 &amp; 001 = 1</td><td>S2 = 1</td></tr>
+<tr><td>S3 (bit 2)</td><td>6 &gt;&gt; 2 = 1</td><td>001 &amp; 001 = 1</td><td>S3 = 1</td></tr>
+</table></div>
+<p>Le décalage amène le bit qui nous intéresse tout à droite ; le masque <code>&amp; 1</code> efface tous les autres. Il reste 0 ou 1, exactement ce que <code>digitalWrite</code> attend (LOW ou HIGH).</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="selectSensor()"><code>void selectSensor(int num) {
   digitalWrite(S1, (num >> 0) &amp; 1);   // bit 0
@@ -75,6 +95,7 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <li><code>analogRead(broche)</code> renvoie le code de l'ADC : \(ADC\_OUT = 4095 \times ADC\_IN / 3{,}3\ \text{V}\).</li>
 <li>Après un changement de voie, \(V_A\) met un peu de temps à se stabiliser : le filtre \(R_G C_F\) demande environ \(5 R_G C_F\). Avec \(C_F = 470\) pF (la proposition du TD 1), cela fait 1,8 ms.</li>
 </ul>
+<p><strong>L'ordre compte.</strong> On choisit d'abord le capteur (le multiplexeur bascule), on attend que la tension se pose, et seulement ensuite on mesure. Mesurer avant, ce serait lire le capteur précédent.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="sensorAcquisition()"><code>int sensorAcquisition(int num) {
   selectSensor(num);
@@ -92,6 +113,13 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 </ul>
 \[\frac{V_A}{V^+} = 1 + \frac{R_G}{R_{FSR}}\]
 \[R_{FSR} = \frac{R_G}{\dfrac{V_A}{V^+} - 1}\]
+<p>Comment on isole \(R_{FSR}\), ligne par ligne :</p>
+<ul>
+<li>on part de \(V_A = V^+ (1 + R_G / R_{FSR})\) (question 12 du TD 1) ;</li>
+<li>on divise les deux côtés par \(V^+\) : \(V_A / V^+ = 1 + R_G / R_{FSR}\) ;</li>
+<li>on enlève 1 des deux côtés : \(V_A / V^+ - 1 = R_G / R_{FSR}\) ;</li>
+<li>on retourne les deux fractions : \(R_{FSR} / R_G = 1 / (V_A / V^+ - 1)\), puis on multiplie par \(R_G\).</li>
+</ul>
 <p>Si \(V_A \le V^+\), le dénominateur est nul ou négatif : aucun appui, la résistance est « infinie ». Le programme doit traiter ce cas au lieu de diviser par zéro.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="rsensor()"><code>float rsensor(int val) {

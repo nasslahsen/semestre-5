@@ -41,6 +41,13 @@ float mesures[NB_CAPTEURS];   // résistance de chaque capteur (ohms), case k = 
 <li>La somme de 4095 codes peut dépasser ce que tient un <code>int</code> 16 bits sur d'autres microcontrôleurs : un <code>long</code> est sûr partout (sur l'ESP32, <code>int</code> fait déjà 32 bits).</li>
 </ul>
 <div class="schema" id="sc-td2-modes"></div>
+<p><strong>Comment on construit la fonction.</strong></p>
+<ul>
+<li>Les modes 1 et 2 font tous les deux « la moyenne de N mesures d'un capteur » : on l'écrit une seule fois, dans une petite fonction d'aide, <code>moyenneCodes()</code>.</li>
+<li>Faire une moyenne : additionner N mesures dans une variable <code>somme</code> (une boucle <code>for</code> qui tourne N fois), puis diviser par N.</li>
+<li><code>acquisition()</code> regarde le mode avec des <code>if</code> : mode 0, une mesure ; mode 1, la moyenne d'un capteur ; mode 2, une boucle sur les 8 capteurs (k de 0 à 7), qui fait la moyenne de chacun.</li>
+<li>À chaque fois, le résultat est converti en résistance par <code>rsensor()</code> et rangé dans la case du capteur, <code>mesures[k]</code>.</li>
+</ul>
 <p><strong>Réponse.</strong> Une fonction d'aide fait la moyenne, les trois modes l'utilisent :</p>
 <pre class="code" data-titre="Moyenne de N codes d'un capteur"><code>float moyenneCodes(int num, int N) {
   if (N &lt; 1) N = 1;             // au moins une mesure
@@ -79,6 +86,12 @@ float mesures[NB_CAPTEURS];   // résistance de chaque capteur (ohms), case k = 
 <li>GPIO 34 à 39 n'ont pas de tirage interne : le bouton va sur une autre broche, ici GPIO 4.</li>
 <li>Un contact mécanique <strong>rebondit</strong> pendant quelques millisecondes : on détecte le passage de HIGH à LOW (le front), puis on attend un peu avant de relire.</li>
 </ul>
+<p><strong>Pourquoi appuyé donne LOW.</strong> Le bouton relie la broche à la masse quand on appuie. <code>INPUT_PULLUP</code> branche, dans la puce, une résistance entre la broche et 3,3 V :</p>
+<ul>
+<li>bouton relâché : aucun chemin vers la masse, la résistance tire la broche vers 3,3 V, on lit HIGH ;</li>
+<li>bouton appuyé : la broche est reliée directement à la masse, on lit LOW.</li>
+</ul>
+<p><strong>Pourquoi détecter le front.</strong> <code>loop()</code> tourne des milliers de fois par seconde. Si on lançait une mesure à chaque tour où le bouton est LOW, un seul appui en lancerait des centaines. On garde donc l'état du tour précédent (<code>etatPrecedent</code>) et on ne réagit qu'au moment précis où il passe de HIGH à LOW : une mesure par appui.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="Version 1 complète : setup() et loop()"><code>const int BTN_ACQ = 4;          // bouton entre GPIO 4 et la masse
 bool etatPrecedent = HIGH;

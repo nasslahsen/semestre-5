@@ -60,15 +60,39 @@
 
 <h4>Question 1 : les broches</h4>
 <p><strong>On te demande.</strong> Propose les broches de l'ESP32 qui reçoivent les signaux P1.0, P1.1, P1.2 et AIN1.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+
+<h5>D'abord : qu'est-ce qu'une broche, et que doit faire chacune ?</h5>
+<p>Une <strong>broche</strong> (GPIO, General Purpose Input Output) est une patte de la carte reliée à la puce. Le programme décide de son rôle. Une broche peut être :</p>
 <ul>
-<li>P1.0, P1.1, P1.2 commandent S1, S2, S3 : ce sont des <strong>sorties numériques</strong>.</li>
-<li>AIN1 reçoit \(V_A\) : il faut une broche reliée à un <strong>ADC</strong>.</li>
-<li>GPIO 34, 35, 36 et 39 sont des <strong>entrées seulement</strong>, sans résistance de tirage : jamais pour une sortie, parfaites pour une mesure.</li>
-<li>Les broches de l'<strong>ADC2</strong> ne marchent plus quand le Wi-Fi est utilisé : une semelle connectée lit ses capteurs sur l'ADC1 (GPIO 32 à 39).</li>
-<li>Mieux vaut laisser libres les broches qui ont déjà un rôle sur la carte : GPIO 1 et 3 (UART0, liaison USB), GPIO 2 (LED bleue), GPIO 21 et 22 (I2C).</li>
+<li>une <strong>sortie numérique</strong> : le programme y <em>écrit</em> 0 V ou 3,3 V (<code>digitalWrite</code>), par exemple pour allumer une LED ou donner un ordre à un autre circuit ;</li>
+<li>une <strong>entrée numérique</strong> : le programme y <em>lit</em> 0 ou 1 (<code>digitalRead</code>), par exemple l'état d'un bouton ;</li>
+<li>une <strong>entrée analogique</strong> : le programme y <em>mesure</em> une tension et obtient un nombre de 0 à 4095 (<code>analogRead</code>). Seules les broches reliées à un <strong>ADC</strong> (le convertisseur) savent le faire.</li>
 </ul>
-<p><strong>Réponse.</strong> Une affectation possible, sur le brochage de l'annexe :</p>
+<p>Maintenant, regarde le circuit de la page et demande-toi, pour chaque fil qui arrive au microcontrôleur : qui parle à qui ?</p>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Où il va</th><th>Qui décide de sa valeur ?</th><th>Donc la broche doit être</th></tr>
+<tr><td>P1.0, P1.1, P1.2</td><td>vers S1, S2, S3 du multiplexeur</td><td>le <strong>microcontrôleur</strong> : c'est lui qui choisit quel capteur lire, en écrivant son numéro en binaire</td><td>une <strong>sortie numérique</strong></td></tr>
+<tr><td>AIN1</td><td>vient de la sortie \(V_A\) de l'AOP</td><td>le <strong>circuit</strong> : la tension dépend de l'appui, le microcontrôleur doit la mesurer</td><td>une <strong>entrée analogique</strong> (reliée à un ADC)</td></tr>
+</table></div>
+
+<h5>Ensuite : éliminer les broches qui ne conviennent pas</h5>
+<p>La carte ESP32 DEVKIT V1 de l'annexe a 30 broches. On les élimine une catégorie à la fois, comme un entonnoir :</p>
+<ul>
+<li><strong>Pas des broches de signal</strong> : EN (le redémarrage), VIN, 3V3, GND (l'alimentation). Il reste les GPIO.</li>
+<li><strong>Déjà occupées sur la carte</strong> : GPIO 1 et 3 (TX0 et RX0) relient la puce au câble USB, c'est par là qu'on téléverse le programme et qu'on lit le moniteur série. GPIO 2 porte la LED bleue. Les utiliser casserait autre chose.</li>
+<li><strong>Entrées seulement</strong> : GPIO 34, 35, 36 et 39 n'ont pas de circuit de sortie. Elles peuvent mesurer, jamais écrire. Donc jamais pour S1 à S3.</li>
+<li><strong>ADC2 et Wi-Fi</strong> : l'ESP32 a deux convertisseurs, ADC1 (GPIO 32 à 39) et ADC2 (GPIO 0, 2, 4, 12 à 15, 25 à 27). Le cours le dit : les broches de l'ADC2 ne marchent plus quand le Wi-Fi est utilisé. Une semelle connectée envoie ses mesures en Wi-Fi : la mesure doit donc se faire sur l'<strong>ADC1</strong>.</li>
+<li><strong>Broches sensibles au démarrage</strong> (complément, pas dans le cours) : GPIO 0, 2, 5, 12 et 15 sont lues par la puce au démarrage pour choisir son mode. Un montage qui les force à 0 ou à 1 peut empêcher la carte de démarrer : on les évite quand on peut.</li>
+</ul>
+<div id="fig-td2-broches"></div>
+
+<h5>Enfin : choisir</h5>
+<ul>
+<li><strong>Pour S1, S2, S3</strong> (trois sorties) : il reste beaucoup de choix (4, 13, 14, 16 à 19, 21 à 23, 25 à 27, 32, 33). On prend <strong>GPIO 25, 26, 27</strong> : trois broches voisines sur la carte, ce qui rend le câblage simple, et aucune n'est sensible au démarrage. N'importe quel trio de cette liste serait juste.</li>
+<li><strong>Pour AIN1</strong> (une mesure, avec le Wi-Fi) : il faut l'ADC1, donc GPIO 32, 33, 34, 35, 36 ou 39. On prend <strong>GPIO 34</strong> : elle est en entrée seulement, ce qui ne gêne pas pour une mesure, et on garde 32 et 33 (qui savent aussi être des sorties) pour autre chose.</li>
+<li><strong>Pour le second réseau de 8 capteurs</strong> : son AOP sort une autre tension, AIN2, sur une autre broche de l'ADC1, <strong>GPIO 35</strong>. Les deux multiplexeurs peuvent partager S1, S2, S3 : ils choisissent le même numéro de capteur, et l'ESP32 lit les deux tensions l'une après l'autre.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th>Signal</th><th>Rôle</th><th>Broche</th><th>Type</th></tr>
 <tr><td>P1.0</td><td>S1, bit de poids faible</td><td>GPIO 25</td><td>sortie numérique</td></tr>
@@ -77,13 +101,7 @@
 <tr><td>AIN1</td><td>\(V_A\) du premier réseau</td><td>GPIO 34 (ADC1_CH6)</td><td>entrée analogique</td></tr>
 <tr><td>AIN2</td><td>\(V_A\) du second réseau</td><td>GPIO 35 (ADC1_CH7)</td><td>entrée analogique</td></tr>
 </table></div>
-<p>Pourquoi ces choix :</p>
-<ul>
-<li>GPIO 25, 26, 27 sont voisines sur la carte et peuvent toutes sortir un niveau logique.</li>
-<li>GPIO 34 et 35 sont sur l'ADC1 : la mesure continue de marcher quand le Wi-Fi envoie les données. Comme ce sont des entrées seulement, on ne perd aucune sortie utile.</li>
-<li>Le second réseau de 8 capteurs peut partager les trois lignes S1 S2 S3 : les deux multiplexeurs choisissent alors le même numéro de capteur, et l'ESP32 lit les deux tensions, l'une après l'autre, sur GPIO 34 et 35.</li>
-</ul>
-<p>D'autres choix sont justes s'ils respectent ces règles. Une sortie sur GPIO 34 à 39, ou une mesure sur l'ADC2 avec le Wi-Fi, serait fausse.</p>
+<p>À l'examen, ce qui compte n'est pas le numéro exact mais la justification : sorties numériques pour S1 à S3 (pas GPIO 34 à 39), entrée sur l'ADC1 pour AIN1 (pas l'ADC2 avec le Wi-Fi), broches libres sur la carte.</p>
 
 <h4>À retenir</h4>
 <ul>
@@ -103,7 +121,12 @@
 <p class="chapeau">Avant d'enchaîner les mesures, il faut quatre briques : préparer les broches, choisir un capteur, lire sa tension, retrouver sa résistance. Chacune tient en quelques lignes et sert ensuite partout.</p>
 
 <h4>Le début du programme : les noms des broches</h4>
-<p>On donne un nom à chaque broche et à chaque valeur du montage, une fois pour toutes. Changer de broche ne demande alors de toucher qu'une ligne.</p>
+<p>On donne un nom à chaque broche et à chaque valeur du montage, une fois pour toutes. Changer de broche ne demande alors de toucher qu'une ligne, et le programme se lit comme le schéma : on écrit <code>S1</code> au lieu de <code>25</code>.</p>
+<ul>
+<li><code>const int S1 = 25;</code> : une constante entière nommée S1, qui vaut 25 (la broche choisie à la question 1). <code>const</code> veut dire qu'elle ne changera jamais.</li>
+<li><code>const float RA = 110000.0;</code> : un réel (<code>float</code>), parce qu'on va faire des divisions avec des décimales. Les résistances sont en ohms : 110 kΩ = 110 000 Ω.</li>
+<li><code>VP</code> est calculée une seule fois au début : c'est le \(V^+ = 0{,}275\) V du montage, dont on aura besoin dans <code>rsensor()</code>.</li>
+</ul>
 <pre class="code" data-titre="Constantes (broches de la question 1)"><code>const int S1 = 25;            // P1.0 : bit de poids faible du multiplexeur
 const int S2 = 26;            // P1.1
 const int S3 = 27;            // P1.2 : bit de poids fort
@@ -122,6 +145,13 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <li><code>pinMode(broche, OUTPUT)</code> fait d'une GPIO une sortie, <code>digitalWrite(broche, HIGH ou LOW)</code> y écrit 3,3 V ou 0 V.</li>
 <li>Une broche analogique n'a pas besoin de <code>pinMode</code> pour <code>analogRead</code>. On peut fixer la résolution de l'ADC avec <code>analogReadResolution(12)</code> : 12 bits est déjà la valeur par défaut sur l'ESP32, l'écrire rend le programme clair.</li>
 </ul>
+<p><strong>Ce que fait chaque ligne.</strong></p>
+<ul>
+<li>Trois <code>pinMode(…, OUTPUT)</code> : on annonce à la puce que S1, S2, S3 sont des sorties. Sans cette ligne, la broche reste en entrée et <code>digitalWrite</code> n'aurait aucun effet sur le multiplexeur.</li>
+<li><code>analogReadResolution(12)</code> : les mesures sont rendues sur 12 bits, de 0 à 4095.</li>
+<li><code>selectSensor(0)</code> : on part d'un état connu, le capteur Y0, plutôt que d'un état au hasard.</li>
+</ul>
+<p>Cette fonction est appelée une seule fois, dans <code>setup()</code>, au démarrage.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="configSensors()"><code>void configSensors() {
   pinMode(S1, OUTPUT);
@@ -142,6 +172,14 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <tr><th>num</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
 <tr><th>S3 S2 S1</th><td>000</td><td>001</td><td>010</td><td>011</td><td>100</td><td>101</td><td>110</td><td>111</td></tr>
 </table></div>
+<p><strong>Comment on extrait un bit, sur un exemple.</strong> Prenons <code>num = 6</code>, qui s'écrit 110 en binaire (4 + 2 + 0). On veut S1 = 0, S2 = 1, S3 = 1.</p>
+<div class="tableau"><table>
+<tr><th>Pour</th><th>Décalage <code>num &gt;&gt; i</code></th><th>Masque <code>&amp; 1</code></th><th>Résultat</th></tr>
+<tr><td>S1 (bit 0)</td><td>6 &gt;&gt; 0 = 110 (on ne décale pas)</td><td>110 &amp; 001 = 0</td><td>S1 = 0</td></tr>
+<tr><td>S2 (bit 1)</td><td>6 &gt;&gt; 1 = 11 (on pousse d'un cran vers la droite, le dernier bit tombe)</td><td>011 &amp; 001 = 1</td><td>S2 = 1</td></tr>
+<tr><td>S3 (bit 2)</td><td>6 &gt;&gt; 2 = 1</td><td>001 &amp; 001 = 1</td><td>S3 = 1</td></tr>
+</table></div>
+<p>Le décalage amène le bit qui nous intéresse tout à droite ; le masque <code>&amp; 1</code> efface tous les autres. Il reste 0 ou 1, exactement ce que <code>digitalWrite</code> attend (LOW ou HIGH).</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="selectSensor()"><code>void selectSensor(int num) {
   digitalWrite(S1, (num >> 0) &amp; 1);   // bit 0
@@ -157,6 +195,7 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 <li><code>analogRead(broche)</code> renvoie le code de l'ADC : \(ADC\_OUT = 4095 \times ADC\_IN / 3{,}3\ \text{V}\).</li>
 <li>Après un changement de voie, \(V_A\) met un peu de temps à se stabiliser : le filtre \(R_G C_F\) demande environ \(5 R_G C_F\). Avec \(C_F = 470\) pF (la proposition du TD 1), cela fait 1,8 ms.</li>
 </ul>
+<p><strong>L'ordre compte.</strong> On choisit d'abord le capteur (le multiplexeur bascule), on attend que la tension se pose, et seulement ensuite on mesure. Mesurer avant, ce serait lire le capteur précédent.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="sensorAcquisition()"><code>int sensorAcquisition(int num) {
   selectSensor(num);
@@ -174,6 +213,13 @@ const float VP = VDD * RB / (RA + RB);   // tension sur l'entrée + de l'AOP : 0
 </ul>
 \[\frac{V_A}{V^+} = 1 + \frac{R_G}{R_{FSR}}\]
 \[R_{FSR} = \frac{R_G}{\dfrac{V_A}{V^+} - 1}\]
+<p>Comment on isole \(R_{FSR}\), ligne par ligne :</p>
+<ul>
+<li>on part de \(V_A = V^+ (1 + R_G / R_{FSR})\) (question 12 du TD 1) ;</li>
+<li>on divise les deux côtés par \(V^+\) : \(V_A / V^+ = 1 + R_G / R_{FSR}\) ;</li>
+<li>on enlève 1 des deux côtés : \(V_A / V^+ - 1 = R_G / R_{FSR}\) ;</li>
+<li>on retourne les deux fractions : \(R_{FSR} / R_G = 1 / (V_A / V^+ - 1)\), puis on multiplie par \(R_G\).</li>
+</ul>
 <p>Si \(V_A \le V^+\), le dénominateur est nul ou négatif : aucun appui, la résistance est « infinie ». Le programme doit traiter ce cas au lieu de diviser par zéro.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="rsensor()"><code>float rsensor(int val) {
@@ -244,6 +290,13 @@ float mesures[NB_CAPTEURS];   // résistance de chaque capteur (ohms), case k = 
 <li>La somme de 4095 codes peut dépasser ce que tient un <code>int</code> 16 bits sur d'autres microcontrôleurs : un <code>long</code> est sûr partout (sur l'ESP32, <code>int</code> fait déjà 32 bits).</li>
 </ul>
 <div class="schema" id="sc-td2-modes"></div>
+<p><strong>Comment on construit la fonction.</strong></p>
+<ul>
+<li>Les modes 1 et 2 font tous les deux « la moyenne de N mesures d'un capteur » : on l'écrit une seule fois, dans une petite fonction d'aide, <code>moyenneCodes()</code>.</li>
+<li>Faire une moyenne : additionner N mesures dans une variable <code>somme</code> (une boucle <code>for</code> qui tourne N fois), puis diviser par N.</li>
+<li><code>acquisition()</code> regarde le mode avec des <code>if</code> : mode 0, une mesure ; mode 1, la moyenne d'un capteur ; mode 2, une boucle sur les 8 capteurs (k de 0 à 7), qui fait la moyenne de chacun.</li>
+<li>À chaque fois, le résultat est converti en résistance par <code>rsensor()</code> et rangé dans la case du capteur, <code>mesures[k]</code>.</li>
+</ul>
 <p><strong>Réponse.</strong> Une fonction d'aide fait la moyenne, les trois modes l'utilisent :</p>
 <pre class="code" data-titre="Moyenne de N codes d'un capteur"><code>float moyenneCodes(int num, int N) {
   if (N &lt; 1) N = 1;             // au moins une mesure
@@ -282,6 +335,12 @@ float mesures[NB_CAPTEURS];   // résistance de chaque capteur (ohms), case k = 
 <li>GPIO 34 à 39 n'ont pas de tirage interne : le bouton va sur une autre broche, ici GPIO 4.</li>
 <li>Un contact mécanique <strong>rebondit</strong> pendant quelques millisecondes : on détecte le passage de HIGH à LOW (le front), puis on attend un peu avant de relire.</li>
 </ul>
+<p><strong>Pourquoi appuyé donne LOW.</strong> Le bouton relie la broche à la masse quand on appuie. <code>INPUT_PULLUP</code> branche, dans la puce, une résistance entre la broche et 3,3 V :</p>
+<ul>
+<li>bouton relâché : aucun chemin vers la masse, la résistance tire la broche vers 3,3 V, on lit HIGH ;</li>
+<li>bouton appuyé : la broche est reliée directement à la masse, on lit LOW.</li>
+</ul>
+<p><strong>Pourquoi détecter le front.</strong> <code>loop()</code> tourne des milliers de fois par seconde. Si on lançait une mesure à chaque tour où le bouton est LOW, un seul appui en lancerait des centaines. On garde donc l'état du tour précédent (<code>etatPrecedent</code>) et on ne réagit qu'au moment précis où il passe de HIGH à LOW : une mesure par appui.</p>
 <p><strong>Réponse.</strong></p>
 <pre class="code" data-titre="Version 1 complète : setup() et loop()"><code>const int BTN_ACQ = 4;          // bouton entre GPIO 4 et la masse
 bool etatPrecedent = HIGH;
@@ -343,6 +402,15 @@ void loop() {
 <li><code>timerAlarm(timer, valeur, true, 0)</code> déclenche l'interruption quand le compteur atteint <code>valeur</code> ; <code>true</code> active le rechargement auto, <code>0</code> veut dire « sans limite de répétitions ».</li>
 <li>La fonction d'interruption porte <code>IRAM_ATTR</code> (elle est rangée en RAM interne, rapide) et doit être <strong>courte</strong> : elle lève un drapeau, la boucle fait le travail.</li>
 <li>Une variable partagée entre l'interruption et la boucle est déclarée <code>volatile</code> : le compilateur la relit à chaque fois au lieu d'en garder une copie.</li>
+</ul>
+<p><strong>L'idée, avant le code.</strong> Le timer est un compteur qui avance tout seul. On lui dit : avance d'un pas par microseconde, et préviens-moi à 1 000 000 pas, puis recommence. « Prévenir », c'est appeler une fonction d'interruption, qu'on écrit nous-mêmes : elle lève un drapeau (<code>tick = true</code>). La boucle regarde le drapeau ; quand il est levé, elle le baisse et fait les mesures.</p>
+<p><strong>Ce que fait chaque instruction de l'annexe.</strong></p>
+<ul>
+<li><code>hw_timer_t *timer = NULL;</code> : une variable qui désignera le timer (vide pour l'instant).</li>
+<li><code>timer = timerBegin(1000000);</code> : on démarre un timer qui compte à 1 MHz, un pas par microseconde.</li>
+<li><code>timerAttachInterrupt(timer, &amp;onTimer);</code> : quand l'alarme sonnera, la puce appellera la fonction <code>onTimer</code>.</li>
+<li><code>timerAlarm(timer, 1000000, true, 0);</code> : l'alarme sonne à 1 000 000 pas ; <code>true</code>, le compteur repart de 0 et recommence (rechargement auto) ; <code>0</code>, sans limite de répétitions.</li>
+<li><code>portENTER_CRITICAL_ISR</code> et <code>portEXIT_CRITICAL_ISR</code> : pendant ces deux lignes, rien ne peut couper l'écriture de <code>tick</code>.</li>
 </ul>
 <p><strong>Réponse.</strong> Le nombre de pas pour 1 s :</p>
 \[T_{tic} = \frac{1}{f_{compteur}}\]
