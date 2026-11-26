@@ -25,9 +25,9 @@
 <main>
 <p class="etiquette">Robotique médicale</p>
 <h1>L'essentiel en schémas</h1>
-<p class="chapeau">Tout ce qu'il faut savoir avant l'examen, chapitre par chapitre, en schémas : d'abord la robotique biomédicale, puis les éléments mécaniques. Lis un schéma de gauche à droite, puis les lignes à retenir dessous. Les formules sont toutes regroupées à la fin.</p>
+<p class="chapeau">Tout ce qu'il faut savoir avant l'examen, chapitre par chapitre, en schémas. Lis un schéma de gauche à droite, puis les lignes à retenir dessous. Les formules sont toutes regroupées à la fin.</p>
+<div data-sm="bio">
 <div class="schema" id="sc-structure-bio"></div>
-<div class="schema" id="sc-structure-meca"></div>
 
 
 <h2>Le robot et sa description</h2>
@@ -89,7 +89,10 @@
 <li>Jacobienne : la colonne i est la vitesse de l'outil quand seule l'articulation i bouge à vitesse 1.</li>
 </ul>
 
-<h2 class="partie-sm">L'axe mécanique</h2>
+</div>
+<div data-sm="meca">
+<div class="schema" id="sc-structure-meca"></div>
+<h2>L'axe mécanique</h2>
 <p class="lien-chapitre"><a href="chapitres/chapitre-5.html">Ouvrir le chapitre</a></p>
 <div class="schema" id="sc-axe"></div>
 <div class="schema" id="sc-symboles"></div>
@@ -138,7 +141,9 @@
 <li>Roue inverseuse : change le sens, pas la valeur du rapport.</li>
 </ul>
 
+</div>
 <h2>Toutes les formules</h2>
+<div data-sm="bio">
 <p>Bases et repères :</p>
 \[x = L\cos\theta \qquad y = L\sin\theta \qquad \|\vec{u}\| = \sqrt{u_x^2 + u_y^2 + u_z^2} \qquad r = \sqrt{x^2 + y^2},\ \theta = \operatorname{atan2}(y, x)\]
 \[\vec{a} \cdot \vec{b} = \|\vec{a}\|\,\|\vec{b}\|\cos\theta \qquad \|\vec{u} \wedge \vec{v}\| = \|\vec{u}\|\,\|\vec{v}\|\sin\theta\]
@@ -150,12 +155,15 @@
 \[\cos\theta_2 = \frac{x^2 + y^2 - L_1^2 - L_2^2}{2L_1L_2} \qquad \theta_1 = \arctan\frac{y}{x} \mp \arccos\frac{L_1^2 + r^2 - L_2^2}{2L_1 r} \qquad V = J(q)\,\dot q\]
 <p>Performances :</p>
 \[T_{cycle} = \sum T_i \qquad N = \frac{3600}{T_{cycle}}\]
+</div>
+<div data-sm="meca">
 <p>Axe, assemblages, guidages :</p>
 \[\omega = \frac{2\pi n}{60} \qquad P = C\omega \qquad C_s \simeq \eta\, i\, C_e \qquad k_\theta = \frac{C}{\theta} \qquad \Delta x \simeq L\,\Delta\theta\]
 \[T \simeq K F_0 d \qquad F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL} \qquad F = kx \qquad k = \frac{F}{\delta}\]
 \[L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p\]
 <p>Transmissions :</p>
 \[C = \frac{60P}{2\pi n} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}} \qquad d = mZ \qquad a = m\,\frac{Z_1 + Z_2}{2} \qquad i_{12} = \frac{Z_1}{Z_2} \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot}\]
+</div>
 </main>
 <script src="../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../commun/vendor/katex/auto-render.min.js"></script>
@@ -164,7 +172,10 @@
 <script>
 (function () {
   var P = PLATEFORME;
-  var sm = new URLSearchParams(location.search).get("sm") || "bio";
+  var sm = new URLSearchParams(location.search).get("sm") === "meca" ? "meca" : "bio";
+  // une version par sous-module : on ne garde que celle de ?sm=
+  Array.prototype.forEach.call(document.querySelectorAll("[data-sm]"), function (e) { if (e.getAttribute("data-sm") !== sm) e.parentNode.removeChild(e); });
+  var et = document.querySelector("main .etiquette"); if (et && P.nomSm) et.textContent = P.nomSm("robotique", sm) || et.textContent;
   P.barre(document.getElementById("barre"), { carte: P.urlPlan("robotique", sm) });
   // retour d'un cran : la page « Préparer l'examen », d'où l'on vient
   var r = document.querySelector("#barre .site-retour"); if (r) { r.href = "examen.html?sm=" + encodeURIComponent(sm); r.textContent = "Examen"; }
