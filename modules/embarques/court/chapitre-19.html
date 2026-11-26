@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Pacemaker connecté (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 19 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Pacemaker connecté</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-19.html">Lire le corrigé complet</a></p>
+<h2>Le pacemaker</h2>
+<ul>
+<li>Dispositif implanté sous la clavicule qui délivre des <strong>impulsions électriques</strong> au myocarde quand le cœur ne bat pas assez.</li>
+<li>Deux sous-systèmes demandés : <strong>SS1</strong> instrumentation embarquée (détection, stimulation), <strong>SS2</strong> supervision connectée (dashboard).</li>
+<li>Code NBG : 1re lettre, cavité stimulée ; 2e, cavité détectée ; 3e, réponse (I inhibé, T déclenché, D les deux, O aucune) ; 4e, R asservissement.</li>
+<li>La maquette stimule si rien n'est détecté et s'inhibe sinon, sur une seule voie : mode <strong>VVI</strong>.</li>
+</ul>
+
+<h2>Les blocs</h2>
+<ul>
+<li>Canal de <strong>détection</strong> : électrode, Sensing Amplifier, A/D ; le microprocesseur compare à un seuil.</li>
+<li>Canal de <strong>stimulation</strong> : D/A, Impulse Generator, sonde.</li>
+<li>Microprocesseur, ROM, RAM, timer, oscillateur ; télémétrie (Digital I/O Interface, Coil antenna) vers le programmateur ; Power Supply.</li>
+<li>Boucle fermée : un battement détecté inhibe la stimulation.</li>
+<li>Timer matériel plutôt que <code>delay()</code> : il compte pendant que le programme détecte, ne dérive pas, se remet à zéro.</li>
+</ul>
+
+<h2>La maquette sur ESP32</h2>
+<div class="tableau"><table>
+<tr><th>Bloc</th><th>ESP32</th></tr>
+<tr><td>ECG simulé</td><td>DAC GPIO 25, relié à l'ADC1 GPIO 34</td></tr>
+<tr><td>Stimulation</td><td>LED GPIO 2, 20 ms</td></tr>
+<tr><td>Détection</td><td>LED GPIO 4</td></tr>
+<tr><td>Batterie</td><td>pont par 2 vers GPIO 35</td></tr>
+<tr><td>Base de temps</td><td>timer d'échantillonnage (2 ms), timer de stimulation</td></tr>
+<tr><td>Télémétrie</td><td>UART (USB), Wi-Fi</td></tr>
+</table></div>
+
+<h2>Détecter et compter</h2>
+<ul>
+<li>Détection : franchissement du seuil en montant, puis <strong>période réfractaire</strong> (250 ms) et hystérésis : une seule détection par onde R.</li>
+<li>\(f_C = 60\,000 / RR\), avec RR en ms.</li>
+<li>Intervalle d'échappement : \(T_{ech} = 60\,000 / f_{cible}\) ms. Battement détecté à temps : <code>timerWrite(timerStim, 0)</code>, pas de stimulation. Alarme du timer : on stimule.</li>
+<li>Watchdog (2 s) remis à zéro dans <code>loop()</code>, jamais dans une interruption.</li>
+</ul>
+
+<h2>Télémétrie, batterie, sûreté</h2>
+<ul>
+<li>Web : <code>/</code> (page), <code>/etat</code> (JSON), <code>/regler?freq=70</code>. MQTT : <code>pacemaker/etat</code> publié par l'ESP32, <code>pacemaker/config</code> pour les réglages.</li>
+<li>Batterie : \(V_{bat} = 2 \times \text{code} \times 3{,}3 / 4095\) ; sous le seuil, prévenir et économiser, jamais arrêter la stimulation.</li>
+<li>Risques : plus de stimulation, stimulation sur l'onde T (R sur T), sur- ou sous-détection, fréquence aberrante, télémétrie non protégée.</li>
+<li>Robustesse : plages contrôlées, valeurs par défaut, garde-fou de fréquence (180 bpm : 333 ms), détection d'erreurs, watchdog.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Stimule le ventricule, détecte le ventricule, s'inhibe : quel mode NBG ?</p><details class="corrige"><summary>Voir la réponse</summary><p>VVI.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Pourquoi un timer matériel plutôt que delay() ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pendant un delay(), le processeur ne détecte plus rien, et l'attente ne peut pas être annulée.</p><p>Le timer compte seul, sans dérive, et se remet à zéro à chaque battement.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Comment éviter qu'une onde R soit comptée deux fois ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Ignorer le signal pendant une période réfractaire (environ 250 ms) après chaque détection.</p><p>Ajouter une hystérésis sur le seuil.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Deux ondes R à 2 300 ms et 3 260 ms : fréquence cardiaque ?</p><details class="corrige"><summary>Voir la réponse</summary>\[RR = 3\,260 - 2\,300 = 960\ \text{ms}\]\[f_C = \frac{60\,000}{960}\]\[f_C = 62{,}5\ \text{bpm}\]</details></div>
+<div class="question-court"><p class="q"><span>5.</span> Fréquence cible 70 bpm : intervalle d'échappement ?</p><details class="corrige"><summary>Voir la réponse</summary>\[T_{ech} = \frac{60\,000}{70}\]\[T_{ech} \approx 857\ \text{ms}\]</details></div>
+<div class="question-court"><p class="q"><span>6.</span> Un battement propre arrive avant la fin de l'intervalle : que fait le programme ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il ne stimule pas.</p><p>Il remet le timer de stimulation à zéro : l'intervalle repart de ce battement.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Où remettre le watchdog à zéro, et pourquoi pas dans une interruption ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une fois par tour de loop().</p><p>Une interruption de timer continue d'arriver quand la boucle est bloquée : le watchdog ne verrait pas le blocage.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Pont 100 kΩ / 100 kΩ, code 2482 : tension de la batterie ?</p><details class="corrige"><summary>Voir la réponse</summary>\[V_{bat} = 2 \times \text{code} \times \frac{3{,}3}{4095}\]\[V_{bat} = 2 \times 2482 \times \frac{3{,}3}{4095}\]\[V_{bat} \approx 4{,}00\ \text{V}\]</details></div>
+<div class="question-court"><p class="q"><span>9.</span> Batterie sous le seuil d'alerte : que fait la maquette ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle prévient (série, dashboard, LED).</p><p>Elle économise (publications plus rares, Wi-Fi coupé entre deux envois).</p><p>Elle garde la stimulation en priorité.</p></details></div>
+<div class="question-court"><p class="q"><span>10.</span> Pourquoi refuser la commande F700 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle sort de la plage permise (30 à 180 bpm) : appliquée, elle ferait stimuler à une fréquence dangereuse.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="../index.html?sm=embarques&amp;vue=td"><small>Fin des versions courtes des TD</small>Retour à la carte</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques", "td") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 19) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

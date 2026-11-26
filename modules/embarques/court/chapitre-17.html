@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Semelle instrumentée, la programmation (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 17 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Semelle instrumentée, la programmation</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-17.html">Lire le corrigé complet</a></p>
+<h2>Les broches</h2>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Broche</th><th>Pourquoi</th></tr>
+<tr><td>P1.0, P1.1, P1.2 (S1, S2, S3)</td><td>GPIO 25, 26, 27</td><td>sorties numériques</td></tr>
+<tr><td>AIN1</td><td>GPIO 34 (ADC1_CH6)</td><td>ADC1 : marche avec le Wi-Fi</td></tr>
+<tr><td>BTN_ACQ</td><td>GPIO 4, <code>INPUT_PULLUP</code></td><td>GPIO 34 à 39 n'ont pas de tirage</td></tr>
+</table></div>
+<ul>
+<li>GPIO 34, 35, 36, 39 : <strong>entrées seulement</strong>, jamais une sortie.</li>
+<li><strong>ADC2</strong> : inutilisable quand le Wi-Fi tourne.</li>
+</ul>
+
+<h2>Du code ADC à la force</h2>
+<ul>
+<li>\(V^+ = 3{,}3 \times 10 / 120 = 0{,}275\) V : sans appui, le code reste vers 341.</li>
+<li>Code vers tension : \(V_A = \text{code} \times 3{,}3 / 4095\).</li>
+<li>Tension vers résistance : \(R_{FSR} = R_G / (V_A / V^+ - 1)\), infinie si \(V_A \le V^+\).</li>
+<li>Résistance vers force : \(F = \beta / (R_{FSR} - R_0)\).</li>
+</ul>
+
+<h2>Les quatre fonctions</h2>
+<ul>
+<li><code>configSensors()</code> : S1 à S3 en <code>OUTPUT</code>, <code>analogReadResolution(12)</code>.</li>
+<li><code>selectSensor(num)</code> : <code>digitalWrite(S1, num &amp; 1)</code>, <code>(num &gt;&gt; 1) &amp; 1</code> pour S2, <code>(num &gt;&gt; 2) &amp; 1</code> pour S3.</li>
+<li><code>sensorAcquisition(num)</code> : sélectionner, attendre 2 ms (stabilisation du filtre \(R_G C_F\)), <code>analogRead(AIN1)</code>.</li>
+<li><code>rsensor(val)</code> : les deux conversions ci-dessus.</li>
+</ul>
+
+<h2>Version 1 : modes et bouton</h2>
+<ul>
+<li><code>float mesures[8];</code> : une case par voie.</li>
+<li>Mode 0 : une mesure du capteur num. Mode 1 : moyenne de N mesures de num. Mode 2 : moyenne de N mesures pour chacun des 8.</li>
+<li>On <strong>moyenne les codes</strong>, puis on convertit une seule fois en résistance.</li>
+<li>Bouton : appuyé = LOW ; on réagit au passage de HIGH à LOW, puis on laisse passer les rebonds.</li>
+</ul>
+
+<h2>Version 2 : le timer</h2>
+<ul>
+<li><code>timerBegin(1000000)</code> : un pas par µs (pré-diviseur 80 sur 80 MHz).</li>
+<li><code>timerAlarm(timer, 1000000, true, 0)</code> : 1 000 000 pas = 1 s, rechargement auto.</li>
+<li>L'interruption ne fait que <code>tick = true;</code> (variable <code>volatile</code>) ; <code>loop()</code> baisse le drapeau et lance <code>acquisition(2, 0, N)</code>.</li>
+<li>Annexe à corriger : elle attache <code>onTimer</code> mais définit <code>onTimer0</code>, et ne déclare pas <code>tick</code>.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Peut-on commander S1 avec GPIO 35 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Non : GPIO 34 à 39 sont des entrées seulement.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Pourquoi lire AIN1 sur l'ADC1 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les broches de l'ADC2 ne marchent plus quand le Wi-Fi est utilisé.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> selectSensor(3) : que valent S3 S2 S1 ?</p><details class="corrige"><summary>Voir la réponse</summary><p>3 s'écrit 011 : S1 = 1, S2 = 1, S3 = 0.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Pourquoi attendre avant analogRead() après un changement de capteur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>\(V_A\) doit se stabiliser : le filtre \(R_G C_F\) demande environ \(5 R_G C_F\), 1,8 ms avec 470 pF.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Le code lu vaut 1638. Quelle résistance ?</p><details class="corrige"><summary>Voir la réponse</summary>\[V_A = \frac{1638 \times 3{,}3}{4095}\]\[V_A \approx 1{,}32\ \text{V}\]\[R_{FSR} = \frac{750}{1{,}32 / 0{,}275 - 1}\]\[R_{FSR} \approx 197\ \text{k}\Omega\]</details></div>
+<div class="question-court"><p class="q"><span>6.</span> Que renvoie rsensor() si \(V_A \le V^+\) ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Une résistance infinie (<code>INFINITY</code>) : pas d'appui, et pas de division par zéro ni de résistance négative.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Pourquoi moyenner les codes plutôt que les résistances ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Le bruit est sur la tension.</p><p>La relation tension-résistance n'est pas linéaire : la moyenne des résistances n'est pas la résistance de la tension moyenne.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> timerBegin(1000000) : quelle alarme pour une période de 1 s ? De 25 ms ?</p><details class="corrige"><summary>Voir la réponse</summary>\[\text{alarme} = \frac{T}{T_{tic}}\]<p>1 s / 1 µs = 1 000 000.</p><p>25 ms / 1 µs = 25 000.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Pourquoi l'acquisition n'est-elle pas faite dans l'interruption ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Elle dure plusieurs millisecondes (attentes, 80 conversions) : trop long pour une interruption.</p><p>L'interruption lève un drapeau ; la boucle mesure.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-18.html"><small>Version courte suivante</small>Architecture et composants d'un système embarqué</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques", "td") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 17) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

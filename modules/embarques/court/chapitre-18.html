@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Architecture et composants d'un système embarqué (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 18 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Architecture et composants d'un système embarqué</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-18.html">Lire le corrigé complet</a></p>
+<h2>Système embarqué</h2>
+<ul>
+<li>Définition du cours : système <strong>électronique et informatique autonome</strong>, dédié à une tâche bien précise. Il désigne le matériel et le logiciel.</li>
+<li>Contraintes : ressources limitées (énergie, place), temps de réponse, fiabilité et sécurité, coût.</li>
+<li>Choisir le circuit : puissance de calcul, consommation, coût, périphériques et mémoires intégrés.</li>
+</ul>
+
+<h2>Microcontrôleur, DSP, FPGA</h2>
+<div class="tableau"><table>
+<tr><th>Circuit</th><th>Avantages</th><th>Applications</th></tr>
+<tr><td>Microcontrôleur</td><td>tout intégré, faible coût et consommation</td><td>semelle, tensiomètre, pousse-seringue</td></tr>
+<tr><td>DSP</td><td>calcul rapide, traitement du signal en temps réel</td><td>filtrage ECG, prothèse auditive, modulation</td></tr>
+<tr><td>FPGA</td><td>calculs parallèles, matériel reconfigurable</td><td>imagerie, acquisition rapide multivoie</td></tr>
+</table></div>
+
+<h2>Composants</h2>
+<ul>
+<li><strong>PWM</strong> : rapport cyclique réglable, \(V_{moy} = \alpha \times 3{,}3\) V.</li>
+<li><strong>Watchdog</strong> : redémarre la puce si le programme ne le remet plus à zéro.</li>
+<li><strong>Timer</strong> : compte le temps, déclenche des interruptions régulières.</li>
+<li><strong>UART</strong> : liaison série asynchrone (start, 8 bits, stop).</li>
+<li><strong>Pile</strong> : adresses de retour et variables locales, dernier entré premier sorti.</li>
+</ul>
+
+<h2>Architectures</h2>
+<ul>
+<li>RISC : instructions simples d'un cycle, registre à registre. CISC : instructions complexes multi-cycles, mémoire à mémoire.</li>
+<li>Von Neumann : une mémoire et un bus pour tout (2N cycles). Harvard : deux mémoires, deux bus (N + 1). Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
+<li>Scrutation ou interruption : chaque donnée passe par le CPU. DMA : la donnée va seule en mémoire, le CPU reste libre.</li>
+<li>Programme en flash ; microcontrôleurs en général Harvard.</li>
+</ul>
+
+<h2>Le PIC</h2>
+<ul>
+<li>Program Memory : le programme (flash). Data Memory : les variables (RAM). Data EEPROM : réglages gardés sans alimentation.</li>
+<li>Program Counter : prochaine instruction. Pile 16 niveaux : adresses de retour.</li>
+<li>Deux mémoires séparées : Harvard ; 83 instructions : RISC.</li>
+</ul>
+
+<h2>Contraintes temporelles</h2>
+<ul>
+<li>Boucle de 50 ms, interruption toutes les \(T = 10\) ms : \(t_{max} = T = 10\) ms.</li>
+<li>Routine = tmax : la boucle ne s'exécute plus. Au-delà : interruptions perdues. Avec réarmement : routines imbriquées, débordement de pile.</li>
+<li>Routine de 4 ms : \(t_{boucle} = 50 / (1 - 4/10) \approx 83{,}3\) ms en moyenne.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Définis un système embarqué et donne trois contraintes.</p><details class="corrige"><summary>Voir la réponse</summary><p>Système électronique et informatique autonome, dédié à une tâche précise.</p><p>Contraintes : énergie et place limitées, temps de réponse, fiabilité et sécurité.</p></details></div>
+<div class="question-court"><p class="q"><span>2.</span> Où stocker le programme ? Pourquoi ?</p><details class="corrige"><summary>Voir la réponse</summary><p>En flash : mémoire non volatile, le programme reste sans alimentation.</p></details></div>
+<div class="question-court"><p class="q"><span>3.</span> Filtres numériques et modulation : quel circuit ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un DSP, optimisé pour le traitement du signal.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Donne trois différences entre RISC et CISC.</p><details class="corrige"><summary>Voir la réponse</summary><p>RISC : instructions d'un cycle ; CISC : plusieurs cycles.</p><p>RISC : registre à registre ; CISC : mémoire à mémoire.</p><p>RISC : complexité dans le logiciel ; CISC : dans le matériel.</p></details></div>
+<div class="question-court"><p class="q"><span>5.</span> Qu'ajoute la Super Harvard à la Harvard ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Un cache d'instructions et un contrôleur d'entrées-sorties dédié relié à la Data Memory.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> Quand préférer le DMA à une interruption ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Pour un gros flux de données (ADC rapide, son, image) : il copie sans le CPU, qui reste libre.</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Rôle du Program Counter et de la pile du PIC ?</p><details class="corrige"><summary>Voir la réponse</summary><p>PC : adresse de la prochaine instruction.</p><p>Pile : adresses de retour des sous-programmes et des interruptions, 16 niveaux.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Routine de 4 ms toutes les 10 ms, boucle de 50 ms : durée moyenne de la boucle ?</p><details class="corrige"><summary>Voir la réponse</summary>\[t_{boucle} = \frac{t_0}{1 - t / T}\]\[t_{boucle} = \frac{50}{1 - 4 / 10}\]\[t_{boucle} \approx 83{,}3\ \text{ms}\]</details></div>
+<div class="question-court"><p class="q"><span>9.</span> Que se passe-t-il si la routine, qui réarme les interruptions, dure plus que T ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Les routines s'imbriquent, chacune laisse son contexte sur la pile.</p><p>La pile déborde et le programme plante.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-19.html"><small>Version courte suivante</small>Pacemaker connecté</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques", "td") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 18) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>

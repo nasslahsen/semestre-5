@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Semelle instrumentée, l'appui plantaire (version courte) · Systèmes embarqués et instrumentation</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Version courte du chapitre 16 : l'essentiel à savoir, puis les questions d'examen. -->
+<header id="barre"></header>
+<main class="court">
+<p class="etiquette" data-etiquette></p>
+<h1>Semelle instrumentée, l'appui plantaire</h1>
+<p class="court-lien"><a href="../chapitres/chapitre-16.html">Lire le corrigé complet</a></p>
+<h2>La chaîne de mesure</h2>
+<ul>
+<li>16 capteurs de force résistifs (FSR) en deux réseaux de 8 : leur <strong>résistance baisse quand on appuie</strong>.</li>
+<li>Le <strong>multiplexeur</strong> NX3L4051 relie un capteur \(Y_k\) à sa sortie Z, selon S3 S2 S1 lu en binaire (S1 poids faible).</li>
+<li>L'<strong>AOP</strong> avec \(R_G\) change la résistance en tension \(V_A\) ; \(C_F\) filtre.</li>
+<li>L'<strong>ADC</strong> du microcontrôleur lit \(V_A\).</li>
+</ul>
+
+<h2>Le capteur et la pression</h2>
+<ul>
+<li>Surface : un rectangle et deux demi-disques, \(S = L\,D + \pi D^2 / 4 \approx 260\) mm².</li>
+<li>Plage : 500 g à 10 kg, donc \(F_{max} = 10 \times 9{,}81 = 98{,}1\) N et \(P = F / S \approx 377\) kPa.</li>
+<li>Patient de 70 kg : à l'attaque du talon, deux capteurs portent tout le poids, environ 343 N chacun. Ils saturent, ce qui suffit pour suivre l'évolution de l'appui.</li>
+</ul>
+
+<h2>Le banc de caractérisation</h2>
+<ul>
+<li>FUTEK LSB200 : quatre <strong>jauges de contrainte en pont de Wheatstone</strong>. Fils : +Excitation (rouge), −Excitation (noir), +Signal (vert), −Signal (blanc).</li>
+<li>Modèle FSH00107 : 445 N de pleine échelle, plus que les 98,1 N de la semelle.</li>
+<li>Sortie : \(V_o = S\,V_{exc}\,P / P_{max}\), avec \(S = 2\) mV/V et 5 V : 10 mV à 445 N, 2,25 mV à 100 N.</li>
+<li>INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\). Pour 1 V à 100 N, \(G \approx 445\) et \(R_G \approx 113\ \Omega\).</li>
+<li><strong>CMR</strong> (réjection du mode commun) : il amplifie la différence de quelques millivolts et rejette les 2,5 V communs.</li>
+</ul>
+
+<h2>Le montage de mesure</h2>
+<ul>
+<li>Modèle du capteur : \(R_{FSR}(F) = R_0 + \beta / F\), avec \(R_0 \approx 71\) kΩ et \(\beta \approx 629\) kΩ·N.</li>
+<li>Multiplexeur parfait : voie choisie de résistance nulle, autres voies ouvertes. /E (actif au niveau bas) relié à la masse.</li>
+<li>\(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\), avec \(V^+ = 0{,}275\) V.</li>
+<li>De 0,5 N à 100 N, \(V_A\) va de 0,44 V à 2,95 V : l'ADC ne sature pas.</li>
+</ul>
+
+<h2>L'acquisition</h2>
+<ul>
+<li>120 pas par minute et 20 points par pas : \(f_e = 40\) Hz, soit 3,125 ms par voie.</li>
+<li>Débit pour 16 capteurs sur 8 bits : \(16 \times 40 \times 8 = 5\,120\) bit/s.</li>
+<li>\(C_F\) : filtre passe-bas \(f_c = 1 / (2\pi R_G C_F)\). Il faut \(5 R_G C_F \le 3{,}125\) ms, donc \(C_F \le 0{,}83\) nF. Proposition : 470 pF.</li>
+</ul>
+
+<h2>Questions d'examen</h2>
+<p class="court-note">Réponds dans ta tête, puis touche « Voir la réponse ».</p>
+<div class="question-court"><p class="q"><span>1.</span> Comment calcule-t-on la surface d'un capteur de la semelle ?</p><details class="corrige"><summary>Voir la réponse</summary><p>On la découpe en un rectangle \(L \times D\) et deux demi-disques.</p>\[S = L\,D + \frac{\pi D^2}{4}\]\[S = 15 \times 11 + \frac{\pi \times 11^2}{4}\]\[S \approx 260\ \text{mm}^2\]</details></div>
+<div class="question-court"><p class="q"><span>2.</span> Quelle force maximale supporte un capteur, et quelle pression ?</p><details class="corrige"><summary>Voir la réponse</summary>\[F = m\,g = 10 \times 9{,}81 = 98{,}1\ \text{N}\]\[P = \frac{F}{S} = \frac{98{,}1}{260 \times 10^{-6}} \approx 377\ \text{kPa}\]</details></div>
+<div class="question-court"><p class="q"><span>3.</span> Quelle technologie dans le FUTEK LSB200, et que sont ses quatre fils ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Quatre jauges de contrainte en pont de Wheatstone.</p><p>+Excitation et −Excitation : l'alimentation du pont.</p><p>+Signal et −Signal : la tension de mesure, différentielle.</p></details></div>
+<div class="question-court"><p class="q"><span>4.</span> Que vaut la sortie du pont à 100 N (2 mV/V, 5 V, 445 N) ?</p><details class="corrige"><summary>Voir la réponse</summary>\[V_o = S\,V_{exc}\,\frac{P}{P_{max}}\]\[V_o = 2 \times 5 \times \frac{100}{445}\]\[V_o \approx 2{,}25\ \text{mV}\]</details></div>
+<div class="question-court"><p class="q"><span>5.</span> Pourquoi un amplificateur d'instrumentation plutôt qu'un simple AOP ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Forte réjection du mode commun (CMR) : il garde les millivolts utiles et rejette les 2,5 V communs.</p><p>Impédance d'entrée très élevée : il ne charge pas le pont.</p><p>Gain réglé par une seule résistance.</p></details></div>
+<div class="question-court"><p class="q"><span>6.</span> S1 = S2 = S3 = 1 : quel capteur est relié à Z ?</p><details class="corrige"><summary>Voir la réponse</summary><p>111 en binaire vaut 7 : la voie \(Y_7\), le capteur \(R_{FSR8}\).</p></details></div>
+<div class="question-court"><p class="q"><span>7.</span> Donne l'expression de \(V_A\) et la tension sans appui.</p><details class="corrige"><summary>Voir la réponse</summary>\[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR}}\right)\]<p>Sans appui, \(R_{FSR}\) est énorme : \(V_A = V^+ = 0{,}275\) V.</p></details></div>
+<div class="question-court"><p class="q"><span>8.</span> Quelle fréquence d'échantillonnage pour une marche intense (120 pas/min, 20 points par pas) ?</p><details class="corrige"><summary>Voir la réponse</summary>\[f_e = \frac{120}{60} \times 20\]\[f_e = 40\ \text{Hz}\]<p>Les 8 voies se partagent 25 ms : 3,125 ms chacune.</p></details></div>
+<div class="question-court"><p class="q"><span>9.</span> Quel est le rôle de \(C_F\), et quelle limite pour sa valeur ?</p><details class="corrige"><summary>Voir la réponse</summary><p>Il fait un filtre passe-bas qui coupe le bruit.</p><p>La sortie doit se stabiliser avant la lecture de la voie suivante : \(5 R_G C_F \le 3{,}125\) ms, soit \(C_F \le 0{,}83\) nF.</p></details></div>
+<nav class="fin-cours" aria-label="Suite"><a class="aller" href="chapitre-17.html"><small>Version courte suivante</small>Semelle instrumentée, la programmation</a></nav>
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script>
+(function () {
+  var P = PLATEFORME, b = String.fromCharCode(92);
+  P.barre(document.getElementById("barre"), { carte: P.urlPlan("embarques", "embarques", "td") });
+  var e = document.querySelector("[data-etiquette]"); if (e) e.textContent = P.nomChapitre("embarques", 16) + " · version courte";
+  renderMathInElement(document.body, { delimiters: [{ left: b + "[", right: b + "]", display: true }, { left: b + "(", right: b + ")", display: false }], throwOnError: false });
+})();
+</script>
+</body>
+</html>
