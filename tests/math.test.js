@@ -1024,6 +1024,43 @@ test("embarques, TD 2, TD 3 et projet pacemaker : réponses des niveaux et calcu
   assert.deepStrictEqual([77 + 10 * 12, 117], [197, 117]); proche(197 * 3.3 / 255, 2.55, 0.005);
 });
 
+test("embarques, TD bio-impédance : modèle de Cole, Howland, détection synchrone", () => {
+  const fs = require("fs"), path = require("path");
+  const lireNiv = id => fs.readFileSync(path.join(__dirname, "../modules/embarques/niveaux/" + id + ".js"), "utf8");
+  const attendus = id => [...lireNiv(id).matchAll(/attendu: ([0-9.]+)/g)].map(m => Number(m[1]));
+  const cole = (RE, RM, CM, f) => { const x = 2 * Math.PI * f * RM * CM; return [RE + RM / (1 + x * x), -RM * x / (1 + x * x)]; };
+  // page : RE 3 kΩ, RM 5 kΩ, CM 640 pF
+  proche(1 / (2 * Math.PI * 5000 * 640e-12), 49735.9, 0.5);
+  const s = cole(3000, 5000, 640e-12, 1 / (2 * Math.PI * 5000 * 640e-12));
+  proche(s[0], 5500, 1e-6); proche(s[1], -2500, 1e-6);
+  proche(cole(3000, 5000, 640e-12, 1e4)[0], 7805.7, 0.1); proche(cole(3000, 5000, 640e-12, 1e5)[1], -1993.6, 0.1);
+  proche(cole(3000, 5000, 640e-12, 5e6)[1], -49.7, 0.1);
+  // demi-cercle : distance au centre constante
+  for (const f of [1e3, 3e4, 2e5]) { const z = cole(3000, 5000, 640e-12, f); proche(Math.hypot(z[0] - 5500, z[1]), 2500, 1e-6); }
+  // niveau bioz : RE 1 kΩ, RM 4 kΩ, CM 1 nF
+  const [aZ0, aZinf, aF0, aIm] = attendus("bioz");
+  assert.deepStrictEqual([aZ0, aZinf, aIm], [5, 1, 2]); proche(aF0, 1 / (2 * Math.PI * 4000e-9) / 1000, 0.2);
+  // Howland classique, condition et courant (vérifiés numériquement sur une charge quelconque)
+  const howland = (VP, VN, R1, R2, R3, R4, R5, ZL) => {
+    const num = (R1 * R3 + R1 * R4 + R2 * R4) * VN - R2 * (R4 + R5) * VP;
+    return num / (R1 * R3 * (R4 + R5) + ZL * (R1 * R3 + R1 * R4 - R2 * R5)); };
+  const [a2p, aR2, aIL, aRP, aIout] = attendus("bioz-sources");
+  assert.strictEqual(a2p, 300 + 2 * 800); assert.strictEqual(aR2, 10 * (1 + 9) / 10);
+  for (const ZL of [10, 1000, 5e4]) proche(howland(0, 0.2, 1e4, 1e4, 1e3, 9e3, 1e4, ZL) * 1e3, aIL, 1e-9);
+  assert.strictEqual(aRP, 10 + 1); proche(0.3 / 600 * 1e3, aIout, 1e-12);
+  // Howland symétrique : sous RP = R + RS, IL = -VIN / RS
+  const sym = (VIN, R, RP, RS, ZL) => -(3 * R + RP + RS) * VIN / (2 * RS * (R + RP) + ZL * (R - RP + RS));
+  for (const ZL of [10, 1000, 5e4]) proche(sym(1, 1e4, 1.1e4, 1e3, ZL), -1e-3, 1e-12);
+  // MAX30009 : 47 nF
+  const [aXc] = attendus("bioz-max"); proche(1 / (2 * Math.PI * 1e5 * 47e-9), aXc, 0.3);
+  proche(1 / (2 * Math.PI * 5e4 * 47e-9), 67.7, 0.1);
+  // détection synchrone : moyenne du produit sin(wt+phi) x carré = (2/pi) cos phi
+  const moy = phi => { let s = 0; const N = 200000; for (let i = 0; i < N; i++) { const t = i / N; s += Math.sin(2 * Math.PI * t + phi) * (Math.sin(2 * Math.PI * t) >= 0 ? 1 : -1); } return s / N; };
+  for (const d of [0, -30, -60, -90]) proche(moy(d * Math.PI / 180), 2 / Math.PI * Math.cos(d * Math.PI / 180), 1e-4);
+  const [aMoy, aDC, aF3] = attendus("bioz-detection");
+  assert.strictEqual(aMoy, 0); proche(aDC, 2 / Math.PI * 0.5, 0.005); proche(aF3, 4 / (3 * Math.PI), 0.005);
+});
+
 test("robotique, corrigé du TD 1 : valeurs de la page td1-corrige", () => {
   const r = d => d * Math.PI / 180;
   const mgd = (L1, L2, a, b) => [L1 * Math.cos(r(a)) + L2 * Math.cos(r(a + b)), L1 * Math.sin(r(a)) + L2 * Math.sin(r(a + b))];

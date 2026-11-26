@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le circuit MAX30009 · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le circuit MAX30009</h1>
+<p class="chapeau">Plutôt que de câbler une source de Howland, les concepteurs ont choisi un circuit tout fait, le MAX30009, qui contient la source de courant et toute la mesure. Les questions 23 à 25 s'appuient sur sa documentation (document DT5). Attention : le DT5 n'a pas été envoyé avec ce TD. Les réponses ci-dessous expliquent le principe ; les valeurs exactes sont à lire dans le DT5.</p>
+
+<h2>Ce qu'il faut savoir avant</h2>
+<ul>
+<li>Un <strong>condensateur en série</strong> sur un fil laisse passer l'alternatif et bloque le continu : en continu, son impédance \(1 / (C\omega)\) est infinie.</li>
+<li>Le <strong>continu</strong> (DC) est une tension ou un courant constant ; l'<strong>alternatif</strong> (AC) oscille autour de zéro.</li>
+<li>Un courant continu dans le corps est dangereux : il provoque une électrolyse sous les électrodes (brûlures chimiques) et les polarise. On veut donc un courant purement alternatif.</li>
+<li>Dans un circuit intégré, les noms des commandes en majuscules (comme <code>BIOZ_DRV_RESET</code>) se lisent mot par mot : ils disent ce que fait la commande.</li>
+</ul>
+
+<h2>Question 23 : les réglages de la source de courant</h2>
+<p><strong>Ce qu'on te demande.</strong> Quels réglages offre la source de courant du MAX30009 ? Quelles contraintes et limites ?</p>
+<p><strong>Comment on raisonne.</strong> Une source de courant pour la bio-impédance se règle sur ce qui définit un courant sinusoïdal : son <strong>amplitude</strong> et sa <strong>fréquence</strong>. Ses limites viennent des questions 20 et 22 : l'AOP ne doit pas saturer, donc la tension \(Z \times I\) doit rester sous l'alimentation.</p>
+<p><strong>Réponse, sur le principe.</strong></p>
+<ul>
+<li>on règle l'<strong>amplitude</strong> du courant (le circuit propose plusieurs valeurs) et sa <strong>fréquence</strong>, pour balayer la plage utile (le TD parle de 5 Hz à 5 MHz pour la bio-impédance) ;</li>
+<li>contrainte de <strong>tension</strong> : plus l'impédance du tissu et des électrodes est grande, plus il faut une petite amplitude pour que \(Z \times I\) reste dans la plage de sortie du circuit ;</li>
+<li>contrainte de <strong>sécurité</strong> : le courant dans le corps doit rester faible (de l'ordre du milliampère au plus) ;</li>
+<li>contrainte de <strong>fréquence</strong> : le circuit ne couvre qu'une plage donnée de fréquences.</li>
+</ul>
+<p>À compléter avec le DT5 : les valeurs d'amplitude et de fréquence disponibles, et la tension maximale permise en sortie.</p>
+
+<h2>Question 24 : BIOZ_DRV_RESET et BIOZ_DC_RESTORE</h2>
+<p><strong>Ce qu'on te demande.</strong> Justifie simplement les noms de ces deux commandes (figure 7 du DT5).</p>
+<p><strong>Comment on raisonne.</strong> On découpe chaque nom :</p>
+<ul>
+<li><code>BIOZ</code> : la partie bio-impédance du circuit ;</li>
+<li><code>DRV</code> (driver) : l'étage de sortie qui « conduit » le courant vers les électrodes ;</li>
+<li><code>RESET</code> : remettre à l'état de départ ;</li>
+<li><code>DC_RESTORE</code> : restaurer le niveau continu.</li>
+</ul>
+<p><strong>Réponse, sur le principe.</strong></p>
+<ul>
+<li><code>BIOZ_DRV_RESET</code> remet à zéro l'étage de sortie de la source de courant (par exemple au démarrage, ou s'il a saturé), pour repartir d'un état connu ;</li>
+<li><code>BIOZ_DC_RESTORE</code> ramène le niveau continu du signal à sa valeur de repos. Avec des condensateurs de liaison (question 25), une charge continue peut s'accumuler et décaler le signal ; cette commande l'efface pour que le courant reste centré sur zéro.</li>
+</ul>
+
+<h2>Question 25 : les deux condensateurs de 47 nF</h2>
+<p><strong>Ce qu'on te demande.</strong> Quel est le rôle des deux condensateurs de 47 nF placés sur la sortie de la source de courant ?</p>
+<p><strong>Comment on raisonne.</strong> Ils sont en série entre la source et les électrodes : un condensateur en série bloque le continu et laisse passer l'alternatif. On vérifie avec des valeurs :</p>
+\[|Z_C| = \frac{1}{2\pi f C}\]
+\[|Z_C|(50\ \text{kHz}) = \frac{1}{2\pi \times 50 \times 10^{3} \times 47 \times 10^{-9}} \approx 68\ \Omega\]
+\[|Z_C|(5\ \text{Hz}) = \frac{1}{2\pi \times 5 \times 47 \times 10^{-9}} \approx 677\ \text{k}\Omega\]
+<p>En continu (\(f = 0\)), l'impédance est infinie : aucun courant continu ne passe.</p>
+<p><strong>Réponse.</strong> Ce sont des <strong>condensateurs de liaison</strong> qui bloquent toute composante continue :</p>
+<ul>
+<li>sécurité du patient : aucun courant continu dans le corps (pas d'électrolyse, pas de brûlure) ;</li>
+<li>mesure propre : pas de polarisation des électrodes ;</li>
+<li>aux fréquences de mesure (dizaines de kilohertz), ils ne gênent presque pas : 68 Ω à 50 kHz, face à des kiloohms de tissu.</li>
+</ul>
+<p>Deux condensateurs, un sur chaque fil : même si un défaut apparaissait d'un côté, le continu reste bloqué par l'autre.</p>
+
+<h2>Vérifie : le MAX30009</h2>
+<p><strong>1.</strong> Que vaut l'impédance d'un condensateur de 47 nF à 500 kHz ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[\frac{1}{2\pi \times 500 \times 10^{3} \times 47 \times 10^{-9}} \approx 6{,}8\ \Omega\]
+</details>
+<p><strong>2.</strong> Pourquoi ne veut-on aucun courant continu dans le pied ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Un courant continu provoque une électrolyse sous les électrodes (brûlures) et les polarise, ce qui fausse la mesure.</p>
+</details>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+</body>
+</html>

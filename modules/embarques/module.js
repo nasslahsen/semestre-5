@@ -36,12 +36,13 @@ PLATEFORME.parcours("embarques", {
       { sousModule: "embarques", titre: "TD N°2 : Programmation Embarquée, Semelle instrumentée pour le suivi médical", couvre: "TD 2 (questions 1 à 4, annexes timer et brochage ESP32 DEVKIT V1)" },
       { sousModule: "embarques", titre: "TD N°3 : Architecture et composants d'un système Embarqué", couvre: "TD 3 (questions 1 à 9, contraintes temporelles a à e)" },
       { sousModule: "embarques", titre: "Correction du TD 3 faite en classe (photos du tableau)", couvre: "TD 3, questions 1, 2, 3 et 5" },
+      { sousModule: "embarques", titre: "TD2 Mesure de bio-impédance (application semelle, partie 3)", couvre: "TD 4 (questions 15 à 27)" },
       { sousModule: "embarques", titre: "Activité Pratique : Conception et programmation d'un Pacemaker connecté (Pr A. Jbari)", couvre: "Projet pacemaker (questions 1 à 38, livrables)" }
     ],
     manque: [
       "Systèmes embarqués : les capteurs (température, force, pression, MEMS), le conditionneur (pont de Wheatstone, alimentation en courant et en tension), l'amplificateur d'instrumentation et le modèle électrique d'un tissu biologique.",
       "Instrumentation connectée : le serveur web embarqué sur ESP32, la semelle connectée et l'oxymètre connecté.",
-      "TD 1 semelle : les énoncés des parties bio-impédance, transmission radio et synthèse (questions 15 et suivantes) ; leurs documents sont reçus (DT5 MAX30009, DT6 ADF7012, DR2, DR3), mais l'énoncé reçu s'arrête à la question 14."
+      "TD semelle : les énoncés des parties transmission radio et synthèse (après la question 27). La partie bio-impédance (questions 15 à 27) est reçue ; le contenu du DT5 (MAX30009), utile aux questions 23 à 25, n'est pas sur le site."
     ]
   },
   // Page « Préparer l'examen » (examen.html, lien sur la carte) : TD semelle et fonctions MQTT (traitement, callback, loop), annoncés par le professeur.
@@ -86,7 +87,8 @@ PLATEFORME.parcours("embarques", {
     { id: 16, td: true, numero: "TD 1", titre: "Semelle instrumentée, l'appui plantaire", sous: "Surface et pression d'un capteur, banc de caractérisation et INA128, multiplexeur, montage de mesure, cadence d'acquisition", ligne: "Capteurs de force, INA128, multiplexeur, montage", sousModule: "embarques" },
     { id: 17, td: true, numero: "TD 2", titre: "Semelle instrumentée, la programmation", sous: "Broches de l'ESP32, sélection d'un capteur, lecture de l'ADC, résistance du capteur, modes d'acquisition, bouton, timer", ligne: "Broches, ADC, modes d'acquisition, timer", sousModule: "embarques" },
     { id: 18, td: true, numero: "TD 3", titre: "Architecture et composants d'un système embarqué", sous: "Microcontrôleur, DSP et FPGA, périphériques, RISC et CISC, Harvard, DMA, PIC, contraintes temporelles", ligne: "Composants, architectures, PIC, interruptions", sousModule: "embarques" },
-    { id: 19, td: true, numero: "Projet", titre: "Pacemaker connecté", sous: "Blocs du stimulateur, détection et stimulation sur ESP32, algorithme à la demande, télémétrie, batterie et sûreté", ligne: "Détection, stimulation, timer, télémétrie", sousModule: "embarques" }
+    { id: 19, td: true, numero: "Projet", titre: "Pacemaker connecté", sous: "Blocs du stimulateur, détection et stimulation sur ESP32, algorithme à la demande, télémétrie, batterie et sûreté", ligne: "Détection, stimulation, timer, télémétrie", sousModule: "embarques" },
+    { id: 20, td: true, numero: "TD 4", titre: "Semelle instrumentée, la bio-impédance", sous: "Modèle de Cole et diagramme de Nyquist, mesure à 4 points, sources de Howland, MAX30009, détection synchrone", ligne: "Nyquist, 4 points, Howland, détection synchrone", sousModule: "embarques" }
   ],
   niveaux: [
     { id: "binaire", chapitre: 0, titre: "Bits et binaire", cours: true, pret: true },
@@ -181,7 +183,12 @@ PLATEFORME.parcours("embarques", {
     { id: "pacemaker-esp32", chapitre: 19, titre: "Questions 9 à 16 : détecter et stimuler", cours: true, pret: true },
     { id: "pacemaker-algorithme", chapitre: 19, titre: "Questions 17 à 22 : la stimulation à la demande", cours: true, pret: true },
     { id: "pacemaker-telemetrie", chapitre: 19, titre: "Questions 23 à 31 : télémétrie, batterie, sûreté", cours: true, pret: true },
-    { id: "pacemaker-programme", chapitre: 19, titre: "Questions 32 à 38 : le programme complet", cours: true, pret: true }
+    { id: "pacemaker-programme", chapitre: 19, titre: "Questions 32 à 38 : le programme complet", cours: true, pret: true },
+
+    { id: "bioz", chapitre: 20, titre: "Questions 15 à 17 : le modèle et Nyquist", cours: true, pret: true },
+    { id: "bioz-sources", chapitre: 20, titre: "Questions 18 à 22 : 4 points et Howland", cours: true, pret: true },
+    { id: "bioz-max", chapitre: 20, titre: "Questions 23 à 25 : le MAX30009", cours: true, pret: true },
+    { id: "bioz-detection", chapitre: 20, titre: "Questions 26 et 27 : la détection synchrone", cours: true, pret: true }
   ],
   // Le cours de chaque chapitre, en sections : une grande page par chapitre (chapitres/chapitre-<n>.html).
   sections: [
@@ -251,7 +258,11 @@ PLATEFORME.parcours("embarques", {
     { id: "pacemaker-esp32", chapitre: 19, titre: "Détecter et stimuler sur l'ESP32", notions: ["pacemaker-esp32"] },
     { id: "pacemaker-algorithme", chapitre: 19, titre: "La stimulation à la demande", notions: ["pacemaker-algorithme"] },
     { id: "pacemaker-telemetrie", chapitre: 19, titre: "Télémétrie, batterie et sûreté", notions: ["pacemaker-telemetrie"] },
-    { id: "pacemaker-programme", chapitre: 19, titre: "Le programme et les livrables", notions: ["pacemaker-programme"] }
+    { id: "pacemaker-programme", chapitre: 19, titre: "Le programme et les livrables", notions: ["pacemaker-programme"] },
+    { id: "bioz", chapitre: 20, titre: "Le modèle électrique d'un tissu", notions: ["bioz"] },
+    { id: "bioz-sources", chapitre: 20, titre: "Mesure à 4 points et sources de courant", notions: ["bioz-sources"] },
+    { id: "bioz-max", chapitre: 20, titre: "Le circuit MAX30009", notions: ["bioz-max"] },
+    { id: "bioz-detection", chapitre: 20, titre: "La détection synchrone", notions: ["bioz-detection"] }
   ],
   cours: [
     { chapitre: 0, id: "binaire", titre: "Bits et binaire" },
@@ -334,6 +345,10 @@ PLATEFORME.parcours("embarques", {
     { chapitre: 19, id: "pacemaker-esp32", titre: "Détecter et stimuler sur l'ESP32" },
     { chapitre: 19, id: "pacemaker-algorithme", titre: "La stimulation à la demande" },
     { chapitre: 19, id: "pacemaker-telemetrie", titre: "Télémétrie, batterie et sûreté" },
-    { chapitre: 19, id: "pacemaker-programme", titre: "Le programme complet et les livrables" }
+    { chapitre: 19, id: "pacemaker-programme", titre: "Le programme complet et les livrables" },
+    { chapitre: 20, id: "bioz", titre: "Le modèle électrique d'un tissu" },
+    { chapitre: 20, id: "bioz-sources", titre: "Mesurer : 4 points et sources de courant" },
+    { chapitre: 20, id: "bioz-max", titre: "Le circuit MAX30009" },
+    { chapitre: 20, id: "bioz-detection", titre: "La détection synchrone" }
   ]
 });

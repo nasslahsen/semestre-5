@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Le modèle électrique d'un tissu · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Le modèle électrique d'un tissu</h1>
+<p class="chapeau">C'est la suite du TD semelle : la partie 3, « Mesure de la bio-impédance », questions 15 à 27. La semelle ne mesure pas seulement l'appui : elle envoie aussi un petit courant dans le pied pour suivre l'état des tissus. Cette page est guidée comme le TD 1 : ce qu'il faut savoir avant, puis chaque question. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+
+<h2>Ce que raconte cette partie</h2>
+<ul>
+<li>La <strong>bio-impédance</strong>, c'est l'« opposition » d'un tissu vivant au passage d'un courant. On la mesure en envoyant un courant <strong>sinusoïdal</strong>, très faible (de l'ordre du milliampère), à une fréquence de 5 Hz à 5 MHz, par des électrodes.</li>
+<li>On s'en sert dans les balances (eau, graisse, muscle) et en recherche (cardiologie, tumeurs). Ici, pour suivre un pied diabétique qui risque une plaie : quand le tissu s'abîme, sa bio-impédance change.</li>
+<li>La partie a quatre temps :</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Temps</th><th>Questions</th><th>Ce qu'on fait</th></tr>
+<tr><td>Modéliser le tissu</td><td>15 à 17</td><td>un circuit équivalent, son impédance, sa courbe</td></tr>
+<tr><td>Mesurer sans erreur</td><td>18 à 22</td><td>la mesure à 4 points, les sources de courant</td></tr>
+<tr><td>Le circuit MAX30009</td><td>23 à 25</td><td>ses réglages et ses protections</td></tr>
+<tr><td>Extraire le résultat</td><td>26 et 27</td><td>la détection synchrone</td></tr>
+</table></div>
+
+<h2>Ce qu'il faut savoir avant : le courant alternatif et l'impédance</h2>
+<p><strong>Un courant sinusoïdal.</strong> Il oscille : \(i(t) = I_M \sin(\omega t)\).</p>
+<ul>
+<li>\(I_M\) est l'<strong>amplitude</strong>, la valeur maximale.</li>
+<li>\(f\) est la <strong>fréquence</strong>, en hertz : le nombre d'oscillations par seconde.</li>
+<li>\(\omega = 2\pi f\) est la <strong>pulsation</strong>, en radians par seconde. C'est la même information que \(f\), dans l'unité des formules.</li>
+</ul>
+<p><strong>L'impédance.</strong> En courant alternatif, on généralise la résistance : l'<strong>impédance</strong> \(\underline{Z}\) relie tension et courant, \(\underline{U} = \underline{Z} \times \underline{I}\). Elle se compte en ohms.</p>
+<ul>
+<li>une résistance : \(\underline{Z}_R = R\), la même à toutes les fréquences ;</li>
+<li>un condensateur : \(\underline{Z}_C = \dfrac{1}{j C \omega}\). Aux basses fréquences, \(\omega\) est petit, l'impédance est énorme : le condensateur bloque. Aux hautes fréquences, elle devient très petite : il laisse passer.</li>
+</ul>
+<p><strong>Les nombres complexes, le minimum.</strong></p>
+<ul>
+<li>\(j\) est le nombre tel que \(j^2 = -1\). Un complexe s'écrit \(a + jb\) : \(a\) est la <strong>partie réelle</strong>, \(b\) la <strong>partie imaginaire</strong>.</li>
+<li>Pour enlever \(j\) du dénominateur de \(\dfrac{1}{1 + jx}\), on multiplie en haut et en bas par \(1 - jx\) (le <strong>conjugué</strong>) : \((1 + jx)(1 - jx) = 1 + x^2\).</li>
+<li>Le <strong>module</strong> \(|\underline{Z}| = \sqrt{a^2 + b^2}\) et l'<strong>argument</strong> \(\varphi\) (l'angle, \(\tan \varphi = b / a\)) décrivent le même nombre autrement.</li>
+</ul>
+<p><strong>Associer des impédances.</strong> En série, elles s'ajoutent : \(\underline{Z} = \underline{Z}_1 + \underline{Z}_2\). En parallèle : \(\dfrac{1}{\underline{Z}} = \dfrac{1}{\underline{Z}_1} + \dfrac{1}{\underline{Z}_2}\).</p>
+
+<h2>Question 15 : l'impédance du modèle</h2>
+<p><strong>Ce qu'on te demande.</strong> Le tissu est modélisé par le <strong>modèle de Cole</strong> (figure 7) : une résistance \(R_E\) en série avec un ensemble \(R_M\) et \(C_M\) en parallèle. Exprime \(\underline{Z}_{BIO}\) sous la forme partie réelle + \(j\) partie imaginaire.</p>
+<p><strong>D'où vient ce modèle.</strong> Le courant traverse les liquides autour et dans les cellules (des résistances) et les membranes des cellules, très fines, qui se comportent comme des condensateurs. À basse fréquence, le courant contourne les cellules ; à haute fréquence, il les traverse (figure 6).</p>
+<p><strong>Comment on raisonne, en trois étapes.</strong></p>
+<ul>
+<li>On calcule d'abord le bloc parallèle \(R_M \parallel C_M\).</li>
+<li>On ajoute \(R_E\), qui est en série.</li>
+<li>On enlève \(j\) du dénominateur avec le conjugué, pour séparer partie réelle et partie imaginaire.</li>
+</ul>
+<p><strong>Le calcul.</strong> Le bloc parallèle :</p>
+\[\frac{1}{\underline{Z}_P} = \frac{1}{R_M} + j C_M \omega = \frac{1 + j R_M C_M \omega}{R_M}\]
+\[\underline{Z}_P = \frac{R_M}{1 + j R_M C_M \omega}\]
+<p>On ajoute \(R_E\) :</p>
+\[\underline{Z}_{BIO} = R_E + \frac{R_M}{1 + j R_M C_M \omega}\]
+<p>On multiplie par le conjugué \(1 - j R_M C_M \omega\) :</p>
+\[\underline{Z}_{BIO} = R_E + \frac{R_M (1 - j R_M C_M \omega)}{1 + (R_M C_M \omega)^2}\]
+<p><strong>Réponse.</strong></p>
+\[\underline{Z}_{BIO} = \underbrace{R_E + \frac{R_M}{1 + (R_M C_M \omega)^2}}_{\text{partie réelle}} \; - \; j\,\underbrace{\frac{R_M^2 C_M \omega}{1 + (R_M C_M \omega)^2}}_{\text{partie imaginaire (au signe près)}}\]
+<p>La partie imaginaire est négative : le tissu se comporte comme un circuit <strong>capacitif</strong>.</p>
+
+<h2>Question 16 : le diagramme de Nyquist</h2>
+<p><strong>Ce qu'on te demande.</strong> Trace \(\underline{Z}_{BIO}\) dans le plan de Nyquist quand la fréquence va de 0 à l'infini. Donne la forme de la courbe, ses points remarquables, et la pulsation où la partie imaginaire est la plus négative.</p>
+<p><strong>Ce qu'est un diagramme de Nyquist.</strong> Pour chaque fréquence, on place un point : en abscisse la partie réelle, en ordonnée la partie imaginaire (en bio-impédance, on trace souvent \(-\text{Im}\) vers le haut, pour voir la courbe au-dessus de l'axe). On relie les points : on voit comment l'impédance évolue avec la fréquence.</p>
+<p><strong>Comment on raisonne.</strong> On pose \(x = R_M C_M \omega\) pour alléger, et on regarde les cas simples :</p>
+<ul>
+<li>\(\omega = 0\) (continu) : \(x = 0\), \(\underline{Z} = R_E + R_M\). Le condensateur bloque, tout passe par les deux résistances.</li>
+<li>\(\omega \to \infty\) : \(x \to \infty\), \(\underline{Z} \to R_E\). Le condensateur court-circuite \(R_M\).</li>
+<li>entre les deux, la partie imaginaire est négative, nulle aux deux bouts : la courbe part de \(R_E + R_M\), descend, puis remonte vers \(R_E\).</li>
+</ul>
+<p><strong>Le calcul : c'est un demi-cercle.</strong> Avec \(a = \text{Re} - R_E - R_M/2\) et \(b = \text{Im}\) :</p>
+\[a = \frac{R_M}{1 + x^2} - \frac{R_M}{2} = \frac{R_M}{2}\,\frac{1 - x^2}{1 + x^2} \qquad b = -\frac{R_M}{2}\,\frac{2x}{1 + x^2}\]
+\[a^2 + b^2 = \left(\frac{R_M}{2}\right)^2 \frac{(1 - x^2)^2 + 4x^2}{(1 + x^2)^2} = \left(\frac{R_M}{2}\right)^2\]
+<p>Tous les points sont à la même distance \(R_M / 2\) du point \((R_E + R_M/2 \,;\, 0)\) : c'est un cercle. Comme la partie imaginaire reste négative, on n'en parcourt que la moitié basse.</p>
+<p>Le point le plus bas : \(\dfrac{x}{1 + x^2}\) est le plus grand quand sa dérivée \(\dfrac{1 - x^2}{(1 + x^2)^2}\) s'annule, donc pour \(x = 1\).</p>
+\[x = R_M C_M \omega_0 = 1 \quad \Rightarrow \quad \omega_0 = \frac{1}{R_M C_M}\]
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>un <strong>demi-cercle</strong> de centre \((R_E + R_M/2 \,;\, 0)\) et de rayon \(R_M/2\), sous l'axe réel ;</li>
+<li>il part de \(R_E + R_M\) à fréquence nulle et finit en \(R_E\) à fréquence infinie ;</li>
+<li>le sommet (partie imaginaire la plus négative, \(-R_M/2\)) est atteint pour \(\omega_0 = 1 / (R_M C_M)\), où la partie réelle vaut \(R_E + R_M/2\).</li>
+</ul>
+
+<h2>Question 17 : les valeurs du document DR2</h2>
+<p><strong>Ce qu'on te demande.</strong> Avec \(R_E = 3\) kΩ, \(R_M = 5\) kΩ, \(C_M = 640\) pF, place quelques points entre 5 Hz et 5 MHz.</p>
+<p><strong>Comment on raisonne.</strong> On calcule d'abord les points remarquables de la question 16, puis quelques fréquences de part et d'autre de \(f_0\).</p>
+<p><strong>Le calcul.</strong></p>
+\[R_M C_M = 5\,000 \times 640 \times 10^{-12} = 3{,}2\ \mu\text{s}\]
+\[\omega_0 = \frac{1}{3{,}2 \times 10^{-6}} = 312\,500\ \text{rad/s}\]
+\[f_0 = \frac{\omega_0}{2\pi} \approx 49{,}7\ \text{kHz}\]
+<div id="fig-bioz-nyquist"></div>
+<div class="tableau"><table>
+<tr><th>f</th><th>Re (Ω)</th><th>Im (Ω)</th><th>Où sur la courbe</th></tr>
+<tr><td>5 Hz</td><td>8 000</td><td>−0,5</td><td>départ : \(R_E + R_M\)</td></tr>
+<tr><td>1 kHz</td><td>7 998</td><td>−100</td><td>encore tout près du départ</td></tr>
+<tr><td>10 kHz</td><td>7 806</td><td>−966</td><td>la courbe descend</td></tr>
+<tr><td>49,7 kHz</td><td>5 500</td><td>−2 500</td><td>sommet : \(R_E + R_M/2\), \(-R_M/2\)</td></tr>
+<tr><td>100 kHz</td><td>3 992</td><td>−1 994</td><td>la courbe remonte</td></tr>
+<tr><td>500 kHz</td><td>3 049</td><td>−492</td><td>presque arrivée</td></tr>
+<tr><td>5 MHz</td><td>3 000,5</td><td>−50</td><td>arrivée : \(R_E\)</td></tr>
+</table></div>
+<p><strong>Réponse.</strong> Un demi-cercle de 8 kΩ (à 5 Hz) à 3 kΩ (à 5 MHz), de rayon 2,5 kΩ, avec son sommet à 49,7 kHz (5,5 kΩ, −2,5 kΩ). La plage de 5 Hz à 5 MHz couvre bien toute la courbe : c'est pour cela qu'on mesure sur une si large bande.</p>
+
+<h2>Vérifie : le modèle</h2>
+<p><strong>1.</strong> Que devient l'impédance d'un condensateur quand la fréquence double ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Elle est divisée par deux : \(|\underline{Z}_C| = 1 / (C\omega)\).</p>
+</details>
+<p><strong>2.</strong> Avec \(R_E = 2\) kΩ et \(R_M = 6\) kΩ, entre quelles valeurs va la partie réelle ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>De \(R_E + R_M = 8\) kΩ (fréquence nulle) à \(R_E = 2\) kΩ (fréquence infinie).</p>
+</details>
+<p><strong>3.</strong> Pourquoi la partie imaginaire est-elle négative ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Parce que le modèle contient un condensateur et pas de bobine : l'impédance est capacitive.</p>
+</details>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/bioz-visuels.js"></script>
+</body>
+</html>
