@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Mesurer : 4 points et sources de courant · Systèmes embarqués</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<main>
+<p class="etiquette" data-etiquette></p>
+<h1>Mesurer : 4 points et sources de courant</h1>
+<p class="chapeau">Pour mesurer une impédance, on envoie un courant connu et on mesure la tension qu'il produit : \(\underline{Z} = \underline{V} / \underline{I}\). Deux difficultés : les électrodes ajoutent leur propre impédance, et le courant doit rester connu quel que soit le tissu. La mesure à 4 points règle la première, la source de courant de Howland la seconde.</p>
+
+<h2>Ce qu'il faut savoir avant</h2>
+<ul>
+<li>Une <strong>source de courant</strong> idéale impose son courant, quelle que soit la charge qu'on lui branche. Une source de tension impose sa tension.</li>
+<li>Un <strong>voltmètre</strong> idéal ne prend aucun courant : il mesure sans rien perturber.</li>
+<li><strong>Loi des nœuds</strong> : à un nœud, la somme des courants qui arrivent vaut la somme de ceux qui repartent. Le courant dans une résistance \(R\) entre deux points A et B vaut \((V_A - V_B) / R\).</li>
+<li><strong>AOP parfait en régime linéaire</strong> : aucun courant n'entre dans ses entrées, et \(V^+ = V^-\) (sa sortie se règle pour ça, tant qu'elle ne sature pas).</li>
+</ul>
+
+<h2>Question 18 : mesure à 2 points ou à 4 points</h2>
+<p><strong>Ce qu'on te demande.</strong> Compare les deux méthodes de la figure 8 et explique l'intérêt de la mesure à 4 points.</p>
+<p><strong>Comment on raisonne.</strong> Chaque électrode a une <strong>impédance de contact</strong> \(Z_{EL}\) avec la peau (gel, sueur, pression), souvent grande et variable. La question : le voltmètre mesure-t-il la tension aux bornes de \(Z_{BIO}\) seule, ou aussi celle des électrodes ?</p>
+<ul>
+<li><strong>2 points</strong> : les mêmes électrodes injectent le courant et mesurent la tension. Le courant traverse \(Z_{EL}\), \(Z_{BIO}\), \(Z_{EL}\) : le voltmètre voit la somme des trois chutes de tension. On mesure \(Z_{BIO} + 2 Z_{EL}\).</li>
+<li><strong>4 points</strong> : deux électrodes extérieures injectent le courant ; deux électrodes intérieures mesurent la tension. Le voltmètre ne prend presque aucun courant, donc il n'y a pas de chute de tension dans les \(Z_{EL}\) de mesure : il voit seulement la tension aux bornes du tissu entre les deux électrodes intérieures, \(Z_{BIO} \times I\). Les morceaux \(Z_{B1}\) à l'extérieur ne comptent pas.</li>
+</ul>
+<p><strong>Réponse.</strong> À 2 points, l'impédance mesurée contient les impédances de contact : \(Z_{mes} = Z_{BIO} + 2 Z_{EL}\), une erreur grande et variable. À 4 points, on sépare l'injection (électrodes extérieures) de la mesure (électrodes intérieures, sans courant) : \(Z_{mes} = Z_{BIO}\). Les contacts n'interviennent plus : c'est la méthode préconisée.</p>
+
+<h2>Question 19 : la source de Howland classique</h2>
+<p><strong>Ce qu'on te demande.</strong> Rappelle les hypothèses « AOP parfait » et « régime linéaire ». Exprime le courant \(I_L\) de la figure 9a en fonction de \(V_P\), \(V_N\), \(R_1\) à \(R_5\) et \(Z_L\).</p>
+<p><strong>Les hypothèses.</strong></p>
+<ul>
+<li>AOP <strong>parfait</strong> : courants d'entrée nuls (\(i^+ = i^- = 0\)), gain infini, bande passante infinie.</li>
+<li><strong>Régime linéaire</strong> : la sortie ne sature pas ; avec un gain infini, cela impose \(V^+ = V^-\).</li>
+</ul>
+<p><strong>Comment on raisonne.</strong> On lit le schéma, puis on écrit une loi des nœuds par nœud :</p>
+<ul>
+<li>entrée \(-\) : reliée à \(V_P\) par \(R_1\) et à la sortie \(V_S\) par \(R_2\) ;</li>
+<li>entrée \(+\) : reliée à \(V_N\) par \(R_5\) et au nœud de charge \(V_L\) par \(R_4\) ;</li>
+<li>nœud de charge \(V_L\) : la sortie y envoie un courant par \(R_3\) ; une partie repart dans \(R_4\), le reste \(I_L\) traverse \(Z_L\) : \(V_L = Z_L\,I_L\).</li>
+</ul>
+<p><strong>Le calcul.</strong> Nœud \(+\) (aucun courant n'entre dans l'AOP) :</p>
+\[\frac{V_N - V^+}{R_5} + \frac{V_L - V^+}{R_4} = 0 \;\Rightarrow\; V^+ = \frac{R_4 V_N + R_5 V_L}{R_4 + R_5}\]
+<p>Nœud \(-\) :</p>
+\[\frac{V_P - V^-}{R_1} + \frac{V_S - V^-}{R_2} = 0 \;\Rightarrow\; V_S = \frac{(R_1 + R_2)\,V^- - R_2 V_P}{R_1}\]
+<p>Nœud de charge :</p>
+\[I_L = \frac{V_S - V_L}{R_3} - \frac{V_L - V^+}{R_4}\]
+<p>On remplace avec \(V^- = V^+\) et \(V_L = Z_L I_L\), puis on isole \(I_L\) :</p>
+\[I_L = \frac{(R_1 R_3 + R_1 R_4 + R_2 R_4)\,V_N - R_2 (R_4 + R_5)\,V_P}{R_1 R_3 (R_4 + R_5) + Z_L\,(R_1 R_3 + R_1 R_4 - R_2 R_5)}\]
+<p><strong>Réponse.</strong> C'est l'expression ci-dessus. En général, \(Z_L\) apparaît au dénominateur : le courant dépend de la charge. Ce n'est pas encore une vraie source de courant.</p>
+
+<h2>Question 20 : la condition pour une vraie source de courant</h2>
+<p><strong>Ce qu'on te demande.</strong> Trouve la condition sur les résistances pour que \(I_L\) ne dépende plus de \(Z_L\), et la nouvelle expression de \(I_L\).</p>
+<p><strong>Comment on raisonne.</strong> \(Z_L\) n'apparaît qu'au dénominateur, multiplié par \((R_1 R_3 + R_1 R_4 - R_2 R_5)\). Si ce facteur vaut zéro, \(Z_L\) disparaît.</p>
+<p><strong>Le calcul.</strong></p>
+\[R_1 R_3 + R_1 R_4 - R_2 R_5 = 0 \;\Leftrightarrow\; \frac{R_2}{R_1} = \frac{R_3 + R_4}{R_5}\]
+<p>On remplace dans \(I_L\) et on simplifie :</p>
+\[I_L = \frac{(R_3 + R_4)\,(V_N - V_P)}{R_3 R_5} = \frac{R_2}{R_1 R_3}\,(V_N - V_P)\]
+<p><strong>Réponse.</strong> Condition \(R_2 / R_1 = (R_3 + R_4) / R_5\). Alors \(I_L = \dfrac{R_2}{R_1 R_3}(V_N - V_P)\) : le courant ne dépend que des tensions d'entrée et des résistances, plus de la charge. C'est une source de courant commandée en tension.</p>
+
+<h2>Question 21 : la source de Howland symétrique</h2>
+<p><strong>Ce qu'on te demande.</strong> Pour le montage symétrique de la figure 9b (la charge n'est plus reliée à la masse), trouve la condition sur \(R\), \(R_P\), \(R_S\) et l'expression de \(I_L\) en fonction de \(V_{IN}\).</p>
+<p><strong>Pourquoi ce montage.</strong> Dans le classique, la charge doit être reliée à la masse. Or un pied n'est pas relié à la masse : on veut une charge « flottante ». Le symétrique utilise deux AOP : l'un pousse le courant d'un côté de \(Z_L\), l'autre le tire de l'autre côté.</p>
+<p><strong>Comment on raisonne.</strong> Même méthode qu'à la question 19, avec deux AOP :</p>
+<ul>
+<li>AOP du haut : entrée \(-\) reliée à \(V_{IN}\) et à sa sortie par deux \(R\) ; entrée \(+\) reliée à la masse par \(R_P\) et au haut de la charge par \(R\) ; sortie vers la charge par \(R_S\) ;</li>
+<li>AOP du bas : entrée \(-\) reliée à la masse et à sa sortie par deux \(R\) ; entrée \(+\) reliée à \(V_{IN}\) par \(R_P\) et au bas de la charge par \(R\) ; sortie vers la charge par \(R_S\) ;</li>
+<li>on écrit les lois des nœuds aux quatre entrées et aux deux bouts de la charge, avec \(V^+ = V^-\) pour chaque AOP.</li>
+</ul>
+<p><strong>Le calcul</strong> (même démarche, plus long) donne, en comptant \(I_L\) du haut vers le bas de la charge :</p>
+\[I_L = \frac{-(3R + R_P + R_S)\,V_{IN}}{2 R_S (R + R_P) + Z_L\,(R - R_P + R_S)}\]
+<p>\(Z_L\) disparaît si son facteur est nul :</p>
+\[R - R_P + R_S = 0 \;\Leftrightarrow\; R_P = R + R_S\]
+\[I_L = \frac{-(3R + R + R_S + R_S)\,V_{IN}}{2 R_S (2R + R_S)} = -\frac{V_{IN}}{R_S}\]
+<p><strong>Réponse.</strong> Condition \(R_P = R + R_S\). Alors \(|I_L| = V_{IN} / R_S\) : le courant ne dépend que de \(V_{IN}\) et de \(R_S\). Le signe moins indique seulement le sens du courant avec la convention choisie.</p>
+
+<h2>Question 22 : la source simplifiée du MAX30009</h2>
+<p><strong>Ce qu'on te demande.</strong> Pour le schéma de la figure 10 (\(V_{IN}\), \(R_1\) vers l'entrée \(-\), la charge \(Z_L\) entre l'entrée \(-\) et la sortie, l'entrée \(+\) à la masse), exprime \(I_{OUT}\). À quelles conditions est-ce une vraie source de courant ?</p>
+<p><strong>Comment on raisonne.</strong></p>
+<ul>
+<li>L'entrée \(+\) est à la masse et \(V^- = V^+\) : l'entrée \(-\) est à 0 V (une <strong>masse virtuelle</strong>).</li>
+<li>\(R_1\) a donc \(V_{IN}\) d'un côté et 0 V de l'autre : il est traversé par \(V_{IN} / R_1\).</li>
+<li>Ce courant ne peut pas entrer dans l'AOP : il passe tout entier dans \(Z_L\).</li>
+</ul>
+<p><strong>Le calcul.</strong></p>
+\[I_{OUT} = \frac{V_{IN} - 0}{R_1} = \frac{V_{IN}}{R_1}\]
+<p><strong>Réponse.</strong> \(I_{OUT} = V_{IN} / R_1\), sans \(Z_L\) : c'est une source de courant. Conditions :</p>
+<ul>
+<li>l'AOP reste en régime linéaire : sa sortie vaut \(-Z_L I_{OUT}\) et ne doit pas saturer, donc \(|Z_L| \times I_{OUT}\) doit rester sous sa tension d'alimentation. Il y a une impédance maximale ;</li>
+<li>l'AOP est assez rapide pour suivre le courant jusqu'aux fréquences utilisées (jusqu'au mégahertz) ;</li>
+<li>la charge est flottante, branchée entre l'entrée et la sortie de l'AOP, pas reliée à la masse.</li>
+</ul>
+
+<h2>Vérifie : la mesure</h2>
+<p><strong>1.</strong> À 2 points, \(Z_{BIO} = 500\ \Omega\) et chaque contact vaut \(Z_{EL} = 1\) kΩ. Que mesure-t-on ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(500 + 2 \times 1\,000 = 2\,500\ \Omega\) : cinq fois trop. À 4 points, on mesurerait 500 Ω.</p>
+</details>
+<p><strong>2.</strong> Dans la figure 10, \(V_{IN} = 0{,}5\) V et \(R_1 = 1\) kΩ. Quel courant ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[I_{OUT} = \frac{0{,}5}{1\,000} = 0{,}5\ \text{mA}\]
+</details>
+<p><strong>3.</strong> Pourquoi faut-il une source de courant et pas une source de tension ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Pour connaître exactement le courant injecté, quelle que soit l'impédance du tissu et des électrodes. Alors la tension mesurée donne directement \(Z = V / I\). Un courant fixe et faible protège aussi le patient.</p>
+</details>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/nav.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/bioz-visuels.js"></script>
+</body>
+</html>

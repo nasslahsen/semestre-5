@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="fr" data-module="embarques">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Semelle instrumentée, la bio-impédance</title>
+<link rel="stylesheet" href="../../../commun/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../commun/css/cours.css">
+<link rel="stylesheet" href="../../../commun/css/barre.css">
+<script src="../../../registre.js"></script>
+<script src="../../../commun/js/plateforme.js"></script>
+<script src="../module.js"></script>
+</head>
+<body>
+<!-- Généré par outils/regrouper.js à partir des pages de cours du chapitre 20. -->
+<main class="cours-chapitre" data-chapitre="20">
+<p class="etiquette" data-etiquette></p>
+<h1>Semelle instrumentée, la bio-impédance</h1>
+
+<section class="partie" id="s-bioz">
+<h2>Le modèle électrique d'un tissu</h2>
+
+<article class="notion" id="n-bioz">
+<p class="chapeau">C'est la suite du TD semelle : la partie 3, « Mesure de la bio-impédance », questions 15 à 27. La semelle ne mesure pas seulement l'appui : elle envoie aussi un petit courant dans le pied pour suivre l'état des tissus. Cette page est guidée comme le TD 1 : ce qu'il faut savoir avant, puis chaque question. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+
+<h4>Ce que raconte cette partie</h4>
+<ul>
+<li>La <strong>bio-impédance</strong>, c'est l'« opposition » d'un tissu vivant au passage d'un courant. On la mesure en envoyant un courant <strong>sinusoïdal</strong>, très faible (de l'ordre du milliampère), à une fréquence de 5 Hz à 5 MHz, par des électrodes.</li>
+<li>On s'en sert dans les balances (eau, graisse, muscle) et en recherche (cardiologie, tumeurs). Ici, pour suivre un pied diabétique qui risque une plaie : quand le tissu s'abîme, sa bio-impédance change.</li>
+<li>La partie a quatre temps :</li>
+</ul>
+<div class="tableau"><table>
+<tr><th>Temps</th><th>Questions</th><th>Ce qu'on fait</th></tr>
+<tr><td>Modéliser le tissu</td><td>15 à 17</td><td>un circuit équivalent, son impédance, sa courbe</td></tr>
+<tr><td>Mesurer sans erreur</td><td>18 à 22</td><td>la mesure à 4 points, les sources de courant</td></tr>
+<tr><td>Le circuit MAX30009</td><td>23 à 25</td><td>ses réglages et ses protections</td></tr>
+<tr><td>Extraire le résultat</td><td>26 et 27</td><td>la détection synchrone</td></tr>
+</table></div>
+
+<h4>Ce qu'il faut savoir avant : le courant alternatif et l'impédance</h4>
+<p><strong>Un courant sinusoïdal.</strong> Il oscille : \(i(t) = I_M \sin(\omega t)\).</p>
+<ul>
+<li>\(I_M\) est l'<strong>amplitude</strong>, la valeur maximale.</li>
+<li>\(f\) est la <strong>fréquence</strong>, en hertz : le nombre d'oscillations par seconde.</li>
+<li>\(\omega = 2\pi f\) est la <strong>pulsation</strong>, en radians par seconde. C'est la même information que \(f\), dans l'unité des formules.</li>
+</ul>
+<p><strong>L'impédance.</strong> En courant alternatif, on généralise la résistance : l'<strong>impédance</strong> \(\underline{Z}\) relie tension et courant, \(\underline{U} = \underline{Z} \times \underline{I}\). Elle se compte en ohms.</p>
+<ul>
+<li>une résistance : \(\underline{Z}_R = R\), la même à toutes les fréquences ;</li>
+<li>un condensateur : \(\underline{Z}_C = \dfrac{1}{j C \omega}\). Aux basses fréquences, \(\omega\) est petit, l'impédance est énorme : le condensateur bloque. Aux hautes fréquences, elle devient très petite : il laisse passer.</li>
+</ul>
+<p><strong>Les nombres complexes, le minimum.</strong></p>
+<ul>
+<li>\(j\) est le nombre tel que \(j^2 = -1\). Un complexe s'écrit \(a + jb\) : \(a\) est la <strong>partie réelle</strong>, \(b\) la <strong>partie imaginaire</strong>.</li>
+<li>Pour enlever \(j\) du dénominateur de \(\dfrac{1}{1 + jx}\), on multiplie en haut et en bas par \(1 - jx\) (le <strong>conjugué</strong>) : \((1 + jx)(1 - jx) = 1 + x^2\).</li>
+<li>Le <strong>module</strong> \(|\underline{Z}| = \sqrt{a^2 + b^2}\) et l'<strong>argument</strong> \(\varphi\) (l'angle, \(\tan \varphi = b / a\)) décrivent le même nombre autrement.</li>
+</ul>
+<p><strong>Associer des impédances.</strong> En série, elles s'ajoutent : \(\underline{Z} = \underline{Z}_1 + \underline{Z}_2\). En parallèle : \(\dfrac{1}{\underline{Z}} = \dfrac{1}{\underline{Z}_1} + \dfrac{1}{\underline{Z}_2}\).</p>
+
+<h4>Question 15 : l'impédance du modèle</h4>
+<p><strong>Ce qu'on te demande.</strong> Le tissu est modélisé par le <strong>modèle de Cole</strong> (figure 7) : une résistance \(R_E\) en série avec un ensemble \(R_M\) et \(C_M\) en parallèle. Exprime \(\underline{Z}_{BIO}\) sous la forme partie réelle + \(j\) partie imaginaire.</p>
+<p><strong>D'où vient ce modèle.</strong> Le courant traverse les liquides autour et dans les cellules (des résistances) et les membranes des cellules, très fines, qui se comportent comme des condensateurs. À basse fréquence, le courant contourne les cellules ; à haute fréquence, il les traverse (figure 6).</p>
+<p><strong>Comment on raisonne, en trois étapes.</strong></p>
+<ul>
+<li>On calcule d'abord le bloc parallèle \(R_M \parallel C_M\).</li>
+<li>On ajoute \(R_E\), qui est en série.</li>
+<li>On enlève \(j\) du dénominateur avec le conjugué, pour séparer partie réelle et partie imaginaire.</li>
+</ul>
+<p><strong>Le calcul.</strong> Le bloc parallèle :</p>
+\[\frac{1}{\underline{Z}_P} = \frac{1}{R_M} + j C_M \omega = \frac{1 + j R_M C_M \omega}{R_M}\]
+\[\underline{Z}_P = \frac{R_M}{1 + j R_M C_M \omega}\]
+<p>On ajoute \(R_E\) :</p>
+\[\underline{Z}_{BIO} = R_E + \frac{R_M}{1 + j R_M C_M \omega}\]
+<p>On multiplie par le conjugué \(1 - j R_M C_M \omega\) :</p>
+\[\underline{Z}_{BIO} = R_E + \frac{R_M (1 - j R_M C_M \omega)}{1 + (R_M C_M \omega)^2}\]
+<p><strong>Réponse.</strong></p>
+\[\underline{Z}_{BIO} = \underbrace{R_E + \frac{R_M}{1 + (R_M C_M \omega)^2}}_{\text{partie réelle}} \; - \; j\,\underbrace{\frac{R_M^2 C_M \omega}{1 + (R_M C_M \omega)^2}}_{\text{partie imaginaire (au signe près)}}\]
+<p>La partie imaginaire est négative : le tissu se comporte comme un circuit <strong>capacitif</strong>.</p>
+
+<h4>Question 16 : le diagramme de Nyquist</h4>
+<p><strong>Ce qu'on te demande.</strong> Trace \(\underline{Z}_{BIO}\) dans le plan de Nyquist quand la fréquence va de 0 à l'infini. Donne la forme de la courbe, ses points remarquables, et la pulsation où la partie imaginaire est la plus négative.</p>
+<p><strong>Ce qu'est un diagramme de Nyquist.</strong> Pour chaque fréquence, on place un point : en abscisse la partie réelle, en ordonnée la partie imaginaire (en bio-impédance, on trace souvent \(-\text{Im}\) vers le haut, pour voir la courbe au-dessus de l'axe). On relie les points : on voit comment l'impédance évolue avec la fréquence.</p>
+<p><strong>Comment on raisonne.</strong> On pose \(x = R_M C_M \omega\) pour alléger, et on regarde les cas simples :</p>
+<ul>
+<li>\(\omega = 0\) (continu) : \(x = 0\), \(\underline{Z} = R_E + R_M\). Le condensateur bloque, tout passe par les deux résistances.</li>
+<li>\(\omega \to \infty\) : \(x \to \infty\), \(\underline{Z} \to R_E\). Le condensateur court-circuite \(R_M\).</li>
+<li>entre les deux, la partie imaginaire est négative, nulle aux deux bouts : la courbe part de \(R_E + R_M\), descend, puis remonte vers \(R_E\).</li>
+</ul>
+<p><strong>Le calcul : c'est un demi-cercle.</strong> Avec \(a = \text{Re} - R_E - R_M/2\) et \(b = \text{Im}\) :</p>
+\[a = \frac{R_M}{1 + x^2} - \frac{R_M}{2} = \frac{R_M}{2}\,\frac{1 - x^2}{1 + x^2} \qquad b = -\frac{R_M}{2}\,\frac{2x}{1 + x^2}\]
+\[a^2 + b^2 = \left(\frac{R_M}{2}\right)^2 \frac{(1 - x^2)^2 + 4x^2}{(1 + x^2)^2} = \left(\frac{R_M}{2}\right)^2\]
+<p>Tous les points sont à la même distance \(R_M / 2\) du point \((R_E + R_M/2 \,;\, 0)\) : c'est un cercle. Comme la partie imaginaire reste négative, on n'en parcourt que la moitié basse.</p>
+<p>Le point le plus bas : \(\dfrac{x}{1 + x^2}\) est le plus grand quand sa dérivée \(\dfrac{1 - x^2}{(1 + x^2)^2}\) s'annule, donc pour \(x = 1\).</p>
+\[x = R_M C_M \omega_0 = 1 \quad \Rightarrow \quad \omega_0 = \frac{1}{R_M C_M}\]
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>un <strong>demi-cercle</strong> de centre \((R_E + R_M/2 \,;\, 0)\) et de rayon \(R_M/2\), sous l'axe réel ;</li>
+<li>il part de \(R_E + R_M\) à fréquence nulle et finit en \(R_E\) à fréquence infinie ;</li>
+<li>le sommet (partie imaginaire la plus négative, \(-R_M/2\)) est atteint pour \(\omega_0 = 1 / (R_M C_M)\), où la partie réelle vaut \(R_E + R_M/2\).</li>
+</ul>
+
+<h4>Question 17 : les valeurs du document DR2</h4>
+<p><strong>Ce qu'on te demande.</strong> Avec \(R_E = 3\) kΩ, \(R_M = 5\) kΩ, \(C_M = 640\) pF, place quelques points entre 5 Hz et 5 MHz.</p>
+<p><strong>Comment on raisonne.</strong> On calcule d'abord les points remarquables de la question 16, puis quelques fréquences de part et d'autre de \(f_0\).</p>
+<p><strong>Le calcul.</strong></p>
+\[R_M C_M = 5\,000 \times 640 \times 10^{-12} = 3{,}2\ \mu\text{s}\]
+\[\omega_0 = \frac{1}{3{,}2 \times 10^{-6}} = 312\,500\ \text{rad/s}\]
+\[f_0 = \frac{\omega_0}{2\pi} \approx 49{,}7\ \text{kHz}\]
+<div id="fig-bioz-nyquist"></div>
+<div class="tableau"><table>
+<tr><th>f</th><th>Re (Ω)</th><th>Im (Ω)</th><th>Où sur la courbe</th></tr>
+<tr><td>5 Hz</td><td>8 000</td><td>−0,5</td><td>départ : \(R_E + R_M\)</td></tr>
+<tr><td>1 kHz</td><td>7 998</td><td>−100</td><td>encore tout près du départ</td></tr>
+<tr><td>10 kHz</td><td>7 806</td><td>−966</td><td>la courbe descend</td></tr>
+<tr><td>49,7 kHz</td><td>5 500</td><td>−2 500</td><td>sommet : \(R_E + R_M/2\), \(-R_M/2\)</td></tr>
+<tr><td>100 kHz</td><td>3 992</td><td>−1 994</td><td>la courbe remonte</td></tr>
+<tr><td>500 kHz</td><td>3 049</td><td>−492</td><td>presque arrivée</td></tr>
+<tr><td>5 MHz</td><td>3 000,5</td><td>−50</td><td>arrivée : \(R_E\)</td></tr>
+</table></div>
+<p><strong>Réponse.</strong> Un demi-cercle de 8 kΩ (à 5 Hz) à 3 kΩ (à 5 MHz), de rayon 2,5 kΩ, avec son sommet à 49,7 kHz (5,5 kΩ, −2,5 kΩ). La plage de 5 Hz à 5 MHz couvre bien toute la courbe : c'est pour cela qu'on mesure sur une si large bande.</p>
+
+<h4>Vérifie : le modèle</h4>
+<p><strong>1.</strong> Que devient l'impédance d'un condensateur quand la fréquence double ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Elle est divisée par deux : \(|\underline{Z}_C| = 1 / (C\omega)\).</p>
+</details>
+<p><strong>2.</strong> Avec \(R_E = 2\) kΩ et \(R_M = 6\) kΩ, entre quelles valeurs va la partie réelle ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>De \(R_E + R_M = 8\) kΩ (fréquence nulle) à \(R_E = 2\) kΩ (fréquence infinie).</p>
+</details>
+<p><strong>3.</strong> Pourquoi la partie imaginaire est-elle négative ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Parce que le modèle contient un condensateur et pas de bobine : l'impédance est capacitive.</p>
+</details>
+</article>
+
+<div class="fin-partie" data-section="bioz"></div>
+</section>
+
+<section class="partie" id="s-bioz-sources">
+<h2>Mesure à 4 points et sources de courant</h2>
+
+<article class="notion" id="n-bioz-sources">
+<p class="chapeau">Pour mesurer une impédance, on envoie un courant connu et on mesure la tension qu'il produit : \(\underline{Z} = \underline{V} / \underline{I}\). Deux difficultés : les électrodes ajoutent leur propre impédance, et le courant doit rester connu quel que soit le tissu. La mesure à 4 points règle la première, la source de courant de Howland la seconde.</p>
+
+<h4>Ce qu'il faut savoir avant</h4>
+<ul>
+<li>Une <strong>source de courant</strong> idéale impose son courant, quelle que soit la charge qu'on lui branche. Une source de tension impose sa tension.</li>
+<li>Un <strong>voltmètre</strong> idéal ne prend aucun courant : il mesure sans rien perturber.</li>
+<li><strong>Loi des nœuds</strong> : à un nœud, la somme des courants qui arrivent vaut la somme de ceux qui repartent. Le courant dans une résistance \(R\) entre deux points A et B vaut \((V_A - V_B) / R\).</li>
+<li><strong>AOP parfait en régime linéaire</strong> : aucun courant n'entre dans ses entrées, et \(V^+ = V^-\) (sa sortie se règle pour ça, tant qu'elle ne sature pas).</li>
+</ul>
+
+<h4>Question 18 : mesure à 2 points ou à 4 points</h4>
+<p><strong>Ce qu'on te demande.</strong> Compare les deux méthodes de la figure 8 et explique l'intérêt de la mesure à 4 points.</p>
+<p><strong>Comment on raisonne.</strong> Chaque électrode a une <strong>impédance de contact</strong> \(Z_{EL}\) avec la peau (gel, sueur, pression), souvent grande et variable. La question : le voltmètre mesure-t-il la tension aux bornes de \(Z_{BIO}\) seule, ou aussi celle des électrodes ?</p>
+<ul>
+<li><strong>2 points</strong> : les mêmes électrodes injectent le courant et mesurent la tension. Le courant traverse \(Z_{EL}\), \(Z_{BIO}\), \(Z_{EL}\) : le voltmètre voit la somme des trois chutes de tension. On mesure \(Z_{BIO} + 2 Z_{EL}\).</li>
+<li><strong>4 points</strong> : deux électrodes extérieures injectent le courant ; deux électrodes intérieures mesurent la tension. Le voltmètre ne prend presque aucun courant, donc il n'y a pas de chute de tension dans les \(Z_{EL}\) de mesure : il voit seulement la tension aux bornes du tissu entre les deux électrodes intérieures, \(Z_{BIO} \times I\). Les morceaux \(Z_{B1}\) à l'extérieur ne comptent pas.</li>
+</ul>
+<p><strong>Réponse.</strong> À 2 points, l'impédance mesurée contient les impédances de contact : \(Z_{mes} = Z_{BIO} + 2 Z_{EL}\), une erreur grande et variable. À 4 points, on sépare l'injection (électrodes extérieures) de la mesure (électrodes intérieures, sans courant) : \(Z_{mes} = Z_{BIO}\). Les contacts n'interviennent plus : c'est la méthode préconisée.</p>
+
+<h4>Question 19 : la source de Howland classique</h4>
+<p><strong>Ce qu'on te demande.</strong> Rappelle les hypothèses « AOP parfait » et « régime linéaire ». Exprime le courant \(I_L\) de la figure 9a en fonction de \(V_P\), \(V_N\), \(R_1\) à \(R_5\) et \(Z_L\).</p>
+<p><strong>Les hypothèses.</strong></p>
+<ul>
+<li>AOP <strong>parfait</strong> : courants d'entrée nuls (\(i^+ = i^- = 0\)), gain infini, bande passante infinie.</li>
+<li><strong>Régime linéaire</strong> : la sortie ne sature pas ; avec un gain infini, cela impose \(V^+ = V^-\).</li>
+</ul>
+<p><strong>Comment on raisonne.</strong> On lit le schéma, puis on écrit une loi des nœuds par nœud :</p>
+<ul>
+<li>entrée \(-\) : reliée à \(V_P\) par \(R_1\) et à la sortie \(V_S\) par \(R_2\) ;</li>
+<li>entrée \(+\) : reliée à \(V_N\) par \(R_5\) et au nœud de charge \(V_L\) par \(R_4\) ;</li>
+<li>nœud de charge \(V_L\) : la sortie y envoie un courant par \(R_3\) ; une partie repart dans \(R_4\), le reste \(I_L\) traverse \(Z_L\) : \(V_L = Z_L\,I_L\).</li>
+</ul>
+<p><strong>Le calcul.</strong> Nœud \(+\) (aucun courant n'entre dans l'AOP) :</p>
+\[\frac{V_N - V^+}{R_5} + \frac{V_L - V^+}{R_4} = 0 \;\Rightarrow\; V^+ = \frac{R_4 V_N + R_5 V_L}{R_4 + R_5}\]
+<p>Nœud \(-\) :</p>
+\[\frac{V_P - V^-}{R_1} + \frac{V_S - V^-}{R_2} = 0 \;\Rightarrow\; V_S = \frac{(R_1 + R_2)\,V^- - R_2 V_P}{R_1}\]
+<p>Nœud de charge :</p>
+\[I_L = \frac{V_S - V_L}{R_3} - \frac{V_L - V^+}{R_4}\]
+<p>On remplace avec \(V^- = V^+\) et \(V_L = Z_L I_L\), puis on isole \(I_L\) :</p>
+\[I_L = \frac{(R_1 R_3 + R_1 R_4 + R_2 R_4)\,V_N - R_2 (R_4 + R_5)\,V_P}{R_1 R_3 (R_4 + R_5) + Z_L\,(R_1 R_3 + R_1 R_4 - R_2 R_5)}\]
+<p><strong>Réponse.</strong> C'est l'expression ci-dessus. En général, \(Z_L\) apparaît au dénominateur : le courant dépend de la charge. Ce n'est pas encore une vraie source de courant.</p>
+
+<h4>Question 20 : la condition pour une vraie source de courant</h4>
+<p><strong>Ce qu'on te demande.</strong> Trouve la condition sur les résistances pour que \(I_L\) ne dépende plus de \(Z_L\), et la nouvelle expression de \(I_L\).</p>
+<p><strong>Comment on raisonne.</strong> \(Z_L\) n'apparaît qu'au dénominateur, multiplié par \((R_1 R_3 + R_1 R_4 - R_2 R_5)\). Si ce facteur vaut zéro, \(Z_L\) disparaît.</p>
+<p><strong>Le calcul.</strong></p>
+\[R_1 R_3 + R_1 R_4 - R_2 R_5 = 0 \;\Leftrightarrow\; \frac{R_2}{R_1} = \frac{R_3 + R_4}{R_5}\]
+<p>On remplace dans \(I_L\) et on simplifie :</p>
+\[I_L = \frac{(R_3 + R_4)\,(V_N - V_P)}{R_3 R_5} = \frac{R_2}{R_1 R_3}\,(V_N - V_P)\]
+<p><strong>Réponse.</strong> Condition \(R_2 / R_1 = (R_3 + R_4) / R_5\). Alors \(I_L = \dfrac{R_2}{R_1 R_3}(V_N - V_P)\) : le courant ne dépend que des tensions d'entrée et des résistances, plus de la charge. C'est une source de courant commandée en tension.</p>
+
+<h4>Question 21 : la source de Howland symétrique</h4>
+<p><strong>Ce qu'on te demande.</strong> Pour le montage symétrique de la figure 9b (la charge n'est plus reliée à la masse), trouve la condition sur \(R\), \(R_P\), \(R_S\) et l'expression de \(I_L\) en fonction de \(V_{IN}\).</p>
+<p><strong>Pourquoi ce montage.</strong> Dans le classique, la charge doit être reliée à la masse. Or un pied n'est pas relié à la masse : on veut une charge « flottante ». Le symétrique utilise deux AOP : l'un pousse le courant d'un côté de \(Z_L\), l'autre le tire de l'autre côté.</p>
+<p><strong>Comment on raisonne.</strong> Même méthode qu'à la question 19, avec deux AOP :</p>
+<ul>
+<li>AOP du haut : entrée \(-\) reliée à \(V_{IN}\) et à sa sortie par deux \(R\) ; entrée \(+\) reliée à la masse par \(R_P\) et au haut de la charge par \(R\) ; sortie vers la charge par \(R_S\) ;</li>
+<li>AOP du bas : entrée \(-\) reliée à la masse et à sa sortie par deux \(R\) ; entrée \(+\) reliée à \(V_{IN}\) par \(R_P\) et au bas de la charge par \(R\) ; sortie vers la charge par \(R_S\) ;</li>
+<li>on écrit les lois des nœuds aux quatre entrées et aux deux bouts de la charge, avec \(V^+ = V^-\) pour chaque AOP.</li>
+</ul>
+<p><strong>Le calcul</strong> (même démarche, plus long) donne, en comptant \(I_L\) du haut vers le bas de la charge :</p>
+\[I_L = \frac{-(3R + R_P + R_S)\,V_{IN}}{2 R_S (R + R_P) + Z_L\,(R - R_P + R_S)}\]
+<p>\(Z_L\) disparaît si son facteur est nul :</p>
+\[R - R_P + R_S = 0 \;\Leftrightarrow\; R_P = R + R_S\]
+\[I_L = \frac{-(3R + R + R_S + R_S)\,V_{IN}}{2 R_S (2R + R_S)} = -\frac{V_{IN}}{R_S}\]
+<p><strong>Réponse.</strong> Condition \(R_P = R + R_S\). Alors \(|I_L| = V_{IN} / R_S\) : le courant ne dépend que de \(V_{IN}\) et de \(R_S\). Le signe moins indique seulement le sens du courant avec la convention choisie.</p>
+
+<h4>Question 22 : la source simplifiée du MAX30009</h4>
+<p><strong>Ce qu'on te demande.</strong> Pour le schéma de la figure 10 (\(V_{IN}\), \(R_1\) vers l'entrée \(-\), la charge \(Z_L\) entre l'entrée \(-\) et la sortie, l'entrée \(+\) à la masse), exprime \(I_{OUT}\). À quelles conditions est-ce une vraie source de courant ?</p>
+<p><strong>Comment on raisonne.</strong></p>
+<ul>
+<li>L'entrée \(+\) est à la masse et \(V^- = V^+\) : l'entrée \(-\) est à 0 V (une <strong>masse virtuelle</strong>).</li>
+<li>\(R_1\) a donc \(V_{IN}\) d'un côté et 0 V de l'autre : il est traversé par \(V_{IN} / R_1\).</li>
+<li>Ce courant ne peut pas entrer dans l'AOP : il passe tout entier dans \(Z_L\).</li>
+</ul>
+<p><strong>Le calcul.</strong></p>
+\[I_{OUT} = \frac{V_{IN} - 0}{R_1} = \frac{V_{IN}}{R_1}\]
+<p><strong>Réponse.</strong> \(I_{OUT} = V_{IN} / R_1\), sans \(Z_L\) : c'est une source de courant. Conditions :</p>
+<ul>
+<li>l'AOP reste en régime linéaire : sa sortie vaut \(-Z_L I_{OUT}\) et ne doit pas saturer, donc \(|Z_L| \times I_{OUT}\) doit rester sous sa tension d'alimentation. Il y a une impédance maximale ;</li>
+<li>l'AOP est assez rapide pour suivre le courant jusqu'aux fréquences utilisées (jusqu'au mégahertz) ;</li>
+<li>la charge est flottante, branchée entre l'entrée et la sortie de l'AOP, pas reliée à la masse.</li>
+</ul>
+
+<h4>Vérifie : la mesure</h4>
+<p><strong>1.</strong> À 2 points, \(Z_{BIO} = 500\ \Omega\) et chaque contact vaut \(Z_{EL} = 1\) kΩ. Que mesure-t-on ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(500 + 2 \times 1\,000 = 2\,500\ \Omega\) : cinq fois trop. À 4 points, on mesurerait 500 Ω.</p>
+</details>
+<p><strong>2.</strong> Dans la figure 10, \(V_{IN} = 0{,}5\) V et \(R_1 = 1\) kΩ. Quel courant ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[I_{OUT} = \frac{0{,}5}{1\,000} = 0{,}5\ \text{mA}\]
+</details>
+<p><strong>3.</strong> Pourquoi faut-il une source de courant et pas une source de tension ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Pour connaître exactement le courant injecté, quelle que soit l'impédance du tissu et des électrodes. Alors la tension mesurée donne directement \(Z = V / I\). Un courant fixe et faible protège aussi le patient.</p>
+</details>
+</article>
+
+<div class="fin-partie" data-section="bioz-sources"></div>
+</section>
+
+<section class="partie" id="s-bioz-max">
+<h2>Le circuit MAX30009</h2>
+
+<article class="notion" id="n-bioz-max">
+<p class="chapeau">Plutôt que de câbler une source de Howland, les concepteurs ont choisi un circuit tout fait, le MAX30009, qui contient la source de courant et toute la mesure. Les questions 23 à 25 s'appuient sur sa documentation (document DT5). Attention : le DT5 n'a pas été envoyé avec ce TD. Les réponses ci-dessous expliquent le principe ; les valeurs exactes sont à lire dans le DT5.</p>
+
+<h4>Ce qu'il faut savoir avant</h4>
+<ul>
+<li>Un <strong>condensateur en série</strong> sur un fil laisse passer l'alternatif et bloque le continu : en continu, son impédance \(1 / (C\omega)\) est infinie.</li>
+<li>Le <strong>continu</strong> (DC) est une tension ou un courant constant ; l'<strong>alternatif</strong> (AC) oscille autour de zéro.</li>
+<li>Un courant continu dans le corps est dangereux : il provoque une électrolyse sous les électrodes (brûlures chimiques) et les polarise. On veut donc un courant purement alternatif.</li>
+<li>Dans un circuit intégré, les noms des commandes en majuscules (comme <code>BIOZ_DRV_RESET</code>) se lisent mot par mot : ils disent ce que fait la commande.</li>
+</ul>
+
+<h4>Question 23 : les réglages de la source de courant</h4>
+<p><strong>Ce qu'on te demande.</strong> Quels réglages offre la source de courant du MAX30009 ? Quelles contraintes et limites ?</p>
+<p><strong>Comment on raisonne.</strong> Une source de courant pour la bio-impédance se règle sur ce qui définit un courant sinusoïdal : son <strong>amplitude</strong> et sa <strong>fréquence</strong>. Ses limites viennent des questions 20 et 22 : l'AOP ne doit pas saturer, donc la tension \(Z \times I\) doit rester sous l'alimentation.</p>
+<p><strong>Réponse, sur le principe.</strong></p>
+<ul>
+<li>on règle l'<strong>amplitude</strong> du courant (le circuit propose plusieurs valeurs) et sa <strong>fréquence</strong>, pour balayer la plage utile (le TD parle de 5 Hz à 5 MHz pour la bio-impédance) ;</li>
+<li>contrainte de <strong>tension</strong> : plus l'impédance du tissu et des électrodes est grande, plus il faut une petite amplitude pour que \(Z \times I\) reste dans la plage de sortie du circuit ;</li>
+<li>contrainte de <strong>sécurité</strong> : le courant dans le corps doit rester faible (de l'ordre du milliampère au plus) ;</li>
+<li>contrainte de <strong>fréquence</strong> : le circuit ne couvre qu'une plage donnée de fréquences.</li>
+</ul>
+<p>À compléter avec le DT5 : les valeurs d'amplitude et de fréquence disponibles, et la tension maximale permise en sortie.</p>
+
+<h4>Question 24 : BIOZ_DRV_RESET et BIOZ_DC_RESTORE</h4>
+<p><strong>Ce qu'on te demande.</strong> Justifie simplement les noms de ces deux commandes (figure 7 du DT5).</p>
+<p><strong>Comment on raisonne.</strong> On découpe chaque nom :</p>
+<ul>
+<li><code>BIOZ</code> : la partie bio-impédance du circuit ;</li>
+<li><code>DRV</code> (driver) : l'étage de sortie qui « conduit » le courant vers les électrodes ;</li>
+<li><code>RESET</code> : remettre à l'état de départ ;</li>
+<li><code>DC_RESTORE</code> : restaurer le niveau continu.</li>
+</ul>
+<p><strong>Réponse, sur le principe.</strong></p>
+<ul>
+<li><code>BIOZ_DRV_RESET</code> remet à zéro l'étage de sortie de la source de courant (par exemple au démarrage, ou s'il a saturé), pour repartir d'un état connu ;</li>
+<li><code>BIOZ_DC_RESTORE</code> ramène le niveau continu du signal à sa valeur de repos. Avec des condensateurs de liaison (question 25), une charge continue peut s'accumuler et décaler le signal ; cette commande l'efface pour que le courant reste centré sur zéro.</li>
+</ul>
+
+<h4>Question 25 : les deux condensateurs de 47 nF</h4>
+<p><strong>Ce qu'on te demande.</strong> Quel est le rôle des deux condensateurs de 47 nF placés sur la sortie de la source de courant ?</p>
+<p><strong>Comment on raisonne.</strong> Ils sont en série entre la source et les électrodes : un condensateur en série bloque le continu et laisse passer l'alternatif. On vérifie avec des valeurs :</p>
+\[|Z_C| = \frac{1}{2\pi f C}\]
+\[|Z_C|(50\ \text{kHz}) = \frac{1}{2\pi \times 50 \times 10^{3} \times 47 \times 10^{-9}} \approx 68\ \Omega\]
+\[|Z_C|(5\ \text{Hz}) = \frac{1}{2\pi \times 5 \times 47 \times 10^{-9}} \approx 677\ \text{k}\Omega\]
+<p>En continu (\(f = 0\)), l'impédance est infinie : aucun courant continu ne passe.</p>
+<p><strong>Réponse.</strong> Ce sont des <strong>condensateurs de liaison</strong> qui bloquent toute composante continue :</p>
+<ul>
+<li>sécurité du patient : aucun courant continu dans le corps (pas d'électrolyse, pas de brûlure) ;</li>
+<li>mesure propre : pas de polarisation des électrodes ;</li>
+<li>aux fréquences de mesure (dizaines de kilohertz), ils ne gênent presque pas : 68 Ω à 50 kHz, face à des kiloohms de tissu.</li>
+</ul>
+<p>Deux condensateurs, un sur chaque fil : même si un défaut apparaissait d'un côté, le continu reste bloqué par l'autre.</p>
+
+<h4>Vérifie : le MAX30009</h4>
+<p><strong>1.</strong> Que vaut l'impédance d'un condensateur de 47 nF à 500 kHz ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[\frac{1}{2\pi \times 500 \times 10^{3} \times 47 \times 10^{-9}} \approx 6{,}8\ \Omega\]
+</details>
+<p><strong>2.</strong> Pourquoi ne veut-on aucun courant continu dans le pied ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Un courant continu provoque une électrolyse sous les électrodes (brûlures) et les polarise, ce qui fausse la mesure.</p>
+</details>
+</article>
+
+<div class="fin-partie" data-section="bioz-max"></div>
+</section>
+
+<section class="partie" id="s-bioz-detection">
+<h2>La détection synchrone</h2>
+
+<article class="notion" id="n-bioz-detection">
+<p class="chapeau">Le MAX30009 envoie un courant sinusoïdal dans le tissu et récupère une tension sinusoïdale, plus ou moins grande et décalée dans le temps. Comment en tirer deux nombres, la partie réelle et la partie imaginaire de l'impédance ? La détection synchrone : on multiplie le signal par un signal carré au même rythme, puis on garde la moyenne.</p>
+
+<h4>Ce qu'il faut savoir avant</h4>
+<p><strong>Le déphasage.</strong> Si \(i(t) = I_M \sin(\omega t)\) traverse une impédance de module \(|\underline{Z}|\) et d'argument \(\varphi\), la tension est \(v(t) = |\underline{Z}|\,I_M \sin(\omega t + \varphi)\) :</p>
+<ul>
+<li>son amplitude est multipliée par \(|\underline{Z}|\) ;</li>
+<li>elle est décalée de \(\varphi\) (ici \(\varphi &lt; 0\) : le tissu est capacitif, la tension est en retard).</li>
+</ul>
+<p><strong>Produit de deux sinus.</strong> \(\sin a \times \sin b = \tfrac{1}{2}\left[\cos(a - b) - \cos(a + b)\right]\). Multiplier deux sinusoïdes donne une somme de deux sinusoïdes, aux fréquences différence et somme.</p>
+<p><strong>Valeur moyenne.</strong> Une sinusoïde a une moyenne nulle. Une constante a pour moyenne elle-même. Un filtre passe-bas, qui ne laisse passer que les basses fréquences, garde donc seulement la partie constante.</p>
+<p><strong>Série de Fourier d'un signal carré.</strong> Tout signal périodique est une somme de sinusoïdes. Un carré qui vaut \(+1\) puis \(-1\), en phase avec \(\sin \omega t\), s'écrit :</p>
+\[\text{carré}(t) = \frac{4}{\pi}\left[\sin \omega t + \frac{1}{3}\sin 3\omega t + \frac{1}{5}\sin 5\omega t + \dots\right]\]
+<p>Seules les harmoniques impaires (1, 3, 5…) existent, d'amplitude \(4 / (\pi n)\).</p>
+
+<h4>Question 26 : les signaux</h4>
+<p><strong>Ce qu'on te demande.</strong> Écris \(I_{DDS}(t)\) d'après la figure 12, puis \(V_{MES}(t)\) en fonction du module et de l'argument de \(\underline{Z}_{BIO}\). Écris \(P_{0°}\) et \(P_{90°}\) avec les trois premiers termes de leur série de Fourier.</p>
+<p><strong>Comment on raisonne.</strong> On lit la figure 12 :</p>
+<ul>
+<li>\(I_{DDS}\) part de 0 en montant à \(t = 0\) et va de \(-I_M\) à \(+I_M\) : c'est un sinus ;</li>
+<li>\(P_{0°}\) vaut \(+1\) quand le sinus est positif, \(-1\) quand il est négatif : un carré en phase avec le sinus ;</li>
+<li>\(P_{90°}\) vaut \(+1\) de 0 à \(T/4\), \(-1\) de \(T/4\) à \(3T/4\), puis \(+1\) : il suit le signe d'un cosinus, en avance d'un quart de période (90°) ;</li>
+<li>\(V_{MES}\) est la tension aux bornes de \(\underline{Z}_{BIO}\), multipliée par le gain \(K\) de l'amplificateur.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
+\[I_{DDS}(t) = I_M \sin(\omega t), \quad \omega = 2\pi f_{bio}\]
+\[V_{MES}(t) = K\,|\underline{Z}_{BIO}|\,I_M \sin(\omega t + \varphi), \quad \varphi = \arg \underline{Z}_{BIO}\]
+\[P_{0°}(t) = \frac{4}{\pi}\left[\sin \omega t + \frac{1}{3}\sin 3\omega t + \frac{1}{5}\sin 5\omega t\right]\]
+\[P_{90°}(t) = \frac{4}{\pi}\left[\cos \omega t - \frac{1}{3}\cos 3\omega t + \frac{1}{5}\cos 5\omega t\right]\]
+<p>Pour \(P_{90°}\), on décale \(P_{0°}\) d'un quart de période en avance : \(\sin\) devient \(\cos\) pour le fondamental ; pour l'harmonique 3, \(\sin(3\omega t + 3\pi/2) = -\cos 3\omega t\), d'où le signe moins.</p>
+
+<h4>Question 27 : la sortie du multiplieur M1</h4>
+<p><strong>Ce qu'on te demande.</strong> M1 multiplie \(V_{MES}\) par \(P_{0°}\). Exprime \(V_{M1}\), et montre qu'il contient une composante continue et plusieurs fréquences.</p>
+<p><strong>Comment on raisonne.</strong> On multiplie \(V_{MES}\) par chacun des trois termes de \(P_{0°}\), et on transforme chaque produit de sinus avec la formule \(\sin a \sin b = \tfrac{1}{2}[\cos(a - b) - \cos(a + b)]\). On note \(A = K\,|\underline{Z}_{BIO}|\,I_M\).</p>
+<p><strong>Le calcul.</strong></p>
+\[V_{M1} = A \sin(\omega t + \varphi) \times \frac{4}{\pi}\left[\sin \omega t + \frac{1}{3}\sin 3\omega t + \frac{1}{5}\sin 5\omega t\right]\]
+<ul>
+<li>avec \(\sin \omega t\) : \(\tfrac{1}{2}[\cos \varphi - \cos(2\omega t + \varphi)]\), une constante et une composante à \(2f\) ;</li>
+<li>avec \(\tfrac{1}{3}\sin 3\omega t\) : \(\tfrac{1}{6}[\cos(2\omega t - \varphi) - \cos(4\omega t + \varphi)]\), des composantes à \(2f\) et \(4f\) ;</li>
+<li>avec \(\tfrac{1}{5}\sin 5\omega t\) : \(\tfrac{1}{10}[\cos(4\omega t - \varphi) - \cos(6\omega t + \varphi)]\), des composantes à \(4f\) et \(6f\).</li>
+</ul>
+\[V_{M1} = \frac{2A}{\pi}\left[\cos \varphi - \cos(2\omega t + \varphi) + \tfrac{1}{3}\cos(2\omega t - \varphi) - \tfrac{1}{3}\cos(4\omega t + \varphi) + \tfrac{1}{5}\cos(4\omega t - \varphi) - \tfrac{1}{5}\cos(6\omega t + \varphi)\right]\]
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>une <strong>composante continue</strong> : \(\dfrac{2}{\pi}\,K\,I_M\,|\underline{Z}_{BIO}| \cos \varphi = \dfrac{2}{\pi}\,K\,I_M\,\text{Re}(\underline{Z}_{BIO})\) ;</li>
+<li>des composantes aux fréquences \(2 f_{bio}\), \(4 f_{bio}\) et \(6 f_{bio}\) (et au-delà avec les harmoniques suivantes).</li>
+</ul>
+<p>C'est tout l'intérêt : le filtre anti-repliement (AAF, passe-bas) enlève les composantes à \(2f\), \(4f\)… et il reste la constante, proportionnelle à la <strong>partie réelle</strong> de l'impédance. Le même calcul avec \(P_{90°}\) (multiplieur M2) donne une constante proportionnelle à \(|\underline{Z}_{BIO}| \sin \varphi\), la <strong>partie imaginaire</strong>. Deux nombres, mesurés par les deux ADC de 20 bits : l'impédance complexe complète.</p>
+<div id="fig-bioz-detection"></div>
+
+<h4>Vérifie : la détection</h4>
+<p><strong>1.</strong> Que vaut la moyenne de \(\cos(2\omega t + \varphi)\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Zéro : c'est une sinusoïde. Seule la constante \(\cos \varphi\) survit au filtrage.</p>
+</details>
+<p><strong>2.</strong> Si le tissu était une résistance pure (\(\varphi = 0\)), que donnerait la voie M2 (avec \(P_{90°}\)) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(\sin 0 = 0\) : une moyenne nulle. Pas de partie imaginaire, c'est logique pour une résistance.</p>
+</details>
+<p><strong>3.</strong> Pourquoi faut-il deux voies, M1 et M2 ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Une impédance complexe a deux nombres : la partie réelle (voie M1, \(\cos \varphi\)) et la partie imaginaire (voie M2, \(\sin \varphi\)). Une seule voie ne suffit pas.</p>
+</details>
+
+<h4>À retenir</h4>
+<ul>
+<li>Modèle de Cole : \(\underline{Z}_{BIO} = R_E + \dfrac{R_M}{1 + j R_M C_M \omega}\) ; Nyquist : demi-cercle de \(R_E + R_M\) à \(R_E\), sommet à \(\omega_0 = 1 / (R_M C_M)\).</li>
+<li>Mesure à 4 points : on injecte par les électrodes extérieures, on mesure par les intérieures, les contacts disparaissent.</li>
+<li>Howland classique : condition \(R_2 / R_1 = (R_3 + R_4) / R_5\), \(I_L = \dfrac{R_2}{R_1 R_3}(V_N - V_P)\). Symétrique : \(R_P = R + R_S\), \(|I_L| = V_{IN} / R_S\). Source simplifiée : \(I_{OUT} = V_{IN} / R_1\).</li>
+<li>Condensateurs de liaison : pas de courant continu dans le patient.</li>
+<li>Détection synchrone : multiplier par un carré au même rythme, filtrer ; la constante restante donne \(\text{Re}\) (voie 0°) et \(\text{Im}\) (voie 90°).</li>
+</ul>
+</article>
+
+<div class="fin-partie" data-section="bioz-detection"></div>
+</section>
+
+</main>
+<script src="../../../commun/vendor/katex/katex.min.js"></script>
+<script src="../../../commun/vendor/katex/auto-render.min.js"></script>
+<script src="../../../commun/js/lib.js"></script>
+<script src="../../../commun/js/section.js"></script>
+<script src="../dessins.js"></script>
+<script src="../figures/bioz-visuels.js"></script>
+</body>
+</html>

@@ -655,4 +655,34 @@ tous['pacemaker-programme'] = async (a) => {
   await a.choix(0); await a.suite();
 };
 
+// TD 4 : bio-impédance
+tous.bioz = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([5]); await a.suite();
+  await a.nombres([1]); await a.suite();
+  await a.nombres([39.8]); await a.suite();
+  await a.nombres([2]); await a.suite();
+};
+tous['bioz-sources'] = async (a) => {
+  await a.nombres([1900]); await a.suite();
+  await a.choix(0); await a.suite();
+  await a.nombres([10]); await a.suite();
+  await a.nombres([0.2]); await a.suite();
+  await a.nombres([11]); await a.suite();
+  await a.nombres([0.5]); await a.suite();
+};
+tous['bioz-max'] = async (a) => {
+  await a.choix(0); await a.suite();
+  await a.nombres([33.9]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(0); await a.suite();
+};
+tous['bioz-detection'] = async (a) => {
+  await a.nombres([0]); await a.suite();
+  await a.nombres([0.318]); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.choix(1); await a.suite();
+  await a.nombres([0.424]); await a.suite();
+};
+
 module.exports = tous;

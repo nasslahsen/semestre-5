@@ -27,17 +27,18 @@
 <p class="chapeau">Le professeur a annoncé deux choses : le TD semelle instrumentée et connectée, et la programmation des fonctions d'un objet connecté en MQTT (une fonction de traitement, le callback, la loop). Depuis, trois documents sont arrivés : le TD 2 (programmation de la semelle), le TD 3 (architecture et composants) et le projet pacemaker. Cette page rassemble ce qu'il faut savoir faire, avec des exercices corrigés aux nombres différents de ceux des TD, pour vérifier que tu as compris et pas seulement retenu.</p>
 
 <h2 id="feuille-de-route">Ta feuille de route</h2>
-<p>Environ 3 h 30. Fais les étapes dans l'ordre et passe à la suivante dès que le test de fin est réussi. Si le temps manque, les étapes 1 à 4 d'abord : ce sont les sujets annoncés et le programme.</p>
+<p>Environ 4 h 10. Fais les étapes dans l'ordre et passe à la suivante dès que le test de fin est réussi. Si le temps manque, les étapes 1 à 5 d'abord : ce sont les sujets annoncés et le programme.</p>
 <div class="tableau feuille"><table>
 <tr><th>Étape</th><th>Durée</th><th>Va ici</th><th>C'est bon quand</th></tr>
 <tr><td>1. Architecture (TD 3)</td><td>30 min</td><td><a href="court/chapitre-18.html">version courte du TD 3</a>, puis <a href="#partie-4">exercices 21 à 27</a></td><td>tu fais l'exercice 27 (contrainte temporelle) sans regarder</td></tr>
 <tr><td>2. Le montage de la semelle (TD 1)</td><td>30 min</td><td><a href="court/chapitre-16.html">version courte du TD 1</a>, surtout « Le montage de mesure »</td><td>tu sais écrire \(V_A\) et dire pourquoi elle vaut 0,275 V sans appui</td></tr>
 <tr><td>3. La semelle programmée (TD 2)</td><td>50 min</td><td><a href="court/chapitre-17.html">version courte du TD 2</a>, puis <a href="#partie-3">exercices 14 à 20</a></td><td>tu réussis l'exercice 16 (du code à la force) et l'exercice 20 (quatre erreurs)</td></tr>
-<tr><td>4. MQTT : traitement, callback, loop</td><td>50 min</td><td><a href="court/fiche-code.html">fiche du code</a>, puis <a href="#partie-2">exercices 7, 11 et 12</a></td><td>tu écris le callback et la loop de mémoire</td></tr>
-<tr><td>5. Le pacemaker (projet)</td><td>20 min</td><td><a href="court/chapitre-19.html">version courte du projet</a>, puis <a href="#partie-5">exercices 28 à 31</a></td><td>tu expliques pourquoi on stimule ou pas, et où va le watchdog</td></tr>
-<tr><td>6. Dernier passage</td><td>15 min</td><td><a href="#pieges">les pièges</a></td><td>aucun piège ne te surprend</td></tr>
+<tr><td>4. La bio-impédance (TD 4)</td><td>40 min</td><td><a href="chapitres/chapitre-20.html">TD 4</a> : le modèle et Nyquist, puis la mesure à 4 points et la détection synchrone</td><td>tu sais tracer le demi-cercle de Nyquist et expliquer pourquoi la mesure à 4 points élimine les électrodes</td></tr>
+<tr><td>5. MQTT : traitement, callback, loop</td><td>50 min</td><td><a href="court/fiche-code.html">fiche du code</a>, puis <a href="#partie-2">exercices 7, 11 et 12</a></td><td>tu écris le callback et la loop de mémoire</td></tr>
+<tr><td>6. Le pacemaker (projet)</td><td>20 min</td><td><a href="court/chapitre-19.html">version courte du projet</a>, puis <a href="#partie-5">exercices 28 à 31</a></td><td>tu expliques pourquoi on stimule ou pas, et où va le watchdog</td></tr>
+<tr><td>7. Dernier passage</td><td>15 min</td><td><a href="#pieges">les pièges</a></td><td>aucun piège ne te surprend</td></tr>
 </table></div>
-<p>Le fil rouge, qui relie les étapes 1, 3 et 5 : <strong>une interruption lève un drapeau, la boucle fait le travail</strong>. Si tu sais dire pourquoi (étape 1), le timer du TD 2 et la stimulation du pacemaker deviennent évidents.</p>
+<p>Le fil rouge, qui relie les étapes 1, 3 et 6 : <strong>une interruption lève un drapeau, la boucle fait le travail</strong>. Si tu sais dire pourquoi (étape 1), le timer du TD 2 et la stimulation du pacemaker deviennent évidents.</p>
 <p>Pour comprendre un point qui résiste, ouvre le corrigé complet du TD (lien en haut de chaque version courte) : chaque question y a « Ce qu'il faut savoir » et un schéma qu'on manipule.</p>
 
 
@@ -57,6 +58,7 @@
 <tr><th>Document</th><th>Ce qu'il faut savoir faire</th><th>Où c'est sur le site</th></tr>
 <tr><td>TD 2 : programmation embarquée de la semelle</td><td>Choisir les broches, écrire <code>selectSensor</code>, <code>sensorAcquisition</code>, <code>rsensor</code>, les modes d'acquisition, le bouton, le timer.</td><td><a href="chapitres/chapitre-17.html">TD 2</a>, partie 3 ci-dessous</td></tr>
 <tr><td>TD 3 : architecture et composants</td><td>Définir, comparer (microcontrôleur, DSP, FPGA ; RISC, CISC ; Von Neumann, Harvard ; interruption, DMA), lire un schéma de PIC, calculer une contrainte temporelle.</td><td><a href="chapitres/chapitre-18.html">TD 3</a>, partie 4 ci-dessous</td></tr>
+<tr><td>TD 4 : mesure de la bio-impédance (semelle, partie 3)</td><td>Écrire l'impédance du modèle de Cole, tracer son diagramme de Nyquist, expliquer la mesure à 4 points, calculer une source de Howland, expliquer la détection synchrone.</td><td><a href="chapitres/chapitre-20.html">TD 4</a></td></tr>
 <tr><td>Projet pacemaker connecté</td><td>Expliquer les blocs, détecter un battement, calculer une fréquence, programmer la stimulation à la demande avec un timer et un watchdog.</td><td><a href="chapitres/chapitre-19.html">Projet</a>, partie 5 ci-dessous</td></tr>
 </table></div>
 
