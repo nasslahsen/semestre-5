@@ -23,6 +23,13 @@ window.SCHEMAS = {
            [{ id: "aop", t: "AOP et RG, CF", s: "R devient VA, filtré", k: "doux" }],
            [{ id: "adc", t: "ADC du µC", s: "AIN1, 8 bits", k: "fort" }]],
     liens: [["fsr", "mux"], ["mux", "aop"], ["aop", "adc"]] },
+  "sc-mqtt-semelle": { titre: "MQTT pour la semelle : tout passe par le broker", deplier: false,
+    cols: [[{ id: "esp", t: "ESP32 de la semelle", s: "publie semelle/talon, abonnée à semelle/cmd", k: "fort" }],
+           [{ id: "pub", t: "publish", s: "semelle/talon : 2.71" }, { id: "cmd", t: "callback()", s: "reçoit semelle/cmd : start" }],
+           [{ id: "broker", t: "Broker", s: "reçoit et redistribue par topic", k: "doux" }],
+           [{ id: "dash", t: "Tableau de bord", s: "abonné à semelle/talon, publie semelle/cmd", k: "neutre" }]],
+    liens: [["esp", "pub"], ["pub", "broker"], ["broker", "dash"], ["broker", "cmd"], ["cmd", "esp"]] },
+
   "sc-td2-chaine": { titre: "TD 2 : ce que fait le programme, en remontant le circuit", deplier: false,
     cols: [[{ id: "sel", t: "selectSensor(k)", s: "S3 S2 S1 = k en binaire" }],
            [{ id: "adc", t: "analogRead(AIN1)", s: "code de 0 à 4095" }],

@@ -142,6 +142,21 @@
 </details>
 
 <h2 id="partie-2">Partie 2 : les fonctions d'un objet connecté en MQTT</h2>
+<h3>MQTT en deux minutes</h3>
+<p>MQTT est une façon pour des appareils de s'envoyer de petits messages par Internet. Tout passe par un serveur central, le <strong>broker</strong>, comme une boîte aux lettres partagée :</p>
+<ul>
+<li>chaque message porte une étiquette, le <strong>topic</strong>, écrite comme un chemin : <code>semelle/talon</code>, <code>semelle/cmd</code> ;</li>
+<li>un appareil qui envoie <strong>publie</strong> (publish) un message sur un topic ;</li>
+<li>un appareil qui veut recevoir <strong>s'abonne</strong> (subscribe) à un topic ; le broker lui transmet alors chaque message publié sur ce topic ;</li>
+<li>l'émetteur et le récepteur ne se connaissent pas : chacun ne parle qu'au broker.</li>
+</ul>
+<p>Pour la semelle, deux sens de circulation :</p>
+<div class="schema" id="sc-mqtt-semelle"></div>
+<ul>
+<li><strong>la semelle publie</strong> ses mesures sur <code>semelle/talon</code> ; le tableau de bord, abonné, les affiche ;</li>
+<li><strong>le tableau de bord publie</strong> des ordres (« start », « stop ») sur <code>semelle/cmd</code> ; la semelle, abonnée, les reçoit dans sa fonction <code>callback()</code>.</li>
+</ul>
+<p>Le programme de l'ESP32 a donc trois choses à faire : rester connecté au broker, recevoir les ordres (callback), mesurer et publier (loop). C'est exactement le squelette du cours ci-dessous.</p>
 <h3>Le squelette du cours, en sept étapes</h3>
 <ol>
 <li>Déclaration des bibliothèques : <code>WiFi.h</code>, <code>PubSubClient.h</code>.</li>
@@ -163,6 +178,7 @@
 </table></div>
 
 <h3>Le callback</h3>
+<p>Le <strong>callback</strong> est la fonction que la bibliothèque appelle toute seule à chaque message reçu. On ne l'appelle jamais nous-mêmes : on la déclare une fois dans <code>setup()</code> avec <code>client.setCallback(callback)</code>, et c'est <code>client.loop()</code> qui la déclenche quand un message arrive.</p>
 <p>Sa signature est imposée par la bibliothèque <code>PubSubClient</code> : le topic, le message en octets, sa longueur. Le message n'est pas une chaîne : on le reconstruit dans une <code>String</code>.</p>
 <pre class="code" data-titre="Le callback du lab 6, réduit à l'essentiel"><code>void callback(char* topic, byte* message, unsigned int length) {
   String messageTemp;
@@ -178,6 +194,43 @@
     }
   }
 }</code></pre>
+
+<p><strong>Ligne par ligne.</strong></p>
+<ul>
+<li><code>char* topic</code> : le topic sur lequel le message est arrivé, par exemple <code>"ensam/gbm/light"</code>.</li>
+<li><code>byte* message</code> et <code>length</code> : le message arrive comme une suite d'octets bruts, avec sa longueur. Ce n'est pas encore du texte qu'on peut comparer.</li>
+<li><code>String messageTemp;</code> puis la boucle <code>for</code> : on prend chaque octet, on le convertit en caractère (<code>(char)message[i]</code>) et on l'ajoute au bout de <code>messageTemp</code>. Pour le message « on », la boucle tourne deux fois : « o », puis « on ».</li>
+<li><code>if (String(topic) == "ensam/gbm/light")</code> : on vérifie que le message vient bien du topic qui nous intéresse. <code>String(topic)</code> est nécessaire : un <code>char*</code> ne se compare pas avec <code>==</code>.</li>
+<li>Puis on décide : « on », la LED s'allume ; « off », elle s'éteint.</li>
+</ul>
+<p>La méthode est toujours la même : reconstruire le texte, vérifier le topic, décider selon le contenu.</p>
+
+<h3>reconnect() : rester connecté</h3>
+<p>Le Wi-Fi peut couper, le broker peut redémarrer. <code>reconnect()</code> réessaie jusqu'à ce que la connexion revienne, puis <strong>se réabonne</strong> : après une coupure, le broker a oublié les abonnements.</p>
+<pre class="code" data-titre="reconnect() du lab 6"><code>void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Attempt to connect
+    if (client.connect("ESP8266Client")) {
+      Serial.println("connected");
+      // Subscribe
+      client.subscribe("ensam/gbm/light");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}</code></pre>
+<ul>
+<li><code>while (!client.connected())</code> : tant qu'on n'est pas connecté, on recommence.</li>
+<li><code>client.connect("ESP8266Client")</code> : on se présente au broker avec un identifiant (Client ID). Deux cartes ne doivent pas avoir le même.</li>
+<li>Si ça marche : <code>client.subscribe(…)</code>, on se réabonne au topic des ordres. C'est pour cela qu'on s'abonne ici et pas seulement dans <code>setup()</code>.</li>
+<li>Sinon : on affiche le code d'erreur (<code>client.state()</code>) et on attend 5 s avant de réessayer.</li>
+</ul>
 
 <p class="exo">7. Écris le callback de la semelle : sur le topic <code>semelle/cmd</code>, « start » lance les mesures, « stop » les arrête (variable globale <code>bool mesure</code>).</p>
 <details class="corrige"><summary>Voir la correction</summary>
@@ -255,7 +308,17 @@ void callback(char* topic, byte* message, unsigned int length) {
     client.publish("ensam/gbm/temperature", tempString);
   }
 }</code></pre>
-<p><code>publish</code> envoie du texte : <code>dtostrf(valeur, largeur, décimales, tableau)</code> écrit le nombre dans un tableau de caractères.</p>
+<p><strong>Ligne par ligne.</strong></p>
+<ul>
+<li><code>if (!client.connected()) reconnect();</code> : rôle 1, la <strong>reconnexion</strong>. Si la connexion au broker est tombée, on la rétablit avant tout.</li>
+<li><code>client.loop();</code> : on laisse la bibliothèque travailler. Elle garde la connexion vivante et, si un message est arrivé, elle appelle <code>callback()</code>. Sans cette ligne, aucun ordre n'est jamais reçu.</li>
+<li><code>long now = millis();</code> : <code>millis()</code> donne le nombre de millisecondes depuis le démarrage, comme un chronomètre qui ne s'arrête jamais.</li>
+<li><code>if (now - lastMsg &gt; 2000)</code> : a-t-il passé plus de 2 000 ms depuis la dernière mesure ? Si non, on ne fait rien et <code>loop()</code> recommence aussitôt. Si oui, on note l'heure (<code>lastMsg = now</code>) et on mesure.</li>
+<li><code>temp = 1.5 * analogRead(A0) / 600;</code> : rôle 2, l'<strong>acquisition</strong>, et le traitement : on lit l'ADC et on convertit le code en température.</li>
+<li><code>dtostrf(temp, 1, 2, tempString);</code> : <code>publish</code> n'envoie que du texte. <code>dtostrf(valeur, largeur, décimales, tableau)</code> écrit le nombre dans un tableau de caractères : 23,456 devient « 23.46 ».</li>
+<li><code>client.publish("ensam/gbm/temperature", tempString);</code> : rôle 3, la <strong>publication</strong> sur le topic.</li>
+</ul>
+<p>Pourquoi pas <code>delay(2000)</code> : pendant les 2 s d'attente, <code>client.loop()</code> ne tournerait pas, les ordres reçus attendraient, et la connexion pourrait tomber. Avec <code>millis()</code>, <code>loop()</code> tourne des milliers de fois par seconde et ne mesure qu'une fois toutes les 2 s. Exemple : mesure à 0 ms, puis <code>loop()</code> repasse à 1 ms, 2 ms… et ne remesure qu'au premier passage après 2 000 ms.</p>
 
 <p class="exo">11. Écris la loop de la semelle : toutes les secondes, si les mesures sont lancées, lire le capteur du talon (GPIO 36), le convertir en volts avec <code>tension()</code>, allumer la LED au-dessus de 2,5 V et publier la tension sur <code>semelle/talon</code>.</p>
 <details class="corrige"><summary>Voir la correction</summary>
