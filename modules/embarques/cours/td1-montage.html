@@ -82,6 +82,13 @@
 
 <h2>Question 12 : l'expression de VA</h2>
 <p><strong>On te demande.</strong> En continu, avec S1, S2 et S3 à l'état haut, exprime \(V_A\). Détermine ses variations quand la force va de 0,5 N à 100 N et valide le dimensionnement. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
+<p><strong>Les bases d'électronique pour lire la figure 5.</strong> Quatre règles suffisent :</p>
+<ul>
+<li><strong>Loi d'Ohm</strong> : une résistance \(R\) traversée par un courant \(i\) a une tension \(U = R\,i\) à ses bornes. Donc \(i = U / R\).</li>
+<li><strong>Le courant se conserve</strong> : le courant qui arrive à un point du circuit en repart en entier. Si un seul chemin s'offre à lui, tout le courant le prend.</li>
+<li><strong>Pont diviseur</strong> : deux résistances en série entre \(V_{DD}\) et la masse. Le même courant les traverse, \(i = V_{DD} / (R_A + R_B)\), et la tension au milieu vaut \(R_B\,i\), soit \(V_{DD}\,R_B / (R_A + R_B)\). Valable seulement si rien ne tire de courant au point milieu.</li>
+<li><strong>AOP idéal en régime linéaire</strong> : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et, parce que sa sortie est reliée à l'entrée \(-\) (par \(R_G\)), il ajuste sa sortie pour que \(V^- = V^+\).</li>
+</ul>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
 <li>Le code S3 S2 S1 se lit en binaire, S1 étant le bit de poids faible : 111 vaut 7, donc la voie \(Y_7\).</li>
@@ -91,6 +98,16 @@
 <li>L'ADC lit de 0 à 3,3 V : au-delà, il sature.</li>
 </ul>
 <div id="fig-td1"></div>
+<p><strong>Comment on trouve \(V_A\), en cinq étapes.</strong> Avance dans la figure en même temps que tu lis.</p>
+<div id="fig-td1-etapes"></div>
+<ul>
+<li><strong>Étape 1, quel capteur ?</strong> S3 S2 S1 = 111 vaut 7 : le multiplexeur relie \(Y_7\), donc \(R_{FSR8}\), entre l'entrée \(-\) et la masse. Les sept autres capteurs sont débranchés : on les oublie.</li>
+<li><strong>Étape 2, l'entrée \(+\).</strong> Elle est au milieu du pont \(R_A\), \(R_B\). Aucun courant n'entre dans l'AOP, donc la formule du pont diviseur s'applique.</li>
+<li><strong>Étape 3, l'entrée \(-\).</strong> L'AOP fait \(V^- = V^+\) : l'entrée \(-\) est aussi à 0,275 V.</li>
+<li><strong>Étape 4, le courant.</strong> \(R_{FSR8}\) est entre l'entrée \(-\) (0,275 V) et la masse (0 V) : par la loi d'Ohm, il est traversé par \(i = V^- / R_{FSR8}\). Ce courant vient du point \(-\). Il ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient forcément de la sortie, à travers \(R_G\). Le même \(i\) traverse donc \(R_G\).</li>
+<li><strong>Étape 5, la sortie.</strong> En partant de l'entrée \(-\) et en remontant \(R_G\) vers la sortie, on ajoute la tension aux bornes de \(R_G\), soit \(R_G\,i\) : \(V_A = V^- + R_G\,i\).</li>
+</ul>
+<p>\(C_F\) n'apparaît pas : en continu, un condensateur ne laisse passer aucun courant, c'est un fil coupé.</p>
 <p><strong>Réponse.</strong> S3 S2 S1 = 111 : c'est 7 en binaire, la voie \(Y_7\), donc le capteur \(R_{FSR8}\).</p>
 <p>L'entrée + est fixée par le pont \(R_A\), \(R_B\) :</p>
 \[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
@@ -98,7 +115,10 @@
 \[V^+ = 0{,}275\ \text{V}\]
 <p>Comme \(V^- = V^+\), le capteur, qui relie \(V^-\) à la masse, est traversé par \(i = V^+ / R_{FSR8}\). Aucun courant n'entre dans l'AOP : ce même courant traverse \(R_G\), d'où :</p>
 \[V_A = V^- + R_G\,i\]
+\[V_A = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
+\[V_A = V^+\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
 \[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
+<p>Exemple pour fixer les idées : avec \(R_{FSR8} = 250\) kΩ, \(i = 0{,}275 / 250\,000 = 1{,}1\ \mu\)A, et \(V_A = 0{,}275 + 750\,000 \times 1{,}1 \times 10^{-6} = 0{,}275 + 0{,}825 = 1{,}1\) V.</p>
 <p>Avec le modèle de la question 9 :</p>
 \[V_A(F) = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_0 + \beta / F}\right)\]
 <p>Variations :</p>
@@ -107,6 +127,7 @@
 <li>quand la force monte, \(R_{FSR}\) baisse et \(V_A\) monte ;</li>
 <li>à 100 N, \(R_{FSR}\) est la plus faible : \(V_A\) est maximale.</li>
 </ul>
+<p><strong>Comment on vérifie le dimensionnement.</strong> \(V_A\) est la plus grande quand \(R_{FSR}\) est la plus petite, donc à la force la plus forte (100 N). On cherche la plus petite résistance qui garde \(V_A\) sous 3,3 V, puis on regarde sur la courbe DR1 si le capteur reste au-dessus.</p>
 <p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
 \[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
 \[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]

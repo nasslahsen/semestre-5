@@ -54,15 +54,39 @@
 
 <h2>Question 1 : les broches</h2>
 <p><strong>On te demande.</strong> Propose les broches de l'ESP32 qui reçoivent les signaux P1.0, P1.1, P1.2 et AIN1.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+
+<h3>D'abord : qu'est-ce qu'une broche, et que doit faire chacune ?</h3>
+<p>Une <strong>broche</strong> (GPIO, General Purpose Input Output) est une patte de la carte reliée à la puce. Le programme décide de son rôle. Une broche peut être :</p>
 <ul>
-<li>P1.0, P1.1, P1.2 commandent S1, S2, S3 : ce sont des <strong>sorties numériques</strong>.</li>
-<li>AIN1 reçoit \(V_A\) : il faut une broche reliée à un <strong>ADC</strong>.</li>
-<li>GPIO 34, 35, 36 et 39 sont des <strong>entrées seulement</strong>, sans résistance de tirage : jamais pour une sortie, parfaites pour une mesure.</li>
-<li>Les broches de l'<strong>ADC2</strong> ne marchent plus quand le Wi-Fi est utilisé : une semelle connectée lit ses capteurs sur l'ADC1 (GPIO 32 à 39).</li>
-<li>Mieux vaut laisser libres les broches qui ont déjà un rôle sur la carte : GPIO 1 et 3 (UART0, liaison USB), GPIO 2 (LED bleue), GPIO 21 et 22 (I2C).</li>
+<li>une <strong>sortie numérique</strong> : le programme y <em>écrit</em> 0 V ou 3,3 V (<code>digitalWrite</code>), par exemple pour allumer une LED ou donner un ordre à un autre circuit ;</li>
+<li>une <strong>entrée numérique</strong> : le programme y <em>lit</em> 0 ou 1 (<code>digitalRead</code>), par exemple l'état d'un bouton ;</li>
+<li>une <strong>entrée analogique</strong> : le programme y <em>mesure</em> une tension et obtient un nombre de 0 à 4095 (<code>analogRead</code>). Seules les broches reliées à un <strong>ADC</strong> (le convertisseur) savent le faire.</li>
 </ul>
-<p><strong>Réponse.</strong> Une affectation possible, sur le brochage de l'annexe :</p>
+<p>Maintenant, regarde le circuit de la page et demande-toi, pour chaque fil qui arrive au microcontrôleur : qui parle à qui ?</p>
+<div class="tableau"><table>
+<tr><th>Signal</th><th>Où il va</th><th>Qui décide de sa valeur ?</th><th>Donc la broche doit être</th></tr>
+<tr><td>P1.0, P1.1, P1.2</td><td>vers S1, S2, S3 du multiplexeur</td><td>le <strong>microcontrôleur</strong> : c'est lui qui choisit quel capteur lire, en écrivant son numéro en binaire</td><td>une <strong>sortie numérique</strong></td></tr>
+<tr><td>AIN1</td><td>vient de la sortie \(V_A\) de l'AOP</td><td>le <strong>circuit</strong> : la tension dépend de l'appui, le microcontrôleur doit la mesurer</td><td>une <strong>entrée analogique</strong> (reliée à un ADC)</td></tr>
+</table></div>
+
+<h3>Ensuite : éliminer les broches qui ne conviennent pas</h3>
+<p>La carte ESP32 DEVKIT V1 de l'annexe a 30 broches. On les élimine une catégorie à la fois, comme un entonnoir :</p>
+<ul>
+<li><strong>Pas des broches de signal</strong> : EN (le redémarrage), VIN, 3V3, GND (l'alimentation). Il reste les GPIO.</li>
+<li><strong>Déjà occupées sur la carte</strong> : GPIO 1 et 3 (TX0 et RX0) relient la puce au câble USB, c'est par là qu'on téléverse le programme et qu'on lit le moniteur série. GPIO 2 porte la LED bleue. Les utiliser casserait autre chose.</li>
+<li><strong>Entrées seulement</strong> : GPIO 34, 35, 36 et 39 n'ont pas de circuit de sortie. Elles peuvent mesurer, jamais écrire. Donc jamais pour S1 à S3.</li>
+<li><strong>ADC2 et Wi-Fi</strong> : l'ESP32 a deux convertisseurs, ADC1 (GPIO 32 à 39) et ADC2 (GPIO 0, 2, 4, 12 à 15, 25 à 27). Le cours le dit : les broches de l'ADC2 ne marchent plus quand le Wi-Fi est utilisé. Une semelle connectée envoie ses mesures en Wi-Fi : la mesure doit donc se faire sur l'<strong>ADC1</strong>.</li>
+<li><strong>Broches sensibles au démarrage</strong> (complément, pas dans le cours) : GPIO 0, 2, 5, 12 et 15 sont lues par la puce au démarrage pour choisir son mode. Un montage qui les force à 0 ou à 1 peut empêcher la carte de démarrer : on les évite quand on peut.</li>
+</ul>
+<div id="fig-td2-broches"></div>
+
+<h3>Enfin : choisir</h3>
+<ul>
+<li><strong>Pour S1, S2, S3</strong> (trois sorties) : il reste beaucoup de choix (4, 13, 14, 16 à 19, 21 à 23, 25 à 27, 32, 33). On prend <strong>GPIO 25, 26, 27</strong> : trois broches voisines sur la carte, ce qui rend le câblage simple, et aucune n'est sensible au démarrage. N'importe quel trio de cette liste serait juste.</li>
+<li><strong>Pour AIN1</strong> (une mesure, avec le Wi-Fi) : il faut l'ADC1, donc GPIO 32, 33, 34, 35, 36 ou 39. On prend <strong>GPIO 34</strong> : elle est en entrée seulement, ce qui ne gêne pas pour une mesure, et on garde 32 et 33 (qui savent aussi être des sorties) pour autre chose.</li>
+<li><strong>Pour le second réseau de 8 capteurs</strong> : son AOP sort une autre tension, AIN2, sur une autre broche de l'ADC1, <strong>GPIO 35</strong>. Les deux multiplexeurs peuvent partager S1, S2, S3 : ils choisissent le même numéro de capteur, et l'ESP32 lit les deux tensions l'une après l'autre.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th>Signal</th><th>Rôle</th><th>Broche</th><th>Type</th></tr>
 <tr><td>P1.0</td><td>S1, bit de poids faible</td><td>GPIO 25</td><td>sortie numérique</td></tr>
@@ -71,13 +95,7 @@
 <tr><td>AIN1</td><td>\(V_A\) du premier réseau</td><td>GPIO 34 (ADC1_CH6)</td><td>entrée analogique</td></tr>
 <tr><td>AIN2</td><td>\(V_A\) du second réseau</td><td>GPIO 35 (ADC1_CH7)</td><td>entrée analogique</td></tr>
 </table></div>
-<p>Pourquoi ces choix :</p>
-<ul>
-<li>GPIO 25, 26, 27 sont voisines sur la carte et peuvent toutes sortir un niveau logique.</li>
-<li>GPIO 34 et 35 sont sur l'ADC1 : la mesure continue de marcher quand le Wi-Fi envoie les données. Comme ce sont des entrées seulement, on ne perd aucune sortie utile.</li>
-<li>Le second réseau de 8 capteurs peut partager les trois lignes S1 S2 S3 : les deux multiplexeurs choisissent alors le même numéro de capteur, et l'ESP32 lit les deux tensions, l'une après l'autre, sur GPIO 34 et 35.</li>
-</ul>
-<p>D'autres choix sont justes s'ils respectent ces règles. Une sortie sur GPIO 34 à 39, ou une mesure sur l'ADC2 avec le Wi-Fi, serait fausse.</p>
+<p>À l'examen, ce qui compte n'est pas le numéro exact mais la justification : sorties numériques pour S1 à S3 (pas GPIO 34 à 39), entrée sur l'ADC1 pour AIN1 (pas l'ADC2 avec le Wi-Fi), broches libres sur la carte.</p>
 
 <h2>À retenir</h2>
 <ul>

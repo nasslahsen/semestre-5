@@ -1,4 +1,4 @@
-// TD 1 semelle : les figures de la correction (capteur, pont de jauges, Vo(P), modèle du capteur, chronogramme, CF).
+// TD 1 semelle : les figures de la correction (capteur, pont de jauges, Vo(P), modèle du capteur, figure 5 pas à pas, chronogramme, CF).
 // Chaque figure ne se dessine que si sa place est sur la page.
 (function () {
   "use strict";
@@ -194,6 +194,71 @@
       tx(g, "5τ = " + vg(5 * tau, 2) + " ms", [X(Math.min(5 * tau, 4)) + 10, Y(0.5)], { taille: 17, ancre: "start", coul: ok ? C.ok : C.ko });
       var fc = 1 / (2 * Math.PI * 750e3 * CF);
       R.rendre(zone, "\\tau = R_G C_F = " + R.tc(tau, 3) + "\\ \\text{ms} \\qquad f_c = \\frac{1}{2\\pi R_G C_F} \\approx " + R.tc(fc, 0) + "\\ \\text{Hz}" + (ok ? "" : " \\quad \\text{trop lent}"));
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 12 : la figure 5, pas à pas, jusqu'à VA ---------- */
+  if (place("fig-td1-etapes")) (function () {
+    var f = R.figure("fig-td1-etapes", { largeur: 960, hauteur: 540, titre: "La figure 5, étape par étape : de V+ à VA",
+      essai: "<strong>Essaie</strong> : avance d'une étape à la fois, puis change la résistance du capteur. <strong>Observe</strong> : V+ et V− ne bougent pas (0,275 V) ; seul le courant change, et avec lui la tension aux bornes de RG, donc VA.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct), k = 0;
+    var NOMS = ["le circuit", "quel capteur ?", "l'entrée +", "l'entrée −", "le courant", "la sortie VA"];
+    var cr = R.curseur(f.reglages, { nom: "RFSR8", min: 75, max: 1000, pas: 5, val: 250, unite: " kΩ", surChange: dessiner });
+    R.etapes(f.reglages, 5, NOMS, function (i) { k = i; dessiner(); });
+    var VP = 3.3 * 10 / 120;
+    function resistance(x, y, w, h, nom, actif, vertical) {
+      el("rect", { x: x, y: y, width: w, height: h, rx: 4, fill: actif ? C.clair : "#fff", stroke: actif ? C.acc : C.encre, "stroke-width": actif ? 3.5 : 2.5 }, g);
+      tx(g, nom, vertical ? [x - 14, y + h / 2] : [x + w / 2, y - 18], { taille: 18, ancre: vertical ? "end" : "middle", coul: actif ? C.acc : C.encre });
+    }
+    function fil(d, actif) { el("path", { d: d, fill: "none", stroke: actif ? C.acc : C.encre, "stroke-width": actif ? 4 : 2.5 }, g); }
+    function masse(x, y) { el("path", { d: "M" + (x - 16) + " " + y + " H" + (x + 16) + " M" + (x - 10) + " " + (y + 8) + " H" + (x + 10) + " M" + (x - 4) + " " + (y + 16) + " H" + (x + 4), stroke: C.encre, "stroke-width": 2.5 }, g); }
+    function etiquette(t, p, actif, ancre) { tx(g, t, p, { taille: 18, ancre: ancre || "start", coul: actif ? C.acc : C.encre, mono: true }); }
+    function dessiner() {
+      EMB.vider(g);
+      var Rk = cr.v * 1000, i = VP / Rk, va = Math.min(VP + 750e3 * i, 3.3);
+      // pont RA, RB : son point milieu va droit sur l'entrée +
+      tx(g, "VDD = 3,3 V", [120, 34], { taille: 18 });
+      fil("M120 50 V90", k === 2); resistance(104, 90, 32, 90, "RA 110 kΩ", k === 2, true);
+      fil("M120 180 V300", k === 2); resistance(104, 300, 32, 90, "RB 10 kΩ", k === 2, true);
+      fil("M120 390 V440", k === 2); masse(120, 440);
+      el("circle", { cx: 120, cy: 240, r: 6, fill: C.encre }, g);
+      fil("M120 240 H430", k === 2);
+      // AOP : + en haut, − en bas
+      el("polygon", { points: "430,190 430,400 590,295", fill: "#fff", stroke: C.encre, "stroke-width": 3 }, g);
+      tx(g, "+", [448, 240], { taille: 26 }); tx(g, "−", [448, 350], { taille: 26 });
+      // entrée − : le capteur vers la masse (à gauche), RG vers la sortie (en dessous)
+      fil("M430 350 H370", k === 3 || k === 4);
+      el("circle", { cx: 370, cy: 350, r: 6, fill: C.encre }, g);
+      fil("M370 350 H300 V380", k >= 4); resistance(284, 380, 32, 80, "RFSR8", k === 1 || k >= 4, true);
+      fil("M300 460 V480", k >= 4); masse(300, 480);
+      tx(g, "(Y7, choisi par S3 S2 S1 = 111)", [300, 524], { taille: 16, gras: false, coul: k === 1 ? C.acc : C.doux });
+      fil("M370 350 V430 H520", k >= 4); resistance(520, 416, 110, 28, "", k >= 4, false);
+      tx(g, "RG 750 kΩ", [575, 464], { taille: 18, coul: k >= 4 ? C.acc : C.encre });
+      fil("M630 430 H700 V295", k >= 4);
+      el("path", { d: "M370 430 V496 H700 V430", fill: "none", stroke: C.gris, "stroke-width": 2, "stroke-dasharray": "6 6" }, g);
+      tx(g, "CF : ouvert en continu", [535, 518], { taille: 16, gras: false, coul: C.doux });
+      // sortie
+      fil("M590 295 H800", k === 5);
+      el("circle", { cx: 700, cy: 295, r: 6, fill: C.encre }, g);
+      etiquette("VA", [812, 295], k === 5);
+      // valeurs, étape par étape
+      if (k >= 2) etiquette("V+ = 0,275 V", [150, 218], k === 2);
+      if (k >= 3) etiquette("V− = V+", [356, 326], k === 3, "end");
+      if (k >= 4) {
+        EMB.fleche(g, [334, 392], [334, 452], { coul: C.ko, ep: 3 });
+        etiquette("i", [346, 422], true);
+        EMB.fleche(g, [660, 400], [550, 400], { coul: C.ko, ep: 3 });
+        etiquette("même i", [605, 380], true, "middle");
+        tx(g, "aucun courant ne rentre dans l'AOP", [470, 160], { taille: 16, gras: false, coul: C.doux, ancre: "start" });
+      }
+      var tex = ["\\text{quatre règles : loi d'Ohm, courant conservé, pont diviseur, AOP idéal}",
+        "111_2 = 7 \\;\\to\\; Y_7 : R_{FSR8}",
+        "V^+ = V_{DD}\\,\\frac{R_B}{R_A + R_B} = 3{,}3 \\times \\frac{10}{120} = 0{,}275\\ \\text{V}",
+        "V^- = V^+ = 0{,}275\\ \\text{V}",
+        "i = \\frac{V^-}{R_{FSR8}} = " + R.tc(i * 1e6, 2) + "\\ \\mu\\text{A} \\quad (\\text{le même dans } R_G)",
+        "V_A = V^- + R_G\\,i = 0{,}275 + " + R.tc(750e3 * i, 3) + " = " + R.tc(va, 3) + "\\ \\text{V}" + (VP + 750e3 * i > 3.3 ? "\\ (\\text{saturé})" : "")][k];
+      R.rendre(zone, tex);
     }
     dessiner();
   })();

@@ -29,6 +29,13 @@
 <li>S3 S2 S1 forment un compteur binaire : S1 (poids faible) change le plus souvent, S3 le moins souvent.</li>
 <li><strong>Débit binaire</strong> : nombre de bits produits par seconde = nombre de capteurs × mesures par seconde × bits par mesure.</li>
 </ul>
+<p><strong>Comment on raisonne.</strong></p>
+<ul>
+<li>120 pas par minute, c'est 2 pas par seconde.</li>
+<li>Chaque pas doit être décrit par 20 mesures : chaque capteur doit donc être lu \(2 \times 20 = 40\) fois par seconde.</li>
+<li>Un seul ADC lit les 8 capteurs l'un après l'autre : il doit faire le tour des 8 capteurs 40 fois par seconde. Chaque capteur n'a qu'un huitième de la période.</li>
+<li>Pour passer d'un capteur au suivant, le microcontrôleur ajoute 1 au code S3 S2 S1 : c'est un compteur binaire.</li>
+</ul>
 <p><strong>Réponse.</strong> Fréquence d'échantillonnage d'un capteur :</p>
 \[f_e = \frac{120\ \text{pas}}{60\ \text{s}} \times 20\ \text{points}\]
 \[f_e = 2 \times 20\]
@@ -59,6 +66,13 @@
 <li>À chaque changement de voie, \(V_A\) saute d'une valeur à l'autre.</li>
 </ul>
 <div id="fig-td1-cf"></div>
+<p><strong>Ce que veut dire « se stabiliser ».</strong> Avec \(C_F\), la sortie ne saute pas d'un coup quand on change de capteur : elle glisse vers sa nouvelle valeur, comme un condensateur qui se charge. La vitesse de ce glissement est donnée par la <strong>constante de temps</strong> \(\tau = R_G\,C_F\) :</p>
+<ul>
+<li>après \(\tau\), la sortie a fait 63 % du chemin ;</li>
+<li>après \(3\tau\), 95 % ;</li>
+<li>après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
+</ul>
+<p>Il faut donc que \(5\tau\) tienne dans le temps d'une voie (3,125 ms), sinon on lit une valeur à moitié arrivée, mélangée avec celle du capteur précédent.</p>
 <p><strong>Réponse.</strong> Rôle : \(C_F\) fait un filtre passe-bas qui coupe le bruit et les parasites, sans toucher au signal de marche, qui est lent (quelques hertz).</p>
 \[f_c = \frac{1}{2\pi R_G C_F}\]
 <p>Limite : le multiplexeur change de voie toutes les 3,125 ms. La sortie doit se stabiliser sur la nouvelle voie avant la conversion :</p>

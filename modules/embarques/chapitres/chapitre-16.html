@@ -75,7 +75,14 @@
 <li>Les cotes se vérifient : \(LT = L + D = 15 + 11 = 26\) mm.</li>
 </ul>
 <div id="fig-td1-capteur"></div>
-<p><strong>Réponse.</strong> Entre les deux centres, on a un rectangle de longueur \(L\) et de largeur \(D\). Aux deux bouts, deux demi-disques, soit un disque entier de diamètre \(D\).</p>
+<p><strong>Comment on raisonne.</strong></p>
+<ul>
+<li>Trace un trait vertical par le centre de chaque disque : la forme se coupe en trois morceaux.</li>
+<li>Au milieu, entre les deux traits : un <strong>rectangle</strong>. Sa longueur est la distance entre les centres, \(L\) ; sa hauteur est le diamètre, \(D\).</li>
+<li>À gauche et à droite : deux <strong>demi-disques</strong> de diamètre \(D\). Mis bout à bout, ils font un disque entier.</li>
+<li>La surface totale est la somme des deux.</li>
+</ul>
+<p><strong>Réponse.</strong></p>
 \[S = L\,D + \frac{\pi D^2}{4}\]
 \[S = 15 \times 11 + \frac{\pi \times 11^2}{4} = 165 + 95{,}0\]
 \[S \approx 260\ \text{mm}^2\]
@@ -88,6 +95,7 @@
 <li>Une <strong>pression</strong>, c'est une force répartie sur une surface : \(P = F / S\), en pascals si \(F\) est en newtons et \(S\) en m².</li>
 <li>Conversion : 1 mm² = \(10^{-6}\) m², et 1 kPa = 1 000 Pa.</li>
 </ul>
+<p><strong>Comment on raisonne.</strong> La fiche parle en kilogrammes parce qu'on étalonne en posant des masses. Une masse de 10 kg posée sur le capteur appuie avec son poids. Le poids est une force : on le calcule avec \(F = m\,g\). Ensuite, la pression, c'est cette force répartie sur la surface trouvée à la question 1. Attention aux unités : la surface doit être en m² pour obtenir des pascals.</p>
 <p><strong>Réponse.</strong> Force maximale, à 10 kg :</p>
 \[F_{max} = m_{max}\,g\]
 \[F_{max} = 10 \times 9{,}81\]
@@ -106,6 +114,7 @@
 <li>Ce poids ne se répartit pas également : à l'<strong>attaque du talon</strong>, presque tout passe par les capteurs du talon.</li>
 <li>Une fiche se vérifie pour le pire cas, pas pour le cas moyen.</li>
 </ul>
+<p><strong>Comment on raisonne.</strong> On compare la force que reçoit un capteur à sa limite de 98,1 N (question 2), dans deux cas : le cas moyen (le poids réparti sur tous les capteurs), puis le pire cas (le poids concentré sur le talon). Si le pire cas dépasse la limite, la réponse est non.</p>
 <p><strong>Réponse.</strong> Poids du patient :</p>
 \[F = m\,g\]
 \[F = 70 \times 9{,}81\]
@@ -136,6 +145,14 @@
 <li>Pour mesurer ce tout petit changement, on monte quatre jauges en <strong>pont de Wheatstone</strong> : un losange de quatre résistances, alimenté par une diagonale, mesuré sur l'autre.</li>
 <li>Sans charge, les quatre jauges sont égales : le pont est <strong>équilibré</strong>, la tension de sortie est nulle.</li>
 </ul>
+<p><strong>Comment marche le pont, pas à pas.</strong></p>
+<ul>
+<li>Le pont, ce sont <strong>deux ponts diviseurs</strong> côte à côte, branchés sur la même alimentation de 5 V. Un pont diviseur fait de deux résistances égales donne la moitié de la tension à son point milieu : 2,5 V.</li>
+<li>Sans charge, les deux points milieux sont à 2,5 V. La tension entre eux, celle qu'on mesure, vaut \(2{,}5 - 2{,}5 = 0\) V.</li>
+<li>Sous charge, une jauge d'un diviseur s'allonge (sa résistance monte un peu) et l'autre se raccourcit (elle baisse un peu) : le point milieu glisse de quelques millivolts. Dans l'autre diviseur, les jauges sont placées à l'envers : son point milieu glisse dans l'autre sens.</li>
+<li>La différence entre les deux points milieux n'est plus nulle : quelques millivolts, proportionnels à la force. C'est le signal.</li>
+</ul>
+<p>Pourquoi ce montage : mesurer directement une résistance qui change de 0,1 % est très difficile ; mesurer un écart de tension qui part de zéro est facile, et l'écart double parce que les deux diviseurs bougent en sens contraires.</p>
 <div id="fig-td1-pont"></div>
 <p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> collées sur un corps d'épreuve qui se déforme sous la charge, montées en <strong>pont de Wheatstone complet</strong>.</p>
 <p>Les quatre fils :</p>
@@ -172,6 +189,7 @@
 <li>La sortie d'un pont de jauges est proportionnelle à l'excitation et à la charge.</li>
 <li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output », R.O.) : la sortie à pleine échelle, par volt d'excitation. Pour le FSH00107, DT2 donne 2 mV/V.</li>
 </ul>
+<p><strong>Comment on lit « 2 mV/V ».</strong> Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>pour chaque volt</strong> d'alimentation. Avec 5 V, il sort donc \(2 \times 5 = 10\) mV à 445 N. Comme le capteur est linéaire, à mi-charge il sort la moitié, à 100 N il sort \(100 / 445\) de 10 mV, et ainsi de suite : la courbe est une droite qui passe par zéro.</p>
 <div id="fig-td1-vo"></div>
 <p><strong>Réponse.</strong></p>
 \[V_o(P) = S\,V_{exc}\,\frac{P}{445\ \text{N}}\]
@@ -187,6 +205,12 @@
 <ul>
 <li>L'INA128 amplifie la différence entre ses deux entrées ; son gain se règle avec une seule résistance \(R_G\). La fiche du circuit donne \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
 <li>Méthode : on cherche le gain voulu (sortie voulue divisée par l'entrée), puis on retourne la formule pour trouver \(R_G\).</li>
+</ul>
+<p><strong>Comment on raisonne, en trois étapes.</strong></p>
+<ul>
+<li>Combien sort le capteur à 100 N ? C'est la question 6 appliquée à 100 N.</li>
+<li>Combien faut-il multiplier pour obtenir 1 V ? Le gain, c'est sortie voulue divisée par entrée.</li>
+<li>Quelle \(R_G\) donne ce gain ? On isole \(R_G\) dans la formule de la fiche : \(G - 1 = 50\ \text{k}\Omega / R_G\), donc \(R_G = 50\ \text{k}\Omega / (G - 1)\).</li>
 </ul>
 <p><strong>Réponse.</strong> Gain de l'INA128 :</p>
 \[G = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
@@ -213,7 +237,11 @@
 <li>une impédance d'entrée très élevée, qui ne charge pas le pont ;</li>
 <li>un gain réglé par une seule résistance \(R_G\).</li>
 </ul>
-<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum, soit un rapport de \(10^{6}\).</p>
+<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum. Les décibels sont une échelle logarithmique : un rapport \(r\) vaut \(20 \log_{10} r\) dB. On remonte au rapport :</p>
+\[20 \log_{10} r = 120\]
+\[\log_{10} r = 6\]
+\[r = 10^{6}\]
+<p>Le mode commun est donc divisé par un million avant d'arriver en sortie :</p>
 \[V_{erreur} = \frac{V_{mode\ commun}}{10^{CMR/20}}\]
 \[V_{erreur} = \frac{2{,}5}{10^{6}}\]
 \[V_{erreur} = 2{,}5\ \mu\text{V}\]
@@ -291,6 +319,13 @@
 
 <h4>Question 12 : l'expression de VA</h4>
 <p><strong>On te demande.</strong> En continu, avec S1, S2 et S3 à l'état haut, exprime \(V_A\). Détermine ses variations quand la force va de 0,5 N à 100 N et valide le dimensionnement. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
+<p><strong>Les bases d'électronique pour lire la figure 5.</strong> Quatre règles suffisent :</p>
+<ul>
+<li><strong>Loi d'Ohm</strong> : une résistance \(R\) traversée par un courant \(i\) a une tension \(U = R\,i\) à ses bornes. Donc \(i = U / R\).</li>
+<li><strong>Le courant se conserve</strong> : le courant qui arrive à un point du circuit en repart en entier. Si un seul chemin s'offre à lui, tout le courant le prend.</li>
+<li><strong>Pont diviseur</strong> : deux résistances en série entre \(V_{DD}\) et la masse. Le même courant les traverse, \(i = V_{DD} / (R_A + R_B)\), et la tension au milieu vaut \(R_B\,i\), soit \(V_{DD}\,R_B / (R_A + R_B)\). Valable seulement si rien ne tire de courant au point milieu.</li>
+<li><strong>AOP idéal en régime linéaire</strong> : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et, parce que sa sortie est reliée à l'entrée \(-\) (par \(R_G\)), il ajuste sa sortie pour que \(V^- = V^+\).</li>
+</ul>
 <p><strong>Ce qu'il faut savoir.</strong></p>
 <ul>
 <li>Le code S3 S2 S1 se lit en binaire, S1 étant le bit de poids faible : 111 vaut 7, donc la voie \(Y_7\).</li>
@@ -300,6 +335,16 @@
 <li>L'ADC lit de 0 à 3,3 V : au-delà, il sature.</li>
 </ul>
 <div id="fig-td1"></div>
+<p><strong>Comment on trouve \(V_A\), en cinq étapes.</strong> Avance dans la figure en même temps que tu lis.</p>
+<div id="fig-td1-etapes"></div>
+<ul>
+<li><strong>Étape 1, quel capteur ?</strong> S3 S2 S1 = 111 vaut 7 : le multiplexeur relie \(Y_7\), donc \(R_{FSR8}\), entre l'entrée \(-\) et la masse. Les sept autres capteurs sont débranchés : on les oublie.</li>
+<li><strong>Étape 2, l'entrée \(+\).</strong> Elle est au milieu du pont \(R_A\), \(R_B\). Aucun courant n'entre dans l'AOP, donc la formule du pont diviseur s'applique.</li>
+<li><strong>Étape 3, l'entrée \(-\).</strong> L'AOP fait \(V^- = V^+\) : l'entrée \(-\) est aussi à 0,275 V.</li>
+<li><strong>Étape 4, le courant.</strong> \(R_{FSR8}\) est entre l'entrée \(-\) (0,275 V) et la masse (0 V) : par la loi d'Ohm, il est traversé par \(i = V^- / R_{FSR8}\). Ce courant vient du point \(-\). Il ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient forcément de la sortie, à travers \(R_G\). Le même \(i\) traverse donc \(R_G\).</li>
+<li><strong>Étape 5, la sortie.</strong> En partant de l'entrée \(-\) et en remontant \(R_G\) vers la sortie, on ajoute la tension aux bornes de \(R_G\), soit \(R_G\,i\) : \(V_A = V^- + R_G\,i\).</li>
+</ul>
+<p>\(C_F\) n'apparaît pas : en continu, un condensateur ne laisse passer aucun courant, c'est un fil coupé.</p>
 <p><strong>Réponse.</strong> S3 S2 S1 = 111 : c'est 7 en binaire, la voie \(Y_7\), donc le capteur \(R_{FSR8}\).</p>
 <p>L'entrée + est fixée par le pont \(R_A\), \(R_B\) :</p>
 \[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
@@ -307,7 +352,10 @@
 \[V^+ = 0{,}275\ \text{V}\]
 <p>Comme \(V^- = V^+\), le capteur, qui relie \(V^-\) à la masse, est traversé par \(i = V^+ / R_{FSR8}\). Aucun courant n'entre dans l'AOP : ce même courant traverse \(R_G\), d'où :</p>
 \[V_A = V^- + R_G\,i\]
+\[V_A = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
+\[V_A = V^+\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
 \[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
+<p>Exemple pour fixer les idées : avec \(R_{FSR8} = 250\) kΩ, \(i = 0{,}275 / 250\,000 = 1{,}1\ \mu\)A, et \(V_A = 0{,}275 + 750\,000 \times 1{,}1 \times 10^{-6} = 0{,}275 + 0{,}825 = 1{,}1\) V.</p>
 <p>Avec le modèle de la question 9 :</p>
 \[V_A(F) = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_0 + \beta / F}\right)\]
 <p>Variations :</p>
@@ -316,6 +364,7 @@
 <li>quand la force monte, \(R_{FSR}\) baisse et \(V_A\) monte ;</li>
 <li>à 100 N, \(R_{FSR}\) est la plus faible : \(V_A\) est maximale.</li>
 </ul>
+<p><strong>Comment on vérifie le dimensionnement.</strong> \(V_A\) est la plus grande quand \(R_{FSR}\) est la plus petite, donc à la force la plus forte (100 N). On cherche la plus petite résistance qui garde \(V_A\) sous 3,3 V, puis on regarde sur la courbe DR1 si le capteur reste au-dessus.</p>
 <p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
 \[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
 \[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
@@ -347,6 +396,13 @@
 <li>S3 S2 S1 forment un compteur binaire : S1 (poids faible) change le plus souvent, S3 le moins souvent.</li>
 <li><strong>Débit binaire</strong> : nombre de bits produits par seconde = nombre de capteurs × mesures par seconde × bits par mesure.</li>
 </ul>
+<p><strong>Comment on raisonne.</strong></p>
+<ul>
+<li>120 pas par minute, c'est 2 pas par seconde.</li>
+<li>Chaque pas doit être décrit par 20 mesures : chaque capteur doit donc être lu \(2 \times 20 = 40\) fois par seconde.</li>
+<li>Un seul ADC lit les 8 capteurs l'un après l'autre : il doit faire le tour des 8 capteurs 40 fois par seconde. Chaque capteur n'a qu'un huitième de la période.</li>
+<li>Pour passer d'un capteur au suivant, le microcontrôleur ajoute 1 au code S3 S2 S1 : c'est un compteur binaire.</li>
+</ul>
 <p><strong>Réponse.</strong> Fréquence d'échantillonnage d'un capteur :</p>
 \[f_e = \frac{120\ \text{pas}}{60\ \text{s}} \times 20\ \text{points}\]
 \[f_e = 2 \times 20\]
@@ -377,6 +433,13 @@
 <li>À chaque changement de voie, \(V_A\) saute d'une valeur à l'autre.</li>
 </ul>
 <div id="fig-td1-cf"></div>
+<p><strong>Ce que veut dire « se stabiliser ».</strong> Avec \(C_F\), la sortie ne saute pas d'un coup quand on change de capteur : elle glisse vers sa nouvelle valeur, comme un condensateur qui se charge. La vitesse de ce glissement est donnée par la <strong>constante de temps</strong> \(\tau = R_G\,C_F\) :</p>
+<ul>
+<li>après \(\tau\), la sortie a fait 63 % du chemin ;</li>
+<li>après \(3\tau\), 95 % ;</li>
+<li>après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
+</ul>
+<p>Il faut donc que \(5\tau\) tienne dans le temps d'une voie (3,125 ms), sinon on lit une valeur à moitié arrivée, mélangée avec celle du capteur précédent.</p>
 <p><strong>Réponse.</strong> Rôle : \(C_F\) fait un filtre passe-bas qui coupe le bruit et les parasites, sans toucher au signal de marche, qui est lent (quelques hertz).</p>
 \[f_c = \frac{1}{2\pi R_G C_F}\]
 <p>Limite : le multiplexeur change de voie toutes les 3,125 ms. La sortie doit se stabiliser sur la nouvelle voie avant la conversion :</p>

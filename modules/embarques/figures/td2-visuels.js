@@ -1,4 +1,4 @@
-// TD 2 semelle, programmation : du capteur au code lu par l'ADC (et retour).
+// TD 2 semelle, programmation : du capteur au code lu par l'ADC (et retour), choisir une broche sur la carte.
 // Chaque figure ne se dessine que si sa place est sur la page.
 (function () {
   "use strict";
@@ -48,6 +48,58 @@
       tx(g, "code " + c, [X(Fc) + (Fc > 70 ? -16 : 16), Y(c) - 26], { taille: 18, mono: true, ancre: Fc > 70 ? "end" : "start", coul: C.bleu });
       var va = c * 3.3 / 4095;
       R.rendre(zone, "F = " + vg(Fc, 1) + "\\ \\text{N} \\;\\to\\; R_{FSR} = " + R.tc(rf(Fc), 0) + "\\ \\text{k}\\Omega \\;\\to\\; V_A = " + R.tc(va, 3) + "\\ \\text{V} \\;\\to\\; \\text{code} = " + c);
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 1 : choisir une broche selon le besoin ---------- */
+  if (place("fig-td2-broches")) (function () {
+    var f = R.figure("fig-td2-broches", { largeur: 960, hauteur: 540, titre: "La carte ESP32 DEVKIT V1 : quelles broches conviennent ?",
+      essai: "<strong>Essaie</strong> : choisis un besoin, puis touche une broche. <strong>Observe</strong> : en vert les broches qui conviennent, en gris celles qui sont exclues ; la raison s'affiche sous la carte. Le contour bleu marque le choix du corrigé.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct), sel = null;
+    var besoin = R.choix(f.reglages, [["sortie", "Sortie : S1, S2, S3"], ["mesure", "Mesure : AIN1 (Wi-Fi)"], ["bouton", "Bouton : BTN_ACQ"]], function () { sel = null; dessiner(); });
+    // broches de la carte, de haut en bas : [nom, gpio (null si pas un GPIO), précision]
+    var G = [["EN", null, "redémarrage"], ["GPIO 36", 36, "ADC1"], ["GPIO 39", 39, "ADC1"], ["GPIO 34", 34, "ADC1"], ["GPIO 35", 35, "ADC1"],
+             ["GPIO 32", 32, "ADC1"], ["GPIO 33", 33, "ADC1"], ["GPIO 25", 25, "ADC2, DAC1"], ["GPIO 26", 26, "ADC2, DAC2"], ["GPIO 27", 27, "ADC2"],
+             ["GPIO 14", 14, "ADC2"], ["GPIO 12", 12, "ADC2"], ["GPIO 13", 13, "ADC2"], ["GND", null, "masse"], ["VIN", null, "alimentation"]];
+    var D = [["GPIO 23", 23, "VSPI"], ["GPIO 22", 22, "I2C SCL"], ["GPIO 1", 1, "TX0, USB"], ["GPIO 3", 3, "RX0, USB"], ["GPIO 21", 21, "I2C SDA"],
+             ["GPIO 19", 19, "VSPI"], ["GPIO 18", 18, "VSPI"], ["GPIO 5", 5, "VSPI"], ["GPIO 17", 17, "TX2"], ["GPIO 16", 16, "RX2"],
+             ["GPIO 4", 4, "ADC2"], ["GPIO 2", 2, "ADC2, LED"], ["GPIO 15", 15, "ADC2"], ["GND", null, "masse"], ["3V3", null, "alimentation"]];
+    var ENTREE_SEULE = [34, 35, 36, 39], ADC1 = [32, 33, 34, 35, 36, 39], DEMARRAGE = [0, 2, 5, 12, 15], USB = [1, 3];
+    var CHOIX = { sortie: [25, 26, 27], mesure: [34], bouton: [4] };
+    function verdict(p) {
+      var n = p[1], b = besoin.value;
+      if (n === null) return [false, p[0] + " : ce n'est pas une broche de signal (" + p[2] + ")."];
+      if (USB.indexOf(n) >= 0) return [false, p[0] + " : déjà prise par la liaison USB (téléversement, moniteur série)."];
+      if (n === 2) return [false, "GPIO 2 : déjà prise par la LED bleue de la carte, et sensible au démarrage."];
+      if (b === "mesure") {
+        if (ADC1.indexOf(n) < 0) return [false, p[0] + " : " + (p[2].indexOf("ADC2") >= 0 ? "sur l'ADC2, qui ne marche plus quand le Wi-Fi tourne." : "pas reliée à un ADC, elle ne sait pas mesurer une tension.")];
+        return [true, p[0] + " : sur l'ADC1, elle mesure même avec le Wi-Fi." + (ENTREE_SEULE.indexOf(n) >= 0 ? " Entrée seulement : parfait pour une mesure." : "")];
+      }
+      if (ENTREE_SEULE.indexOf(n) >= 0) return [false, p[0] + " : entrée seulement, " + (b === "sortie" ? "elle ne peut pas écrire 0 ou 3,3 V." : "sans résistance de tirage interne pour le bouton.")];
+      if (DEMARRAGE.indexOf(n) >= 0) return [false, p[0] + " : lue par la puce au démarrage (complément) ; mieux vaut l'éviter."];
+      return [true, p[0] + " : libre, " + (b === "sortie" ? "elle sait écrire 0 ou 3,3 V." : "elle a une résistance de tirage interne (INPUT_PULLUP).")];
+    }
+    function broche(p, x, y, cote) {
+      var v = verdict(p), choisi = p[1] !== null && CHOIX[besoin.value].indexOf(p[1]) >= 0, actif = sel === p;
+      var gr = el("g", { style: "cursor:pointer" }, g);
+      el("rect", { x: cote < 0 ? x - 290 : x - 14, y: y - 15, width: 304, height: 30, fill: "transparent" }, gr);
+      el("circle", { cx: x, cy: y, r: 11, fill: v[0] ? C.ok : C.pale, stroke: choisi ? C.bleu : actif ? C.encre : "#fff", "stroke-width": choisi || actif ? 4 : 2 }, gr);
+      tx(gr, p[0], [x + cote * 24, y], { taille: 21, ancre: cote < 0 ? "end" : "start", coul: v[0] ? C.encre : C.gris, gras: v[0] || actif });
+      tx(gr, p[2], [x + cote * 134, y], { taille: 17, ancre: cote < 0 ? "end" : "start", coul: C.doux, gras: false });
+      gr.addEventListener("click", function () { sel = p; dessiner(); });
+    }
+    function dessiner() {
+      EMB.vider(g);
+      el("rect", { x: 400, y: 30, width: 160, height: 480, rx: 16, fill: "#2b2f3a" }, g);
+      el("rect", { x: 425, y: 50, width: 110, height: 140, rx: 6, fill: "#c9ccd4" }, g);
+      tx(g, "ESP32", [480, 120], { taille: 17, halo: false });
+      el("rect", { x: 455, y: 470, width: 50, height: 30, rx: 4, fill: "#c9ccd4" }, g);
+      tx(g, "USB", [480, 485], { taille: 14, halo: false });
+      G.forEach(function (p, i) { broche(p, 418, 58 + i * 30, -1); });
+      D.forEach(function (p, i) { broche(p, 542, 58 + i * 30, 1); });
+      var nb = G.concat(D).filter(function (p) { return verdict(p)[0]; }).length;
+      zone.textContent = sel ? verdict(sel)[1] : nb + " broches conviennent pour ce besoin. Touche une broche pour voir pourquoi.";
     }
     dessiner();
   })();
