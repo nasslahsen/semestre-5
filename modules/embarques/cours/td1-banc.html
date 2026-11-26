@@ -18,117 +18,119 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>Le banc : FUTEK LSB200 et INA128</h1>
-<p class="chapeau">Avant de faire confiance aux capteurs de la semelle, on les caractérise sur un banc : un vérin appuie sur un capteur de la semelle, et un capteur de référence, le FUTEK LSB200, mesure la vraie force. Sa sortie fait quelques millivolts : l'amplificateur d'instrumentation INA128 la porte au volt.</p>
+<p class="chapeau">Les capteurs de la semelle ne sont pas très précis. Pour savoir ce qu'ils mesurent vraiment, on appuie dessus avec un capteur de référence très précis, le FUTEK LSB200, et on compare. C'est le banc de test. Son signal est minuscule : un amplificateur, l'INA128, le rend lisible.</p>
+
+<h2>Étape 2 : ce qu'il faut savoir avant</h2>
+<p><strong>Tension, résistance, courant.</strong></p>
+<ul>
+<li>La <strong>tension</strong> \(U\), en volts (V), c'est la « pression électrique » entre deux points.</li>
+<li>Le <strong>courant</strong> \(i\), en ampères (A), c'est ce qui circule.</li>
+<li>Une <strong>résistance</strong> \(R\), en ohms (Ω), freine le courant. <strong>Loi d'Ohm</strong> : \(U = R \times i\).</li>
+</ul>
+<p><strong>Le pont diviseur.</strong> Deux résistances égales en série, entre 5 V et 0 V : au point du milieu, on trouve la moitié, 2,5 V. Si l'une des deux résistances change un peu, la tension du milieu bouge un peu.</p>
+<p><strong>La jauge de contrainte.</strong> Une petite piste résistive collée sur une pièce. Quand la pièce se déforme sous une force, la jauge s'étire (sa résistance monte un tout petit peu) ou se tasse (elle baisse un tout petit peu).</p>
+<p><strong>Amplifier.</strong> Un amplificateur multiplie une tension par un nombre, le <strong>gain</strong> \(G\) : \(V_{sortie} = G \times V_{entrée}\).</p>
 
 <h2>Question 4 : le capteur FUTEK LSB200</h2>
-<p><strong>On te demande.</strong> Propose une représentation schématique du capteur de pression en précisant la signification des 4 fils de connexion. Précise la technologie mise en œuvre.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Dessine le principe du capteur, dis à quoi servent ses 4 fils et quelle technologie il utilise.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Une <strong>jauge de contrainte</strong> est une piste résistive collée sur une pièce : quand la pièce se déforme, la jauge s'allonge ou se raccourcit, et sa résistance change très peu.</li>
-<li>Pour mesurer ce tout petit changement, on monte quatre jauges en <strong>pont de Wheatstone</strong> : un losange de quatre résistances, alimenté par une diagonale, mesuré sur l'autre.</li>
-<li>Sans charge, les quatre jauges sont égales : le pont est <strong>équilibré</strong>, la tension de sortie est nulle.</li>
+<li>À l'intérieur, 4 jauges forment un losange, le <strong>pont de Wheatstone</strong> : c'est en fait deux ponts diviseurs côte à côte, alimentés par le même 5 V.</li>
+<li>Sans force, les deux points milieux sont à 2,5 V : la différence entre eux vaut 0 V.</li>
+<li>Sous une force, deux jauges s'étirent et deux se tassent : un point milieu monte de quelques millivolts, l'autre descend. Leur différence n'est plus nulle : c'est le signal, proportionnel à la force.</li>
+<li>Il faut donc 2 fils pour alimenter le losange, et 2 fils pour lire la différence entre les deux points milieux.</li>
 </ul>
-<p><strong>Comment marche le pont, pas à pas.</strong></p>
-<ul>
-<li>Le pont, ce sont <strong>deux ponts diviseurs</strong> côte à côte, branchés sur la même alimentation de 5 V. Un pont diviseur fait de deux résistances égales donne la moitié de la tension à son point milieu : 2,5 V.</li>
-<li>Sans charge, les deux points milieux sont à 2,5 V. La tension entre eux, celle qu'on mesure, vaut \(2{,}5 - 2{,}5 = 0\) V.</li>
-<li>Sous charge, une jauge d'un diviseur s'allonge (sa résistance monte un peu) et l'autre se raccourcit (elle baisse un peu) : le point milieu glisse de quelques millivolts. Dans l'autre diviseur, les jauges sont placées à l'envers : son point milieu glisse dans l'autre sens.</li>
-<li>La différence entre les deux points milieux n'est plus nulle : quelques millivolts, proportionnels à la force. C'est le signal.</li>
-</ul>
-<p>Pourquoi ce montage : mesurer directement une résistance qui change de 0,1 % est très difficile ; mesurer un écart de tension qui part de zéro est facile, et l'écart double parce que les deux diviseurs bougent en sens contraires.</p>
 <div id="fig-td1-pont"></div>
-<p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> collées sur un corps d'épreuve qui se déforme sous la charge, montées en <strong>pont de Wheatstone complet</strong>.</p>
-<p>Les quatre fils :</p>
-<ul>
-<li><strong>+Excitation</strong> et <strong>−Excitation</strong> : l'alimentation du pont, sur une diagonale (ici 5 V) ;</li>
-<li><strong>+Signal</strong> et <strong>−Signal</strong> : la mesure, sur l'autre diagonale, une tension différentielle de quelques millivolts.</li>
-</ul>
-<p>La fiche DT2 (« wiring code ») donne les couleurs :</p>
+<p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> en <strong>pont de Wheatstone</strong>. Les quatre fils :</p>
 <div class="tableau"><table>
 <tr><th>Fil</th><th>Couleur</th><th>Rôle</th></tr>
-<tr><td>+Excitation</td><td>rouge</td><td>alimentation + du pont (5 V au banc, 10 V au plus)</td></tr>
+<tr><td>+Excitation</td><td>rouge</td><td>alimentation + du pont (5 V)</td></tr>
 <tr><td>−Excitation</td><td>noir</td><td>alimentation − du pont (0 V)</td></tr>
-<tr><td>+Signal</td><td>vert</td><td>sortie + de la mesure</td></tr>
-<tr><td>−Signal</td><td>blanc</td><td>sortie − de la mesure</td></tr>
+<tr><td>+Signal</td><td>vert</td><td>mesure +</td></tr>
+<tr><td>−Signal</td><td>blanc</td><td>mesure −</td></tr>
 </table></div>
-<p>Le blindage du câble est laissé flottant. Résistance du pont : 350 Ω nominal. Sous charge, deux jauges s'allongent et deux se raccourcissent, placées pour que leurs effets s'ajoutent : les deux fils de signal, partis tous deux de 2,5 V, s'écartent. La fiche précise le sens : sortie positive en traction, négative en compression.</p>
+<details class="corrige"><summary>Pour aller plus loin : ce que dit la fiche DT2</summary>
+<p>Résistance du pont : 350 Ω. Blindage du câble laissé flottant. Alimentation de 10 V au plus. Sortie positive en traction, négative en compression.</p>
+</details>
 
 <h2>Question 5 : le modèle FSH00107 convient-il ?</h2>
-<p><strong>On te demande.</strong> Justifie que le modèle FSH00107 du FUTEK LSB200 convient pour caractériser les capteurs de la semelle.</p>
-<p><strong>Ce qu'il faut savoir.</strong> Un capteur de référence doit couvrir toute la plage du capteur qu'on teste, avec de la marge, et travailler dans le même sens (ici en compression).</p>
-<p><strong>Réponse.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Le modèle FSH00107 peut-il servir de référence pour les capteurs de la semelle ?</p>
+<p><strong>Comment on raisonne.</strong> Un capteur de référence doit mesurer au moins jusqu'au maximum de ce qu'on teste, et être bien plus précis.</p>
+<p><strong>Réponse.</strong> Oui :</p>
 <ul>
-<li>Le tableau de DT2 donne pour le FSH00107 une capacité de 100 lb, soit 445 N ; les capteurs de la semelle saturent vers 98,1 N (question 2). Toute leur plage tient dans celle du FUTEK, avec une marge d'environ 4,5 (\(445 / 98{,}1\)).</li>
-<li>On peut même pousser au-delà de 98,1 N pour voir la saturation, sans risque pour le capteur de référence.</li>
-<li>Il travaille en traction et en compression, et un étalonnage en compression est proposé (« calibration available : compression »), comme sur le banc où il appuie sur la semelle.</li>
-<li>Il est bien plus précis que ce qu'il contrôle : non-linéarité ±0,1 %, hystérésis ±0,1 %, non-répétabilité ±0,05 % de la pleine échelle, contre ±10 % de répétabilité pour la semelle (DT1).</li>
-<li>Il est petit (19,1 × 16,5 mm, 9 g) et en acier inoxydable pour les modèles de 25 à 100 lb.</li>
+<li>il va jusqu'à 445 N (100 lb), alors que les capteurs de la semelle s'arrêtent à 98,1 N (question 2) : toute leur plage tient dedans, avec de la marge ;</li>
+<li>il est beaucoup plus précis : environ 0,1 % d'erreur, contre 10 % pour la semelle ;</li>
+<li>il sait mesurer en compression, comme sur le banc où il appuie sur la semelle.</li>
 </ul>
 
 <h2>Question 6 : la caractéristique Vo(P)</h2>
-<p><strong>On te demande.</strong> Le LSB200 est utilisé en compression seulement, sous une excitation de 5 V. Capteur supposé linéaire, \(V_o\) toujours positive : représente \(V_o\) en fonction de \(P\) sur la pleine échelle (445 N).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Avec une alimentation de 5 V, trace la tension de sortie \(V_o\) en fonction de la force \(P\), de 0 à 445 N.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>La sortie d'un pont de jauges est proportionnelle à l'excitation et à la charge.</li>
-<li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output », R.O.) : la sortie à pleine échelle, par volt d'excitation. Pour le FSH00107, DT2 donne 2 mV/V.</li>
+<li>La fiche donne la <strong>sensibilité</strong> : 2 mV/V. Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>par volt</strong> d'alimentation.</li>
+<li>Sous 5 V : \(2 \times 5 = 10\) mV à 445 N.</li>
+<li>Le capteur est linéaire : la courbe est une droite qui part de 0. À mi-charge, 5 mV ; à 100 N, \(100 / 445\) de 10 mV.</li>
 </ul>
-<p><strong>Comment on lit « 2 mV/V ».</strong> Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>pour chaque volt</strong> d'alimentation. Avec 5 V, il sort donc \(2 \times 5 = 10\) mV à 445 N. Comme le capteur est linéaire, à mi-charge il sort la moitié, à 100 N il sort \(100 / 445\) de 10 mV, et ainsi de suite : la courbe est une droite qui passe par zéro.</p>
 <div id="fig-td1-vo"></div>
-<p><strong>Réponse.</strong></p>
-\[V_o(P) = S\,V_{exc}\,\frac{P}{445\ \text{N}}\]
-<p>C'est une droite qui part de l'origine (0 N, 0 V) et monte jusqu'à \(V_{o,max}\) à 445 N, avec \(S = 2\) mV/V (DT2) :</p>
-\[V_{o,max} = S\,V_{exc}\]
-\[V_{o,max} = 2 \times 5\]
+<p><strong>Le calcul.</strong></p>
+\[V_{o,max} = S \times V_{exc}\]
+\[V_{o,max} = 2\ \text{mV/V} \times 5\ \text{V}\]
 \[V_{o,max} = 10\ \text{mV}\]
-<p>La fiche donne une sortie négative en compression : l'énoncé demande \(V_o\) positive, ce qui revient à croiser les deux fils de signal (ou à tracer la valeur absolue).</p>
+\[V_o(P) = 10\ \text{mV} \times \frac{P}{445\ \text{N}}\]
+<p><strong>Réponse.</strong> Une droite, de 0 mV à 0 N jusqu'à 10 mV à 445 N.</p>
 
 <h2>Question 7 : le gain de l'INA128</h2>
-<p><strong>On te demande.</strong> Retrouve l'expression du gain de l'INA128. \(R_G\) est fixée pour obtenir 1 V en sortie pour 100 N sur la semelle. Calcule \(R_G\).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>L'INA128 amplifie la différence entre ses deux entrées ; son gain se règle avec une seule résistance \(R_G\). La fiche du circuit donne \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
-<li>Méthode : on cherche le gain voulu (sortie voulue divisée par l'entrée), puis on retourne la formule pour trouver \(R_G\).</li>
-</ul>
+<p><strong>Ce qu'on te demande.</strong> L'INA128 amplifie le signal du FUTEK. On veut 1 V en sortie quand on appuie avec 100 N. Quel gain ? Quelle résistance \(R_G\) ?</p>
 <p><strong>Comment on raisonne, en trois étapes.</strong></p>
 <ul>
-<li>Combien sort le capteur à 100 N ? C'est la question 6 appliquée à 100 N.</li>
-<li>Combien faut-il multiplier pour obtenir 1 V ? Le gain, c'est sortie voulue divisée par entrée.</li>
-<li>Quelle \(R_G\) donne ce gain ? On isole \(R_G\) dans la formule de la fiche : \(G - 1 = 50\ \text{k}\Omega / R_G\), donc \(R_G = 50\ \text{k}\Omega / (G - 1)\).</li>
+<li>Combien sort le capteur à 100 N ? (question 6)</li>
+<li>Par combien faut-il multiplier pour obtenir 1 V ? C'est le gain.</li>
+<li>Quelle \(R_G\) donne ce gain ? La fiche de l'INA128 donne \(G = 1 + 50\ \text{k}\Omega / R_G\) ; on la retourne.</li>
 </ul>
-<p><strong>Réponse.</strong> Gain de l'INA128 :</p>
-\[G = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
-<p>Sortie du capteur à 100 N (sensibilité de 2 mV/V, question 6) :</p>
-\[V_o(100\ \text{N}) = S\,V_{exc}\,\frac{100}{445}\]
+<p><strong>Le calcul.</strong></p>
 \[V_o(100\ \text{N}) = 10 \times \frac{100}{445}\]
 \[V_o(100\ \text{N}) \approx 2{,}25\ \text{mV}\]
-<p>Gain voulu :</p>
-\[G = \frac{1\ \text{V}}{V_o(100\ \text{N})}\]
-\[G = \frac{1}{2{,}247 \times 10^{-3}}\]
-\[G = 445\]
-<p>Résistance :</p>
+\[G = \frac{1\ \text{V}}{2{,}247\ \text{mV}}\]
+\[G \approx 445\]
 \[R_G = \frac{50\ \text{k}\Omega}{G - 1}\]
 \[R_G = \frac{50\,000}{444}\]
 \[R_G \approx 113\ \Omega\]
+<p><strong>Réponse.</strong> \(G = 445\) et \(R_G \approx 113\ \Omega\).</p>
 
 <h2>Question 8 : le CMR</h2>
-<p><strong>On te demande.</strong> Que signifie CMR dans les spécifications de l'amplificateur d'instrumentation ? Pourquoi utiliser cet amplificateur plutôt qu'un simple montage à amplificateur opérationnel ?</p>
-<p><strong>Ce qu'il faut savoir.</strong> Sur les deux fils de signal, il y a deux choses : ce qui est <strong>commun</strong> aux deux (2,5 V, et les parasites captés de la même façon), et leur <strong>différence</strong> (les millivolts utiles). Un bon amplificateur garde la différence et rejette le commun.</p>
-<p><strong>Réponse.</strong> CMR : <strong>Common-Mode Rejection</strong>, réjection du mode commun, en dB. C'est la capacité à amplifier la différence entre les deux entrées tout en ignorant ce qu'elles ont en commun.</p>
-<p>Ici, les deux fils sont tous deux vers 2,5 V et ne diffèrent que de quelques millivolts. Ce que l'INA128 apporte face à un amplificateur différentiel à un seul AOP :</p>
+<p><strong>Ce qu'on te demande.</strong> Que veut dire CMR ? Pourquoi un amplificateur d'instrumentation plutôt qu'un simple AOP ?</p>
+<p><strong>Comment on raisonne.</strong> Sur les deux fils de mesure, il y a deux choses mélangées :</p>
 <ul>
-<li>une réjection du mode commun bien plus forte, qui ne dépend pas de l'appariement de quatre résistances ;</li>
-<li>une impédance d'entrée très élevée, qui ne charge pas le pont ;</li>
-<li>un gain réglé par une seule résistance \(R_G\).</li>
+<li>ce qui est <strong>commun</strong> aux deux : environ 2,5 V chacun, plus les parasites captés pareil par les deux fils ;</li>
+<li>leur <strong>différence</strong> : les quelques millivolts utiles.</li>
 </ul>
-<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum. Les décibels sont une échelle logarithmique : un rapport \(r\) vaut \(20 \log_{10} r\) dB. On remonte au rapport :</p>
+<p>Il faut un amplificateur qui garde la différence et ignore le commun.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>CMR : <strong>Common-Mode Rejection</strong>, réjection du mode commun : la capacité à ignorer ce qui est commun aux deux entrées.</li>
+<li>L'INA128 le fait très bien (120 dB, soit un rapport d'un million : les 2,5 V communs ne pèsent plus que 2,5 µV), ne perturbe pas le pont, et son gain se règle avec une seule résistance.</li>
+<li>Un simple AOP le fait beaucoup moins bien.</li>
+</ul>
+<details class="corrige"><summary>Pour aller plus loin : des décibels au rapport</summary>
+<p>Un rapport \(r\) vaut \(20 \log_{10} r\) décibels.</p>
 \[20 \log_{10} r = 120\]
-\[\log_{10} r = 6\]
 \[r = 10^{6}\]
-<p>Le mode commun est donc divisé par un million avant d'arriver en sortie :</p>
-\[V_{erreur} = \frac{V_{mode\ commun}}{10^{CMR/20}}\]
-\[V_{erreur} = \frac{2{,}5}{10^{6}}\]
-\[V_{erreur} = 2{,}5\ \mu\text{V}\]
-<p>Les 2,5 V communs ne pèsent pas plus que 2,5 µV de signal utile, mille fois moins que les 2,25 mV mesurés à 100 N.</p>
+\[\frac{2{,}5\ \text{V}}{10^{6}} = 2{,}5\ \mu\text{V}\]
+</details>
+
+<h2>Vérifie : le banc</h2>
+<p><strong>1.</strong> Sous 10 V d'alimentation, combien sort le FUTEK à pleine charge (2 mV/V) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[2 \times 10 = 20\ \text{mV}\]
+</details>
+<p><strong>2.</strong> Sans aucune force, que vaut la tension entre les deux fils de mesure ? Pourquoi ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>0 V : les deux points milieux du pont sont tous les deux à 2,5 V.</p>
+</details>
+<p><strong>3.</strong> On veut un gain de 101 avec l'INA128. Quelle \(R_G\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[R_G = \frac{50\,000}{101 - 1} = 500\ \Omega\]
+</details>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>
