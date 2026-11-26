@@ -35,15 +35,16 @@
 <body>
 <header id="barre"></header>
 <main>
-<p class="etiquette">Robotique médicale</p>
+<p class="etiquette" data-etiquette-examen>Robotique médicale</p>
 <h1>Préparer l'examen</h1>
-<p class="chapeau">Deux cours dans ce module : la robotique biomédicale (description, repères, matrices, modèles du robot) et les éléments mécaniques (axe, assemblages, roulements, engrenages). Cette page dit quoi apprendre en premier, comment répartir trois jours, toutes les méthodes de calcul, et les questions de cours à savoir faire.</p>
+
+<div data-sm="bio">
+<p class="chapeau">La robotique biomédicale : description du robot, repères, matrices, modèles géométriques et cinématique. Cette page dit quoi apprendre en premier, comment répartir trois jours, les méthodes de calcul et les questions de cours à savoir faire.</p>
 
 <div class="jouer"><span><small>Exercice de révision</small>Le bras 3R de l'échographie (MGD) du Pr. El Hansali, corrigé question par question</span><a class="btn-jouer" href="court/annales.html">Ouvrir</a></div>
-<div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : les schémas et les lignes à retenir des deux cours, et toutes les formules</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
+<div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : les schémas et les lignes à retenir du cours, et toutes ses formules</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
 
 <div class="schema" id="sc-structure-bio"></div>
-<div class="schema" id="sc-structure-meca"></div>
 
 <h2>Comment travailler ces trois jours</h2>
 <ul>
@@ -52,11 +53,10 @@
 <li>Pour les calculs, refais le TD 1 sans regarder la correction, puis les méthodes de cette page sur papier.</li>
 <li>Le soir, ouvre <a href="../../suivi.html">Mon suivi</a> : la liste « À revoir » te redonne seulement tes erreurs.</li>
 </ul>
-<p>Si le temps manque : saute <a href="chapitres/chapitre-0.html">Les bases</a> (sauf si un calcul bloque), la nomenclature de l'axe, et ne garde des assemblages que la précharge et la clavette.</p>
+<p>Si le temps manque : saute <a href="chapitres/chapitre-0.html">Les bases</a> (sauf si un calcul bloque) et, dans les repères, ne garde que l'exercice des deux repères et atan2.</p>
 <p>Le tri ci-dessous est fait à partir du cours et du TD reçus : le programme exact de l'examen n'a pas été donné. Si l'enseignante annonce ce qui tombe, adapte.</p>
 
 <h2>Ce qui compte vraiment</h2>
-<p>Robotique biomédicale :</p>
 <div class="tableau"><table>
 <tr><th>Chapitre</th><th>Priorité</th><th>Ce qu'il faut savoir</th></tr>
 <tr><td><a href="chapitres/chapitre-0.html">Les bases</a></td><td><span class="priorite">À connaître</span></td><td>Degrés et radians, cos et sin, x = L cos θ, produit matrice-vecteur et produit de matrices. Indispensable pour calculer, rien à apprendre par cœur.</td></tr>
@@ -68,25 +68,16 @@
 <tr><td><a href="chapitres/chapitre-11.html">Modèle inverse et cinématique</a></td><td><span class="priorite p1">Indispensable</span></td><td>MGI du 2R (accessibilité, Al-Kashi, coude haut et bas), jacobienne et V = J q̇.</td></tr>
 <tr><td><a href="chapitres/chapitre-9.html">TD 1</a></td><td><span class="priorite p1">Indispensable</span></td><td>Classer des robots, robot 3R, sonde d'échographie, vitesses et facteur de réduction.</td></tr>
 </table></div>
-<p>Éléments mécaniques :</p>
-<div class="tableau"><table>
-<tr><th>Chapitre</th><th>Priorité</th><th>Ce qu'il faut savoir</th></tr>
-<tr><td><a href="chapitres/chapitre-5.html">Architecture d'un axe</a></td><td><span class="priorite p1">Indispensable</span></td><td>Chaîne fonctionnelle, ω = 2πn/60, P = Cω, réducteur, Δx ≈ L Δθ, critères biomédicaux. La nomenclature : survol, mais savoir lire les unités.</td></tr>
-<tr><td><a href="chapitres/chapitre-6.html">Assemblages et fixations</a></td><td><span class="priorite">À connaître</span></td><td>Une fonction, un élément ; précharge et T ≈ K F₀ d ; clavette ; anneaux, goupilles ; F = kx.</td></tr>
-<tr><td><a href="chapitres/chapitre-7.html">Guidages</a></td><td><span class="priorite p1">Indispensable</span></td><td>Familles de roulements, radial ou butée, choix d'un type, durée L₁₀, fixe-libre, précharge.</td></tr>
-<tr><td><a href="chapitres/chapitre-8.html">Transmissions</a></td><td><span class="priorite p1">Indispensable</span></td><td>Couple d'un arbre, diamètre en torsion, types d'engrenages, module, rapport et entraxe, trains.</td></tr>
-</table></div>
-
 <h2>Le plan sur trois jours</h2>
 <p>Environ quatre heures par jour. Touche « Marquer fait » quand la journée est finie.</p>
 <ol class="jours">
 <li><div class="jour-texte"><h3>Jour 1 : le robot, les repères, les rotations</h3><p><a href="chapitres/chapitre-1.html">Le robot et sa description</a> : schémas, Formules clés, cartes de chaque section. Questions A et B, méthode 5.</p><p><a href="chapitres/chapitre-2.html">Repères</a> (seulement l'exercice des deux repères et atan2) puis <a href="chapitres/chapitre-3.html">orientations</a>. Questions C.</p></div><button type="button" class="jour-fait" data-jour="j1" aria-pressed="false">Marquer fait</button></li>
 <li><div class="jour-texte"><h3>Jour 2 : transformations, MGD, MGI et TD 1</h3><p><a href="chapitres/chapitre-4.html">Transformations</a>, <a href="chapitres/chapitre-10.html">modélisation DH</a>, <a href="chapitres/chapitre-11.html">modèle inverse et cinématique</a>. Méthodes 1 à 4 sur feuille. Questions D.</p><p>Puis le <a href="chapitres/chapitre-9.html">TD 1</a> entier sans regarder la correction.</p></div><button type="button" class="jour-fait" data-jour="j2" aria-pressed="false">Marquer fait</button></li>
-<li><div class="jour-texte"><h3>Jour 3 : la mécanique, puis l'examen blanc</h3><p>Le matin : <a href="chapitres/chapitre-5.html">axe</a>, <a href="chapitres/chapitre-7.html">roulements</a>, <a href="chapitres/chapitre-8.html">engrenages</a>, puis <a href="chapitres/chapitre-6.html">assemblages</a> en survol. Méthodes 6 à 10. Questions E et F.</p><p>L'après-midi : toutes les questions de cours sans ouvrir les réponses, puis la liste « À revoir » de <a href="../../suivi.html">Mon suivi</a>.</p></div><button type="button" class="jour-fait" data-jour="j3" aria-pressed="false">Marquer fait</button></li>
+<li><div class="jour-texte"><h3>Jour 3 : l'examen blanc</h3><p>Le matin : l'<a href="court/annales.html">exercice de révision du bras 3R</a> sans regarder le corrigé, puis les méthodes 1 à 5 de mémoire sur feuille.</p><p>L'après-midi : toutes les questions de cours sans ouvrir les réponses, puis la liste « À revoir » de <a href="../../suivi.html">Mon suivi</a>.</p></div><button type="button" class="jour-fait" data-jour="j3" aria-pressed="false">Marquer fait</button></li>
 <li><div class="jour-texte"><h3>Le matin de l'examen</h3><p>Rien de nouveau. <a href="essentiel.html">L'essentiel en schémas</a> et ses formules, une seule fois, puis les cartes que tu as ratées.</p></div><button type="button" class="jour-fait" data-jour="j4" aria-pressed="false">Marquer fait</button></li>
 </ol>
 
-<h2>Les calculs : dix méthodes</h2>
+<h2>Les calculs : cinq méthodes</h2>
 <p>Les exemples sont ajoutés pour t'entraîner : ce ne sont pas ceux du cours. Fais-les sur papier avant d'ouvrir la correction.</p>
 
 <h3 class="methode">Méthode 1 : le modèle géométrique direct du bras 2R</h3>
@@ -171,79 +162,6 @@
 <p>Piège : doubler la vitesse ne divise que les temps de mouvement (approche, transfert, retour), pas la prise, la dépose ni la synchronisation.</p>
 </details>
 
-<h3 class="methode">Méthode 6 : moteur, réducteur, jeu</h3>
-<p class="methode-quand">Quand : on donne un moteur et un réducteur, on demande vitesse, puissance et couple de sortie ; ou un jeu, on demande l'écart en bout de bras.</p>
-\[\omega = \frac{2\pi n}{60} \qquad P = C\omega \qquad \omega_s = \frac{\omega_e}{i} \qquad C_s \simeq \eta\, i\, C_e \qquad \Delta x \simeq L\,\Delta\theta\]
-<p>Exemple ajouté : moteur à 4000 tr/min et 0,25 N·m, réducteur \(i = 40\), \(\eta = 0{,}85\). Puis un jeu de 0,1° sur un bras de 0,5 m.</p>
-<details class="corrige"><summary>Voir la correction</summary>
-<p>1. Vitesse angulaire du moteur.</p>
-\[\omega = \frac{2\pi \times 4000}{60} \approx 418{,}9\ \text{rad/s}\]
-<p>2. Puissance du moteur.</p>
-\[P = C\omega = 0{,}25 \times 418{,}9 \approx 104{,}7\ \text{W}\]
-<p>3. Vitesse et couple de sortie.</p>
-\[\omega_s = \frac{418{,}9}{40} \approx 10{,}47\ \text{rad/s}\ (100\ \text{tr/min})\]
-\[C_s \simeq 0{,}85 \times 40 \times 0{,}25 = 8{,}5\ \text{N}\cdot\text{m}\]
-<p>4. Le jeu, d'abord en radians.</p>
-\[\Delta\theta = 0{,}1 \times \frac{\pi}{180} \approx 1{,}745 \times 10^{-3}\ \text{rad}\]
-\[\Delta x \simeq L\,\Delta\theta = 0{,}5 \times 1{,}745 \times 10^{-3} \approx 0{,}87\ \text{mm}\]
-</details>
-
-<h3 class="methode">Méthode 7 : vis et clavette</h3>
-<p class="methode-quand">Quand : on demande un couple de serrage, ou de vérifier une clavette.</p>
-\[T \simeq K F_0 d \qquad F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL}\]
-<p>Exemple ajouté : vis M8, \(F_0 = 6\) kN, \(K = 0{,}20\). Clavette : \(C = 12\) N·m, \(d = 16\) mm, \(b = 5\) mm, \(L = 25\) mm.</p>
-<details class="corrige"><summary>Voir la correction</summary>
-<p>1. Couple de serrage (d en mètres).</p>
-\[T \simeq 0{,}20 \times 6000 \times 0{,}008 = 9{,}6\ \text{N}\cdot\text{m}\]
-<p>2. Force tangentielle sur la clavette (d en mètres).</p>
-\[F_t = \frac{2 \times 12}{0{,}016} = 1500\ \text{N}\]
-<p>3. Cisaillement (b et L en mm, résultat en MPa).</p>
-\[\tau \simeq \frac{1500}{5 \times 25} = 12\ \text{MPa}\]
-<p>Résultat : bien sous les 200 MPa environ de l'acier C45.</p>
-</details>
-
-<h3 class="methode">Méthode 8 : durée d'un roulement</h3>
-<p class="methode-quand">Quand : on donne la capacité, la charge et la vitesse, on demande la durée.</p>
-\[L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \qquad p = 3\ \text{(billes)},\ \frac{10}{3}\ \text{(rouleaux)}\]
-<p>Exemple ajouté : roulement à billes, \(C = 5\) kN, \(P = 1{,}25\) kN, \(n = 600\) tr/min.</p>
-<details class="corrige"><summary>Voir la correction</summary>
-<p>1. Durée en millions de tours.</p>
-\[L_{10} = \left(\frac{5}{1{,}25}\right)^3 = 4^3 = 64\ \text{millions de tours}\]
-<p>2. Durée en heures.</p>
-\[L_{10h} = \frac{64 \times 10^6}{60 \times 600} \approx 1778\ \text{h}\]
-<p>Piège : ici C et P sont des forces (kN), pas un couple ni une puissance.</p>
-</details>
-
-<h3 class="methode">Méthode 9 : arbre en torsion</h3>
-<p class="methode-quand">Quand : on donne une puissance et une vitesse, on demande le couple puis le diamètre minimal.</p>
-\[C = \frac{60P}{2\pi n} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}}\]
-<p>Exemple ajouté : \(P = 200\) W à 1500 tr/min, \(R_{pg} = 30\) N/mm² (valeur supposée).</p>
-<details class="corrige"><summary>Voir la correction</summary>
-<p>1. Couple.</p>
-\[C = \frac{60 \times 200}{2\pi \times 1500} \approx 1{,}273\ \text{N}\cdot\text{m}\]
-<p>2. En N·mm.</p>
-\[M_t = 1{,}273 \times 1000 \approx 1273\ \text{N}\cdot\text{mm}\]
-<p>3. Diamètre minimal.</p>
-\[d > \sqrt[3]{\frac{16 \times 1273}{\pi \times 30}} \approx 6{,}0\ \text{mm}\]
-<p>On choisit ensuite un diamètre normalisé au-dessus.</p>
-</details>
-
-<h3 class="methode">Méthode 10 : engrenages et trains</h3>
-<p class="methode-quand">Quand : on donne le module et les dents, on demande diamètres, rapport, entraxe ; ou un train, on demande le couple de sortie.</p>
-\[d = mZ \qquad i_{12} = \frac{Z_1}{Z_2} \qquad a = m\,\frac{Z_1 + Z_2}{2} \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot}\]
-<p>Exemple ajouté : \(m = 1{,}5\) mm, \(Z_1 = 18\), \(Z_2 = 54\). Puis un train de deux étages de rapports 1/3 et 1/4, rendement 0,96 par étage, couple moteur 0,3 N·m.</p>
-<details class="corrige"><summary>Voir la correction</summary>
-<p>1. Diamètres primitifs.</p>
-\[d_1 = 1{,}5 \times 18 = 27\ \text{mm} \qquad d_2 = 1{,}5 \times 54 = 81\ \text{mm}\]
-<p>2. Rapport et entraxe.</p>
-\[i_{12} = \frac{18}{54} = \frac{1}{3} \qquad a = 1{,}5 \times \frac{18 + 54}{2} = 54\ \text{mm}\]
-<p>3. Le train : rapport et rendement totaux (rapport entrée sur sortie pour la formule du couple).</p>
-\[i_{tot} = 3 \times 4 = 12 \qquad \eta_{tot} = 0{,}96^2 \approx 0{,}922\]
-<p>4. Couple de sortie.</p>
-\[C_s \simeq 0{,}3 \times 12 \times 0{,}922 \approx 3{,}32\ \text{N}\cdot\text{m}\]
-<p>Piège : vérifier quelle écriture du rapport la formule attend (ωₑ/ωₛ ou ωₛ/ωₑ).</p>
-</details>
-
 <h2>Questions de cours à savoir faire</h2>
 <p>Réponds à voix haute ou sur papier, puis ouvre.</p>
 
@@ -320,42 +238,149 @@
 <p>La vitesse de l'outil quand seule l'articulation correspondante bouge, à vitesse 1.</p>
 </details>
 
-<h3>E. L'axe et les assemblages</h3>
-<p>15. Quels sont les constituants d'un axe, et de quoi dépend la précision de l'outil ?</p>
+</div>
+
+<div data-sm="meca">
+<p class="chapeau">Les éléments mécaniques : l'axe, les assemblages, les guidages et les transmissions. Le professeur n'a encore rien annoncé pour l'examen : dès que tu as des consignes, envoie-les, et cette page dira quoi travailler en priorité. En attendant, voici de quoi réviser : les méthodes de calcul, les questions de cours, puis chaque chapitre.</p>
+
+<div class="jouer"><span><small>Tout le cours en un coup d'œil</small>L'essentiel en schémas : les schémas et les lignes à retenir du cours, et toutes ses formules</span><a class="btn-jouer" href="essentiel.html">Ouvrir</a></div>
+
+<div class="schema" id="sc-structure-meca"></div>
+
+<h2>Les calculs : cinq méthodes</h2>
+<p>Les exemples sont ajoutés pour t'entraîner : ce ne sont pas ceux du cours. Fais-les sur papier avant d'ouvrir la correction.</p>
+
+<h3 class="methode">Méthode 1 : moteur, réducteur, jeu</h3>
+<p class="methode-quand">Quand : on donne un moteur et un réducteur, on demande vitesse, puissance et couple de sortie ; ou un jeu, on demande l'écart en bout de bras.</p>
+\[\omega = \frac{2\pi n}{60} \qquad P = C\omega \qquad \omega_s = \frac{\omega_e}{i} \qquad C_s \simeq \eta\, i\, C_e \qquad \Delta x \simeq L\,\Delta\theta\]
+<p>Exemple ajouté : moteur à 4000 tr/min et 0,25 N·m, réducteur \(i = 40\), \(\eta = 0{,}85\). Puis un jeu de 0,1° sur un bras de 0,5 m.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Vitesse angulaire du moteur.</p>
+\[\omega = \frac{2\pi \times 4000}{60} \approx 418{,}9\ \text{rad/s}\]
+<p>2. Puissance du moteur.</p>
+\[P = C\omega = 0{,}25 \times 418{,}9 \approx 104{,}7\ \text{W}\]
+<p>3. Vitesse et couple de sortie.</p>
+\[\omega_s = \frac{418{,}9}{40} \approx 10{,}47\ \text{rad/s}\ (100\ \text{tr/min})\]
+\[C_s \simeq 0{,}85 \times 40 \times 0{,}25 = 8{,}5\ \text{N}\cdot\text{m}\]
+<p>4. Le jeu, d'abord en radians.</p>
+\[\Delta\theta = 0{,}1 \times \frac{\pi}{180} \approx 1{,}745 \times 10^{-3}\ \text{rad}\]
+\[\Delta x \simeq L\,\Delta\theta = 0{,}5 \times 1{,}745 \times 10^{-3} \approx 0{,}87\ \text{mm}\]
+</details>
+
+<h3 class="methode">Méthode 2 : vis et clavette</h3>
+<p class="methode-quand">Quand : on demande un couple de serrage, ou de vérifier une clavette.</p>
+\[T \simeq K F_0 d \qquad F_t = \frac{2C}{d} \qquad \tau \simeq \frac{F_t}{bL}\]
+<p>Exemple ajouté : vis M8, \(F_0 = 6\) kN, \(K = 0{,}20\). Clavette : \(C = 12\) N·m, \(d = 16\) mm, \(b = 5\) mm, \(L = 25\) mm.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Couple de serrage (d en mètres).</p>
+\[T \simeq 0{,}20 \times 6000 \times 0{,}008 = 9{,}6\ \text{N}\cdot\text{m}\]
+<p>2. Force tangentielle sur la clavette (d en mètres).</p>
+\[F_t = \frac{2 \times 12}{0{,}016} = 1500\ \text{N}\]
+<p>3. Cisaillement (b et L en mm, résultat en MPa).</p>
+\[\tau \simeq \frac{1500}{5 \times 25} = 12\ \text{MPa}\]
+<p>Résultat : bien sous les 200 MPa environ de l'acier C45.</p>
+</details>
+
+<h3 class="methode">Méthode 3 : durée d'un roulement</h3>
+<p class="methode-quand">Quand : on donne la capacité, la charge et la vitesse, on demande la durée.</p>
+\[L_{10} = \left(\frac{C}{P}\right)^p \qquad L_{10h} = \frac{10^6}{60\,n}\left(\frac{C}{P}\right)^p \qquad p = 3\ \text{(billes)},\ \frac{10}{3}\ \text{(rouleaux)}\]
+<p>Exemple ajouté : roulement à billes, \(C = 5\) kN, \(P = 1{,}25\) kN, \(n = 600\) tr/min.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Durée en millions de tours.</p>
+\[L_{10} = \left(\frac{5}{1{,}25}\right)^3 = 4^3 = 64\ \text{millions de tours}\]
+<p>2. Durée en heures.</p>
+\[L_{10h} = \frac{64 \times 10^6}{60 \times 600} \approx 1778\ \text{h}\]
+<p>Piège : ici C et P sont des forces (kN), pas un couple ni une puissance.</p>
+</details>
+
+<h3 class="methode">Méthode 4 : arbre en torsion</h3>
+<p class="methode-quand">Quand : on donne une puissance et une vitesse, on demande le couple puis le diamètre minimal.</p>
+\[C = \frac{60P}{2\pi n} \qquad d > \sqrt[3]{\frac{16\,M_t}{\pi\,R_{pg}}}\]
+<p>Exemple ajouté : \(P = 200\) W à 1500 tr/min, \(R_{pg} = 30\) N/mm² (valeur supposée).</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Couple.</p>
+\[C = \frac{60 \times 200}{2\pi \times 1500} \approx 1{,}273\ \text{N}\cdot\text{m}\]
+<p>2. En N·mm.</p>
+\[M_t = 1{,}273 \times 1000 \approx 1273\ \text{N}\cdot\text{mm}\]
+<p>3. Diamètre minimal.</p>
+\[d > \sqrt[3]{\frac{16 \times 1273}{\pi \times 30}} \approx 6{,}0\ \text{mm}\]
+<p>On choisit ensuite un diamètre normalisé au-dessus.</p>
+</details>
+
+<h3 class="methode">Méthode 5 : engrenages et trains</h3>
+<p class="methode-quand">Quand : on donne le module et les dents, on demande diamètres, rapport, entraxe ; ou un train, on demande le couple de sortie.</p>
+\[d = mZ \qquad i_{12} = \frac{Z_1}{Z_2} \qquad a = m\,\frac{Z_1 + Z_2}{2} \qquad C_s \simeq C_m\, i_{tot}\, \eta_{tot}\]
+<p>Exemple ajouté : \(m = 1{,}5\) mm, \(Z_1 = 18\), \(Z_2 = 54\). Puis un train de deux étages de rapports 1/3 et 1/4, rendement 0,96 par étage, couple moteur 0,3 N·m.</p>
+<details class="corrige"><summary>Voir la correction</summary>
+<p>1. Diamètres primitifs.</p>
+\[d_1 = 1{,}5 \times 18 = 27\ \text{mm} \qquad d_2 = 1{,}5 \times 54 = 81\ \text{mm}\]
+<p>2. Rapport et entraxe.</p>
+\[i_{12} = \frac{18}{54} = \frac{1}{3} \qquad a = 1{,}5 \times \frac{18 + 54}{2} = 54\ \text{mm}\]
+<p>3. Le train : rapport et rendement totaux (rapport entrée sur sortie pour la formule du couple).</p>
+\[i_{tot} = 3 \times 4 = 12 \qquad \eta_{tot} = 0{,}96^2 \approx 0{,}922\]
+<p>4. Couple de sortie.</p>
+\[C_s \simeq 0{,}3 \times 12 \times 0{,}922 \approx 3{,}32\ \text{N}\cdot\text{m}\]
+<p>Piège : vérifier quelle écriture du rapport la formule attend (ωₑ/ωₛ ou ωₛ/ωₑ).</p>
+</details>
+
+<h2>Questions de cours à savoir faire</h2>
+<p>Réponds à voix haute ou sur papier, puis ouvre.</p>
+
+<h3>A. L'axe et les assemblages</h3>
+<p>1. Quels sont les constituants d'un axe, et de quoi dépend la précision de l'outil ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <p>Source d'énergie, actionneur, transmission, guidage, structure.</p>
 <p>La précision dépend de toute la chaîne : jeu, rigidité, frottement, rendement, déformations, alignement, tolérances de montage.</p>
 </details>
-<p>16. Quels critères s'ajoutent pour un axe en milieu de soin ?</p>
+<p>2. Quels critères s'ajoutent pour un axe en milieu de soin ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <ul><li>Masse mobile limitée.</li><li>Bruit et vibrations limités.</li><li>Pas de points de pincement.</li><li>Facile à nettoyer et à maintenir.</li><li>Lubrifiants confinés.</li></ul>
 </details>
-<p>17. Quelles sont les cinq fonctions d'une liaison, et quel élément pour chacune ?</p>
+<p>3. Quelles sont les cinq fonctions d'une liaison, et quel élément pour chacune ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <ul><li>Serrer : vis.</li><li>Positionner : goupilles, épaulements, centrages.</li><li>Transmettre un couple : clavette, cannelures.</li><li>Maintenir axialement : écrou, anneau élastique.</li><li>Prévenir le desserrage : rondelle frein.</li></ul>
 </details>
 
-<h3>F. Roulements et engrenages</h3>
-<p>18. Comment choisit-on un roulement ?</p>
+<h3>B. Roulements et engrenages</h3>
+<p>4. Comment choisit-on un roulement ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <p>La famille d'abord, selon les charges (direction et sens), la vitesse, l'alignement et la place ; puis la référence sur catalogue, avec la durée L₁₀.</p>
 <p>Radial si α ≤ 45°, butée si α > 45°.</p>
 </details>
-<p>19. Pourquoi un montage fixe-libre ?</p>
+<p>5. Pourquoi un montage fixe-libre ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <p>Pour positionner l'arbre axialement (palier fixe) sans l'empêcher de se dilater (palier libre, une bague coulisse). Deux paliers fixes sur-contraindraient le montage.</p>
 </details>
-<p>20. Effets de la précharge d'un roulement ?</p>
+<p>6. Effets de la précharge d'un roulement ?</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <ul><li>Moins de jeu, plus de rigidité.</li><li>Plus d'efforts internes, de frottement et d'échauffement.</li><li>Trop forte : durée de vie réduite.</li></ul>
 </details>
-<p>21. Cite les types d'engrenages selon la position des axes.</p>
+<p>7. Cite les types d'engrenages selon la position des axes.</p>
 <details class="corrige"><summary>Voir la réponse</summary>
 <ul><li>Axes parallèles : denture droite, denture hélicoïdale (progressive, silencieuse).</li><li>Axes concourants : engrenages coniques.</li><li>Axes gauches : roue et vis sans fin (grand rapport, souvent irréversible).</li></ul>
 </details>
 
+<p>8. Compare les guidages linéaires du cours : douille à billes, patin à recirculation, chariot à galets.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<ul><li>Douille à billes sur rail rond : simple, économique, toute longueur de course, pas de rotation, 2 à 5 m/s.</li><li>Patin à recirculation : course illimitée, très rigide, sans jeu, rectitude 3 à 20 µm/m, 3 à 5 m/s.</li><li>Chariot à galets : peu sensible à la pollution, environ 10 m/s.</li></ul>
+</details>
+<p>9. Donne les trois types de bagues lisses autolubrifiantes et leur principe commun.</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Principe : un film lubrifiant passe de la bague à l'axe, sans contact métal contre métal.</p>
+<ul><li>Revêtement polymère (PTFE).</li><li>Inserts solides (graphite dans le bronze).</li><li>Bronze fritté imprégné d'huile.</li></ul>
+</details>
+</div>
+
 <div id="par-chapitre"></div>
 </main>
+<script>
+// une version par sous-module : on garde celle de ?sm= (la robotique biomédicale par défaut)
+(function () {
+  var sm = new URLSearchParams(location.search).get("sm") === "meca" ? "meca" : "bio";
+  Array.prototype.forEach.call(document.querySelectorAll("[data-sm]"), function (e) { if (e.getAttribute("data-sm") !== sm) e.parentNode.removeChild(e); });
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="essentiel.html"]'), function (l) { l.href = "essentiel.html?sm=" + sm; });
+})();
+</script>
 <script src="../../commun/js/examen.js"></script>
 <script src="../../commun/vendor/katex/katex.min.js"></script>
 <script src="../../commun/vendor/katex/auto-render.min.js"></script>

@@ -25,7 +25,7 @@ PLATEFORME.parcours("robotique", {
   // Pages libres : le plan suit la matière ; les intuitions gardées sont celles qui font voir le calcul, sous un titre qui dit ce qu'elles expliquent.
   pagesLibres: true,
   // Documents reçus (titres seulement : les fichiers restent hors du dépôt) ; page « Mon suivi ».
-  // Page « Préparer l'examen » (examen.html, lien sur la carte), commune aux deux sous-modules ; elle ouvre « L'essentiel en schémas ».
+  // Page « Préparer l'examen » (examen.html?sm=…, lien sur la carte) : une version par sous-module ; elle ouvre « L'essentiel en schémas » du même sous-module.
   examen: { bio: true, meca: true },
   court: [0, 1, 2, 3, 4, 10, 11, 5, 6, 7, 8],
   // Cartes de révision (questions de cours) : un paquet à la fin de chaque section, et toutes les cartes du chapitre en fin de chapitre.
