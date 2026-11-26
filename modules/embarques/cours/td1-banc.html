@@ -28,6 +28,14 @@
 <li>Pour mesurer ce tout petit changement, on monte quatre jauges en <strong>pont de Wheatstone</strong> : un losange de quatre résistances, alimenté par une diagonale, mesuré sur l'autre.</li>
 <li>Sans charge, les quatre jauges sont égales : le pont est <strong>équilibré</strong>, la tension de sortie est nulle.</li>
 </ul>
+<p><strong>Comment marche le pont, pas à pas.</strong></p>
+<ul>
+<li>Le pont, ce sont <strong>deux ponts diviseurs</strong> côte à côte, branchés sur la même alimentation de 5 V. Un pont diviseur fait de deux résistances égales donne la moitié de la tension à son point milieu : 2,5 V.</li>
+<li>Sans charge, les deux points milieux sont à 2,5 V. La tension entre eux, celle qu'on mesure, vaut \(2{,}5 - 2{,}5 = 0\) V.</li>
+<li>Sous charge, une jauge d'un diviseur s'allonge (sa résistance monte un peu) et l'autre se raccourcit (elle baisse un peu) : le point milieu glisse de quelques millivolts. Dans l'autre diviseur, les jauges sont placées à l'envers : son point milieu glisse dans l'autre sens.</li>
+<li>La différence entre les deux points milieux n'est plus nulle : quelques millivolts, proportionnels à la force. C'est le signal.</li>
+</ul>
+<p>Pourquoi ce montage : mesurer directement une résistance qui change de 0,1 % est très difficile ; mesurer un écart de tension qui part de zéro est facile, et l'écart double parce que les deux diviseurs bougent en sens contraires.</p>
 <div id="fig-td1-pont"></div>
 <p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> collées sur un corps d'épreuve qui se déforme sous la charge, montées en <strong>pont de Wheatstone complet</strong>.</p>
 <p>Les quatre fils :</p>
@@ -64,6 +72,7 @@
 <li>La sortie d'un pont de jauges est proportionnelle à l'excitation et à la charge.</li>
 <li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output », R.O.) : la sortie à pleine échelle, par volt d'excitation. Pour le FSH00107, DT2 donne 2 mV/V.</li>
 </ul>
+<p><strong>Comment on lit « 2 mV/V ».</strong> Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>pour chaque volt</strong> d'alimentation. Avec 5 V, il sort donc \(2 \times 5 = 10\) mV à 445 N. Comme le capteur est linéaire, à mi-charge il sort la moitié, à 100 N il sort \(100 / 445\) de 10 mV, et ainsi de suite : la courbe est une droite qui passe par zéro.</p>
 <div id="fig-td1-vo"></div>
 <p><strong>Réponse.</strong></p>
 \[V_o(P) = S\,V_{exc}\,\frac{P}{445\ \text{N}}\]
@@ -79,6 +88,12 @@
 <ul>
 <li>L'INA128 amplifie la différence entre ses deux entrées ; son gain se règle avec une seule résistance \(R_G\). La fiche du circuit donne \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
 <li>Méthode : on cherche le gain voulu (sortie voulue divisée par l'entrée), puis on retourne la formule pour trouver \(R_G\).</li>
+</ul>
+<p><strong>Comment on raisonne, en trois étapes.</strong></p>
+<ul>
+<li>Combien sort le capteur à 100 N ? C'est la question 6 appliquée à 100 N.</li>
+<li>Combien faut-il multiplier pour obtenir 1 V ? Le gain, c'est sortie voulue divisée par entrée.</li>
+<li>Quelle \(R_G\) donne ce gain ? On isole \(R_G\) dans la formule de la fiche : \(G - 1 = 50\ \text{k}\Omega / R_G\), donc \(R_G = 50\ \text{k}\Omega / (G - 1)\).</li>
 </ul>
 <p><strong>Réponse.</strong> Gain de l'INA128 :</p>
 \[G = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
@@ -105,7 +120,11 @@
 <li>une impédance d'entrée très élevée, qui ne charge pas le pont ;</li>
 <li>un gain réglé par une seule résistance \(R_G\).</li>
 </ul>
-<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum, soit un rapport de \(10^{6}\).</p>
+<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum. Les décibels sont une échelle logarithmique : un rapport \(r\) vaut \(20 \log_{10} r\) dB. On remonte au rapport :</p>
+\[20 \log_{10} r = 120\]
+\[\log_{10} r = 6\]
+\[r = 10^{6}\]
+<p>Le mode commun est donc divisé par un million avant d'arriver en sortie :</p>
 \[V_{erreur} = \frac{V_{mode\ commun}}{10^{CMR/20}}\]
 \[V_{erreur} = \frac{2{,}5}{10^{6}}\]
 \[V_{erreur} = 2{,}5\ \mu\text{V}\]
