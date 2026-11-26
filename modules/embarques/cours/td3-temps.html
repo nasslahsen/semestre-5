@@ -18,58 +18,77 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>Les contraintes temporelles</h1>
-<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Le calcul tient en une ligne, à condition de voir le temps se partager.</p>
+<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Toutes les réponses se trouvent en dessinant le temps du processeur sur une ligne.</p>
 
-<h2>La situation</h2>
+<h2>Ce qu'il faut comprendre d'abord</h2>
+<ul>
+<li>La <strong>boucle principale</strong> est le programme normal, qui tourne en rond : lire les capteurs, calculer, afficher, recommencer. Sans dérangement, un tour dure 50 ms.</li>
+<li>Une <strong>interruption</strong> est un signal qui arrive de l'extérieur (ici d'un timer, toutes les 10 ms). Le processeur arrête la boucle là où elle en est, exécute la <strong>routine d'interruption</strong> (une petite fonction), puis reprend la boucle exactement où il l'avait laissée.</li>
+<li>Le processeur ne fait qu'<strong>une chose à la fois</strong> : pendant la routine, la boucle n'avance pas. Elle n'est pas perdue, elle attend.</li>
+<li>Par défaut, pendant la routine, les nouvelles interruptions sont <strong>bloquées</strong> : si une demande arrive, elle attend la fin de la routine. Le processeur ne garde qu'une seule demande en attente (un drapeau).</li>
+</ul>
 <div class="tableau"><table>
 <tr><th>Donnée</th><th>Valeur</th></tr>
-<tr><td>Durée de la boucle principale, sans interruption</td><td>50 ms</td></tr>
+<tr><td>Durée de la boucle principale, sans interruption</td><td>\(t_0 = 50\) ms</td></tr>
 <tr><td>Période de l'interruption</td><td>\(T = 10\) ms</td></tr>
-<tr><td>Réglage par défaut</td><td>pendant la routine d'interruption, une nouvelle interruption est <strong>bloquée</strong> (elle attend la fin de la routine)</td></tr>
+<tr><td>Durée de la routine</td><td>\(t\), ce qu'on cherche ou ce qu'on fait varier</td></tr>
 </table></div>
-<p><strong>Ce qu'il faut savoir.</strong> Le processeur ne fait qu'une chose à la fois. Pendant que la routine d'interruption tourne, la boucle principale est arrêtée. Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur ; il reste \(1 - t / T\) pour la boucle.</p>
+<p>Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur. Il reste la fraction \(1 - t / T\) pour la boucle. Manipule la figure : c'est tout le TD.</p>
 <div id="fig-td3-temps"></div>
 
 <h2>a) La durée maximale tmax</h2>
-<p><strong>Réponse.</strong> La routine doit être finie avant l'interruption suivante, donc durer moins d'une période :</p>
+<p><strong>Comment on raisonne.</strong> Une interruption arrive à 0 ms, la suivante à 10 ms. Pour que chaque demande soit servie avant la suivante, la routine doit être finie avant 10 ms. Sinon, la demande suivante arrive pendant qu'elle tourne encore.</p>
+<p><strong>Réponse.</strong></p>
 \[t_{max} = T = 10\ \text{ms}\]
 
 <h2>b) Si la routine dure exactement tmax</h2>
-<p><strong>Réponse.</strong> Dès qu'une routine se termine, l'interruption suivante arrive : le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé, même si les interruptions, elles, sont encore toutes servies.</p>
+<p><strong>Comment on raisonne.</strong> La routine commence à 0 ms et finit à 10 ms, juste quand la suivante arrive. Celle-ci commence aussitôt et finit à 20 ms, et ainsi de suite. Entre deux routines, il ne reste aucun instant libre.</p>
+<p><strong>Réponse.</strong> Le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé (plus d'affichage, plus de calcul), même si chaque interruption est encore servie à temps.</p>
 
 <h2>c) Si la routine dure plus que tmax</h2>
-<p><strong>Réponse.</strong> Une nouvelle demande arrive alors que la routine n'est pas finie. Elle est bloquée : elle attend, et la routine suivante démarre en retard.</p>
+<p><strong>Comment on raisonne.</strong> Prends une routine de 12 ms. Elle commence à 0 et finit à 12. Mais une demande est arrivée à 10 : elle attendait, elle démarre à 12 et finit à 24. Pendant ce temps, une demande est arrivée à 20 : elle attend à son tour, et ainsi de suite. Chaque routine démarre un peu plus en retard que la précédente (2 ms de plus à chaque fois).</p>
+<p><strong>Réponse.</strong></p>
 <ul>
-<li>Le retard s'accumule à chaque période : les demandes en attente se recouvrent, et comme le drapeau d'interruption ne mémorise qu'une demande, certaines sont <strong>perdues</strong>.</li>
-<li>La boucle principale ne s'exécute toujours plus.</li>
-<li>La tâche périodique (une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
+<li>La boucle principale ne s'exécute toujours plus : le processeur enchaîne les routines.</li>
+<li>Le retard s'accumule. Comme le processeur ne garde qu'une demande en attente, quand deux demandes arrivent pendant la même routine, l'une d'elles est <strong>perdue</strong>.</li>
+<li>La tâche périodique (par exemple une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
 </ul>
 
 <h2>d) Si la routine réarme les interruptions</h2>
-<p><strong>Réponse.</strong> Cette fois, la nouvelle demande <strong>interrompt la routine en cours</strong> : une deuxième routine démarre par-dessus la première, puis une troisième par-dessus la deuxième, et ainsi de suite (interruptions imbriquées).</p>
+<p><strong>Comment on raisonne.</strong> Cette fois, la routine autorise les interruptions pendant qu'elle tourne. À 10 ms, la nouvelle demande n'attend plus : elle <strong>interrompt la routine en cours</strong>. Une deuxième routine démarre par-dessus la première, qui reste en suspens. À 20 ms, une troisième par-dessus la deuxième. Pour pouvoir revenir à chaque routine interrompue, le processeur range à chaque fois son contexte (adresse de retour, registres) sur la <strong>pile</strong> (question 5).</p>
+<p><strong>Réponse.</strong></p>
 <ul>
-<li>Chaque interruption sauvegarde son contexte (adresse de retour, registres) sur la <strong>pile</strong> : la pile grossit à chaque période.</li>
-<li>Aucune routine ne finit jamais, la boucle principale ne reprend jamais.</li>
-<li>La pile finit par déborder (stack overflow) : le programme écrase d'autres données en mémoire et <strong>plante</strong>. Sur l'ESP32, c'est un redémarrage.</li>
+<li>Les routines s'emboîtent sans fin : aucune ne finit, la boucle principale ne reprend jamais.</li>
+<li>La pile grossit d'un contexte toutes les 10 ms.</li>
+<li>Elle finit par <strong>déborder</strong> (stack overflow) : le programme écrase d'autres données en mémoire et plante. Sur un microcontrôleur, c'est un redémarrage, souvent provoqué par le watchdog.</li>
 </ul>
 
 <h2>e) La routine dure 4 ms</h2>
-<p><strong>Réponse.</strong> Sur chaque période de 10 ms, la routine prend 4 ms et la boucle principale 6 ms. La boucle n'avance que pendant 60 % du temps.</p>
-\[\text{fraction pour la boucle} = 1 - \frac{t}{T}\]
-\[\text{fraction pour la boucle} = 1 - \frac{4}{10}\]
-\[\text{fraction pour la boucle} = 0{,}6\]
-<p>Il lui faut toujours 50 ms de calcul :</p>
-\[t_{boucle} = \frac{50}{1 - t / T}\]
+<p><strong>Comment on raisonne.</strong> Regarde une période de 10 ms : la routine en prend 4, il en reste 6 pour la boucle. La boucle n'avance donc que pendant 60 % du temps.</p>
+<div class="tableau"><table>
+<tr><th>Intervalle</th><th>Qui travaille</th><th>Boucle faite depuis le début</th></tr>
+<tr><td>0 à 4 ms</td><td>routine</td><td>0 ms</td></tr>
+<tr><td>4 à 10 ms</td><td>boucle</td><td>6 ms</td></tr>
+<tr><td>10 à 14 ms</td><td>routine</td><td>6 ms</td></tr>
+<tr><td>14 à 20 ms</td><td>boucle</td><td>12 ms</td></tr>
+<tr><td>…</td><td>…</td><td>6 ms de plus toutes les 10 ms</td></tr>
+</table></div>
+<p>La boucle a toujours besoin de 50 ms de calcul. Elle n'en reçoit que 60 % : il faut donc plus de temps réel pour les obtenir. Si \(t_{boucle}\) est la durée réelle, la boucle reçoit \(0{,}6 \times t_{boucle}\) de temps de calcul, et il en faut 50 ms :</p>
+\[(1 - t / T) \times t_{boucle} = t_0\]
+\[t_{boucle} = \frac{t_0}{1 - t / T}\]
+\[t_{boucle} = \frac{50}{1 - 4 / 10}\]
 \[t_{boucle} = \frac{50}{0{,}6}\]
 \[t_{boucle} \approx 83{,}3\ \text{ms}\]
-<p>Vérification : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9, selon l'instant où le tour commence : \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur un grand nombre de tours, la moyenne vaut bien <strong>83,3 ms</strong>.</p>
+<p><strong>Réponse.</strong> La boucle principale dure en moyenne <strong>83,3 ms</strong>.</p>
+<p>Pourquoi « en moyenne » : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9 selon l'instant où le tour commence, soit \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur beaucoup de tours, la moyenne vaut 83,3 ms.</p>
 
 <h2>À retenir</h2>
 <ul>
-<li>La routine d'interruption doit durer moins que la période : \(t_{max} = T\).</li>
+<li>Le processeur fait une chose à la fois : pendant la routine, la boucle attend.</li>
+<li>La routine doit durer moins que la période : \(t_{max} = T\).</li>
 <li>Durée moyenne de la boucle : \(t_{boucle} = t_0 / (1 - t / T)\).</li>
-<li>Routine trop longue : boucle bloquée, interruptions perdues ; avec réarmement, imbrication et débordement de pile.</li>
-<li>D'où la règle des TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
+<li>Routine trop longue : boucle bloquée, interruptions perdues. Avec réarmement : routines emboîtées, pile qui déborde, plantage.</li>
+<li>D'où la règle du TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
 </ul>
 
 </main>

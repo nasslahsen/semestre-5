@@ -24,18 +24,40 @@
 <h2>Les composants</h2>
 
 <article class="notion" id="n-td3">
-<p class="chapeau">Le TD 3 reprend le chapitre 2 sous forme de questions de cours : définir, comparer, choisir. Les questions 1, 2, 3 et 5 suivent la <strong>correction faite en classe</strong> : c'est la réponse à donner. Le reste est rédigé pour le site à partir des diapositives ; ce qu'elles ne disent pas est signalé « complément ».</p>
+<p class="chapeau">Le TD 3 reprend le chapitre 2 sous forme de questions de cours. Cette page est écrite pour quelqu'un qui n'a pas suivi le cours : pour chaque question, ce qu'il faut comprendre d'abord, puis comment on arrive à la réponse, puis la réponse elle-même. Les questions 1, 2, 3 et 5 suivent la correction faite en classe : c'est la réponse à donner. Le reste est rédigé pour le site à partir des diapositives ; ce qu'elles ne disent pas est signalé « complément ».</p>
 
 <h4>Le plan du TD</h4>
 <div class="tableau"><table>
-<tr><th>Partie</th><th>Questions</th><th>Où dans le cours</th></tr>
-<tr><td>Les composants d'un système embarqué</td><td>1 à 5</td><td><a href="chapitre-1.html#n-definition">définition</a>, <a href="chapitre-1.html#n-conception">exigences</a>, <a href="chapitre-5.html#n-pwm">PWM</a>, <a href="chapitre-5.html#n-watchdog">watchdog</a>, <a href="chapitre-5.html#n-timer">timers</a>, <a href="chapitre-3.html#n-uart">UART</a></td></tr>
-<tr><td>Architecture</td><td>6 à 9</td><td><a href="chapitre-2.html#n-cisc-risc">CISC et RISC</a>, <a href="chapitre-2.html#n-von-neumann-harvard">Von Neumann, Harvard, Super Harvard</a>, <a href="chapitre-4.html#n-coeurs-memoire">DMA</a>, <a href="chapitre-2.html#n-avr">architecture AVR</a></td></tr>
-<tr><td>Contraintes temporelles</td><td>a à e</td><td><a href="chapitre-5.html#n-interruptions">interruptions</a> ; le calcul n'est pas dans le cours</td></tr>
+<tr><th>Partie</th><th>Questions</th><th>Ce qu'on y apprend</th></tr>
+<tr><td>Les composants d'un système embarqué</td><td>1 à 5</td><td>ce qu'est un système embarqué, les trois familles de circuits de calcul, les briques autour du processeur</td></tr>
+<tr><td>Architecture</td><td>6 à 9</td><td>comment le processeur est construit et relié à ses mémoires</td></tr>
+<tr><td>Contraintes temporelles</td><td>a à e</td><td>ce qui se passe quand une interruption prend du temps au programme</td></tr>
 </table></div>
+
+<h4>Le vocabulaire de base, en une minute</h4>
+<p>Toutes les questions du TD utilisent ces mots. Les voici d'abord, simplement :</p>
+<ul>
+<li>un <strong>processeur</strong> (CPU) exécute un <strong>programme</strong> : une suite d'<strong>instructions</strong> simples (additionner, comparer, lire une case mémoire), une à la fois, au rythme d'une <strong>horloge</strong> ;</li>
+<li>la <strong>mémoire</strong> garde le programme et les <strong>données</strong> (les variables, les mesures). La <strong>RAM</strong> s'efface quand on coupe le courant ; la <strong>flash</strong> (ou ROM) garde son contenu ;</li>
+<li>un <strong>périphérique</strong> est un circuit autour du processeur qui fait une tâche précise : convertir une tension (ADC), compter le temps (timer), envoyer des octets (UART) ;</li>
+<li>un <strong>capteur</strong> mesure (température, force) ; un <strong>actionneur</strong> agit (moteur, LED, électrode).</li>
+</ul>
 
 <h4>Question 1 : définition et contraintes</h4>
 <p><strong>On te demande.</strong> Définis un système embarqué, puis donne trois contraintes associées.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Compare un ordinateur portable et un pacemaker. Tous les deux ont un processeur et un programme. Mais :</p>
+<div class="tableau"><table>
+<tr><th></th><th>Ordinateur</th><th>Pacemaker</th></tr>
+<tr><td>Tâches</td><td>des milliers : navigateur, jeux, traitement de texte</td><td>une seule : surveiller le cœur et stimuler</td></tr>
+<tr><td>Utilisateur</td><td>quelqu'un clique, tape, choisit</td><td>personne : il fonctionne seul, jour et nuit</td></tr>
+<tr><td>Énergie</td><td>une prise, ou une batterie qu'on recharge chaque jour</td><td>une pile qui doit durer des années</td></tr>
+<tr><td>Taille</td><td>de la place pour beaucoup de mémoire</td><td>quelques centimètres sous la peau</td></tr>
+</table></div>
+<p><strong>Comment on trouve la réponse.</strong></p>
+<ul>
+<li>La colonne de droite donne la définition : une électronique et un programme (<strong>électronique et informatique</strong>), qui marchent seuls (<strong>autonome</strong>), pour <strong>une tâche précise</strong>.</li>
+<li>Les contraintes viennent de ce qui manque : petit et bon marché, donc peu de mémoire ; sur pile, donc il faut consommer peu ; il doit réagir à temps (un battement manqué, une alarme), donc il doit être rapide.</li>
+</ul>
 <p><strong>Réponse (correction faite en classe).</strong> Un système embarqué est un <strong>système électronique et informatique autonome</strong>, dédié à une tâche précise.</p>
 <p>Contraintes associées :</p>
 <ul>
@@ -43,10 +65,22 @@
 <li><strong>l'alimentation autonome et la consommation</strong> ;</li>
 <li><strong>la rapidité</strong>.</li>
 </ul>
-<p>Pourquoi ces trois-là : la puce est petite et bon marché, donc peu de mémoire ; l'appareil vit sur pile ou batterie, donc il doit consommer peu ; il doit répondre à temps (une alarme, une stimulation), donc être rapide.</p>
 
 <h4>Question 2 : microcontrôleur, DSP, FPGA</h4>
 <p><strong>On te demande.</strong> Donne deux avantages et deux applications de chaque circuit.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Ce sont trois façons de faire le calcul dans un système embarqué. La différence tient à une question : comment le circuit exécute-t-il le traitement ?</p>
+<ul>
+<li>Le <strong>microcontrôleur</strong> est un petit ordinateur complet sur une seule puce : processeur, mémoire, et périphériques (ADC, timers, ports de communication). Il exécute un programme, instruction après instruction. Comme tout est déjà dans la puce, il suffit de brancher capteurs et actionneurs : il lit les capteurs, applique le programme, commande les actionneurs.</li>
+<li>Le <strong>DSP</strong> (Digital Signal Processor) est un processeur spécialisé. Traiter un signal (filtrer un ECG, analyser un écho radar) revient à répéter des millions de fois la même opération : multiplier un échantillon par un coefficient et ajouter au total. Le DSP a un bloc de calcul fait exactement pour ça : il le fait en un seul cycle, là où un processeur ordinaire en prendrait plusieurs.</li>
+<li>Le <strong>FPGA</strong> n'exécute pas de programme. C'est une puce remplie de portes logiques que l'on <strong>relie</strong> entre elles pour fabriquer le circuit dont on a besoin. Si le traitement demande 100 calculs, on peut câbler 100 petits calculateurs qui travaillent en même temps : c'est l'<strong>exécution parallèle par implémentation matérielle</strong>.</li>
+</ul>
+<div id="fig-td3-parallele"></div>
+<p><strong>Comment on trouve la réponse.</strong> L'avantage découle de la façon de calculer, et les applications de l'avantage :</p>
+<ul>
+<li>microcontrôleur : tout est intégré (traitement et ports de communication), donc idéal pour commander des appareils : robot, moniteur, ascenseur ;</li>
+<li>DSP : le bloc de traitement du signal est intégré, donc idéal quand on traite un signal en continu : scanner, radar ;</li>
+<li>FPGA : les calculs se font en même temps, donc très vite, idéal quand il y a énormément de données à traiter d'un coup : images (scanner, IRM, reconnaissance faciale).</li>
+</ul>
 <p><strong>Réponse (correction faite en classe).</strong></p>
 <div class="tableau"><table>
 <tr><th>Circuit</th><th>Ce que c'est</th><th>Avantage</th><th>Applications</th></tr>
@@ -54,57 +88,98 @@
 <tr><td>DSP</td><td>processeur de traitement de signal (Digital Signal Processor)</td><td>intégration du bloc de traitement de signal</td><td>scanner, radar</td></tr>
 <tr><td>FPGA</td><td>circuit programmable, exécution parallèle par implémentation matérielle</td><td>exécution rapide</td><td>scanner, IRM, caméra de reconnaissance faciale</td></tr>
 </table></div>
-<p>Pour comprendre la différence :</p>
-<ul>
-<li>le <strong>microcontrôleur</strong> réunit sur une puce le processeur, la mémoire et les périphériques : il lit les capteurs et commande les actionneurs ;</li>
-<li>le <strong>DSP</strong> a un bloc de calcul fait pour le signal (filtrer, transformer) : il traite vite un flot d'échantillons ;</li>
-<li>le <strong>FPGA</strong> n'exécute pas un programme instruction par instruction : on y câble le traitement lui-même, et plusieurs calculs se font en même temps.</li>
-</ul>
+<p>UART, I2C, I2S, CAN sont des <strong>ports de communication</strong> : des façons standard d'échanger des données avec d'autres circuits (chapitre 3).</p>
 
 <h4>Question 3 : critères de choix</h4>
-<p><strong>On te demande.</strong> Cite trois critères de choix d'un circuit de traitement dans un système embarqué.</p>
-<p><strong>Réponse (correction faite en classe).</strong> Trois parmi :</p>
-<ul>
-<li><strong>la vitesse d'exécution</strong> ;</li>
-<li><strong>la consommation</strong> ;</li>
-<li><strong>la disponibilité des ports de communication</strong> ;</li>
-<li><strong>la robustesse</strong> ;</li>
-<li><strong>le coût de développement</strong>.</li>
-</ul>
+<p><strong>On te demande.</strong> Cite trois critères de choix des circuits de traitement dans un système embarqué.</p>
+<p><strong>Comment on trouve la réponse.</strong> Mets-toi à la place de l'ingénieur qui choisit la puce d'un appareil. Il se pose cinq questions, et chacune donne un critère :</p>
+<div class="tableau"><table>
+<tr><th>La question qu'on se pose</th><th>Le critère</th></tr>
+<tr><td>Va-t-il calculer assez vite pour répondre à temps ?</td><td>la vitesse d'exécution</td></tr>
+<tr><td>Combien de temps va tenir la batterie ?</td><td>la consommation</td></tr>
+<tr><td>Peut-il parler à mes capteurs et à mon module radio ?</td><td>la disponibilité des ports de communication</td></tr>
+<tr><td>Va-t-il marcher longtemps sans panne, dans la chaleur, l'humidité, les chocs ?</td><td>la robustesse</td></tr>
+<tr><td>Combien coûtent la puce et le travail pour la programmer ?</td><td>le coût de développement</td></tr>
+</table></div>
+<p><strong>Réponse (correction faite en classe).</strong> Trois parmi : la <strong>vitesse d'exécution</strong>, la <strong>consommation</strong>, la <strong>disponibilité des ports de communication</strong>, la <strong>robustesse</strong>, le <strong>coût de développement</strong>.</p>
 
 <h4>Question 4 : questions à cocher</h4>
-<div class="tableau"><table>
-<tr><th>Question</th><th>Réponse</th><th>Pourquoi</th></tr>
-<tr><td>a. Le système embarqué désigne le…</td><td><strong>matériel et logiciel</strong></td><td>le cours : le terme désigne aussi bien le matériel que le logiciel utilisé</td></tr>
-<tr><td>b. Le programme peut être stocké dans une mémoire…</td><td><strong>Flash program memory</strong></td><td>non volatile : le programme reste sans alimentation ; SRAM et DRAM s'effacent à la coupure</td></tr>
-<tr><td>c. Filtres numériques et blocs de modulation…</td><td><strong>DSP</strong></td><td>composant optimisé pour le traitement du signal numérique</td></tr>
-<tr><td>d. Les microcontrôleurs utilisent une architecture…</td><td><strong>Harvard</strong></td><td>mémoire du programme et mémoire des données séparées, accès en même temps ; c'est le cas des AVR, des PIC et des cœurs de l'ESP32</td></tr>
-</table></div>
-<p>Pour d, certains microcontrôleurs sont de type Von Neumann (complément : le MSP430 de Texas Instruments). La réponse attendue reste Harvard, l'architecture de la plupart d'entre eux.</p>
+<p>Pour chaque question, la bonne réponse et pourquoi les autres sont fausses.</p>
+<p><strong>a. Le système embarqué désigne le matériel, le logiciel, ou les deux ?</strong> Réponse : <strong>matériel et logiciel</strong>. Une carte sans programme ne fait rien, un programme sans carte ne mesure rien : le système, c'est l'ensemble. C'est la phrase du cours.</p>
+<p><strong>b. Le programme peut être stocké dans une SRAM, une DRAM ou une Flash program memory ?</strong> Réponse : <strong>Flash program memory</strong>.</p>
+<ul>
+<li>La SRAM et la DRAM sont des RAM : elles s'effacent quand on coupe le courant. Le pacemaker oublierait son programme à chaque changement de pile.</li>
+<li>La flash garde son contenu sans courant (mémoire <strong>non volatile</strong>) : le programme est toujours là au redémarrage.</li>
+</ul>
+<p><strong>c. Filtres numériques et blocs de modulation : processeur, FPGA ou DSP ?</strong> Réponse : <strong>DSP</strong>. Un filtre numérique, c'est exactement la répétition « multiplier et additionner » pour laquelle le DSP a son bloc dédié (question 2).</p>
+<p><strong>d. Les microcontrôleurs utilisent une architecture Harvard, Von Neumann, ou les deux ?</strong> Réponse attendue : <strong>Harvard</strong>, deux mémoires séparées (programme et données), expliquée à la question 7. C'est le cas des AVR, des PIC et des cœurs de l'ESP32. Complément : quelques microcontrôleurs sont de type Von Neumann (le MSP430 de Texas Instruments), mais la plupart sont Harvard.</p>
 
 <h4>Question 5 : le rôle de cinq composants</h4>
-<p><strong>Réponse (correction faite en classe).</strong></p>
-<div class="tableau"><table>
-<tr><th>Composant</th><th>Rôle</th></tr>
-<tr><td>PWM</td><td>générateur de signaux avec des impulsions de largeur variable</td></tr>
-<tr><td>Watchdog</td><td>chien de garde : circuit de réinitialisation automatique du microcontrôleur en cas de blocage</td></tr>
-<tr><td>Timer</td><td>génère des temporisations programmables</td></tr>
-<tr><td>UART</td><td>circuit de transmission asynchrone</td></tr>
-<tr><td>La pile (stack)</td><td>zone mémoire d'organisation LIFO (Last In, First Out) pour stocker temporairement les données et les arguments des fonctions</td></tr>
-</table></div>
-<p>Au tableau, pour la PWM : un signal qui vaut \(+E\) pendant \(\alpha T\), puis \(-E\) le reste de la période \(T\). Sa valeur moyenne :</p>
+<p><strong>On te demande.</strong> Précise le rôle de la PWM, du watchdog, du timer, de l'UART et de la pile.</p>
+<p>Chaque composant d'abord expliqué, puis la phrase à écrire.</p>
+
+<h5>La PWM</h5>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Une broche numérique ne sait sortir que deux niveaux : tout ou rien. Pourtant, on veut souvent une valeur intermédiaire : une LED à moitié allumée, un moteur à mi-vitesse. L'astuce : on bascule très vite entre les deux niveaux. L'appareil (l'œil, le moteur) est trop lent pour suivre et ne « voit » que la <strong>valeur moyenne</strong>.</p>
+<ul>
+<li>La <strong>période</strong> \(T\) est la durée d'un motif complet, qui se répète.</li>
+<li>Le <strong>rapport cyclique</strong> \(\alpha\) est la fraction de la période passée au niveau haut : le niveau haut dure \(\alpha T\). Avec \(\alpha = 0{,}25\), le signal est haut un quart du temps.</li>
+<li>Changer \(\alpha\), c'est changer la <strong>largeur de l'impulsion</strong> : d'où le nom, Pulse Width Modulation, modulation de largeur d'impulsion.</li>
+</ul>
+<p><strong>Comment on calcule la moyenne (le dessin du tableau).</strong> Au tableau, le signal vaut \(+E\) pendant \(\alpha T\), puis \(-E\) pendant le reste de la période, soit \((1 - \alpha) T\). La moyenne d'un signal sur une période, c'est l'aire sous la courbe divisée par la période :</p>
+<ul>
+<li>aire de la partie haute : hauteur \(E\) fois largeur \(\alpha T\), soit \(\alpha E\,T\) ;</li>
+<li>aire de la partie basse : hauteur \(-E\) fois largeur \((1 - \alpha) T\), soit \(-(1 - \alpha) E\,T\), négative puisque le signal est sous zéro ;</li>
+<li>on additionne, puis on divise par \(T\).</li>
+</ul>
+\[\langle u \rangle = \frac{\alpha E\,T - (1 - \alpha) E\,T}{T}\]
 \[\langle u \rangle = \alpha E - (1 - \alpha) E\]
+\[\langle u \rangle = \alpha E - E + \alpha E\]
 \[\langle u \rangle = (2\alpha - 1) E\]
-<p>Avec \(\alpha = 0{,}5\), la moyenne est nulle ; avec \(\alpha = 0{,}75\), elle vaut \(0{,}5\,E\). Pour un signal entre 0 et 3,3 V, comme sur l'ESP32 (chapitre 5), la moyenne vaut \(\alpha \times 3{,}3\) V.</p>
-<p>Pour retenir LIFO : la dernière adresse de retour rangée est la première ressortie, comme une pile d'assiettes. C'est pour cela que des appels emboîtés reviennent dans le bon ordre.</p>
+<p>Vérifications qui aident à comprendre :</p>
+<ul>
+<li>\(\alpha = 1\) : toujours en haut, la moyenne vaut \(E\) ;</li>
+<li>\(\alpha = 0\) : toujours en bas, la moyenne vaut \(-E\) ;</li>
+<li>\(\alpha = 0{,}5\) : autant en haut qu'en bas, la moyenne est nulle.</li>
+</ul>
+<p>Sur l'ESP32, le signal va de 0 à 3,3 V (pas de partie négative) : la partie basse a une aire nulle, et la moyenne vaut simplement \(\alpha \times 3{,}3\) V.</p>
+<div id="fig-td3-pwm"></div>
+<p><strong>Réponse (correction faite en classe).</strong> PWM : <strong>générateur de signaux avec des impulsions de largeur variable</strong>.</p>
+
+<h5>Le watchdog</h5>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Un programme peut se bloquer : une boucle qui ne finit jamais, un capteur qui ne répond plus. Dans un PC, on redémarre. Dans un pacemaker, personne n'est là pour appuyer sur le bouton. Le <strong>watchdog</strong> (chien de garde) est un compte à rebours matériel :</p>
+<ul>
+<li>le programme doit le remettre à zéro régulièrement (« nourrir le chien »), par exemple à chaque tour de boucle ;</li>
+<li>tant que le programme tourne, le compte à rebours n'arrive jamais au bout ;</li>
+<li>si le programme se bloque, plus personne ne le remet à zéro : il arrive au bout et redémarre le microcontrôleur.</li>
+</ul>
+<p><strong>Réponse (correction faite en classe).</strong> Watchdog : <strong>chien de garde, circuit de réinitialisation automatique du microcontrôleur en cas de blocage</strong>.</p>
+
+<h5>Le timer</h5>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Un timer est un compteur qui avance tout seul au rythme d'une horloge. Si l'horloge bat à 1 MHz, il avance d'un pas par microseconde. Quand il atteint une valeur choisie (l'<strong>alarme</strong>), il prévient le processeur. On choisit la valeur, donc la durée : c'est une <strong>temporisation programmable</strong>. Exemple : alarme à 1 000 000 pas d'une microseconde, une alerte par seconde (TD 2).</p>
+<p><strong>Réponse (correction faite en classe).</strong> Timer : <strong>génère des temporisations programmables</strong>.</p>
+
+<h5>L'UART</h5>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Pour envoyer un octet à un autre circuit avec peu de fils, on envoie ses 8 bits l'un après l'autre sur un seul fil : c'est une liaison <strong>série</strong>. « Asynchrone » veut dire qu'il n'y a pas de fil d'horloge : les deux côtés se mettent d'accord à l'avance sur la vitesse (par exemple 115 200 bits par seconde), et chaque octet est encadré par un bit de départ (start) et un bit de fin (stop) pour que le récepteur sache où il commence.</p>
+<p><strong>Réponse (correction faite en classe).</strong> UART : <strong>circuit de transmission asynchrone</strong>.</p>
+
+<h5>La pile</h5>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Quand le programme appelle une fonction, il doit se souvenir de l'endroit où revenir après. Si cette fonction en appelle une autre, il faut un deuxième souvenir, et ainsi de suite. Ces souvenirs (adresses de retour, arguments, variables temporaires) sont rangés dans la <strong>pile</strong> :</p>
+<ul>
+<li>à chaque appel, on pose un élément sur le dessus (empiler) ;</li>
+<li>à chaque retour, on reprend l'élément du dessus (dépiler) ;</li>
+<li>le dernier posé est donc le premier repris : <strong>LIFO</strong>, Last In, First Out, comme une pile d'assiettes. C'est exactement l'ordre qu'il faut : on revient d'abord de la dernière fonction appelée.</li>
+</ul>
+<div id="fig-td3-pile"></div>
+<p><strong>Réponse (correction faite en classe).</strong> La pile (stack) : <strong>zone mémoire d'organisation LIFO (Last In, First Out) pour stocker temporairement les données et les arguments des fonctions</strong>.</p>
 
 <h4>À retenir</h4>
 <ul>
 <li>Système embarqué : électronique et informatique, autonome, dédié à une tâche précise. Contraintes : taille de la mémoire, alimentation autonome et consommation, rapidité.</li>
-<li>Microcontrôleur : intègre traitement et ports de communication. DSP : bloc de traitement de signal. FPGA : exécution parallèle, rapide.</li>
+<li>Microcontrôleur : tout intégré, il commande. DSP : bloc de traitement du signal. FPGA : circuit câblé, calculs en parallèle, rapide.</li>
 <li>Critères : vitesse d'exécution, consommation, ports de communication, robustesse, coût de développement.</li>
-<li>Programme en flash ; microcontrôleur en général Harvard.</li>
-<li>Pile : LIFO ; PWM : impulsions de largeur variable, moyenne \((2\alpha - 1)E\) entre \(+E\) et \(-E\).</li>
+<li>Programme en flash (non volatile) ; microcontrôleur en général Harvard.</li>
+<li>PWM : la largeur de l'impulsion règle la moyenne, \((2\alpha - 1)E\) entre \(+E\) et \(-E\), \(\alpha \times 3{,}3\) V entre 0 et 3,3 V.</li>
+<li>Watchdog : redémarre si on ne le nourrit plus. Timer : compteur à alarme. UART : série asynchrone. Pile : LIFO.</li>
 </ul>
 </article>
 
@@ -115,58 +190,80 @@
 <h2>Les architectures</h2>
 
 <article class="notion" id="n-td3-architecture">
-<p class="chapeau">Trois comparaisons du chapitre 2 : comment le processeur est conçu (RISC ou CISC), comment il relie ses mémoires (Von Neumann, Harvard, Super Harvard), et comment les données des périphériques arrivent en mémoire (le processeur lui-même, ou le DMA).</p>
+<p class="chapeau">Trois comparaisons du chapitre 2 : comment le processeur est conçu (RISC ou CISC), comment il relie ses mémoires (Von Neumann, Harvard, Super Harvard), et comment les données des périphériques arrivent en mémoire (le processeur lui-même, ou le DMA). Pour chacune, ce qui se passe dans la puce d'abord, la réponse ensuite.</p>
 
 <h4>Question 6 : RISC et CISC</h4>
-<p><strong>On te demande.</strong> Donne trois caractéristiques des processeurs RISC et CISC.</p>
+<p><strong>On te demande.</strong> Précise trois caractéristiques des processeurs RISC et CISC.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Le processeur a quelques cases de calcul rapides, les <strong>registres</strong>, et une grande mémoire plus lente. Pour calculer, il faut amener les données de la mémoire aux registres (<strong>LOAD</strong>), calculer, puis renvoyer le résultat en mémoire (<strong>STORE</strong>). Un <strong>cycle</strong> est un battement de l'horloge du processeur.</p>
+<p>Prenons la même opération, \(a = b + c\), avec \(a\), \(b\), \(c\) rangés en mémoire. Deux philosophies :</p>
+<div class="tableau"><table>
+<tr><th>CISC : une instruction qui fait tout</th><th>RISC : quatre instructions simples</th></tr>
+<tr><td><code>ADD a, b, c</code></td><td><code>LOAD R1, b</code><br><code>LOAD R2, c</code><br><code>ADD R3, R1, R2</code><br><code>STORE a, R3</code></td></tr>
+<tr><td>une seule ligne, mais elle va chercher \(b\) et \(c\) en mémoire, additionne et range : elle prend plusieurs cycles</td><td>quatre lignes, mais chacune est simple et prend un seul cycle</td></tr>
+<tr><td>le matériel doit savoir décoder des instructions compliquées : la complexité est dans le matériel</td><td>le compilateur découpe le travail en petits morceaux : la complexité est dans le logiciel</td></tr>
+</table></div>
+<p><strong>Comment on trouve la réponse.</strong> Chaque ligne du tableau du cours se lit sur cet exemple : nombre de cycles par instruction, d'où vient la donnée (mémoire ou registre), longueur du code, où est la complexité.</p>
 <p><strong>Réponse.</strong> D'après le tableau du cours :</p>
 <div class="tableau"><table>
 <tr><th>RISC (Reduced Instruction Set Computer)</th><th>CISC (Complex Instruction Set Computer)</th></tr>
 <tr><td>la complexité est dans le <strong>logiciel</strong> (le compilateur)</td><td>la complexité est dans le <strong>matériel</strong></td></tr>
 <tr><td>instructions simples, réduites, d'<strong>un cycle</strong> d'horloge</td><td>instructions complexes de <strong>plusieurs cycles</strong></td></tr>
 <tr><td>de registre à registre : LOAD et STORE sont des instructions à part</td><td>de mémoire à mémoire : LOAD et STORE sont inclus dans les instructions</td></tr>
-<tr><td>code plus long, peu de cycles par instruction</td><td>code court, beaucoup de cycles</td></tr>
+<tr><td>code plus long</td><td>code court</td></tr>
 <tr><td>les transistors servent surtout aux <strong>registres</strong></td><td>les transistors servent à stocker les instructions complexes</td></tr>
 </table></div>
-<p>Exemples : AVR, ARM, PIC et les cœurs Xtensa de l'ESP32 sont RISC ; les processeurs x86 des PC sont CISC.</p>
+<p>Trois lignes suffisent à l'examen. Exemples : AVR, ARM, PIC et les cœurs de l'ESP32 sont RISC ; les processeurs des PC (x86) sont CISC.</p>
 
 <h4>Question 7 : Von Neumann, Harvard, Super Harvard</h4>
 <p><strong>On te demande.</strong> Compare les trois architectures.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Pour chaque instruction, le processeur fait deux voyages vers la mémoire : il va <strong>chercher l'instruction</strong> elle-même (elle fait partie du programme, rangé en mémoire), puis il va <strong>lire ou écrire la donnée</strong> dont elle a besoin. Ces voyages passent par des fils, le <strong>bus</strong> : un bus d'adresses (où aller) et un bus de données (ce qu'on transporte). Un bus ne transporte qu'une chose à la fois.</p>
+<ul>
+<li><strong>Von Neumann</strong> : une seule mémoire pour le programme et les données, un seul bus. Les deux voyages se font l'un après l'autre : instruction, donnée, instruction, donnée…</li>
+<li><strong>Harvard</strong> : deux mémoires séparées, chacune avec son bus. Pendant que le processeur utilise la donnée de l'instruction actuelle sur un bus, il va déjà chercher l'instruction suivante sur l'autre.</li>
+<li><strong>Super Harvard</strong> : Harvard, plus un <strong>cache d'instructions</strong> (une petite mémoire rapide qui garde les instructions qu'on répète, comme celles d'une boucle) et un <strong>contrôleur d'entrées-sorties</strong> qui range les données arrivant de l'extérieur directement en mémoire de données, sans passer par le processeur.</li>
+</ul>
+<div id="fig-td3-bus"></div>
+<p><strong>Comment on compte les cycles (modèle du cours).</strong> Une boucle de \(N\) instructions, chacune avec une donnée ; chaque voyage occupe un bus pendant un cycle.</p>
+<ul>
+<li>Von Neumann : \(N\) voyages d'instructions plus \(N\) voyages de données, tous sur le même bus, l'un après l'autre : \(2N\) cycles.</li>
+<li>Harvard : on démarre en allant chercher la première instruction (1 cycle), puis à chaque cycle, la donnée de l'instruction \(k\) et l'instruction \(k + 1\) voyagent en même temps : \(N + 1\) cycles.</li>
+</ul>
+<p>Exemple avec \(N = 10\) : 20 cycles en Von Neumann, 11 en Harvard, presque deux fois plus rapide. C'est pour cela que les microcontrôleurs et les DSP sont de type Harvard.</p>
 <p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th></th><th>Von Neumann</th><th>Harvard</th><th>Super Harvard</th></tr>
 <tr><th>Mémoires</th><td>une seule, pour les données et les instructions</td><td>deux : Program Memory (instructions) et Data Memory (données)</td><td>comme Harvard</td></tr>
 <tr><th>Bus</th><td>un bus d'adresses et un bus de données, partagés</td><td>deux paires de bus : PM Address et PM Data, DM Address et DM Data</td><td>comme Harvard</td></tr>
-<tr><th>En plus</th><td>rien</td><td>rien</td><td>un cache d'instructions et un contrôleur d'entrées-sorties dédié (I/O Controller), relié à la Data Memory</td></tr>
-<tr><th>Vitesse</th><td>instructions et données font la queue sur le même bus</td><td>lecture d'une instruction et accès à une donnée en même temps : rapide</td><td>encore plus rapide : les données des entrées-sorties arrivent en mémoire sans passer par le CPU</td></tr>
+<tr><th>En plus</th><td>rien</td><td>rien</td><td>un cache d'instructions et un contrôleur d'entrées-sorties dédié</td></tr>
+<tr><th>Vitesse</th><td>instructions et données font la queue sur le même bus (\(2N\))</td><td>instruction et donnée en même temps (\(N + 1\))</td><td>encore plus rapide : les entrées-sorties ne passent plus par le CPU</td></tr>
 <tr><th>Usage</th><td>ordinateurs, quelques microcontrôleurs</td><td>la plupart des microcontrôleurs</td><td>DSP</td></tr>
 </table></div>
-<p>Avec le modèle de comptage du cours (une instruction et une donnée, un cycle de bus chacune) : \(N\) instructions demandent \(2N\) cycles en Von Neumann, \(N + 1\) en Harvard.</p>
 
 <h4>Question 8 : scrutation, interruption ou DMA</h4>
-<p><strong>On te demande.</strong> Compare deux façons de gérer les entrées-sorties : par scrutation ou interruption, et par DMA (Direct Memory Access).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>On te demande.</strong> Compare deux façons de contrôler les entrées-sorties : par scrutation ou interruption, et par DMA (Direct Memory Access).</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Un ADC vient de convertir une mesure. Comment la donnée arrive-t-elle en mémoire ? Imagine que tu attends un colis :</p>
 <ul>
-<li><strong>Scrutation</strong> (polling) : le programme lit sans cesse le registre d'état du périphérique pour savoir si une donnée est prête.</li>
-<li><strong>Interruption</strong> : le périphérique prévient le CPU par un signal ; le CPU suspend le programme, exécute la routine d'interruption qui lit la donnée, puis reprend.</li>
-<li><strong>DMA</strong> : d'après le cours, transferts rapides entre périphériques et mémoire, ou de mémoire à mémoire, sans aucune intervention du CPU.</li>
+<li><strong>Scrutation</strong> (polling) : tu vas voir à la porte toutes les deux minutes. Le processeur relit sans cesse le registre d'état de l'ADC pour savoir si la donnée est prête. Simple, mais il perd son temps à vérifier.</li>
+<li><strong>Interruption</strong> : le livreur sonne. L'ADC envoie un signal au processeur, qui arrête ce qu'il fait, exécute une petite fonction qui recopie la donnée en mémoire, puis reprend. Plus de temps perdu à vérifier, mais il est dérangé à chaque donnée.</li>
+<li><strong>DMA</strong> : un voisin réceptionne tous les colis et les range chez toi. Le contrôleur DMA recopie les données de l'ADC vers la mémoire tout seul ; le processeur n'est prévenu qu'une fois, quand tout le bloc est arrivé.</li>
 </ul>
 <div class="schema" id="sc-td3-dma"></div>
+<p><strong>Comment on trouve la réponse.</strong> La vraie différence : <strong>qui transporte la donnée</strong>. Avec la scrutation et l'interruption, c'est le processeur (il lit, puis il écrit). Avec le DMA, c'est le contrôleur DMA, et le processeur reste libre. On en déduit les avantages, les inconvénients et les usages.</p>
 <p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th>Scrutation ou interruption</th><th>DMA</th></tr>
 <tr><td>chaque donnée passe <strong>par le CPU</strong> : il la lit dans le périphérique puis l'écrit en mémoire</td><td>la donnée va <strong>directement</strong> du périphérique à la mémoire, le CPU n'y touche pas</td></tr>
-<tr><td>simple à programmer</td><td>configuration plus lourde (adresses, nombre d'octets, descripteurs)</td></tr>
-<tr><td>scrutation : le CPU perd son temps à attendre ; interruption : il est dérangé à chaque donnée (sauvegarde et restauration du contexte)</td><td>le CPU reste libre pour calculer ; il est prévenu une fois, quand tout le bloc est arrivé</td></tr>
-<tr><td>adapté aux événements rares ou lents : un bouton, une commande série</td><td>adapté aux gros flux : ADC rapide, ECG à haute cadence, son, image, Wi-Fi</td></tr>
+<tr><td>simple à programmer</td><td>configuration plus lourde (adresses, nombre d'octets)</td></tr>
+<tr><td>scrutation : le CPU perd son temps à attendre ; interruption : il est dérangé à chaque donnée</td><td>le CPU reste libre pour calculer, prévenu une fois à la fin du bloc</td></tr>
+<tr><td>pour les événements rares ou lents : un bouton, une commande série</td><td>pour les gros flux : ADC rapide, ECG à haute cadence, son, image</td></tr>
 </table></div>
-<p>Exemple du cours : un holter à 500 échantillons de 2 octets par seconde ; le DMA copie 1 000 octets par seconde de l'ADC vers la SRAM interne, sans un cycle de CPU, pendant que le programme calcule le rythme cardiaque.</p>
+<p>Exemple du cours : un holter à 500 échantillons de 2 octets par seconde. Le DMA copie \(500 \times 2 = 1\,000\) octets par seconde de l'ADC vers la SRAM, sans un cycle de CPU, pendant que le programme calcule le rythme cardiaque.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>RISC : simple, un cycle, registre à registre, complexité dans le logiciel ; CISC : l'inverse.</li>
-<li>Von Neumann : une mémoire, un bus ; Harvard : deux mémoires, deux bus ; Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
-<li>Scrutation et interruption : le CPU transporte chaque donnée ; DMA : la donnée va seule en mémoire.</li>
+<li>RISC : instructions simples d'un cycle, registre à registre, code long. CISC : instructions complexes de plusieurs cycles, mémoire à mémoire, code court.</li>
+<li>Chaque instruction = deux voyages (l'instruction, puis la donnée). Von Neumann : un bus, \(2N\) cycles. Harvard : deux bus, \(N + 1\). Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
+<li>Scrutation et interruption : le CPU transporte chaque donnée. DMA : la donnée va seule en mémoire.</li>
 </ul>
 </article>
 
@@ -177,40 +274,56 @@
 <h2>Le microcontrôleur PIC</h2>
 
 <article class="notion" id="n-td3-pic">
-<p class="chapeau">La question 9 donne le schéma interne d'un microcontrôleur PIC de Microchip, de la famille PIC18 (instructions de 16 bits, jusqu'à 64 MHz). Il faut dire à quoi sert chaque bloc. On y retrouve tout le chapitre 2 : CPU, deux mémoires séparées, pile, horloge, périphériques.</p>
+<p class="chapeau">La question 9 donne le schéma interne d'un microcontrôleur PIC de Microchip, de la famille PIC18 (instructions de 16 bits, jusqu'à 64 MHz). Il faut dire à quoi sert chaque bloc. Pas besoin de connaître le PIC par cœur : chaque bloc se comprend avec ce qu'on a vu dans les questions 1 à 8.</p>
 
 <h4>Question 9 : le rôle de chaque bloc</h4>
 <p><strong>On te demande.</strong> Précise le rôle de chaque bloc du schéma.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Un microcontrôleur, c'est toujours les mêmes familles de blocs. Repère-les, et le schéma devient lisible :</p>
+<div class="tableau"><table>
+<tr><th>Famille</th><th>La question qu'elle règle</th><th>Sur le schéma du PIC</th></tr>
+<tr><td>Calculer</td><td>qui exécute les instructions ?</td><td>CPU</td></tr>
+<tr><td>Savoir où on en est</td><td>quelle instruction ensuite, où revenir après une fonction ?</td><td>Program Counter, 16-Level Stack</td></tr>
+<tr><td>Garder le programme</td><td>où est rangé le programme, même sans courant ?</td><td>Program Memory</td></tr>
+<tr><td>Garder les données</td><td>où sont les variables ? où ranger un réglage à garder ?</td><td>Data Memory, Data EEPROM</td></tr>
+<tr><td>Donner le rythme</td><td>qui fait battre l'horloge ?</td><td>Internal Oscillator</td></tr>
+<tr><td>Parler au monde extérieur</td><td>comment lire un capteur, envoyer une donnée ?</td><td>Peripheral I/O Drivers</td></tr>
+</table></div>
+<p>Deux mots à connaître :</p>
 <ul>
-<li>Un CPU lit une instruction à l'adresse donnée par le <strong>compteur de programme</strong> (Program Counter, PC), l'exécute, puis passe à la suivante.</li>
-<li>Une mémoire <strong>non volatile</strong> (flash, EEPROM) garde son contenu sans alimentation ; une RAM le perd.</li>
-<li>Program Memory et Data Memory séparées, chacune reliée au CPU : c'est l'architecture <strong>Harvard</strong>.</li>
+<li>le <strong>compteur de programme</strong> (Program Counter, PC) est un registre qui contient l'adresse de la prochaine instruction ; le CPU lit l'instruction à cette adresse, l'exécute, et le PC avance (ou saute, pour une boucle ou un appel de fonction) ;</li>
+<li>une mémoire <strong>non volatile</strong> (flash, EEPROM) garde son contenu sans courant ; une RAM le perd.</li>
 </ul>
 <div id="fig-td3-pic"></div>
+<p><strong>Comment on trouve la réponse.</strong> Pour chaque bloc, on lit ce que le schéma écrit dedans, on le range dans sa famille, et le rôle en découle :</p>
+<ul>
+<li>« Program Memory, up to 2 MB, 1M instructions » : une grande mémoire pour le programme, qui doit survivre aux coupures, donc de la flash ;</li>
+<li>« 16-Level Stack &amp; Program Counter » : la pile (LIFO, question 5) et le PC, rangés ensemble parce qu'à chaque appel de fonction, l'adresse du PC est mise sur la pile ;</li>
+<li>« Data Memory, up to 4 KB » : petite mémoire de travail, donc de la RAM pour les variables ;</li>
+<li>« Data EEPROM » : une mémoire de données à part, non volatile, donc pour ce qu'il faut garder à l'arrêt ;</li>
+<li>la flèche rouge va de la Program Memory au CPU, à part du chemin des données : deux mémoires et deux chemins, c'est Harvard (question 7).</li>
+</ul>
 <p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th>Bloc</th><th>Ce qu'indique le schéma</th><th>Rôle</th></tr>
 <tr><td>Program Memory</td><td>jusqu'à 2 MB, 1M instructions</td><td>mémoire flash qui garde le <strong>programme</strong>, même sans alimentation</td></tr>
 <tr><td>CPU</td><td>instructions de 16 bits, 83 instructions, 3 registres de sélection de fichier de 12 bits, sauvegarde du contexte d'interruption</td><td><strong>exécute</strong> les instructions : calculs, lecture et écriture des données.<br>Les registres FSR (File Select Registers) pointent une case de la mémoire de données (adressage indirect).<br>À chaque interruption, il sauve son contexte pour reprendre ensuite.</td></tr>
-<tr><td>16-Level Stack et Program Counter</td><td>pile de 16 niveaux, possibilité de reset</td><td>le PC donne l'adresse de la <strong>prochaine instruction</strong> ; la pile garde les adresses de retour des sous-programmes et des interruptions, jusqu'à 16 appels emboîtés</td></tr>
+<tr><td>16-Level Stack et Program Counter</td><td>pile de 16 niveaux, possibilité de reset</td><td>le PC donne l'adresse de la <strong>prochaine instruction</strong>.<br>La pile garde les adresses de retour des sous-programmes et des interruptions, jusqu'à 16 appels emboîtés.</td></tr>
 <tr><td>Internal Oscillator</td><td>jusqu'à 64 MHz</td><td><strong>horloge</strong> interne qui cadence le CPU et les périphériques, sans quartz externe</td></tr>
 <tr><td>Data EEPROM</td><td>bloc à part, relié au CPU</td><td>mémoire <strong>non volatile</strong> pour les données à garder : réglages, étalonnage, compteurs</td></tr>
 <tr><td>Data Memory</td><td>jusqu'à 4 KB, adressage indirect amélioré, extension des périphériques</td><td>RAM des <strong>variables</strong> et des registres des périphériques ; effacée à la coupure</td></tr>
-<tr><td>Peripheral I/O Drivers</td><td>ADC, SPI/I²C, EUSART, mTouch, Capture/Compare/PWM, AOP, LCD, EEPROM</td><td>les <strong>périphériques</strong> qui relient la puce au monde extérieur : convertir, communiquer, détecter un toucher, mesurer ou produire des signaux, piloter un afficheur</td></tr>
+<tr><td>Peripheral I/O Drivers</td><td>ADC, SPI/I²C, EUSART, mTouch, Capture/Compare/PWM, AOP, LCD, EEPROM</td><td>les <strong>périphériques</strong> qui relient la puce au monde extérieur : convertir (ADC), communiquer (SPI, I²C, EUSART), détecter un toucher (mTouch), mesurer ou produire des signaux (Capture/Compare/PWM), piloter un afficheur (LCD)</td></tr>
 <tr><td>Bus (flèches bleues)</td><td>reliés à tous les périphériques</td><td>transportent adresses et données entre le CPU, les mémoires et les périphériques</td></tr>
 </table></div>
-<p>Lecture du schéma :</p>
+<p>Deux conclusions que l'on peut ajouter :</p>
 <ul>
-<li>La flèche rouge va de la Program Memory au CPU seule : c'est le chemin des instructions, séparé de celui des données. Architecture Harvard.</li>
-<li>83 instructions seulement : un jeu d'instructions <strong>réduit</strong>, le PIC est un RISC.</li>
-<li>EUSART est un UART amélioré (Enhanced Universal Synchronous Asynchronous Receiver Transmitter) : il sait aussi travailler en mode synchrone.</li>
+<li>deux mémoires séparées (programme et données), chacune avec son chemin : architecture <strong>Harvard</strong> ;</li>
+<li>83 instructions seulement : un jeu d'instructions <strong>réduit</strong>, le PIC est un <strong>RISC</strong>.</li>
 </ul>
-<p>Complément : la famille PIC n'est pas décrite dans les diapositives ; le schéma se lit comme celui de l'AVR du chapitre 2, qui a les mêmes blocs (CPU, flash, SRAM, EEPROM, oscillateurs, ADC, USART, SPI, TWI, timers).</p>
+<p>EUSART est un UART amélioré (Enhanced Universal Synchronous Asynchronous Receiver Transmitter) : il sait aussi travailler en mode synchrone. Complément : la famille PIC n'est pas décrite dans les diapositives ; le schéma se lit comme celui de l'AVR du chapitre 2, qui a les mêmes familles de blocs.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>Programme en flash (Program Memory), variables en RAM (Data Memory), réglages en EEPROM.</li>
+<li>Lire un schéma de microcontrôleur : calculer (CPU), savoir où on en est (PC, pile), garder le programme (flash), garder les données (RAM, EEPROM), donner le rythme (oscillateur), parler au monde (périphériques).</li>
 <li>PC : prochaine instruction ; pile : adresses de retour (16 niveaux ici).</li>
 <li>Deux mémoires, deux chemins : Harvard ; 83 instructions : RISC.</li>
 </ul>
@@ -223,58 +336,77 @@
 <h2>Les contraintes temporelles</h2>
 
 <article class="notion" id="n-td3-temps">
-<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Le calcul tient en une ligne, à condition de voir le temps se partager.</p>
+<p class="chapeau">La boucle principale d'un système embarqué dure 50 ms. Une interruption arrive toutes les 10 ms. Tant que la routine d'interruption est courte, la boucle ralentit un peu. Trop longue, elle finit par tout bloquer. Toutes les réponses se trouvent en dessinant le temps du processeur sur une ligne.</p>
 
-<h4>La situation</h4>
+<h4>Ce qu'il faut comprendre d'abord</h4>
+<ul>
+<li>La <strong>boucle principale</strong> est le programme normal, qui tourne en rond : lire les capteurs, calculer, afficher, recommencer. Sans dérangement, un tour dure 50 ms.</li>
+<li>Une <strong>interruption</strong> est un signal qui arrive de l'extérieur (ici d'un timer, toutes les 10 ms). Le processeur arrête la boucle là où elle en est, exécute la <strong>routine d'interruption</strong> (une petite fonction), puis reprend la boucle exactement où il l'avait laissée.</li>
+<li>Le processeur ne fait qu'<strong>une chose à la fois</strong> : pendant la routine, la boucle n'avance pas. Elle n'est pas perdue, elle attend.</li>
+<li>Par défaut, pendant la routine, les nouvelles interruptions sont <strong>bloquées</strong> : si une demande arrive, elle attend la fin de la routine. Le processeur ne garde qu'une seule demande en attente (un drapeau).</li>
+</ul>
 <div class="tableau"><table>
 <tr><th>Donnée</th><th>Valeur</th></tr>
-<tr><td>Durée de la boucle principale, sans interruption</td><td>50 ms</td></tr>
+<tr><td>Durée de la boucle principale, sans interruption</td><td>\(t_0 = 50\) ms</td></tr>
 <tr><td>Période de l'interruption</td><td>\(T = 10\) ms</td></tr>
-<tr><td>Réglage par défaut</td><td>pendant la routine d'interruption, une nouvelle interruption est <strong>bloquée</strong> (elle attend la fin de la routine)</td></tr>
+<tr><td>Durée de la routine</td><td>\(t\), ce qu'on cherche ou ce qu'on fait varier</td></tr>
 </table></div>
-<p><strong>Ce qu'il faut savoir.</strong> Le processeur ne fait qu'une chose à la fois. Pendant que la routine d'interruption tourne, la boucle principale est arrêtée. Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur ; il reste \(1 - t / T\) pour la boucle.</p>
+<p>Si la routine dure \(t\) toutes les \(T\), elle prend la fraction \(t / T\) du temps du processeur. Il reste la fraction \(1 - t / T\) pour la boucle. Manipule la figure : c'est tout le TD.</p>
 <div id="fig-td3-temps"></div>
 
 <h4>a) La durée maximale tmax</h4>
-<p><strong>Réponse.</strong> La routine doit être finie avant l'interruption suivante, donc durer moins d'une période :</p>
+<p><strong>Comment on raisonne.</strong> Une interruption arrive à 0 ms, la suivante à 10 ms. Pour que chaque demande soit servie avant la suivante, la routine doit être finie avant 10 ms. Sinon, la demande suivante arrive pendant qu'elle tourne encore.</p>
+<p><strong>Réponse.</strong></p>
 \[t_{max} = T = 10\ \text{ms}\]
 
 <h4>b) Si la routine dure exactement tmax</h4>
-<p><strong>Réponse.</strong> Dès qu'une routine se termine, l'interruption suivante arrive : le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé, même si les interruptions, elles, sont encore toutes servies.</p>
+<p><strong>Comment on raisonne.</strong> La routine commence à 0 ms et finit à 10 ms, juste quand la suivante arrive. Celle-ci commence aussitôt et finit à 20 ms, et ainsi de suite. Entre deux routines, il ne reste aucun instant libre.</p>
+<p><strong>Réponse.</strong> Le processeur passe <strong>100 % de son temps</strong> dans l'interruption. La boucle principale ne s'exécute plus jamais : le système est figé (plus d'affichage, plus de calcul), même si chaque interruption est encore servie à temps.</p>
 
 <h4>c) Si la routine dure plus que tmax</h4>
-<p><strong>Réponse.</strong> Une nouvelle demande arrive alors que la routine n'est pas finie. Elle est bloquée : elle attend, et la routine suivante démarre en retard.</p>
+<p><strong>Comment on raisonne.</strong> Prends une routine de 12 ms. Elle commence à 0 et finit à 12. Mais une demande est arrivée à 10 : elle attendait, elle démarre à 12 et finit à 24. Pendant ce temps, une demande est arrivée à 20 : elle attend à son tour, et ainsi de suite. Chaque routine démarre un peu plus en retard que la précédente (2 ms de plus à chaque fois).</p>
+<p><strong>Réponse.</strong></p>
 <ul>
-<li>Le retard s'accumule à chaque période : les demandes en attente se recouvrent, et comme le drapeau d'interruption ne mémorise qu'une demande, certaines sont <strong>perdues</strong>.</li>
-<li>La boucle principale ne s'exécute toujours plus.</li>
-<li>La tâche périodique (une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
+<li>La boucle principale ne s'exécute toujours plus : le processeur enchaîne les routines.</li>
+<li>Le retard s'accumule. Comme le processeur ne garde qu'une demande en attente, quand deux demandes arrivent pendant la même routine, l'une d'elles est <strong>perdue</strong>.</li>
+<li>La tâche périodique (par exemple une mesure toutes les 10 ms) n'est plus faite au bon rythme.</li>
 </ul>
 
 <h4>d) Si la routine réarme les interruptions</h4>
-<p><strong>Réponse.</strong> Cette fois, la nouvelle demande <strong>interrompt la routine en cours</strong> : une deuxième routine démarre par-dessus la première, puis une troisième par-dessus la deuxième, et ainsi de suite (interruptions imbriquées).</p>
+<p><strong>Comment on raisonne.</strong> Cette fois, la routine autorise les interruptions pendant qu'elle tourne. À 10 ms, la nouvelle demande n'attend plus : elle <strong>interrompt la routine en cours</strong>. Une deuxième routine démarre par-dessus la première, qui reste en suspens. À 20 ms, une troisième par-dessus la deuxième. Pour pouvoir revenir à chaque routine interrompue, le processeur range à chaque fois son contexte (adresse de retour, registres) sur la <strong>pile</strong> (question 5).</p>
+<p><strong>Réponse.</strong></p>
 <ul>
-<li>Chaque interruption sauvegarde son contexte (adresse de retour, registres) sur la <strong>pile</strong> : la pile grossit à chaque période.</li>
-<li>Aucune routine ne finit jamais, la boucle principale ne reprend jamais.</li>
-<li>La pile finit par déborder (stack overflow) : le programme écrase d'autres données en mémoire et <strong>plante</strong>. Sur l'ESP32, c'est un redémarrage.</li>
+<li>Les routines s'emboîtent sans fin : aucune ne finit, la boucle principale ne reprend jamais.</li>
+<li>La pile grossit d'un contexte toutes les 10 ms.</li>
+<li>Elle finit par <strong>déborder</strong> (stack overflow) : le programme écrase d'autres données en mémoire et plante. Sur un microcontrôleur, c'est un redémarrage, souvent provoqué par le watchdog.</li>
 </ul>
 
 <h4>e) La routine dure 4 ms</h4>
-<p><strong>Réponse.</strong> Sur chaque période de 10 ms, la routine prend 4 ms et la boucle principale 6 ms. La boucle n'avance que pendant 60 % du temps.</p>
-\[\text{fraction pour la boucle} = 1 - \frac{t}{T}\]
-\[\text{fraction pour la boucle} = 1 - \frac{4}{10}\]
-\[\text{fraction pour la boucle} = 0{,}6\]
-<p>Il lui faut toujours 50 ms de calcul :</p>
-\[t_{boucle} = \frac{50}{1 - t / T}\]
+<p><strong>Comment on raisonne.</strong> Regarde une période de 10 ms : la routine en prend 4, il en reste 6 pour la boucle. La boucle n'avance donc que pendant 60 % du temps.</p>
+<div class="tableau"><table>
+<tr><th>Intervalle</th><th>Qui travaille</th><th>Boucle faite depuis le début</th></tr>
+<tr><td>0 à 4 ms</td><td>routine</td><td>0 ms</td></tr>
+<tr><td>4 à 10 ms</td><td>boucle</td><td>6 ms</td></tr>
+<tr><td>10 à 14 ms</td><td>routine</td><td>6 ms</td></tr>
+<tr><td>14 à 20 ms</td><td>boucle</td><td>12 ms</td></tr>
+<tr><td>…</td><td>…</td><td>6 ms de plus toutes les 10 ms</td></tr>
+</table></div>
+<p>La boucle a toujours besoin de 50 ms de calcul. Elle n'en reçoit que 60 % : il faut donc plus de temps réel pour les obtenir. Si \(t_{boucle}\) est la durée réelle, la boucle reçoit \(0{,}6 \times t_{boucle}\) de temps de calcul, et il en faut 50 ms :</p>
+\[(1 - t / T) \times t_{boucle} = t_0\]
+\[t_{boucle} = \frac{t_0}{1 - t / T}\]
+\[t_{boucle} = \frac{50}{1 - 4 / 10}\]
 \[t_{boucle} = \frac{50}{0{,}6}\]
 \[t_{boucle} \approx 83{,}3\ \text{ms}\]
-<p>Vérification : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9, selon l'instant où le tour commence : \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur un grand nombre de tours, la moyenne vaut bien <strong>83,3 ms</strong>.</p>
+<p><strong>Réponse.</strong> La boucle principale dure en moyenne <strong>83,3 ms</strong>.</p>
+<p>Pourquoi « en moyenne » : un tour réel dure 50 ms de boucle plus les routines qui tombent pendant ce tour. Il en tombe 8 ou 9 selon l'instant où le tour commence, soit \(50 + 8 \times 4 = 82\) ms ou \(50 + 9 \times 4 = 86\) ms. Sur beaucoup de tours, la moyenne vaut 83,3 ms.</p>
 
 <h4>À retenir</h4>
 <ul>
-<li>La routine d'interruption doit durer moins que la période : \(t_{max} = T\).</li>
+<li>Le processeur fait une chose à la fois : pendant la routine, la boucle attend.</li>
+<li>La routine doit durer moins que la période : \(t_{max} = T\).</li>
 <li>Durée moyenne de la boucle : \(t_{boucle} = t_0 / (1 - t / T)\).</li>
-<li>Routine trop longue : boucle bloquée, interruptions perdues ; avec réarmement, imbrication et débordement de pile.</li>
-<li>D'où la règle des TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
+<li>Routine trop longue : boucle bloquée, interruptions perdues. Avec réarmement : routines emboîtées, pile qui déborde, plantage.</li>
+<li>D'où la règle du TD 2 et du projet : une interruption lève un drapeau, la boucle fait le travail.</li>
 </ul>
 </article>
 
@@ -288,7 +420,7 @@
 <script src="../../../commun/js/section.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../dessins.js"></script>
-<script src="../schemas.js"></script>
 <script src="../figures/td3-visuels.js"></script>
+<script src="../schemas.js"></script>
 </body>
 </html>

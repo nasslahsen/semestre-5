@@ -18,58 +18,80 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>RISC et CISC, Harvard, DMA</h1>
-<p class="chapeau">Trois comparaisons du chapitre 2 : comment le processeur est conçu (RISC ou CISC), comment il relie ses mémoires (Von Neumann, Harvard, Super Harvard), et comment les données des périphériques arrivent en mémoire (le processeur lui-même, ou le DMA).</p>
+<p class="chapeau">Trois comparaisons du chapitre 2 : comment le processeur est conçu (RISC ou CISC), comment il relie ses mémoires (Von Neumann, Harvard, Super Harvard), et comment les données des périphériques arrivent en mémoire (le processeur lui-même, ou le DMA). Pour chacune, ce qui se passe dans la puce d'abord, la réponse ensuite.</p>
 
 <h2>Question 6 : RISC et CISC</h2>
-<p><strong>On te demande.</strong> Donne trois caractéristiques des processeurs RISC et CISC.</p>
+<p><strong>On te demande.</strong> Précise trois caractéristiques des processeurs RISC et CISC.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Le processeur a quelques cases de calcul rapides, les <strong>registres</strong>, et une grande mémoire plus lente. Pour calculer, il faut amener les données de la mémoire aux registres (<strong>LOAD</strong>), calculer, puis renvoyer le résultat en mémoire (<strong>STORE</strong>). Un <strong>cycle</strong> est un battement de l'horloge du processeur.</p>
+<p>Prenons la même opération, \(a = b + c\), avec \(a\), \(b\), \(c\) rangés en mémoire. Deux philosophies :</p>
+<div class="tableau"><table>
+<tr><th>CISC : une instruction qui fait tout</th><th>RISC : quatre instructions simples</th></tr>
+<tr><td><code>ADD a, b, c</code></td><td><code>LOAD R1, b</code><br><code>LOAD R2, c</code><br><code>ADD R3, R1, R2</code><br><code>STORE a, R3</code></td></tr>
+<tr><td>une seule ligne, mais elle va chercher \(b\) et \(c\) en mémoire, additionne et range : elle prend plusieurs cycles</td><td>quatre lignes, mais chacune est simple et prend un seul cycle</td></tr>
+<tr><td>le matériel doit savoir décoder des instructions compliquées : la complexité est dans le matériel</td><td>le compilateur découpe le travail en petits morceaux : la complexité est dans le logiciel</td></tr>
+</table></div>
+<p><strong>Comment on trouve la réponse.</strong> Chaque ligne du tableau du cours se lit sur cet exemple : nombre de cycles par instruction, d'où vient la donnée (mémoire ou registre), longueur du code, où est la complexité.</p>
 <p><strong>Réponse.</strong> D'après le tableau du cours :</p>
 <div class="tableau"><table>
 <tr><th>RISC (Reduced Instruction Set Computer)</th><th>CISC (Complex Instruction Set Computer)</th></tr>
 <tr><td>la complexité est dans le <strong>logiciel</strong> (le compilateur)</td><td>la complexité est dans le <strong>matériel</strong></td></tr>
 <tr><td>instructions simples, réduites, d'<strong>un cycle</strong> d'horloge</td><td>instructions complexes de <strong>plusieurs cycles</strong></td></tr>
 <tr><td>de registre à registre : LOAD et STORE sont des instructions à part</td><td>de mémoire à mémoire : LOAD et STORE sont inclus dans les instructions</td></tr>
-<tr><td>code plus long, peu de cycles par instruction</td><td>code court, beaucoup de cycles</td></tr>
+<tr><td>code plus long</td><td>code court</td></tr>
 <tr><td>les transistors servent surtout aux <strong>registres</strong></td><td>les transistors servent à stocker les instructions complexes</td></tr>
 </table></div>
-<p>Exemples : AVR, ARM, PIC et les cœurs Xtensa de l'ESP32 sont RISC ; les processeurs x86 des PC sont CISC.</p>
+<p>Trois lignes suffisent à l'examen. Exemples : AVR, ARM, PIC et les cœurs de l'ESP32 sont RISC ; les processeurs des PC (x86) sont CISC.</p>
 
 <h2>Question 7 : Von Neumann, Harvard, Super Harvard</h2>
 <p><strong>On te demande.</strong> Compare les trois architectures.</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Pour chaque instruction, le processeur fait deux voyages vers la mémoire : il va <strong>chercher l'instruction</strong> elle-même (elle fait partie du programme, rangé en mémoire), puis il va <strong>lire ou écrire la donnée</strong> dont elle a besoin. Ces voyages passent par des fils, le <strong>bus</strong> : un bus d'adresses (où aller) et un bus de données (ce qu'on transporte). Un bus ne transporte qu'une chose à la fois.</p>
+<ul>
+<li><strong>Von Neumann</strong> : une seule mémoire pour le programme et les données, un seul bus. Les deux voyages se font l'un après l'autre : instruction, donnée, instruction, donnée…</li>
+<li><strong>Harvard</strong> : deux mémoires séparées, chacune avec son bus. Pendant que le processeur utilise la donnée de l'instruction actuelle sur un bus, il va déjà chercher l'instruction suivante sur l'autre.</li>
+<li><strong>Super Harvard</strong> : Harvard, plus un <strong>cache d'instructions</strong> (une petite mémoire rapide qui garde les instructions qu'on répète, comme celles d'une boucle) et un <strong>contrôleur d'entrées-sorties</strong> qui range les données arrivant de l'extérieur directement en mémoire de données, sans passer par le processeur.</li>
+</ul>
+<div id="fig-td3-bus"></div>
+<p><strong>Comment on compte les cycles (modèle du cours).</strong> Une boucle de \(N\) instructions, chacune avec une donnée ; chaque voyage occupe un bus pendant un cycle.</p>
+<ul>
+<li>Von Neumann : \(N\) voyages d'instructions plus \(N\) voyages de données, tous sur le même bus, l'un après l'autre : \(2N\) cycles.</li>
+<li>Harvard : on démarre en allant chercher la première instruction (1 cycle), puis à chaque cycle, la donnée de l'instruction \(k\) et l'instruction \(k + 1\) voyagent en même temps : \(N + 1\) cycles.</li>
+</ul>
+<p>Exemple avec \(N = 10\) : 20 cycles en Von Neumann, 11 en Harvard, presque deux fois plus rapide. C'est pour cela que les microcontrôleurs et les DSP sont de type Harvard.</p>
 <p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th></th><th>Von Neumann</th><th>Harvard</th><th>Super Harvard</th></tr>
 <tr><th>Mémoires</th><td>une seule, pour les données et les instructions</td><td>deux : Program Memory (instructions) et Data Memory (données)</td><td>comme Harvard</td></tr>
 <tr><th>Bus</th><td>un bus d'adresses et un bus de données, partagés</td><td>deux paires de bus : PM Address et PM Data, DM Address et DM Data</td><td>comme Harvard</td></tr>
-<tr><th>En plus</th><td>rien</td><td>rien</td><td>un cache d'instructions et un contrôleur d'entrées-sorties dédié (I/O Controller), relié à la Data Memory</td></tr>
-<tr><th>Vitesse</th><td>instructions et données font la queue sur le même bus</td><td>lecture d'une instruction et accès à une donnée en même temps : rapide</td><td>encore plus rapide : les données des entrées-sorties arrivent en mémoire sans passer par le CPU</td></tr>
+<tr><th>En plus</th><td>rien</td><td>rien</td><td>un cache d'instructions et un contrôleur d'entrées-sorties dédié</td></tr>
+<tr><th>Vitesse</th><td>instructions et données font la queue sur le même bus (\(2N\))</td><td>instruction et donnée en même temps (\(N + 1\))</td><td>encore plus rapide : les entrées-sorties ne passent plus par le CPU</td></tr>
 <tr><th>Usage</th><td>ordinateurs, quelques microcontrôleurs</td><td>la plupart des microcontrôleurs</td><td>DSP</td></tr>
 </table></div>
-<p>Avec le modèle de comptage du cours (une instruction et une donnée, un cycle de bus chacune) : \(N\) instructions demandent \(2N\) cycles en Von Neumann, \(N + 1\) en Harvard.</p>
 
 <h2>Question 8 : scrutation, interruption ou DMA</h2>
-<p><strong>On te demande.</strong> Compare deux façons de gérer les entrées-sorties : par scrutation ou interruption, et par DMA (Direct Memory Access).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>On te demande.</strong> Compare deux façons de contrôler les entrées-sorties : par scrutation ou interruption, et par DMA (Direct Memory Access).</p>
+<p><strong>Ce qu'il faut comprendre d'abord.</strong> Un ADC vient de convertir une mesure. Comment la donnée arrive-t-elle en mémoire ? Imagine que tu attends un colis :</p>
 <ul>
-<li><strong>Scrutation</strong> (polling) : le programme lit sans cesse le registre d'état du périphérique pour savoir si une donnée est prête.</li>
-<li><strong>Interruption</strong> : le périphérique prévient le CPU par un signal ; le CPU suspend le programme, exécute la routine d'interruption qui lit la donnée, puis reprend.</li>
-<li><strong>DMA</strong> : d'après le cours, transferts rapides entre périphériques et mémoire, ou de mémoire à mémoire, sans aucune intervention du CPU.</li>
+<li><strong>Scrutation</strong> (polling) : tu vas voir à la porte toutes les deux minutes. Le processeur relit sans cesse le registre d'état de l'ADC pour savoir si la donnée est prête. Simple, mais il perd son temps à vérifier.</li>
+<li><strong>Interruption</strong> : le livreur sonne. L'ADC envoie un signal au processeur, qui arrête ce qu'il fait, exécute une petite fonction qui recopie la donnée en mémoire, puis reprend. Plus de temps perdu à vérifier, mais il est dérangé à chaque donnée.</li>
+<li><strong>DMA</strong> : un voisin réceptionne tous les colis et les range chez toi. Le contrôleur DMA recopie les données de l'ADC vers la mémoire tout seul ; le processeur n'est prévenu qu'une fois, quand tout le bloc est arrivé.</li>
 </ul>
 <div class="schema" id="sc-td3-dma"></div>
+<p><strong>Comment on trouve la réponse.</strong> La vraie différence : <strong>qui transporte la donnée</strong>. Avec la scrutation et l'interruption, c'est le processeur (il lit, puis il écrit). Avec le DMA, c'est le contrôleur DMA, et le processeur reste libre. On en déduit les avantages, les inconvénients et les usages.</p>
 <p><strong>Réponse.</strong></p>
 <div class="tableau"><table>
 <tr><th>Scrutation ou interruption</th><th>DMA</th></tr>
 <tr><td>chaque donnée passe <strong>par le CPU</strong> : il la lit dans le périphérique puis l'écrit en mémoire</td><td>la donnée va <strong>directement</strong> du périphérique à la mémoire, le CPU n'y touche pas</td></tr>
-<tr><td>simple à programmer</td><td>configuration plus lourde (adresses, nombre d'octets, descripteurs)</td></tr>
-<tr><td>scrutation : le CPU perd son temps à attendre ; interruption : il est dérangé à chaque donnée (sauvegarde et restauration du contexte)</td><td>le CPU reste libre pour calculer ; il est prévenu une fois, quand tout le bloc est arrivé</td></tr>
-<tr><td>adapté aux événements rares ou lents : un bouton, une commande série</td><td>adapté aux gros flux : ADC rapide, ECG à haute cadence, son, image, Wi-Fi</td></tr>
+<tr><td>simple à programmer</td><td>configuration plus lourde (adresses, nombre d'octets)</td></tr>
+<tr><td>scrutation : le CPU perd son temps à attendre ; interruption : il est dérangé à chaque donnée</td><td>le CPU reste libre pour calculer, prévenu une fois à la fin du bloc</td></tr>
+<tr><td>pour les événements rares ou lents : un bouton, une commande série</td><td>pour les gros flux : ADC rapide, ECG à haute cadence, son, image</td></tr>
 </table></div>
-<p>Exemple du cours : un holter à 500 échantillons de 2 octets par seconde ; le DMA copie 1 000 octets par seconde de l'ADC vers la SRAM interne, sans un cycle de CPU, pendant que le programme calcule le rythme cardiaque.</p>
+<p>Exemple du cours : un holter à 500 échantillons de 2 octets par seconde. Le DMA copie \(500 \times 2 = 1\,000\) octets par seconde de l'ADC vers la SRAM, sans un cycle de CPU, pendant que le programme calcule le rythme cardiaque.</p>
 
 <h2>À retenir</h2>
 <ul>
-<li>RISC : simple, un cycle, registre à registre, complexité dans le logiciel ; CISC : l'inverse.</li>
-<li>Von Neumann : une mémoire, un bus ; Harvard : deux mémoires, deux bus ; Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
-<li>Scrutation et interruption : le CPU transporte chaque donnée ; DMA : la donnée va seule en mémoire.</li>
+<li>RISC : instructions simples d'un cycle, registre à registre, code long. CISC : instructions complexes de plusieurs cycles, mémoire à mémoire, code court.</li>
+<li>Chaque instruction = deux voyages (l'instruction, puis la donnée). Von Neumann : un bus, \(2N\) cycles. Harvard : deux bus, \(N + 1\). Super Harvard : plus un cache d'instructions et un contrôleur d'entrées-sorties.</li>
+<li>Scrutation et interruption : le CPU transporte chaque donnée. DMA : la donnée va seule en mémoire.</li>
 </ul>
 
 </main>
@@ -78,6 +100,7 @@
 <script src="../../../commun/js/lib.js"></script>
 <script src="../../../commun/js/nav.js"></script>
 <script src="../dessins.js"></script>
+<script src="../figures/td3-visuels.js"></script>
 <script src="../../../commun/js/schema.js"></script>
 <script src="../schemas.js"></script>
 </body>

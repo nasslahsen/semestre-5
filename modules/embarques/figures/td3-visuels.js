@@ -1,4 +1,5 @@
-// TD 3 : le microcontrôleur PIC (un bloc touché, son rôle) et le partage du temps entre boucle et interruption.
+// TD 3 : le PIC (un bloc touché, son rôle), le partage du temps entre boucle et interruption,
+// calcul séquentiel ou parallèle, PWM et sa moyenne, la pile LIFO, les cycles de bus Von Neumann et Harvard.
 // Chaque figure ne se dessine que si sa place est sur la page.
 (function () {
   "use strict";
@@ -107,6 +108,145 @@
         msg = d < 10 ? "\\text{la boucle finit après 100 ms}" : "t \\ge t_{max} = T = 10\\ \\text{ms : la boucle ne s'exécute plus}";
       }
       R.rendre(zone, msg);
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 2 : un programme pas à pas, ou un circuit qui calcule tout en même temps ---------- */
+  if (place("fig-td3-parallele")) (function () {
+    var f = R.figure("fig-td3-parallele", { largeur: 960, hauteur: 540, titre: "Huit calculs : l'un après l'autre (processeur) ou tous en même temps (FPGA)",
+      essai: "<strong>Essaie</strong> : fais avancer le temps. <strong>Observe</strong> : le processeur fait un calcul par étape, il lui faut 8 étapes ; le FPGA a 8 calculateurs câblés, tout est fini dès la première étape.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct);
+    var ct = R.curseur(f.reglages, { nom: "Temps", min: 0, max: 8, pas: 1, val: 0, unite: " étapes", surChange: dessiner });
+    function rangee(y, titre, faits, sous) {
+      tx(g, titre, [40, y - 30], { taille: 20, ancre: "start" });
+      tx(g, sous, [40, y + 92], { taille: 16, ancre: "start", gras: false, coul: C.doux });
+      for (var k = 0; k < 8; k++) {
+        var x = 40 + k * 110, fait = k < faits;
+        el("rect", { x: x, y: y, width: 96, height: 64, rx: 10, fill: fait ? C.clair : "#fff", stroke: fait ? C.acc : C.gris, "stroke-width": fait ? 3 : 2 }, g);
+        tx(g, fait ? "fait" : "calcul " + (k + 1), [x + 48, y + 32], { taille: 16, coul: fait ? C.encre : C.doux, halo: false });
+      }
+    }
+    function dessiner() {
+      EMB.vider(g);
+      var t = ct.v;
+      rangee(110, "Processeur (microcontrôleur, DSP) : une instruction après l'autre", t, "un calcul par étape");
+      rangee(340, "FPGA : huit calculateurs câblés côte à côte", t >= 1 ? 8 : 0, "les huit calculs dans la même étape");
+      R.rendre(zone, "\\text{après " + t + " étape" + (t > 1 ? "s" : "") + " : processeur } " + t + "/8 \\qquad \\text{FPGA } " + (t >= 1 ? 8 : 0) + "/8");
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 5 : la PWM et sa valeur moyenne ---------- */
+  if (place("fig-td3-pwm")) (function () {
+    var f = R.figure("fig-td3-pwm", { largeur: 960, hauteur: 540, titre: "Un signal PWM : la largeur de l'impulsion règle la valeur moyenne",
+      essai: "<strong>Essaie</strong> : fais varier le rapport cyclique α, puis coche « Entre −E et +E » (le dessin du tableau). <strong>Observe</strong> : l'aire au-dessus de zéro moins l'aire en dessous, divisée par T, donne la moyenne (trait vert). À α = 0,5 entre −E et +E, les deux aires s'annulent.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct);
+    var ca = R.curseur(f.reglages, { nom: "α", min: 0, max: 1, pas: 0.05, val: 0.75, dec: 2, surChange: dessiner });
+    var bs = R.bascule(f.reglages, "Entre −E et +E", true, dessiner);
+    var x0 = 90, W = 800, T = W / 3, y0 = 280, H = 170;
+    function dessiner() {
+      EMB.vider(g);
+      var a = ca.v, sym = bs.checked, bas = sym ? -1 : 0, moy = sym ? 2 * a - 1 : a;
+      function Y(v) { return y0 - v * H; }
+      // axes
+      el("line", { x1: x0, y1: Y(0), x2: x0 + W + 20, y2: Y(0), stroke: C.encre, "stroke-width": 2.5 }, g);
+      el("line", { x1: x0, y1: Y(1.25), x2: x0, y2: Y(-1.25), stroke: C.encre, "stroke-width": 2.5 }, g);
+      tx(g, "+E", [x0 - 14, Y(1)], { taille: 18, ancre: "end" });
+      tx(g, "0", [x0 - 14, Y(0)], { taille: 18, ancre: "end" });
+      if (sym) tx(g, "−E", [x0 - 14, Y(-1)], { taille: 18, ancre: "end" });
+      tx(g, "t", [x0 + W + 16, Y(0) + 26], { taille: 18 });
+      // aires et signal sur 3 périodes
+      var d = "";
+      for (var k = 0; k < 3; k++) {
+        var xa = x0 + k * T, xh = xa + a * T, xb = xa + T;
+        if (a > 0) el("rect", { x: xa, y: Y(1), width: xh - xa, height: Y(0) - Y(1), fill: C.clair }, g);
+        if (sym && a < 1) el("rect", { x: xh, y: Y(0), width: xb - xh, height: Y(-1) - Y(0), fill: "#fde4e4" }, g);
+        d += (k ? " L" : "M") + xa + " " + Y(a > 0 ? 1 : bas) + " L" + xh + " " + Y(a > 0 ? 1 : bas) + " L" + xh + " " + Y(bas) + " L" + xb + " " + Y(bas) + (k < 2 && a > 0 ? " L" + xb + " " + Y(1) : "");
+      }
+      el("path", { d: d, fill: "none", stroke: C.acc, "stroke-width": 4, "stroke-linejoin": "round" }, g);
+      // cotes de la première période
+      var yc = Y(sym ? -1 : 0) + 50;
+      el("path", { d: "M" + x0 + " " + (yc - 8) + " V" + (yc + 8) + " M" + (x0 + a * T) + " " + (yc - 8) + " V" + (yc + 8) + " M" + (x0 + T) + " " + (yc - 8) + " V" + (yc + 8) + " M" + x0 + " " + yc + " H" + (x0 + T), stroke: C.encre, "stroke-width": 2 }, g);
+      if (a >= 0.15) tx(g, "αT", [x0 + a * T / 2, yc + 26], { taille: 18 });
+      if (a <= 0.85) tx(g, "(1 − α)T", [x0 + a * T + (1 - a) * T / 2, yc + 26], { taille: 16 });
+      tx(g, "T", [x0 + T, yc - 22], { taille: 18 });
+      // moyenne
+      el("line", { x1: x0, y1: Y(moy), x2: x0 + W, y2: Y(moy), stroke: C.ok, "stroke-width": 4, "stroke-dasharray": "14 8" }, g);
+      tx(g, "moyenne", [x0 + W - 6, Y(moy) - 18], { taille: 18, ancre: "end", coul: C.ok });
+      R.rendre(zone, sym
+        ? "\\langle u \\rangle = \\alpha E - (1 - \\alpha) E = (2\\alpha - 1)E = " + R.tc(moy, 2) + "\\,E"
+        : "\\langle u \\rangle = \\alpha E = " + R.tc(moy, 2) + "\\,E \\quad (E = 3{,}3\\ \\text{V} : " + R.tc(moy * 3.3, 2) + "\\ \\text{V})");
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 5 : la pile, dernier entré, premier sorti ---------- */
+  if (place("fig-td3-pile")) (function () {
+    var f = R.figure("fig-td3-pile", { largeur: 960, hauteur: 540, titre: "La pile pendant des appels de fonctions emboîtés",
+      essai: "<strong>Essaie</strong> : avance pas à pas. <strong>Observe</strong> : chaque appel pose son adresse de retour sur le dessus ; chaque retour reprend celle du dessus. La dernière posée est la première reprise : LIFO.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct);
+    var ETAPES = [
+      { pile: [], ligne: 0, txt: "loop() s'exécute" },
+      { pile: ["retour dans loop()"], ligne: 1, txt: "loop() appelle mesurer() : on empile où revenir" },
+      { pile: ["retour dans loop()", "retour dans mesurer()"], ligne: 2, txt: "mesurer() appelle lireADC() : on empile encore" },
+      { pile: ["retour dans loop()"], ligne: 3, txt: "lireADC() se termine : on dépile le dessus, retour dans mesurer()" },
+      { pile: [], ligne: 4, txt: "mesurer() se termine : on dépile, retour dans loop()" }
+    ];
+    var CODE = ["void loop() {", "  mesurer();      // appel 1", "    -> lireADC(); // appel 2, dans mesurer()", "    <- fin de lireADC()", "  <- fin de mesurer()"];
+    var ce = R.curseur(f.reglages, { nom: "Pas", min: 0, max: 4, pas: 1, val: 0, surChange: dessiner });
+    function dessiner() {
+      EMB.vider(g);
+      var e = ETAPES[ce.v];
+      EMB.lignesCode(g, CODE, { x: 20, y: 60, l: 520, pas: 56, taille: 19, sel: e.ligne });
+      // la pile : un tube ouvert en haut
+      var xp = 580, w = 300, yb = 460, h = 64;
+      el("path", { d: "M" + xp + " 120 V" + yb + " H" + (xp + w) + " V120", fill: "none", stroke: C.encre, "stroke-width": 3 }, g);
+      tx(g, "La pile", [xp + w / 2, 90], { taille: 20 });
+      e.pile.forEach(function (s, i) {
+        var y = yb - (i + 1) * (h + 8);
+        el("rect", { x: xp + 12, y: y, width: w - 24, height: h, rx: 10, fill: i === e.pile.length - 1 ? C.clair : "#fff", stroke: i === e.pile.length - 1 ? C.acc : C.gris, "stroke-width": 2.5 }, g);
+        tx(g, s, [xp + w / 2, y + h / 2], { taille: 17, halo: false });
+      });
+      if (!e.pile.length) tx(g, "vide", [xp + w / 2, yb - 40], { taille: 18, coul: C.doux, gras: false });
+      tx(g, "↑ dessus", [xp + w / 2, 140], { taille: 16, gras: false, coul: C.doux });
+      zone.textContent = e.txt + ".";
+    }
+    dessiner();
+  })();
+
+  /* ---------- Question 7 : les cycles de bus en Von Neumann et en Harvard ---------- */
+  if (place("fig-td3-bus")) (function () {
+    var f = R.figure("fig-td3-bus", { largeur: 960, hauteur: 540, titre: "Les voyages vers la mémoire, cycle par cycle",
+      essai: "<strong>Essaie</strong> : change le nombre d'instructions N. <strong>Observe</strong> : en Von Neumann, instructions (I) et données (D) font la queue sur le même bus, 2N cycles ; en Harvard, la donnée de l'instruction k voyage pendant que l'instruction k + 1 arrive, N + 1 cycles.", direct: true });
+    var g = el("g", null, f.svg), zone = R.h("div", null, "", f.direct);
+    var cn = R.curseur(f.reglages, { nom: "N", min: 1, max: 6, pas: 1, val: 4, surChange: dessiner });
+    var x0 = 230, cw = 56, hh = 46;
+    function caseBus(x, y, t, fort) {
+      el("rect", { x: x, y: y, width: cw - 6, height: hh, rx: 6, fill: fort ? C.clair : "#f3e8ff", stroke: fort ? C.acc : C.v, "stroke-width": 2 }, g);
+      tx(g, t, [x + (cw - 6) / 2, y + hh / 2], { taille: 16, halo: false, mono: true });
+    }
+    function dessiner() {
+      EMB.vider(g);
+      var N = cn.v;
+      // axe des cycles
+      for (var c = 0; c < 12; c++) tx(g, String(c + 1), [x0 + c * cw + (cw - 6) / 2, 60], { taille: 16, mono: true, gras: false, coul: C.doux });
+      tx(g, "cycle", [x0 - 16, 60], { taille: 16, ancre: "end", gras: false, coul: C.doux });
+      // Von Neumann : un seul bus
+      tx(g, "Von Neumann", [30, 130], { taille: 20, ancre: "start" });
+      tx(g, "un bus", [30, 158], { taille: 16, ancre: "start", gras: false, coul: C.doux });
+      for (var k = 0; k < N; k++) { caseBus(x0 + 2 * k * cw, 120, "I" + (k + 1), true); caseBus(x0 + (2 * k + 1) * cw, 120, "D" + (k + 1), false); }
+      tx(g, 2 * N + " cycles", [x0 + 2 * N * cw + 10, 143], { taille: 18, ancre: "start", coul: C.acc });
+      // Harvard : deux bus
+      tx(g, "Harvard", [30, 300], { taille: 20, ancre: "start" });
+      tx(g, "bus programme", [30, 268], { taille: 16, ancre: "start", gras: false, coul: C.doux });
+      tx(g, "bus données", [30, 336], { taille: 16, ancre: "start", gras: false, coul: C.doux });
+      for (var j = 0; j < N; j++) { caseBus(x0 + j * cw, 245, "I" + (j + 1), true); caseBus(x0 + (j + 1) * cw, 313, "D" + (j + 1), false); }
+      tx(g, (N + 1) + " cycles", [x0 + (N + 1) * cw + 10, 300], { taille: 18, ancre: "start", coul: C.acc });
+      // légende
+      caseBus(60, 430, "I", true); tx(g, "aller chercher une instruction", [130, 453], { taille: 16, ancre: "start", gras: false });
+      caseBus(500, 430, "D", false); tx(g, "lire ou écrire sa donnée", [570, 453], { taille: 16, ancre: "start", gras: false });
+      R.rendre(zone, "\\text{Von Neumann : } 2N = " + 2 * N + " \\qquad \\text{Harvard : } N + 1 = " + (N + 1));
     }
     dessiner();
   })();
