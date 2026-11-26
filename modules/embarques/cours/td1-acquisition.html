@@ -18,80 +18,80 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>Cadence, débit et filtre</h1>
-<p class="chapeau">Le microcontrôleur lit les 8 capteurs d'un réseau l'un après l'autre, en boucle. À quelle vitesse faut-il tourner pour ne rien rater d'un pas ? Combien de bits cela fait-il ? Et comment filtrer sans ralentir la lecture ?</p>
+<p class="chapeau">Un seul ADC lit les 8 capteurs d'un réseau, l'un après l'autre, en boucle. Il faut tourner assez vite pour ne rien rater d'un pas, savoir combien de bits cela produit, et filtrer le bruit sans ralentir la lecture.</p>
+
+<h2>Étape 4 : ce qu'il faut savoir avant</h2>
+<ul>
+<li><strong>Fréquence d'échantillonnage</strong> \(f_e\) : combien de fois par seconde on mesure un même capteur, en hertz (Hz). Sa <strong>période</strong> \(T_e = 1 / f_e\) est le temps entre deux mesures du même capteur.</li>
+<li><strong>Débit binaire</strong> : combien de bits on produit par seconde. Chaque mesure de l'ADC fait \(n\) bits (ici 8).</li>
+<li><strong>Constante de temps</strong> \(\tau = R \times C\) : avec un condensateur, une tension ne saute pas d'un coup, elle glisse vers sa nouvelle valeur. Après \(\tau\), elle a fait 63 % du chemin ; après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
+</ul>
 
 <h2>Question 13 : chronogramme et débit</h2>
-<p><strong>On te demande.</strong> Représente S1 à S3 pour une acquisition correcte : une marche intense fait 120 pas par minute, un pas demande au moins 20 points de mesure. L'ADC travaille sur 8 bits : déduis le débit binaire.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>La <strong>fréquence d'échantillonnage</strong> \(f_e\) est le nombre de mesures par seconde pour un capteur ; la période \(T_e = 1 / f_e\) sépare deux mesures du même capteur.</li>
-<li>Avec un multiplexeur, les 8 capteurs se partagent \(T_e\) : chacun n'a qu'un huitième du temps.</li>
-<li>S3 S2 S1 forment un compteur binaire : S1 (poids faible) change le plus souvent, S3 le moins souvent.</li>
-<li><strong>Débit binaire</strong> : nombre de bits produits par seconde = nombre de capteurs × mesures par seconde × bits par mesure.</li>
-</ul>
+<p><strong>Ce qu'on te demande.</strong> Une marche intense fait 120 pas par minute. Pour bien décrire un pas, il faut au moins 20 mesures par pas. À quel rythme changer S1, S2, S3 ? Quel débit binaire (ADC 8 bits, 16 capteurs) ?</p>
 <p><strong>Comment on raisonne.</strong></p>
 <ul>
 <li>120 pas par minute, c'est 2 pas par seconde.</li>
-<li>Chaque pas doit être décrit par 20 mesures : chaque capteur doit donc être lu \(2 \times 20 = 40\) fois par seconde.</li>
-<li>Un seul ADC lit les 8 capteurs l'un après l'autre : il doit faire le tour des 8 capteurs 40 fois par seconde. Chaque capteur n'a qu'un huitième de la période.</li>
-<li>Pour passer d'un capteur au suivant, le microcontrôleur ajoute 1 au code S3 S2 S1 : c'est un compteur binaire.</li>
+<li>20 mesures par pas : chaque capteur doit être lu \(2 \times 20 = 40\) fois par seconde.</li>
+<li>Le multiplexeur fait le tour des 8 capteurs 40 fois par seconde : un tour dure \(1 / 40 = 25\) ms, et chaque capteur n'a qu'un huitième de ce temps.</li>
+<li>Pour passer au capteur suivant, on ajoute 1 au nombre S3 S2 S1 : 000, 001, 010… 111, puis on recommence. S1 change à chaque fois, S2 deux fois moins souvent, S3 quatre fois moins souvent.</li>
 </ul>
-<p><strong>Réponse.</strong> Fréquence d'échantillonnage d'un capteur :</p>
-\[f_e = \frac{120\ \text{pas}}{60\ \text{s}} \times 20\ \text{points}\]
-\[f_e = 2 \times 20\]
-\[f_e = 40\ \text{Hz, soit } T_e = 25\ \text{ms}\]
-<p>Les 8 capteurs d'un réseau passent l'un après l'autre en 25 ms : chaque voie dure</p>
-\[t_{voie} = \frac{T_e}{8}\]
-\[t_{voie} = \frac{25}{8}\]
-\[t_{voie} = 3{,}125\ \text{ms}\]
+<p><strong>Le calcul.</strong></p>
+\[f_e = 2\ \text{pas/s} \times 20 = 40\ \text{Hz}\]
+\[T_e = \frac{1}{40} = 25\ \text{ms}\]
+\[t_{voie} = \frac{25}{8} = 3{,}125\ \text{ms}\]
 <div id="fig-td1-chrono"></div>
-<p>S3 S2 S1 compte en binaire de 000 à 111, puis recommence :</p>
-<ul>
-<li>S1 change toutes les 3,125 ms : période 6,25 ms ;</li>
-<li>S2 change toutes les 6,25 ms : période 12,5 ms ;</li>
-<li>S3 change toutes les 12,5 ms : période 25 ms.</li>
-</ul>
-<p>Débit, pour les 16 capteurs (les deux réseaux) :</p>
 \[D = N \times f_e \times n\]
 \[D = 16 \times 40 \times 8\]
 \[D = 5\,120\ \text{bit/s}\]
-<p>Soit 2 560 bit/s pour un seul réseau de 8 capteurs.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>chaque capteur dure 3,125 ms ;</li>
+<li>S1 change toutes les 3,125 ms, S2 toutes les 6,25 ms, S3 toutes les 12,5 ms ;</li>
+<li>débit : 5 120 bit/s pour les 16 capteurs.</li>
+</ul>
 
 <h2>Question 14 : le condensateur CF</h2>
-<p><strong>On te demande.</strong> Quel est le rôle de \(C_F\) ? Propose un dimensionnement.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> À quoi sert \(C_F\) (en parallèle sur \(R_G\)) ? Choisis sa valeur.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Un condensateur laisse passer les signaux rapides et bloque le continu. En parallèle sur \(R_G\), il « court-circuite » \(R_G\) aux hautes fréquences : le montage devient un <strong>filtre passe-bas</strong>, de fréquence de coupure \(f_c = 1 / (2\pi R_G C_F)\).</li>
-<li>Un circuit RC met du temps à suivre un saut de tension : on le considère stabilisé après environ \(5\tau\), avec \(\tau = R_G C_F\).</li>
-<li>À chaque changement de voie, \(V_A\) saute d'une valeur à l'autre.</li>
+<li>Un condensateur laisse passer les variations rapides : en parallèle sur \(R_G\), il « court-circuite » \(R_G\) pour le bruit rapide. Le montage devient un <strong>filtre passe-bas</strong> : il garde le signal lent (la marche) et enlève le bruit.</li>
+<li>Mais il ralentit aussi la sortie : quand le multiplexeur change de capteur, \(V_A\) met environ \(5\tau = 5 R_G C_F\) à atteindre la nouvelle valeur.</li>
+<li>Il faut que ce temps tienne dans le temps d'un capteur (3,125 ms), sinon on lit une valeur mélangée avec celle du capteur précédent.</li>
 </ul>
 <div id="fig-td1-cf"></div>
-<p><strong>Ce que veut dire « se stabiliser ».</strong> Avec \(C_F\), la sortie ne saute pas d'un coup quand on change de capteur : elle glisse vers sa nouvelle valeur, comme un condensateur qui se charge. La vitesse de ce glissement est donnée par la <strong>constante de temps</strong> \(\tau = R_G\,C_F\) :</p>
-<ul>
-<li>après \(\tau\), la sortie a fait 63 % du chemin ;</li>
-<li>après \(3\tau\), 95 % ;</li>
-<li>après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
-</ul>
-<p>Il faut donc que \(5\tau\) tienne dans le temps d'une voie (3,125 ms), sinon on lit une valeur à moitié arrivée, mélangée avec celle du capteur précédent.</p>
-<p><strong>Réponse.</strong> Rôle : \(C_F\) fait un filtre passe-bas qui coupe le bruit et les parasites, sans toucher au signal de marche, qui est lent (quelques hertz).</p>
-\[f_c = \frac{1}{2\pi R_G C_F}\]
-<p>Limite : le multiplexeur change de voie toutes les 3,125 ms. La sortie doit se stabiliser sur la nouvelle voie avant la conversion :</p>
-\[5\,R_G C_F \le 3{,}125\ \text{ms}\]
+<p><strong>Le calcul.</strong></p>
+\[5\,R_G\,C_F \le 3{,}125\ \text{ms}\]
 \[C_F \le \frac{3{,}125 \times 10^{-3}}{5 \times 750 \times 10^{3}}\]
 \[C_F \le 0{,}83\ \text{nF}\]
-<p>Une proposition : \(C_F = 470\) pF.</p>
+<p><strong>Réponse.</strong> \(C_F\) filtre le bruit. Il doit rester sous 0,83 nF ; on choisit <strong>470 pF</strong> : la sortie se pose en 1,8 ms, et le filtre coupe au-dessus d'environ 450 Hz, bien au-dessus du rythme de la marche.</p>
+<details class="corrige"><summary>Pour aller plus loin : la fréquence de coupure</summary>
+\[f_c = \frac{1}{2\pi R_G C_F}\]
 \[f_c = \frac{1}{2\pi \times 750 \times 10^{3} \times 470 \times 10^{-12}}\]
 \[f_c \approx 450\ \text{Hz}\]
-<p>Bien au-dessus du rythme de la marche, et la sortie se stabilise en 1,8 ms environ. C'est une réponse possible parmi d'autres : l'essentiel est de justifier le compromis entre filtrage et temps de stabilisation.</p>
+</details>
+
+<h2>Vérifie : l'acquisition</h2>
+<p><strong>1.</strong> Une marche lente fait 60 pas par minute, avec 20 mesures par pas. Combien de mesures par seconde pour un capteur ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>60 pas par minute = 1 pas par seconde, donc \(1 \times 20 = 20\) mesures par seconde (20 Hz).</p>
+</details>
+<p><strong>2.</strong> Pourquoi S3 change-t-il quatre fois moins souvent que S1 ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>S3 S2 S1 compte en binaire : S1 est le bit de poids faible, il change à chaque pas ; S3 (poids 4) ne change que tous les 4 pas.</p>
+</details>
+<p><strong>3.</strong> Si on prenait \(C_F = 2\) nF, que se passerait-il ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(5 R_G C_F = 5 \times 750 \times 10^3 \times 2 \times 10^{-9} = 7{,}5\) ms, plus que 3,125 ms : on lirait chaque capteur avant que sa tension soit posée.</p>
+</details>
 
 <h2>À retenir</h2>
 <ul>
-<li>Surface du capteur : \(S = L\,D + \pi D^2 / 4 \approx 260\) mm² ; pression : \(P = F / S\).</li>
-<li>Pont de jauges : sortie proportionnelle à l'excitation et à la charge, \(V_o = S\,V_{exc}\,P / P_{max}\).</li>
-<li>Gain de l'INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
-<li>Montage de la figure 5 : \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\).</li>
-<li>Acquisition : \(f_e = 40\) Hz, 3,125 ms par voie, débit \(= N \times f_e \times n\).</li>
-<li>Filtre : \(f_c = 1 / (2\pi R_G C_F)\), et \(5 R_G C_F\) plus court que le temps d'une voie.</li>
+<li>Masse et force : \(F = m\,g\). Pression : \(P = F / S\).</li>
+<li>Pont de jauges : sortie \(= S \times V_{exc} \times P / P_{max}\). Gain de l'INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
+<li>Figure 5 : \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\), avec \(V^+ = 0{,}275\) V.</li>
+<li>Acquisition : \(f_e = 40\) Hz, 3,125 ms par capteur, débit \(= N \times f_e \times n\).</li>
+<li>Filtre : \(5 R_G C_F\) plus court que le temps d'un capteur.</li>
 </ul>
 
 </main>

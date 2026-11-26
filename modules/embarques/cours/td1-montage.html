@@ -18,127 +18,101 @@
 <main>
 <p class="etiquette" data-etiquette></p>
 <h1>Le montage de mesure</h1>
-<p class="chapeau">Sur la semelle, chaque réseau de 8 capteurs passe par un multiplexeur, puis par un montage à AOP qui transforme la résistance du capteur choisi en une tension \(V_A\), lue par l'ADC. Il faut d'abord un modèle du capteur, puis comprendre le circuit de la figure 5.</p>
+<p class="chapeau">Le capteur de la semelle change de résistance quand on appuie. Mais le microcontrôleur ne sait lire qu'une tension. Le montage de la figure 5 fait la traduction : un multiplexeur choisit un capteur parmi 8, puis un AOP transforme sa résistance en une tension \(V_A\), que l'ADC lit.</p>
+
+<h2>Étape 3 : ce qu'il faut savoir avant</h2>
+<p>Quatre règles suffisent pour toute la figure 5.</p>
+<ul>
+<li><strong>Loi d'Ohm</strong> : \(U = R \times i\), donc \(i = U / R\).</li>
+<li><strong>Le courant se conserve</strong> : à un point du circuit, tout le courant qui arrive repart. S'il n'a qu'un chemin, il le prend en entier.</li>
+<li><strong>Pont diviseur</strong> : deux résistances \(R_A\) (en haut) et \(R_B\) (en bas) entre \(V_{DD}\) et la masse. Au milieu : \(V = V_{DD} \times R_B / (R_A + R_B)\), tant que rien ne prend de courant au milieu.</li>
+<li><strong>AOP idéal</strong> (amplificateur opérationnel, le triangle) : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et comme sa sortie est reliée à l'entrée \(-\), il règle sa sortie pour que \(V^- = V^+\).</li>
+</ul>
+<p>Deux autres notions :</p>
+<ul>
+<li><strong>Binaire</strong> : S3 S2 S1 = 1 0 1 se lit \(4 + 0 + 1 = 5\). S1 vaut 1, S2 vaut 2, S3 vaut 4.</li>
+<li>Une barre sur un nom (/E) veut dire « actif quand il vaut 0 ».</li>
+</ul>
 
 <h2>Question 9 : le modèle du capteur</h2>
-<p><strong>On te demande.</strong> La caractéristique d'un capteur (document réponse DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> La courbe du capteur (DR1) se résume par \(R_{FSR}(F) = R_0 + \beta / F\). Trouve \(R_0\) et \(\beta\).</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Deux inconnues : il faut deux équations, donc deux points de la courbe. On les prend éloignés (un à faible force, un à forte force) pour limiter l'erreur de lecture.</li>
-<li>Chaque terme d'une somme a la même unité : si \(R_{FSR}\) est en ohms, \(\beta / F\) aussi.</li>
-<li>Tracé en fonction de \(1/F\), le modèle devient une <strong>droite</strong> : c'est le moyen le plus simple de le vérifier.</li>
+<li>Deux inconnues : il faut deux équations, donc deux points lus sur la courbe. On les prend éloignés : 1 N et 100 N.</li>
+<li>On écrit le modèle pour chaque point, puis on soustrait : \(R_0\) disparaît, il ne reste que \(\beta\).</li>
+<li>Attention, la courbe DR1 est en échelles logarithmiques : de 1 à 10, de 10 à 100, chaque décade a la même longueur.</li>
 </ul>
-<div id="fig-td1-fsr"></div>
-<p><strong>Réponse.</strong> Attention, DR1 est tracé en échelles <strong>logarithmiques</strong> sur les deux axes : chaque décade (de 1 à 10, de 10 à 100) a la même longueur. Lecture de la courbe :</p>
 <div class="tableau"><table>
 <tr><th>F (N)</th><td>0,5</td><td>1</td><td>2</td><td>5</td><td>10</td><td>20</td><td>50</td><td>100</td><td>400</td></tr>
 <tr><th>R lue (kΩ)</th><td>1 250</td><td>700</td><td>375</td><td>198</td><td>134</td><td>102</td><td>83</td><td>77</td><td>71</td></tr>
 </table></div>
-<p>Unités :</p>
-<ul>
-<li>\(R_0\) en ohms : la résistance vers laquelle tend le capteur aux fortes charges ;</li>
-<li>\(\beta\) en ohms-newtons (Ω·N), pour que \(\beta / F\) soit en ohms.</li>
-</ul>
-<p>Avec deux points \((F_1, R_1)\) et \((F_2, R_2)\), on écrit \(R_1 = R_0 + \beta / F_1\) et \(R_2 = R_0 + \beta / F_2\). En soustrayant, \(R_0\) disparaît :</p>
-\[\beta = \frac{R_1 - R_2}{\dfrac{1}{F_1} - \dfrac{1}{F_2}}\]
-\[R_0 = R_1 - \frac{\beta}{F_1}\]
-<p>Points choisis, éloignés et faciles à lire : \(F_1 = 1\) N, \(R_1 = 700\) kΩ, et \(F_2 = 100\) N, \(R_2 = 77\) kΩ.</p>
-\[\beta = \frac{700 - 77}{\dfrac{1}{1} - \dfrac{1}{100}}\]
-\[\beta = \frac{623}{0{,}99}\]
-\[\beta \approx 629\ \text{k}\Omega \cdot \text{N} \approx 6{,}3 \times 10^{5}\ \Omega \cdot \text{N}\]
-\[R_0 = 700 - \frac{629}{1}\]
+<div id="fig-td1-fsr"></div>
+<p><strong>Le calcul.</strong> À 1 N : \(700 = R_0 + \beta / 1\). À 100 N : \(77 = R_0 + \beta / 100\). On soustrait :</p>
+\[700 - 77 = \beta \times \left(1 - \frac{1}{100}\right)\]
+\[623 = 0{,}99\,\beta\]
+\[\beta \approx 629\ \text{k}\Omega \cdot \text{N}\]
+\[R_0 = 700 - 629\]
 \[R_0 \approx 71\ \text{k}\Omega\]
-<p>Vérification sur d'autres points :</p>
-<div class="tableau"><table>
-<tr><th>F (N)</th><th>R lue (kΩ)</th><th>\(R_0 + \beta / F\) (kΩ)</th><th>Écart</th></tr>
-<tr><td>5</td><td>198</td><td>197</td><td>moins de 1 %</td></tr>
-<tr><td>10</td><td>134</td><td>134</td><td>moins de 1 %</td></tr>
-<tr><td>20</td><td>102</td><td>102</td><td>moins de 1 %</td></tr>
-<tr><td>400</td><td>71</td><td>72</td><td>moins de 2 %</td></tr>
-<tr><td>0,5</td><td>1 250</td><td>1 330</td><td>environ 7 %</td></tr>
-</table></div>
-<p>Le modèle colle très bien de 2 à 400 N. Il s'écarte un peu à 0,5 N, juste au seuil de déclenchement du capteur : c'est sans importance pour le suivi de la marche. Les valeurs dépendent de ta lecture de la courbe, à quelques pour cent près.</p>
+<p><strong>Réponse.</strong> \(R_0 \approx 71\) kΩ (la résistance vers laquelle tend le capteur quand on appuie très fort) et \(\beta \approx 629\) kΩ·N. Vérification : à 10 N, \(71 + 629 / 10 = 134\) kΩ, exactement la valeur lue.</p>
 
 <h2>Question 10 : un multiplexeur parfait</h2>
-<p><strong>On te demande.</strong> Le multiplexeur analogique est considéré comme parfait. Explique cette hypothèse.</p>
-<p><strong>Ce qu'il faut savoir.</strong> Un <strong>multiplexeur analogique</strong> est un aiguillage : il relie une seule de ses 8 entrées \(Y_0\) à \(Y_7\) à sa sortie commune \(Z\), selon le nombre binaire écrit sur S3 S2 S1. C'est un ensemble d'interrupteurs électroniques, dont un seul est fermé.</p>
-<p><strong>Réponse.</strong> « Parfait » veut dire :</p>
-<ul>
-<li>la voie sélectionnée est un fil parfait : résistance nulle à l'état passant, donc \(Z = Y_k\) ;</li>
-<li>les voies non sélectionnées sont des circuits ouverts : résistance infinie, aucun courant de fuite ;</li>
-<li>le passage d'une voie à l'autre est instantané.</li>
-</ul>
-<p>La fiche DT4 justifie l'hypothèse : c'est un multiplexeur « low-ohmic », de résistance à l'état passant 0,5 Ω typique pour \(V_{CC}\) entre 2,7 V et 4,3 V (ici 3,3 V). Devant le capteur, qui ne descend pas sous 71 kΩ (question 9), c'est plus de cent mille fois plus petit : négligeable. Elle note aussi un passage « break-before-make » : l'ancienne voie s'ouvre avant que la nouvelle se ferme, jamais deux capteurs reliés en même temps.</p>
-
-<h2>Question 11 : l'entrée /E</h2>
-<p><strong>On te demande.</strong> Le NX3L4051 a une entrée /E non représentée. Comment la câbler ?</p>
-<p><strong>Ce qu'il faut savoir.</strong> Une barre sur le nom d'une broche (/E, \(\overline{E}\)) signale une entrée <strong>active au niveau bas</strong> : elle agit quand on y met 0. E signifie « enable », mise en service.</p>
+<p><strong>Ce qu'on te demande.</strong> Que veut dire « multiplexeur parfait » ?</p>
+<p><strong>Comment on raisonne.</strong> Un multiplexeur est un aiguillage : il relie une seule de ses 8 entrées (\(Y_0\) à \(Y_7\)) à sa sortie Z, selon le nombre écrit sur S3 S2 S1. « Parfait » veut dire qu'il n'abîme pas le signal.</p>
 <p><strong>Réponse.</strong></p>
 <ul>
-<li>D'après la table de fonctionnement de DT4 : /E au niveau bas (L), la voie choisie par S3 S2 S1 est reliée à Z ; /E au niveau haut (H), tous les interrupteurs sont ouverts, quelles que soient S1 à S3.</li>
-<li>On la relie à la masse (0 V) : le multiplexeur est toujours actif, et seules S1 à S3 choisissent la voie.</li>
-<li>Variante : la relier à une sortie du microcontrôleur, pour couper le multiplexeur entre deux mesures.</li>
+<li>la voie choisie est un fil parfait (résistance nulle) ;</li>
+<li>les autres voies sont complètement coupées ;</li>
+<li>il passe d'une voie à l'autre instantanément.</li>
 </ul>
+<p>C'est réaliste : sa résistance réelle (0,5 Ω) est négligeable devant le capteur (au moins 71 kΩ).</p>
+
+<h2>Question 11 : l'entrée /E</h2>
+<p><strong>Ce qu'on te demande.</strong> Le multiplexeur a une entrée /E qui n'est pas dessinée. Où la brancher ?</p>
+<p><strong>Comment on raisonne.</strong> E veut dire « enable », mettre en marche. La barre veut dire qu'il est en marche quand /E vaut 0.</p>
+<p><strong>Réponse.</strong> On relie /E à la <strong>masse</strong> (0 V) : le multiplexeur est toujours en marche.</p>
 
 <h2>Question 12 : l'expression de VA</h2>
-<p><strong>On te demande.</strong> En continu, avec S1, S2 et S3 à l'état haut, exprime \(V_A\). Détermine ses variations quand la force va de 0,5 N à 100 N et valide le dimensionnement. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
-<p><strong>Les bases d'électronique pour lire la figure 5.</strong> Quatre règles suffisent :</p>
-<ul>
-<li><strong>Loi d'Ohm</strong> : une résistance \(R\) traversée par un courant \(i\) a une tension \(U = R\,i\) à ses bornes. Donc \(i = U / R\).</li>
-<li><strong>Le courant se conserve</strong> : le courant qui arrive à un point du circuit en repart en entier. Si un seul chemin s'offre à lui, tout le courant le prend.</li>
-<li><strong>Pont diviseur</strong> : deux résistances en série entre \(V_{DD}\) et la masse. Le même courant les traverse, \(i = V_{DD} / (R_A + R_B)\), et la tension au milieu vaut \(R_B\,i\), soit \(V_{DD}\,R_B / (R_A + R_B)\). Valable seulement si rien ne tire de courant au point milieu.</li>
-<li><strong>AOP idéal en régime linéaire</strong> : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et, parce que sa sortie est reliée à l'entrée \(-\) (par \(R_G\)), il ajuste sa sortie pour que \(V^- = V^+\).</li>
-</ul>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>Le code S3 S2 S1 se lit en binaire, S1 étant le bit de poids faible : 111 vaut 7, donc la voie \(Y_7\).</li>
-<li><strong>En continu</strong>, un condensateur ne laisse passer aucun courant : \(C_F\) est un circuit ouvert.</li>
-<li>Un <strong>pont diviseur</strong> donne \(V = V_{DD}\,R_B / (R_A + R_B)\) quand rien d'autre ne tire de courant sur son point milieu.</li>
-<li>AOP parfait en régime linéaire : \(V^- = V^+\), et aucun courant n'entre dans ses entrées.</li>
-<li>L'ADC lit de 0 à 3,3 V : au-delà, il sature.</li>
-</ul>
-<div id="fig-td1"></div>
-<p><strong>Comment on trouve \(V_A\), en cinq étapes.</strong> Avance dans la figure en même temps que tu lis.</p>
+<p><strong>Ce qu'on te demande.</strong> S1, S2, S3 sont à 1. Trouve la formule de \(V_A\), puis vérifie qu'elle reste dans la plage de l'ADC (0 à 3,3 V) quand la force va de 0,5 N à 100 N. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
+<p><strong>Comment on raisonne, en cinq étapes.</strong> Avance dans la figure en même temps.</p>
 <div id="fig-td1-etapes"></div>
 <ul>
-<li><strong>Étape 1, quel capteur ?</strong> S3 S2 S1 = 111 vaut 7 : le multiplexeur relie \(Y_7\), donc \(R_{FSR8}\), entre l'entrée \(-\) et la masse. Les sept autres capteurs sont débranchés : on les oublie.</li>
-<li><strong>Étape 2, l'entrée \(+\).</strong> Elle est au milieu du pont \(R_A\), \(R_B\). Aucun courant n'entre dans l'AOP, donc la formule du pont diviseur s'applique.</li>
-<li><strong>Étape 3, l'entrée \(-\).</strong> L'AOP fait \(V^- = V^+\) : l'entrée \(-\) est aussi à 0,275 V.</li>
-<li><strong>Étape 4, le courant.</strong> \(R_{FSR8}\) est entre l'entrée \(-\) (0,275 V) et la masse (0 V) : par la loi d'Ohm, il est traversé par \(i = V^- / R_{FSR8}\). Ce courant vient du point \(-\). Il ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient forcément de la sortie, à travers \(R_G\). Le même \(i\) traverse donc \(R_G\).</li>
-<li><strong>Étape 5, la sortie.</strong> En partant de l'entrée \(-\) et en remontant \(R_G\) vers la sortie, on ajoute la tension aux bornes de \(R_G\), soit \(R_G\,i\) : \(V_A = V^- + R_G\,i\).</li>
+<li><strong>1. Quel capteur ?</strong> S3 S2 S1 = 111 vaut \(4 + 2 + 1 = 7\) : la voie \(Y_7\), le capteur \(R_{FSR8}\). Il est branché entre l'entrée \(-\) et la masse.</li>
+<li><strong>2. L'entrée +.</strong> Elle est au milieu du pont \(R_A\), \(R_B\) : on applique la formule du pont diviseur.</li>
+<li><strong>3. L'entrée −.</strong> L'AOP fait \(V^- = V^+\).</li>
+<li><strong>4. Le courant.</strong> Le capteur a \(V^-\) d'un côté et 0 V de l'autre : il est traversé par \(i = V^- / R_{FSR8}\). Ce courant ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient de la sortie, à travers \(R_G\).</li>
+<li><strong>5. La sortie.</strong> En remontant \(R_G\), on ajoute sa tension \(R_G \times i\) : \(V_A = V^- + R_G\,i\).</li>
 </ul>
-<p>\(C_F\) n'apparaît pas : en continu, un condensateur ne laisse passer aucun courant, c'est un fil coupé.</p>
-<p><strong>Réponse.</strong> S3 S2 S1 = 111 : c'est 7 en binaire, la voie \(Y_7\), donc le capteur \(R_{FSR8}\).</p>
-<p>L'entrée + est fixée par le pont \(R_A\), \(R_B\) :</p>
+<p>\(C_F\) n'apparaît pas : en continu, un condensateur est un fil coupé.</p>
+<p><strong>Le calcul.</strong></p>
 \[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
-\[V^+ = 3{,}3 \times \frac{10}{110 + 10}\]
+\[V^+ = 3{,}3 \times \frac{10}{120}\]
 \[V^+ = 0{,}275\ \text{V}\]
-<p>Comme \(V^- = V^+\), le capteur, qui relie \(V^-\) à la masse, est traversé par \(i = V^+ / R_{FSR8}\). Aucun courant n'entre dans l'AOP : ce même courant traverse \(R_G\), d'où :</p>
-\[V_A = V^- + R_G\,i\]
-\[V_A = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
+\[V_A = V^- + R_G\,i = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
 \[V_A = V^+\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
-\[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
-<p>Exemple pour fixer les idées : avec \(R_{FSR8} = 250\) kΩ, \(i = 0{,}275 / 250\,000 = 1{,}1\ \mu\)A, et \(V_A = 0{,}275 + 750\,000 \times 1{,}1 \times 10^{-6} = 0{,}275 + 0{,}825 = 1{,}1\) V.</p>
-<p>Avec le modèle de la question 9 :</p>
-\[V_A(F) = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_0 + \beta / F}\right)\]
-<p>Variations :</p>
-<ul>
-<li>à 0,5 N, \(R_{FSR}\) est très grande : \(V_A\) reste un peu au-dessus de 0,275 V ;</li>
-<li>quand la force monte, \(R_{FSR}\) baisse et \(V_A\) monte ;</li>
-<li>à 100 N, \(R_{FSR}\) est la plus faible : \(V_A\) est maximale.</li>
-</ul>
-<p><strong>Comment on vérifie le dimensionnement.</strong> \(V_A\) est la plus grande quand \(R_{FSR}\) est la plus petite, donc à la force la plus forte (100 N). On cherche la plus petite résistance qui garde \(V_A\) sous 3,3 V, puis on regarde sur la courbe DR1 si le capteur reste au-dessus.</p>
-<p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
-\[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
-\[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
-<p>La courbe DR1 donne 77 kΩ à 100 N, au-dessus de 68,2 kΩ : pas de saturation. Valeurs extrêmes, avec les résistances lues sur DR1 :</p>
-\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right)\]
-\[V_A(0{,}5\ \text{N}) = 0{,}275 \times 1{,}6\]
-\[V_A(0{,}5\ \text{N}) = 0{,}44\ \text{V}\]
-\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right)\]
-\[V_A(100\ \text{N}) = 0{,}275 \times 10{,}74\]
-\[V_A(100\ \text{N}) \approx 2{,}95\ \text{V}\]
-<p>Le dimensionnement est validé : \(V_A\) va de 0,44 V à 2,95 V, dans la plage de l'ADC (0 à 3,3 V), avec une marge en haut. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal.</p>
+\[V_A = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_{FSR8}}\right)\]
+<p>Les deux extrêmes, avec les résistances lues sur la courbe :</p>
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right) = 0{,}44\ \text{V}\]
+\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right) \approx 2{,}95\ \text{V}\]
+<p><strong>Réponse.</strong> \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR8}}\right)\). Plus on appuie, plus \(R_{FSR}\) baisse, plus \(V_A\) monte : de 0,44 V à 2,95 V, toujours sous 3,3 V. Le dimensionnement est bon, l'ADC ne sature pas.</p>
+<p>Le montage complet, avec ses 8 capteurs : change S1, S2, S3 et la résistance du capteur choisi.</p>
+<div id="fig-td1"></div>
+<details class="corrige"><summary>Pour aller plus loin : la résistance limite</summary>
+<p>La limite : \(V_A\) atteint 3,3 V quand \(1 + R_G / R_{FSR} = 12\), soit \(R_{FSR} = 750 / 11 \approx 68{,}2\) kΩ. Le capteur ne descend pas sous 71 kΩ : pas de saturation.</p>
+</details>
+
+<h2>Vérifie : le montage</h2>
+<p><strong>1.</strong> S3 S2 S1 = 011 : quel capteur est choisi ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>011 = 0 + 2 + 1 = 3 : la voie \(Y_3\), le capteur \(R_{FSR4}\).</p>
+</details>
+<p><strong>2.</strong> Que vaut \(V_A\) quand personne n'appuie (résistance du capteur énorme) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(R_G / R_{FSR}\) tend vers 0, donc \(V_A \approx V^+ = 0{,}275\) V.</p>
+</details>
+<p><strong>3.</strong> Avec \(R_{FSR} = 150\) kΩ, que vaut \(V_A\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[V_A = 0{,}275 \times \left(1 + \frac{750}{150}\right) = 0{,}275 \times 6 = 1{,}65\ \text{V}\]
+</details>
 
 </main>
 <script src="../../../commun/vendor/katex/katex.min.js"></script>

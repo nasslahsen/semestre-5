@@ -24,152 +24,111 @@
 <h2>Le sujet et le capteur</h2>
 
 <article class="notion" id="n-td1">
-<p class="chapeau">L'application n°1 « Semelle instrumentée pour le suivi médical » part d'un vrai dispositif et descend jusqu'à l'électronique. Le sujet est expliqué d'abord, puis les 14 questions sont corrigées comme un cours : ce qu'on te demande, ce qu'il faut savoir, la réponse, avec un schéma quand il aide. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
+<p class="chapeau">Ce TD se fait comme si c'était la première fois. Chaque étape commence par ce qu'il faut savoir, expliqué depuis zéro ; puis chaque question : ce qu'on te demande, comment on raisonne, le calcul, la réponse. Une petite vérification termine chaque étape. La correction est rédigée pour le site : aucun corrigé du professeur n'a été reçu.</p>
 
-<h4>Tout le TD en une page</h4>
-<p>Lis cette page d'abord : elle donne l'histoire du TD et chaque réponse en une ou deux lignes. Les sections suivantes reprennent chaque question en détail.</p>
-<p><strong>L'histoire.</strong> On veut une semelle qui mesure l'appui du pied, pour surveiller des patients diabétiques. On suit le chemin de la mesure, dans l'ordre :</p>
-<ul>
-<li><strong>le capteur</strong> : quelle force il supporte (questions 1 à 3) ;</li>
-<li><strong>le banc de test</strong> : on vérifie les capteurs de la semelle avec un capteur de référence très précis (questions 4 à 8) ;</li>
-<li><strong>le montage</strong> : on transforme la résistance du capteur en une tension que le microcontrôleur sait lire (questions 9 à 12) ;</li>
-<li><strong>l'acquisition</strong> : à quelle vitesse lire les capteurs (questions 13 et 14).</li>
-</ul>
-
-<h5>Partie 1 : le capteur</h5>
-<div class="tableau"><table>
-<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
-<tr><td>1. Surface</td><td>la forme = un rectangle (15 × 11 mm) + deux demi-disques, qui font ensemble un disque de 11 mm</td><td>\(165 + 95 = 260\) mm²</td></tr>
-<tr><td>2. Force et pression maximales</td><td>le capteur mesure jusqu'à 10 kg : la force est le poids, \(F = m\,g\) ; la pression, c'est la force divisée par la surface</td><td>\(F = 10 \times 9{,}81 = 98{,}1\) N<br>\(P = 98{,}1 / 0{,}000260 \approx 377\) kPa</td></tr>
-<tr><td>3. Patient de 70 kg</td><td>poids 687 N. Réparti sur 16 capteurs : 43 N chacun, ça va. Mais au contact du talon, 2 capteurs portent tout : 343 N chacun</td><td>non, pas toujours : les capteurs du talon saturent (343 N &gt; 98 N). Acceptable, car on suit l'évolution de l'appui</td></tr>
-</table></div>
-
-<h5>Partie 2 : le banc de test</h5>
-<div class="tableau"><table>
-<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
-<tr><td>4. Le capteur FUTEK</td><td>4 jauges (des résistances qui changent un tout petit peu quand on les étire), montées en pont de Wheatstone</td><td>2 fils pour alimenter (rouge +, noir −), 2 fils pour mesurer (vert +, blanc −)</td></tr>
-<tr><td>5. Le bon modèle ?</td><td>il doit aller au moins jusqu'à la limite de la semelle</td><td>oui : 445 N, plus que les 98 N de la semelle</td></tr>
-<tr><td>6. La courbe Vo(P)</td><td>« 2 mV/V » : 2 mV par volt d'alimentation à pleine charge, donc 10 mV sous 5 V à 445 N ; ensuite c'est une droite</td><td>\(V_o = 10\ \text{mV} \times P / 445\)</td></tr>
-<tr><td>7. Le gain de l'INA128</td><td>à 100 N le capteur sort 2,25 mV ; pour avoir 1 V, il faut multiplier par 445 ; on retourne la formule du gain</td><td>\(G = 445\), \(R_G = 50\,000 / 444 \approx 113\ \Omega\)</td></tr>
-<tr><td>8. Le CMR</td><td>les deux fils de mesure sont tous deux vers 2,5 V ; seule leur différence (quelques mV) compte</td><td>réjection du mode commun : l'amplificateur garde la différence et ignore le commun, bien mieux qu'un simple AOP</td></tr>
-</table></div>
-
-<h5>Partie 3 : le montage (figure 5)</h5>
-<div class="tableau"><table>
-<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
-<tr><td>9. Modèle du capteur</td><td>\(R = R_0 + \beta / F\) : deux inconnues, donc deux points de la courbe, (1 N ; 700 kΩ) et (100 N ; 77 kΩ). On soustrait les deux équations : \(R_0\) disparaît</td><td>\(\beta = 623 / 0{,}99 \approx 629\) kΩ·N<br>\(R_0 = 700 - 629 = 71\) kΩ</td></tr>
-<tr><td>10. Multiplexeur parfait</td><td>un aiguillage idéal</td><td>la voie choisie est un fil, les autres sont coupées</td></tr>
-<tr><td>11. L'entrée /E</td><td>la barre veut dire « active à 0 »</td><td>on la relie à la masse</td></tr>
-<tr><td>12. La tension VA</td><td>S3 S2 S1 = 111 = 7 : capteur 8. Le pont donne \(V^+\). L'AOP copie \(V^+\) sur \(V^-\). Le courant du capteur traverse aussi \(R_G\)</td><td>\(V^+ = 0{,}275\) V<br>\(V_A = 0{,}275 \times (1 + 750\ \text{k}\Omega / R_{FSR})\)<br>de 0,44 V (0,5 N) à 2,95 V (100 N) : sous 3,3 V, l'ADC ne sature pas</td></tr>
-</table></div>
-
-<h5>Partie 4 : l'acquisition</h5>
-<div class="tableau"><table>
-<tr><th>Question</th><th>L'idée</th><th>La réponse</th></tr>
-<tr><td>13. Cadence et débit</td><td>120 pas par minute = 2 pas par seconde ; 20 points par pas : chaque capteur est lu 40 fois par seconde. Les 8 capteurs passent l'un après l'autre en 25 ms</td><td>3,125 ms par capteur<br>S1 change toutes les 3,125 ms, S2 toutes les 6,25 ms, S3 toutes les 12,5 ms<br>débit : \(16 \times 40 \times 8 = 5\,120\) bit/s</td></tr>
-<tr><td>14. Le condensateur CF</td><td>avec \(R_G\), il fait un filtre qui enlève le bruit ; mais il ralentit la tension, qui doit se poser (en \(5 R_G C_F\)) avant la lecture suivante</td><td>\(5 R_G C_F \le 3{,}125\) ms, donc \(C_F \le 0{,}83\) nF ; on choisit 470 pF</td></tr>
-</table></div>
-
-<h4>Ce que raconte le sujet</h4>
-<p>Une équipe de l'Université Paris-Saclay a conçu une semelle pour suivre des <strong>patients diabétiques</strong>. Chez eux, les nerfs du pied sont abîmés : une plaie peut commencer sans douleur. La semelle ne cherche pas une mesure absolue très précise. Elle suit l'appui <strong>dans le temps</strong>, pour repérer une marche qui devient asymétrique (la <strong>claudication</strong>), signe d'une lésion qui commence.</p>
-<p>Ce que la semelle embarque :</p>
-<ul>
-<li><strong>16 capteurs de force résistifs</strong> (semelle FS-INS-16Z), en deux réseaux de 8 ;</li>
-<li>un capteur de température et d'humidité ;</li>
-<li>une mesure de <strong>bio-impédance</strong> (circuit MAX30009) ;</li>
-<li>un microcontrôleur et un émetteur radio, le tout sur accumulateur.</li>
-</ul>
+<h4>Le TD en une phrase</h4>
+<p>On fabrique une semelle qui mesure <strong>avec quelle force le pied appuie</strong>, à 16 endroits, pour surveiller des patients diabétiques : chez eux, une plaie au pied peut commencer sans douleur, et une marche qui change en est souvent le premier signe.</p>
 <figure class="photo duo"><img src="../images/semelle-fs-ins-16z.jpg" alt="La semelle FS-INS-16Z, film souple avec 16 zones sensibles et sa nappe de connexion"><img src="../images/semelle-plan-capteurs.jpg" alt="Plan de la semelle FS-INS-16Z : 16 zones sensibles, longueur 253 mm, épaisseur 0,4 mm"><figcaption>La semelle FS-INS-16Z et son plan : 16 zones sensibles, dont deux sous le talon, 253 mm de long, 0,4 mm d'épaisseur.<small>Documents du cours, TD « Semelle instrumentée pour le suivi médical » : documentation commerciale DT1.</small></figcaption></figure>
-<p>Le sujet complet a quatre parties : appui plantaire, bio-impédance, transmission radio, synthèse. L'extrait reçu contient la première, « Analyse de l'appui plantaire », en trois temps :</p>
+<p>Le TD suit la mesure, du pied jusqu'au microcontrôleur, en quatre étapes :</p>
 <div class="tableau"><table>
-<tr><th>Partie</th><th>Questions</th><th>Ce qu'on fait</th></tr>
-<tr><td>Le capteur de la semelle</td><td>1 à 3</td><td>sa surface, la force et la pression qu'il supporte, le cas d'un patient de 70 kg</td></tr>
-<tr><td>Le banc de caractérisation</td><td>4 à 8</td><td>le capteur de référence FUTEK LSB200 et son amplificateur INA128</td></tr>
-<tr><td>Le montage de mesure</td><td>9 à 12</td><td>le modèle du capteur, le multiplexeur, la tension \(V_A\) lue par l'ADC</td></tr>
-<tr><td>L'acquisition</td><td>13 et 14</td><td>la cadence de lecture, le débit binaire, le condensateur \(C_F\)</td></tr>
+<tr><th>Étape</th><th>La question qu'on se pose</th><th>Questions du TD</th></tr>
+<tr><td>1. Le capteur</td><td>combien de force peut-il mesurer ?</td><td>1 à 3</td></tr>
+<tr><td>2. Le banc de test</td><td>comment vérifier qu'il mesure juste ?</td><td>4 à 8</td></tr>
+<tr><td>3. Le montage</td><td>comment transformer sa mesure en une tension que le microcontrôleur sait lire ?</td><td>9 à 12</td></tr>
+<tr><td>4. L'acquisition</td><td>à quelle vitesse faut-il le lire ?</td><td>13 et 14</td></tr>
 </table></div>
-
-<h4>La chaîne de mesure d'un capteur</h4>
-<p>Un capteur résistif ne donne pas une tension : sa <strong>résistance baisse quand on appuie</strong> (plus de 1 MΩ au repos). Pour que le microcontrôleur la lise, il faut la transformer en tension :</p>
-<ul>
-<li>le <strong>multiplexeur</strong> NX3L4051 choisit un des 8 capteurs du réseau, selon le code S3 S2 S1 ;</li>
-<li>l'<strong>AOP</strong>, avec \(R_G\) et \(C_F\), transforme la résistance du capteur choisi en une tension \(V_A\), filtrée ;</li>
-<li>l'<strong>ADC</strong> du microcontrôleur convertit \(V_A\) en un nombre sur 8 bits (entrée AIN1).</li>
-</ul>
+<p>Le chemin d'une mesure, que tu retrouveras à l'étape 3 :</p>
 <div class="schema" id="sc-td1-chaine"></div>
-
-<h4>Les données du sujet</h4>
+<details class="corrige"><summary>Toutes les réponses du TD en un coup d'œil</summary>
 <div class="tableau"><table>
-<tr><th>Élément</th><th>Valeur</th></tr>
-<tr><td>Capteur de la semelle</td><td>deux disques de diamètre \(D = 11\) mm, centres à \(L = 15\) mm, longueur totale \(LT = 26\) mm</td></tr>
-<tr><td>Semelle FS-INS-16Z (DT1)</td><td>16 points de mesure, 20 bornes (16 propres, 2 communes, 2 non utilisées), 253 mm de long, 0,4 mm d'épaisseur</td></tr>
-<tr><td>Un capteur (DT1)</td><td>déclenchement à 500 g, plage de 500 g à 10 kg, plus de 1 MΩ au repos, réponse en moins de 10 µs, répétabilité ±10 % à 2 kg</td></tr>
-<tr><td>Capteur de référence du banc</td><td>FUTEK LSB200, modèle FSH00107, pleine échelle 445 N, excitation 5 V</td></tr>
-<tr><td>Montage de la figure 5</td><td>\(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ</td></tr>
-<tr><td>Acquisition</td><td>marche intense : 120 pas par minute, au moins 20 points par pas, ADC 8 bits</td></tr>
+<tr><th>Question</th><th>Réponse</th></tr>
+<tr><td>1. Surface</td><td>\(260\) mm²</td></tr>
+<tr><td>2. Force et pression maximales</td><td>\(98{,}1\) N et \(377\) kPa</td></tr>
+<tr><td>3. Patient de 70 kg</td><td>non : les 2 capteurs du talon reçoivent 343 N, ils saturent</td></tr>
+<tr><td>4. Capteur FUTEK</td><td>4 jauges en pont de Wheatstone ; 2 fils d'alimentation, 2 fils de mesure</td></tr>
+<tr><td>5. Le bon modèle</td><td>oui : 445 N, plus que les 98 N de la semelle</td></tr>
+<tr><td>6. Courbe Vo(P)</td><td>une droite, de 0 à 10 mV à 445 N</td></tr>
+<tr><td>7. Gain de l'INA128</td><td>\(G = 445\), \(R_G \approx 113\ \Omega\)</td></tr>
+<tr><td>8. CMR</td><td>réjection du mode commun : garder la différence, ignorer le commun</td></tr>
+<tr><td>9. Modèle du capteur</td><td>\(R_0 \approx 71\) kΩ, \(\beta \approx 629\) kΩ·N</td></tr>
+<tr><td>10. Multiplexeur parfait</td><td>voie choisie = fil, autres voies coupées</td></tr>
+<tr><td>11. Entrée /E</td><td>reliée à la masse</td></tr>
+<tr><td>12. Tension VA</td><td>\(V_A = 0{,}275 \times (1 + 750\ \text{k}\Omega / R_{FSR})\), de 0,44 V à 2,95 V</td></tr>
+<tr><td>13. Cadence et débit</td><td>3,125 ms par capteur, 5 120 bit/s</td></tr>
+<tr><td>14. Condensateur CF</td><td>filtre ; \(C_F \le 0{,}83\) nF, on choisit 470 pF</td></tr>
 </table></div>
-<p>Les réponses s'appuient sur les documents du sujet : DT1 (semelle), DT2 (FUTEK LSB200), DT3 (INA128), DT4 (NX3L4051) et DR1 (courbe d'un capteur).</p>
+</details>
+
+<h4>Étape 1 : ce qu'il faut savoir avant</h4>
+<p><strong>Une masse n'est pas une force.</strong></p>
+<ul>
+<li>La <strong>masse</strong> se mesure en kilogrammes (kg) : c'est la quantité de matière.</li>
+<li>La <strong>force</strong> se mesure en newtons (N) : c'est ce qui appuie.</li>
+<li>Posée sur le sol, une masse appuie avec son <strong>poids</strong> : \(F = m \times g\), avec \(g = 9{,}81\). Un objet de 1 kg appuie avec 9,81 N.</li>
+</ul>
+<p><strong>La pression, c'est une force partagée sur une surface.</strong></p>
+<ul>
+<li>\(P = F / S\). La même force appuie plus fort sur une petite surface : un talon aiguille fait mal, une basket non.</li>
+<li>Unités : force en newtons, surface en m², pression en pascals (Pa). 1 kPa = 1 000 Pa.</li>
+<li>Piège : 1 mm² = \(10^{-6}\) m² (un millionième de m²).</li>
+</ul>
+<p><strong>Les aires.</strong> Rectangle : longueur × largeur. Disque de diamètre \(D\) : \(\pi D^2 / 4\).</p>
 
 <h4>Question 1 : la surface d'un capteur</h4>
-<p><strong>On te demande.</strong> La surface active a la forme de deux disques de diamètre \(D = 11\) mm dont les centres sont à \(L = 15\) mm, reliés par un rectangle (\(LT = 26\) mm). Détermine sa surface en mm².</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Un capteur a la forme d'une gélule : deux ronds de diamètre \(D = 11\) mm, dont les centres sont à \(L = 15\) mm, reliés par une bande droite. Quelle est sa surface ?</p>
+<p><strong>Comment on raisonne.</strong> On coupe la gélule en morceaux simples :</p>
 <ul>
-<li>Une forme compliquée se calcule en la découpant en formes simples.</li>
-<li>Aire d'un disque : \(\pi D^2 / 4\). Aire d'un rectangle : longueur × largeur.</li>
-<li>Les cotes se vérifient : \(LT = L + D = 15 + 11 = 26\) mm.</li>
+<li>au milieu, un <strong>rectangle</strong> de 15 mm (la distance entre les centres) sur 11 mm (le diamètre) ;</li>
+<li>aux deux bouts, deux <strong>demi-ronds</strong>, qui font ensemble un rond entier de 11 mm.</li>
 </ul>
 <div id="fig-td1-capteur"></div>
-<p><strong>Comment on raisonne.</strong></p>
-<ul>
-<li>Trace un trait vertical par le centre de chaque disque : la forme se coupe en trois morceaux.</li>
-<li>Au milieu, entre les deux traits : un <strong>rectangle</strong>. Sa longueur est la distance entre les centres, \(L\) ; sa hauteur est le diamètre, \(D\).</li>
-<li>À gauche et à droite : deux <strong>demi-disques</strong> de diamètre \(D\). Mis bout à bout, ils font un disque entier.</li>
-<li>La surface totale est la somme des deux.</li>
-</ul>
-<p><strong>Réponse.</strong></p>
+<p><strong>Le calcul.</strong></p>
 \[S = L\,D + \frac{\pi D^2}{4}\]
-\[S = 15 \times 11 + \frac{\pi \times 11^2}{4} = 165 + 95{,}0\]
+\[S = 15 \times 11 + \frac{\pi \times 11^2}{4}\]
+\[S = 165 + 95{,}0\]
 \[S \approx 260\ \text{mm}^2\]
+<p><strong>Réponse.</strong> Environ 260 mm².</p>
 
 <h4>Question 2 : force et pression maximales</h4>
-<p><strong>On te demande.</strong> Avec la documentation commerciale, détermine la force maximale en newtons pour rester dans la zone de mesure, puis la pression maximale en kPa.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> La fiche du capteur dit qu'il mesure de 500 g à 10 kg. Quelle force maximale, en newtons ? Quelle pression maximale, en kPa ?</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>La fiche DT1 donne une <strong>masse</strong> : plage de sensibilité de 500 g à 10 kg (« sensitivity range »), déclenchement à 500 g (« actuation force »). La force correspondante est son poids, \(F = m\,g\), avec \(g = 9{,}81\) m/s².</li>
-<li>Une <strong>pression</strong>, c'est une force répartie sur une surface : \(P = F / S\), en pascals si \(F\) est en newtons et \(S\) en m².</li>
-<li>Conversion : 1 mm² = \(10^{-6}\) m², et 1 kPa = 1 000 Pa.</li>
+<li>La fiche parle en kilogrammes, parce qu'on teste le capteur en posant des masses dessus.</li>
+<li>On convertit la masse en force (le poids), puis on divise par la surface de la question 1, mise en m².</li>
 </ul>
-<p><strong>Comment on raisonne.</strong> La fiche parle en kilogrammes parce qu'on étalonne en posant des masses. Une masse de 10 kg posée sur le capteur appuie avec son poids. Le poids est une force : on le calcule avec \(F = m\,g\). Ensuite, la pression, c'est cette force répartie sur la surface trouvée à la question 1. Attention aux unités : la surface doit être en m² pour obtenir des pascals.</p>
-<p><strong>Réponse.</strong> Force maximale, à 10 kg :</p>
-\[F_{max} = m_{max}\,g\]
+<p><strong>Le calcul.</strong></p>
+\[F_{max} = m\,g\]
 \[F_{max} = 10 \times 9{,}81\]
 \[F_{max} = 98{,}1\ \text{N}\]
-<p>Pression maximale, avec \(S = 260\) mm² \(= 260 \times 10^{-6}\) m² :</p>
 \[P_{max} = \frac{F_{max}}{S}\]
 \[P_{max} = \frac{98{,}1}{260 \times 10^{-6}}\]
-\[P_{max} \approx 377 \times 10^{3}\ \text{Pa} = 377\ \text{kPa}\]
-<p>De la même façon, le seuil bas (500 g) donne 4,9 N, soit environ 19 kPa : en dessous, le capteur ne réagit pas.</p>
+\[P_{max} \approx 377\,000\ \text{Pa} = 377\ \text{kPa}\]
+<p><strong>Réponse.</strong> 98,1 N et 377 kPa. De la même façon, le seuil bas (500 g) donne 4,9 N : en dessous, le capteur ne réagit pas.</p>
 
 <h4>Question 3 : un patient de 70 kg</h4>
-<p><strong>On te demande.</strong> Pour un patient adulte de 70 kg et compte tenu de la géométrie de la semelle, chaque capteur peut-il rester dans sa zone de mesure pendant la marche ?</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Pour un patient de 70 kg, chaque capteur reste-t-il sous son maximum de 98,1 N pendant la marche ?</p>
+<p><strong>Comment on raisonne.</strong> On teste le <strong>pire cas</strong>, pas seulement le cas moyen. En marchant, il y a des instants où un seul pied porte tout le corps, et où seul le talon touche le sol.</p>
+<p><strong>Le calcul.</strong></p>
+\[F = m\,g = 70 \times 9{,}81 = 686{,}7\ \text{N}\]
 <ul>
-<li>Pendant la marche, il y a des instants où <strong>un seul pied</strong> porte tout le poids.</li>
-<li>Ce poids ne se répartit pas également : à l'<strong>attaque du talon</strong>, presque tout passe par les capteurs du talon.</li>
-<li>Une fiche se vérifie pour le pire cas, pas pour le cas moyen.</li>
+<li>cas moyen, le poids réparti sur les 16 capteurs : \(686{,}7 / 16 \approx 43\) N, sous 98,1 N : ça va ;</li>
+<li>pire cas, au contact du talon, 2 capteurs portent tout : \(686{,}7 / 2 \approx 343\) N, plus de trois fois le maximum.</li>
 </ul>
-<p><strong>Comment on raisonne.</strong> On compare la force que reçoit un capteur à sa limite de 98,1 N (question 2), dans deux cas : le cas moyen (le poids réparti sur tous les capteurs), puis le pire cas (le poids concentré sur le talon). Si le pire cas dépasse la limite, la réponse est non.</p>
-<p><strong>Réponse.</strong> Poids du patient :</p>
-\[F = m\,g\]
-\[F = 70 \times 9{,}81\]
-\[F = 686{,}7\ \text{N}\]
-<p>Cas moyen, poids réparti sur les 16 capteurs :</p>
-\[F_{capteur} = \frac{686{,}7}{16} \approx 42{,}9\ \text{N} < 98{,}1\ \text{N}\]
-<p>Dans la plage. Mais à l'attaque du talon, la charge se concentre sur les deux capteurs du talon :</p>
-\[F_{capteur} = \frac{686{,}7}{2} \approx 343\ \text{N} > 98{,}1\ \text{N}\]
-<p>Plus de trois fois la limite : ces capteurs <strong>saturent</strong>, ils lisent 98,1 N au plus.</p>
-<p>Le plan de la semelle (DT1, photo plus haut) le confirme : le talon ne porte que <strong>deux zones sensibles</strong>, sur 48 mm de large.</p>
-<p>Conclusion : non, pas à chaque instant. Ce n'est pas bloquant ici, parce qu'on cherche l'évolution et l'asymétrie de l'appui, pas une mesure absolue. La fiche le dit d'ailleurs : répétabilité de ±10 % à 2 kg, trop peu précis pour une mesure absolue, assez pour un suivi.</p>
+<p><strong>Réponse.</strong> Non, pas toujours : les capteurs du talon <strong>saturent</strong> (ils restent bloqués à leur valeur maximale). Ce n'est pas grave ici : le médecin veut suivre comment l'appui évolue dans le temps, pas une valeur exacte. La fiche le confirme : répétabilité de ±10 %, assez pour un suivi, pas pour une mesure précise.</p>
+
+<h4>Vérifie : le capteur</h4>
+<p><strong>1.</strong> Un sac de 5 kg est posé sur un capteur. Quelle force ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[F = m\,g = 5 \times 9{,}81 = 49{,}05\ \text{N}\]
+</details>
+<p><strong>2.</strong> La même force appuie sur une surface deux fois plus petite. Que devient la pression ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Elle double : \(P = F / S\), et on divise par un nombre deux fois plus petit.</p>
+</details>
+<p><strong>3.</strong> Pourquoi regarde-t-on le talon et pas la moyenne sur les 16 capteurs ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>Parce qu'un capteur doit tenir dans le pire cas. À l'attaque du talon, tout le poids passe par 2 capteurs seulement.</p>
+</details>
 </article>
 
 <div class="fin-partie" data-section="td1"></div>
@@ -179,117 +138,119 @@
 <h2>Le banc : FUTEK LSB200 et INA128</h2>
 
 <article class="notion" id="n-td1-banc">
-<p class="chapeau">Avant de faire confiance aux capteurs de la semelle, on les caractérise sur un banc : un vérin appuie sur un capteur de la semelle, et un capteur de référence, le FUTEK LSB200, mesure la vraie force. Sa sortie fait quelques millivolts : l'amplificateur d'instrumentation INA128 la porte au volt.</p>
+<p class="chapeau">Les capteurs de la semelle ne sont pas très précis. Pour savoir ce qu'ils mesurent vraiment, on appuie dessus avec un capteur de référence très précis, le FUTEK LSB200, et on compare. C'est le banc de test. Son signal est minuscule : un amplificateur, l'INA128, le rend lisible.</p>
+
+<h4>Étape 2 : ce qu'il faut savoir avant</h4>
+<p><strong>Tension, résistance, courant.</strong></p>
+<ul>
+<li>La <strong>tension</strong> \(U\), en volts (V), c'est la « pression électrique » entre deux points.</li>
+<li>Le <strong>courant</strong> \(i\), en ampères (A), c'est ce qui circule.</li>
+<li>Une <strong>résistance</strong> \(R\), en ohms (Ω), freine le courant. <strong>Loi d'Ohm</strong> : \(U = R \times i\).</li>
+</ul>
+<p><strong>Le pont diviseur.</strong> Deux résistances égales en série, entre 5 V et 0 V : au point du milieu, on trouve la moitié, 2,5 V. Si l'une des deux résistances change un peu, la tension du milieu bouge un peu.</p>
+<p><strong>La jauge de contrainte.</strong> Une petite piste résistive collée sur une pièce. Quand la pièce se déforme sous une force, la jauge s'étire (sa résistance monte un tout petit peu) ou se tasse (elle baisse un tout petit peu).</p>
+<p><strong>Amplifier.</strong> Un amplificateur multiplie une tension par un nombre, le <strong>gain</strong> \(G\) : \(V_{sortie} = G \times V_{entrée}\).</p>
 
 <h4>Question 4 : le capteur FUTEK LSB200</h4>
-<p><strong>On te demande.</strong> Propose une représentation schématique du capteur de pression en précisant la signification des 4 fils de connexion. Précise la technologie mise en œuvre.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Dessine le principe du capteur, dis à quoi servent ses 4 fils et quelle technologie il utilise.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Une <strong>jauge de contrainte</strong> est une piste résistive collée sur une pièce : quand la pièce se déforme, la jauge s'allonge ou se raccourcit, et sa résistance change très peu.</li>
-<li>Pour mesurer ce tout petit changement, on monte quatre jauges en <strong>pont de Wheatstone</strong> : un losange de quatre résistances, alimenté par une diagonale, mesuré sur l'autre.</li>
-<li>Sans charge, les quatre jauges sont égales : le pont est <strong>équilibré</strong>, la tension de sortie est nulle.</li>
+<li>À l'intérieur, 4 jauges forment un losange, le <strong>pont de Wheatstone</strong> : c'est en fait deux ponts diviseurs côte à côte, alimentés par le même 5 V.</li>
+<li>Sans force, les deux points milieux sont à 2,5 V : la différence entre eux vaut 0 V.</li>
+<li>Sous une force, deux jauges s'étirent et deux se tassent : un point milieu monte de quelques millivolts, l'autre descend. Leur différence n'est plus nulle : c'est le signal, proportionnel à la force.</li>
+<li>Il faut donc 2 fils pour alimenter le losange, et 2 fils pour lire la différence entre les deux points milieux.</li>
 </ul>
-<p><strong>Comment marche le pont, pas à pas.</strong></p>
-<ul>
-<li>Le pont, ce sont <strong>deux ponts diviseurs</strong> côte à côte, branchés sur la même alimentation de 5 V. Un pont diviseur fait de deux résistances égales donne la moitié de la tension à son point milieu : 2,5 V.</li>
-<li>Sans charge, les deux points milieux sont à 2,5 V. La tension entre eux, celle qu'on mesure, vaut \(2{,}5 - 2{,}5 = 0\) V.</li>
-<li>Sous charge, une jauge d'un diviseur s'allonge (sa résistance monte un peu) et l'autre se raccourcit (elle baisse un peu) : le point milieu glisse de quelques millivolts. Dans l'autre diviseur, les jauges sont placées à l'envers : son point milieu glisse dans l'autre sens.</li>
-<li>La différence entre les deux points milieux n'est plus nulle : quelques millivolts, proportionnels à la force. C'est le signal.</li>
-</ul>
-<p>Pourquoi ce montage : mesurer directement une résistance qui change de 0,1 % est très difficile ; mesurer un écart de tension qui part de zéro est facile, et l'écart double parce que les deux diviseurs bougent en sens contraires.</p>
 <div id="fig-td1-pont"></div>
-<p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> collées sur un corps d'épreuve qui se déforme sous la charge, montées en <strong>pont de Wheatstone complet</strong>.</p>
-<p>Les quatre fils :</p>
-<ul>
-<li><strong>+Excitation</strong> et <strong>−Excitation</strong> : l'alimentation du pont, sur une diagonale (ici 5 V) ;</li>
-<li><strong>+Signal</strong> et <strong>−Signal</strong> : la mesure, sur l'autre diagonale, une tension différentielle de quelques millivolts.</li>
-</ul>
-<p>La fiche DT2 (« wiring code ») donne les couleurs :</p>
+<p><strong>Réponse.</strong> Technologie : des <strong>jauges de contrainte</strong> en <strong>pont de Wheatstone</strong>. Les quatre fils :</p>
 <div class="tableau"><table>
 <tr><th>Fil</th><th>Couleur</th><th>Rôle</th></tr>
-<tr><td>+Excitation</td><td>rouge</td><td>alimentation + du pont (5 V au banc, 10 V au plus)</td></tr>
+<tr><td>+Excitation</td><td>rouge</td><td>alimentation + du pont (5 V)</td></tr>
 <tr><td>−Excitation</td><td>noir</td><td>alimentation − du pont (0 V)</td></tr>
-<tr><td>+Signal</td><td>vert</td><td>sortie + de la mesure</td></tr>
-<tr><td>−Signal</td><td>blanc</td><td>sortie − de la mesure</td></tr>
+<tr><td>+Signal</td><td>vert</td><td>mesure +</td></tr>
+<tr><td>−Signal</td><td>blanc</td><td>mesure −</td></tr>
 </table></div>
-<p>Le blindage du câble est laissé flottant. Résistance du pont : 350 Ω nominal. Sous charge, deux jauges s'allongent et deux se raccourcissent, placées pour que leurs effets s'ajoutent : les deux fils de signal, partis tous deux de 2,5 V, s'écartent. La fiche précise le sens : sortie positive en traction, négative en compression.</p>
+<details class="corrige"><summary>Pour aller plus loin : ce que dit la fiche DT2</summary>
+<p>Résistance du pont : 350 Ω. Blindage du câble laissé flottant. Alimentation de 10 V au plus. Sortie positive en traction, négative en compression.</p>
+</details>
 
 <h4>Question 5 : le modèle FSH00107 convient-il ?</h4>
-<p><strong>On te demande.</strong> Justifie que le modèle FSH00107 du FUTEK LSB200 convient pour caractériser les capteurs de la semelle.</p>
-<p><strong>Ce qu'il faut savoir.</strong> Un capteur de référence doit couvrir toute la plage du capteur qu'on teste, avec de la marge, et travailler dans le même sens (ici en compression).</p>
-<p><strong>Réponse.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Le modèle FSH00107 peut-il servir de référence pour les capteurs de la semelle ?</p>
+<p><strong>Comment on raisonne.</strong> Un capteur de référence doit mesurer au moins jusqu'au maximum de ce qu'on teste, et être bien plus précis.</p>
+<p><strong>Réponse.</strong> Oui :</p>
 <ul>
-<li>Le tableau de DT2 donne pour le FSH00107 une capacité de 100 lb, soit 445 N ; les capteurs de la semelle saturent vers 98,1 N (question 2). Toute leur plage tient dans celle du FUTEK, avec une marge d'environ 4,5 (\(445 / 98{,}1\)).</li>
-<li>On peut même pousser au-delà de 98,1 N pour voir la saturation, sans risque pour le capteur de référence.</li>
-<li>Il travaille en traction et en compression, et un étalonnage en compression est proposé (« calibration available : compression »), comme sur le banc où il appuie sur la semelle.</li>
-<li>Il est bien plus précis que ce qu'il contrôle : non-linéarité ±0,1 %, hystérésis ±0,1 %, non-répétabilité ±0,05 % de la pleine échelle, contre ±10 % de répétabilité pour la semelle (DT1).</li>
-<li>Il est petit (19,1 × 16,5 mm, 9 g) et en acier inoxydable pour les modèles de 25 à 100 lb.</li>
+<li>il va jusqu'à 445 N (100 lb), alors que les capteurs de la semelle s'arrêtent à 98,1 N (question 2) : toute leur plage tient dedans, avec de la marge ;</li>
+<li>il est beaucoup plus précis : environ 0,1 % d'erreur, contre 10 % pour la semelle ;</li>
+<li>il sait mesurer en compression, comme sur le banc où il appuie sur la semelle.</li>
 </ul>
 
 <h4>Question 6 : la caractéristique Vo(P)</h4>
-<p><strong>On te demande.</strong> Le LSB200 est utilisé en compression seulement, sous une excitation de 5 V. Capteur supposé linéaire, \(V_o\) toujours positive : représente \(V_o\) en fonction de \(P\) sur la pleine échelle (445 N).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> Avec une alimentation de 5 V, trace la tension de sortie \(V_o\) en fonction de la force \(P\), de 0 à 445 N.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>La sortie d'un pont de jauges est proportionnelle à l'excitation et à la charge.</li>
-<li>La fiche donne la <strong>sensibilité</strong> \(S\) en mV/V (« rated output », R.O.) : la sortie à pleine échelle, par volt d'excitation. Pour le FSH00107, DT2 donne 2 mV/V.</li>
+<li>La fiche donne la <strong>sensibilité</strong> : 2 mV/V. Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>par volt</strong> d'alimentation.</li>
+<li>Sous 5 V : \(2 \times 5 = 10\) mV à 445 N.</li>
+<li>Le capteur est linéaire : la courbe est une droite qui part de 0. À mi-charge, 5 mV ; à 100 N, \(100 / 445\) de 10 mV.</li>
 </ul>
-<p><strong>Comment on lit « 2 mV/V ».</strong> Cela veut dire : à pleine charge (445 N), le pont sort 2 mV <strong>pour chaque volt</strong> d'alimentation. Avec 5 V, il sort donc \(2 \times 5 = 10\) mV à 445 N. Comme le capteur est linéaire, à mi-charge il sort la moitié, à 100 N il sort \(100 / 445\) de 10 mV, et ainsi de suite : la courbe est une droite qui passe par zéro.</p>
 <div id="fig-td1-vo"></div>
-<p><strong>Réponse.</strong></p>
-\[V_o(P) = S\,V_{exc}\,\frac{P}{445\ \text{N}}\]
-<p>C'est une droite qui part de l'origine (0 N, 0 V) et monte jusqu'à \(V_{o,max}\) à 445 N, avec \(S = 2\) mV/V (DT2) :</p>
-\[V_{o,max} = S\,V_{exc}\]
-\[V_{o,max} = 2 \times 5\]
+<p><strong>Le calcul.</strong></p>
+\[V_{o,max} = S \times V_{exc}\]
+\[V_{o,max} = 2\ \text{mV/V} \times 5\ \text{V}\]
 \[V_{o,max} = 10\ \text{mV}\]
-<p>La fiche donne une sortie négative en compression : l'énoncé demande \(V_o\) positive, ce qui revient à croiser les deux fils de signal (ou à tracer la valeur absolue).</p>
+\[V_o(P) = 10\ \text{mV} \times \frac{P}{445\ \text{N}}\]
+<p><strong>Réponse.</strong> Une droite, de 0 mV à 0 N jusqu'à 10 mV à 445 N.</p>
 
 <h4>Question 7 : le gain de l'INA128</h4>
-<p><strong>On te demande.</strong> Retrouve l'expression du gain de l'INA128. \(R_G\) est fixée pour obtenir 1 V en sortie pour 100 N sur la semelle. Calcule \(R_G\).</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>L'INA128 amplifie la différence entre ses deux entrées ; son gain se règle avec une seule résistance \(R_G\). La fiche du circuit donne \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
-<li>Méthode : on cherche le gain voulu (sortie voulue divisée par l'entrée), puis on retourne la formule pour trouver \(R_G\).</li>
-</ul>
+<p><strong>Ce qu'on te demande.</strong> L'INA128 amplifie le signal du FUTEK. On veut 1 V en sortie quand on appuie avec 100 N. Quel gain ? Quelle résistance \(R_G\) ?</p>
 <p><strong>Comment on raisonne, en trois étapes.</strong></p>
 <ul>
-<li>Combien sort le capteur à 100 N ? C'est la question 6 appliquée à 100 N.</li>
-<li>Combien faut-il multiplier pour obtenir 1 V ? Le gain, c'est sortie voulue divisée par entrée.</li>
-<li>Quelle \(R_G\) donne ce gain ? On isole \(R_G\) dans la formule de la fiche : \(G - 1 = 50\ \text{k}\Omega / R_G\), donc \(R_G = 50\ \text{k}\Omega / (G - 1)\).</li>
+<li>Combien sort le capteur à 100 N ? (question 6)</li>
+<li>Par combien faut-il multiplier pour obtenir 1 V ? C'est le gain.</li>
+<li>Quelle \(R_G\) donne ce gain ? La fiche de l'INA128 donne \(G = 1 + 50\ \text{k}\Omega / R_G\) ; on la retourne.</li>
 </ul>
-<p><strong>Réponse.</strong> Gain de l'INA128 :</p>
-\[G = 1 + \frac{50\ \text{k}\Omega}{R_G}\]
-<p>Sortie du capteur à 100 N (sensibilité de 2 mV/V, question 6) :</p>
-\[V_o(100\ \text{N}) = S\,V_{exc}\,\frac{100}{445}\]
+<p><strong>Le calcul.</strong></p>
 \[V_o(100\ \text{N}) = 10 \times \frac{100}{445}\]
 \[V_o(100\ \text{N}) \approx 2{,}25\ \text{mV}\]
-<p>Gain voulu :</p>
-\[G = \frac{1\ \text{V}}{V_o(100\ \text{N})}\]
-\[G = \frac{1}{2{,}247 \times 10^{-3}}\]
-\[G = 445\]
-<p>Résistance :</p>
+\[G = \frac{1\ \text{V}}{2{,}247\ \text{mV}}\]
+\[G \approx 445\]
 \[R_G = \frac{50\ \text{k}\Omega}{G - 1}\]
 \[R_G = \frac{50\,000}{444}\]
 \[R_G \approx 113\ \Omega\]
+<p><strong>Réponse.</strong> \(G = 445\) et \(R_G \approx 113\ \Omega\).</p>
 
 <h4>Question 8 : le CMR</h4>
-<p><strong>On te demande.</strong> Que signifie CMR dans les spécifications de l'amplificateur d'instrumentation ? Pourquoi utiliser cet amplificateur plutôt qu'un simple montage à amplificateur opérationnel ?</p>
-<p><strong>Ce qu'il faut savoir.</strong> Sur les deux fils de signal, il y a deux choses : ce qui est <strong>commun</strong> aux deux (2,5 V, et les parasites captés de la même façon), et leur <strong>différence</strong> (les millivolts utiles). Un bon amplificateur garde la différence et rejette le commun.</p>
-<p><strong>Réponse.</strong> CMR : <strong>Common-Mode Rejection</strong>, réjection du mode commun, en dB. C'est la capacité à amplifier la différence entre les deux entrées tout en ignorant ce qu'elles ont en commun.</p>
-<p>Ici, les deux fils sont tous deux vers 2,5 V et ne diffèrent que de quelques millivolts. Ce que l'INA128 apporte face à un amplificateur différentiel à un seul AOP :</p>
+<p><strong>Ce qu'on te demande.</strong> Que veut dire CMR ? Pourquoi un amplificateur d'instrumentation plutôt qu'un simple AOP ?</p>
+<p><strong>Comment on raisonne.</strong> Sur les deux fils de mesure, il y a deux choses mélangées :</p>
 <ul>
-<li>une réjection du mode commun bien plus forte, qui ne dépend pas de l'appariement de quatre résistances ;</li>
-<li>une impédance d'entrée très élevée, qui ne charge pas le pont ;</li>
-<li>un gain réglé par une seule résistance \(R_G\).</li>
+<li>ce qui est <strong>commun</strong> aux deux : environ 2,5 V chacun, plus les parasites captés pareil par les deux fils ;</li>
+<li>leur <strong>différence</strong> : les quelques millivolts utiles.</li>
 </ul>
-<p>Ordre de grandeur avec la fiche DT3 : CMR de 120 dB au minimum. Les décibels sont une échelle logarithmique : un rapport \(r\) vaut \(20 \log_{10} r\) dB. On remonte au rapport :</p>
+<p>Il faut un amplificateur qui garde la différence et ignore le commun.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>CMR : <strong>Common-Mode Rejection</strong>, réjection du mode commun : la capacité à ignorer ce qui est commun aux deux entrées.</li>
+<li>L'INA128 le fait très bien (120 dB, soit un rapport d'un million : les 2,5 V communs ne pèsent plus que 2,5 µV), ne perturbe pas le pont, et son gain se règle avec une seule résistance.</li>
+<li>Un simple AOP le fait beaucoup moins bien.</li>
+</ul>
+<details class="corrige"><summary>Pour aller plus loin : des décibels au rapport</summary>
+<p>Un rapport \(r\) vaut \(20 \log_{10} r\) décibels.</p>
 \[20 \log_{10} r = 120\]
-\[\log_{10} r = 6\]
 \[r = 10^{6}\]
-<p>Le mode commun est donc divisé par un million avant d'arriver en sortie :</p>
-\[V_{erreur} = \frac{V_{mode\ commun}}{10^{CMR/20}}\]
-\[V_{erreur} = \frac{2{,}5}{10^{6}}\]
-\[V_{erreur} = 2{,}5\ \mu\text{V}\]
-<p>Les 2,5 V communs ne pèsent pas plus que 2,5 µV de signal utile, mille fois moins que les 2,25 mV mesurés à 100 N.</p>
+\[\frac{2{,}5\ \text{V}}{10^{6}} = 2{,}5\ \mu\text{V}\]
+</details>
+
+<h4>Vérifie : le banc</h4>
+<p><strong>1.</strong> Sous 10 V d'alimentation, combien sort le FUTEK à pleine charge (2 mV/V) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[2 \times 10 = 20\ \text{mV}\]
+</details>
+<p><strong>2.</strong> Sans aucune force, que vaut la tension entre les deux fils de mesure ? Pourquoi ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>0 V : les deux points milieux du pont sont tous les deux à 2,5 V.</p>
+</details>
+<p><strong>3.</strong> On veut un gain de 101 avec l'INA128. Quelle \(R_G\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[R_G = \frac{50\,000}{101 - 1} = 500\ \Omega\]
+</details>
 </article>
 
 <div class="fin-partie" data-section="td1-banc"></div>
@@ -299,127 +260,101 @@
 <h2>Le montage de mesure</h2>
 
 <article class="notion" id="n-td1-montage">
-<p class="chapeau">Sur la semelle, chaque réseau de 8 capteurs passe par un multiplexeur, puis par un montage à AOP qui transforme la résistance du capteur choisi en une tension \(V_A\), lue par l'ADC. Il faut d'abord un modèle du capteur, puis comprendre le circuit de la figure 5.</p>
+<p class="chapeau">Le capteur de la semelle change de résistance quand on appuie. Mais le microcontrôleur ne sait lire qu'une tension. Le montage de la figure 5 fait la traduction : un multiplexeur choisit un capteur parmi 8, puis un AOP transforme sa résistance en une tension \(V_A\), que l'ADC lit.</p>
+
+<h4>Étape 3 : ce qu'il faut savoir avant</h4>
+<p>Quatre règles suffisent pour toute la figure 5.</p>
+<ul>
+<li><strong>Loi d'Ohm</strong> : \(U = R \times i\), donc \(i = U / R\).</li>
+<li><strong>Le courant se conserve</strong> : à un point du circuit, tout le courant qui arrive repart. S'il n'a qu'un chemin, il le prend en entier.</li>
+<li><strong>Pont diviseur</strong> : deux résistances \(R_A\) (en haut) et \(R_B\) (en bas) entre \(V_{DD}\) et la masse. Au milieu : \(V = V_{DD} \times R_B / (R_A + R_B)\), tant que rien ne prend de courant au milieu.</li>
+<li><strong>AOP idéal</strong> (amplificateur opérationnel, le triangle) : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et comme sa sortie est reliée à l'entrée \(-\), il règle sa sortie pour que \(V^- = V^+\).</li>
+</ul>
+<p>Deux autres notions :</p>
+<ul>
+<li><strong>Binaire</strong> : S3 S2 S1 = 1 0 1 se lit \(4 + 0 + 1 = 5\). S1 vaut 1, S2 vaut 2, S3 vaut 4.</li>
+<li>Une barre sur un nom (/E) veut dire « actif quand il vaut 0 ».</li>
+</ul>
 
 <h4>Question 9 : le modèle du capteur</h4>
-<p><strong>On te demande.</strong> La caractéristique d'un capteur (document réponse DR1) se modélise par \(R_{FSR}(F) = R_0 + \beta / F\). Avec des points bien choisis, détermine \(R_0\) et \(\beta\) avec leurs unités, puis vérifie le modèle sur d'autres points.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> La courbe du capteur (DR1) se résume par \(R_{FSR}(F) = R_0 + \beta / F\). Trouve \(R_0\) et \(\beta\).</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Deux inconnues : il faut deux équations, donc deux points de la courbe. On les prend éloignés (un à faible force, un à forte force) pour limiter l'erreur de lecture.</li>
-<li>Chaque terme d'une somme a la même unité : si \(R_{FSR}\) est en ohms, \(\beta / F\) aussi.</li>
-<li>Tracé en fonction de \(1/F\), le modèle devient une <strong>droite</strong> : c'est le moyen le plus simple de le vérifier.</li>
+<li>Deux inconnues : il faut deux équations, donc deux points lus sur la courbe. On les prend éloignés : 1 N et 100 N.</li>
+<li>On écrit le modèle pour chaque point, puis on soustrait : \(R_0\) disparaît, il ne reste que \(\beta\).</li>
+<li>Attention, la courbe DR1 est en échelles logarithmiques : de 1 à 10, de 10 à 100, chaque décade a la même longueur.</li>
 </ul>
-<div id="fig-td1-fsr"></div>
-<p><strong>Réponse.</strong> Attention, DR1 est tracé en échelles <strong>logarithmiques</strong> sur les deux axes : chaque décade (de 1 à 10, de 10 à 100) a la même longueur. Lecture de la courbe :</p>
 <div class="tableau"><table>
 <tr><th>F (N)</th><td>0,5</td><td>1</td><td>2</td><td>5</td><td>10</td><td>20</td><td>50</td><td>100</td><td>400</td></tr>
 <tr><th>R lue (kΩ)</th><td>1 250</td><td>700</td><td>375</td><td>198</td><td>134</td><td>102</td><td>83</td><td>77</td><td>71</td></tr>
 </table></div>
-<p>Unités :</p>
-<ul>
-<li>\(R_0\) en ohms : la résistance vers laquelle tend le capteur aux fortes charges ;</li>
-<li>\(\beta\) en ohms-newtons (Ω·N), pour que \(\beta / F\) soit en ohms.</li>
-</ul>
-<p>Avec deux points \((F_1, R_1)\) et \((F_2, R_2)\), on écrit \(R_1 = R_0 + \beta / F_1\) et \(R_2 = R_0 + \beta / F_2\). En soustrayant, \(R_0\) disparaît :</p>
-\[\beta = \frac{R_1 - R_2}{\dfrac{1}{F_1} - \dfrac{1}{F_2}}\]
-\[R_0 = R_1 - \frac{\beta}{F_1}\]
-<p>Points choisis, éloignés et faciles à lire : \(F_1 = 1\) N, \(R_1 = 700\) kΩ, et \(F_2 = 100\) N, \(R_2 = 77\) kΩ.</p>
-\[\beta = \frac{700 - 77}{\dfrac{1}{1} - \dfrac{1}{100}}\]
-\[\beta = \frac{623}{0{,}99}\]
-\[\beta \approx 629\ \text{k}\Omega \cdot \text{N} \approx 6{,}3 \times 10^{5}\ \Omega \cdot \text{N}\]
-\[R_0 = 700 - \frac{629}{1}\]
+<div id="fig-td1-fsr"></div>
+<p><strong>Le calcul.</strong> À 1 N : \(700 = R_0 + \beta / 1\). À 100 N : \(77 = R_0 + \beta / 100\). On soustrait :</p>
+\[700 - 77 = \beta \times \left(1 - \frac{1}{100}\right)\]
+\[623 = 0{,}99\,\beta\]
+\[\beta \approx 629\ \text{k}\Omega \cdot \text{N}\]
+\[R_0 = 700 - 629\]
 \[R_0 \approx 71\ \text{k}\Omega\]
-<p>Vérification sur d'autres points :</p>
-<div class="tableau"><table>
-<tr><th>F (N)</th><th>R lue (kΩ)</th><th>\(R_0 + \beta / F\) (kΩ)</th><th>Écart</th></tr>
-<tr><td>5</td><td>198</td><td>197</td><td>moins de 1 %</td></tr>
-<tr><td>10</td><td>134</td><td>134</td><td>moins de 1 %</td></tr>
-<tr><td>20</td><td>102</td><td>102</td><td>moins de 1 %</td></tr>
-<tr><td>400</td><td>71</td><td>72</td><td>moins de 2 %</td></tr>
-<tr><td>0,5</td><td>1 250</td><td>1 330</td><td>environ 7 %</td></tr>
-</table></div>
-<p>Le modèle colle très bien de 2 à 400 N. Il s'écarte un peu à 0,5 N, juste au seuil de déclenchement du capteur : c'est sans importance pour le suivi de la marche. Les valeurs dépendent de ta lecture de la courbe, à quelques pour cent près.</p>
+<p><strong>Réponse.</strong> \(R_0 \approx 71\) kΩ (la résistance vers laquelle tend le capteur quand on appuie très fort) et \(\beta \approx 629\) kΩ·N. Vérification : à 10 N, \(71 + 629 / 10 = 134\) kΩ, exactement la valeur lue.</p>
 
 <h4>Question 10 : un multiplexeur parfait</h4>
-<p><strong>On te demande.</strong> Le multiplexeur analogique est considéré comme parfait. Explique cette hypothèse.</p>
-<p><strong>Ce qu'il faut savoir.</strong> Un <strong>multiplexeur analogique</strong> est un aiguillage : il relie une seule de ses 8 entrées \(Y_0\) à \(Y_7\) à sa sortie commune \(Z\), selon le nombre binaire écrit sur S3 S2 S1. C'est un ensemble d'interrupteurs électroniques, dont un seul est fermé.</p>
-<p><strong>Réponse.</strong> « Parfait » veut dire :</p>
-<ul>
-<li>la voie sélectionnée est un fil parfait : résistance nulle à l'état passant, donc \(Z = Y_k\) ;</li>
-<li>les voies non sélectionnées sont des circuits ouverts : résistance infinie, aucun courant de fuite ;</li>
-<li>le passage d'une voie à l'autre est instantané.</li>
-</ul>
-<p>La fiche DT4 justifie l'hypothèse : c'est un multiplexeur « low-ohmic », de résistance à l'état passant 0,5 Ω typique pour \(V_{CC}\) entre 2,7 V et 4,3 V (ici 3,3 V). Devant le capteur, qui ne descend pas sous 71 kΩ (question 9), c'est plus de cent mille fois plus petit : négligeable. Elle note aussi un passage « break-before-make » : l'ancienne voie s'ouvre avant que la nouvelle se ferme, jamais deux capteurs reliés en même temps.</p>
-
-<h4>Question 11 : l'entrée /E</h4>
-<p><strong>On te demande.</strong> Le NX3L4051 a une entrée /E non représentée. Comment la câbler ?</p>
-<p><strong>Ce qu'il faut savoir.</strong> Une barre sur le nom d'une broche (/E, \(\overline{E}\)) signale une entrée <strong>active au niveau bas</strong> : elle agit quand on y met 0. E signifie « enable », mise en service.</p>
+<p><strong>Ce qu'on te demande.</strong> Que veut dire « multiplexeur parfait » ?</p>
+<p><strong>Comment on raisonne.</strong> Un multiplexeur est un aiguillage : il relie une seule de ses 8 entrées (\(Y_0\) à \(Y_7\)) à sa sortie Z, selon le nombre écrit sur S3 S2 S1. « Parfait » veut dire qu'il n'abîme pas le signal.</p>
 <p><strong>Réponse.</strong></p>
 <ul>
-<li>D'après la table de fonctionnement de DT4 : /E au niveau bas (L), la voie choisie par S3 S2 S1 est reliée à Z ; /E au niveau haut (H), tous les interrupteurs sont ouverts, quelles que soient S1 à S3.</li>
-<li>On la relie à la masse (0 V) : le multiplexeur est toujours actif, et seules S1 à S3 choisissent la voie.</li>
-<li>Variante : la relier à une sortie du microcontrôleur, pour couper le multiplexeur entre deux mesures.</li>
+<li>la voie choisie est un fil parfait (résistance nulle) ;</li>
+<li>les autres voies sont complètement coupées ;</li>
+<li>il passe d'une voie à l'autre instantanément.</li>
 </ul>
+<p>C'est réaliste : sa résistance réelle (0,5 Ω) est négligeable devant le capteur (au moins 71 kΩ).</p>
+
+<h4>Question 11 : l'entrée /E</h4>
+<p><strong>Ce qu'on te demande.</strong> Le multiplexeur a une entrée /E qui n'est pas dessinée. Où la brancher ?</p>
+<p><strong>Comment on raisonne.</strong> E veut dire « enable », mettre en marche. La barre veut dire qu'il est en marche quand /E vaut 0.</p>
+<p><strong>Réponse.</strong> On relie /E à la <strong>masse</strong> (0 V) : le multiplexeur est toujours en marche.</p>
 
 <h4>Question 12 : l'expression de VA</h4>
-<p><strong>On te demande.</strong> En continu, avec S1, S2 et S3 à l'état haut, exprime \(V_A\). Détermine ses variations quand la force va de 0,5 N à 100 N et valide le dimensionnement. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
-<p><strong>Les bases d'électronique pour lire la figure 5.</strong> Quatre règles suffisent :</p>
-<ul>
-<li><strong>Loi d'Ohm</strong> : une résistance \(R\) traversée par un courant \(i\) a une tension \(U = R\,i\) à ses bornes. Donc \(i = U / R\).</li>
-<li><strong>Le courant se conserve</strong> : le courant qui arrive à un point du circuit en repart en entier. Si un seul chemin s'offre à lui, tout le courant le prend.</li>
-<li><strong>Pont diviseur</strong> : deux résistances en série entre \(V_{DD}\) et la masse. Le même courant les traverse, \(i = V_{DD} / (R_A + R_B)\), et la tension au milieu vaut \(R_B\,i\), soit \(V_{DD}\,R_B / (R_A + R_B)\). Valable seulement si rien ne tire de courant au point milieu.</li>
-<li><strong>AOP idéal en régime linéaire</strong> : aucun courant n'entre dans ses entrées \(+\) et \(-\) ; et, parce que sa sortie est reliée à l'entrée \(-\) (par \(R_G\)), il ajuste sa sortie pour que \(V^- = V^+\).</li>
-</ul>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>Le code S3 S2 S1 se lit en binaire, S1 étant le bit de poids faible : 111 vaut 7, donc la voie \(Y_7\).</li>
-<li><strong>En continu</strong>, un condensateur ne laisse passer aucun courant : \(C_F\) est un circuit ouvert.</li>
-<li>Un <strong>pont diviseur</strong> donne \(V = V_{DD}\,R_B / (R_A + R_B)\) quand rien d'autre ne tire de courant sur son point milieu.</li>
-<li>AOP parfait en régime linéaire : \(V^- = V^+\), et aucun courant n'entre dans ses entrées.</li>
-<li>L'ADC lit de 0 à 3,3 V : au-delà, il sature.</li>
-</ul>
-<div id="fig-td1"></div>
-<p><strong>Comment on trouve \(V_A\), en cinq étapes.</strong> Avance dans la figure en même temps que tu lis.</p>
+<p><strong>Ce qu'on te demande.</strong> S1, S2, S3 sont à 1. Trouve la formule de \(V_A\), puis vérifie qu'elle reste dans la plage de l'ADC (0 à 3,3 V) quand la force va de 0,5 N à 100 N. Données : \(V_{DD} = 3{,}3\) V, \(R_A = 110\) kΩ, \(R_B = 10\) kΩ, \(R_G = 750\) kΩ.</p>
+<p><strong>Comment on raisonne, en cinq étapes.</strong> Avance dans la figure en même temps.</p>
 <div id="fig-td1-etapes"></div>
 <ul>
-<li><strong>Étape 1, quel capteur ?</strong> S3 S2 S1 = 111 vaut 7 : le multiplexeur relie \(Y_7\), donc \(R_{FSR8}\), entre l'entrée \(-\) et la masse. Les sept autres capteurs sont débranchés : on les oublie.</li>
-<li><strong>Étape 2, l'entrée \(+\).</strong> Elle est au milieu du pont \(R_A\), \(R_B\). Aucun courant n'entre dans l'AOP, donc la formule du pont diviseur s'applique.</li>
-<li><strong>Étape 3, l'entrée \(-\).</strong> L'AOP fait \(V^- = V^+\) : l'entrée \(-\) est aussi à 0,275 V.</li>
-<li><strong>Étape 4, le courant.</strong> \(R_{FSR8}\) est entre l'entrée \(-\) (0,275 V) et la masse (0 V) : par la loi d'Ohm, il est traversé par \(i = V^- / R_{FSR8}\). Ce courant vient du point \(-\). Il ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient forcément de la sortie, à travers \(R_G\). Le même \(i\) traverse donc \(R_G\).</li>
-<li><strong>Étape 5, la sortie.</strong> En partant de l'entrée \(-\) et en remontant \(R_G\) vers la sortie, on ajoute la tension aux bornes de \(R_G\), soit \(R_G\,i\) : \(V_A = V^- + R_G\,i\).</li>
+<li><strong>1. Quel capteur ?</strong> S3 S2 S1 = 111 vaut \(4 + 2 + 1 = 7\) : la voie \(Y_7\), le capteur \(R_{FSR8}\). Il est branché entre l'entrée \(-\) et la masse.</li>
+<li><strong>2. L'entrée +.</strong> Elle est au milieu du pont \(R_A\), \(R_B\) : on applique la formule du pont diviseur.</li>
+<li><strong>3. L'entrée −.</strong> L'AOP fait \(V^- = V^+\).</li>
+<li><strong>4. Le courant.</strong> Le capteur a \(V^-\) d'un côté et 0 V de l'autre : il est traversé par \(i = V^- / R_{FSR8}\). Ce courant ne peut pas venir de l'AOP (aucun courant dans ses entrées) : il vient de la sortie, à travers \(R_G\).</li>
+<li><strong>5. La sortie.</strong> En remontant \(R_G\), on ajoute sa tension \(R_G \times i\) : \(V_A = V^- + R_G\,i\).</li>
 </ul>
-<p>\(C_F\) n'apparaît pas : en continu, un condensateur ne laisse passer aucun courant, c'est un fil coupé.</p>
-<p><strong>Réponse.</strong> S3 S2 S1 = 111 : c'est 7 en binaire, la voie \(Y_7\), donc le capteur \(R_{FSR8}\).</p>
-<p>L'entrée + est fixée par le pont \(R_A\), \(R_B\) :</p>
+<p>\(C_F\) n'apparaît pas : en continu, un condensateur est un fil coupé.</p>
+<p><strong>Le calcul.</strong></p>
 \[V^+ = V_{DD}\,\frac{R_B}{R_A + R_B}\]
-\[V^+ = 3{,}3 \times \frac{10}{110 + 10}\]
+\[V^+ = 3{,}3 \times \frac{10}{120}\]
 \[V^+ = 0{,}275\ \text{V}\]
-<p>Comme \(V^- = V^+\), le capteur, qui relie \(V^-\) à la masse, est traversé par \(i = V^+ / R_{FSR8}\). Aucun courant n'entre dans l'AOP : ce même courant traverse \(R_G\), d'où :</p>
-\[V_A = V^- + R_G\,i\]
-\[V_A = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
+\[V_A = V^- + R_G\,i = V^+ + R_G\,\frac{V^+}{R_{FSR8}}\]
 \[V_A = V^+\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
-\[V_A = V_{DD}\,\frac{R_B}{R_A + R_B}\left(1 + \frac{R_G}{R_{FSR8}}\right)\]
-<p>Exemple pour fixer les idées : avec \(R_{FSR8} = 250\) kΩ, \(i = 0{,}275 / 250\,000 = 1{,}1\ \mu\)A, et \(V_A = 0{,}275 + 750\,000 \times 1{,}1 \times 10^{-6} = 0{,}275 + 0{,}825 = 1{,}1\) V.</p>
-<p>Avec le modèle de la question 9 :</p>
-\[V_A(F) = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_0 + \beta / F}\right)\]
-<p>Variations :</p>
-<ul>
-<li>à 0,5 N, \(R_{FSR}\) est très grande : \(V_A\) reste un peu au-dessus de 0,275 V ;</li>
-<li>quand la force monte, \(R_{FSR}\) baisse et \(V_A\) monte ;</li>
-<li>à 100 N, \(R_{FSR}\) est la plus faible : \(V_A\) est maximale.</li>
-</ul>
-<p><strong>Comment on vérifie le dimensionnement.</strong> \(V_A\) est la plus grande quand \(R_{FSR}\) est la plus petite, donc à la force la plus forte (100 N). On cherche la plus petite résistance qui garde \(V_A\) sous 3,3 V, puis on regarde sur la courbe DR1 si le capteur reste au-dessus.</p>
-<p>Pour que l'ADC ne sature pas, il faut \(V_A \le 3{,}3\) V :</p>
-\[1 + \frac{R_G}{R_{FSR}} \le \frac{3{,}3}{0{,}275} = 12\]
-\[R_{FSR}(100\ \text{N}) \ge \frac{750}{11} \approx 68{,}2\ \text{k}\Omega\]
-<p>La courbe DR1 donne 77 kΩ à 100 N, au-dessus de 68,2 kΩ : pas de saturation. Valeurs extrêmes, avec les résistances lues sur DR1 :</p>
-\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right)\]
-\[V_A(0{,}5\ \text{N}) = 0{,}275 \times 1{,}6\]
-\[V_A(0{,}5\ \text{N}) = 0{,}44\ \text{V}\]
-\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right)\]
-\[V_A(100\ \text{N}) = 0{,}275 \times 10{,}74\]
-\[V_A(100\ \text{N}) \approx 2{,}95\ \text{V}\]
-<p>Le dimensionnement est validé : \(V_A\) va de 0,44 V à 2,95 V, dans la plage de l'ADC (0 à 3,3 V), avec une marge en haut. Le décalage de 0,275 V éloigne la sortie de 0 V, que l'AOP alimenté en 3,3 V seul atteint mal.</p>
+\[V_A = 0{,}275 \times \left(1 + \frac{750\ \text{k}\Omega}{R_{FSR8}}\right)\]
+<p>Les deux extrêmes, avec les résistances lues sur la courbe :</p>
+\[V_A(0{,}5\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{1\,250}\right) = 0{,}44\ \text{V}\]
+\[V_A(100\ \text{N}) = 0{,}275 \times \left(1 + \frac{750}{77}\right) \approx 2{,}95\ \text{V}\]
+<p><strong>Réponse.</strong> \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR8}}\right)\). Plus on appuie, plus \(R_{FSR}\) baisse, plus \(V_A\) monte : de 0,44 V à 2,95 V, toujours sous 3,3 V. Le dimensionnement est bon, l'ADC ne sature pas.</p>
+<p>Le montage complet, avec ses 8 capteurs : change S1, S2, S3 et la résistance du capteur choisi.</p>
+<div id="fig-td1"></div>
+<details class="corrige"><summary>Pour aller plus loin : la résistance limite</summary>
+<p>La limite : \(V_A\) atteint 3,3 V quand \(1 + R_G / R_{FSR} = 12\), soit \(R_{FSR} = 750 / 11 \approx 68{,}2\) kΩ. Le capteur ne descend pas sous 71 kΩ : pas de saturation.</p>
+</details>
+
+<h4>Vérifie : le montage</h4>
+<p><strong>1.</strong> S3 S2 S1 = 011 : quel capteur est choisi ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>011 = 0 + 2 + 1 = 3 : la voie \(Y_3\), le capteur \(R_{FSR4}\).</p>
+</details>
+<p><strong>2.</strong> Que vaut \(V_A\) quand personne n'appuie (résistance du capteur énorme) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(R_G / R_{FSR}\) tend vers 0, donc \(V_A \approx V^+ = 0{,}275\) V.</p>
+</details>
+<p><strong>3.</strong> Avec \(R_{FSR} = 150\) kΩ, que vaut \(V_A\) ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+\[V_A = 0{,}275 \times \left(1 + \frac{750}{150}\right) = 0{,}275 \times 6 = 1{,}65\ \text{V}\]
+</details>
 </article>
 
 <div class="fin-partie" data-section="td1-montage"></div>
@@ -429,80 +364,80 @@
 <h2>Cadence, débit et filtre</h2>
 
 <article class="notion" id="n-td1-acquisition">
-<p class="chapeau">Le microcontrôleur lit les 8 capteurs d'un réseau l'un après l'autre, en boucle. À quelle vitesse faut-il tourner pour ne rien rater d'un pas ? Combien de bits cela fait-il ? Et comment filtrer sans ralentir la lecture ?</p>
+<p class="chapeau">Un seul ADC lit les 8 capteurs d'un réseau, l'un après l'autre, en boucle. Il faut tourner assez vite pour ne rien rater d'un pas, savoir combien de bits cela produit, et filtrer le bruit sans ralentir la lecture.</p>
+
+<h4>Étape 4 : ce qu'il faut savoir avant</h4>
+<ul>
+<li><strong>Fréquence d'échantillonnage</strong> \(f_e\) : combien de fois par seconde on mesure un même capteur, en hertz (Hz). Sa <strong>période</strong> \(T_e = 1 / f_e\) est le temps entre deux mesures du même capteur.</li>
+<li><strong>Débit binaire</strong> : combien de bits on produit par seconde. Chaque mesure de l'ADC fait \(n\) bits (ici 8).</li>
+<li><strong>Constante de temps</strong> \(\tau = R \times C\) : avec un condensateur, une tension ne saute pas d'un coup, elle glisse vers sa nouvelle valeur. Après \(\tau\), elle a fait 63 % du chemin ; après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
+</ul>
 
 <h4>Question 13 : chronogramme et débit</h4>
-<p><strong>On te demande.</strong> Représente S1 à S3 pour une acquisition correcte : une marche intense fait 120 pas par minute, un pas demande au moins 20 points de mesure. L'ADC travaille sur 8 bits : déduis le débit binaire.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
-<ul>
-<li>La <strong>fréquence d'échantillonnage</strong> \(f_e\) est le nombre de mesures par seconde pour un capteur ; la période \(T_e = 1 / f_e\) sépare deux mesures du même capteur.</li>
-<li>Avec un multiplexeur, les 8 capteurs se partagent \(T_e\) : chacun n'a qu'un huitième du temps.</li>
-<li>S3 S2 S1 forment un compteur binaire : S1 (poids faible) change le plus souvent, S3 le moins souvent.</li>
-<li><strong>Débit binaire</strong> : nombre de bits produits par seconde = nombre de capteurs × mesures par seconde × bits par mesure.</li>
-</ul>
+<p><strong>Ce qu'on te demande.</strong> Une marche intense fait 120 pas par minute. Pour bien décrire un pas, il faut au moins 20 mesures par pas. À quel rythme changer S1, S2, S3 ? Quel débit binaire (ADC 8 bits, 16 capteurs) ?</p>
 <p><strong>Comment on raisonne.</strong></p>
 <ul>
 <li>120 pas par minute, c'est 2 pas par seconde.</li>
-<li>Chaque pas doit être décrit par 20 mesures : chaque capteur doit donc être lu \(2 \times 20 = 40\) fois par seconde.</li>
-<li>Un seul ADC lit les 8 capteurs l'un après l'autre : il doit faire le tour des 8 capteurs 40 fois par seconde. Chaque capteur n'a qu'un huitième de la période.</li>
-<li>Pour passer d'un capteur au suivant, le microcontrôleur ajoute 1 au code S3 S2 S1 : c'est un compteur binaire.</li>
+<li>20 mesures par pas : chaque capteur doit être lu \(2 \times 20 = 40\) fois par seconde.</li>
+<li>Le multiplexeur fait le tour des 8 capteurs 40 fois par seconde : un tour dure \(1 / 40 = 25\) ms, et chaque capteur n'a qu'un huitième de ce temps.</li>
+<li>Pour passer au capteur suivant, on ajoute 1 au nombre S3 S2 S1 : 000, 001, 010… 111, puis on recommence. S1 change à chaque fois, S2 deux fois moins souvent, S3 quatre fois moins souvent.</li>
 </ul>
-<p><strong>Réponse.</strong> Fréquence d'échantillonnage d'un capteur :</p>
-\[f_e = \frac{120\ \text{pas}}{60\ \text{s}} \times 20\ \text{points}\]
-\[f_e = 2 \times 20\]
-\[f_e = 40\ \text{Hz, soit } T_e = 25\ \text{ms}\]
-<p>Les 8 capteurs d'un réseau passent l'un après l'autre en 25 ms : chaque voie dure</p>
-\[t_{voie} = \frac{T_e}{8}\]
-\[t_{voie} = \frac{25}{8}\]
-\[t_{voie} = 3{,}125\ \text{ms}\]
+<p><strong>Le calcul.</strong></p>
+\[f_e = 2\ \text{pas/s} \times 20 = 40\ \text{Hz}\]
+\[T_e = \frac{1}{40} = 25\ \text{ms}\]
+\[t_{voie} = \frac{25}{8} = 3{,}125\ \text{ms}\]
 <div id="fig-td1-chrono"></div>
-<p>S3 S2 S1 compte en binaire de 000 à 111, puis recommence :</p>
-<ul>
-<li>S1 change toutes les 3,125 ms : période 6,25 ms ;</li>
-<li>S2 change toutes les 6,25 ms : période 12,5 ms ;</li>
-<li>S3 change toutes les 12,5 ms : période 25 ms.</li>
-</ul>
-<p>Débit, pour les 16 capteurs (les deux réseaux) :</p>
 \[D = N \times f_e \times n\]
 \[D = 16 \times 40 \times 8\]
 \[D = 5\,120\ \text{bit/s}\]
-<p>Soit 2 560 bit/s pour un seul réseau de 8 capteurs.</p>
+<p><strong>Réponse.</strong></p>
+<ul>
+<li>chaque capteur dure 3,125 ms ;</li>
+<li>S1 change toutes les 3,125 ms, S2 toutes les 6,25 ms, S3 toutes les 12,5 ms ;</li>
+<li>débit : 5 120 bit/s pour les 16 capteurs.</li>
+</ul>
 
 <h4>Question 14 : le condensateur CF</h4>
-<p><strong>On te demande.</strong> Quel est le rôle de \(C_F\) ? Propose un dimensionnement.</p>
-<p><strong>Ce qu'il faut savoir.</strong></p>
+<p><strong>Ce qu'on te demande.</strong> À quoi sert \(C_F\) (en parallèle sur \(R_G\)) ? Choisis sa valeur.</p>
+<p><strong>Comment on raisonne.</strong></p>
 <ul>
-<li>Un condensateur laisse passer les signaux rapides et bloque le continu. En parallèle sur \(R_G\), il « court-circuite » \(R_G\) aux hautes fréquences : le montage devient un <strong>filtre passe-bas</strong>, de fréquence de coupure \(f_c = 1 / (2\pi R_G C_F)\).</li>
-<li>Un circuit RC met du temps à suivre un saut de tension : on le considère stabilisé après environ \(5\tau\), avec \(\tau = R_G C_F\).</li>
-<li>À chaque changement de voie, \(V_A\) saute d'une valeur à l'autre.</li>
+<li>Un condensateur laisse passer les variations rapides : en parallèle sur \(R_G\), il « court-circuite » \(R_G\) pour le bruit rapide. Le montage devient un <strong>filtre passe-bas</strong> : il garde le signal lent (la marche) et enlève le bruit.</li>
+<li>Mais il ralentit aussi la sortie : quand le multiplexeur change de capteur, \(V_A\) met environ \(5\tau = 5 R_G C_F\) à atteindre la nouvelle valeur.</li>
+<li>Il faut que ce temps tienne dans le temps d'un capteur (3,125 ms), sinon on lit une valeur mélangée avec celle du capteur précédent.</li>
 </ul>
 <div id="fig-td1-cf"></div>
-<p><strong>Ce que veut dire « se stabiliser ».</strong> Avec \(C_F\), la sortie ne saute pas d'un coup quand on change de capteur : elle glisse vers sa nouvelle valeur, comme un condensateur qui se charge. La vitesse de ce glissement est donnée par la <strong>constante de temps</strong> \(\tau = R_G\,C_F\) :</p>
-<ul>
-<li>après \(\tau\), la sortie a fait 63 % du chemin ;</li>
-<li>après \(3\tau\), 95 % ;</li>
-<li>après \(5\tau\), plus de 99 % : on la considère arrivée.</li>
-</ul>
-<p>Il faut donc que \(5\tau\) tienne dans le temps d'une voie (3,125 ms), sinon on lit une valeur à moitié arrivée, mélangée avec celle du capteur précédent.</p>
-<p><strong>Réponse.</strong> Rôle : \(C_F\) fait un filtre passe-bas qui coupe le bruit et les parasites, sans toucher au signal de marche, qui est lent (quelques hertz).</p>
-\[f_c = \frac{1}{2\pi R_G C_F}\]
-<p>Limite : le multiplexeur change de voie toutes les 3,125 ms. La sortie doit se stabiliser sur la nouvelle voie avant la conversion :</p>
-\[5\,R_G C_F \le 3{,}125\ \text{ms}\]
+<p><strong>Le calcul.</strong></p>
+\[5\,R_G\,C_F \le 3{,}125\ \text{ms}\]
 \[C_F \le \frac{3{,}125 \times 10^{-3}}{5 \times 750 \times 10^{3}}\]
 \[C_F \le 0{,}83\ \text{nF}\]
-<p>Une proposition : \(C_F = 470\) pF.</p>
+<p><strong>Réponse.</strong> \(C_F\) filtre le bruit. Il doit rester sous 0,83 nF ; on choisit <strong>470 pF</strong> : la sortie se pose en 1,8 ms, et le filtre coupe au-dessus d'environ 450 Hz, bien au-dessus du rythme de la marche.</p>
+<details class="corrige"><summary>Pour aller plus loin : la fréquence de coupure</summary>
+\[f_c = \frac{1}{2\pi R_G C_F}\]
 \[f_c = \frac{1}{2\pi \times 750 \times 10^{3} \times 470 \times 10^{-12}}\]
 \[f_c \approx 450\ \text{Hz}\]
-<p>Bien au-dessus du rythme de la marche, et la sortie se stabilise en 1,8 ms environ. C'est une réponse possible parmi d'autres : l'essentiel est de justifier le compromis entre filtrage et temps de stabilisation.</p>
+</details>
+
+<h4>Vérifie : l'acquisition</h4>
+<p><strong>1.</strong> Une marche lente fait 60 pas par minute, avec 20 mesures par pas. Combien de mesures par seconde pour un capteur ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>60 pas par minute = 1 pas par seconde, donc \(1 \times 20 = 20\) mesures par seconde (20 Hz).</p>
+</details>
+<p><strong>2.</strong> Pourquoi S3 change-t-il quatre fois moins souvent que S1 ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>S3 S2 S1 compte en binaire : S1 est le bit de poids faible, il change à chaque pas ; S3 (poids 4) ne change que tous les 4 pas.</p>
+</details>
+<p><strong>3.</strong> Si on prenait \(C_F = 2\) nF, que se passerait-il ?</p>
+<details class="corrige"><summary>Voir la réponse</summary>
+<p>\(5 R_G C_F = 5 \times 750 \times 10^3 \times 2 \times 10^{-9} = 7{,}5\) ms, plus que 3,125 ms : on lirait chaque capteur avant que sa tension soit posée.</p>
+</details>
 
 <h4>À retenir</h4>
 <ul>
-<li>Surface du capteur : \(S = L\,D + \pi D^2 / 4 \approx 260\) mm² ; pression : \(P = F / S\).</li>
-<li>Pont de jauges : sortie proportionnelle à l'excitation et à la charge, \(V_o = S\,V_{exc}\,P / P_{max}\).</li>
-<li>Gain de l'INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
-<li>Montage de la figure 5 : \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\).</li>
-<li>Acquisition : \(f_e = 40\) Hz, 3,125 ms par voie, débit \(= N \times f_e \times n\).</li>
-<li>Filtre : \(f_c = 1 / (2\pi R_G C_F)\), et \(5 R_G C_F\) plus court que le temps d'une voie.</li>
+<li>Masse et force : \(F = m\,g\). Pression : \(P = F / S\).</li>
+<li>Pont de jauges : sortie \(= S \times V_{exc} \times P / P_{max}\). Gain de l'INA128 : \(G = 1 + 50\ \text{k}\Omega / R_G\).</li>
+<li>Figure 5 : \(V_A = V_{DD}\,\dfrac{R_B}{R_A + R_B}\left(1 + \dfrac{R_G}{R_{FSR}}\right)\), avec \(V^+ = 0{,}275\) V.</li>
+<li>Acquisition : \(f_e = 40\) Hz, 3,125 ms par capteur, débit \(= N \times f_e \times n\).</li>
+<li>Filtre : \(5 R_G C_F\) plus court que le temps d'un capteur.</li>
 </ul>
 </article>
 
