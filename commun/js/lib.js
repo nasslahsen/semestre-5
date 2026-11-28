@@ -430,7 +430,14 @@
       .observe(direct, { childList: true, subtree: true, characterData: true });
     // une figure sans rien à droite prend toute la largeur : vérifié dès que ses commandes sont posées (juste après ce
     // montage), puis à chaque commande ajoutée ou retirée, sans attendre la fin du chargement de la page
-    function ranger() { rangerFigure(racine); }
+    // sans commandes à droite, le texte en direct (ce que dit la figure quand on la touche) passe à droite du dessin :
+    // la colonne n'est pas vide et le dessin garde une taille raisonnable ; il revient sous le dessin si des commandes arrivent
+    function ranger() {
+      var sansCommandes = !reglages.childNodes.length && essai.style.display === "none";
+      if (sansCommandes && direct.parentNode === zd) { cote.appendChild(direct); ajuster(); }
+      else if (!sansCommandes && !o.directCote && direct.parentNode === cote) { zd.appendChild(direct); ajuster(); }
+      rangerFigure(racine);
+    }
     if (global.requestAnimationFrame) requestAnimationFrame(ranger);
     setTimeout(ranger, 0);
     if (global.MutationObserver) new global.MutationObserver(ranger).observe(cote, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });

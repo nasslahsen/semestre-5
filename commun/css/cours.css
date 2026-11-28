@@ -77,6 +77,8 @@ th { font-weight: 600; background: var(--fond-doux); }
   scroll-margin-top: calc(var(--barre) + 10px);
 }
 .fig.seule { grid-template-columns: minmax(0, 1fr); }
+/* une figure seule (rien à droite) ne grossit pas sans fin : largeur plafonnée, centrée */
+.fig.seule > .fig-dessins { width: min(100%, 860px); justify-self: center; }
 /* même chose sans attendre le script : rien à droite (pas de commande, pas de nombres, pas de message) → toute la largeur */
 .fig:not(:has(> .fig-cote > .reglages:not(:empty))):not(:has(> .fig-cote > .direct:not(:empty))):not(:has(> .fig-cote > .essai:not([style*="none"]))) { grid-template-columns: minmax(0, 1fr); }
 .fig.seule > .fig-cote,
