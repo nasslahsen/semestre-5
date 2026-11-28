@@ -425,6 +425,11 @@
         d.style.fontSize = "";
         if (d.scrollWidth > d.clientWidth + 1) d.style.fontSize = Math.max(0.7, d.clientWidth / d.scrollWidth * 0.98).toFixed(3) + "em";
       });
+      // texte passé à droite mais trop large pour la colonne, même réduit : il revient sous le dessin, pour de bon
+      if (direct.parentNode === cote && !o.directCote) {
+        var deborde = direct.scrollWidth > direct.clientWidth + 1 || [].some.call(direct.querySelectorAll(".katex-display, .katex-ligne"), function (d) { return d.scrollWidth > d.clientWidth + 1; });
+        if (deborde) { direct.dataset.large = "1"; zd.appendChild(direct); ajuster(); rangerFigure(racine); serrer(); }
+      }
     }
     if (global.MutationObserver) new global.MutationObserver(function () { if (!attente) { attente = true; requestAnimationFrame(serrer); } })
       .observe(direct, { childList: true, subtree: true, characterData: true });
@@ -434,7 +439,7 @@
     // la colonne n'est pas vide et le dessin garde une taille raisonnable ; il revient sous le dessin si des commandes arrivent
     function ranger() {
       var sansCommandes = !reglages.childNodes.length && essai.style.display === "none";
-      if (sansCommandes && direct.parentNode === zd) { cote.appendChild(direct); ajuster(); }
+      if (sansCommandes && direct.parentNode === zd && !direct.dataset.large) { cote.appendChild(direct); ajuster(); serrer(); }
       else if (!sansCommandes && !o.directCote && direct.parentNode === cote) { zd.appendChild(direct); ajuster(); }
       rangerFigure(racine);
     }
