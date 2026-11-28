@@ -77,6 +77,10 @@ th { font-weight: 600; background: var(--fond-doux); }
   scroll-margin-top: calc(var(--barre) + 10px);
 }
 .fig.seule { grid-template-columns: minmax(0, 1fr); }
+/* même chose sans attendre le script : rien à droite (pas de commande, pas de nombres, pas de message) → toute la largeur */
+.fig:not(:has(> .fig-cote > .reglages:not(:empty))):not(:has(> .fig-cote > .direct:not(:empty))):not(:has(> .fig-cote > .essai:not([style*="none"]))) { grid-template-columns: minmax(0, 1fr); }
+.fig.seule > .fig-cote,
+.fig:not(:has(> .fig-cote > .reglages:not(:empty))):not(:has(> .fig-cote > .direct:not(:empty))):not(:has(> .fig-cote > .essai:not([style*="none"]))) > .fig-cote { display: none; }
 .fig-dessins { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
 .fig svg.dessin {
   display: block; width: 100%; height: auto; margin: 0 auto;

@@ -428,18 +428,25 @@
     }
     if (global.MutationObserver) new global.MutationObserver(function () { if (!attente) { attente = true; requestAnimationFrame(serrer); } })
       .observe(direct, { childList: true, subtree: true, characterData: true });
+    // une figure sans rien à droite prend toute la largeur : vérifié dès que ses commandes sont posées (juste après ce
+    // montage), puis à chaque commande ajoutée ou retirée, sans attendre la fin du chargement de la page
+    function ranger() { rangerFigure(racine); }
+    if (global.requestAnimationFrame) requestAnimationFrame(ranger);
+    setTimeout(ranger, 0);
+    if (global.MutationObserver) new global.MutationObserver(ranger).observe(cote, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
     return { racine: racine, svg: svgs[0], svgs: svgs, reglages: reglages, direct: direct, essai: essai, cote: cote };
   }
-  // Après le montage des figures : une figure sans rien à droite prend toute la largeur.
-  function rangerFigures() {
-    [].forEach.call(document.querySelectorAll(".fig"), function (f) {
-      var c = f.querySelector(".fig-cote");
-      if (!c) return;
-      var vide = [].every.call(c.children, function (x) { return x.style.display === "none" || !x.childNodes.length || getComputedStyle(x).display === "none"; });
-      f.classList.toggle("seule", vide);
-    });
+  function rangerFigure(f) {
+    var c = f.querySelector(".fig-cote");
+    if (!c) return;
+    var vide = [].every.call(c.children, function (x) { return x.style.display === "none" || !x.childNodes.length || getComputedStyle(x).display === "none"; });
+    f.classList.toggle("seule", vide);
   }
-  if (typeof window !== "undefined" && window.addEventListener) window.addEventListener("load", rangerFigures);
+  function rangerFigures() { [].forEach.call(document.querySelectorAll(".fig"), rangerFigure); }
+  if (typeof window !== "undefined" && window.addEventListener) {
+    document.addEventListener("DOMContentLoaded", rangerFigures);
+    window.addEventListener("load", rangerFigures);
+  }
 
   function curseur(parent, o) {
     // nom court : nom, piste et valeur sur une seule ligne ; nom long : nom et valeur au-dessus de la piste
