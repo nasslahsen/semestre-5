@@ -66,7 +66,7 @@ th { font-weight: 600; background: var(--fond-doux); }
 .cles-carte p { margin: 10px 0; }
 
 /* ---------- Figures interactives : un écran ----------
-   Comme l'écran de niveau : le dessin à gauche, le texte « Essaie / Observe » et les commandes à droite.
+   Comme l'écran de niveau : le dessin à gauche, les commandes à droite.
    Le bloc prend toute la largeur de la colonne et tient dans la hauteur visible sous la barre (72 px). */
 :root { --barre: 73px; --h-fig: calc(100vh - var(--barre) - 44px); }
 @supports (height: 100dvh) { :root { --h-fig: calc(100dvh - var(--barre) - 44px); } }

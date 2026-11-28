@@ -271,10 +271,10 @@ vérifier en capture. Un classement (une racine, un parent par bloc) devient de 
 Figures (`figures/<page>.js`, bibliothèque `RM` de `commun/js/lib.js`) : `R.figure(id, {largeur, hauteur, titre, essai})`
 crée le dessin et ses panneaux ; `R.plan`, `R.grille` (quadrillage plein), `R.vue3D` avec `R.orbite` et
 `R.basculeOrbite`, `R.curseur`, `R.bouton`, `R.bascule`, `R.etapes`, `R.poignee`, `R.rendre(zone, tex)` pour les
-formules en direct. Chaque figure a son texte « Essaie : … Observe : … ». Format large conseillé (960 × 540).
+formules en direct. Pas de texte « Essaie : … Observe : … » sous les figures (retiré à la demande de l'utilisatrice :
+il prenait de la place sans aider) ; `R.figure` ignore `essai`. Format large conseillé (960 × 540).
 
-**Règle permanente : une figure tient sur un écran.** `R.figure` pose le dessin à gauche, le texte « Essaie / Observe »
-et les commandes à droite, sur toute la largeur de la colonne (la même que le texte, les tableaux et les blocs « Jouer » : mêmes bords gauche et droit) ; le bloc entier tient sous la barre, sans défilement (le dessin se
+**Règle permanente : une figure tient sur un écran.** `R.figure` pose le dessin à gauche, les commandes à droite, sur toute la largeur de la colonne (la même que le texte, les tableaux et les blocs « Jouer » : mêmes bords gauche et droit) ; le bloc entier tient sous la barre, sans défilement (le dessin se
 réduit). Les nombres en direct (`f.direct`) vont sous le dessin (`directCote: true` pour les mettre à droite) ; une
 ligne trop large est réduite, au plus de 30 % : au-delà, la couper en plusieurs lignes. Peu de commandes, noms de
 curseur courts (sur une ligne), étiquettes du dessin d'au moins 16 dans le viewBox. Vérifier avec

@@ -652,7 +652,7 @@ window.M3D = (function () {
     var f = RM.figure(id, { largeur: o.largeur || 960, hauteur: o.hauteur || 540, titre: o.titre, essai: o.essai, directCote: o.directCote });
     if (!f) return null;
     var V = vue(f, o.vue || {});
-    if (!V) { f.essai.innerHTML = "Cette vue 3D demande WebGL, que ce navigateur n'a pas."; return null; }
+    if (!V) { f.essai.innerHTML = "Cette vue 3D demande WebGL, que ce navigateur n'a pas."; f.essai.style.display = ""; return null; }
     V.f = f;
     var info = RM.h("p", { "class": "m3d-info" }, o.info || "", f.direct);
     V.info = function (html) { info.innerHTML = html; };
