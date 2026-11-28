@@ -384,7 +384,7 @@
 
   // Monte une figure dans <div class="fig" id="..."> : renvoie {svg, reglages, direct, essai}.
   // o.directCote : les nombres en direct vont dans la colonne de droite (figures à deux dessins).
-  // Mise en page (cours.css) : le dessin à gauche, à droite le texte « Essaie / Observe », les commandes et les nombres
+  // Mise en page (cours.css) : le dessin à gauche, à droite les commandes et les nombres
   // en direct ; le bloc entier tient dans la hauteur de l'écran sous la barre (dessin réduit si besoin).
   function figure(id, o) {
     var racine = typeof id === "string" ? document.getElementById(id) : id;
@@ -399,11 +399,13 @@
       zd.appendChild(s);
       svgs.push(s);
     });
-    var essai = h("p", { "class": "essai" }, o.essai || "", cote);
+    // le texte « Essaie / Observe » (o.essai) n'est plus affiché (demandé par l'utilisatrice : il prenait de la place sans aider) ;
+    // le paragraphe reste pour les messages d'erreur (vue 3D sans WebGL)
+    var essai = h("p", { "class": "essai" }, "", cote);
     var reglages = h("div", { "class": "reglages" }, undefined, cote);
     // nombres en direct : sous le dessin, comme la bande de l'écran de niveau ; le dessin se réduit pour leur faire place
     var direct = h("div", { "class": "direct", "aria-live": "polite" }, undefined, o.directCote ? cote : zd);
-    if (!o.essai) essai.style.display = "none";
+    essai.style.display = "none";
     if (o.direct === false) direct.style.display = "none";
     function ajuster() {
       var dh = direct.parentNode === zd && direct.offsetHeight ? direct.offsetHeight + 12 : 0;
