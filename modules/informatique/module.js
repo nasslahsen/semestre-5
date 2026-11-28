@@ -19,6 +19,11 @@ PLATEFORME.parcours("informatique", {
   court: [1, 2, 3, 4, 5, 6, 19, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18],
   // podcasts des chapitres (lecteur sous le titre de la page du chapitre)
   podcasts: {
+    1: { titre: "Système d'information : les bases", duree: "22 min", fichier: "audio/chapitre-1.m4a" },
+    2: { titre: "Les cinq composants d'un SI", duree: "23 min", fichier: "audio/chapitre-2.m4a" },
+    3: { titre: "Le système d'information hospitalier", duree: "23 min", fichier: "audio/chapitre-3.m4a" },
+    4: { titre: "Les données de santé", duree: "21 min", fichier: "audio/chapitre-4.m4a" },
+    5: { titre: "Le dossier patient informatisé", duree: "22 min", fichier: "audio/chapitre-5.m4a" },
     7: { titre: "L'hôpital face à la menace cyber", duree: "21 min", fichier: "audio/chapitre-7.m4a" },
     8: { titre: "Les principes de la sécurité", duree: "22 min", fichier: "audio/chapitre-8.m4a" },
     9: { titre: "Le cadre réglementaire", duree: "24 min", fichier: "audio/chapitre-9.m4a" },
