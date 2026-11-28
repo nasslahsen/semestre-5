@@ -425,21 +425,40 @@
         d.style.fontSize = "";
         if (d.scrollWidth > d.clientWidth + 1) d.style.fontSize = Math.max(0.7, d.clientWidth / d.scrollWidth * 0.98).toFixed(3) + "em";
       });
+      // texte passé à droite mais trop large pour la colonne, même réduit : il revient sous le dessin, pour de bon
+      if (direct.parentNode === cote && !o.directCote) {
+        var deborde = direct.scrollWidth > direct.clientWidth + 1 || [].some.call(direct.querySelectorAll(".katex-display, .katex-ligne"), function (d) { return d.scrollWidth > d.clientWidth + 1; });
+        if (deborde) { direct.dataset.large = "1"; zd.appendChild(direct); ajuster(); rangerFigure(racine); serrer(); }
+      }
     }
     if (global.MutationObserver) new global.MutationObserver(function () { if (!attente) { attente = true; requestAnimationFrame(serrer); } })
       .observe(direct, { childList: true, subtree: true, characterData: true });
+    // une figure sans rien à droite prend toute la largeur : vérifié dès que ses commandes sont posées (juste après ce
+    // montage), puis à chaque commande ajoutée ou retirée, sans attendre la fin du chargement de la page
+    // sans commandes à droite, le texte en direct (ce que dit la figure quand on la touche) passe à droite du dessin :
+    // la colonne n'est pas vide et le dessin garde une taille raisonnable ; il revient sous le dessin si des commandes arrivent
+    function ranger() {
+      var sansCommandes = !reglages.childNodes.length && essai.style.display === "none";
+      if (sansCommandes && direct.parentNode === zd && !direct.dataset.large) { cote.appendChild(direct); ajuster(); serrer(); }
+      else if (!sansCommandes && !o.directCote && direct.parentNode === cote) { zd.appendChild(direct); ajuster(); }
+      rangerFigure(racine);
+    }
+    if (global.requestAnimationFrame) requestAnimationFrame(ranger);
+    setTimeout(ranger, 0);
+    if (global.MutationObserver) new global.MutationObserver(ranger).observe(cote, { childList: true, subtree: true, attributes: true, attributeFilter: ["style"] });
     return { racine: racine, svg: svgs[0], svgs: svgs, reglages: reglages, direct: direct, essai: essai, cote: cote };
   }
-  // Après le montage des figures : une figure sans rien à droite prend toute la largeur.
-  function rangerFigures() {
-    [].forEach.call(document.querySelectorAll(".fig"), function (f) {
-      var c = f.querySelector(".fig-cote");
-      if (!c) return;
-      var vide = [].every.call(c.children, function (x) { return x.style.display === "none" || !x.childNodes.length || getComputedStyle(x).display === "none"; });
-      f.classList.toggle("seule", vide);
-    });
+  function rangerFigure(f) {
+    var c = f.querySelector(".fig-cote");
+    if (!c) return;
+    var vide = [].every.call(c.children, function (x) { return x.style.display === "none" || !x.childNodes.length || getComputedStyle(x).display === "none"; });
+    f.classList.toggle("seule", vide);
   }
-  if (typeof window !== "undefined" && window.addEventListener) window.addEventListener("load", rangerFigures);
+  function rangerFigures() { [].forEach.call(document.querySelectorAll(".fig"), rangerFigure); }
+  if (typeof window !== "undefined" && window.addEventListener) {
+    document.addEventListener("DOMContentLoaded", rangerFigures);
+    window.addEventListener("load", rangerFigures);
+  }
 
   function curseur(parent, o) {
     // nom court : nom, piste et valeur sur une seule ligne ; nom long : nom et valeur au-dessus de la piste
